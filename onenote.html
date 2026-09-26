@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Przeniesienie notatek z OneNote — JW Study</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src https://graph.microsoft.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+<style>
+:root{ --zielen:#256b52; --tlo:#f2f2f7; --panel:#fff; --tekst:#1c1c1e; --szary:#6d7178; --ramka:#e3e3e8; }
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;background:var(--tlo);color:var(--tekst)}
+header{background:var(--zielen);color:#fff;padding:18px 20px}
+header h1{margin:0;font-size:19px;font-weight:600}
+header p{margin:4px 0 0;font-size:13.5px;opacity:.85}
+main{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+.krok{background:var(--panel);border:1px solid var(--ramka);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+.krok h2{margin:0 0 8px;font-size:16px;font-weight:600;display:flex;align-items:center;gap:10px}
+.nr{width:26px;height:26px;border-radius:50%;background:var(--zielen);color:#fff;display:inline-flex;
+    align-items:center;justify-content:center;font-size:14px;font-weight:600;flex:0 0 auto}
+.krok p{margin:0 0 8px;font-size:14.5px}
+.krok p.hint{color:var(--szary);font-size:13.5px}
+ol{margin:8px 0 0;padding-left:22px;font-size:14.5px}
+ol li{margin-bottom:6px}
+a{color:var(--zielen);font-weight:500}
+textarea{width:100%;min-height:90px;padding:11px 13px;border:1px solid var(--ramka);border-radius:11px;
+  font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;resize:vertical;background:#fbfbfd;color:var(--tekst)}
+button{font:inherit;font-size:15px;font-weight:500;padding:12px 20px;border:0;border-radius:11px;cursor:pointer}
+button.glowny{background:var(--zielen);color:#fff}
+button.glowny:disabled{opacity:.45;cursor:default}
+button.drugi{background:#eceef1;color:var(--tekst);margin-left:8px}
+#postep{margin-top:14px;font-size:14px}
+.pasek{height:8px;background:#e6e8ec;border-radius:4px;overflow:hidden;margin:8px 0}
+.pasek i{display:block;height:100%;background:var(--zielen);width:0;transition:width .2s}
+#drzewo{margin-top:12px;font-size:14px}
+.sek{font-weight:600;margin-top:12px}
+.zak{padding-left:20px;color:var(--szary);font-size:13.5px}
+.blad{background:#fdeceb;border:1px solid #f1c9c5;color:#8d2b20;padding:12px 14px;border-radius:11px;margin-top:12px;font-size:14px}
+.ok{background:#e8f4ee;border:1px solid #bcdccb;color:#14532d;padding:14px 16px;border-radius:11px;margin-top:12px}
+code{background:#eceef1;padding:2px 6px;border-radius:5px;font-size:13px}
+.malo{font-size:13px;color:var(--szary);margin-top:10px}
+.prywatnosc{margin-top:10px;background:#f6f7f9;border:1px solid var(--ramka);border-radius:11px;padding:10px 14px}
+.prywatnosc summary{cursor:pointer;font-size:14px;font-weight:500;color:var(--zielen)}
+.prywatnosc p{font-size:13.5px;margin:10px 0 0;line-height:1.55}
+.prywatnosc p.uwaga{color:var(--szary);border-top:1px solid var(--ramka);padding-top:10px}
+.uwagaKrok{display:block;margin-top:5px;font-size:13px;color:var(--szary);line-height:1.5}
+
+/* Trzy drogi oddania kopii na telefonie (v2.07) */
+.drogi{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 6px; }
+.drogi button{
+  flex:1 1 auto; min-width:150px;
+  padding:11px 12px; border-radius:10px; border:1px solid #2e7d5b;
+  background:#2e7d5b; color:#fff; font-size:14px; cursor:pointer;
+}
+.drogi button:active{ opacity:.85; }
+.podp{ font-size:13px; opacity:.85; line-height:1.5; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Przeniesienie notatek z OneNote</h1>
+  <p>Wszystkie notesy naraz — nie pojedynczo. Nic nie trzeba instalować.</p>
+</header>
+<main>
+
+<div class="krok">
+  <h2><span class="nr">1</span> Zaloguj się do OneNote w przeglądarce</h2>
+  <ol>
+    <li>Otwórz <a href="https://developer.microsoft.com/graph/graph-explorer" target="_blank" rel="noopener">tę stronę Microsoftu</a> (otworzy się w nowej karcie)</li>
+    <li><b>Zaloguj się.</b> Kliknij okrągły awatar w <b>prawym górnym rogu</b> → <b>Sign in</b>,
+      kontem Microsoft, na którym masz notatki OneNote.<br>
+      <span class="uwagaKrok">Sprawdź napis obok ikony globusa u góry: ma być
+      <b>Tenant: Personal</b>. Jeśli widnieje <b>Sample</b>, nie jesteś zalogowany —
+      sesja Graph Explorera potrafi wygasnąć w trakcie.</span></li>
+    <li><b>Wpisz adres notatek</b> w <b>wąski pasek u góry</b> (ten obok „GET" i „v1.0",
+      <b>nie</b> w duże białe pole poniżej):<br>
+      <code>https://graph.microsoft.com/v1.0/me/onenote/notebooks</code></li>
+    <li><b>Nadaj prawo do odczytu notatek.</b> Dopiero teraz kliknij <b>Modify Permissions</b> →
+      na liście znajdź <b><code>Notes.Read</code></b> → <b>Consent</b> → w oknie Microsoftu
+      <b>Accept</b>.<br>
+      <span class="uwagaKrok">Kolejność jest istotna: ta lista pokazuje uprawnienia
+      <b>do zapytania wpisanego w pasku</b>. Przy adresie <code>/me</code> zobaczysz
+      wyłącznie <code>User.Read</code> i będziesz szukał <code>Notes.Read</code> na próżno.<br>
+      Wybierz dokładnie <code>Notes.Read</code>, <b>bez</b> końcówki <code>.All</code> —
+      konta osobiste (outlook, hotmail, icloud) nie mogą korzystać z uprawnień
+      <code>.All</code>.</span></li>
+    <li>Naciśnij <b>Run query</b>. Musisz zobaczyć zielone <b>200 OK</b> i listę swoich
+      notesów — ich nazwy będą te same, co w OneNote.</li>
+    <li>Dopiero wtedy kliknij zakładkę <b>Access token</b> i skopiuj cały długi ciąg znaków.</li>
+  </ol>
+  <details class="prywatnosc" style="background:#fdf6e9;border-color:#f0dcb8">
+    <summary style="color:#8a5a10">Widzę czerwone „Unauthorized 401"</summary>
+    <p>Ten błąd (kod <code>40001</code>) znaczy jedno: zapytanie poszło <b>bez zalogowania</b>.
+    Napis „Tenant: Personal" u góry pojawia się także wtedy, gdy sesja już wygasła,
+    więc nie jest dowodem, że jesteś zalogowany.</p>
+    <p>Kliknij awatar w prawym górnym rogu. Jeśli jest tam <b>Sign out</b> — wyloguj się
+    i zaloguj ponownie. Potem powtórz <b>Run query</b>.</p>
+    <p><b>Zalogowany, a i tak 401?</b> OneNote — inaczej niż reszta Microsoft Graph —
+    zgłasza 401 także wtedy, gdy token nie zawiera prawa do odczytu notatek.
+    Wróć do kroku z <b>Modify Permissions</b> i nadaj <code>Notes.Read</code>.</p>
+    <p>Jeśli na liście uprawnień widzisz tylko <code>Notes.Read.All</code>, poszukaj
+    w polu wyszukiwania samego <code>Notes.Read</code>. Konta osobiste nie mogą
+    korzystać z uprawnień z końcówką <code>.All</code> — token zostanie wydany,
+    ale Graph go nie przyjmie.</p>
+    <p>Sprawdź też, czy adres wpisałeś w <b>wąski pasek u góry</b>, a nie w duże białe pole
+    „Request Body" poniżej — to pole ma zostać puste.</p>
+    <p><b>Na liście uprawnień nie ma w ogóle <code>Notes.Read</code>?</b> To znaczy, że
+    w pasku adresu masz inne zapytanie. Lista pokazuje uprawnienia <b>do bieżącego
+    zapytania</b>: przy <code>/me</code> zobaczysz tylko <code>User.Read</code>.
+    Wpisz najpierw adres notatek, dopiero potem otwórz <b>Modify Permissions</b>.</p>
+    <p><b>U góry widnieje „Tenant: Sample"?</b> Nie jesteś zalogowany — sesja Graph
+    Explorera wygasa po jakimś czasie. Zaloguj się ponownie; ma być
+    <b>Tenant: Personal</b>.</p>
+  </details>
+</div>
+
+<div class="krok">
+  <h2><span class="nr">2</span> Wklej skopiowany ciąg tutaj</h2>
+  <textarea id="token" placeholder="Wklej tutaj (zaczyna się od eyJ0...)" spellcheck="false"></textarea>
+  <p class="hint">Ten ciąg działa około godziny i uprawnia tylko do odczytu.</p>
+  <details class="prywatnosc">
+    <summary>Kto zobaczy moje notatki?</summary>
+    <p><b>Nikt poza Tobą.</b> Notatki wędrują z serwera Microsoftu prosto do tej przeglądarki
+    i lądują jako plik na tym urządzeniu. Nie przechodzą przez żaden inny serwer —
+    ani mój, ani GitHuba.</p>
+    <p>Nie musisz wierzyć na słowo. Ta strona ma wpisaną w nagłówku regułę
+    <code>connect-src https://graph.microsoft.com</code>: przeglądarka
+    <b>zablokuje</b> jakąkolwiek próbę połączenia się z innym adresem, nawet gdyby
+    kod próbował. W całym pliku jest dokładnie jedno miejsce, które cokolwiek pobiera,
+    i prowadzi ono do Microsoftu.</p>
+    <p>Wklejony ciąg nie jest nigdzie zapisywany — ani w pamięci przeglądarki,
+    ani w ciasteczkach. Znika po zamknięciu karty, a po zakończeniu przenoszenia
+    strona sama czyści pole. Wygasa też sam po około godzinie.</p>
+    <p>Każdy, kto użyje tej strony, loguje się <b>swoim</b> kontem i pobiera
+    <b>swoje</b> notatki. Nie ma tu wspólnego miejsca, w którym cokolwiek się gromadzi.</p>
+    <p class="uwaga">O czym warto pamiętać: powstały plik leży na Twoim urządzeniu
+    jak każdy inny — kto ma dostęp do urządzenia, może go otworzyć. I korzystaj z tej
+    strony pod adresem, który sam opublikowałeś; cudza kopia to cudzy kod.</p>
+  </details>
+  <div style="margin-top:12px">
+    <button class="glowny" id="btnSpis">Pokaż, co mam w OneNote</button>
+    <button class="drugi" id="btnPobierz" disabled>Przenieś wszystko</button>
+  </div>
+  <label class="malo"><input type="checkbox" id="bezObrazow"> pomiń obrazy (szybciej, mniejszy plik)</label>
+  <label class="malo"><input type="checkbox" id="zachowajUklad"> zachowaj oryginalny układ z OneNote
+    <span style="display:block;margin-left:22px">Domyślnie treść jest układana od nowa według stylu aplikacji:
+    znikają puste akapity i marginesy po kontenerach OneNote, zostaje sam tekst z wyróżnieniami.
+    Zaznacz, jeśli wolisz wierne odwzorowanie — także tych przerw.</span></label>
+  <div id="postep"></div>
+  <div id="drzewo"></div>
+</div>
+
+<div class="krok">
+  <h2><span class="nr">3</span> Wczytaj plik w JW Study</h2>
+  <p>Powstanie plik <code>onenote-do-jwstudy.json</code>. W aplikacji JW Study naciśnij przycisk kopii zapasowej, wskaż ten plik i wybierz <b>„Dołącz + układ"</b>.</p>
+  <p class="hint">Wybierz dołączanie, nie „Zastąp wszystko" — inaczej stracisz notatki, które już masz.</p>
+</div>
+
+<p class="malo">Każdy notes stanie się sekcją, każda sekcja OneNote — zakładką w tej sekcji, każda strona — notatką. Zachowane zostaną daty utworzenia, pogrubienia, podświetlenia, listy, tabele i obrazy.</p>
+
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const PODSWIETLENIA = ["#fff3a3","#c8f0c0","#bfe0ff","#ffd0c0","#e6ccff","#ffe0f0","#d8d8d8"];
+let spisStron = null;
+
+function token(){ return $("token").value.trim().replace(/^Bearer\s+/i,""); }
+function pokazBlad(t){ $("postep").innerHTML = '<div class="blad">'+t+'</div>'; }
+function postep(t, ile, z){
+  let h = '<div>'+t+'</div>';
+  if(z) h += '<div class="pasek"><i style="width:'+Math.round(ile/z*100)+'%"></i></div>';
+  $("postep").innerHTML = h;
+}
+async function pobierz(url, binarne){
+  const o = await fetch(url, {headers:{Authorization:"Bearer "+token()}});
+  if(!o.ok){
+    if(o.status===401) throw new Error("Ciąg nie daje prawa do odczytu notatek albo wygasł. "+
+      "Dwie najczęstsze przyczyny: (1) w Graph Explorer nie nadano uprawnienia — zakładka "+
+      "Modify Permissions → Notes.Read (bez .All) → Consent; (2) ciąg wygasł, weź nowy. "+
+      "OneNote zgłasza 401 także wtedy, gdy jesteś zalogowany, ale brakuje tego uprawnienia.");
+    if(o.status===403) throw new Error("Brakuje zgody na odczyt notatek. W Graph Explorer: "+
+      "zakładka Modify Permissions → Notes.Read → Consent. Potem weź nowy ciąg.");
+    if(o.status===404) throw new Error("Microsoft nie znalazł notatek na tym koncie. "+
+      "Sprawdź, czy zalogowałeś się kontem, na którym faktycznie masz OneNote.");
+    /* Numer sam w sobie nic nie mówi. Microsoft podaje w treści, co dokładnie
+       mu się nie spodobało — pokazujemy to, zamiast kazać zgadywać. */
+    let szczegol = "";
+    try{
+      const t = await o.text();
+      const j = JSON.parse(t);
+      szczegol = (j && j.error && j.error.message) ? " — " + j.error.message : (t ? " — " + t.slice(0,200) : "");
+    }catch(e){}
+    throw new Error("Serwer Microsoftu odpowiedział błędem "+o.status+szczegol);
+  }
+  return binarne ? {blob: await o.blob(), typ: o.headers.get("content-type")||"image/png"} : o.text();
+}
+/* ==========================================================================
+   POBIERANIE SPISU STRON
+
+   Zapytanie o wszystkie strony naraz (~/onenote/pages) działa tylko na kontach
+   z niewielką liczbą sekcji. Przy większej liczbie Microsoft odpowiada:
+   „Przekroczono maksymalną liczbę sekcji dla tego żądania" i sam zaleca
+   pobieranie sekcja po sekcji.
+
+   Dlatego drogą podstawową jest przejście po sekcjach — działa niezależnie od
+   wielkości konta i przy okazji daje nazwy notesu i sekcji bez dodatkowych
+   parametrów, na które ten interfejs bywa wybredny. Zapytanie zbiorcze zostaje
+   jako droga zapasowa, gdyby spis sekcji był niedostępny.
+   ========================================================================== */
+async function spis(){
+  try{
+    return await spisPoSekcjach();
+  }catch(e){
+    postep("Nie udało się przejść po sekcjach — próbuję pobrać wszystko naraz…");
+    return await spisZbiorczy();
+  }
+}
+
+/** Droga podstawowa: sekcja po sekcji. */
+async function spisPoSekcjach(){
+  postep("Pobieram spis sekcji…");
+  const sekcje = [];
+  let url = "https://graph.microsoft.com/v1.0/me/onenote/sections?$top=100&$expand=parentNotebook";
+  while(url){
+    const odp = JSON.parse(await pobierz(url));
+    sekcje.push(...(odp.value||[]));
+    url = odp["@odata.nextLink"] || null;
+  }
+  if(!sekcje.length) throw new Error("Konto nie zwróciło żadnych sekcji.");
+
+  const strony = [];
+  for(let i=0;i<sekcje.length;i++){
+    const sek = sekcje[i];
+    const nazwaSekcji = sek.displayName || "(bez nazwy)";
+    const nazwaNotesu = (sek.parentNotebook && sek.parentNotebook.displayName) || "OneNote";
+    postep("Sekcja "+(i+1)+" z "+sekcje.length+": "+esc(nazwaSekcji)+" — notatek dotąd: "+strony.length, i+1, sekcje.length);
+    let u = "https://graph.microsoft.com/v1.0/me/onenote/sections/"+sek.id+"/pages?$top=100";
+    while(u){
+      let odp;
+      try{ odp = JSON.parse(await pobierz(u)); }
+      catch(e){ break; }        // jedna sekcja się nie udała — reszta ma się przenieść
+      (odp.value||[]).forEach(st=>{
+        st.parentSection = {id: sek.id, displayName: nazwaSekcji};
+        st.parentNotebook = {displayName: nazwaNotesu};
+        strony.push(st);
+      });
+      u = odp["@odata.nextLink"] || null;
+    }
+  }
+  return strony;
+}
+
+/** Droga zapasowa: wszystkie strony jednym zapytaniem, w kilku wariantach. */
+const WARIANTY_SPISU = [
+  "?$top=100&$expand=parentSection,parentNotebook",
+  "?$top=100&$expand=parentSection",
+  "?$top=100",
+  ""
+];
+async function spisZbiorczy(){
+  let ostatniBlad = null;
+  for(const wariant of WARIANTY_SPISU){
+    try{
+      let strony = [], url = "https://graph.microsoft.com/v1.0/me/onenote/pages" + wariant;
+      while(url){
+        const odp = JSON.parse(await pobierz(url));
+        strony = strony.concat(odp.value||[]);
+        postep("Zbieram spis… znaleziono "+strony.length+" notatek");
+        url = odp["@odata.nextLink"] || null;
+      }
+      if(!strony.length) return strony;
+      if(!strony[0].parentNotebook || !strony[0].parentSection) await uzupelnijNazwy(strony);
+      return strony;
+    }catch(e){
+      ostatniBlad = e;
+      if(!/błędem 400/.test(e.message)) throw e;
+      postep("Serwer nie przyjął zapytania — próbuję prostszym sposobem…");
+    }
+  }
+  throw ostatniBlad || new Error("Nie udało się pobrać spisu notatek.");
+}
+/** Dobiera nazwy notesu i sekcji, gdy nie przyszły razem ze stronami. */
+async function uzupelnijNazwy(strony){
+  postep("Dobieram nazwy notesów i sekcji…");
+  const poId = new Map();
+  try{
+    let url = "https://graph.microsoft.com/v1.0/me/onenote/sections?$top=100&$expand=parentNotebook";
+    while(url){
+      const odp = JSON.parse(await pobierz(url));
+      (odp.value||[]).forEach(sek=>poId.set(sek.id, {
+        sekcja: sek.displayName || "",
+        notes: (sek.parentNotebook && sek.parentNotebook.displayName) || "OneNote"
+      }));
+      url = odp["@odata.nextLink"] || null;
+    }
+  }catch(e){ return; }
+  strony.forEach(s=>{
+    const idSekcji = (s.parentSection && s.parentSection.id) ||
+      (typeof s.parentSection === "string" ? s.parentSection : null);
+    const dane = idSekcji ? poId.get(idSekcji) : null;
+    if(dane){
+      s.parentSection = {displayName: dane.sekcja, id: idSekcji};
+      s.parentNotebook = {displayName: dane.notes};
+    }
+  });
+}
+function drzewoHtml(strony){
+  const m = new Map();
+  strony.forEach(s=>{
+    const n = (s.parentNotebook&&s.parentNotebook.displayName)||"OneNote";
+    const k = (s.parentSection&&s.parentSection.displayName)||"(bez sekcji)";
+    if(!m.has(n)) m.set(n, new Map());
+    m.get(n).set(k, (m.get(n).get(k)||0)+1);
+  });
+  let h = "", zak = 0;
+  m.forEach((sekcje, notes)=>{
+    const suma = [...sekcje.values()].reduce((a,b)=>a+b,0);
+    h += '<div class="sek">'+esc(notes)+' — '+suma+' notatek</div>';
+    sekcje.forEach((ile, sek)=>{ h += '<div class="zak">└ '+esc(sek)+' — '+ile+'</div>'; zak++; });
+  });
+  return '<div class="ok">Znalazłem <b>'+strony.length+'</b> notatek w <b>'+m.size+'</b> notesach. W JW Study powstanie '+m.size+' sekcji i '+zak+' zakładek.</div>'+h;
+}
+function esc(s){ return String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+$("btnSpis").onclick = async ()=>{
+  if(token().length < 40){ pokazBlad("Wklej najpierw skopiowany ciąg z kroku 1."); return; }
+  $("btnSpis").disabled = true; $("drzewo").innerHTML = "";
+  try{
+    spisStron = await spis();
+    if(!spisStron.length){ pokazBlad("Konto nie zwróciło żadnych notatek."); return; }
+    $("drzewo").innerHTML = drzewoHtml(spisStron);
+    $("postep").innerHTML = "";
+    $("btnPobierz").disabled = false;
+  }catch(e){ pokazBlad(esc(e.message)); }
+  finally{ $("btnSpis").disabled = false; }
+};
+
+$("btnPobierz").onclick = async ()=>{
+  if(!spisStron){ pokazBlad("Naciśnij najpierw „Pokaż, co mam w OneNote”."); return; }
+  $("btnPobierz").disabled = true;
+  const bezObrazow = $("bezObrazow").checked;
+  try{
+    const gotowe = [];
+    for(let i=0;i<spisStron.length;i++){
+      const s = spisStron[i];
+      postep("Pobieram: "+esc(s.title||"bez tytułu"), i+1, spisStron.length);
+      let html = "";
+      try{ html = await pobierz("https://graph.microsoft.com/v1.0/me/onenote/pages/"+s.id+"/content"); }
+      catch(e){ continue; }
+      if(!bezObrazow) html = await wciagnijObrazy(html);
+      gotowe.push({
+        doStylu: !$("zachowajUklad").checked,
+        notes:(s.parentNotebook&&s.parentNotebook.displayName)||"OneNote",
+        sekcja:(s.parentSection&&s.parentSection.displayName)||"",
+        tytul:s.title||"Bez tytułu", html,
+        utworzono:s.createdDateTime, zmieniono:s.lastModifiedDateTime, klucz:s.id
+      });
+    }
+    const kopia = zbudujKopie(gotowe);
+    zapisz(kopia);
+    /* Po zakończeniu czyścimy pole — ciąg uprawniający do odczytu notatek
+       nie ma powodu dalej leżeć na ekranie. */
+    $("token").value = "";
+    spisStron = null;
+    $("btnPobierz").disabled = true;
+    $("postep").innerHTML = '<div class="ok">Gotowe — przeniesiono <b>'+kopia.notes.length+'</b> notatek.'+
+      (telefon()
+        ? '<br>Na telefonie <b>nie pobieramy pliku</b> — system i tak by go nie zapisał w postaci, '+
+          'którą aplikacja przyjmie. Wybierz jedną z dróg:'+
+          '<div class="drogi">'+
+            '<button type="button" id="oddajUdostepnij">📤 Udostępnij plik</button>'+
+            '<button type="button" id="oddajSchowek">📋 Kopiuj do schowka</button>'+
+            '<button type="button" id="oddajPokaz">👁 Pokaż treść</button>'+
+          '</div>'+
+          '<div class="podp">Najprościej: <b>Kopiuj do schowka</b>, potem w JW Study '+
+          '<i>Plik → Wczytaj kopię → 📋 Wklej treść</i>.</div>'
+        : '<br>Plik <code>onenote-do-jwstudy.json</code> został zapisany. Przejdź do kroku 3.')+
+      '<br><span style="font-size:13px;opacity:.8">Pole z ciągiem zostało wyczyszczone.</span></div>';
+    const opr = (id, fn)=>{ const b=$(id); if(b) b.onclick=fn; };
+    opr("oddajUdostepnij", async ()=>{
+      if(!await udostepnijPlik(_ostatniaKopia))
+        pokazBlad("To urządzenie nie przyjmuje udostępniania plików. Użyj „Kopiuj do schowka”.");
+    });
+    opr("oddajSchowek", async ()=>{
+      const ok = await doSchowka(_ostatniaKopia);
+      if(ok) $("postep").insertAdjacentHTML("beforeend",
+        '<div class="ok">Skopiowano. Otwórz JW Study → <b>Plik → Wczytaj kopię → 📋 Wklej treść</b>.</div>');
+      else pokazTresc();
+    });
+    opr("oddajPokaz", pokazTresc);
+  }catch(e){ pokazBlad(esc(e.message)); }
+  finally{ $("btnPobierz").disabled = false; }
+};
+
+async function wciagnijObrazy(html){
+  const adresy = [...new Set((html.match(/src="(https:\/\/graph\.microsoft\.com[^"]+)"/g)||[]).map(m=>m.match(/src="([^"]+)"/)[1]))];
+  for(const a of adresy){
+    try{
+      const {blob, typ} = await pobierz(a, true);
+      if(blob.size > 4*1024*1024){ html = html.split(a).join(""); continue; }
+      const dane = await new Promise(r=>{ const f=new FileReader(); f.onload=()=>r(f.result); f.readAsDataURL(blob); });
+      html = html.split(a).join(dane);
+    }catch(e){ html = html.split(a).join(""); }
+  }
+  return html;
+}
+function najblizsze(hex){
+  const r = h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+  let naj=0, min=Infinity;
+  PODSWIETLENIA.forEach((c,i)=>{ try{
+    const [r1,g1,b1]=r(hex), [r2,g2,b2]=r(c);
+    const d=(r1-r2)**2+(g1-g2)**2+(b1-b2)**2;
+    if(d<min){min=d;naj=i;}
+  }catch(e){} });
+  return "hl"+(naj+1);
+}
+/* ==========================================================================
+   PORZĄDKOWANIE TREŚCI Z ONENOTE
+
+   OneNote nie zapisuje strony jako ciągu akapitów. Każdy blok tekstu to osobny
+   kontener ustawiony na sztywnych współrzędnych:
+
+       <div data-id="..." style="position:absolute;left:48px;top:115px;width:624px">
+
+   Po usunięciu samych stylów zostaje po nich stos pustych zagnieżdżeń, a między
+   akapitami przerwy w przypadkowych miejscach. Stąd wrażenie porozrzucanego
+   tekstu po przeniesieniu.
+
+   Dlatego treść jest tu budowana OD NOWA: przechodzimy drzewo dokumentu
+   i przepisujemy wyłącznie to, co niesie znaczenie — akapity, wyróżnienia,
+   listy, tabele, obrazy. Kontenery od układu strony znikają razem z pozycjami.
+   ========================================================================== */
+
+/* Znaczniki, które przepisujemy — reszta odpada albo zostaje rozpakowana. */
+const ZNACZNIKI = {
+  B:"b", STRONG:"b", I:"i", EM:"i", U:"u", S:"s", STRIKE:"s", DEL:"s",
+  H1:"h2", H2:"h2", H3:"h3", H4:"h3", H5:"h3", H6:"h3",
+  BLOCKQUOTE:"blockquote", UL:"ul", OL:"ol", LI:"li",
+  TABLE:"table", THEAD:"thead", TBODY:"tbody", TR:"tr", TD:"td", TH:"th",
+  SUP:"sup", SUB:"sub", BR:"br", HR:"hr", MARK:"mark", A:"a", IMG:"img",
+  P:"div", DIV:"div"
+};
+/* Wycinane razem z zawartością — nic z nich nie jest treścią notatki. */
+const WYTNIJ = ["SCRIPT","STYLE","IFRAME","OBJECT","EMBED","FORM","NOSCRIPT",
+                "TEMPLATE","META","LINK","BASE","HEAD","TITLE"];
+
+function najblizsze(hex){
+  const r = h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+  let naj=0, min=Infinity;
+  PODSWIETLENIA.forEach((c,i)=>{ try{
+    const [r1,g1,b1]=r(hex), [r2,g2,b2]=r(c);
+    const d=(r1-r2)**2+(g1-g2)**2+(b1-b2)**2;
+    if(d<min){min=d;naj=i;}
+  }catch(e){} });
+  return "hl"+(naj+1);
+}
+/** Wyróżnienia zapisane w stylu — OneNote tak trzyma pogrubienie i podświetlenie. */
+function wyroznieniaZeStylu(el){
+  const st = el.getAttribute && el.getAttribute("style") || "";
+  const lista = [];
+  const tlo = st.match(/background(?:-color)?:\s*(#[0-9a-f]{3,6}|rgb\([^)]*\))/i);
+  if(tlo){
+    let hex = tlo[1];
+    if(/^rgb/i.test(hex)){
+      const l = hex.match(/\d+/g)||[];
+      hex = "#" + l.slice(0,3).map(x=>(+x).toString(16).padStart(2,"0")).join("");
+    }
+    if(hex.length===4) hex = "#"+hex[1]+hex[1]+hex[2]+hex[2]+hex[3]+hex[3];
+    if(!/^#f{6}$/i.test(hex)) lista.push({t:"mark", k:najblizsze(hex)});
+  }
+  if(/font-weight:\s*(bold|[6-9]00)/i.test(st)) lista.push({t:"b"});
+  if(/font-style:\s*italic/i.test(st)) lista.push({t:"i"});
+  if(/text-decoration[^;]*underline/i.test(st)) lista.push({t:"u"});
+  return lista;
+}
+function bezpiecznyAdres(a){
+  return /^(https?:\/\/|mailto:|jwlibrary:)/i.test(a||"");
+}
+
+/**
+ * Przepisuje drzewo dokumentu na czystą treść notatki.
+ * @param {Node} zrodlo  węzeł z dokumentu OneNote
+ * @param {Node} cel     węzeł budowanego drzewa
+ * @param {Document} d   dokument, w którym tworzymy elementy
+ */
+function przepisz(zrodlo, cel, d){
+  zrodlo.childNodes.forEach(w=>{
+    if(w.nodeType===3){
+      const t = w.textContent.replace(/\u00a0/g," ");
+      if(t) cel.appendChild(d.createTextNode(t));
+      return;
+    }
+    if(w.nodeType!==1) return;
+    const tag = w.tagName.toUpperCase();
+    if(WYTNIJ.indexOf(tag)>=0) return;
+
+    /* SPAN i FONT same w sobie nic nie znaczą, ale mogą nieść wyróżnienie
+       zapisane w stylu — przenosimy je na właściwe znaczniki. */
+    if(tag==="SPAN" || tag==="FONT"){
+      const wyr = wyroznieniaZeStylu(w);
+      let gdzie = cel;
+      wyr.forEach(x=>{
+        const el = d.createElement(x.t);
+        if(x.k) el.className = x.k;
+        gdzie.appendChild(el); gdzie = el;
+      });
+      przepisz(w, gdzie, d);
+      return;
+    }
+    const nowyTag = ZNACZNIKI[tag];
+    if(!nowyTag){ przepisz(w, cel, d); return; }   // nieznany — zachowaj zawartość
+
+    if(nowyTag==="img"){
+      const src = w.getAttribute("src")||"";
+      if(!/^(data:image|https?:)/i.test(src)) return;
+      const el = d.createElement("img");
+      el.setAttribute("src", src);
+      cel.appendChild(el);
+      return;
+    }
+    if(nowyTag==="a"){
+      const href = w.getAttribute("href")||"";
+      if(!bezpiecznyAdres(href)){ przepisz(w, cel, d); return; }   // sam napis
+      const el = d.createElement("a");
+      el.setAttribute("href", href);
+      el.setAttribute("target","_blank");
+      el.setAttribute("rel","noopener noreferrer");
+      przepisz(w, el, d);
+      cel.appendChild(el);
+      return;
+    }
+    if(nowyTag==="br" || nowyTag==="hr"){ cel.appendChild(d.createElement(nowyTag)); return; }
+
+    const el = d.createElement(nowyTag);
+    if(nowyTag==="mark"){
+      const kl = (w.className||"").match(/hl[1-7]/);
+      el.className = kl ? kl[0] : "hl1";
+    }
+    przepisz(w, el, d);
+    cel.appendChild(el);
+  });
+}
+
+/** Czy element nie niesie żadnej treści. */
+function pusty(el){
+  if(el.querySelector && el.querySelector("img,hr,table")) return false;
+  return !(el.textContent||"").replace(/\u00a0|\s/g,"");
+}
+
+/**
+ * Wyrównanie układu do stylu aplikacji: rozpakowanie kontenerów od pozycjonowania,
+ * usunięcie pustych akapitów i zbitek przerw.
+ */
+function uporzadkujUklad(korzen){
+  /* 0. Odstępy ze ŹRÓDŁA — wcięcia i podziały wierszy w pliku OneNote.
+        Treść notatki wyświetlana jest z zachowaniem spacji, więc każde takie
+        wcięcie widać na ekranie jako puste miejsce. To główna przyczyna
+        wrażenia, że tekst jest porozrzucany. */
+  (function odstepy(el){
+    [...el.childNodes].forEach(w=>{
+      if(w.nodeType===3){
+        const tylkoOdstepy = !w.textContent.replace(/\s|\u00a0/g,"");
+        if(tylkoOdstepy) w.remove();
+        else w.textContent = w.textContent.replace(/[\s\u00a0]+/g," ");
+      }else if(w.nodeType===1) odstepy(w);
+    });
+  })(korzen);
+
+  /* 1. Kontener, który zawiera wyłącznie inny blok, nic nie wnosi — rozpakowujemy.
+        To właśnie po nich zostają puste marginesy z OneNote. */
+  let zmiana = true, obieg = 0;
+  while(zmiana && obieg++ < 12){
+    zmiana = false;
+    korzen.querySelectorAll("div").forEach(el=>{
+      const dzieci = [...el.childNodes].filter(w=>w.nodeType!==3 || w.textContent.trim());
+      const samBlok = dzieci.length===1 && dzieci[0].nodeType===1 &&
+                      /^(DIV|UL|OL|TABLE|BLOCKQUOTE|H2|H3)$/.test(dzieci[0].tagName);
+      if(samBlok){ el.replaceWith(dzieci[0]); zmiana = true; }
+    });
+  }
+  /* 2. Puste akapity — OneNote wstawia ich mnóstwo między blokami. */
+  korzen.querySelectorAll("div,p").forEach(el=>{ if(pusty(el)) el.remove(); });
+  /* 3. Zbitki przerw: więcej niż jedna z rzędu to ślad po układzie, nie po treści. */
+  korzen.querySelectorAll("br").forEach(br=>{
+    let n = br.nextSibling;
+    while(n && ((n.nodeType===3 && !n.textContent.trim()) || (n.nodeType===1 && n.tagName==="BR"))){
+      const dalej = n.nextSibling;
+      if(n.nodeType===1) n.remove(); else n.remove();
+      n = dalej;
+    }
+  });
+  /* 3b. Przerwa POMIĘDZY blokami — każdy blok i tak zaczyna nowy wiersz. */
+  const blok = w => w && w.nodeType===1 && /^(DIV|P|UL|OL|TABLE|BLOCKQUOTE|H2|H3|HR)$/.test(w.tagName);
+  korzen.querySelectorAll("br").forEach(br=>{
+    if(blok(br.previousElementSibling) || blok(br.nextElementSibling)) br.remove();
+  });
+  /* 4. Przerwy na samym początku i końcu notatki. */
+  while(korzen.firstChild && korzen.firstChild.nodeType===1 && korzen.firstChild.tagName==="BR") korzen.firstChild.remove();
+  while(korzen.lastChild && korzen.lastChild.nodeType===1 && korzen.lastChild.tagName==="BR") korzen.lastChild.remove();
+  /* 4b. Zewnętrzny kontener strony — po rozpakowaniu zostaje jeden opasujący
+         wszystko; nie niesie treści, więc też schodzi. */
+  while(korzen.children.length===1 && korzen.children[0].tagName==="DIV" &&
+        !korzen.childNodes[0].previousSibling &&
+        [...korzen.children[0].children].some(x=>/^(DIV|UL|OL|TABLE|BLOCKQUOTE|H2|H3)$/.test(x.tagName))){
+    const w = korzen.children[0];
+    while(w.firstChild) korzen.appendChild(w.firstChild);
+    w.remove();
+  }
+  /* 5. Tabele bez sztywnych szerokości — mają się mieścić w kolumnie notatek. */
+  korzen.querySelectorAll("table,td,th").forEach(el=>{
+    el.removeAttribute("width"); el.removeAttribute("height"); el.removeAttribute("style");
+  });
+}
+
+/**
+ * @param {string} html  treść strony z OneNote
+ * @param {boolean} doStylu  czy wyrównać układ do stylu aplikacji
+ */
+function oczysc(html, doStylu){
+  let dok;
+  try{ dok = new DOMParser().parseFromString(String(html||""), "text/html"); }
+  catch(e){ return String(html||"").replace(/<[^>]+>/g,"").trim(); }
+  const d = dok;
+  const cel = d.createElement("div");
+  przepisz(d.body || d.documentElement, cel, d);
+  if(doStylu !== false) uporzadkujUklad(cel);
+  return cel.innerHTML.trim();
+}
+function naTekst(h){
+  return String(h||"").replace(/<br\s*\/?>/gi,"\n").replace(/<\/(div|p|li|h\d|tr)>/gi,"\n")
+   .replace(/<[^>]+>/g,"").replace(/&nbsp;/g," ").replace(/&amp;/g,"&")
+   .replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/\n{3,}/g,"\n\n").trim();
+}
+function idNotatki(k){ let h=0; const s="onenote|"+k; for(let i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))|0; return "on"+Math.abs(h).toString(36); }
+/* Ostatnia droga: pokazujemy treść, żeby dało się ją zaznaczyć i skopiować
+   ręcznie. Bez tego użytkownik bez działającego schowka zostaje z niczym. */
+function pokazTresc(){
+  let box = $("trescKopii");
+  if(!box){
+    box = document.createElement("textarea");
+    box.id = "trescKopii";
+    box.readOnly = true;
+    box.style.cssText = "width:100%;height:180px;margin-top:10px;font-size:11px;font-family:monospace";
+    $("postep").appendChild(box);
+  }
+  box.value = _ostatniaKopia;
+  box.focus(); box.select();
+}
+function zbudujKopie(strony){
+  const sections=[], secTabs=[], notes=[];
+  const mS=new Map(), mZ=new Map();
+  strony.forEach(s=>{
+    const ns=(s.notes||"OneNote").trim();
+    if(!mS.has(ns)){ const id=mS.size+1; mS.set(ns,id); sections.push({id,name:ns,ord:sections.length,open:true}); }
+    const idS=mS.get(ns);
+    let idZ;
+    const nz=(s.sekcja||"").trim();
+    if(nz){ const k=idS+"|"+nz;
+      if(!mZ.has(k)){ const id=mZ.size+1; mZ.set(k,id); secTabs.push({id,sec:idS,name:nz,ord:secTabs.length}); }
+      idZ=mZ.get(k); }
+    const html=oczysc(s.html, s.doStylu), teraz=new Date().toISOString();
+    const n={g:idNotatki(s.klucz||s.tytul), t:(s.tytul||"Bez tytułu").trim(), h:html, c:naTekst(html),
+      tg:[], b:null, ch:null, v:null, ks:"", pub:"", doc:0, itn:0, par:0, col:0,
+      cr:s.utworzono||teraz, mo:s.zmieniono||s.utworzono||teraz, del:false, ed:true};
+    if(idZ) n.stb=idZ;
+    notes.push(n);
+  });
+  return {tags:[], notes, sections, pubTabs:[], secTabs};
+}
+/* ==========================================================================
+   ODDANIE KOPII — TRZY DROGI, BO NA TELEFONIE POBIERANIE ZAWODZI
+
+   Wcześniej była jedna droga: link z atrybutem `download`. Na iPhonie i iPadzie
+   Safari go ignoruje dla danych z pamięci — plik albo nie powstaje wcale, albo
+   otwiera się jako tekst w nowej karcie i po zapisaniu ląduje jako strona HTML.
+   Aplikacja słusznie odmawiała potem wczytania: to nie był plik kopii.
+
+   Dlatego oddajemy kopię trzema drogami, od najpewniejszej na danym urządzeniu:
+     1. okno udostępniania (AirDrop, Pliki, Mail) — telefon i tablet,
+     2. schowek → w aplikacji „📋 Wklej treść" (żaden plik nie jest potrzebny),
+     3. pobranie pliku — komputer.
+   ========================================================================== */
+let _ostatniaKopia = "";
+
+function telefon(){
+  return /iPad|iPhone|iPod|Android/i.test(navigator.userAgent) ||
+         (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
+}
+function pobierzPlik(tekst){
+  const blob = new Blob([tekst],{type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "onenote-do-jwstudy.json";
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+async function udostepnijPlik(tekst){
+  if(!(navigator.canShare && typeof File!=="undefined")) return false;
+  const plik = new File([tekst], "onenote-do-jwstudy.json", {type:"application/json"});
+  if(!navigator.canShare({files:[plik]})) return false;
+  try{ await navigator.share({files:[plik], title:"Notatki z OneNote"}); return true; }
+  catch(e){ return e && e.name==="AbortError"; }
+}
+async function doSchowka(tekst){
+  try{ await navigator.clipboard.writeText(tekst); return true; }catch(e){ return false; }
+}
+function zapisz(dane){
+  _ostatniaKopia = JSON.stringify(dane);
+  if(!telefon()) pobierzPlik(_ostatniaKopia);
+}
+</script>
+</body>
+</html>

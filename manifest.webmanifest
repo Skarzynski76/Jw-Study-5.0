@@ -1,0 +1,22 @@
+{
+  "id": "./index.html",
+  "name": "JW Study",
+  "short_name": "JW Study",
+  "description": "Osobiste notatki do studium Biblii — działa offline, integruje się z JW Library.",
+  "lang": "pl",
+  "dir": "ltr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "background_color": "#f2f2f7",
+  "theme_color": "#256b52",
+  "categories": ["productivity", "books", "education"],
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-1024.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "./apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}

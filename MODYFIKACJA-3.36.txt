@@ -1,0 +1,1 @@
+Wersja 3.36: w inicjalizacji API Tesseract poprawiono odczyt identyfikatora języka obiektowego z t.data na t.code. loadLanguage zapisuje model jako code.traineddata. Oryginalne initialize próbowało używać danych binarnych jako nazwy języka. Pozostały kod biblioteki bez zmian. Licencja: LICENSE-TESSERACT-JS.txt.
