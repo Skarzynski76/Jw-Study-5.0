@@ -10322,6 +10322,33 @@ html[data-theme="sepia"] .sidebar-float-trigger {
 .sidebar-collapse-btn {
   display: none !important;
 }
+
+/* Etykieta wersji w banerze aktualizacji i pasku bocznym */
+.nwVerBadge {
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 7px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.sidebar-brand-ver {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+#appContainer.sidebar-collapsed .sidebar-brand-ver {
+  display: none !important;
+}
+
 </style>
 </head>
 <body>
@@ -10330,8 +10357,11 @@ html[data-theme="sepia"] .sidebar-float-trigger {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="">
-      <span class="sidebar-brand-title">JW Study</span>
+      <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
+      <div class="sidebar-brand-text">
+        <span class="sidebar-brand-title">JW Study</span>
+        <span class="sidebar-brand-ver">v3.61</span>
+      </div>
     </div>
 
     <button class="sidebar-new-btn" id="sidebarBtnNew" title="Nowa notatka (Ctrl+N)">
@@ -11023,6 +11053,7 @@ html[data-theme="sepia"] .sidebar-float-trigger {
    Stałe, stan aplikacji, skrót $
    ========================================================================== */
 "use strict";
+const APP_VERSION = "3.61";
 const BOOKS = ["","Rodzaju","Wyjścia","Kapłańska","Liczb","Powtórzonego Prawa","Jozuego","Sędziów","Rut","1 Samuela","2 Samuela","1 Królów","2 Królów","1 Kronik","2 Kronik","Ezdrasza","Nehemiasza","Estery","Hioba","Psalmy","Przysłów","Kaznodziei","Pieśń nad Pieśniami","Izajasza","Jeremiasza","Lamentacje","Ezechiela","Daniela","Ozeasza","Joela","Amosa","Abdiasza","Jonasza","Micheasza","Nahuma","Habakuka","Sofoniasza","Aggeusza","Zachariasza","Malachiasza","Mateusza","Marka","Łukasza","Jana","Dzieje Apostolskie","Rzymian","1 Koryntian","2 Koryntian","Galatów","Efezjan","Filipian","Kolosan","1 Tesaloniczan","2 Tesaloniczan","1 Tymoteusza","2 Tymoteusza","Tytusa","Filemona","Hebrajczyków","Jakuba","1 Piotra","2 Piotra","1 Jana","2 Jana","3 Jana","Judy","Objawienie"];
 
 const DBNAME = "jwStudyClean";   // nazwa pamięci tej kopii aplikacji
@@ -11961,7 +11992,7 @@ function zarejestrujSW(){
     // sprawdzaj nową wersję przy starcie i po każdym powrocie do aplikacji
     /* Sprawdzanie nowej wersji też wymaga sieci — offline kończyłoby się tym
        samym błędem, tyle że po każdym powrocie do aplikacji. */
-    const sprawdz = ()=>{ if(navigator.onLine === false || !navigator.serviceWorker) return; try{ if(rej && typeof rej.update === "function") rej.update().catch(()=>{}); }catch(e){} };
+    const sprawdz = async ()=>{ if(navigator.onLine === false || !navigator.serviceWorker) return; try{ const reg = await navigator.serviceWorker.getRegistration(); if(reg && typeof reg.update === "function") await reg.update().catch(()=>{}); }catch(e){} };
     setTimeout(sprawdz, 1200);
     document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) sprawdz(); });
     /* Po wybraniu „Później” nowy pracownik już czeka. Przy kolejnym otwarciu
@@ -12003,28 +12034,37 @@ function przejeloObsluge(bylaObsluga){
   return true;
 }
 /** Pasek z informacją o nowej wersji. Aktualizacja rusza dopiero po zgodzie. */
-function pokazNowaWersje(nowy){
+async function pokazNowaWersje(nowy){
   if(document.getElementById("nowaWersja")) return;
+  let nowaVer = "";
+  try {
+    const res = await fetch("WERSJA?t=" + Date.now());
+    if(res.ok) nowaVer = (await res.text()).trim();
+  } catch(e) {}
+  const verTxt = nowaVer ? ` do <b>v${esc(nowaVer)}</b>` : "";
+  const verBadge = nowaVer ? `<span class="nwVerBadge">v${esc(nowaVer)}</span>` : `<span class="nwVerBadge">NOWA</span>`;
+
   const pasek = document.createElement("div");
   pasek.id = "nowaWersja";
-  pasek.innerHTML = '<span>Jest nowsza wersja. Przed aktualizacją warto zapisać kopię.</span>' +
-                    '<button type="button" id="nwOdswiez">Sprawdź i aktualizuj</button>' +
+  pasek.innerHTML = verBadge + `<span>Dostępna aktualizacja${verTxt} (Twoja: v${APP_VERSION}). Przed aktualizacją warto zapisać kopię.</span>` +
+                    '<button type="button" id="nwOdswiez">Aktualizuj</button>' +
                     '<button type="button" id="nwPozniej" aria-label="Zamknij">✕</button>';
   document.body.appendChild(pasek);
   pasek.querySelector("#nwOdswiez").onclick = async ()=>{
     const dirty = +(lsGet(KP+"Dirty", 0)||0);
     let decyzja;
+    const tytul = nowaVer ? `Zaktualizować aplikację do v${nowaVer}?` : "Zaktualizować aplikację?";
     if(dirty>0){
-      decyzja = await askChoice("Zaktualizować aplikację?",
-        "Masz <b>"+dirty+" niezapisanych w kopii zmian</b>. Aktualizacja nie powinna ich usunąć, ale kopia daje dodatkowe zabezpieczenie.", [
+      decyzja = await askChoice(tytul,
+        `Obecna wersja: <b>v${APP_VERSION}</b> ➔ Nowa wersja: <b>v${nowaVer || 'najnowsza'}</b>.<br>Masz <b>${dirty} niezapisanych w kopii zmian</b>. Kopia daje dodatkowe bezpieczeństwo.`, [
           {label:"Zrób kopię i aktualizuj", value:"kopia", style:"primary"},
           {label:"Aktualizuj bez kopii", value:"teraz"},
           {label:"Anuluj", value:"nie"}
         ]);
     }else{
-      decyzja = await askChoice("Zaktualizować aplikację?",
-        "Nowa wersja jest gotowa. Aplikacja przeładuje się po Twojej zgodzie.", [
-          {label:"Aktualizuj", value:"teraz", style:"primary"},
+      decyzja = await askChoice(tytul,
+        `Obecna wersja: <b>v${APP_VERSION}</b> ➔ Nowa wersja: <b>v${nowaVer || 'najnowsza'}</b>.<br>Aplikacja przeładuje się po Twojej zgodzie.`, [
+          {label:"Aktualizuj teraz", value:"teraz", style:"primary"},
           {label:"Później", value:"nie"}
         ]);
     }
@@ -22487,8 +22527,7 @@ function openSettings(){
   pokazMiejsceWersji();
   const pole = $("stWersja");
   if(pole){
-    const znak = document.querySelector(".brand-name .ver");
-    pole.textContent = (znak ? znak.textContent.trim() : "") +
+    pole.textContent = "Wersja v" + APP_VERSION +
       (offlineReady() ? " · zapisana do pracy offline" : " · bez kopii offline");
   }
   openModal("modalSettings");
@@ -24682,7 +24721,7 @@ function diagWyczysc(){
    zgłoszeniu było widać, ale nie robimy z tego alarmu. */
 function toAwariaSieci(tresc, gdzie){
   const t = String(tresc||"") + " " + String(gdzie||"");
-  if(/service worker registration|service worker|serviceworker/i.test(t)) return true;
+  if(/service worker|serviceworker|newestWorker|updateViaCache|null\/nonexistent/i.test(t)) return true;
   if(!/load failed|Failed to fetch|NetworkError|ERR_INTERNET|network error/i.test(t)) return false;
   /* Wyjątek: gdy sieć DZIAŁA, a zasób i tak się nie wczytał, to już jest
      wiadomość warta pokazania — brakuje pliku albo serwer go nie oddaje. */

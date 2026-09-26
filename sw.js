@@ -1,7 +1,7 @@
 /* Osobny cache dla każdej instalacji (np. dwóch projektów GitHub Pages).
    Starszych, wspólnych cache nie usuwamy: mogą należeć do innej instalacji. */
 const CACHE_PREFIX = 'jwstudy-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + 'v358-modern';
+const CACHE = CACHE_PREFIX + 'v361';
 /* Instalacja jest uznawana za gotową dopiero po zapisaniu wszystkich plików,
    których potrzebują podstawowe funkcje. Dzięki temu komunikat „gotowa offline”
    nie pojawi się po częściowym pobraniu na niestabilnym łączu. */
