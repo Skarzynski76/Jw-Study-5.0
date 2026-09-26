@@ -11961,7 +11961,7 @@ function zarejestrujSW(){
     // sprawdzaj nową wersję przy starcie i po każdym powrocie do aplikacji
     /* Sprawdzanie nowej wersji też wymaga sieci — offline kończyłoby się tym
        samym błędem, tyle że po każdym powrocie do aplikacji. */
-    const sprawdz = ()=>{ if(navigator.onLine === false) return; try{ rej.update(); }catch(e){} };
+    const sprawdz = ()=>{ if(navigator.onLine === false || !navigator.serviceWorker) return; try{ if(rej && typeof rej.update === "function") rej.update().catch(()=>{}); }catch(e){} };
     setTimeout(sprawdz, 1200);
     document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) sprawdz(); });
     /* Po wybraniu „Później” nowy pracownik już czeka. Przy kolejnym otwarciu
@@ -24682,6 +24682,7 @@ function diagWyczysc(){
    zgłoszeniu było widać, ale nie robimy z tego alarmu. */
 function toAwariaSieci(tresc, gdzie){
   const t = String(tresc||"") + " " + String(gdzie||"");
+  if(/service worker registration|service worker|serviceworker/i.test(t)) return true;
   if(!/load failed|Failed to fetch|NetworkError|ERR_INTERNET|network error/i.test(t)) return false;
   /* Wyjątek: gdy sieć DZIAŁA, a zasób i tak się nie wczytał, to już jest
      wiadomość warta pokazania — brakuje pliku albo serwer go nie oddaje. */
