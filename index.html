@@ -10349,6 +10349,18 @@ html[data-theme="sepia"] .sidebar-float-trigger {
   display: none !important;
 }
 
+
+/* Najwyższy priorytet dla okien dialogowych potwierdzenia i paska aktualizacji */
+#askModal,
+#msgModal,
+#askModal.overlay,
+#msgModal.overlay {
+  z-index: 10050 !important;
+}
+#nowaWersja {
+  z-index: 10060 !important;
+}
+
 </style>
 </head>
 <body>
@@ -22527,8 +22539,18 @@ function openSettings(){
   pokazMiejsceWersji();
   const pole = $("stWersja");
   if(pole){
-    pole.textContent = "Wersja v" + APP_VERSION +
-      (offlineReady() ? " · zapisana do pracy offline" : " · bez kopii offline");
+    let statusOffline = (offlineReady() ? " · zapisana do pracy offline" : " · bez kopii offline");
+    if(location.protocol === "file:"){
+      statusOffline = " · plik lokalny (offline działa na GitHub Pages / HTTPS)";
+    }
+    pole.textContent = "Wersja v" + APP_VERSION + statusOffline;
+    if(location.protocol.indexOf("http") === 0 && "serviceWorker" in navigator){
+      navigator.serviceWorker.getRegistration().then(r => {
+        if(r && (r.active || r.installing || r.waiting)){
+          pole.textContent = "Wersja v" + APP_VERSION + " · zapisana do pracy offline";
+        }
+      }).catch(()=>{});
+    }
   }
   openModal("modalSettings");
 
