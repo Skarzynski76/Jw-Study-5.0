@@ -12120,8 +12120,31 @@ async function pokazNowaWersje(nowy){
     }
     if(decyzja==="nie") return;
     if(decyzja==="kopia") await exportJson();
-    pasek.remove();
-    nowy.postMessage("SKIP_WAITING");
+    
+    // Wizualne potwierdzenie dla użytkownika
+    pasek.innerHTML = '<span class="nwVerBadge">AKTUALIZACJA</span><span>Wgrywanie nowej wersji i restartowanie…</span>';
+    
+    // Wyślij sygnał aktywacji do nowego Service Workera
+    try {
+      if(nowy && typeof nowy.postMessage === "function") nowy.postMessage("SKIP_WAITING");
+      if(navigator.serviceWorker){
+        navigator.serviceWorker.getRegistration().then(reg => {
+          if(reg){
+            if(reg.waiting) reg.waiting.postMessage("SKIP_WAITING");
+            if(reg.installing) reg.installing.postMessage("SKIP_WAITING");
+          }
+        }).catch(()=>{});
+      }
+    } catch(err){}
+
+    // Na iPadOS/iOS zdarzenie controllerchange bywa tłumione przez Safari.
+    // Dajemy 500ms na normalne przejęcie, po czym wykonujemy bezpośrednie przeładowanie.
+    setTimeout(()=>{
+      if(!_przeladowano){
+        _przeladowano = true;
+        location.reload();
+      }
+    }, 500);
   };
   pasek.querySelector("#nwPozniej").onclick = ()=>pasek.remove();
 }
