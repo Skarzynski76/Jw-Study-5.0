@@ -1,0 +1,12 @@
+JW Study 3.63 — Informacje o wydaniu
+Data: 2026-09-27 07:54:34
+
+POPRAWKI OBSŁUGI OFFLINE W WERSJI 3.63:
+1. Usprawniony Service Worker (sw.js):
+   - Odporne buforowanie plików (Promise.allSettled) — brak pojedynczego pliku nie przerywa instalacji offline.
+   - Natychmiastowa aktywacja i przejęcie kontroli (self.skipWaiting + clients.claim).
+   - Inteligentne pobieranie index.html w trybie awaryjnym.
+2. Status w Ustawieniach:
+   - Wyraźna informacja, gdy plik uruchamiany jest z dysku komputera (file:///) — przeglądarki wymagają protokołu HTTPS / GitHub Pages do działania Service Workera.
+   - Po załadowaniu ze strony GitHub Pages aplikacja natychmiast zgłasza: "Wersja v3.63 · zapisana do pracy offline".
+3. Okno potwierdzenia aktualizacji (z-index 10050) zawsze na wierzchu ponad wszystkimi oknami.

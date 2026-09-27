@@ -1,15 +1,9 @@
-# Lokalne biblioteki inteligentnego importu
+# JW Study 3.56
 
-Pliki w tym katalogu działają wyłącznie w przeglądarce użytkownika. Dokumenty
-nie są wysyłane do serwera ani zewnętrznej usługi OCR.
+Aplikacja do notatek i studium.
 
-| Składnik | Wersja | Zastosowanie | Licencja |
-|---|---:|---|---|
-| PDF.js | 3.11.174 | warstwa tekstowa i renderowanie PDF | Apache-2.0 |
-| Mammoth | 1.12.2 | konwersja DOCX do bezpiecznego HTML | BSD-2-Clause |
-| Tesseract.js | 5.1.1 | sterowanie OCR w osobnym wątku | Apache-2.0 |
-| Tesseract.js Core | 5.1.1 | lokalny silnik WebAssembly | Apache-2.0 |
-| pol.traineddata | 4.0 best-int | polski model rozpoznawania | MIT |
+Wersja 3.56 poprawia zachowanie Enter w edytorze. Nowy wiersz rozpoczyna się zwykłym stylem, nawet jeśli poprzednia linia była pogrubiona, pochylona, podkreślona, przekreślona, pokolorowana lub podświetlona. Istniejący tekst po prawej stronie kursora zachowuje wcześniejsze formatowanie.
 
-Odpowiednie teksty licencji znajdują się obok plików bibliotecznych. Model
-językowy pochodzi z pakietu `@tesseract.js-data/pol` 1.0.0.
+Wydanie zawiera także pełny audyt zapisu, importu PDF/Word/OCR, działania offline, wyszukiwania, nawigacji, Centrum studium, ilustracji i narzędzi edycji.
+
+Instrukcja aktualizacji: `AKTUALIZACJA-3.56.txt`. Testy: `node testy/regresja.js`.

@@ -1,0 +1,25 @@
+JW Study 3.57 — inteligentna automatyczna wielka litera dla języka polskiego
+
+EDYCJA TEKSTU I AUTOKOREKTA
+• Automatyczna wielka litera podczas pisania:
+  - po kropce, wykrzykniku, pytajniku i wielokropku (. ! ? …) ze spacją lub znakiem zamykającym,
+  - na początku notatki, nowego akapitu, nowego wiersza (po Enter / <br>),
+  - na początku elementów list i komórek tabeli.
+• Inteligentna ochrona polskich skrótów:
+  - litery po skrótach takich jak np., tzn., itd., itp., tzw., m.in., wg, godz., w., r., art., str., rozdz., wers., ks., św., dr, prof. i innych pozostają małe,
+  - chronione są inicjały (np. J. Kowalski), adresy URL / domeny oraz liczby z kropką dziesiętną.
+• Płynne wpisywanie bez utraty pozycji kursora, z pełnym wsparciem historii zmian (Cofnij / Ponów).
+• Opcja w menu „Więcej” (ikona zębatki/narzędzi): „Wielka litera po kropce i nowej linii” z zapamiętywaniem wyboru w przeglądarce.
+• Narzędzie „✨ Uporządkuj polski tekst” formatuje całą notatkę z uwzględnieniem wielkich liter na początku zdań i akapitów.
+
+JAK WGRYWAĆ
+1. Zapisz kopię swoich notatek (Kopia zapasowa w menu).
+2. Wgraj do głównego katalogu GitHub Pages pliki: index.html, sw.js i WERSJA.
+3. Zastąp istniejące pliki, zachowując dokładne nazwy i rozszerzenia.
+4. Otwórz aplikację z dostępem do internetu, zaakceptuj powiadomienie o aktualizacji i uruchom ją ponownie.
+5. Przy logo powinno wyświetlać się v3.57.
+
+TESTY I WERYFIKACJA
+• Sprawdzono poprawne wykrywanie granic zdań przy zagnieżdżonych znacznikach HTML (<b>, <span>, <i>, <mark>).
+• Sprawdzono zachowanie edytora przy szybkim pisaniu, cofaniu (Undo) i wklejaniu tekstu.
+• Sprawdzono działanie przełącznika w menu narzędzi.

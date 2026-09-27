@@ -27,7 +27,7 @@
 <meta name="theme-color" content="#256b52">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>JW Study</title>
+<title>JW Study 3.63</title>
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
@@ -10372,7 +10372,7 @@ html[data-theme="sepia"] .sidebar-float-trigger {
       <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW Study</span>
-        <span class="sidebar-brand-ver">v3.61</span>
+        <span class="sidebar-brand-ver">v3.63</span>
       </div>
     </div>
 
@@ -11065,7 +11065,7 @@ html[data-theme="sepia"] .sidebar-float-trigger {
    Stałe, stan aplikacji, skrót $
    ========================================================================== */
 "use strict";
-const APP_VERSION = "3.61";
+const APP_VERSION = "3.63";
 const BOOKS = ["","Rodzaju","Wyjścia","Kapłańska","Liczb","Powtórzonego Prawa","Jozuego","Sędziów","Rut","1 Samuela","2 Samuela","1 Królów","2 Królów","1 Kronik","2 Kronik","Ezdrasza","Nehemiasza","Estery","Hioba","Psalmy","Przysłów","Kaznodziei","Pieśń nad Pieśniami","Izajasza","Jeremiasza","Lamentacje","Ezechiela","Daniela","Ozeasza","Joela","Amosa","Abdiasza","Jonasza","Micheasza","Nahuma","Habakuka","Sofoniasza","Aggeusza","Zachariasza","Malachiasza","Mateusza","Marka","Łukasza","Jana","Dzieje Apostolskie","Rzymian","1 Koryntian","2 Koryntian","Galatów","Efezjan","Filipian","Kolosan","1 Tesaloniczan","2 Tesaloniczan","1 Tymoteusza","2 Tymoteusza","Tytusa","Filemona","Hebrajczyków","Jakuba","1 Piotra","2 Piotra","1 Jana","2 Jana","3 Jana","Judy","Objawienie"];
 
 const DBNAME = "jwStudyClean";   // nazwa pamięci tej kopii aplikacji
@@ -11995,10 +11995,21 @@ function zarejestrujSW(){
     return;
   }
   navigator.serviceWorker.register("sw.js", { updateViaCache: "none" }).then(rej=>{
+    const oznaczOffline = ()=>{
+      lsSet(KP+"OfflineOK","1");
+      const stW = document.getElementById("stWersja");
+      if(stW) stW.textContent = "Wersja v" + APP_VERSION + " · zapisana do pracy offline";
+    };
+    if(rej.active) oznaczOffline();
+    rej.addEventListener("updatefound", ()=>{
+      const ins = rej.installing;
+      if(ins) ins.addEventListener("statechange", ()=>{ if(ins.state==="activated"||ins.state==="installed") oznaczOffline(); });
+    });
     navigator.serviceWorker.ready.then(()=>{
-      if(!lsGet(KP+"OfflineOK", null)){
-        lsSet(KP+"OfflineOK","1");
-        setTimeout(()=>toast("✓ Aplikacja gotowa do pracy offline"), 2500);
+      oznaczOffline();
+      if(!lsGet(KP+"OfflineNotif", null)){
+        lsSet(KP+"OfflineNotif","1");
+        setTimeout(()=>toast("✓ Aplikacja gotowa do pracy offline"), 2000);
       }
     });
     // sprawdzaj nową wersję przy starcie i po każdym powrocie do aplikacji
@@ -12120,7 +12131,14 @@ async function wymusAktualizacje(){
    ========================================================================== */
 "use strict";
 /* ================= FILTRY ================= */
-function offlineReady(){ return !!(navigator.serviceWorker && navigator.serviceWorker.controller); }
+function offlineReady(){
+  if(location.protocol === "file:") return false;
+  if(typeof navigator !== "undefined" && "serviceWorker" in navigator){
+    if(navigator.serviceWorker.controller) return true;
+    if(lsGet(KP+"OfflineOK", null) === "1") return true;
+  }
+  return false;
+}
 /* Ustawia rozwijane menu tak, żeby ZAWSZE mieściło się na ekranie:
    dobiera stronę (pod/nad przyciskiem), przycina wysokość i dodaje przewijanie. */
 /**
@@ -22539,14 +22557,17 @@ function openSettings(){
   pokazMiejsceWersji();
   const pole = $("stWersja");
   if(pole){
-    let statusOffline = (offlineReady() ? " · zapisana do pracy offline" : " · bez kopii offline");
+    let statusOffline = " · bez kopii offline (wczytaj przez HTTPS / GitHub)";
     if(location.protocol === "file:"){
-      statusOffline = " · plik lokalny (offline działa na GitHub Pages / HTTPS)";
+      statusOffline = " · plik lokalny z dysku (offline wymaga HTTPS / GitHub Pages)";
+    } else if(offlineReady()){
+      statusOffline = " · zapisana do pracy offline";
     }
     pole.textContent = "Wersja v" + APP_VERSION + statusOffline;
     if(location.protocol.indexOf("http") === 0 && "serviceWorker" in navigator){
       navigator.serviceWorker.getRegistration().then(r => {
         if(r && (r.active || r.installing || r.waiting)){
+          lsSet(KP+"OfflineOK","1");
           pole.textContent = "Wersja v" + APP_VERSION + " · zapisana do pracy offline";
         }
       }).catch(()=>{});

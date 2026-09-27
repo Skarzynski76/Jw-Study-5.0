@@ -1,0 +1,2 @@
+JW Study 3.57
+Wgraj ZAWARTOŚĆ tego katalogu do dotychczasowego katalogu GitHub Pages. Podmień index.html, sw.js i WERSJA. Zachowaj rozszerzenia. Nie dopisuj .json. Przeczytaj AKTUALIZACJA-3.57.txt.

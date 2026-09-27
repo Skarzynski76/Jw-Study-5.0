@@ -1,0 +1,5 @@
+.DS_Store
+*.zip
+JW-Study-3.*/
+testy/
+index-*.html

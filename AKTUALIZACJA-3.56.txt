@@ -1,0 +1,29 @@
+JW Study 3.56 — zwykły styl po Enter i audyt aplikacji
+
+EDYCJA TEKSTU
+• Enter kończy pogrubienie, kursywę, podkreślenie, przekreślenie, kolor i podświetlenie poprzedniego wiersza.
+• Nowy wiersz rozpoczyna się zwykłym stylem.
+• Gdy Enter zostanie naciśnięty w środku sformatowanego tekstu, istniejąca prawa część zachowuje formatowanie.
+• Nadal pozostaje zwarty odstęp między liniami.
+• Listy, tabele i nagłówki zachowują swoje specjalne zachowanie Enter.
+
+AUDYT
+• Sprawdzono składnię wszystkich skryptów i zgodność numeru wersji.
+• Sprawdzono zapis transakcyjny, szkice, historię i ochronę przed utratą treści.
+• Sprawdzono rzeczywiste pliki PDF, DOCX, skany PDF i polski OCR.
+• Sprawdzono import JW Library, rozpoznawanie typu pliku i obsługę błędnych rozszerzeń.
+• Sprawdzono tryb offline, wymagane zasoby, aktualizację cache i odpowiedzi 404.
+• Sprawdzono wyszukiwanie, filtrowanie księga–rozdział–etykieta–publikacja i odsyłacze wersetów.
+• Sprawdzono edycję tekstu, ilustracje, tabele, fragmenty, spis nagłówków i Centrum studium.
+• Nie zmieniono rozszerzeń plików i nie dopisano .json.
+
+JAK WGRYWAĆ
+1. Zapisz kopię swoich notatek.
+2. Rozpakuj JW-Study-3.56-PODMIANA-ROOT.zip.
+3. Wgraj do głównego katalogu GitHub Pages pliki index.html, sw.js i WERSJA.
+4. Zastąp istniejące pliki, zachowując dokładne nazwy i rozszerzenia.
+5. Otwórz aplikację z internetem, zaakceptuj aktualizację i uruchom ją ponownie.
+6. Przy logo powinno być v3.56.
+
+TESTY
+Wynik automatyczny: 50/50. Po publikacji należy krótko sprawdzić Enter na fizycznym iPadzie oraz uruchomienie w trybie samolotowym.
