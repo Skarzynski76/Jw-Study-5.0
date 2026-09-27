@@ -27,7 +27,7 @@
 <meta name="theme-color" content="#256b52">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>JW Study 3.63</title>
+<title>JW Study 3.64</title>
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
@@ -46,6 +46,7 @@
   --shadow-sm:0 1px 2px rgba(0,0,0,.04);
   --shadow-md:0 4px 14px rgba(0,0,0,.06);
   --shadow-lg:0 10px 28px rgba(0,0,0,.09);
+  --top-safe-clearance: env(safe-area-inset-top, 0px);
 }
 /* motyw SEPIA (czytnik) */
 html[data-theme="sepia"]{
@@ -57,7 +58,7 @@ html[data-theme="sepia"] main{background:linear-gradient(180deg,#eee6d3,#e5dcbe)
 button,.item,.sbtn,.chip-ch,.pal,a,label,select,summary,#imgBar button,#hlBar .sw,#hlBar button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;margin:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
-header{display:flex;align-items:center;gap:10px;padding:9px 16px;padding-top:calc(9px + env(safe-area-inset-top, 0px));background:linear-gradient(135deg,#134e38 0%,#1a5c43 55%,#206d50 100%);border-bottom:1px solid rgba(0,0,0,.15);box-shadow:0 4px 18px -2px rgba(10,35,25,.22);flex-wrap:wrap;position:relative;z-index:20;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;isolation:isolate}
+header{display:flex;align-items:center;gap:10px;padding:9px 16px;padding-top:var(--top-safe-clearance, max(30px, calc(16px + env(safe-area-inset-top, 0px))));padding-bottom:9px;background:linear-gradient(135deg,#134e38 0%,#1a5c43 55%,#206d50 100%);border-bottom:1px solid rgba(0,0,0,.15);box-shadow:0 4px 18px -2px rgba(10,35,25,.22);flex-wrap:wrap;position:relative;z-index:20;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;isolation:isolate}
 .brand-name{color:#fff!important}
 .brand-name .ver{color:rgba(255,255,255,.6)!important}
 .brand-sub{color:rgba(255,255,255,.72)!important}
@@ -115,29 +116,7 @@ select,button,input{font-family:inherit}
 .btn.danger:hover{filter:brightness(1.06)}
 
 
-/* iPadOS 27: status bar uses system glass. In standalone mode the page is allowed
-   behind it, and this opaque strip makes the safe area part of our header. */
-body.ios-standalone::before{
-  content:"";position:fixed;z-index:19;top:0;left:0;right:0;
-  height:env(safe-area-inset-top,0px);background:var(--accent);
-  pointer-events:none;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;
-}
-body.ios-standalone > header, body.ios-standalone #appContainer > header{background-color:var(--accent)!important;background-image:none!important;}
-/* iPadOS 27 w trybie okienkowym nakłada wysoki pas szkła. Zostawiamy pod nim
-   pustą strefę; właściwe przyciski zaczynają się dopiero niżej. */
-body.ipad-standalone > header, body.ipad-standalone #appContainer > header{
-  --ipad-system-clearance:38px;
-  padding-top:calc(10px + env(safe-area-inset-top,0px) + var(--ipad-system-clearance))!important;
-}
-body.ipad-standalone header .searchwrap,
-body.ipad-standalone header .btn,
-body.ipad-standalone header #sortSel,
-body.ipad-standalone header .fontctl,
-body.ipad-standalone header .ikony-grupa{
-  background:color-mix(in srgb,var(--accent) 72%,white 28%)!important;
-  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
-}
-body.ipad-standalone header .btn.primary{background:#fff!important;color:var(--accent)!important;}
+
 
 /* ══════════════ NOWOCZESNY UKŁAD I GRAFIKA CENTRUM STUDIUM ══════════════ */
 .cenCentrumMain {
@@ -9307,7 +9286,7 @@ html[data-theme="dark"] main{background:radial-gradient(900px 500px at 8% -8%,co
 html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
 
 /* Nagłówek iPada pozostaje jednolity i nieprzezroczysty pod szkłem systemowym. */
-body.ipad-standalone > header, body.ipad-standalone #appContainer > header{background-image:none!important;box-shadow:0 5px 18px rgba(20,50,38,.13)}
+body.ipad-standalone > header, body.ipad-standalone #appContainer > header, body.ipad-standalone #appMainContent > header, html.ipad-standalone header{background-image:none!important;box-shadow:0 5px 18px rgba(20,50,38,.13)}
 @media(max-width:760px){main{gap:8px;padding:8px}.col{border-radius:15px!important}.ncard{border-radius:15px}.brand-name .ver{background:transparent;padding:0}}
 </style><style>
 /* JW Study 3.50 — bloki, malarz formatów i podpisy ilustracji */
@@ -10361,7 +10340,61 @@ html[data-theme="sepia"] .sidebar-float-trigger {
   z-index: 10060 !important;
 }
 
+/* ══════════════ OBNIŻENIE GÓRNEGO MENU / NAGŁÓWKA (IPAD & SAFE AREA) ══════════════ */
+header {
+  padding-top: max(46px, calc(30px + env(safe-area-inset-top, 0px))) !important;
+  padding-bottom: 12px !important;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)) !important;
+  padding-right: max(16px, env(safe-area-inset-right, 0px)) !important;
+}
+#modernSidebar {
+  padding-top: max(42px, calc(26px + env(safe-area-inset-top, 0px))) !important;
+}
+
+/* Wyraźne obniżenie na iPadzie i iOS (Safari oraz PWA / Standalone) */
+@supports (-webkit-touch-callout: none) {
+  header {
+    padding-top: max(54px, calc(38px + env(safe-area-inset-top, 0px))) !important;
+    padding-bottom: 14px !important;
+  }
+  #modernSidebar {
+    padding-top: max(50px, calc(34px + env(safe-area-inset-top, 0px))) !important;
+  }
+}
+
+html.is-ipad header, body.is-ipad header,
+html.is-ios header, body.is-ios header,
+html.ipad-standalone header, body.ipad-standalone header,
+html.ios-standalone header, body.ios-standalone header {
+  padding-top: max(56px, calc(40px + env(safe-area-inset-top, 0px))) !important;
+  padding-bottom: 14px !important;
+}
+
+html.ipad-standalone #modernSidebar, body.ipad-standalone #modernSidebar,
+html.is-ipad #modernSidebar, body.is-ipad #modernSidebar,
+html.ios-standalone #modernSidebar, body.ios-standalone #modernSidebar,
+html.is-ios #modernSidebar, body.is-ios #modernSidebar {
+  padding-top: max(52px, calc(36px + env(safe-area-inset-top, 0px))) !important;
+}
+
 </style>
+<script>
+(function(){
+  try {
+    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var isIPad = /iPad/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if(isIOS){
+      document.documentElement.classList.add('is-ios');
+      if(isIPad) document.documentElement.classList.add('is-ipad');
+    }
+    if(navigator.standalone || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches)){
+      document.documentElement.classList.add('is-standalone');
+      if(isIOS) document.documentElement.classList.add('ios-standalone');
+      if(isIPad) document.documentElement.classList.add('ipad-standalone');
+    }
+  } catch(e){}
+})();
+</script>
 </head>
 <body>
 <div id="loading" role="status" aria-live="polite"><div class="spinner" aria-hidden="true"></div><div id="loadMsg">Wczytywanie notatek…</div></div>
@@ -10372,7 +10405,7 @@ html[data-theme="sepia"] .sidebar-float-trigger {
       <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW Study</span>
-        <span class="sidebar-brand-ver">v3.63</span>
+        <span class="sidebar-brand-ver">v3.64</span>
       </div>
     </div>
 
@@ -11941,9 +11974,13 @@ async function boot(){
   // Nie dokładamy stałych pikseli: na iPadOS 27 tworzyły drugi, pusty pas.
   if(isIOS() && navigator.standalone){
     document.body.classList.add("ios-standalone");
+    document.documentElement.classList.add("ios-standalone");
     const ipadOS = /iPad/.test(navigator.userAgent) ||
       (navigator.platform==="MacIntel" && navigator.maxTouchPoints>1);
-    if(ipadOS) document.body.classList.add("ipad-standalone");
+    if(ipadOS) {
+      document.body.classList.add("ipad-standalone");
+      document.documentElement.classList.add("ipad-standalone");
+    }
   }
   $("loading").style.display = "none";
   updateBackupBadge();
