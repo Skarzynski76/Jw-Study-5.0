@@ -27,7 +27,7 @@
 <meta name="theme-color" content="#256b52">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>JW Study 3.64</title>
+<title>JW Study 3.65</title>
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
@@ -9285,8 +9285,6 @@ html[data-theme="dark"]{--powierzchnia:color-mix(in srgb,var(--panel) 96%,var(--
 html[data-theme="dark"] main{background:radial-gradient(900px 500px at 8% -8%,color-mix(in srgb,var(--accent2) 9%,transparent),transparent 62%),var(--bg)}
 html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
 
-/* Nagłówek iPada pozostaje jednolity i nieprzezroczysty pod szkłem systemowym. */
-body.ipad-standalone > header, body.ipad-standalone #appContainer > header, body.ipad-standalone #appMainContent > header, html.ipad-standalone header{background-image:none!important;box-shadow:0 5px 18px rgba(20,50,38,.13)}
 @media(max-width:760px){main{gap:8px;padding:8px}.col{border-radius:15px!important}.ncard{border-radius:15px}.brand-name .ver{background:transparent;padding:0}}
 </style><style>
 /* JW Study 3.50 — bloki, malarz formatów i podpisy ilustracji */
@@ -9379,21 +9377,24 @@ body {
 
 /* Nagłówek aplikacji */
 header {
-  background: linear-gradient(135deg, color-mix(in srgb, var(--accent, #1b6348) 75%, #000) 0%, var(--accent, #216950) 55%, color-mix(in srgb, var(--accent, #216950) 80%, #fff) 100%) !important;
+  background-color: var(--accent, #1b6348) !important;
+  background: linear-gradient(135deg, #134e38 0%, #1a5c43 55%, #206d50 100%) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.16) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
 }
 .brand-name {
+  color: #ffffff !important;
   font-weight: 750 !important;
   letter-spacing: -0.02em !important;
 }
 .searchwrap {
   border-radius: 14px !important;
   border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  background: rgba(255, 255, 255, 0.18) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
 }
 .searchwrap:focus-within {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, #277a5e) 40%, transparent), 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35), 0 4px 16px rgba(0, 0, 0, 0.12) !important;
 }
 
 /* Karty notatek — nowoczesny wygląd z delikatnym cieniem i zaokrągleniami */
@@ -10340,41 +10341,30 @@ html[data-theme="sepia"] .sidebar-float-trigger {
   z-index: 10060 !important;
 }
 
-/* ══════════════ OBNIŻENIE GÓRNEGO MENU / NAGŁÓWKA (IPAD & SAFE AREA) ══════════════ */
+/* ══════════════ WYSOKOŚĆ I DOPASOWANIE NAGŁÓWKA (IPAD & SAFE AREA) ══════════════ */
 header {
-  padding-top: max(46px, calc(30px + env(safe-area-inset-top, 0px))) !important;
-  padding-bottom: 12px !important;
+  padding-top: max(18px, calc(10px + env(safe-area-inset-top, 0px))) !important;
+  padding-bottom: 9px !important;
   padding-left: max(16px, env(safe-area-inset-left, 0px)) !important;
   padding-right: max(16px, env(safe-area-inset-right, 0px)) !important;
 }
 #modernSidebar {
-  padding-top: max(42px, calc(26px + env(safe-area-inset-top, 0px))) !important;
-}
-
-/* Wyraźne obniżenie na iPadzie i iOS (Safari oraz PWA / Standalone) */
-@supports (-webkit-touch-callout: none) {
-  header {
-    padding-top: max(54px, calc(38px + env(safe-area-inset-top, 0px))) !important;
-    padding-bottom: 14px !important;
-  }
-  #modernSidebar {
-    padding-top: max(50px, calc(34px + env(safe-area-inset-top, 0px))) !important;
-  }
+  padding-top: max(16px, calc(8px + env(safe-area-inset-top, 0px))) !important;
 }
 
 html.is-ipad header, body.is-ipad header,
 html.is-ios header, body.is-ios header,
 html.ipad-standalone header, body.ipad-standalone header,
 html.ios-standalone header, body.ios-standalone header {
-  padding-top: max(56px, calc(40px + env(safe-area-inset-top, 0px))) !important;
-  padding-bottom: 14px !important;
+  padding-top: max(22px, calc(12px + env(safe-area-inset-top, 0px))) !important;
+  padding-bottom: 9px !important;
 }
 
 html.ipad-standalone #modernSidebar, body.ipad-standalone #modernSidebar,
 html.is-ipad #modernSidebar, body.is-ipad #modernSidebar,
 html.ios-standalone #modernSidebar, body.ios-standalone #modernSidebar,
 html.is-ios #modernSidebar, body.is-ios #modernSidebar {
-  padding-top: max(52px, calc(36px + env(safe-area-inset-top, 0px))) !important;
+  padding-top: max(18px, calc(8px + env(safe-area-inset-top, 0px))) !important;
 }
 
 </style>
