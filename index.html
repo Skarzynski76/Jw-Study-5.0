@@ -18,7 +18,7 @@
      'wasm-unsafe-eval' jest potrzebne bibliotece sql.js, która czyta bazę
      SQLite z kopii JW Library — biblioteka leży w katalogu lib/ obok aplikacji,
      nie na obcym serwerze. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' blob: 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https:; manifest-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' blob: 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -27,7 +27,7 @@
 <meta name="theme-color" content="#256b52">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>JW Study 3.65</title>
+<title>JW Study 3.66</title>
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
@@ -10395,7 +10395,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
       <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW Study</span>
-        <span class="sidebar-brand-ver">v3.64</span>
+        <span class="sidebar-brand-ver">v3.66</span>
       </div>
     </div>
 
@@ -11088,7 +11088,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
    Stałe, stan aplikacji, skrót $
    ========================================================================== */
 "use strict";
-const APP_VERSION = "3.63";
+const APP_VERSION = "3.66";
 const BOOKS = ["","Rodzaju","Wyjścia","Kapłańska","Liczb","Powtórzonego Prawa","Jozuego","Sędziów","Rut","1 Samuela","2 Samuela","1 Królów","2 Królów","1 Kronik","2 Kronik","Ezdrasza","Nehemiasza","Estery","Hioba","Psalmy","Przysłów","Kaznodziei","Pieśń nad Pieśniami","Izajasza","Jeremiasza","Lamentacje","Ezechiela","Daniela","Ozeasza","Joela","Amosa","Abdiasza","Jonasza","Micheasza","Nahuma","Habakuka","Sofoniasza","Aggeusza","Zachariasza","Malachiasza","Mateusza","Marka","Łukasza","Jana","Dzieje Apostolskie","Rzymian","1 Koryntian","2 Koryntian","Galatów","Efezjan","Filipian","Kolosan","1 Tesaloniczan","2 Tesaloniczan","1 Tymoteusza","2 Tymoteusza","Tytusa","Filemona","Hebrajczyków","Jakuba","1 Piotra","2 Piotra","1 Jana","2 Jana","3 Jana","Judy","Objawienie"];
 
 const DBNAME = "jwStudyClean";   // nazwa pamięci tej kopii aplikacji
