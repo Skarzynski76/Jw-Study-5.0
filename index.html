@@ -27,7 +27,7 @@
 <meta name="theme-color" content="#256b52">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>JW Study 3.67</title>
+<title>JW Study 3.68</title>
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
@@ -96,10 +96,10 @@ header #sortSel option{color:#1e293b;background:#fff}
 #searchSug .sug .sdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 #searchSug .sug .shint{margin-left:auto;font-size:11px;color:var(--muted)}
 #searchSug .sug-lbl{font-size:11px;color:var(--muted);padding:6px 11px 3px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
-.search-ic{width:18px;height:18px;color:var(--muted);flex-shrink:0}
-#search{flex:1;min-width:60px;padding:10px 0;border:none;background:transparent;font-size:14px;outline:none;color:var(--text)}
-#btnSearchTools{background:transparent;border:none;color:var(--muted);font-size:14px;cursor:pointer;padding:4px 6px;border-radius:6px;transition:all .14s ease}
-#btnSearchTools:hover{background:var(--sel);color:var(--text)}
+.search-ic{width:18px;height:18px;color:rgba(255,255,255,.8);flex-shrink:0}
+#search{flex:1;min-width:60px;padding:10px 0;border:none;background:transparent;font-size:14px;outline:none;appearance:none;-webkit-appearance:none;color:#ffffff!important;-webkit-text-fill-color:#ffffff!important;caret-color:#ffffff!important;color-scheme:dark!important}
+#btnSearchTools{background:transparent;border:none;color:rgba(255,255,255,.8);font-size:14px;cursor:pointer;padding:4px 6px;border-radius:6px;transition:all .14s ease}
+#btnSearchTools:hover{background:rgba(255,255,255,.2);color:#ffffff}
 select,button,input{font-family:inherit}
 .btn{padding:8px 14px;border:1px solid var(--border);border-radius:10px;background:var(--panel);cursor:pointer;font-size:13px;font-weight:500;white-space:nowrap;color:var(--text);display:inline-flex;align-items:center;justify-content:center;gap:6px;
   transition:background .14s ease, border-color .14s ease, transform .1s cubic-bezier(.22,.9,.32,1), box-shadow .14s ease}
@@ -1416,7 +1416,7 @@ html[data-theme="dark"] .help-warn { background: #2e2517; border-color: #4a3c22;
   border: 1px solid var(--border);
   border-radius: 16px;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25), 0 4px 14px rgba(0, 0, 0, 0.08);
-  z-index: 2500 !important;
+  z-index: 2500;
   max-height: 76vh;
   overflow-y: auto;
   display: none;
@@ -2080,7 +2080,9 @@ html[data-theme="dark"] .qf-n {
 /* ——— Wyszukiwanie, podświetlenia i nawigacja ——— */
 html[data-theme="dark"] #search {
   background: transparent;
-  color: var(--text);
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
 }
 html[data-theme="dark"] .searchwrap {
   background: #11171e;
@@ -2401,13 +2403,13 @@ header .fontctl button{background:transparent;border:0;color:#fff}
 header .fontctl button+button{border-left:1px solid rgba(255,255,255,.2)}
 header .fontctl button:hover{background:rgba(255,255,255,.16)}
 .searchwrap{border:0;border-radius:11px;background:rgba(255,255,255,.16);padding:0 12px}
-.searchwrap .ic{color:rgba(255,255,255,.75)}
+.searchwrap .ic{color:rgba(255,255,255,.85)}
 #search{color:#fff;font-size:15px;padding:9px 0}
-#search::placeholder{color:rgba(255,255,255,.65)}
-.searchwrap:focus-within{background:#fff;box-shadow:none;border:0}
-.searchwrap:focus-within #search{color:var(--text)}
-.searchwrap:focus-within #search::placeholder{color:var(--muted)}
-.searchwrap:focus-within .ic{color:var(--muted)}
+#search::placeholder{color:rgba(255,255,255,.7)}
+.searchwrap:focus-within{background:rgba(255,255,255,.24);box-shadow:none;border:0}
+.searchwrap:focus-within #search{color:#fff}
+.searchwrap:focus-within #search::placeholder{color:rgba(255,255,255,.6)}
+.searchwrap:focus-within .ic{color:#fff}
 
 /* ——— kolumny jako karty ——— */
 .col{border-radius:16px}
@@ -9394,7 +9396,42 @@ header {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
 }
 .searchwrap:focus-within {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: rgba(255, 255, 255, 0.55) !important;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35), 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+}
+#search,
+header #search,
+.searchwrap #search,
+.searchwrap input,
+.searchwrap input[type="search"],
+#search:focus,
+#search:active,
+#search:focus-visible,
+.searchwrap:focus-within #search,
+.searchwrap:focus-within input {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
+}
+#search::placeholder,
+.searchwrap #search::placeholder,
+.searchwrap input::placeholder,
+.searchwrap:focus-within #search::placeholder {
+  color: rgba(255, 255, 255, 0.72) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.72) !important;
+}
+#search:-webkit-autofill,
+#search:-webkit-autofill:hover,
+#search:-webkit-autofill:focus,
+#search:-webkit-autofill:active {
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
+}
+.searchwrap .ic,
+.searchwrap:focus-within .ic,
+#btnSearchTools {
+  color: rgba(255, 255, 255, 0.88) !important;
 }
 
 /* Karty notatek — nowoczesny wygląd z delikatnym cieniem i zaokrągleniami */
@@ -11088,7 +11125,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
    Stałe, stan aplikacji, skrót $
    ========================================================================== */
 "use strict";
-const APP_VERSION = "3.67";
+const APP_VERSION = "3.68";
 const BOOKS = ["","Rodzaju","Wyjścia","Kapłańska","Liczb","Powtórzonego Prawa","Jozuego","Sędziów","Rut","1 Samuela","2 Samuela","1 Królów","2 Królów","1 Kronik","2 Kronik","Ezdrasza","Nehemiasza","Estery","Hioba","Psalmy","Przysłów","Kaznodziei","Pieśń nad Pieśniami","Izajasza","Jeremiasza","Lamentacje","Ezechiela","Daniela","Ozeasza","Joela","Amosa","Abdiasza","Jonasza","Micheasza","Nahuma","Habakuka","Sofoniasza","Aggeusza","Zachariasza","Malachiasza","Mateusza","Marka","Łukasza","Jana","Dzieje Apostolskie","Rzymian","1 Koryntian","2 Koryntian","Galatów","Efezjan","Filipian","Kolosan","1 Tesaloniczan","2 Tesaloniczan","1 Tymoteusza","2 Tymoteusza","Tytusa","Filemona","Hebrajczyków","Jakuba","1 Piotra","2 Piotra","1 Jana","2 Jana","3 Jana","Judy","Objawienie"];
 
 const DBNAME = "jwStudyClean";   // nazwa pamięci tej kopii aplikacji
@@ -12402,7 +12439,7 @@ function autoTematyZlicz(base){
   base.forEach(n=>{ const ids=autoTematyNotatki(n); if(ids.length) notatki++; ids.forEach(id=>counts[id]=(counts[id]||0)+1); });
   return {notatki, lista:wszystkieAutoTematy().map(t=>({...t,count:counts[t.id]||0}))};
 }
-function autoTematyOtwarte(){ return lsGet(KP+"AutoTematyOpen","1")!=="0"; }
+function autoTematyOtwarte(){ return lsGet(KP+"AutoTematyOpen","0")==="1"; }
 function aktywnyAutoTemat(){
   const id=typeof filt.tag==="string"&&filt.tag.indexOf("auto:")===0?filt.tag.slice(5):"";
   return id?wszystkieAutoTematy().find(t=>t.id===id)||null:null;
@@ -13529,12 +13566,13 @@ function renderTags(){
       ? ` style="--secBg:${kol};--secLine:${shade(kol,-.28)};`+
         `--secFg:${czytelnyTekst(kol)};--secFg2:${czytelnyTekstSlaby(kol)}"`
       : "";
-    html += `<div class="secHead${s.open===false?" closed":""}" data-sec="${s.id}"${sc}>
-      <span class="secArr">${s.open===false?"▸":"▾"}</span>
+    const isOpen = s.open === true;
+    html += `<div class="secHead${isOpen?"":" closed"}" data-sec="${s.id}"${sc}>
+      <span class="secArr">${isOpen?"▾":"▸"}</span>
       <span class="secName">${esc(s.name)}</span>
       <span class="secCnt" title="${esc(opisSekcji(s, inside.length, sum))}">${licznikSekcji(s, sum)}</span>
       <span class="secMore" title="Opcje sekcji">${IC_DOTS}</span></div>`;
-    if(s.open!==false){
+    if(isOpen){
       // zakładki sekcji nad etykietami — to one porządkują jej zawartość
       if(typeof secTabRowsHtml==="function") html += secTabRowsHtml(s.id);
       const wZakladkach = typeof secTabsFor==="function"
@@ -14746,6 +14784,70 @@ function noteCardTools(n){
      </div>`;
 }
 
+function otworzMenuNotatki(btn, n, card){
+  const dd = $("dropdown");
+  if(!dd) return;
+  if(dd.style.display === "block" && dd._lastAnchor === btn){
+    dd.style.display = "none";
+    dd._lastAnchor = null;
+    return;
+  }
+  dd._lastAnchor = btn;
+  const link = finderUrl(n);
+  dd.innerHTML =
+    (typeof paskTlaNotatki==="function" ? paskTlaNotatki(n) + `<div class="dd-sep"></div>` : "") +
+    `<div data-x="fav">${ICO.star}${n.fav?"Usuń z ulubionych":"Dodaj do ulubionych"}</div>
+     <div data-x="pin">${ICO.pin}${n.pin?"Odepnij z góry":"Przypnij na górze"}</div>
+     <div class="dd-sep"></div>
+     <div data-x="read">${ICO.book}Tryb czytania</div>
+     <div data-x="copy">${ICO.copy}Kopiuj treść</div>
+     <div data-x="wyslij">${ICO.send}Wyślij na inne urządzenie…</div>
+     ${link?`<div data-x="link">${ICO.link}Kopiuj odnośnik</div>`:""}
+     ${link?`<div data-x="open">${ICO.ext}Otwórz w JW Library</div>`:""}
+     <div class="dd-sep"></div>
+     <div data-x="powtorka">${IC_CLOCK}Przypomnij mi o niej…${(typeof maPowtorke==="function" && maPowtorke(n))?' <span class="ddZnak">✓</span>':""}</div>
+     <div data-x="szablon">${ICO.doc}Zapisz jako szablon…</div>
+     <div class="dd-sep"></div>
+     <div data-x="grCentrum">${ICO.books}Centrum Studium${(n.cenq||n.ceni)?' <span class="ddZnak">✓</span>':""}<span class="ddStrz">›</span></div>
+     <div data-x="grMiejsce">${ICO.bookmark}Gdzie leży<span class="ddStrz">›</span></div>
+     <div data-x="grWyglad">${ICO.paint}Wygląd${(n.wys!==undefined||n.bg)?' <span class="ddZnak">✓</span>':""}<span class="ddStrz">›</span></div>
+     <div data-x="grZapis">${ICO.doc}Zapisz jako plik<span class="ddStrz">›</span></div>
+     <div class="dd-sep"></div>
+     <div data-x="del" class="dd-danger">${ICO.trash}Usuń notatkę</div>`;
+  if(typeof oznaczPozycjeMenu==="function") oznaczPozycjeMenu(dd);
+  dd.style.display = "block";
+  placeDropdown(dd, btn);
+  dd.onclick = ev=>{
+    const kotwica = card || (btn && btn.closest ? btn.closest(".ncard") : null) || document.body;
+    if(typeof obsluzPaskTla==="function" && obsluzPaskTla(ev, n, kotwica)) return;
+    const it=ev.target.closest("[data-x]"); if(!it) return;
+    const x=it.dataset.x; dd.style.display="none";
+    if(x==="grCentrum" || x==="grMiejsce" || x==="grWyglad" || x==="grZapis"){
+      setTimeout(()=>podmenuNotatki(x, n, kotwica), 40); return; }
+    if(x==="ptb"){ setTimeout(()=>pubTabMenu(n, kotwica), 40); return; }
+    if(x==="stb"){ setTimeout(()=>menuZakladek(kotwica, n, "note"), 40); return; }
+    if(x==="powtorka" && typeof menuPowtorki==="function"){
+      setTimeout(()=>menuPowtorki(n, kotwica), 40); return; }
+    if(x==="wysokosc" && typeof menuWysokosci==="function"){
+      setTimeout(()=>menuWysokosci(n, kotwica), 40); return; }
+    if(x==="szablon" && typeof zapiszJakoSzablon==="function"){ zapiszJakoSzablon(n.g); return; }
+    if(x==="tlo" && typeof menuTlaNotatki==="function"){
+      setTimeout(()=>menuTlaNotatki(n, kotwica), 40); return; }
+    if(x==="fav") toggleFav(n);
+    else if(x==="pin") togglePin(n);
+    else if(x==="doc") exportNoteWord(n);
+    else if(x==="pdf") exportNotePdf(n);
+    else if(x==="wyslij" && typeof wyslijNotatke==="function") wyslijNotatke(n.g);
+    else if(x==="verse") assignVerse(n);
+    else if(x==="miejsce" && typeof ustawMiejsceWPublikacji==="function") ustawMiejsceWPublikacji(n.g);
+    else if(x==="copy") copyNote(n);
+    else if(x==="link") navigator.clipboard.writeText(finderUrl(n)).then(()=>toast("Skopiowano odnośnik"));
+    else if(x==="read") toggleReading(kotwica);
+    else if(x==="open") openUrlJWL(finderUrl(n));
+    else if(x==="del") delNote(n);
+  };
+}
+
 /**
  * Buduje kartę notatki wraz z obsługą zdarzeń. Zawartość składana jest z czterech
  * części: noteCardHead (uchwyt i tytuł), noteCardMeta (werset, publikacja, data),
@@ -14805,63 +14907,7 @@ function noteCard(n){
     if(act==="fs"){ openFs(n); return; }
     if(act==="autoexclude"){ const t=aktywnyAutoTemat(); if(t) autoTematWyklucz(n,t.id); return; }
     if(act==="more" || act==="exp"){
-      const dd=$("dropdown");
-      dd.innerHTML =
-        /* Kolory na samej górze: dwa dotknięcia zamiast czterech i widać je
-           od razu po otwarciu menu. Budowa i obsługa siedzą w 39-tablica.js
-           razem z resztą rzeczy o tle notatki. */
-        (typeof paskTlaNotatki==="function" ? paskTlaNotatki(n) + `<div class="dd-sep"></div>` : "") +
-        `<div data-x="fav">${ICO.star}${n.fav?"Usuń z ulubionych":"Dodaj do ulubionych"}</div>
-         <div data-x="pin">${ICO.pin}${n.pin?"Odepnij z góry":"Przypnij na górze"}</div>
-         <div class="dd-sep"></div>
-         <div data-x="read">${ICO.book}Tryb czytania</div>
-         <div data-x="copy">${ICO.copy}Kopiuj treść</div>
-         <div data-x="wyslij">${ICO.send}Wyślij na inne urządzenie…</div>
-         ${link?`<div data-x="link">${ICO.link}Kopiuj odnośnik</div>`:""}
-         ${link?`<div data-x="open">${ICO.ext}Otwórz w JW Library</div>`:""}
-         <div class="dd-sep"></div>
-         <div data-x="powtorka">${IC_CLOCK}Przypomnij mi o niej…${(typeof maPowtorke==="function" && maPowtorke(n))?' <span class="ddZnak">✓</span>':""}</div>
-         <div data-x="szablon">${ICO.doc}Zapisz jako szablon…</div>
-         <div class="dd-sep"></div>
-         <div data-x="grCentrum">${ICO.books}Centrum Studium${(n.cenq||n.ceni)?' <span class="ddZnak">✓</span>':""}<span class="ddStrz">›</span></div>
-         <div data-x="grMiejsce">${ICO.bookmark}Gdzie leży<span class="ddStrz">›</span></div>
-         <div data-x="grWyglad">${ICO.paint}Wygląd${(n.wys!==undefined||n.bg)?' <span class="ddZnak">✓</span>':""}<span class="ddStrz">›</span></div>
-         <div data-x="grZapis">${ICO.doc}Zapisz jako plik<span class="ddStrz">›</span></div>
-         <div class="dd-sep"></div>
-         <div data-x="del" class="dd-danger">${ICO.trash}Usuń notatkę</div>`;
-      dd.style.display="block";
-      placeDropdown(dd, e.target);
-      dd.onclick = ev=>{
-        const kotwica = e.target.closest(".ncard") || document.body;
-        /* Pasek kolorów pytamy PIERWSZY: jego przyciski nie mają `data-x`,
-           więc bez tego wiersza kliknięcie w próbkę nie robiłoby nic. */
-        if(typeof obsluzPaskTla==="function" && obsluzPaskTla(ev, n, kotwica)) return;
-        const it=ev.target.closest("[data-x]"); if(!it) return;
-        const x=it.dataset.x; dd.style.display="none";
-        if(x==="grCentrum" || x==="grMiejsce" || x==="grWyglad" || x==="grZapis"){
-          setTimeout(()=>podmenuNotatki(x, n, kotwica), 40); return; }
-        if(x==="ptb"){ setTimeout(()=>pubTabMenu(n, kotwica), 40); return; }
-        if(x==="stb"){ setTimeout(()=>menuZakladek(kotwica, n, "note"), 40); return; }
-        if(x==="powtorka" && typeof menuPowtorki==="function"){
-          setTimeout(()=>menuPowtorki(n, e.target.closest(".ncard")||document.body), 40); return; }
-        if(x==="wysokosc" && typeof menuWysokosci==="function"){
-          setTimeout(()=>menuWysokosci(n, e.target.closest(".ncard")||document.body), 40); return; }
-        if(x==="szablon" && typeof zapiszJakoSzablon==="function"){ zapiszJakoSzablon(n.g); return; }
-        if(x==="tlo" && typeof menuTlaNotatki==="function"){
-          setTimeout(()=>menuTlaNotatki(n, e.target.closest(".ncard")||document.body), 40); return; }
-        if(x==="fav") toggleFav(n);
-        else if(x==="pin") togglePin(n);
-        else if(x==="doc") exportNoteWord(n);
-        else if(x==="pdf") exportNotePdf(n);
-        else if(x==="wyslij" && typeof wyslijNotatke==="function") wyslijNotatke(n.g);
-        else if(x==="verse") assignVerse(n);
-        else if(x==="miejsce" && typeof ustawMiejsceWPublikacji==="function") ustawMiejsceWPublikacji(n.g);
-        else if(x==="copy") copyNote(n);
-        else if(x==="link") navigator.clipboard.writeText(finderUrl(n)).then(()=>toast("Skopiowano odnośnik"));
-        else if(x==="read") toggleReading(d);
-        else if(x==="open") openUrlJWL(finderUrl(n));
-        else if(x==="del") delNote(n);
-      };
+      otworzMenuNotatki(actionEl || e.target, n, d);
       return;
     }
     if(act==="copy") copyNote(n);
@@ -15045,6 +15091,16 @@ function renderFs(){
     aa.innerHTML = '<span style="font-weight:800;font-size:15px;letter-spacing:.5px">Aa</span>';
     aa.addEventListener("pointerdown", e=>{ e.preventDefault(); openReadPop(aa); });
     br.appendChild(aa);
+  }
+  const moreBtn = card.querySelector('.more-btn, [data-act="more"]');
+  if(moreBtn){
+    const otworz = e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      otworzMenuNotatki(moreBtn, n, card);
+    };
+    moreBtn.addEventListener("pointerdown", otworz);
+    moreBtn.addEventListener("click", otworz);
   }
   /* Powiązane notatki pod treścią — to miejsce na przypomnienie, którego nikt
      nie szukał, więc nie może zasłaniać tego, po co się notatkę otworzyło. */
@@ -26407,7 +26463,7 @@ document.addEventListener("click", e=>{
    Wyjątkiem jest zawsze przycisk otwierający — inaczej dotknięcie go przy
    otwartym okienku zamknęłoby je i natychmiast otworzyło z powrotem. */
 const OKIENKA = [
-  {id:"dropdown",  wyjatki:["#btnMenu", "#btnCols", "#navItemMenu", "#navItemCols"]},
+  {id:"dropdown",  wyjatki:["#btnMenu", "#btnCols", "#navItemMenu", "#navItemCols", '[data-act="more"]', '[data-act="exp"]', ".more", ".secMore", ".more-btn"]},
   {id:"colorMenu", wyjatki:["#btnColors", "#btnSettings", "#navItemColors", "#navItemSettings"]},
   {id:"motywMenu", wyjatki:["#btnTheme", "#navItemTheme"]},
   {id:"readPop",   wyjatki:["[data-readbtn]"]},
