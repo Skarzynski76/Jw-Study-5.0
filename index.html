@@ -119,44 +119,198 @@ select,button,input{font-family:inherit}
 
 
 
-/* ══════════════ NOWOCZESNY UKŁAD I GRAFIKA CENTRUM STUDIUM (v3.70) ══════════════ */
-.cenCentrumShell {
-  display: flex;
-  min-height: calc(100vh - 54px);
-  background: var(--bg);
+/* ══════════════ NOWOCZESNY UKŁAD I GRAFIKA CENTRUM STUDIUM (v3.71) ══════════════ */
+:root {
+  --cen-bg: var(--bg);
+  --cen-card-bg: var(--panel);
+  --cen-card-border: rgba(0, 0, 0, 0.08);
+  --cen-card-border-hover: rgba(37, 99, 235, 0.4);
+  --cen-text: #0f172a;
+  --cen-text-sub: #334155;
+  --cen-text-muted: #64748b;
+  --cen-card-shadow: 0 2px 10px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --cen-card-shadow-hover: 0 10px 28px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+  --cen-btn-bg: rgba(0, 0, 0, 0.05);
+  --cen-btn-border: rgba(0, 0, 0, 0.09);
+  --cen-btn-color: #334155;
+  --cen-btn-hover-bg: rgba(0, 0, 0, 0.09);
+  --cen-btn-hover-color: #0f172a;
+  --cen-zadanie-bg: linear-gradient(135deg, #f0f7ff 0%, #e0e7ff 100%);
+  --cen-zadanie-border: rgba(59, 130, 246, 0.35);
+  --cen-zadanie-tyt: #1e3a8a;
+  --cen-zadanie-podtyt: #2563eb;
+  --cen-zadanie-iko-bg: #dbeafe;
+  --cen-zadanie-iko-border: rgba(59, 130, 246, 0.3);
+  --cen-zadanie-iko-color: #1d4ed8;
+  --cen-banner-bg: rgba(0, 0, 0, 0.025);
+  --cen-banner-border: rgba(0, 0, 0, 0.07);
+  --cen-banner-tyt: #0f172a;
+  --cen-banner-sub: #64748b;
+  --cen-banner-iko-bg: rgba(0, 0, 0, 0.05);
+  --cen-progress-track: rgba(0, 0, 0, 0.08);
+  --cen-cal-grid-bg: var(--panel);
+  --cen-cal-cell-bg: rgba(0, 0, 0, 0.025);
+  --cen-cal-cell-hover: rgba(37, 99, 235, 0.08);
+  --cen-cal-cell-active: rgba(37, 99, 235, 0.14);
+  --cen-cal-cell-border: #3b82f6;
+  --cen-cal-day-color: #0f172a;
+  --cen-frag-check-border: rgba(0, 0, 0, 0.25);
+  --cen-frag-check-bg: rgba(0, 0, 0, 0.02);
+  --cen-tabs-bg: rgba(0, 0, 0, 0.04);
+  --cen-tabs-border: rgba(0, 0, 0, 0.08);
+  --cen-tab-color: #64748b;
+  --cen-tab-hover-color: #0f172a;
+  --cen-tab-hover-bg: rgba(0, 0, 0, 0.06);
+  --cen-input-bg: var(--panel);
+  --cen-input-border: rgba(0, 0, 0, 0.15);
+  --cen-input-color: #0f172a;
+  --cen-sec-head: #475569;
+  --cen-radial-bg: rgba(0, 0, 0, 0.08);
 }
+
+html[data-theme="dark"] {
+  --cen-bg: #0d1217;
+  --cen-card-bg: #151d28;
+  --cen-card-border: rgba(255, 255, 255, 0.08);
+  --cen-card-border-hover: rgba(255, 255, 255, 0.22);
+  --cen-text: #f8fafc;
+  --cen-text-sub: #cbd5e1;
+  --cen-text-muted: #94a3b8;
+  --cen-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  --cen-card-shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.38);
+  --cen-btn-bg: rgba(255, 255, 255, 0.06);
+  --cen-btn-border: rgba(255, 255, 255, 0.1);
+  --cen-btn-color: #94a3b8;
+  --cen-btn-hover-bg: rgba(255, 255, 255, 0.14);
+  --cen-btn-hover-color: #ffffff;
+  --cen-zadanie-bg: linear-gradient(135deg, #151e2c, #131b26);
+  --cen-zadanie-border: rgba(59, 130, 246, 0.25);
+  --cen-zadanie-tyt: #ffffff;
+  --cen-zadanie-podtyt: #94a3b8;
+  --cen-zadanie-iko-bg: rgba(59, 130, 246, 0.12);
+  --cen-zadanie-iko-border: rgba(59, 130, 246, 0.25);
+  --cen-zadanie-iko-color: #60a5fa;
+  --cen-banner-bg: rgba(255, 255, 255, 0.025);
+  --cen-banner-border: rgba(255, 255, 255, 0.06);
+  --cen-banner-tyt: #ffffff;
+  --cen-banner-sub: #64748b;
+  --cen-banner-iko-bg: rgba(255, 255, 255, 0.05);
+  --cen-progress-track: rgba(255, 255, 255, 0.08);
+  --cen-cal-grid-bg: #151d28;
+  --cen-cal-cell-bg: rgba(255, 255, 255, 0.025);
+  --cen-cal-cell-hover: rgba(255, 255, 255, 0.08);
+  --cen-cal-cell-active: rgba(37, 99, 235, 0.25);
+  --cen-cal-cell-border: #3b82f6;
+  --cen-cal-day-color: #ffffff;
+  --cen-frag-check-border: rgba(255, 255, 255, 0.25);
+  --cen-frag-check-bg: rgba(255, 255, 255, 0.03);
+  --cen-tabs-bg: rgba(255, 255, 255, 0.04);
+  --cen-tabs-border: rgba(255, 255, 255, 0.07);
+  --cen-tab-color: #94a3b8;
+  --cen-tab-hover-color: #ffffff;
+  --cen-tab-hover-bg: rgba(255, 255, 255, 0.06);
+  --cen-input-bg: #151d28;
+  --cen-input-border: rgba(255, 255, 255, 0.12);
+  --cen-input-color: #ffffff;
+  --cen-sec-head: #94a3b8;
+  --cen-radial-bg: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="sepia"] {
+  --cen-bg: #f2ebd9;
+  --cen-card-bg: #faf4e6;
+  --cen-card-border: #e2d6be;
+  --cen-card-border-hover: #846231;
+  --cen-text: #3e3323;
+  --cen-text-sub: #5c4d37;
+  --cen-text-muted: #827357;
+  --cen-card-shadow: 0 4px 18px rgba(70, 50, 20, 0.04);
+  --cen-card-shadow-hover: 0 8px 24px rgba(70, 50, 20, 0.08);
+  --cen-btn-bg: rgba(132, 98, 49, 0.08);
+  --cen-btn-border: rgba(132, 98, 49, 0.18);
+  --cen-btn-color: #5c4d37;
+  --cen-btn-hover-bg: rgba(132, 98, 49, 0.14);
+  --cen-btn-hover-color: #3e3323;
+  --cen-zadanie-bg: linear-gradient(135deg, #fbf5e6 0%, #f3e5c8 100%);
+  --cen-zadanie-border: rgba(132, 98, 49, 0.28);
+  --cen-zadanie-tyt: #3e3323;
+  --cen-zadanie-podtyt: #846231;
+  --cen-zadanie-iko-bg: rgba(132, 98, 49, 0.12);
+  --cen-zadanie-iko-border: rgba(132, 98, 49, 0.25);
+  --cen-zadanie-iko-color: #846231;
+  --cen-banner-bg: rgba(132, 98, 49, 0.04);
+  --cen-banner-border: rgba(132, 98, 49, 0.1);
+  --cen-banner-tyt: #3e3323;
+  --cen-banner-sub: #827357;
+  --cen-banner-iko-bg: rgba(132, 98, 49, 0.08);
+  --cen-progress-track: rgba(132, 98, 49, 0.14);
+  --cen-cal-grid-bg: #faf4e6;
+  --cen-cal-cell-bg: rgba(132, 98, 49, 0.04);
+  --cen-cal-cell-hover: rgba(132, 98, 49, 0.1);
+  --cen-cal-cell-active: rgba(132, 98, 49, 0.2);
+  --cen-cal-cell-border: #846231;
+  --cen-cal-day-color: #3e3323;
+  --cen-frag-check-border: rgba(132, 98, 49, 0.35);
+  --cen-frag-check-bg: rgba(132, 98, 49, 0.04);
+  --cen-tabs-bg: rgba(132, 98, 49, 0.06);
+  --cen-tabs-border: rgba(132, 98, 49, 0.14);
+  --cen-tab-color: #827357;
+  --cen-tab-hover-color: #3e3323;
+  --cen-tab-hover-bg: rgba(132, 98, 49, 0.1);
+  --cen-input-bg: #faf4e6;
+  --cen-input-border: #d4c5a9;
+  --cen-input-color: #3e3323;
+  --cen-sec-head: #827357;
+  --cen-radial-bg: rgba(132, 98, 49, 0.12);
+}
+
+.cenCentrumShell {
+  display: grid;
+  grid-template-columns: 215px minmax(0, 1fr);
+  align-items: start;
+  gap: 20px;
+  max-width: 1480px;
+  margin: 0 auto;
+  min-height: calc(100vh - 64px);
+  background: var(--cen-bg);
+}
+
 .cenCentrumMain {
   flex: 1;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 16px 24px 48px;
-  color: var(--text);
+  min-width: 0;
+  max-width: 100%;
+  padding: 18px 24px 60px;
+  color: var(--cen-text);
   font-family: inherit;
 }
+
 .cenNaglModern {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 22px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--cen-banner-border);
 }
+
 .cenNaglModern h1, .cenNaglModern .cenTytGlowny {
-  font-size: 20px;
+  font-size: clamp(17px, 2.5vw, 21px);
   font-weight: 800;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--cen-text);
   margin: 0;
   display: flex;
   align-items: center;
   gap: 12px;
 }
+
 .cenNaglAkcje {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
 .cenNaglBtnIko {
   display: inline-flex;
   align-items: center;
@@ -164,16 +318,17 @@ select,button,input{font-family:inherit}
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #94a3b8;
+  background: var(--cen-btn-bg);
+  border: 1px solid var(--cen-btn-border);
+  color: var(--cen-btn-color);
   cursor: pointer;
   transition: all 0.16s ease;
 }
+
 .cenNaglBtnIko:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--cen-btn-hover-bg);
+  color: var(--cen-btn-hover-color);
+  border-color: var(--cen-card-border-hover);
 }
 
 /* 4 HERO CARDS (2x2 Grid) */
@@ -183,30 +338,28 @@ select,button,input{font-family:inherit}
   gap: 18px;
   margin-bottom: 20px;
 }
-@media (max-width: 860px) {
-  .cenHeroGrid {
-    grid-template-columns: 1fr;
-  }
-}
+
 .cenHeroCard {
-  background: #151d28;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
   border-radius: 20px;
-  padding: 22px 24px;
+  padding: clamp(16px, 2vw, 22px) clamp(16px, 2.5vw, 24px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--cen-card-shadow);
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
   position: relative;
   overflow: hidden;
 }
+
 .cenHeroCard:hover {
   transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  border-color: var(--cen-card-border-hover);
+  box-shadow: var(--cen-card-shadow-hover);
 }
+
 .cenHeroCard::after {
   content: '';
   position: absolute;
@@ -228,17 +381,18 @@ select,button,input{font-family:inherit}
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
+
 .cenHeroIkoBox {
-  width: 52px;
-  height: 52px;
+  width: 50px;
+  height: 50px;
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
 }
 .cenHeroCard.card-blue .cenHeroIkoBox {
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
@@ -261,60 +415,71 @@ select,button,input{font-family:inherit}
   box-shadow: 0 6px 18px rgba(249, 115, 22, 0.35);
 }
 .cenHeroIkoBox svg {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
 }
+
 .cenHeroInfo {
   flex: 1;
+  min-width: 0;
 }
+
 .cenHeroTyt {
   font-size: 15px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--cen-text);
   margin: 0 0 6px 0;
 }
+
 .cenHeroOpis {
   font-size: 13px;
   line-height: 1.45;
-  color: #94a3b8;
+  color: var(--cen-text-sub);
   margin: 0;
 }
 
 .cenHeroBottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--cen-card-border);
   padding-top: 14px;
 }
+
 .cenHeroMetaRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 13px;
 }
+
 .cenHeroMetaLabel {
-  color: #94a3b8;
+  color: var(--cen-text-muted);
   font-weight: 500;
 }
+
 .cenHeroMetaVal {
-  color: #ffffff;
+  color: var(--cen-text);
   font-weight: 700;
   display: flex;
   align-items: center;
   gap: 6px;
 }
-.cenHeroMetaVal.val-green { color: #34d399; }
-.cenHeroMetaVal.val-purple { color: #c084fc; }
-.cenHeroMetaVal.val-orange { color: #fb923c; }
+.cenHeroMetaVal.val-green { color: #059669; }
+html[data-theme="dark"] .cenHeroMetaVal.val-green { color: #34d399; }
+.cenHeroMetaVal.val-purple { color: #9333ea; }
+html[data-theme="dark"] .cenHeroMetaVal.val-purple { color: #c084fc; }
+.cenHeroMetaVal.val-orange { color: #ea580c; }
+html[data-theme="dark"] .cenHeroMetaVal.val-orange { color: #fb923c; }
 
 .cenProgressBar {
   width: 100%;
   height: 6px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--cen-progress-track);
   border-radius: 99px;
   margin-top: 10px;
   overflow: hidden;
 }
+
 .cenProgressFill {
   height: 100%;
   background: linear-gradient(90deg, #3b82f6, #60a5fa);
@@ -324,66 +489,79 @@ select,button,input{font-family:inherit}
 
 /* DZISIEJSZE ZADANIE BANNER CARD */
 .cenZadanieCard {
-  background: linear-gradient(135deg, #151e2c, #131b26);
-  border: 1px solid rgba(59, 130, 246, 0.25);
+  background: var(--cen-zadanie-bg);
+  border: 1px solid var(--cen-zadanie-border);
   border-radius: 20px;
-  padding: 18px 26px;
+  padding: clamp(16px, 2vw, 20px) clamp(16px, 2.5vw, 26px);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 18px;
   margin-bottom: 24px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--cen-card-shadow);
+  transition: all 0.2s ease;
 }
+
 .cenZadanieLewo {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
+  min-width: 0;
+  flex: 1;
 }
+
 .cenZadanieIko {
   width: 48px;
   height: 48px;
   border-radius: 14px;
-  background: rgba(59, 130, 246, 0.12);
-  border: 1px solid rgba(59, 130, 246, 0.25);
-  color: #60a5fa;
+  background: var(--cen-zadanie-iko-bg);
+  border: 1px solid var(--cen-zadanie-iko-border);
+  color: var(--cen-zadanie-iko-color);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 .cenZadanieIko svg {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
 }
+
 .cenZadanieTyt {
   font-size: 16px;
   font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 4px 0;
+  color: var(--cen-zadanie-tyt);
+  margin: 0 0 3px 0;
 }
+
 .cenZadaniePodtyt {
   font-size: 13.5px;
-  color: #94a3b8;
+  color: var(--cen-zadanie-podtyt);
   margin: 0;
 }
+
 .cenZadanieBtn {
   background: #2563eb;
   color: #ffffff;
   border: none;
-  padding: 11px 26px;
+  padding: 11px 24px;
   border-radius: 12px;
   font-size: 14.5px;
   font-weight: 700;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
   transition: all 0.16s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .cenZadanieBtn:hover {
   background: #1d4ed8;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.55);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
 }
 
 /* DOLNA BELKA FUNKCJI (FEATURES BANNER) */
@@ -392,51 +570,45 @@ select,button,input{font-family:inherit}
   grid-template-columns: repeat(4, 1fr);
   gap: 14px;
   margin-top: 14px;
-  padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: clamp(12px, 1.8vw, 16px) clamp(14px, 2vw, 20px);
+  background: var(--cen-banner-bg);
+  border: 1px solid var(--cen-banner-border);
   border-radius: 16px;
 }
-@media (max-width: 900px) {
-  .cenFeaturesBanner {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 520px) {
-  .cenFeaturesBanner {
-    grid-template-columns: 1fr;
-  }
-}
+
 .cenFeatureItem {
   display: flex;
   align-items: flex-start;
   gap: 12px;
 }
+
 .cenFeatureIko {
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--cen-banner-iko-bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #60a5fa;
+  color: var(--accent2);
   flex-shrink: 0;
 }
 .cenFeatureIko svg {
   width: 18px;
   height: 18px;
 }
+
 .cenFeatureTxt b {
   display: block;
   font-size: 12.5px;
-  color: #ffffff;
+  font-weight: 700;
+  color: var(--cen-banner-tyt);
   margin-bottom: 2px;
 }
 .cenFeatureTxt span {
   display: block;
-  font-size: 11px;
-  color: #64748b;
+  font-size: 11.5px;
+  color: var(--cen-banner-sub);
   line-height: 1.35;
 }
 
@@ -446,49 +618,56 @@ select,button,input{font-family:inherit}
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  gap: 10px;
 }
+
 .cenSubWsteczBtn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   background: transparent;
   border: none;
-  color: #ffffff;
-  font-size: 18px;
+  color: var(--cen-text);
+  font-size: clamp(15px, 2vw, 18px);
   font-weight: 700;
   cursor: pointer;
   padding: 6px 10px;
   border-radius: 10px;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   transition: all 0.14s ease;
 }
 .cenSubWsteczBtn:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: #60a5fa;
+  background: var(--cen-btn-bg);
+  color: var(--accent2);
 }
 
 .cenTabsRow {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--cen-tabs-bg);
+  border: 1px solid var(--cen-tabs-border);
   border-radius: 12px;
   padding: 4px;
   gap: 4px;
   margin-bottom: 20px;
   width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
+
 .cenTabBtn {
-  padding: 8px 18px;
+  padding: 8px 16px;
   border-radius: 9px;
   border: none;
   background: transparent;
-  color: #94a3b8;
+  color: var(--cen-tab-color);
   font-size: 13.5px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.14s ease;
+  white-space: nowrap;
 }
 .cenTabBtn.active {
   background: #2563eb;
@@ -496,8 +675,8 @@ select,button,input{font-family:inherit}
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
 }
 .cenTabBtn:hover:not(.active) {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--cen-tab-hover-color);
+  background: var(--cen-tab-hover-bg);
 }
 
 /* CHRONO QUICK ACTIONS ROW */
@@ -507,6 +686,7 @@ select,button,input{font-family:inherit}
   gap: 12px;
   margin-bottom: 22px;
 }
+
 .cenChronoAkcjaBtn {
   display: flex;
   flex-direction: column;
@@ -514,66 +694,75 @@ select,button,input{font-family:inherit}
   justify-content: center;
   gap: 8px;
   padding: 16px 12px;
-  background: #151d28;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
   border-radius: 16px;
-  color: #cbd5e1;
+  color: var(--cen-text);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
+  box-shadow: var(--cen-card-shadow);
   transition: all 0.16s ease;
 }
 .cenChronoAkcjaBtn:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.15);
+  background: var(--cen-card-bg);
+  border-color: var(--cen-card-border-hover);
+  box-shadow: var(--cen-card-shadow-hover);
   transform: translateY(-2px);
-  color: #ffffff;
+  color: #2563eb;
 }
 .cenChronoAkcjaBtn svg {
   width: 24px;
   height: 24px;
+  color: #2563eb;
+}
+html[data-theme="dark"] .cenChronoAkcjaBtn svg {
   color: #60a5fa;
 }
 
 /* FRAGMENT ITEM CARD */
 .cenFragCard {
-  background: #151d28;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 18px;
-  padding: 18px 20px;
-  margin-bottom: 14px;
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 16px;
+  padding: clamp(14px, 1.8vw, 18px) clamp(14px, 2vw, 20px);
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  box-shadow: var(--cen-card-shadow);
   transition: all 0.16s ease;
 }
 .cenFragCard:hover {
-  border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  border-color: var(--cen-card-border-hover);
+  box-shadow: var(--cen-card-shadow-hover);
 }
 .cenFragCard.done {
-  border-color: rgba(16, 185, 129, 0.35);
-  background: rgba(16, 185, 129, 0.04);
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.05);
 }
+
 .cenFragLewo {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   flex: 1;
+  min-width: 0;
 }
+
 .cenFragCheck {
   width: 26px;
   height: 26px;
   border-radius: 8px;
-  border: 2px solid rgba(255, 255, 255, 0.25);
+  border: 2px solid var(--cen-frag-check-border);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   flex-shrink: 0;
   transition: all 0.16s ease;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--cen-frag-check-bg);
 }
 .cenFragCheck.checked {
   background: #10b981;
@@ -584,23 +773,28 @@ select,button,input{font-family:inherit}
   width: 16px;
   height: 16px;
 }
+
 .cenFragWerset {
   font-size: 15.5px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--cen-text);
   margin: 0 0 3px 0;
 }
+
 .cenFragTemat {
   font-size: 13px;
-  color: #94a3b8;
+  color: var(--cen-text-muted);
   margin: 0;
   font-style: italic;
 }
+
 .cenFragPrawo {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
+
 .cenFragBtnJW {
   background: #2563eb;
   color: #ffffff;
@@ -615,6 +809,7 @@ select,button,input{font-family:inherit}
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
 }
 .cenFragBtnJW:hover {
   background: #1d4ed8;
@@ -622,12 +817,12 @@ select,button,input{font-family:inherit}
 
 .cenDzienUkonczBtn {
   width: 100%;
-  padding: 16px 24px;
+  padding: 15px 24px;
   border-radius: 16px;
   background: #10b981;
   color: #ffffff;
   border: none;
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 700;
   cursor: pointer;
   display: flex;
@@ -651,6 +846,7 @@ select,button,input{font-family:inherit}
   align-items: center;
   margin: 20px 0 32px;
 }
+
 .cenRadialContainer {
   position: relative;
   width: 200px;
@@ -666,7 +862,7 @@ select,button,input{font-family:inherit}
 }
 .cenRadialBg {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.08);
+  stroke: var(--cen-radial-bg);
   stroke-width: 14;
 }
 .cenRadialFill {
@@ -683,39 +879,42 @@ select,button,input{font-family:inherit}
 .cenRadialPct {
   font-size: 32px;
   font-weight: 800;
-  color: #ffffff;
+  color: var(--cen-text);
   display: block;
 }
 .cenRadialSub {
   font-size: 12px;
-  color: #94a3b8;
+  color: var(--cen-text-muted);
   display: block;
   margin-top: 2px;
 }
 
 .cenStatsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 14px;
   width: 100%;
 }
+
 .cenStatCard {
-  background: #151d28;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
   border-radius: 16px;
   padding: 16px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: var(--cen-card-shadow);
 }
 .cenStatLabel {
   font-size: 13.5px;
-  color: #94a3b8;
+  color: var(--cen-text-muted);
+  font-weight: 500;
 }
 .cenStatVal {
   font-size: 16px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--cen-text);
 }
 
 /* KALENDARZ SIATKA */
@@ -728,23 +927,25 @@ select,button,input{font-family:inherit}
 .cenKalendarzMiesiacTyt {
   font-size: 18px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--cen-text);
 }
+
 .cenKalendarzGrid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 8px;
   text-align: center;
-  background: #151d28;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--cen-cal-grid-bg);
+  border: 1px solid var(--cen-card-border);
   border-radius: 18px;
   padding: 18px;
   margin-bottom: 16px;
+  box-shadow: var(--cen-card-shadow);
 }
 .cenKalNaglowekDnia {
   font-size: 12px;
   font-weight: 600;
-  color: #64748b;
+  color: var(--cen-text-muted);
   padding-bottom: 8px;
 }
 .cenKalDzienKomorka {
@@ -754,22 +955,22 @@ select,button,input{font-family:inherit}
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--cen-cal-cell-bg);
   cursor: pointer;
   transition: all 0.14s ease;
   position: relative;
 }
 .cenKalDzienKomorka:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--cen-cal-cell-hover);
 }
 .cenKalDzienKomorka.active {
-  background: rgba(37, 99, 235, 0.25);
-  border: 1px solid #3b82f6;
+  background: var(--cen-cal-cell-active);
+  border: 1px solid var(--cen-cal-cell-border);
 }
 .cenKalDzienNr {
   font-size: 13px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--cen-cal-day-color);
 }
 .cenKalDzienKropka {
   width: 6px;
@@ -787,8 +988,9 @@ select,button,input{font-family:inherit}
   justify-content: center;
   gap: 20px;
   font-size: 12.5px;
-  color: #94a3b8;
+  color: var(--cen-text-muted);
   margin-top: 12px;
+  flex-wrap: wrap;
 }
 .cenKalLegendaItem {
   display: flex;
@@ -798,25 +1000,29 @@ select,button,input{font-family:inherit}
 
 /* TOPIC & PLAN ROWS */
 .cenRowItem {
-  background: #151d28;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
   border-radius: 16px;
-  padding: 16px 20px;
-  margin-bottom: 12px;
+  padding: clamp(12px, 1.8vw, 16px) clamp(14px, 2vw, 20px);
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  box-shadow: var(--cen-card-shadow);
   transition: all 0.16s ease;
 }
 .cenRowItem:hover {
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: var(--cen-card-border-hover);
+  box-shadow: var(--cen-card-shadow-hover);
   transform: translateX(2px);
 }
 .cenRowLewo {
   display: flex;
   align-items: center;
   gap: 14px;
+  min-width: 0;
+  flex: 1;
 }
 .cenRowDot {
   width: 12px;
@@ -827,12 +1033,12 @@ select,button,input{font-family:inherit}
 .cenRowTyt {
   font-size: 15px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--cen-text);
   margin: 0 0 2px 0;
 }
 .cenRowPodtyt {
   font-size: 12.5px;
-  color: #94a3b8;
+  color: var(--cen-text-muted);
   margin: 0;
 }
 .cenBadge {
@@ -843,18 +1049,205 @@ select,button,input{font-family:inherit}
 }
 .cenBadge.aktywny {
   background: rgba(16, 185, 129, 0.15);
-  color: #34d399;
+  color: #059669;
   border: 1px solid rgba(16, 185, 129, 0.3);
 }
+html[data-theme="dark"] .cenBadge.aktywny {
+  color: #34d399;
+}
 .cenBadge.ukonczony {
-  background: rgba(148, 163, 184, 0.15);
-  color: #94a3b8;
-  border: 1px solid rgba(148, 163, 184, 0.3);
+  background: rgba(100, 116, 139, 0.12);
+  color: var(--cen-text-muted);
+  border: 1px solid rgba(100, 116, 139, 0.25);
 }
 
 .cenPozStrz {
-  color: #64748b;
+  color: var(--cen-text-muted);
   font-size: 16px;
+  flex-shrink: 0;
+}
+
+.cenSecHeadTyt {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--cen-sec-head);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+}
+
+.cenSearchInp {
+  background: var(--cen-input-bg);
+  border: 1px solid var(--cen-input-border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  color: var(--cen-input-color);
+  font-size: 13px;
+  width: clamp(150px, 30vw, 220px);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.cenSearchInp:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.cenPusto {
+  background: var(--cen-banner-bg);
+  border: 1px dashed var(--cen-banner-border);
+  border-radius: 14px;
+  padding: 24px 18px;
+  text-align: center;
+  color: var(--cen-text-muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+/* ══════════════ RESPONSIVE BREAKPOINTS ══════════════ */
+@media (max-width: 1024px) {
+  .cenCentrumShell {
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 14px;
+  }
+  .cenFeaturesBanner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 860px) {
+  .cenCentrumShell {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .cenCentrumMain {
+    padding: 14px 16px 48px;
+  }
+  .cenHeroGrid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .cenZadanieCard {
+    padding: 16px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cenCentrumMain {
+    padding: 10px 10px 40px;
+  }
+  .cenNaglModern {
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+  }
+  .cenNaglModern h1, .cenNaglModern .cenTytGlowny {
+    font-size: 16px;
+  }
+  .cenHeroCard {
+    padding: 16px;
+    border-radius: 16px;
+  }
+  .cenHeroCardTop {
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .cenHeroIkoBox {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+  .cenHeroIkoBox svg {
+    width: 22px;
+    height: 22px;
+  }
+  .cenHeroTyt {
+    font-size: 14px;
+  }
+  .cenHeroOpis {
+    font-size: 12.5px;
+  }
+  .cenZadanieCard {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    padding: 14px 16px;
+    gap: 14px;
+    border-radius: 16px;
+  }
+  .cenZadanieLewo {
+    gap: 12px;
+  }
+  .cenZadanieIko {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+  .cenZadanieTyt {
+    font-size: 15px;
+  }
+  .cenZadaniePodtyt {
+    font-size: 12.5px;
+  }
+  .cenZadanieBtn {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+  }
+  .cenFeaturesBanner {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 14px;
+  }
+  .cenChronoAkcjeRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .cenChronoAkcjaBtn {
+    padding: 12px 8px;
+    font-size: 12px;
+    border-radius: 14px;
+  }
+  .cenFragCard {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px;
+  }
+  .cenFragPrawo {
+    justify-content: space-between;
+    width: 100%;
+  }
+  .cenFragBtnJW {
+    flex: 1;
+    justify-content: center;
+  }
+  .cenKalendarzGrid {
+    gap: 4px;
+    padding: 10px;
+    border-radius: 14px;
+  }
+  .cenKalDzienNr {
+    font-size: 11.5px;
+  }
+  .cenRadialContainer {
+    width: 160px;
+    height: 160px;
+  }
+  .cenRadialContainer svg {
+    width: 160px;
+    height: 160px;
+  }
+  .cenRadialPct {
+    font-size: 26px;
+  }
+  .cenStatsGrid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .cenStatCard {
+    padding: 12px 16px;
+  }
 }
 
 </style>
@@ -11150,7 +11543,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
       <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW Study</span>
-        <span class="sidebar-brand-ver">v3.70</span>
+        <span class="sidebar-brand-ver">v3.71</span>
       </div>
     </div>
 
@@ -28867,7 +29260,7 @@ function centrWidokPulpitGlowny(){
     + '<div class="cenHeroBottom">'
     + '<div class="cenHeroMetaRow">'
     + '<span class="cenHeroMetaLabel">Postęp planu</span>'
-    + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> <span style="color:#94a3b8;font-weight:400;margin-left:4px;">' + pct + '%</span></span>'
+    + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> <span style="color:var(--cen-text-muted);font-weight:400;margin-left:4px;">' + pct + '%</span></span>'
     + '</div>'
     + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(5, (doneCount/totalDni)*100)) + '%;"></div></div>'
     + '</div></div>'
@@ -28968,7 +29361,7 @@ function centrWidokCzytanieChrono(){
     + '<div class="cenHeroCard card-blue" style="margin-bottom:20px;cursor:default;">'
     + '<div class="cenHeroMetaRow">'
     + '<span class="cenHeroMetaLabel">Postęp planu</span>'
-    + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> <span style="color:#94a3b8;font-weight:400;margin-left:4px;">' + pct + '%</span></span>'
+    + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> <span style="color:var(--cen-text-muted);font-weight:400;margin-left:4px;">' + pct + '%</span></span>'
     + '</div>'
     + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(5, (doneCount/totalDni)*100)) + '%;"></div></div>'
     + '</div>'
@@ -28981,7 +29374,7 @@ function centrWidokCzytanieChrono(){
     + '</div>'
 
     + '<div style="margin-bottom:20px;">'
-    + '<div style="font-size:13.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;">Dzisiejsze czytanie</div>'
+    + '<div class="cenSecHeadTyt">Dzisiejsze czytanie</div>'
     + '<div class="cenZadanieCard" style="margin-bottom:0;">'
     + '<div class="cenZadanieLewo">'
     + '<div class="cenZadanieIko">' + CEN_MODERN_ICO.book + '</div>'
@@ -28993,7 +29386,7 @@ function centrWidokCzytanieChrono(){
     + '</div></div>'
 
     + '<div>'
-    + '<div style="font-size:13.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px;">Następne dni</div>'
+    + '<div class="cenSecHeadTyt">Następne dni</div>'
     + nastDni.map(nd=>'<div class="cenRowItem" data-cwidok="dzien" data-cdzien="'+nd.d+'">'
       + '<div class="cenRowLewo">'
       + '<div><div class="cenRowTyt">Dzień '+nd.d+'</div><div class="cenRowPodtyt">'+nd.f.length+' fragmenty • '+esc(nd.t)+'</div></div>'
@@ -29020,8 +29413,8 @@ function centrWidokDzien(dNr){
     + '</div></div>'
 
     + '<div style="margin-bottom:18px;">'
-    + '<div style="font-size:14px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px;">Dzisiejsze czytanie</div>'
-    + '<div style="font-size:13px;color:#64748b;">' + (plan.f ? plan.f.length : 0) + ' fragmenty • ' + esc(plan.t) + '</div>'
+    + '<div class="cenSecHeadTyt" style="margin-bottom:4px;">Dzisiejsze czytanie</div>'
+    + '<div style="font-size:13px;color:var(--cen-text-muted);">' + (plan.f ? plan.f.length : 0) + ' fragmenty • ' + esc(plan.t) + '</div>'
     + '</div>'
 
     + '<div class="cenFragiLista">'
@@ -29073,7 +29466,7 @@ function centrWidokListaDni(filtr, szukaj){
   return '<div class="cenSubHeader">'
     + '<button type="button" class="cenSubWsteczBtn" data-cwidok="czytanie-chronologiczne">' + CEN_MODERN_ICO.chevronLeft + ' ' + esc(planInfo.name) + ' — Lista dni</button>'
     + '<div style="position:relative;">'
-    + '<input type="text" id="cenSzukajDniInp" placeholder="Szukaj dnia, wersetu..." value="' + esc(_centrListaSzukaj||'') + '" style="background:#151d28;border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:8px 14px;color:#fff;font-size:13px;width:180px;">'
+    + '<input type="text" id="cenSzukajDniInp" class="cenSearchInp" placeholder="Szukaj dnia, wersetu..." value="' + esc(_centrListaSzukaj||'') + '">'
     + '</div>'
     + '</div>'
 
@@ -29185,7 +29578,7 @@ function centrWidokKalendarz(rok, mies){
     + '<div class="cenKalLegenda">'
     + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-done" style="margin:0;"></span> <span>Ukończone</span></div>'
     + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-part" style="margin:0;"></span> <span>Częściowo</span></div>'
-    + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-empty" style="border:1px solid #64748b;margin:0;"></span> <span>Nieukończone</span></div>'
+    + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-empty" style="border:1px solid var(--cen-text-muted);margin:0;"></span> <span>Nieukończone</span></div>'
     + '</div>';
 }
 
@@ -29201,7 +29594,7 @@ function centrWidokMojePlany(){
     + '</div>'
 
     + '<div style="margin-bottom:26px;">'
-    + '<div style="font-size:13.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Aktywne plany (' + aktywne.length + ')</div>'
+    + '<div class="cenSecHeadTyt">Aktywne plany (' + aktywne.length + ')</div>'
     + aktywne.map(p=>{
         const doneSet = _centrPobierzUkonczoneDni(p.id);
         const doneCount = doneSet.size;
@@ -29209,7 +29602,7 @@ function centrWidokMojePlany(){
         const isGlowny = (p.id === _centrAktywnyPlanId);
         return '<div class="cenRowItem" style="'+(isGlowny ? 'border-color:rgba(59,130,246,0.5);background:rgba(59,130,246,0.06);' : '')+'" data-cplan-otworz="'+p.id+'">'
           + '<div class="cenRowLewo">'
-          + '<div style="width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;color:'+(isGlowny?'#60a5fa':'#94a3b8')+';flex-shrink:0;">'
+          + '<div style="width:38px;height:38px;border-radius:12px;background:var(--cen-btn-bg);display:flex;align-items:center;justify-content:center;color:'+(isGlowny?'#2563eb':'var(--cen-text-muted)')+';flex-shrink:0;">'
           + CEN_MODERN_ICO.book
           + '</div>'
           + '<div>'
@@ -29225,11 +29618,11 @@ function centrWidokMojePlany(){
     + '</div>'
 
     + '<div>'
-    + '<div style="font-size:13.5px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:12px;">Zakończone plany (' + zakonczone.length + ')</div>'
+    + '<div class="cenSecHeadTyt">Zakończone plany (' + zakonczone.length + ')</div>'
     + zakonczone.map(p=>{
         return '<div class="cenRowItem" data-cplan-otworz="'+p.id+'">'
           + '<div class="cenRowLewo">'
-          + '<div style="width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;color:#34d399;flex-shrink:0;">'
+          + '<div style="width:38px;height:38px;border-radius:12px;background:var(--cen-btn-bg);display:flex;align-items:center;justify-content:center;color:#10b981;flex-shrink:0;">'
           + CEN_MODERN_ICO.check
           + '</div>'
           + '<div><div class="cenRowTyt">'+esc(p.name)+'</div><div class="cenRowPodtyt">'+p.days+' dni • Ukończono 100%</div></div>'
@@ -29294,18 +29687,18 @@ function centrWidokTematSzczegoly(tematId){
     + '<div class="cenHeroCardTop">'
     + '<div class="cenHeroIkoBox" style="background:linear-gradient(135deg, '+t.color+', color-mix(in srgb, '+t.color+' 60%, #000));box-shadow:0 6px 18px color-mix(in srgb, '+t.color+' 40%, transparent);">' + CEN_MODERN_ICO.note + '</div>'
     + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt" style="color:#fff;font-size:18px;">' + esc(t.name) + '</div>'
-    + '<div class="cenHeroOpis" style="color:#cbd5e1;font-size:13.5px;">' + esc(t.desc || "Zbiór wersetów, komentarzy i notatek do głębszego studium.") + '</div>'
+    + '<div class="cenHeroTyt" style="font-size:18px;">' + esc(t.name) + '</div>'
+    + '<div class="cenHeroOpis" style="font-size:13.5px;">' + esc(t.desc || "Zbiór wersetów, komentarzy i notatek do głębszego studium.") + '</div>'
     + '</div></div>'
     + '<div class="cenHeroBottom">'
     + '<div class="cenHeroMetaRow">'
     + '<span class="cenHeroMetaLabel">Zawartość tematu</span>'
-    + '<span class="cenHeroMetaVal" style="color:#fff;"><b>' + verses.length + ' wersetów</b> • <b>' + myNotes.length + ' ' + (myNotes.length===1?'notatka':myNotes.length<5?'notatki':'notatek') + '</b></span>'
+    + '<span class="cenHeroMetaVal"><b>' + verses.length + ' wersetów</b> • <b>' + myNotes.length + ' ' + (myNotes.length===1?'notatka':myNotes.length<5?'notatki':'notatek') + '</b></span>'
     + '</div></div></div>'
 
     + '<div style="margin-bottom:26px;">'
     + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">'
-    + '<div style="font-size:14px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.04em;">Kluczowe wersety biblijne (' + verses.length + ')</div>'
+    + '<div class="cenSecHeadTyt">Kluczowe wersety biblijne (' + verses.length + ')</div>'
     + '<button type="button" class="btn" data-ctemat-dodajwers="'+t.id+'" style="font-size:12px;padding:4px 10px;">+ Dodaj werset</button>'
     + '</div>'
     + '<div class="cenFragiLista">'
@@ -29313,7 +29706,7 @@ function centrWidokTematSzczegoly(tematId){
     + verses.map((v, vIdx)=>{
         return '<div class="cenFragCard">'
           + '<div class="cenFragLewo">'
-          + '<div style="width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;color:'+t.color+';flex-shrink:0;">'
+          + '<div style="width:32px;height:32px;border-radius:10px;background:var(--cen-btn-bg);display:flex;align-items:center;justify-content:center;color:'+t.color+';flex-shrink:0;">'
           + CEN_MODERN_ICO.book
           + '</div>'
           + '<div>'
@@ -29330,7 +29723,7 @@ function centrWidokTematSzczegoly(tematId){
 
     + '<div style="margin-bottom:26px;">'
     + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">'
-    + '<div style="font-size:14px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.04em;">Twoje notatki w tym temacie (' + myNotes.length + ')</div>'
+    + '<div class="cenSecHeadTyt">Twoje notatki w tym temacie (' + myNotes.length + ')</div>'
     + '<button type="button" class="btn" data-ctemat-nowanota="'+t.id+'" style="font-size:12px;padding:4px 10px;">+ Nowa notatka</button>'
     + '</div>'
     + '<div class="cenNotatkiLista">'
@@ -29339,7 +29732,7 @@ function centrWidokTematSzczegoly(tematId){
         const snippet = (n.c || (n.h ? String(n.h).replace(/<[^>]*>/g," ") : "")).slice(0, 110);
         return '<div class="cenRowItem" data-cnotatka-otworz="'+n.g+'">'
           + '<div class="cenRowLewo">'
-          + '<div style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:#60a5fa;flex-shrink:0;">'
+          + '<div style="width:36px;height:36px;border-radius:10px;background:var(--cen-btn-bg);display:flex;align-items:center;justify-content:center;color:#2563eb;flex-shrink:0;">'
           + CEN_MODERN_ICO.note
           + '</div>'
           + '<div>'
