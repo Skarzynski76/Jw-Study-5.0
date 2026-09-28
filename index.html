@@ -27,7 +27,7 @@
 <meta name="theme-color" content="#256b52">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>JW Study 3.68</title>
+<title>JW Study 3.69</title>
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
@@ -617,7 +617,7 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
    ========================================================================== */
 /* okienko wpisywania (zamiast prompt) */
 #askModal{align-items:center;justify-content:center;z-index:150}
-#askModal .askbox{background:var(--panel);border:1px solid var(--border);border-radius:18px;box-shadow:0 24px 64px rgba(0,0,0,.26);padding:22px;width:min(440px,92vw)}
+#askModal .askbox{background:linear-gradient(155deg, rgba(255,255,255,.94) 0%, rgba(246,249,247,.88) 100%);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,.65);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.22), inset 0 1px 1px rgba(255,255,255,.9);padding:22px;width:min(440px,92vw)}
 #askModal .askTitle{font-size:16px;font-weight:600;color:var(--text);margin-bottom:12px;letter-spacing:-.01em}
 #askModal .askInput{width:100%;font-size:15px;padding:11px 13px;border:1px solid var(--border);border-radius:12px;background:var(--bg);color:var(--text);outline:none;transition:border-color .15s, box-shadow .15s}
 #askModal .askInput:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,107,82,.14)}
@@ -629,7 +629,7 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
 #askModal .askOk{background:var(--accent);color:#fff}
 #askModal .askOk:hover{opacity:.9}
 #msgModal{align-items:center;justify-content:center;z-index:150}
-#msgModal .askbox{background:var(--panel);border:1px solid var(--border);border-radius:18px;box-shadow:0 24px 64px rgba(0,0,0,.26);padding:22px;width:min(440px,92vw)}
+#msgModal .askbox{background:linear-gradient(155deg, rgba(255,255,255,.94) 0%, rgba(246,249,247,.88) 100%);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,.65);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.22), inset 0 1px 1px rgba(255,255,255,.9);padding:22px;width:min(440px,92vw)}
 #msgModal .askTitle{font-size:16px;font-weight:600;color:var(--text);margin-bottom:10px;letter-spacing:-.01em}
 #msgModal .msgBody{font-size:13.5px;color:var(--text);line-height:1.55}
 #msgModal .askBtns{display:flex;justify-content:flex-end;gap:8px;margin-top:18px;flex-wrap:wrap}
@@ -639,7 +639,7 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
 #msgModal .msgCancel:hover{opacity:.85}
 #msgModal .msgOk.danger{background:#c0392b}
 #msgModal .msgExtra{border:none;border-radius:11px;padding:9px 16px;font-size:13.5px;font-weight:600;cursor:pointer;background:var(--sel);color:var(--text)}
-#modalImportu .import-box{background:var(--panel);border:1px solid var(--border);border-radius:18px;box-shadow:0 24px 64px rgba(0,0,0,.26);padding:24px;width:min(440px,92vw);max-height:min(88vh,700px);overflow-y:auto}
+#modalImportu .import-box{background:linear-gradient(155deg, rgba(255,255,255,.94) 0%, rgba(246,249,247,.88) 100%);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,.65);border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.22), inset 0 1px 1px rgba(255,255,255,.9);padding:24px;width:min(440px,92vw);max-height:min(88vh,700px);overflow-y:auto}
 #modalImportu .import-title{font-size:17px;font-weight:600;color:var(--text);margin-bottom:8px;letter-spacing:-.01em}
 #modalImportu .import-stage{font-size:13.5px;color:var(--muted);line-height:1.45;min-height:21px}
 #modalImportu .import-progress{width:100%;height:8px;border-radius:999px;margin:16px 0 8px;display:block;accent-color:var(--accent)}
@@ -1218,16 +1218,105 @@ mark { padding: 1px 3px; border-radius: 4px; }
    JW Study — forms.css
    Formularze: okno nowej notatki, wybór etykiet, pomoc (Modern UI)
    ========================================================================== */
-.nn-modal { width: min(760px, 94vw); }
+.nn-modal {
+  width: min(920px, 95vw);
+  max-height: min(90vh, 880px);
+  padding: 0 !important;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--panel);
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.22);
+}
+.nn-studio-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  height: 100%;
+  max-height: min(90vh, 880px);
+  min-height: 520px;
+}
+.nn-studio-main {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  border-right: 1px solid var(--border);
+  background: var(--panel);
+}
+.nn-studio-side {
+  background: color-mix(in srgb, var(--bg) 65%, var(--panel));
+  padding: 22px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow-y: auto;
+}
+.nn-side-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+.nn-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.nn-field-group label {
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+#nnTitle {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+#nnTitle:focus {
+  border-color: var(--accent);
+  background: var(--panel);
+  box-shadow: 0 0 0 3.5px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.nn-content-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 #nnContent {
-  min-height: 220px;
+  flex: 1;
+  min-height: 260px;
   font-size: 15px;
   line-height: 1.62;
   font-family: inherit;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  resize: vertical;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
 }
-.modal .row { display: flex; gap: 12px; }
+#nnContent:focus {
+  border-color: var(--accent);
+  background: var(--panel);
+  box-shadow: 0 0 0 3.5px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.modal .row { display: flex; gap: 10px; }
 .modal .row > div { flex: 1; }
-.modal .actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+.modal .actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
 .modal p { font-size: 14px; line-height: 1.55; }
 
 /* Nagłówek okna z ikoną */
@@ -1235,7 +1324,7 @@ mark { padding: 1px 3px; border-radius: 4px; }
   display: flex;
   align-items: center;
   gap: 14px;
-  margin: 0 0 16px;
+  margin: 0;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--border);
 }
@@ -1257,25 +1346,45 @@ mark { padding: 1px 3px; border-radius: 4px; }
 
 /* Karty sekcji w oknie nowej notatki */
 .nn-card {
-  margin-top: 16px;
-  padding: 14px 16px 16px;
+  margin-top: 0;
+  padding: 13px 14px 14px;
   border: 1px solid var(--border);
   border-radius: 14px;
-  background: var(--bg);
+  background: var(--panel);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.nn-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
 }
 .nn-card-hd {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 650;
   color: var(--text);
   margin-bottom: 10px;
 }
-.nn-card-hd .ic { width: 17px; height: 17px; color: var(--accent); flex-shrink: 0; }
-.nn-opt { margin-left: auto; font-size: 11.5px; font-weight: 500; color: var(--muted); text-transform: none; letter-spacing: 0; }
+.nn-card-hd .ic { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; }
+.nn-opt { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--muted); text-transform: none; letter-spacing: 0; }
 .nn-card label { margin-top: 0; }
-.nn-card .tagpick { background: var(--panel); }
+.nn-card .tagpick { background: var(--bg); border-radius: 10px; padding: 6px 8px; }
+.nn-studio-actions {
+  margin-top: auto;
+  padding-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+@media (max-width: 768px) {
+  .nn-modal { width: 96vw; max-height: calc(min(90vh, 900px) - var(--kb, 0px)); }
+  .nn-studio-grid { grid-template-columns: 1fr; height: auto; max-height: none; min-height: 0; }
+  .nn-studio-main { border-right: none; border-bottom: 1px solid var(--border); padding: 18px 16px; }
+  .nn-studio-side { padding: 16px; }
+  #nnContent { min-height: 180px; }
+}
 
 /* Pomoc i instrukcja */
 .help-list { margin: 12px 0 4px; display: flex; flex-direction: column; }
@@ -3553,18 +3662,17 @@ html[data-theme="dark"] #modalFs .fsmodal{ background:#151517; }
 #modalNew .modal,
 .modal.nn-modal{
   flex:0 0 auto;
-  width:min(760px, 94vw);
-  min-width:min(600px, 92vw);
-  max-width:94vw;
+  width:min(920px, 95vw);
+  max-width:95vw;
   box-sizing:border-box;
 }
 #modalNew label,#modalNew input,#modalNew textarea,#modalNew select{ box-sizing:border-box; }
 #modalNew input[type=text],#modalNew textarea{ width:100%; min-width:0; }
-#nnContent{ width:100%; min-width:0; min-height:clamp(180px, 26vh, 300px); resize:vertical; }
+#nnContent{ width:100%; min-width:0; }
 #modalNew .row{ flex-wrap:wrap; }
 #modalNew .row > div{ min-width:0; }
 #modalNew .col-book{ flex:1 1 220px; }
-@media (max-width:620px){
+@media (max-width:768px){
   #modalNew .modal,.modal.nn-modal{ width:96vw; min-width:0; }
   #modalNew .col-book{ flex:1 1 100%; }
 }
@@ -10432,7 +10540,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
       <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW Study</span>
-        <span class="sidebar-brand-ver">v3.66</span>
+        <span class="sidebar-brand-ver">v3.68</span>
       </div>
     </div>
 
@@ -10798,61 +10906,77 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
 
 <div class="overlay" id="modalNew">
   <div class="modal nn-modal">
-    <div class="nn-head">
-      <span class="nn-ic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/><path d="M14 7l3 3"/></svg></span>
-      <div><h3>Nowa notatka</h3><div class="nn-sub">Tytuł i treść — resztę możesz uzupełnić później</div></div>
-    </div>
+    <div class="nn-studio-grid">
+      <!-- Kolumna lewa: Główny edytor / Treść notatki -->
+      <div class="nn-studio-main">
+        <div class="nn-head">
+          <span class="nn-ic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/><path d="M14 7l3 3"/></svg></span>
+          <div><h3>Nowa notatka</h3><div class="nn-sub">Wpisz treść — metadane i werset skonfigurujesz w panelu obok</div></div>
+        </div>
 
-    <div class="nn-card nn-szab">
-      <div class="nn-card-hd">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h9l5 5v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M8 13h8M8 17h5"/></svg>
-        <span>Szablony</span><span class="nn-opt">dotknij, aby wstawić</span>
+        <div class="nn-field-group">
+          <label for="nnTitle">Tytuł</label>
+          <input type="text" id="nnTitle" placeholder="np. Zaufanie do Jehowy w trudnych chwilach…">
+        </div>
+
+        <div class="nn-field-group nn-content-group">
+          <label for="nnContent">Treść</label>
+          <textarea id="nnContent" placeholder="Wpisz treść notatki, przemyślenia, punkty do studium…"></textarea>
+        </div>
       </div>
-      <div id="nnSzablony"></div>
-    </div>
 
-    <label for="nnTitle">Tytuł</label>
-    <input type="text" id="nnTitle" placeholder="np. Zaufanie do Jehowy">
+      <!-- Kolumna prawa: Inspektor metadanych i kontekstu -->
+      <div class="nn-studio-side">
+        <div class="nn-side-title">
+          <span>Metadane i kontekst</span>
+        </div>
 
-    <label for="nnContent">Treść</label>
-    <textarea id="nnContent" placeholder="Wpisz treść notatki…"></textarea>
+        <div class="nn-card nn-szab">
+          <div class="nn-card-hd">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h9l5 5v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M8 13h8M8 17h5"/></svg>
+            <span>Szablony</span><span class="nn-opt">dotknij, aby wstawić</span>
+          </div>
+          <div id="nnSzablony"></div>
+        </div>
 
-    <div class="nn-card nn-ref">
-      <div class="nn-card-hd">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h5v16H6a2 2 0 0 0-2 2z"/><path d="M20 5a2 2 0 0 0-2-2h-5v16h5a2 2 0 0 1 2 2z"/></svg>
-        <span>Powiązanie z wersetem</span><span class="nn-opt">opcjonalnie</span>
+        <div class="nn-card nn-ref">
+          <div class="nn-card-hd">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h5v16H6a2 2 0 0 0-2 2z"/><path d="M20 5a2 2 0 0 0-2-2h-5v16h5a2 2 0 0 1 2 2z"/></svg>
+            <span>Powiązanie z wersetem</span><span class="nn-opt">opcjonalnie</span>
+          </div>
+          <div class="row">
+            <div class="col-book"><label for="nnBook">Księga</label><select id="nnBook"></select></div>
+            <div><label for="nnCh">Rozdział</label><input type="text" id="nnCh" inputmode="numeric" placeholder="—"></div>
+            <div><label for="nnV">Werset</label><input type="text" id="nnV" inputmode="numeric" placeholder="—"></div>
+          </div>
+        </div>
+
+        <div class="nn-card">
+          <div class="nn-card-hd">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 8 8-9 9-8-8z"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/></svg>
+            <span>Etykiety</span><span class="nn-opt">kliknij, aby zaznaczyć</span>
+          </div>
+          <div class="tagpick" id="nnTags"></div>
+          <div class="nnNewTag">
+            <input type="text" id="nnNewTagName" placeholder="Nowa etykieta…" autocomplete="off">
+            <button type="button" id="nnAddTag" class="btn">＋ Dodaj</button>
+          </div>
+        </div>
+
+        <div class="nn-card" id="nnZakladkaKarta">
+          <div class="nn-card-hd">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h12a1 1 0 0 1 1 1v15l-7-4-7 4V5a1 1 0 0 1 1-1z"/></svg>
+            <span>Zakładka w sekcji</span><span class="nn-opt">miejsce docelowe</span>
+          </div>
+          <select id="nnZakladka" aria-label="Zakładka w sekcji"></select>
+        </div>
+
+        <div class="actions nn-studio-actions">
+          <button class="btn" data-zamknij="modalNew">Anuluj</button>
+          <button class="btn" id="nnSave">Utwórz</button>
+          <button class="btn primary" id="nnSaveEdit"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Utwórz i edytuj</button>
+        </div>
       </div>
-      <div class="row">
-        <div class="col-book"><label for="nnBook">Księga</label><select id="nnBook"></select></div>
-        <div><label for="nnCh">Rozdział</label><input type="text" id="nnCh" inputmode="numeric" placeholder="—"></div>
-        <div><label for="nnV">Werset</label><input type="text" id="nnV" inputmode="numeric" placeholder="—"></div>
-      </div>
-    </div>
-
-    <div class="nn-card">
-      <div class="nn-card-hd">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 8 8-9 9-8-8z"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/></svg>
-        <span>Etykiety</span><span class="nn-opt">kliknij, aby zaznaczyć</span>
-      </div>
-      <div class="tagpick" id="nnTags"></div>
-      <div class="nnNewTag">
-        <input type="text" id="nnNewTagName" placeholder="Nowa etykieta — wpisz nazwę" autocomplete="off">
-        <button type="button" id="nnAddTag" class="btn">＋ Dodaj</button>
-      </div>
-    </div>
-
-    <div class="nn-card" id="nnZakladkaKarta">
-      <div class="nn-card-hd">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h12a1 1 0 0 1 1 1v15l-7-4-7 4V5a1 1 0 0 1 1-1z"/></svg>
-        <span>Zakładka w sekcji</span><span class="nn-opt">notatka pojawi się od razu w tym miejscu</span>
-      </div>
-      <select id="nnZakladka" aria-label="Zakładka w sekcji"></select>
-    </div>
-
-    <div class="actions">
-      <button class="btn" data-zamknij="modalNew">Anuluj</button>
-      <button class="btn" id="nnSave">Utwórz</button>
-      <button class="btn primary" id="nnSaveEdit"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Utwórz i edytuj</button>
     </div>
   </div>
 </div>
