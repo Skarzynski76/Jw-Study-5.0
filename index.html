@@ -2223,19 +2223,22 @@ mark { padding: 1px 3px; border-radius: 4px; }
    ========================================================================== */
 .nn-modal {
   width: min(920px, 95vw);
-  max-height: min(90vh, 880px);
+  /* --kb = wysokość klawiatury ekranowej (ustawiany przez keyboard.js) */
+  max-height: calc(min(90vh, 880px) - var(--kb, 0px));
   padding: 0 !important;
   border-radius: 20px;
   overflow: hidden;
   background: var(--panel);
   box-shadow: 0 24px 72px rgba(0, 0, 0, 0.22);
+  transition: max-height 0.2s ease;
 }
 .nn-studio-grid {
   display: grid;
   grid-template-columns: 1.35fr 1fr;
-  height: 100%;
-  max-height: min(90vh, 880px);
-  min-height: 520px;
+  /* Wysokość dopasowuje się do modala; min-height niższe żeby klawiatura mogła go skurczyć */
+  height: calc(min(90vh, 880px) - var(--kb, 0px));
+  max-height: calc(min(90vh, 880px) - var(--kb, 0px));
+  min-height: 340px;
 }
 .nn-studio-main {
   padding: 24px 28px;
@@ -2381,13 +2384,37 @@ mark { padding: 1px 3px; border-radius: 4px; }
   justify-content: flex-end;
   gap: 8px;
 }
-@media (max-width: 768px) {
-  .nn-modal { width: 96vw; max-height: calc(min(90vh, 900px) - var(--kb, 0px)); }
-  .nn-studio-grid { grid-template-columns: 1fr; height: auto; max-height: none; min-height: 0; }
-  .nn-studio-main { border-right: none; border-bottom: 1px solid var(--border); padding: 18px 16px; }
-  .nn-studio-side { padding: 16px; }
+@media (max-width: 1024px) {
+  /* iPad i mniejsze — siatka pionowa, całe okno przewijalne */
+  .nn-modal {
+    width: 96vw;
+    max-height: calc(min(92vh, 900px) - var(--kb, 0px));
+    /* Pozwól modalowi się przewijać gdy klawiatura zasłoni dolną część */
+    overflow-y: auto;
+  }
+  .nn-studio-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+    max-height: none;
+    min-height: 0;
+  }
+  .nn-studio-main {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 18px 16px;
+    /* Na tablecie w kolumnie siatka nie przewija — przewija cały modal */
+    overflow-y: visible;
+  }
+  .nn-studio-side {
+    padding: 16px;
+    overflow-y: visible;
+  }
   #nnContent { min-height: 180px; }
 }
+@media (max-width: 768px) {
+  #nnContent { min-height: 140px; }
+}
+
 
 /* Pomoc i instrukcja */
 .help-list { margin: 12px 0 4px; display: flex; flex-direction: column; }
@@ -13978,7 +14005,7 @@ const QFIELD_MAP = {
 
 /* Warstwa inteligentna nie wysyła treści poza urządzenie. Opiera się na
    lekkim rdzeniu polskich wyrazów, słowniku pojęć i tolerancji literówek. */
-let searchMode=lsGet(KP+"SearchMode","smart")==="exact"?"exact":"smart";
+let searchMode=lsGet(KP+"SearchMode","exact")==="smart"?"smart":"exact";
 let searchOpts={scope:"current",group:"all",dateFrom:"",dateTo:"",highlight:"all",extra:"all"};
 try{ Object.assign(searchOpts,JSON.parse(lsGet(KP+"SearchOpts","{}"))); }catch(_){}
 let qAdvTerms=[],qAdvNeg=[],qAdvPhrases=[],qSpecial={};
@@ -14000,8 +14027,10 @@ const SZUK_POJECIA=[
   ["pokora","pokorny","pokornie","skromnosc","skromność","unizenie","uniżenie"],
   ["milosc","miłość","kochac","kochać","serdecznosc","serdeczność"],
   ["przebaczenie","przebaczac","przebaczać","wybaczenie","wybaczac","wybaczać"],
-  ["wiara","wierzyc","wierzyć","ufnosc","ufność","zaufanie"],
+  ["wiara","wierzyc","wierzyć"],
+  ["zaufanie","ufnosc","ufność","zaufac","zaufać","zaufany","zaufani"],
   ["nadzieja","oczekiwanie","przyszlosc","przyszłość"],
+
   ["sluzba","służba","gloszenie","głoszenie","ewangelizacja"],
   ["zmartwychwstanie","wskrzeszenie","powstanie z martwych"],
   ["jehowa","bog","bóg","ojciec"],
