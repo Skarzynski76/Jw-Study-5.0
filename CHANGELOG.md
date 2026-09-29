@@ -1,3 +1,9 @@
+## 3.79 — 2026-09-29
+
+- Naprawiono widoczność pól „Rozdział" i „Werset" w oknie nowej notatki na urządzeniach mobilnych.
+- Pola `col-ch` i `col-v` otrzymały klasy CSS i jawne `flex` z `min-width`, eliminując znikanie pól przy wąskim ekranie.
+- Poprawiono reguły `#modalNew .row > div` i `#modalNew .nn-ref .row > div` w media query dla ekranów ≤768 px.
+
 ## 3.57 — 2026-09-25
 
 - Dodano inteligentną automatyczną wielką literę po kropce, pytajniku, wykrzykniku, wielokropku i nowej linii podczas pisania.

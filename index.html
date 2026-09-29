@@ -4703,11 +4703,12 @@ html[data-theme="dark"] #modalFs .fsmodal{ background:#151517; }
 #modalNew input[type=text],#modalNew textarea{ width:100%; min-width:0; }
 #nnContent{ width:100%; min-width:0; }
 #modalNew .row{ flex-wrap:wrap; }
-#modalNew .row > div{ min-width:0; }
+#modalNew .row > div{ min-width:0; flex: 1 1 70px; }
 #modalNew .col-book{ flex:1 1 220px; }
 @media (max-width:768px){
   #modalNew .modal,.modal.nn-modal{ width:96vw; min-width:0; }
   #modalNew .col-book{ flex:1 1 100%; }
+  #modalNew .nn-ref .row > div{ flex:1 1 80px; min-width:80px; }
 }
 
 /* ══════════════ KLAWIATURA EKRANOWA ══════════════
@@ -12004,8 +12005,8 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
           </div>
           <div class="row">
             <div class="col-book"><label for="nnBook">Księga</label><select id="nnBook"></select></div>
-            <div><label for="nnCh">Rozdział</label><input type="text" id="nnCh" inputmode="numeric" placeholder="—"></div>
-            <div><label for="nnV">Werset</label><input type="text" id="nnV" inputmode="numeric" placeholder="—"></div>
+            <div class="col-ch"><label for="nnCh">Rozdział</label><input type="text" id="nnCh" inputmode="numeric" placeholder="—"></div>
+            <div class="col-v"><label for="nnV">Werset</label><input type="text" id="nnV" inputmode="numeric" placeholder="—"></div>
           </div>
         </div>
 
@@ -12377,7 +12378,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
    Stałe, stan aplikacji, skrót $
    ========================================================================== */
 "use strict";
-const APP_VERSION = "3.78";
+const APP_VERSION = "3.79";
 const BOOKS = ["","Rodzaju","Wyjścia","Kapłańska","Liczb","Powtórzonego Prawa","Jozuego","Sędziów","Rut","1 Samuela","2 Samuela","1 Królów","2 Królów","1 Kronik","2 Kronik","Ezdrasza","Nehemiasza","Estery","Hioba","Psalmy","Przysłów","Kaznodziei","Pieśń nad Pieśniami","Izajasza","Jeremiasza","Lamentacje","Ezechiela","Daniela","Ozeasza","Joela","Amosa","Abdiasza","Jonasza","Micheasza","Nahuma","Habakuka","Sofoniasza","Aggeusza","Zachariasza","Malachiasza","Mateusza","Marka","Łukasza","Jana","Dzieje Apostolskie","Rzymian","1 Koryntian","2 Koryntian","Galatów","Efezjan","Filipian","Kolosan","1 Tesaloniczan","2 Tesaloniczan","1 Tymoteusza","2 Tymoteusza","Tytusa","Filemona","Hebrajczyków","Jakuba","1 Piotra","2 Piotra","1 Jana","2 Jana","3 Jana","Judy","Objawienie"];
 
 const DBNAME = "jwStudyClean";   // nazwa pamięci tej kopii aplikacji
