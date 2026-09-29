@@ -27,7 +27,7 @@
 <meta name="theme-color" content="#256b52">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>JW Study 3.73</title>
+<title>JW Study 3.74</title>
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
@@ -11576,7 +11576,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
       <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW Study</span>
-        <span class="sidebar-brand-ver">v3.73</span>
+        <span class="sidebar-brand-ver">v3.74</span>
       </div>
     </div>
 
@@ -12285,7 +12285,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
    Stałe, stan aplikacji, skrót $
    ========================================================================== */
 "use strict";
-const APP_VERSION = "3.73";
+const APP_VERSION = "3.74";
 const BOOKS = ["","Rodzaju","Wyjścia","Kapłańska","Liczb","Powtórzonego Prawa","Jozuego","Sędziów","Rut","1 Samuela","2 Samuela","1 Królów","2 Królów","1 Kronik","2 Kronik","Ezdrasza","Nehemiasza","Estery","Hioba","Psalmy","Przysłów","Kaznodziei","Pieśń nad Pieśniami","Izajasza","Jeremiasza","Lamentacje","Ezechiela","Daniela","Ozeasza","Joela","Amosa","Abdiasza","Jonasza","Micheasza","Nahuma","Habakuka","Sofoniasza","Aggeusza","Zachariasza","Malachiasza","Mateusza","Marka","Łukasza","Jana","Dzieje Apostolskie","Rzymian","1 Koryntian","2 Koryntian","Galatów","Efezjan","Filipian","Kolosan","1 Tesaloniczan","2 Tesaloniczan","1 Tymoteusza","2 Tymoteusza","Tytusa","Filemona","Hebrajczyków","Jakuba","1 Piotra","2 Piotra","1 Jana","2 Jana","3 Jana","Judy","Objawienie"];
 
 const DBNAME = "jwStudyClean";   // nazwa pamięci tej kopii aplikacji
@@ -14260,7 +14260,7 @@ function ocenTrafnosc(n){
  */
 function parseQuery(q){
   const nextQuery=q.trim();
-  if(nextQuery!==query) resetSearchWindow();
+  if(nextQuery!==query){ resetSearchWindow(); if(typeof _searchCounts!=="undefined") _searchCounts={all:0,bible:0,publication:0,own:0}; }
   query = nextQuery;
   resetQueryCache();          // inne zapytanie → stare wyniki są nieaktualne
   qComp = null; qHl = null; qFields = null;
@@ -16846,22 +16846,36 @@ function opisFiltrowWynikow(){
   }
   return a.join(" · ");
 }
+let _searchCounts = {all:0, bible:0, publication:0, own:0};
 function renderSearchStatus(arr){
   const box=$("searchStatus"); const active=!!query||aktywneOpcjeSzukania(); box.hidden=!active; if(!active){box.innerHTML="";return;}
-  const cnt={all:arr.length,bible:0,publication:0,own:0}; arr.forEach(n=>cnt[kategoriaNotatki(n)]++);
+  if(searchOpts.group==="all" || !_searchCounts || !_searchCounts.all){
+    _searchCounts={all:arr.length,bible:0,publication:0,own:0};
+    arr.forEach(n=>_searchCounts[kategoriaNotatki(n)]++);
+  }
+  const cnt=_searchCounts;
   const zakres=opisFiltrowWynikow();
   const calosc=searchInProgress?` · sprawdzono ${searchScannedCount} z ${notes.length}`
     :(searchTotalMatches>arr.length?` · znaleziono ${searchTotalMatches}, pokazano najlepsze ${arr.length}`:" · przeszukano całą bazę");
   box.innerHTML=`<span class="ssInfo">${searchMode==="smart"?"Inteligentnie":"Dokładnie"} · ${arr.length}${searchWasLimited?"+":""} wyników${calosc}</span>`+
     (zakres?`<button class="ssChip on ssZakres" data-ssfiltersclear="1" title="Usuń zawężenie">Wyniki w: ${esc(zakres)} ×</button>`:"")+
-    [["all","Wszystkie"],["bible","Biblia"],["publication","Publikacje"],["own","Własne"]].map(([k,l])=>`<button class="ssChip${searchOpts.group===k?" on":""}" data-ssgroup="${k}">${l} ${cnt[k]}</button>`).join("")+
+    [["all","Wszystkie"],["bible","Biblia"],["publication","Publikacje"],["own","Własne"]].map(([k,l])=>`<button class="ssChip${searchOpts.group===k?" on":""}" data-ssgroup="${k}">${l} ${cnt[k]||0}</button>`).join("")+
     (searchWasLimited&&!searchInProgress?`<button class="ssNav" data-ssmore="1">Wczytaj dalsze</button>`:"")+
     `<button class="ssNav" data-ssnav="-1" title="Poprzedni wynik">↑</button><button class="ssNav" data-ssnav="1" title="Następny wynik">↓</button><button class="ssNav" data-sshelp="1">Instrukcja</button><button class="ssNav" data-ssclear="1">Wyczyść</button>`;
   box.onclick=e=>{
     if(e.target.closest("[data-ssfiltersclear]")){
       filt.tag="all";filt.book="all";filt.ch=null;filt.pub="all";persistFilt();resetSearchWindow();resetQueryCache();renderAll();return;
     }
-    const g=e.target.closest("[data-ssgroup]"); if(g){searchOpts.group=g.dataset.ssgroup;lsSet(KP+"SearchOpts",JSON.stringify(searchOpts));resetSearchWindow();resetQueryCache();renderAll();return;}
+    const g=e.target.closest("[data-ssgroup]"); if(g){
+      const targetGroup = g.dataset.ssgroup;
+      searchOpts.group = (searchOpts.group === targetGroup && targetGroup !== "all") ? "all" : targetGroup;
+      lsSet(KP+"SearchOpts",JSON.stringify(searchOpts));
+      resetSearchWindow();
+      resetQueryCache();
+      if(typeof uruchomWorkerSzukania==="function" && query) uruchomWorkerSzukania();
+      renderAll();
+      return;
+    }
     if(e.target.closest("[data-ssmore]")){
       doladujWynikiSzukania();
       return;
@@ -16869,6 +16883,7 @@ function renderSearchStatus(arr){
     const n=e.target.closest("[data-ssnav]"); if(n){searchPrzejdz(+n.dataset.ssnav);return;}
     if(e.target.closest("[data-sshelp]")){$("btnSearchTools").click();return;}
     if(e.target.closest("[data-ssclear]")){
+      _searchCounts={all:0,bible:0,publication:0,own:0};
       $("search").value="";parseQuery("");searchOpts={scope:"current",group:"all",dateFrom:"",dateTo:"",highlight:"all",extra:"all"};lsSet(KP+"SearchOpts",JSON.stringify(searchOpts));
       if(sortMode==="relevance"){sortMode=window._sortPrzedSzukaniem||"new";$("sortSel").value=sortMode;}
       renderAll();
