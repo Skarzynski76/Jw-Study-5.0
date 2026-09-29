@@ -27,7 +27,7 @@
 <meta name="theme-color" content="#256b52">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>JW Study 3.69</title>
+<title>JW Study 3.73</title>
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
@@ -5947,7 +5947,13 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
   max-height:none;                /* rządzi teraz wysokość nadana w pikselach */
   min-height:0;
   box-shadow:0 18px 46px rgba(30,25,15,.30);
-  cursor:zoom-out;
+  cursor:default;
+}
+#noteList.v-tablica .ncard.wydobyta .ncontent,
+#noteList.v-tablica .ncard.wydobyta .ntitle{
+  cursor:text;
+  -webkit-user-select:text;
+  user-select:text;
 }
 /* Ruch dotyczy krawędzi, nie skali — tekst zostaje ostry, a w powiększeniu
    widać go WIĘCEJ, a nie po prostu większy. */
@@ -11570,7 +11576,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
       <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW Study</span>
-        <span class="sidebar-brand-ver">v3.72</span>
+        <span class="sidebar-brand-ver">v3.73</span>
       </div>
     </div>
 
@@ -12279,7 +12285,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
    Stałe, stan aplikacji, skrót $
    ========================================================================== */
 "use strict";
-const APP_VERSION = "3.70";
+const APP_VERSION = "3.73";
 const BOOKS = ["","Rodzaju","Wyjścia","Kapłańska","Liczb","Powtórzonego Prawa","Jozuego","Sędziów","Rut","1 Samuela","2 Samuela","1 Królów","2 Królów","1 Kronik","2 Kronik","Ezdrasza","Nehemiasza","Estery","Hioba","Psalmy","Przysłów","Kaznodziei","Pieśń nad Pieśniami","Izajasza","Jeremiasza","Lamentacje","Ezechiela","Daniela","Ozeasza","Joela","Amosa","Abdiasza","Jonasza","Micheasza","Nahuma","Habakuka","Sofoniasza","Aggeusza","Zachariasza","Malachiasza","Mateusza","Marka","Łukasza","Jana","Dzieje Apostolskie","Rzymian","1 Koryntian","2 Koryntian","Galatów","Efezjan","Filipian","Kolosan","1 Tesaloniczan","2 Tesaloniczan","1 Tymoteusza","2 Tymoteusza","Tytusa","Filemona","Hebrajczyków","Jakuba","1 Piotra","2 Piotra","1 Jana","2 Jana","3 Jana","Judy","Objawienie"];
 
 const DBNAME = "jwStudyClean";   // nazwa pamięci tej kopii aplikacji
