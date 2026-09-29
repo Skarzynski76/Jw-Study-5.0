@@ -21977,16 +21977,16 @@ const EXPORT_CSS_SEARCH = EXPORT_CSS_BASE + `
 body{max-width:780px}
 .doc-header{border-bottom:2px solid #2e7a5f;padding-bottom:12px;margin-bottom:24px}
 .doc-title{font-size:24px;color:#1e5b46;margin:0 0 4px;font-weight:bold}
-.doc-sub{color:#666;font-size:12.5px;line-height:1.5;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.doc-query-badge{display:inline-block;background:#e8f4f0;color:#1e5b46;font-weight:600;padding:2px 8px;border-radius:4px}
+.doc-sub{color:#666;font-size:12.5px;line-height:1.6;margin-bottom:18px}
+.doc-query-badge{display:inline-block;background:#e8f4f0;color:#1e5b46;font-weight:bold;padding:2px 8px;border-radius:4px;margin-right:6px}
 .note{margin:0 0 26px;padding:0 0 20px;border-bottom:1px solid #e2ddd2}
 .note:last-child{border-bottom:none}
 h1{font-size:19px;color:#1e5b46;border-bottom:2px solid #2e7a5f;padding-bottom:5px;margin:0 0 6px}
 .meta{margin-bottom:10px;font-size:12px;color:#666}
 .search-match-box{background:#f8faf9;border-left:3px solid #2e7a5f;border-radius:0 6px 6px 0;padding:7px 12px;margin:8px 0 12px;font-size:12.5px;color:#333;line-height:1.45}
-.search-match-head{display:flex;align-items:center;gap:8px;margin-bottom:3px}
-.search-match-reason{background:#2e7a5f;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:0.5px}
-.search-match-hits{font-size:11px;color:#777}
+.search-match-head{margin-bottom:3px}
+.search-match-reason{display:inline-block;background:#2e7a5f;color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:0.5px;margin-right:6px}
+.search-match-hits{display:inline-block;font-size:11px;color:#777}
 .search-match-snippets{color:#444;font-style:italic}
 .qhl{background:#ffe58a;color:#111;padding:0 2px;border-radius:2px;font-weight:600}
 img{max-width:100%;height:auto;float:right;margin:4px 0 8px 16px;border-radius:4px}
@@ -22001,14 +22001,99 @@ h2{font-size:17px;color:#5b4636;margin:12px 0 4px}
 
 let _expSearchResultsCache = [];
 
+function podswietlSlowaSzukaniaBezpiecznie(htmlStr, qStr){
+  if(!htmlStr || !qStr) return htmlStr || "";
+  try{
+    const czysteSlowa = qStr.replace(/[^\p{L}\p{N}\s]/gu, " ")
+      .trim().split(/\s+/)
+      .filter(w=>w.length >= 2);
+    if(!czysteSlowa.length) return htmlStr;
+
+    const tmp = new DOMParser().parseFromString("<body>" + htmlStr, "text/html").body;
+    if(!tmp) return htmlStr;
+
+    const wzorce = czysteSlowa.map(w=>w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+    const rx = new RegExp("(" + wzorce.join("|") + ")", "gi");
+
+    const walker = document.createTreeWalker(tmp, NodeFilter.SHOW_TEXT, null, false);
+    const textNodes = [];
+    let cur;
+    while(cur = walker.nextNode()){
+      if(cur.parentElement && !["SCRIPT","STYLE","MARK"].includes(cur.parentElement.tagName)){
+        textNodes.push(cur);
+      }
+    }
+
+    for(const tn of textNodes){
+      const val = tn.nodeValue;
+      if(val && rx.test(val)){
+        rx.lastIndex = 0;
+        const frag = document.createDocumentFragment();
+        let lastIdx = 0;
+        val.replace(rx, (match, p1, offset)=>{
+          if(offset > lastIdx) frag.appendChild(document.createTextNode(val.slice(lastIdx, offset)));
+          const m = document.createElement("mark");
+          m.className = "qhl";
+          m.textContent = match;
+          frag.appendChild(m);
+          lastIdx = offset + match.length;
+          return match;
+        });
+        if(lastIdx < val.length) frag.appendChild(document.createTextNode(val.slice(lastIdx)));
+        if(tn.parentNode) tn.parentNode.replaceChild(frag, tn);
+      }
+    }
+    return tmp.innerHTML;
+  }catch(err){
+    console.warn("Błąd bezpiecznego podświetlania:", err);
+    return htmlStr;
+  }
+}
+
 function pobierzAktualneWynikiSzukania(){
+  const gMap = new Map(notes.map(n=>[n.g, n]));
+
+  // 1. Najbardziej wiarygodne: lista notatek aktualnie wyświetlanych na ekranie (fsNavList)
+  if(typeof fsNavList !== "undefined" && Array.isArray(fsNavList) && fsNavList.length > 0){
+    const list = fsNavList.map(g=>gMap.get(g)).filter(n=>n && !n.del);
+    if(list.length > 0) return list;
+  }
+
+  // 2. Karty w DOM (#noteList .ncard)
+  const cards = document.querySelectorAll("#noteList .ncard");
+  if(cards.length > 0){
+    const domList = [...cards].map(c=>gMap.get(c.dataset.g)).filter(n=>n && !n.del);
+    if(domList.length > 0) return domList;
+  }
+
+  // 3. Ostatnio otwierane
   if(sortMode==="recent"){
     return notes.filter(n=>!n.del && n.la).sort((a,b)=>b.la.localeCompare(a.la)).slice(0,5);
   }
-  const _base = (typeof baseNotes==="function") ? baseNotes() : notes.filter(n=>!n.del);
-  return (typeof sortNotes==="function" && typeof filteredNotes==="function")
-    ? sortNotes(filteredNotes(_base))
-    : _base;
+
+  // 4. Pełne przeliczenie bez limitów ucinających bazę
+  const qStr = ($("search") ? $("search").value : (typeof query!=="undefined"?query:"")).trim();
+  if(qStr && (!query || query !== qStr)){
+    if(typeof parseQuery === "function") parseQuery(qStr);
+  }
+
+  const qAktywne = !!query || (typeof aktywneOpcjeSzukania==="function" && aktywneOpcjeSzukania());
+  const globalne = qAktywne && (typeof searchOpts!=="undefined" ? searchOpts.scope==="all" : true);
+
+  let arr = notes.filter(n=>{
+    if(!n || n.del) return false;
+    if(!globalne && typeof noteMatchesTag==="function" && !(noteMatchesTag(n,filt.tag) && noteMatchesBook(n,filt.book) && noteMatchesCh(n) && noteMatchesPub(n,filt.pub))) return false;
+    if(qAktywne && typeof noteMatchesQuery==="function" && !noteMatchesQuery(n)) return false;
+    return true;
+  });
+
+  if(typeof filteredNotes === "function"){
+    arr = arr.filter(matchesQuick);
+  }
+  if(typeof sortNotes === "function"){
+    arr = sortNotes(arr);
+  }
+  return arr.length > 0 ? arr : notes.filter(n=>!n.del);
 }
 
 function searchExportMetaLine(n){
@@ -22020,14 +22105,15 @@ function searchExportMetaLine(n){
 function searchExportNoteSection(n, optHl, optSnippet){
   const ref = refLabel(n);
   const tytul = n.t || ref || "Notatka bez tytułu";
-  
+  const curQ = ($("search") ? $("search").value : (typeof query!=="undefined"?query:"")).trim();
+
   let matchBox = "";
   if(optSnippet && typeof searchDetails !== "undefined"){
-    const sd = query ? searchDetails.get(n.g) : null;
+    const sd = curQ ? searchDetails.get(n.g) : null;
     if(sd){
       const fragmenty = (sd.snippets && sd.snippets.length) ? sd.snippets : (sd.snippet ? [sd.snippet] : []);
       const ileTraf = sd.occurrences ? `${sd.occurrences} ${sd.occurrences===1?"trafienie":"trafień"}` : "";
-      const snipTxt = fragmenty.filter(Boolean).map(s=>`„…${optHl && typeof hilite==="function" ? hilite(esc(s)) : esc(s)}…”`).join(" · ");
+      const snipTxt = fragmenty.filter(Boolean).map(s=>`„…${esc(s)}…”`).join(" · ");
       if(sd.reason || ileTraf || snipTxt){
         matchBox = `<div class="search-match-box">` +
           `<div class="search-match-head">` +
@@ -22041,8 +22127,8 @@ function searchExportNoteSection(n, optHl, optSnippet){
   }
 
   let body = exportNoteBody(n);
-  if(optHl && typeof hilite === "function" && query){
-    body = hilite(body);
+  if(optHl && curQ){
+    body = podswietlSlowaSzukaniaBezpiecznie(body, curQ);
   }
 
   return `<section class="note">` +
@@ -22053,8 +22139,8 @@ function searchExportNoteSection(n, optHl, optSnippet){
   `</section>`;
 }
 
-function searchExportHtml(list){
-  const q = ($("search") ? $("search").value : "").trim();
+function searchExportHtml(list, isWord = false){
+  const q = ($("search") ? $("search").value : (typeof query!=="undefined"?query:"")).trim();
   const optHl = $("expOptHl") ? $("expOptHl").checked : true;
   const optSnippet = $("expOptSnippet") ? $("expOptSnippet").checked : true;
   const countLabel = list.length===1 ? "notatka" : (list.length%10>=2 && list.length%10<=4 && (list.length%100<12 || list.length%100>14)) ? "notatki" : "notatek";
@@ -22067,7 +22153,7 @@ function searchExportHtml(list){
   const headerHtml = `<div class="doc-header">` +
     `<div class="doc-title">${esc(docTitle)}</div>` +
     `<div class="doc-sub">` +
-      (q ? `<span class="doc-query-badge">🔍 ${esc(q)}</span>` : "") +
+      (q ? `<span class="doc-query-badge">🔍 ${esc(q)}</span> ` : "") +
       `<span>${esc(trybTxt)}</span> · ` +
       `<span>${list.length} ${countLabel}</span> · ` +
       `<span>${dataTxt}</span>` +
@@ -22075,6 +22161,15 @@ function searchExportHtml(list){
   `</div>`;
 
   const notesHtml = list.map(n=>searchExportNoteSection(n, optHl, optSnippet)).join("\n");
+  
+  if(isWord){
+    return `<!DOCTYPE html><html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40' lang="pl">` +
+      `<head><meta charset="utf-8"><title>${esc(docTitle)}</title>` +
+      `<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom><w:DoNotOptimizeForBrowser/></w:WordDocument></xml><![endif]-->` +
+      `<style>${EXPORT_CSS_SEARCH}</style></head>` +
+      `<body>${headerHtml}${notesHtml}</body></html>`;
+  }
+
   return exportDocHtml(docTitle, EXPORT_CSS_SEARCH, headerHtml + notesHtml);
 }
 
@@ -22107,6 +22202,9 @@ function odswiezLicznikWlasnegoWyboru(){
 }
 
 function pobierzNotatkiDoEksportu(){
+  if(!_expSearchResultsCache || !_expSearchResultsCache.length){
+    _expSearchResultsCache = pobierzAktualneWynikiSzukania();
+  }
   const isTop = $("expRadioTop") && $("expRadioTop").checked;
   const isCustom = $("expRadioCustom") && $("expRadioCustom").checked;
 
@@ -22116,7 +22214,8 @@ function pobierzNotatkiDoEksportu(){
   }
   if(isCustom){
     const checkedGuids = new Set([...document.querySelectorAll(".expNoteChk:checked")].map(cb=>cb.dataset.guid));
-    return _expSearchResultsCache.filter(n=>checkedGuids.has(n.g));
+    const chosen = _expSearchResultsCache.filter(n=>checkedGuids.has(n.g));
+    return chosen.length ? chosen : _expSearchResultsCache;
   }
   return _expSearchResultsCache;
 }
@@ -22129,7 +22228,7 @@ function otworzEksportWynikow(){
   }
   _expSearchResultsCache = results;
 
-  const q = ($("search") ? $("search").value : "").trim();
+  const q = ($("search") ? $("search").value : (typeof query!=="undefined"?query:"")).trim();
   const qDisp = $("expQueryDisp");
   if(qDisp) qDisp.textContent = q ? `„${q}”` : (typeof aktywneOpcjeSzukania==="function" && aktywneOpcjeSzukania() ? "Aktywne filtry wyszukiwania" : "Wszystkie notatki");
 
@@ -22177,9 +22276,10 @@ async function exportSearchWord(){
     toast("Wybierz przynajmniej jedną notatkę do eksportu");
     return;
   }
-  const q = ($("search") ? $("search").value : "").trim();
+  const q = ($("search") ? $("search").value : (typeof query!=="undefined"?query:"")).trim();
   const safeQ = safeName(q) || "wyniki";
-  const blob = new Blob(["\ufeff" + searchExportHtml(list)], {type: "application/msword"});
+  const html = searchExportHtml(list, true);
+  const blob = new Blob(["\ufeff" + html], {type: "application/msword"});
   await saveFile(blob, `Wyniki-${safeQ}-${new Date().toISOString().substring(0,10)}.doc`, "Wyniki wyszukiwania (Word)");
   toast(`Przygotowano dokument Word — ${list.length} notatek`);
   closeModal("modalExportSearch");
@@ -22191,23 +22291,62 @@ function exportSearchPdf(){
     toast("Wybierz przynajmniej jedną notatkę do wydruku");
     return;
   }
-  const ifr = document.createElement("iframe");
-  ifr.style.cssText = "position:fixed;right:0;bottom:0;width:1px;height:1px;border:0;opacity:0";
-  document.body.appendChild(ifr);
-  ifr.srcdoc = searchExportHtml(list);
-  ifr.onload = ()=>{
+  const html = searchExportHtml(list, false);
+  closeModal("modalExportSearch");
+
+  // Strategia 1: Otwarcie w nowym oknie (najbardziej niezawodne na macOS / Safari / Chrome)
+  let printWin = null;
+  try{
+    printWin = window.open("", "_blank");
+  }catch(_){}
+
+  if(printWin && printWin.document){
+    try{
+      printWin.document.open();
+      printWin.document.write(html);
+      printWin.document.close();
+      toast(`W oknie drukowania wybierz „Zapisz jako PDF” — ${list.length} notatek`);
+      setTimeout(()=>{
+        try{
+          printWin.focus();
+          printWin.print();
+        }catch(e){
+          console.warn("printWin.print error:", e);
+        }
+      }, 350);
+      return;
+    }catch(err){
+      console.warn("Błąd zapisu do okna drukowania:", err);
+    }
+  }
+
+  // Strategia 2: Bezpieczny fallback do iframe z bezpośrednim document.write (same-origin, bez srcdoc)
+  try{
+    let ifr = document.getElementById("searchPdfPrintIfr");
+    if(ifr) ifr.remove();
+    ifr = document.createElement("iframe");
+    ifr.id = "searchPdfPrintIfr";
+    ifr.style.cssText = "position:fixed;top:-9999px;left:-9999px;width:1024px;height:768px;border:none;opacity:0.01;pointer-events:none;z-index:-1";
+    document.body.appendChild(ifr);
+
+    const doc = ifr.contentWindow.document;
+    doc.open();
+    doc.write(html);
+    doc.close();
+
+    toast(`W oknie drukowania wybierz „Zapisz jako PDF” — ${list.length} notatek`);
     setTimeout(()=>{
       try{
         ifr.contentWindow.focus();
         ifr.contentWindow.print();
       }catch(e){
-        toast("Nie udało się otworzyć okna drukowania.");
+        toast("Nie udało się otworzyć okna drukowania. Użyj eksportu Word.");
       }
-      setTimeout(()=>ifr.remove(), 4000);
-    }, 350);
-  };
-  toast(`W oknie drukowania wybierz „Zapisz jako PDF” — ${list.length} notatek`);
-  closeModal("modalExportSearch");
+      setTimeout(()=>ifr && ifr.remove(), 12000);
+    }, 400);
+  }catch(err){
+    toast("Błąd drukowania: " + (err.message || err));
+  }
 }
 
 function setupExportSearchUI(){
