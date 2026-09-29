@@ -27,7 +27,7 @@
 <meta name="theme-color" content="#256b52">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>JW Study 3.76</title>
+<title>JW Study 3.77</title>
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
@@ -3769,6 +3769,9 @@ html[data-theme="dark"] .favmark .mic,html[data-theme="dark"] .sbtn.ico.favon{co
 #toast.t-err{background:rgba(74,42,10,.96)}
 @keyframes flashOk{0%{box-shadow:0 0 0 0 rgba(52,199,89,.45)}100%{box-shadow:0 0 0 10px rgba(52,199,89,0)}}
 .flash-ok{animation:flashOk .7s ease-out}
+@keyframes tagPulseGlow{0%{box-shadow:0 0 0 0 rgba(37,107,82,.6)}50%{box-shadow:0 0 0 6px rgba(37,107,82,.28)}100%{box-shadow:0 0 0 0 rgba(37,107,82,0)}}
+.pulse-tag{animation:tagPulseGlow 1.1s ease-in-out 2;outline:2px solid var(--accent);outline-offset:1px;border-radius:6px}
+.smart-img-badge{display:inline-block;padding:2px 7px;background:rgba(37,107,82,.14);color:var(--accent);border-radius:6px;font-size:11px;font-weight:600;margin-left:4px}
 
 /* ——— przeciąganie kart przy własnej kolejności ——— */
 #noteList.reordering{cursor:grabbing}
@@ -11595,7 +11598,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
       <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW Study</span>
-        <span class="sidebar-brand-ver">v3.76</span>
+        <span class="sidebar-brand-ver">v3.77</span>
       </div>
     </div>
 
@@ -12374,7 +12377,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
    Stałe, stan aplikacji, skrót $
    ========================================================================== */
 "use strict";
-const APP_VERSION = "3.76";
+const APP_VERSION = "3.77";
 const BOOKS = ["","Rodzaju","Wyjścia","Kapłańska","Liczb","Powtórzonego Prawa","Jozuego","Sędziów","Rut","1 Samuela","2 Samuela","1 Królów","2 Królów","1 Kronik","2 Kronik","Ezdrasza","Nehemiasza","Estery","Hioba","Psalmy","Przysłów","Kaznodziei","Pieśń nad Pieśniami","Izajasza","Jeremiasza","Lamentacje","Ezechiela","Daniela","Ozeasza","Joela","Amosa","Abdiasza","Jonasza","Micheasza","Nahuma","Habakuka","Sofoniasza","Aggeusza","Zachariasza","Malachiasza","Mateusza","Marka","Łukasza","Jana","Dzieje Apostolskie","Rzymian","1 Koryntian","2 Koryntian","Galatów","Efezjan","Filipian","Kolosan","1 Tesaloniczan","2 Tesaloniczan","1 Tymoteusza","2 Tymoteusza","Tytusa","Filemona","Hebrajczyków","Jakuba","1 Piotra","2 Piotra","1 Jana","2 Jana","3 Jana","Judy","Objawienie"];
 
 const DBNAME = "jwStudyClean";   // nazwa pamięci tej kopii aplikacji
@@ -19833,7 +19836,7 @@ function sanitize(html){
              bronić: zdjęcia wstawiane w aplikacji powstają z płótna jako
              data:image/jpeg, a niczego innego kod nigdy nie tworzy.
              Sprawdzane w testy/przegladarka/sito.js. */
-          if(/^data:image\/(png|jpe?g|gif|webp|avif)[;,]/i.test(src) || /^https?:\/\//i.test(src)){
+          if(/^data:image\/(png|jpe?g|gif|webp|avif|bmp|x-png)[;,]/i.test(src) || /^https?:\/\//i.test(src)){
             const im=document.createElement("img"); im.src=src;
             im.alt=String(node.getAttribute("alt")||"Ilustracja").slice(0,160);
             let keep=(node.className||"").split(/\s+/).filter(c=>/^img-(s|m|l|left|right|center|inline|rot-(90|180|270))$/.test(c));
