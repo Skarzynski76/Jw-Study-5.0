@@ -27,7 +27,7 @@
 <meta name="theme-color" content="#256b52">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>JW Study 3.75</title>
+<title>JW Study 3.76</title>
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
@@ -11595,7 +11595,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
       <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW Study</span>
-        <span class="sidebar-brand-ver">v3.75</span>
+        <span class="sidebar-brand-ver">v3.76</span>
       </div>
     </div>
 
@@ -12374,7 +12374,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
    Stałe, stan aplikacji, skrót $
    ========================================================================== */
 "use strict";
-const APP_VERSION = "3.75";
+const APP_VERSION = "3.76";
 const BOOKS = ["","Rodzaju","Wyjścia","Kapłańska","Liczb","Powtórzonego Prawa","Jozuego","Sędziów","Rut","1 Samuela","2 Samuela","1 Królów","2 Królów","1 Kronik","2 Kronik","Ezdrasza","Nehemiasza","Estery","Hioba","Psalmy","Przysłów","Kaznodziei","Pieśń nad Pieśniami","Izajasza","Jeremiasza","Lamentacje","Ezechiela","Daniela","Ozeasza","Joela","Amosa","Abdiasza","Jonasza","Micheasza","Nahuma","Habakuka","Sofoniasza","Aggeusza","Zachariasza","Malachiasza","Mateusza","Marka","Łukasza","Jana","Dzieje Apostolskie","Rzymian","1 Koryntian","2 Koryntian","Galatów","Efezjan","Filipian","Kolosan","1 Tesaloniczan","2 Tesaloniczan","1 Tymoteusza","2 Tymoteusza","Tytusa","Filemona","Hebrajczyków","Jakuba","1 Piotra","2 Piotra","1 Jana","2 Jana","3 Jana","Judy","Objawienie"];
 
 const DBNAME = "jwStudyClean";   // nazwa pamięci tej kopii aplikacji
@@ -20822,15 +20822,133 @@ async function smartSprawdzTyp(file){
   if(!typ)throw new Error("Nie rozpoznano zawartości pliku. Obsługiwane są PDF, DOCX, PNG, JPEG i WEBP. Sama zmiana rozszerzenia nie konwertuje dokumentu.");
   smartTypy.set(file,typ);return typ;
 }
+function smartFormatujLinieTekstu(str){
+  let s=appleEsc(str);
+  s=s.replace(/\*\*([^*\n]+?)\*\*/g,"<b>$1</b>");
+  s=s.replace(/__([^_]+?)__/g,"<b>$1</b>");
+  s=s.replace(/(^|[^\w*])\*([^*\n]+?)\*(?!\*)/g,"$1<i>$2</i>");
+  s=s.replace(/(^|[^\w_])_([^_]+?)_(?!_)/g,"$1<i>$2</i>");
+  s=s.replace(/~~([^~\n]+?)~~/g,"<s>$1</s>");
+  s=s.replace(/==([^=\n]+?)==/g,'<mark class="hl1">$1</mark>');
+  return s;
+}
 function smartHtmlZTekstu(tekst){
-  const linie=String(tekst||"").replace(/\r\n?/g,"\n").split("\n");
-  const out=[]; let akapit=[];
-  const flush=()=>{if(!akapit.length)return;out.push("<div>"+akapit.map(appleEsc).join("<br>")+"</div>");akapit=[];};
-  for(const linia of linie){
-    if(!linia.trim()){flush();if(out.length&&out[out.length-1]!=="<div><br></div>")out.push("<div><br></div>");}
-    else akapit.push(linia.trimEnd());
+  if(!tekst)return "";
+  // Usuwanie myślników dzielących wyrazy na końcach linii w OCR / skanach (de-hyphenation)
+  const oczyszczony=String(tekst).replace(/([\p{L}\d])-[\t ]*\r?\n[\t ]*([\p{L}\d])/gu,"$1$2");
+  const linie=oczyszczony.replace(/\r\n?/g,"\n").split("\n");
+  const out=[];
+  let akapit=[];
+  let biezacaLista=null;
+  let biezacyCytat=[];
+
+  const flushAkapit=()=>{
+    if(!akapit.length)return;
+    let html="";
+    for(let i=0;i<akapit.length;i++){
+      const raw=akapit[i],fmt=smartFormatujLinieTekstu(raw.trim());
+      if(i>0){
+        if(akapit[i-1].endsWith("  "))html+="<br>"+fmt;
+        else html+=" "+fmt;
+      }else html+=fmt;
+    }
+    out.push("<div>"+html+"</div>");
+    akapit=[];
+  };
+  const flushLista=()=>{
+    if(!biezacaLista)return;
+    if(biezacaLista.typ==="task"){
+      out.push('<ul class="tasklist">'+biezacaLista.items.map(it=>'<li class="'+(it.done?'done':'')+'">'+smartFormatujLinieTekstu(it.text)+'</li>').join("")+'</ul>');
+    }else if(biezacaLista.typ==="ol"){
+      out.push('<ol>'+biezacaLista.items.map(it=>'<li>'+smartFormatujLinieTekstu(it.text)+'</li>').join("")+'</ol>');
+    }else{
+      out.push('<ul>'+biezacaLista.items.map(it=>'<li>'+smartFormatujLinieTekstu(it.text)+'</li>').join("")+'</ul>');
+    }
+    biezacaLista=null;
+  };
+  const flushCytat=()=>{
+    if(!biezacyCytat.length)return;
+    out.push('<blockquote>'+biezacyCytat.map(smartFormatujLinieTekstu).join("<br>")+'</blockquote>');
+    biezacyCytat=[];
+  };
+  const flushWszystko=()=>{flushAkapit();flushLista();flushCytat();};
+
+  for(let i=0;i<linie.length;i++){
+    const raw=linie[i],trim=raw.trim();
+    if(!trim){
+      flushWszystko();
+      if(out.length&&out[out.length-1]!=="<div><br></div>")out.push("<div><br></div>");
+      continue;
+    }
+
+    // Cytaty markdown: > treść
+    const cytatMatch=trim.match(/^>\s*(.*)$/);
+    if(cytatMatch){
+      flushAkapit();flushLista();
+      biezacyCytat.push(cytatMatch[1]);
+      continue;
+    }else{flushCytat();}
+
+    // Zadania: [ ] lub [x]
+    const taskMatch=trim.match(/^\[([ xX])\]\s*(.+)$/);
+    if(taskMatch){
+      flushAkapit();
+      if(!biezacaLista||biezacaLista.typ!=="task"){flushLista();biezacaLista={typ:"task",items:[]};}
+      biezacaLista.items.push({done:taskMatch[1].toLowerCase()==="x",text:taskMatch[2]});
+      continue;
+    }
+
+    // Nagłówki markdown (#, ##, ###)
+    const mdHMatch=trim.match(/^(#{1,3})\s+(.+)$/);
+    if(mdHMatch){
+      flushWszystko();
+      const tag=mdHMatch[1].length<=2?"h2":"h3";
+      out.push("<"+tag+">"+smartFormatujLinieTekstu(mdHMatch[2])+"</"+tag+">");
+      continue;
+    }
+
+    // Listy nienumerowane (•, ●, ○, ▪, ▫, *, –, —, -)
+    const ulMatch=trim.match(/^([•●○▪▫*–—]|-)\s+(.+)$/);
+    if(ulMatch){
+      flushAkapit();
+      if(!biezacaLista||biezacaLista.typ!=="ul"){flushLista();biezacaLista={typ:"ul",items:[]};}
+      biezacaLista.items.push({text:ulMatch[2]});
+      continue;
+    }
+
+    // Listy numerowane (1., 1), a., a))
+    const olMatch=trim.match(/^(\d+|[a-zA-Z])[.)]\s+(.+)$/);
+    if(olMatch){
+      flushAkapit();
+      if(!biezacaLista||biezacaLista.typ!=="ol"){flushLista();biezacaLista={typ:"ol",items:[]};}
+      biezacaLista.items.push({text:olMatch[2]});
+      continue;
+    }
+
+    // Nagłówki heurystyczne (wielkie litery, słowa kluczowe, numeracje rzymskie, etykiety z dwukropkiem)
+    const isAllCaps=/^[\p{Lu}\d\s.,:;–—\-()„”"']{4,70}$/u.test(trim)&&(trim.match(/[\p{Lu}]/gu)||[]).length>=4&&!trim.endsWith(".");
+    const isKeyword=/^(?:Rozdzia[łl]|Cz[ęe][śs][ćc]|Temat:|Lekcja \d+|Pytanie \d+|Wst[ęe]p|Zako[ńn]czenie|Podsumowanie|Wnioski:?|Kluczowe punkty:?)\b/i.test(trim)&&trim.length<=80;
+    const isRoman=/^[IVXLCDM]+\.\s+[\p{Lu}]/u.test(trim)&&trim.length<=80&&!trim.endsWith(".");
+    const isColon=/^[\p{L}\d\s–—\-()„”"']{3,60}:$/u.test(trim)&&!/^(https?|mailto):$/i.test(trim);
+
+    if(isAllCaps||isKeyword||isRoman||isColon){
+      flushWszystko();
+      const tag=(isAllCaps||/^(?:Rozdzia[łl]|Cz[ęe][śs][ćc]|Temat:)/i.test(trim))?"h2":"h3";
+      out.push("<"+tag+">"+smartFormatujLinieTekstu(trim)+"</"+tag+">");
+      continue;
+    }
+
+    // Kontynuacja elementu listy (wcięcie spacjami)
+    if(biezacaLista&&/^\s{2,}/.test(raw)){
+      const last=biezacaLista.items[biezacaLista.items.length-1];
+      if(last){last.text+=" "+trim;continue;}
+    }
+
+    flushLista();
+    akapit.push(raw);
   }
-  flush(); while(out[out.length-1]==="<div><br></div>")out.pop();
+  flushWszystko();
+  while(out.length&&out[out.length-1]==="<div><br></div>")out.pop();
   return out.join("");
 }
 function smartPodzielNaglowki(html, tytulBazowy){
@@ -20936,6 +21054,170 @@ async function smartRozpoznajObraz(zrodlo){
     const r=await smartCzekaj(w.recognize(zrodlo));sprawdzAnulowanieImportu();return String(r&&r.data&&r.data.text||"").trim();
   }catch(e){await smartZakonczOcr();throw e;}
 }
+function smartStrukturaPdf(items, styles){
+  if(!items||!items.length)return "";
+  const rozmary=[];
+  for(const it of items){
+    const s=String(it.str||"").trim();
+    if(!s)continue;
+    const tr=it.transform||[];
+    const fs=Math.round((it.height||(tr.length?Math.hypot(tr[0],tr[1]):10))*10)/10;
+    if(fs>0)rozmary.push(fs);
+  }
+  if(!rozmary.length)return "";
+  rozmary.sort((a,b)=>a-b);
+  const bazowyFs=rozmary[Math.floor(rozmary.length/2)]||10;
+
+  const wiersze=[];
+  let biezacyWiersz=null;
+  for(const it of items){
+    const str=String(it.str||"");
+    if(!str&&!it.hasEOL)continue;
+    const tr=it.transform||[];
+    const x=Number.isFinite(tr[4])?tr[4]:0;
+    const y=Number.isFinite(tr[5])?tr[5]:0;
+    const fs=Math.round((it.height||(tr.length?Math.hypot(tr[0],tr[1]):10))*10)/10;
+    const st=(styles&&it.fontName&&styles[it.fontName])||{};
+    const fn=(st.fontFamily||it.fontName||"").toLowerCase();
+    const isBold=/bold|black|heavy|semibold|w[7-9]/i.test(fn);
+    const isItalic=/italic|oblique/i.test(fn);
+
+    if(!biezacyWiersz){
+      biezacyWiersz={y,fs,items:[{str,x,width:it.width||0,fs,isBold,isItalic}]};
+    }else{
+      const tolerancja=Math.max(2.5,Math.min(biezacyWiersz.fs,fs)*0.45);
+      if(Math.abs(y-biezacyWiersz.y)<=tolerancja){
+        biezacyWiersz.items.push({str,x,width:it.width||0,fs,isBold,isItalic});
+        biezacyWiersz.y=(biezacyWiersz.y+y)/2;
+        biezacyWiersz.fs=Math.max(biezacyWiersz.fs,fs);
+      }else{
+        wiersze.push(biezacyWiersz);
+        biezacyWiersz={y,fs,items:[{str,x,width:it.width||0,fs,isBold,isItalic}]};
+      }
+    }
+    if(it.hasEOL&&biezacyWiersz){
+      wiersze.push(biezacyWiersz);
+      biezacyWiersz=null;
+    }
+  }
+  if(biezacyWiersz)wiersze.push(biezacyWiersz);
+  if(!wiersze.length)return "";
+
+  const linie=[];
+  for(const w of wiersze){
+    w.items.sort((a,b)=>a.x-b.x);
+    let htmlWiersza="",tekstWiersza="",prevKoniec=null,boldCount=0,totalChars=0;
+    for(const it of w.items){
+      const s=it.str;
+      if(!s)continue;
+      if(prevKoniec!==null&&(it.x-prevKoniec)>Math.max(1,it.fs*0.18)&&!/\s$/.test(tekstWiersza)&&!/^\s/.test(s)){
+        htmlWiersza+=" ";tekstWiersza+=" ";
+      }
+      let fragment=appleEsc(s);
+      if(it.isBold)fragment="<b>"+fragment+"</b>";
+      if(it.isItalic)fragment="<i>"+fragment+"</i>";
+      htmlWiersza+=fragment;
+      tekstWiersza+=s;
+      const len=s.trim().length;
+      if(it.isBold)boldCount+=len;
+      totalChars+=len;
+      prevKoniec=it.x+(it.width||0);
+    }
+    const czystyTekst=tekstWiersza.trim();
+    if(!czystyTekst)continue;
+    linie.push({
+      y:w.y,
+      fs:w.fs,
+      html:htmlWiersza.trim(),
+      tekst:czystyTekst,
+      isMostlyBold:totalChars>0&&(boldCount/totalChars>=0.75)
+    });
+  }
+  if(!linie.length)return "";
+
+  // PDF współrzędne Y: góra strony ma większe Y niż dół
+  linie.sort((a,b)=>b.y-a.y);
+
+  // De-hyphenation w liniach PDF
+  for(let i=0;i<linie.length-1;i++){
+    if(linie[i].tekst.endsWith("-")&&!linie[i].tekst.endsWith(" -")){
+      const nast=linie[i+1];
+      if(nast&&/^\p{L}/u.test(nast.tekst)){
+        linie[i].html=linie[i].html.replace(/-<\/b>$/i,"</b>").replace(/-<\/i>$/i,"</i>").replace(/-$/,"");
+        linie[i].tekst=linie[i].tekst.slice(0,-1);
+        linie[i].zlepNastepna=true;
+      }
+    }
+  }
+
+  const bloki=[];
+  let buforAkapitu=[];
+  let biezacaLista=null;
+  const flushAkapit=()=>{
+    if(buforAkapitu.length){bloki.push("<div>"+buforAkapitu.join(" ")+"</div>");buforAkapitu=[];}
+  };
+  const flushLista=()=>{
+    if(biezacaLista){
+      const tag=biezacaLista.typ==="ol"?"ol":"ul";
+      bloki.push("<"+tag+">"+biezacaLista.items.map(t=>"<li>"+t+"</li>").join("")+"</"+tag+">");
+      biezacaLista=null;
+    }
+  };
+  const flushWszystko=()=>{flushAkapit();flushLista();};
+
+  for(let i=0;i<linie.length;i++){
+    const cur=linie[i],prev=i>0?linie[i-1]:null;
+    const deltaY=prev?(prev.y-cur.y):0,trim=cur.tekst;
+
+    const jestH2=cur.fs>=bazowyFs*1.32;
+    const jestH3=(cur.fs>=bazowyFs*1.14)||(cur.isMostlyBold&&cur.fs>=bazowyFs*1.04&&trim.length<80&&!trim.endsWith("."));
+
+    if(jestH2||jestH3){
+      flushWszystko();
+      const tag=jestH2?"h2":"h3";
+      bloki.push("<"+tag+">"+cur.html.replace(/<\/?b>/gi,"")+"</"+tag+">");
+      continue;
+    }
+
+    const ulMatch=trim.match(/^([•●○▪▫*–—]|-)\s*(.+)$/);
+    if(ulMatch){
+      flushAkapit();
+      if(!biezacaLista||biezacaLista.typ!=="ul"){flushLista();biezacaLista={typ:"ul",items:[]};}
+      biezacaLista.items.push(cur.html.replace(/^([•●○▪▫*–—]|-)\s*/,""));
+      continue;
+    }
+
+    const olMatch=trim.match(/^(\d+|[a-zA-Z])[.)]\s*(.+)$/);
+    if(olMatch){
+      flushAkapit();
+      if(!biezacaLista||biezacaLista.typ!=="ol"){flushLista();biezacaLista={typ:"ol",items:[]};}
+      biezacaLista.items.push(cur.html.replace(/^(\d+|[a-zA-Z])[.)]\s*/,""));
+      continue;
+    }
+
+    if(prev&&deltaY>Math.max(prev.fs,cur.fs)*1.7&&!prev.zlepNastepna){
+      flushWszystko();
+    }
+
+    if(biezacaLista&&prev&&deltaY<=Math.max(prev.fs,cur.fs)*1.5&&(prev.zlepNastepna||/^\s/.test(cur.tekst)||/^[a-zżźćńółęąś]/.test(trim))){
+      const lastIdx=biezacaLista.items.length-1;
+      if(lastIdx>=0){
+        biezacaLista.items[lastIdx]+=(prev.zlepNastepna?"":" ")+cur.html;
+        continue;
+      }
+    }
+
+    flushLista();
+    if(prev&&prev.zlepNastepna){
+      if(buforAkapitu.length)buforAkapitu[buforAkapitu.length-1]+=cur.html;
+      else buforAkapitu.push(cur.html);
+    }else{
+      buforAkapitu.push(cur.html);
+    }
+  }
+  flushWszystko();
+  return bloki.join("");
+}
 function smartTekstPdf(items){
   const linie=[];let linia="",poprzedni=null;
   const flush=()=>{if(linia.trim())linie.push(linia.replace(/\s+/g," ").trim());linia="";poprzedni=null;};
@@ -20975,7 +21257,7 @@ async function smartCzytajSkanPdf(page,ocr,zachowaj){
       if(!tekst&&!warning)warning="Nie rozpoznano tekstu na tej stronie.";
     }else warning="OCR wyłączony — zachowano wyłącznie obraz strony.";
     if(!tekst&&!obraz)throw new Error("Strona nie ma tekstu. Włącz OCR lub zachowanie obrazów skanów.");
-    return {tekst,html:obraz+smartHtmlZTekstu(tekst),warning};
+    return {tekst,html:obraz+(obraz&&tekst?"<div><br></div>":"")+smartHtmlZTekstu(tekst),warning};
   }finally{
     if(render)try{render.cancel();}catch(_){}
     c.width=1;c.height=1;
@@ -20995,8 +21277,13 @@ async function smartCzytajPdf(file, dziel, ocr, bazaPostepu=0, zachowaj=true,wym
       const page=await smartCzekaj(doc.getPage(i));
       try{
         const content=await smartCzekaj(page.getTextContent()),tekst=smartTekstPdf(content.items);
+        let html="";
+        if(tekst.trim()&&!(ocr&&wymusOcr)){
+          try{html=smartStrukturaPdf(content.items,content.styles);}catch(_){}
+          if(!html)html=smartHtmlZTekstu(tekst);
+        }
         // Krótki, ale prawidłowy tekst nie jest skanem i nie wymaga OCR.
-        const wynik=tekst.trim()&&!(ocr&&wymusOcr)?{tekst,html:smartHtmlZTekstu(tekst),warning:""}:await smartCzytajSkanPdf(page,ocr,zachowaj);
+        const wynik=tekst.trim()&&!(ocr&&wymusOcr)?{tekst,html,warning:""}:await smartCzytajSkanPdf(page,ocr,zachowaj);
         strony.push({nr:i,...wynik});
       }finally{try{page.cleanup();}catch(_){}}
       if(i%2===0)await oddechImportu();
@@ -21024,7 +21311,31 @@ async function smartCzytajDocx(file,dziel,ocrObrazy=false){
   const mm=await smartMammoth();
   sprawdzAnulowanieImportu();
   const tekstyObrazow=[],bledyOcr=[];let kolejkaOcr=Promise.resolve();
+  const styleMap=[
+    "p[style-name='Heading 1'] => h2:fresh",
+    "p[style-name='Heading 2'] => h2:fresh",
+    "p[style-name='Heading 3'] => h3:fresh",
+    "p[style-name='Heading 4'] => h3:fresh",
+    "p[style-name='Nagłówek 1'] => h2:fresh",
+    "p[style-name='Nagłówek 2'] => h2:fresh",
+    "p[style-name='Nagłówek 3'] => h3:fresh",
+    "p[style-name='Nagłówek 4'] => h3:fresh",
+    "p[style-name='Title'] => h2:fresh",
+    "p[style-name='Tytuł'] => h2:fresh",
+    "p[style-name='Subtitle'] => h3:fresh",
+    "p[style-name='Podtytuł'] => h3:fresh",
+    "p[style-name='Quote'] => blockquote:fresh",
+    "p[style-name='Cytat'] => blockquote:fresh",
+    "p[style-name='Intense Quote'] => blockquote:fresh",
+    "p[style-name='List Bullet'] => ul > li:fresh",
+    "p[style-name='Punktory'] => ul > li:fresh",
+    "p[style-name='List Number'] => ol > li:fresh",
+    "p[style-name='Numerowanie'] => ol > li:fresh",
+    "r[style-name='Strong'] => strong",
+    "r[style-name='Emphasis'] => em"
+  ];
   const wynik=await smartCzekaj(mm.convertToHtml({arrayBuffer:buf},{
+    styleMap,
     convertImage:mm.images.imgElement(async image=>{
       const src="data:"+image.contentType+";base64,"+await image.read("base64");
       if(ocrObrazy){
@@ -21037,7 +21348,20 @@ async function smartCzytajDocx(file,dziel,ocrObrazy=false){
   sprawdzAnulowanieImportu();
   let raw=String(wynik.value||"");
   if(tekstyObrazow.length)raw+="<h2>Tekst rozpoznany z ilustracji</h2>"+tekstyObrazow.map(smartHtmlZTekstu).join("");
-  const dom=parsujBezwladnie(raw),h1=dom.querySelector("h1"),nazwa=(h1&&h1.textContent.trim())||smartNazwaBezRozszerzenia(file.name);
+  raw=raw.replace(/\u00AD/g,""); // usuń soft-hyphen
+  // Ulepsz tabele: jeśli pierwszy wiersz zawiera pogrubione komórki, przekształć na nagłówki tabeli (th)
+  raw=raw.replace(/<table(?:\s[^>]*)?>([\s\S]*?)<\/table>/gi,m=>{
+    return m.replace(/<tr(?:\s[^>]*)?>([\s\S]*?)<\/tr>/i,(tr,inner)=>{
+      if(!inner.includes("<th")&&/<strong>|<b>/i.test(inner)){
+        const converted=inner.replace(/<td(?:\s[^>]*)?>([\s\S]*?)<\/td>/gi,(_,cell)=>"<th>"+cell.replace(/<\/?(?:strong|b)>/gi,"").trim()+"</th>");
+        return "<tr>"+converted+"</tr>";
+      }
+      return tr;
+    });
+  });
+  // Usuń nadmierne puste akapity
+  raw=raw.replace(/(?:<p>\s*(?:<br\s*\/?>)?\s*<\/p>\s*){3,}/gi,"<p><br></p>");
+  const dom=parsujBezwladnie(raw),h1=dom.querySelector("h1, h2, h3"),nazwa=(h1&&h1.textContent.trim())||smartNazwaBezRozszerzenia(file.name);
   raw=raw.replace(/<h([1-6])(?:\s[^>]*)?>/gi,(_,n)=>+n<=2?"<h2>":"<h3>")
     .replace(/<\/h([1-6])>/gi,(_,n)=>+n<=2?"</h2>":"</h3>");
   const clean=sanitize(raw);
