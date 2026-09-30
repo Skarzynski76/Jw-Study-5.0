@@ -1538,8 +1538,11 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
 #fsWrap .ncontent{font-size:var(--fsNoteFs, calc(var(--noteFs,14px) + 3px));line-height:1.7;flex:1 0 auto}
 #fsWrap .ntools{margin-top:auto}
 #fsWrap .ntitle{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 3px)) + 3px)}
+#fsWrap .ncontent h1{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 3px)) + 8px)}
 #fsWrap .ncontent h2{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 3px)) + 5px)}
 #fsWrap .ncontent h3{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 3px)) + 2px)}
+#fsWrap .ncontent h4{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 3px)) + 1px)}
+#fsWrap .ncontent h5, #fsWrap .ncontent h6{font-size:var(--fsNoteFs, calc(var(--noteFs,14px) + 3px))}
 /* pełny ekran: wygodna szerokość czytania + przyklejona belka tytułu */
 #fsWrap .ncontent,#fsWrap .nmeta2,#fsWrap .chips{max-width:var(--fsMax,760px);margin-left:auto;margin-right:auto}
 #fsWrap .ncontent{line-height:var(--noteLh,1.7);font-family:var(--noteFont,var(--readFont,inherit))}
@@ -1850,6 +1853,13 @@ html[data-theme="dark"] .exp-base.warn,html[data-theme="dark"] .exp-warn{backgro
 .editbar .eb-block:hover, .editbar .eb-font:hover { border-color: var(--accent); }
 .editbar .eb-font { max-width: 130px; font-weight: 500; }
 
+.ncontent h1 {
+  font-size: calc(var(--noteFs, 14px) + 9px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 18px 0 8px;
+  color: var(--accent);
+}
 .ncontent h2 {
   font-size: calc(var(--noteFs, 14px) + 6px);
   font-weight: 700;
@@ -1862,6 +1872,17 @@ html[data-theme="dark"] .exp-base.warn,html[data-theme="dark"] .exp-warn{backgro
   font-weight: 650;
   letter-spacing: -0.01em;
   margin: 10px 0 4px;
+}
+.ncontent h4 {
+  font-size: calc(var(--noteFs, 14px) + 1px);
+  font-weight: 650;
+  margin: 8px 0 4px;
+}
+.ncontent h5, .ncontent h6 {
+  font-size: var(--noteFs, 14px);
+  font-weight: 600;
+  margin: 6px 0 3px;
+  color: var(--muted);
 }
 .ncontent blockquote {
   margin: 12px 0;
@@ -8077,6 +8098,61 @@ label.roz-opcja .roz-data:empty{ display:none; }
 /* W edycji odsyłacz jest tekstem do poprawiania, więc nie udaje przycisku. */
 .ncontent[contenteditable="true"] a.note-ref{ cursor:text; }
 
+/* ══════════════ ZWIJANIE I ROZWIJANIE NAGŁÓWKÓW W NOTATCE (Pkt 4) ══════════════ */
+.ncontent :is(h1, h2, h3){ position:relative; }
+.ncontent :is(h1, h2, h3) .secFoldBtn{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:22px; height:22px; margin-right:5px; margin-left:-2px; border:none; background:transparent; padding:0;
+  color:var(--muted); cursor:pointer; border-radius:5px; vertical-align:middle;
+  transition:transform .18s ease, color .15s ease, background .15s ease, opacity .15s ease;
+  user-select:none; -webkit-user-select:none; flex-shrink:0;
+}
+.ncontent :is(h1, h2, h3) .secFoldBtn:hover{
+  background:var(--sel); color:var(--accent);
+}
+.ncontent :is(h1, h2, h3) .secFoldBtn svg{
+  display:block; width:14px; height:14px; transition:transform .18s ease;
+}
+.ncontent :is(h1, h2, h3).outline-collapsed .secFoldBtn svg{
+  transform:rotate(-90deg);
+}
+.ncontent :is(h1, h2, h3).outline-collapsed .secFoldBtn{
+  color:var(--accent);
+}
+.ncontent :is(h1, h2, h3).outline-collapsed::after{
+  content:" ···"; color:var(--accent); font-size:.8em; font-weight:normal; margin-left:6px; opacity:.85;
+}
+.ncontent[contenteditable="true"] :is(h1, h2, h3) .secFoldBtn{
+  opacity:0.45;
+}
+.ncontent[contenteditable="true"] :is(h1, h2, h3):hover .secFoldBtn,
+.ncontent[contenteditable="true"] :is(h1, h2, h3) .secFoldBtn:hover{
+  opacity:1;
+}
+.ncontent:not([contenteditable="true"]) :is(h1, h2, h3) .secFoldBtn{
+  opacity:0.55;
+}
+.ncontent:not([contenteditable="true"]) :is(h1, h2, h3):hover .secFoldBtn,
+.ncontent:not([contenteditable="true"]) :is(h1, h2, h3).outline-collapsed .secFoldBtn{
+  opacity:1;
+}
+.outlineHeadBtn{
+  border:0; background:var(--sel); color:var(--text); border-radius:8px;
+  min-width:28px; height:28px; padding:0 6px; font-size:11px; font-weight:600;
+  display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+  transition:background .15s, color .15s;
+}
+.outlineHeadBtn:hover{ background:var(--border); color:var(--accent); }
+.outlineItem.lv1 .outlineJump{ font-weight:700; }
+.outlineItem.lv2{ padding-left:10px; }
+.outlineItem.lv3{ padding-left:22px; font-size:0.94em; }
+.outlineItem.folded .outlineJump{ opacity:0.75; font-style:italic; }
+.outlineItem.folded .outlineFold{ color:var(--accent); font-weight:700; }
+@media print{
+  .secFoldBtn{ display:none !important; }
+  .ncontent [hidden]{ display:revert !important; }
+}
+
 /* ══════════════ PRZYPISY ══════════════ */
 .ncontent sup.fnref{
   color:var(--accent); font-weight:700; cursor:pointer;
@@ -10490,7 +10566,7 @@ html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
 /* JW Study 3.53 — spis treści, fragmenty i kontekst tabel. */
 #noteOutline{position:fixed;display:none;z-index:10048;right:14px;top:max(calc(env(safe-area-inset-top) + 76px),86px);width:min(310px,calc(100vw - 28px));max-height:min(70vh,620px);overflow:auto;border:1px solid var(--border);border-radius:18px;background:var(--panel);box-shadow:0 18px 48px rgba(0,0,0,.25);padding:12px;color:var(--text)}
 .outlineHead{display:flex;align-items:center;gap:8px;margin-bottom:8px}.outlineHead strong{flex:1;font-size:14px}.outlineHead button{border:0;background:var(--sel);color:var(--text);border-radius:8px;width:30px;height:30px}.outlineEmpty{padding:18px 8px;color:var(--muted);font-size:13px;text-align:center}
-.outlineItem{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px;align-items:center;border-radius:10px;padding:3px 4px}.outlineItem:hover{background:var(--sel)}.outlineJump{border:0;background:transparent;color:var(--text);text-align:left;padding:7px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.outlineItem.lv3{padding-left:18px}.outlineFold{border:1px solid var(--border);background:var(--panel);color:var(--muted);border-radius:7px;min-width:30px;height:28px}.outlineItem.folded .outlineJump{color:var(--accent);font-weight:700}.ncontent h2.outline-collapsed::after,.ncontent h3.outline-collapsed::after{content:"  ···";color:var(--accent);font-size:.75em}
+.outlineItem{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px;align-items:center;border-radius:10px;padding:3px 4px}.outlineItem:hover{background:var(--sel)}.outlineJump{border:0;background:transparent;color:var(--text);text-align:left;padding:7px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.outlineItem.lv3{padding-left:18px}.outlineFold{border:1px solid var(--border);background:var(--panel);color:var(--muted);border-radius:7px;min-width:30px;height:28px}.outlineItem.folded .outlineJump{color:var(--accent);font-weight:700}
 #tableBar{position:fixed;display:none;z-index:10046;align-items:center;gap:4px;max-width:calc(100vw - 16px);overflow-x:auto;padding:5px 6px;border:1px solid var(--border);border-radius:12px;background:var(--panel);box-shadow:0 9px 28px rgba(0,0,0,.24)}
 #tableBar button{flex:0 0 auto;border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);height:34px;padding:0 9px;font-size:13px}#tableBar .sep{flex:0 0 auto;width:1px;height:20px;background:var(--border)}
 .ncontent table.ntab.table-head-1 th{background:#e8d7aa;color:#493714}.ncontent table.ntab.table-head-2 th{background:#c9e2d6;color:#173d30}.ncontent table.ntab.table-head-3 th{background:#cddcf0;color:#1d385c}.ncontent table.ntab.table-head-4 th{background:#dfd1ec;color:#402957}html[data-theme="dark"] .ncontent table.ntab[class*="table-head-"] th{color:#171719}
@@ -11840,7 +11916,7 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
     <div class="replaceOpts"><label><input id="replaceCase" type="checkbox"> Rozróżniaj wielkie litery</label><span id="replaceStatus" class="replaceStatus">0 wyników</span></div>
   </div><div class="replaceBtns"><button data-rp="prev">← Poprzedni</button><button data-rp="next">Następny →</button><button data-rp="one">Zamień</button><button data-rp="all" class="primary">Zamień wszystko</button><button data-rp="close">Zamknij</button></div></div>
 </div>
-<aside id="noteOutline" aria-label="Spis nagłówków notatki"><div class="outlineHead"><strong>Spis notatki</strong><button data-outline-close="1" aria-label="Zamknij">✕</button></div><div id="outlineList"></div></aside>
+<aside id="noteOutline" aria-label="Spis nagłówków notatki"><div class="outlineHead"><strong>Spis notatki</strong><button data-outline-action="expand" class="outlineHeadBtn" title="Rozwiń wszystkie nagłówki" aria-label="Rozwiń wszystkie">▾▾</button><button data-outline-action="collapse" class="outlineHeadBtn" title="Zwiń wszystkie nagłówki" aria-label="Zwiń wszystkie">▸▸</button><button data-outline-close="1" aria-label="Zamknij">✕</button></div><div id="outlineList"></div></aside>
 <div id="tableBar" role="toolbar" aria-label="Narzędzia tabeli"><button data-tact="row">+ Wiersz</button><button data-tact="col">+ Kolumna</button><span class="sep"></span><button data-tact="left">≡←</button><button data-tact="center">≡</button><button data-tact="right">→≡</button><button data-tact="head">Kolor nagłówka</button><span class="sep"></span><button data-tact="merge">Połącz →</button><button data-tact="split">Rozdziel</button></div>
 <div id="tableSizePanel" role="dialog" aria-modal="true" aria-labelledby="tableSizeTitle"><div class="toolDialog"><div class="toolDialogHead"><h3 id="tableSizeTitle">Wstaw tabelę</h3><button data-table-size-close="1">✕</button></div><div id="tableSizeLabel">Wybierz rozmiar</div><div id="tableSizeGrid"></div></div></div>
 <div id="fragmentPanel" role="dialog" aria-modal="true" aria-labelledby="fragmentTitle"><div class="toolDialog"><div class="toolDialogHead"><h3 id="fragmentTitle">Moje fragmenty i szablony</h3><button data-fragment-close="1">✕</button></div><div class="fragmentActions"><button data-fragment-save="1">＋ Zapisz zaznaczenie</button></div><div id="fragmentList"></div></div></div>
@@ -16150,6 +16226,7 @@ function noteCard(n){
      zapisane w treści. Wyjaśnienia w 54-wzmianki.js i 55-przypisy.js. */
   if(typeof odswiezOdnosnikiNotatek==="function") odswiezOdnosnikiNotatek(d.querySelector(".ncontent"));
   if(typeof przPrzenumeruj==="function") przPrzenumeruj(d.querySelector(".ncontent"));
+  if(typeof uzupelnijZwijanieNaglowkow==="function") uzupelnijZwijanieNaglowkow(d.querySelector(".ncontent"));
   if(typeof zastosujWysokosc==="function") zastosujWysokosc(d, n);
   if(typeof zastosujTloNotatki==="function") zastosujTloNotatki(d, n);
   if(typeof przygotujPrzewijanie==="function") przygotujPrzewijanie(d);
@@ -17594,7 +17671,7 @@ const IE_DOLNY  = svgIc('<path d="M3.5 6l7 10M10.5 6l-7 10"/><path d="M15.4 15.4
    pozycji co obecna nie wywołuje żadnego zdarzenia, więc na iPadzie wyglądało to
    tak, jakby opcja przestała działać. Zwykłe menu reaguje na każde dotknięcie. */
 const BLOK_STYLE = [
-  ["DIV","Treść"], ["H2","Tytuł"], ["H3","Nagłówek"], ["BLOCKQUOTE","Cytat"]
+  ["DIV","Treść"], ["H1","Tytuł główny"], ["H2","Tytuł"], ["H3","Nagłówek"], ["BLOCKQUOTE","Cytat"]
 ];
 /* Interlinia — odstęp między wierszami wewnątrz akapitu. */
 const INTERLINIE = [["1.35","Ciasna"], ["1.6","Zwykła"], ["1.85","Luźna"], ["2.15","Bardzo luźna"]];
@@ -17781,8 +17858,9 @@ function buildEditbar(n){
 const SKROTY_PISANIA = [
   { wzor:/^[-*•]$/,    cmd:"insertUnorderedList" },
   { wzor:/^\d{1,2}[.)]$/, cmd:"insertOrderedList" },
-  { wzor:/^#$/,        blok:"h2" },
-  { wzor:/^##$/,       blok:"h3" },
+  { wzor:/^#$/,        blok:"h1" },
+  { wzor:/^##$/,       blok:"h2" },
+  { wzor:/^###$/,      blok:"h3" },
   { wzor:/^>$/,        blok:"blockquote" },
   /* Lista zadań. Do wydania 2.60 rozpoznawał ją tylko autoformat na zdarzeniu
      „input", które przy pisaniu z klawiatury nigdy nie dochodziło — spację
@@ -17827,7 +17905,10 @@ function skrotPisania(e, ce){
   else if(pasuje.cmd === "insertUnorderedList") nowy = zamienNaListe(blok, "ul", "", ce);
   else if(pasuje.cmd === "insertOrderedList")   nowy = zamienNaListe(blok, "ol", "", ce);
   else if(pasuje.cmd === "insertTaskList")      nowy = zamienNaListe(blok, "ul", "tasklist", ce);
-  if(nowy) kursorNaPoczatkuBloku(nowy, ce);
+  if(nowy){
+    if(typeof uzupelnijZwijanieNaglowkow === "function") uzupelnijZwijanieNaglowkow(ce);
+    kursorNaPoczatkuBloku(nowy, ce);
+  }
   else if(pasuje.cmd) document.execCommand(pasuje.cmd, false, null);   // droga awaryjna
   if(typeof commitLiveEdit === "function") commitLiveEdit(ce);
   histZapisz(ce);
@@ -17846,7 +17927,7 @@ function poczatekWiersza(wezel, offset, ce){
       if(el.previousSibling.nodeName === "BR") return true;
     }
     el = el.parentNode;
-    if(el && /^(DIV|P|LI|H2|H3|BLOCKQUOTE)$/.test(el.nodeName)) return true;
+    if(el && /^(DIV|P|LI|H1|H2|H3|BLOCKQUOTE)$/.test(el.nodeName)) return true;
   }
   return true;
 }
@@ -18710,7 +18791,7 @@ $("selEditBar").addEventListener("pointerdown",ev=>{
 });
 document.addEventListener("pointerdown",e=>{if(!e.target.closest("#selEditBar,#ebPop"))schowajPasekZaznaczenia();},true);
 
-/* ===== SPIS NAGŁÓWKÓW I ZWIJANIE SEKCJI (3.53) ===== */
+/* ===== SPIS NAGŁÓWKÓW I ZWIJANIE SEKCJI (3.53 + 3.56 Pkt 4) ===== */
 let outlineCe=null,outlineTimer=0;
 function zamknijSpisNotatki(reset){
   $("noteOutline").style.display="none";
@@ -18724,9 +18805,52 @@ function rysujSpisNotatki(){
 }
 function otworzSpisNotatki(ce){outlineCe=ce;rysujSpisNotatki();$("noteOutline").style.display="block";}
 function wezlySekcji(h){const poziom=+(h.tagName.slice(1)),out=[];let n=h.nextElementSibling;while(n){if(/^H[1-3]$/.test(n.tagName)&&+(n.tagName.slice(1))<=poziom)break;out.push(n);n=n.nextElementSibling;}return out;}
-function przelaczSekcje(h){const zamknij=!h.classList.contains("outline-collapsed");h.classList.toggle("outline-collapsed",zamknij);wezlySekcji(h).forEach(n=>n.hidden=zamknij);rysujSpisNotatki();}
+function przelaczSekcje(h){
+  const zamknij=!h.classList.contains("outline-collapsed");
+  h.classList.toggle("outline-collapsed",zamknij);
+  const btn = h.querySelector(".secFoldBtn");
+  if(btn){
+    btn.textContent = zamknij ? "▸" : "▾";
+    btn.title = zamknij ? "Rozwiń sekcję" : "Zwiń sekcję";
+    btn.setAttribute("aria-expanded", !zamknij);
+  }
+  wezlySekcji(h).forEach(n=>n.hidden=zamknij);
+  rysujSpisNotatki();
+}
+
+/** Dołącza interaktywny przycisk zwijania do nagłówków w karcie notatki */
+function uzupelnijZwijanieNaglowkow(container){
+  if(!container) return;
+  container.querySelectorAll(":scope > h1, :scope > h2, :scope > h3").forEach(h=>{
+    if(!h.querySelector(".secFoldBtn")){
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "secFoldBtn";
+      btn.contentEditable = "false";
+      btn.textContent = h.classList.contains("outline-collapsed") ? "▸" : "▾";
+      btn.title = h.classList.contains("outline-collapsed") ? "Rozwiń sekcję" : "Zwiń sekcję";
+      btn.setAttribute("aria-label", "Zwiń lub rozwiń sekcję");
+      btn.setAttribute("aria-expanded", !h.classList.contains("outline-collapsed"));
+      h.insertBefore(btn, h.firstChild);
+    }
+  });
+}
+
+/* Kliknięcie w małą strzałkę zwijania bezpośrednio przy nagłówku w treści */
+document.addEventListener("click", e=>{
+  const btn = e.target && e.target.closest ? e.target.closest(".secFoldBtn") : null;
+  if(!btn) return;
+  e.preventDefault(); e.stopPropagation();
+  const h = btn.closest("h1, h2, h3");
+  if(h) przelaczSekcje(h);
+}, true);
+
 $("noteOutline").addEventListener("pointerdown",e=>{const close=e.target.closest("[data-outline-close]"),jump=e.target.closest("[data-ojump]"),fold=e.target.closest("[data-ofold]");if(!close&&!jump&&!fold)return;e.preventDefault();if(close){zamknijSpisNotatki(false);return;}const heads=naglowkiNotatki(),i=+(jump?jump.dataset.ojump:fold.dataset.ofold),h=heads[i];if(!h)return;if(fold)przelaczSekcje(h);else{if(h.hidden){h.hidden=false;}h.scrollIntoView({block:"center",behavior:"smooth"});const r=document.createRange();r.selectNodeContents(h);r.collapse(true);const s=getSelection();s.removeAllRanges();s.addRange(r);}});
-document.addEventListener("input",e=>{if(outlineCe&&e.target.closest&&e.target.closest(".ncontent")===outlineCe){clearTimeout(outlineTimer);outlineTimer=setTimeout(rysujSpisNotatki,180);}});
+document.addEventListener("input",e=>{
+  const ce = e.target.closest && e.target.closest(".ncontent");
+  if(ce) uzupelnijZwijanieNaglowkow(ce);
+  if(outlineCe&&ce===outlineCe){clearTimeout(outlineTimer);outlineTimer=setTimeout(rysujSpisNotatki,180);}
+});
 
 /* ===== BIBLIOTEKA FRAGMENTÓW I SZABLONÓW (3.53) ===== */
 let fragmentCe=null,fragmentRange=null;
