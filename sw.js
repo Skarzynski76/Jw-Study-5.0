@@ -20,13 +20,6 @@ const CORE = [
   './lib/supabase.js'
 ];
 
-const EXTRA = [
-  './jszip.min.js',
-  './sql-wasm.js',
-  './sql-wasm.wasm',
-  './supabase.js'
-];
-
 function pobierzSwieze(req){
   return fetch(new Request(req, {cache:'no-store'}));
 }
@@ -50,14 +43,14 @@ self.addEventListener('install', e=>{
     }
 
     // Wszystkie pozostałe pliki pobieramy z allSettled — brak pojedynczego pliku nie psuje instalacji
-    const pliki = [...CORE.filter(a=>a!=='./index.html'), ...EXTRA];
+    const pliki = CORE.filter(a=>a!=='./index.html');
     await Promise.allSettled(pliki.map(async a=>{
       try{
         const res = await pobierzSwieze(a);
         if(res && res.ok){
           await c.put(a, res.clone());
         }
-      }}catch(_){}
+      }catch(_){}
     }));
   }));
 });
