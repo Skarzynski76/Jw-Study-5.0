@@ -16161,8 +16161,11 @@ function noteCard(n){
   d.addEventListener("focusin", obudzListe, true);
   d.addEventListener("keydown", obudzListe, true);
   d.addEventListener("click", e=>{
-    if(e.target.dataset.untag){ untag(n, +e.target.dataset.untag); return; }
-    if(e.target.closest(".ntitle") && !e.target.isContentEditable){ touchAccess(n); if(!fsGuid) openFs(n); return; }
+    if(e.target.closest(".ntitle") && !e.target.isContentEditable){
+      const selT = (typeof getSelection === "function") ? getSelection() : null;
+      if(selT && !selT.isCollapsed && String(selT).trim()) return;
+      touchAccess(n); if(!fsGuid) openFs(n); return;
+    }
     if(e.target.closest(".ncontent") && !e.target.isContentEditable) touchAccess(n);
     /* Dotknięcie zwykle trafia w <svg>, <path> albo napis wewnątrz przycisku.
        Odczyt data-act bezpośrednio z e.target działał tylko na pustym fragmencie
@@ -27728,7 +27731,8 @@ function schowajKarteczke(natychmiast){
 function wydobadzKarteczke(karta){
   const lista = $("noteList");
   if(!lista || !lista.classList.contains("v-tablica")) return;
-  if(_wydobyta && _wydobyta.karta === karta){ schowajKarteczke(); return; }
+  /* Karta jest już otwarta/wydobyta — absolutnie jej nie zwijamy! */
+  if(_wydobyta && _wydobyta.karta === karta) return;
   if(_wydobyta) schowajKarteczke(true);
 
   const r  = karta.getBoundingClientRect();
@@ -27786,6 +27790,13 @@ function wydobadzKarteczke(karta){
   _wydobyta = {karta, podkladka};
 }
 
+let _wydDownTarget = null;
+let _wydDownPos = { x: 0, y: 0 };
+document.addEventListener("mousedown", e=>{
+  _wydDownTarget = e.target;
+  _wydDownPos = { x: e.clientX, y: e.clientY };
+}, true);
+
 document.addEventListener("click", e=>{
   const lista = $("noteList");
   if(!lista) return;
@@ -27795,23 +27806,39 @@ document.addEventListener("click", e=>{
   /* Podnoszenie karteczki dotyczy tylko tablicy — w pozostałych widokach
      notatka i tak jest widoczna w całości albo przycięta wprost. */
   if(!naTablicy) return;
+
+  const zazn = (typeof getSelection === "function") ? getSelection() : null;
+  const maZaznaczenie = !!(zazn && !zazn.isCollapsed && String(zazn).trim());
+  const przesuniecie = Math.hypot(e.clientX - _wydDownPos.x, e.clientY - _wydDownPos.y);
+  const bylDrag = przesuniecie > 5;
+  const startWWydobytej = !!(_wydobyta && _wydobyta.karta && _wydDownTarget && _wydobyta.karta.contains(_wydDownTarget));
+  const startWTresci = !!(_wydDownTarget && _wydDownTarget.closest && _wydDownTarget.closest(".ncontent, .searchMatch, .ntitle"));
+
   if(!karta){
+    /* Zaznaczanie tekstu: jeśli użytkownik przeciągał kursor myszą i zwolnił go
+       poza krawędzią karty (lub ma aktywne zaznaczenie tekstu), to jest gest
+       kopiowania/zaznaczania, a NIE kliknięcie w tło! W takiej sytuacji
+       absolutnie NIE wolno zamykać okna notatki. */
+    if(maZaznaczenie || (bylDrag && (startWWydobytej || startWTresci))) return;
+
     /* Dotknięcie obok odkłada wydobytą karteczkę — tak jak odłożenie kartki
        na biurko, gdy sięga się po następną. */
-    /* Cel kliknięcia nie zawsze jest elementem z metodą closest (bywa nim sam
-       dokument). Bez tego sprawdzenia nasłuch pilnujący CAŁEJ strony wywracał
-       się na zwykłym dotknięciu tła — a błąd z nasłuchu w fazie przechwytywania
-       trafia do okna bez treści, jako gołe „Script error.". */
-    /* Paleta kolorów leży poza kartą w DOM, ale funkcjonalnie należy do niej.
-       Kliknięcie próbki nie może być odczytane jako dotknięcie pustego tła. */
-    if(_wydobyta && !(e.target.closest && e.target.closest("#dropdown, #hlBar")))
+    if(_wydobyta && !(e.target.closest && e.target.closest("#dropdown, #hlBar, #modalFs, #replacePanel")))
       schowajKarteczke();
     return;
   }
+
+  /* Jeśli ta karta jest już otwarta/wydobyta — kliknięcie w jej treść lub tytuł
+     służy do czytania, zaznaczania, kopiowania lub stawiania kursora.
+     NIGDY nie wolno jej zamykać po kliknięciu wewnątrz niej! */
+  if(_wydobyta && _wydobyta.karta === karta) return;
+
   if(pomijaneWydobycie(e.target)) return;
-  /* Zaznaczanie tekstu nie może zwijać karteczki w połowie zdania. */
-  const zazn = getSelection && getSelection();
-  if(zazn && !zazn.isCollapsed && String(zazn).trim()) return;
+
+  /* Zaznaczanie tekstu na małej karcie nie może powodować podnoszenia
+     ani zamykania karty w trakcie lub po zakończeniu gestu myszy. */
+  if(maZaznaczenie || bylDrag) return;
+
   e.preventDefault(); e.stopPropagation();
   wydobadzKarteczke(karta);
 }, true);
