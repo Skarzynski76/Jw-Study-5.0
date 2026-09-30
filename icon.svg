@@ -1,130 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <defs>
-    <!-- Tło: Szlachetny, głęboki szmaragd -->
-    <linearGradient id="bg" x1="0.1" y1="0" x2="0.9" y2="1">
-      <stop offset="0%" stop-color="#18533e"/>
-      <stop offset="50%" stop-color="#1f684e"/>
-      <stop offset="100%" stop-color="#124332"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#237154"/>
+      <stop offset="100%" stop-color="#113d2c"/>
     </linearGradient>
-
-    <!-- Złoty akcent / krawędź -->
-    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#ffea9f"/>
-      <stop offset="40%" stop-color="#dfb758"/>
-      <stop offset="100%" stop-color="#ab8124"/>
-    </linearGradient>
-
-    <!-- Złota zakładka wstążkowa -->
-    <linearGradient id="ribbon" x1="0" y1="0" x2="1" y2="0.3">
-      <stop offset="0%" stop-color="#fff0b3"/>
-      <stop offset="35%" stop-color="#e5be5d"/>
-      <stop offset="85%" stop-color="#b88a28"/>
-      <stop offset="100%" stop-color="#8c6414"/>
-    </linearGradient>
-
-    <!-- Górny blask szkła / oświetlenie Apple -->
-    <linearGradient id="topSheen" x1="0.5" y1="0" x2="0.5" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.22"/>
-      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.05"/>
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-    </linearGradient>
-
-    <!-- Lewa strona książki -->
-    <linearGradient id="pageL" x1="0" y1="0" x2="1" y2="0.2">
-      <stop offset="0%" stop-color="#fcfcfd"/>
-      <stop offset="75%" stop-color="#f1f3f5"/>
-      <stop offset="100%" stop-color="#d8dde2"/>
-    </linearGradient>
-
-    <!-- Prawa strona książki -->
-    <linearGradient id="pageR" x1="1" y1="0" x2="0" y2="0.2">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="75%" stop-color="#f3f5f7"/>
-      <stop offset="100%" stop-color="#d8dde2"/>
-    </linearGradient>
-
-    <!-- Cień pod książką -->
-    <radialGradient id="bookShadow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#05150f" stop-opacity="0.55"/>
-      <stop offset="60%" stop-color="#05150f" stop-opacity="0.25"/>
-      <stop offset="100%" stop-color="#05150f" stop-opacity="0"/>
-    </radialGradient>
-
-    <!-- Filtr miękkiego cienia elementów -->
-    <filter id="dropGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#04120c" flood-opacity="0.45"/>
-    </filter>
-    <filter id="ribbonShadow" x="-30%" y="-20%" width="160%" height="150%">
-      <feDropShadow dx="-4" dy="8" stdDeviation="8" flood-color="#000000" flood-opacity="0.35"/>
-    </filter>
   </defs>
-
-  <!-- 1. TŁO IKONY (iOS squircle) -->
-  <rect x="24" y="24" width="976" height="976" rx="224" fill="url(#bg)"/>
+  <!-- Tło Squircle iOS / Web -->
+  <rect width="1024" height="1024" rx="224" fill="url(#bg)"/>
   
-  <!-- Subtelna wewnętrzna złota ramka -->
-  <rect x="24" y="24" width="976" height="976" rx="224" fill="none" stroke="url(#goldGrad)" stroke-width="6" stroke-opacity="0.4"/>
-  <!-- Górny refleks światła -->
-  <rect x="24" y="24" width="976" height="488" rx="224" fill="url(#topSheen)"/>
-
-  <!-- 2. CIEŃ POD KSIĄŻKĄ -->
-  <ellipse cx="512" cy="810" rx="360" ry="56" fill="url(#bookShadow)"/>
-
-  <!-- 3. OTWARTE PISMO / KSIĘGA STUDIUM -->
-  <g filter="url(#dropGlow)">
-    <!-- Spód okładki / twarda oprawa -->
-    <path d="M176 330 C 176 300, 480 268, 512 300 C 544 268, 848 300, 848 330 L 848 760 C 848 790, 544 756, 512 788 C 480 756, 176 790, 176 760 Z" 
-          fill="#0e2a1f" stroke="url(#goldGrad)" stroke-width="5" stroke-opacity="0.6"/>
-
-    <!-- Warstwy kartek (brzegi bloku książki) -->
-    <path d="M200 316 C 330 274, 460 286, 512 316 C 564 286, 694 274, 824 316 L 824 748 C 694 710, 564 722, 512 754 C 460 722, 330 710, 200 748 Z" 
-          fill="#c9d0d6"/>
-
-    <!-- Główne rozłożone strony -->
-    <!-- Lewa strona -->
-    <path d="M214 300 C 334 262, 456 274, 508 308 L 508 748 C 456 714, 334 702, 214 740 Z" 
-          fill="url(#pageL)"/>
-    <!-- Prawa strona -->
-    <path d="M810 300 C 690 262, 568 274, 516 308 L 516 748 C 568 714, 690 702, 810 740 Z" 
-          fill="url(#pageR)"/>
-
-    <!-- Grzbiet środkowy (zagięcie kart) -->
-    <path d="M508 308 C 510 306, 514 306, 516 308 L 516 748 C 514 746, 510 746, 508 748 Z" fill="#b5bcc4"/>
-    <line x1="512" y1="308" x2="512" y2="748" stroke="#8a939e" stroke-width="3" stroke-opacity="0.6"/>
-  </g>
-
-  <!-- 4. ELEGANCKIE LINIE TEKSTU / WERSÓW -->
-  <g fill="none" stroke="#7c8c99" stroke-linecap="round" opacity="0.55">
-    <!-- Lewa strona - kolumna -->
-    <line x1="270" y1="380" x2="452" y2="380" stroke-width="12"/>
-    <line x1="270" y1="436" x2="452" y2="436" stroke-width="12"/>
-    <line x1="270" y1="492" x2="452" y2="492" stroke-width="12"/>
-    <line x1="270" y1="548" x2="452" y2="548" stroke-width="12"/>
-    <line x1="270" y1="604" x2="452" y2="604" stroke-width="12"/>
-    <line x1="270" y1="660" x2="390" y2="660" stroke-width="12"/>
-
-    <!-- Prawa strona - kolumna -->
-    <line x1="572" y1="380" x2="754" y2="380" stroke-width="12"/>
-    <line x1="572" y1="436" x2="754" y2="436" stroke-width="12"/>
-    <line x1="572" y1="492" x2="754" y2="492" stroke-width="12"/>
-    <line x1="572" y1="548" x2="754" y2="548" stroke-width="12"/>
-    <line x1="572" y1="604" x2="754" y2="604" stroke-width="12"/>
-    <line x1="572" y1="660" x2="692" y2="660" stroke-width="12"/>
-  </g>
-
-  <!-- 5. ZŁOTA ZAKŁADKA WSTĄŻKOWA (Ribbon) -->
-  <g filter="url(#ribbonShadow)">
-    <path d="M670 240 L 760 240 L 760 620 L 715 570 L 670 620 Z" 
-          fill="url(#ribbon)" stroke="#9e741c" stroke-width="3" stroke-linejoin="round"/>
-    <!-- Światło na wstążce -->
-    <path d="M670 240 L 695 240 L 695 588 L 670 620 Z" fill="#ffffff" opacity="0.22"/>
-  </g>
-
-  <!-- 6. SZLACHETNA ZŁOTA GWIAZDKA / ROZJAŚNIENIE NAD KSIĘGĄ (Symbol światła/mądrości) -->
-  <g transform="translate(512, 230)">
-    <circle cx="0" cy="0" r="26" fill="url(#goldGrad)" opacity="0.95"/>
-    <circle cx="0" cy="0" r="38" fill="none" stroke="url(#goldGrad)" stroke-width="3" opacity="0.45"/>
-    <!-- 4 promienie -->
-    <path d="M0 -22 L4 -6 L20 0 L4 6 L0 22 L-4 6 L-20 0 L-4 -6 Z" fill="#ffffff" opacity="0.9"/>
-  </g>
+  <!-- Ramka minimalistyczna -->
+  <rect x="180" y="210" width="664" height="604" rx="44" fill="none" stroke="#ffffff" stroke-width="16" opacity="0.85"/>
+  
+  <!-- Monogram JW -->
+  <text x="512" y="495" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="270" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="-2">JW</text>
+  
+  <!-- Linia podziału -->
+  <line x1="240" y1="560" x2="784" y2="560" stroke="#ffffff" stroke-width="6" opacity="0.5"/>
+  
+  <!-- Napis STUDY -->
+  <text x="512" y="685" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="90" font-weight="600" fill="#ffffff" text-anchor="middle" letter-spacing="16" opacity="0.95">STUDY</text>
 </svg>
