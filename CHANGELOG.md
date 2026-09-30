@@ -1,4 +1,4 @@
-## 3.79 — 2026-09-29
+## 5.0 — 2026-09-29
 
 - Naprawiono widoczność pól „Rozdział" i „Werset" w oknie nowej notatki na urządzeniach mobilnych.
 - Pola `col-ch` i `col-v` otrzymały klasy CSS i jawne `flex` z `min-width`, eliminując znikanie pól przy wąskim ekranie.
