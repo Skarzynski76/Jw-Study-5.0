@@ -1103,6 +1103,267 @@ html[data-theme="dark"] .cenBadge.aktywny {
   line-height: 1.5;
 }
 
+/* ═══ KARTY I SELEKTOR PLANÓW CZYTANIA ═══ */
+.cenPlanGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+.cenPlanCard {
+  background: var(--cen-card-bg);
+  border: 1.5px solid var(--cen-card-border);
+  border-radius: 20px;
+  padding: clamp(16px, 2vw, 22px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--cen-card-shadow);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.cenPlanCard:hover {
+  transform: translateY(-3px);
+  border-color: var(--cen-card-border-hover);
+  box-shadow: var(--cen-card-shadow-hover);
+}
+.cenPlanCard.active {
+  border-color: #3b82f6;
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.05) 0%, var(--cen-card-bg) 100%);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.16);
+}
+.cenPlanCard.card-chrono .cenPlanIkoBox {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+}
+.cenPlanCard.card-pokolei .cenPlanIkoBox {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+}
+.cenPlanCard.card-zbalansowany .cenPlanIkoBox {
+  background: linear-gradient(135deg, #a855f7, #7e22ce);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(168, 85, 247, 0.35);
+}
+.cenPlanCard.card-temat .cenPlanIkoBox {
+  background: linear-gradient(135deg, #f97316, #c2410c);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(249, 115, 22, 0.35);
+}
+.cenPlanCardHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.cenPlanIkoBox {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cenPlanIkoBox svg {
+  width: 24px;
+  height: 24px;
+}
+.cenPlanHeaderInfo {
+  flex: 1;
+  min-width: 0;
+}
+.cenPlanBadgeRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.cenPlanCatBadge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--cen-btn-bg);
+  color: var(--cen-text-sub);
+}
+.cenPlanDurationBadge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+}
+html[data-theme="dark"] .cenPlanDurationBadge {
+  color: #60a5fa;
+}
+.cenPlanActiveBadge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
+}
+.cenPlanTyt {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--cen-text);
+  line-height: 1.3;
+}
+.cenPlanPaceRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 12.5px;
+  flex-wrap: wrap;
+}
+.cenPlanPaceTag {
+  color: #059669;
+  font-weight: 600;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+html[data-theme="dark"] .cenPlanPaceTag {
+  color: #34d399;
+}
+.cenPlanTimeTag {
+  color: var(--cen-text-muted);
+  font-weight: 500;
+}
+.cenPlanDesc {
+  font-size: 13px;
+  color: var(--cen-text-sub);
+  line-height: 1.45;
+  margin-bottom: 16px;
+}
+.cenPlanProgressWrap {
+  margin-bottom: 14px;
+}
+.cenPlanProgressMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: var(--cen-text-muted);
+  margin-bottom: 6px;
+}
+.cenPlanProgressMeta b {
+  color: var(--cen-text);
+}
+.cenPlanActionsRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cenPlanBtnPrimary {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  transition: all 0.16s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.cenPlanBtnPrimary:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+.cenPlanBtnPrimary.active {
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+.cenPlanBtnPrimary.active:hover {
+  background: #047857;
+}
+.cenPlanBtnSec {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--cen-card-border);
+  background: var(--cen-btn-bg);
+  color: var(--cen-text);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+.cenPlanBtnSec:hover {
+  background: var(--cen-btn-hover);
+  border-color: var(--cen-card-border-hover);
+}
+
+.cenPlanStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+.cenPlanStatTile {
+  background: rgba(0,0,0,0.02);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 12px;
+  padding: 10px 8px;
+  text-align: center;
+}
+html[data-theme="dark"] .cenPlanStatTile {
+  background: rgba(255,255,255,0.03);
+}
+.cenPlanStatVal {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cen-text);
+}
+.cenPlanStatLbl {
+  font-size: 11px;
+  color: var(--cen-text-muted);
+  margin-top: 2px;
+}
+
+.cenHeroChangePlanBtn {
+  background: var(--cen-btn-bg);
+  border: 1px solid var(--cen-card-border);
+  color: var(--cen-text-sub);
+  border-radius: 8px;
+  padding: 3px 9px;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cenHeroChangePlanBtn:hover {
+  background: var(--cen-btn-hover);
+  color: #2563eb;
+  border-color: #2563eb;
+}
+.cenHeroTag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #2563eb;
+}
+html[data-theme="dark"] .cenHeroTag {
+  color: #60a5fa;
+}
+
 /* ══════════════ RESPONSIVE BREAKPOINTS ══════════════ */
 @media (max-width: 1024px) {
   .cenCentrumShell {
@@ -30174,30 +30435,422 @@ const CENTR_WLACZONE = KP + "CentrumWl";   // "1" albo "0"
 const CENTR_UKLAD_KLUCZ = KP + "CentrumUklad306";
 const CENTR_WIDOK_KLUCZ = KP + "CentrumWidok308";
 const CENTR_WIDOKI = ["centrum","czytanie-chronologiczne","dzien","lista-dni","kalendarz","statystyki","moje-plany","studium-osobiste","temat-szczegoly","projekty","kolejka","inbox","ostatnie","bezpieczenstwo"];
-/* ═══ NOWE MODUŁY I BAZY DANYCH PLANÓW (v3.72) ═══ */
-const JWS_CHRONO_PLAN = [{"d": 1, "t": "Stworzenie świata i człowieka", "f": [{"r": "Rodzaju 1:1-2:25", "t": "Stworzenie świata i człowieka"}]}, {"d": 2, "t": "Pierwszy grzech, Kain i Abel", "f": [{"r": "Rodzaju 3:1-4:26", "t": "Pierwszy grzech, Kain i Abel"}]}, {"d": 3, "t": "Genealogia i budowa arki przez Noego", "f": [{"r": "Rodzaju 5:1-6:22", "t": "Genealogia i budowa arki przez Noego"}]}, {"d": 4, "t": "Potop i ocalenie w arce", "f": [{"r": "Rodzaju 7:1-8:22", "t": "Potop i ocalenie w arce"}]}, {"d": 5, "t": "Przymierze tęczy i Wieża Babel", "f": [{"r": "Rodzaju 9:1-11:32", "t": "Przymierze tęczy i Wieża Babel"}]}, {"d": 6, "t": "Próba wierności Hioba", "f": [{"r": "Hioba 1:1-3:26", "t": "Próba wierności Hioba"}]}, {"d": 7, "t": "Pierwsza mowa Elifaza i odpowiedź Hioba", "f": [{"r": "Hioba 4:1-7:21", "t": "Pierwsza mowa Elifaza i odpowiedź Hioba"}]}, {"d": 8, "t": "Mowa Bildada i obrona Hioba", "f": [{"r": "Hioba 8:1-11:20", "t": "Mowa Bildada i obrona Hioba"}]}, {"d": 9, "t": "Mądrość Boga a fałszywi pocieszyciele", "f": [{"r": "Hioba 12:1-16:22", "t": "Mądrość Boga a fałszywi pocieszyciele"}]}, {"d": 10, "t": "Nadzieja na Odkupiciela", "f": [{"r": "Hioba 17:1-21:34", "t": "Nadzieja na Odkupiciela"}]}, {"d": 11, "t": "Bojaźń przed Jehową to prawdziwa mądrość", "f": [{"r": "Hioba 22:1-28:28", "t": "Bojaźń przed Jehową to prawdziwa mądrość"}]}, {"d": 12, "t": "Obrona prawości i ślub czystości", "f": [{"r": "Hioba 29:1-31:40", "t": "Obrona prawości i ślub czystości"}]}, {"d": 13, "t": "Elihu wyjaśnia sprawiedliwość Bożą", "f": [{"r": "Hioba 32:1-37:24", "t": "Elihu wyjaśnia sprawiedliwość Bożą"}]}, {"d": 14, "t": "Głos z wichru i podwójne błogosławieństwo", "f": [{"r": "Hioba 38:1-42:17", "t": "Głos z wichru i podwójne błogosławieństwo"}]}, {"d": 15, "t": "Powołanie Abrama i Melchizedek", "f": [{"r": "Rodzaju 12:1-14:24", "t": "Powołanie Abrama i Melchizedek"}]}, {"d": 16, "t": "Przymierze obietnicy i obrzezanie", "f": [{"r": "Rodzaju 15:1-17:27", "t": "Przymierze obietnicy i obrzezanie"}]}, {"d": 17, "t": "Sąd nad Sodomą i ocalenie Lota", "f": [{"r": "Rodzaju 18:1-19:38", "t": "Sąd nad Sodomą i ocalenie Lota"}]}, {"d": 18, "t": "Narodziny Izaaka i oddalenie Izmaela", "f": [{"r": "Rodzaju 20:1-21:34", "t": "Narodziny Izaaka i oddalenie Izmaela"}]}, {"d": 19, "t": "Dzieje wiary patriarchów - dzień 19", "f": [{"r": "Rodzaju 18", "t": "Historia biblijna patriarchów"}]}, {"d": 20, "t": "Dzieje wiary patriarchów - dzień 20", "f": [{"r": "Rodzaju 19", "t": "Historia biblijna patriarchów"}]}, {"d": 21, "t": "Dzieje wiary patriarchów - dzień 21", "f": [{"r": "Rodzaju 19", "t": "Historia biblijna patriarchów"}]}, {"d": 22, "t": "Dzieje wiary patriarchów - dzień 22", "f": [{"r": "Rodzaju 20", "t": "Historia biblijna patriarchów"}]}, {"d": 23, "t": "Dzieje wiary patriarchów - dzień 23", "f": [{"r": "Rodzaju 20", "t": "Historia biblijna patriarchów"}]}, {"d": 24, "t": "Dzieje wiary patriarchów - dzień 24", "f": [{"r": "Rodzaju 21", "t": "Historia biblijna patriarchów"}]}, {"d": 25, "t": "Dzieje wiary patriarchów - dzień 25", "f": [{"r": "Rodzaju 21", "t": "Historia biblijna patriarchów"}]}, {"d": 26, "t": "Dzieje wiary patriarchów - dzień 26", "f": [{"r": "Rodzaju 22", "t": "Historia biblijna patriarchów"}]}, {"d": 27, "t": "Dzieje wiary patriarchów - dzień 27", "f": [{"r": "Rodzaju 22", "t": "Historia biblijna patriarchów"}]}, {"d": 28, "t": "Dzieje wiary patriarchów - dzień 28", "f": [{"r": "Rodzaju 23", "t": "Historia biblijna patriarchów"}]}, {"d": 29, "t": "Dzieje wiary patriarchów - dzień 29", "f": [{"r": "Rodzaju 23", "t": "Historia biblijna patriarchów"}]}, {"d": 30, "t": "Dzieje wiary patriarchów - dzień 30", "f": [{"r": "Rodzaju 24", "t": "Historia biblijna patriarchów"}]}, {"d": 31, "t": "Dzieje wiary patriarchów - dzień 31", "f": [{"r": "Rodzaju 24", "t": "Historia biblijna patriarchów"}]}, {"d": 32, "t": "Dzieje wiary patriarchów - dzień 32", "f": [{"r": "Rodzaju 25", "t": "Historia biblijna patriarchów"}]}, {"d": 33, "t": "Dzieje wiary patriarchów - dzień 33", "f": [{"r": "Rodzaju 25", "t": "Historia biblijna patriarchów"}]}, {"d": 34, "t": "Dzieje wiary patriarchów - dzień 34", "f": [{"r": "Rodzaju 26", "t": "Historia biblijna patriarchów"}]}, {"d": 35, "t": "Dzieje wiary patriarchów - dzień 35", "f": [{"r": "Rodzaju 26", "t": "Historia biblijna patriarchów"}]}, {"d": 36, "t": "Dzieje wiary patriarchów - dzień 36", "f": [{"r": "Rodzaju 27", "t": "Historia biblijna patriarchów"}]}, {"d": 37, "t": "Dzieje wiary patriarchów - dzień 37", "f": [{"r": "Rodzaju 27", "t": "Historia biblijna patriarchów"}]}, {"d": 38, "t": "Dzieje wiary patriarchów - dzień 38", "f": [{"r": "Rodzaju 28", "t": "Historia biblijna patriarchów"}]}, {"d": 39, "t": "Dzieje wiary patriarchów - dzień 39", "f": [{"r": "Rodzaju 28", "t": "Historia biblijna patriarchów"}]}, {"d": 40, "t": "Dzieje wiary patriarchów - dzień 40", "f": [{"r": "Rodzaju 29", "t": "Historia biblijna patriarchów"}]}, {"d": 41, "t": "Dzieje wiary patriarchów - dzień 41", "f": [{"r": "Rodzaju 29", "t": "Historia biblijna patriarchów"}]}, {"d": 42, "t": "Dzieje wiary patriarchów - dzień 42", "f": [{"r": "Rodzaju 30", "t": "Historia biblijna patriarchów"}]}, {"d": 43, "t": "Dzieje wiary patriarchów - dzień 43", "f": [{"r": "Rodzaju 30", "t": "Historia biblijna patriarchów"}]}, {"d": 44, "t": "Dzieje wiary patriarchów - dzień 44", "f": [{"r": "Rodzaju 31", "t": "Historia biblijna patriarchów"}]}, {"d": 45, "t": "Dzieje wiary patriarchów - dzień 45", "f": [{"r": "Rodzaju 31", "t": "Historia biblijna patriarchów"}]}, {"d": 46, "t": "Dzieje wiary patriarchów - dzień 46", "f": [{"r": "Rodzaju 32", "t": "Historia biblijna patriarchów"}]}, {"d": 47, "t": "Wiara Abrahama i ofiara z syna", "f": [{"r": "Rodzaju 22:1-19", "t": "Ofiara Izaaka"}, {"r": "Hebrajczyków 11:17-19", "t": "Wiara Abrahama"}, {"r": "Jakuba 2:21-23", "t": "Abraham usprawiedliwiony na podstawie uczynków"}]}, {"d": 48, "t": "Jakub, Józef i wędrówka do Egiptu (48)", "f": [{"r": "Rodzaju 24:1-26", "t": "Opatrzność Boża nad synami Jakuba"}, {"r": "Psalm 100:1-8", "t": "Pieśń dziękczynna"}]}, {"d": 49, "t": "Jakub, Józef i wędrówka do Egiptu (49)", "f": [{"r": "Rodzaju 25:1-26", "t": "Opatrzność Boża nad synami Jakuba"}, {"r": "Psalm 101:1-8", "t": "Pieśń dziękczynna"}]}, {"d": 50, "t": "Jakub, Józef i wędrówka do Egiptu (50)", "f": [{"r": "Rodzaju 26:1-26", "t": "Opatrzność Boża nad synami Jakuba"}, {"r": "Psalm 102:1-8", "t": "Pieśń dziękczynna"}]}, {"d": 51, "t": "Jakub, Józef i wędrówka do Egiptu (51)", "f": [{"r": "Rodzaju 27:1-26", "t": "Opatrzność Boża nad synami Jakuba"}, {"r": "Psalm 103:1-8", "t": "Pieśń dziękczynna"}]}, {"d": 52, "t": "Jakub, Józef i wędrówka do Egiptu (52)", "f": [{"r": "Rodzaju 28:1-26", "t": "Opatrzność Boża nad synami Jakuba"}, {"r": "Psalm 104:1-8", "t": "Pieśń dziękczynna"}]}, {"d": 53, "t": "Jakub, Józef i wędrówka do Egiptu (53)", "f": [{"r": "Rodzaju 29:1-26", "t": "Opatrzność Boża nad synami Jakuba"}, {"r": "Psalm 105:1-8", "t": "Pieśń dziękczynna"}]}, {"d": 54, "t": "Jakub, Józef i wędrówka do Egiptu (54)", "f": [{"r": "Rodzaju 30:1-26", "t": "Opatrzność Boża nad synami Jakuba"}, {"r": "Psalm 106:1-8", "t": "Pieśń dziękczynna"}]}, {"d": 55, "t": "Jakub, Józef i wędrówka do Egiptu (55)", "f": [{"r": "Rodzaju 31:1-26", "t": "Opatrzność Boża nad synami Jakuba"}, {"r": "Psalm 107:1-8", "t": "Pieśń dziękczynna"}]}, {"d": 56, "t": "Jakub, Józef i wędrówka do Egiptu (56)", "f": [{"r": "Rodzaju 32:1-26", "t": "Opatrzność Boża nad synami Jakuba"}, {"r": "Psalm 108:1-8", "t": "Pieśń dziękczynna"}]}, {"d": 57, "t": "Jakub, Józef i wędrówka do Egiptu (57)", "f": [{"r": "Rodzaju 33:1-26", "t": "Opatrzność Boża nad synami Jakuba"}, {"r": "Psalm 109:1-8", "t": "Pieśń dziękczynna"}]}, {"d": 58, "t": "Jakub, Józef i wędrówka do Egiptu (58)", "f": [{"r": "Rodzaju 34:1-26", "t": "Opatrzność Boża nad synami Jakuba"}, {"r": "Psalm 110:1-8", "t": "Pieśń dziękczynna"}]}, {"d": 59, "t": "Jakub, Józef i wędrówka do Egiptu (59)", "f": [{"r": "Rodzaju 35:1-26", "t": "Opatrzność Boża nad synami Jakuba"}, {"r": "Psalm 111:1-8", "t": "Pieśń dziękczynna"}]}, {"d": 60, "t": "Jakub, Józef i wędrówka do Egiptu (60)", "f": [{"r": "Rodzaju 36:1-26", "t": "Opatrzność Boża nad synami Jakuba"}, {"r": "Psalm 112:1-8", "t": "Pieśń dziękczynna"}]}, {"d": 61, "t": "Wyjście z Egiptu i Przymierze Prawa (61)", "f": [{"r": "Wyjścia 1:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 62, "t": "Wyjście z Egiptu i Przymierze Prawa (62)", "f": [{"r": "Wyjścia 2:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 63, "t": "Wyjście z Egiptu i Przymierze Prawa (63)", "f": [{"r": "Wyjścia 3:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 64, "t": "Wyjście z Egiptu i Przymierze Prawa (64)", "f": [{"r": "Wyjścia 4:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 65, "t": "Wyjście z Egiptu i Przymierze Prawa (65)", "f": [{"r": "Wyjścia 5:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 66, "t": "Wyjście z Egiptu i Przymierze Prawa (66)", "f": [{"r": "Wyjścia 6:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 67, "t": "Wyjście z Egiptu i Przymierze Prawa (67)", "f": [{"r": "Wyjścia 7:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 68, "t": "Wyjście z Egiptu i Przymierze Prawa (68)", "f": [{"r": "Wyjścia 8:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 69, "t": "Wyjście z Egiptu i Przymierze Prawa (69)", "f": [{"r": "Wyjścia 9:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 70, "t": "Wyjście z Egiptu i Przymierze Prawa (70)", "f": [{"r": "Wyjścia 10:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 71, "t": "Wyjście z Egiptu i Przymierze Prawa (71)", "f": [{"r": "Wyjścia 11:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 72, "t": "Wyjście z Egiptu i Przymierze Prawa (72)", "f": [{"r": "Wyjścia 12:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 73, "t": "Wyjście z Egiptu i Przymierze Prawa (73)", "f": [{"r": "Wyjścia 13:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 74, "t": "Wyjście z Egiptu i Przymierze Prawa (74)", "f": [{"r": "Wyjścia 14:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 75, "t": "Wyjście z Egiptu i Przymierze Prawa (75)", "f": [{"r": "Wyjścia 15:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 76, "t": "Wyjście z Egiptu i Przymierze Prawa (76)", "f": [{"r": "Wyjścia 16:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 77, "t": "Wyjście z Egiptu i Przymierze Prawa (77)", "f": [{"r": "Wyjścia 17:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 78, "t": "Wyjście z Egiptu i Przymierze Prawa (78)", "f": [{"r": "Wyjścia 18:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 79, "t": "Wyjście z Egiptu i Przymierze Prawa (79)", "f": [{"r": "Wyjścia 19:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 80, "t": "Wyjście z Egiptu i Przymierze Prawa (80)", "f": [{"r": "Wyjścia 20:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 81, "t": "Wyjście z Egiptu i Przymierze Prawa (81)", "f": [{"r": "Wyjścia 21:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 82, "t": "Wyjście z Egiptu i Przymierze Prawa (82)", "f": [{"r": "Wyjścia 22:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 83, "t": "Wyjście z Egiptu i Przymierze Prawa (83)", "f": [{"r": "Wyjścia 23:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 84, "t": "Wyjście z Egiptu i Przymierze Prawa (84)", "f": [{"r": "Wyjścia 24:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 85, "t": "Wyjście z Egiptu i Przymierze Prawa (85)", "f": [{"r": "Wyjścia 25:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 86, "t": "Wyjście z Egiptu i Przymierze Prawa (86)", "f": [{"r": "Wyjścia 26:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 87, "t": "Wyjście z Egiptu i Przymierze Prawa (87)", "f": [{"r": "Wyjścia 27:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 88, "t": "Wyjście z Egiptu i Przymierze Prawa (88)", "f": [{"r": "Wyjścia 28:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 89, "t": "Wyjście z Egiptu i Przymierze Prawa (89)", "f": [{"r": "Wyjścia 29:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 90, "t": "Wyjście z Egiptu i Przymierze Prawa (90)", "f": [{"r": "Wyjścia 30:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 91, "t": "Wyjście z Egiptu i Przymierze Prawa (91)", "f": [{"r": "Wyjścia 31:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 92, "t": "Wyjście z Egiptu i Przymierze Prawa (92)", "f": [{"r": "Wyjścia 32:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 93, "t": "Wyjście z Egiptu i Przymierze Prawa (93)", "f": [{"r": "Wyjścia 33:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 94, "t": "Wyjście z Egiptu i Przymierze Prawa (94)", "f": [{"r": "Wyjścia 34:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 95, "t": "Wyjście z Egiptu i Przymierze Prawa (95)", "f": [{"r": "Wyjścia 35:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 96, "t": "Wyjście z Egiptu i Przymierze Prawa (96)", "f": [{"r": "Wyjścia 36:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 97, "t": "Wyjście z Egiptu i Przymierze Prawa (97)", "f": [{"r": "Wyjścia 37:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 98, "t": "Wyjście z Egiptu i Przymierze Prawa (98)", "f": [{"r": "Wyjścia 38:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 99, "t": "Wyjście z Egiptu i Przymierze Prawa (99)", "f": [{"r": "Wyjścia 39:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 100, "t": "Wyjście z Egiptu i Przymierze Prawa (100)", "f": [{"r": "Wyjścia 40:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 101, "t": "Wyjście z Egiptu i Przymierze Prawa (101)", "f": [{"r": "Wyjścia 40:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 102, "t": "Wyjście z Egiptu i Przymierze Prawa (102)", "f": [{"r": "Wyjścia 40:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 103, "t": "Wyjście z Egiptu i Przymierze Prawa (103)", "f": [{"r": "Wyjścia 40:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 104, "t": "Wyjście z Egiptu i Przymierze Prawa (104)", "f": [{"r": "Wyjścia 40:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 105, "t": "Wyjście z Egiptu i Przymierze Prawa (105)", "f": [{"r": "Wyjścia 40:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 106, "t": "Wyjście z Egiptu i Przymierze Prawa (106)", "f": [{"r": "Wyjścia 40:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 107, "t": "Wyjście z Egiptu i Przymierze Prawa (107)", "f": [{"r": "Wyjścia 40:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 108, "t": "Wyjście z Egiptu i Przymierze Prawa (108)", "f": [{"r": "Wyjścia 40:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 109, "t": "Wyjście z Egiptu i Przymierze Prawa (109)", "f": [{"r": "Wyjścia 40:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 110, "t": "Wyjście z Egiptu i Przymierze Prawa (110)", "f": [{"r": "Wyjścia 40:1-30", "t": "Wyzwolenie Izraela z niewoli egipskiej"}]}, {"d": 111, "t": "Pustynia i Ziemia Obiecana (111)", "f": [{"r": "Liczb 1:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 112, "t": "Pustynia i Ziemia Obiecana (112)", "f": [{"r": "Liczb 2:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 113, "t": "Pustynia i Ziemia Obiecana (113)", "f": [{"r": "Liczb 3:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 114, "t": "Pustynia i Ziemia Obiecana (114)", "f": [{"r": "Liczb 4:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 115, "t": "Pustynia i Ziemia Obiecana (115)", "f": [{"r": "Liczb 5:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 116, "t": "Pustynia i Ziemia Obiecana (116)", "f": [{"r": "Liczb 6:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 117, "t": "Pustynia i Ziemia Obiecana (117)", "f": [{"r": "Liczb 7:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 118, "t": "Pustynia i Ziemia Obiecana (118)", "f": [{"r": "Liczb 8:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 119, "t": "Pustynia i Ziemia Obiecana (119)", "f": [{"r": "Liczb 9:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 120, "t": "Pustynia i Ziemia Obiecana (120)", "f": [{"r": "Liczb 10:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 121, "t": "Pustynia i Ziemia Obiecana (121)", "f": [{"r": "Liczb 11:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 122, "t": "Pustynia i Ziemia Obiecana (122)", "f": [{"r": "Liczb 12:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 123, "t": "Pustynia i Ziemia Obiecana (123)", "f": [{"r": "Liczb 13:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 124, "t": "Pustynia i Ziemia Obiecana (124)", "f": [{"r": "Liczb 14:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 125, "t": "Pustynia i Ziemia Obiecana (125)", "f": [{"r": "Liczb 15:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 126, "t": "Pustynia i Ziemia Obiecana (126)", "f": [{"r": "Liczb 16:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 127, "t": "Pustynia i Ziemia Obiecana (127)", "f": [{"r": "Liczb 17:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 128, "t": "Pustynia i Ziemia Obiecana (128)", "f": [{"r": "Liczb 18:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 129, "t": "Pustynia i Ziemia Obiecana (129)", "f": [{"r": "Liczb 19:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 130, "t": "Pustynia i Ziemia Obiecana (130)", "f": [{"r": "Liczb 20:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 131, "t": "Pustynia i Ziemia Obiecana (131)", "f": [{"r": "Liczb 21:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 132, "t": "Pustynia i Ziemia Obiecana (132)", "f": [{"r": "Liczb 22:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 133, "t": "Pustynia i Ziemia Obiecana (133)", "f": [{"r": "Liczb 23:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 134, "t": "Pustynia i Ziemia Obiecana (134)", "f": [{"r": "Liczb 24:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 135, "t": "Pustynia i Ziemia Obiecana (135)", "f": [{"r": "Liczb 25:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 136, "t": "Pustynia i Ziemia Obiecana (136)", "f": [{"r": "Liczb 26:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 137, "t": "Pustynia i Ziemia Obiecana (137)", "f": [{"r": "Liczb 27:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 138, "t": "Pustynia i Ziemia Obiecana (138)", "f": [{"r": "Liczb 28:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 139, "t": "Pustynia i Ziemia Obiecana (139)", "f": [{"r": "Liczb 29:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 140, "t": "Pustynia i Ziemia Obiecana (140)", "f": [{"r": "Liczb 30:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 141, "t": "Pustynia i Ziemia Obiecana (141)", "f": [{"r": "Liczb 31:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 142, "t": "Pustynia i Ziemia Obiecana (142)", "f": [{"r": "Liczb 32:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 143, "t": "Pustynia i Ziemia Obiecana (143)", "f": [{"r": "Liczb 33:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 144, "t": "Pustynia i Ziemia Obiecana (144)", "f": [{"r": "Liczb 34:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 145, "t": "Pustynia i Ziemia Obiecana (145)", "f": [{"r": "Liczb 35:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 146, "t": "Pustynia i Ziemia Obiecana (146)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 147, "t": "Pustynia i Ziemia Obiecana (147)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 148, "t": "Pustynia i Ziemia Obiecana (148)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 149, "t": "Pustynia i Ziemia Obiecana (149)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 150, "t": "Pustynia i Ziemia Obiecana (150)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 151, "t": "Pustynia i Ziemia Obiecana (151)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 152, "t": "Pustynia i Ziemia Obiecana (152)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 153, "t": "Pustynia i Ziemia Obiecana (153)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 154, "t": "Pustynia i Ziemia Obiecana (154)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 155, "t": "Pustynia i Ziemia Obiecana (155)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 156, "t": "Pustynia i Ziemia Obiecana (156)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 157, "t": "Pustynia i Ziemia Obiecana (157)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 158, "t": "Pustynia i Ziemia Obiecana (158)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 159, "t": "Pustynia i Ziemia Obiecana (159)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 160, "t": "Pustynia i Ziemia Obiecana (160)", "f": [{"r": "Liczb 36:1-25", "t": "Wędrówka ludu przez pustynię"}]}, {"d": 161, "t": "Dzieje Królestwa i Psalmy Dawida (161)", "f": [{"r": "1 Samuela 1:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 0:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 162, "t": "Dzieje Królestwa i Psalmy Dawida (162)", "f": [{"r": "1 Samuela 1:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 2:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 163, "t": "Dzieje Królestwa i Psalmy Dawida (163)", "f": [{"r": "1 Samuela 2:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 4:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 164, "t": "Dzieje Królestwa i Psalmy Dawida (164)", "f": [{"r": "1 Samuela 2:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 6:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 165, "t": "Dzieje Królestwa i Psalmy Dawida (165)", "f": [{"r": "1 Samuela 3:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 8:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 166, "t": "Dzieje Królestwa i Psalmy Dawida (166)", "f": [{"r": "1 Samuela 3:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 10:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 167, "t": "Dzieje Królestwa i Psalmy Dawida (167)", "f": [{"r": "1 Samuela 4:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 12:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 168, "t": "Dzieje Królestwa i Psalmy Dawida (168)", "f": [{"r": "1 Samuela 4:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 14:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 169, "t": "Dzieje Królestwa i Psalmy Dawida (169)", "f": [{"r": "1 Samuela 5:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 16:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 170, "t": "Dzieje Królestwa i Psalmy Dawida (170)", "f": [{"r": "1 Samuela 5:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 18:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 171, "t": "Dzieje Królestwa i Psalmy Dawida (171)", "f": [{"r": "1 Samuela 6:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 20:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 172, "t": "Dzieje Królestwa i Psalmy Dawida (172)", "f": [{"r": "1 Samuela 6:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 22:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 173, "t": "Dzieje Królestwa i Psalmy Dawida (173)", "f": [{"r": "1 Samuela 7:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 24:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 174, "t": "Dzieje Królestwa i Psalmy Dawida (174)", "f": [{"r": "1 Samuela 7:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 26:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 175, "t": "Dzieje Królestwa i Psalmy Dawida (175)", "f": [{"r": "1 Samuela 8:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 28:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 176, "t": "Dzieje Królestwa i Psalmy Dawida (176)", "f": [{"r": "1 Samuela 8:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 30:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 177, "t": "Dzieje Królestwa i Psalmy Dawida (177)", "f": [{"r": "1 Samuela 9:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 32:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 178, "t": "Dzieje Królestwa i Psalmy Dawida (178)", "f": [{"r": "1 Samuela 9:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 34:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 179, "t": "Dzieje Królestwa i Psalmy Dawida (179)", "f": [{"r": "1 Samuela 10:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 36:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 180, "t": "Dzieje Królestwa i Psalmy Dawida (180)", "f": [{"r": "1 Samuela 10:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 38:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 181, "t": "Dzieje Królestwa i Psalmy Dawida (181)", "f": [{"r": "1 Samuela 11:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 40:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 182, "t": "Dzieje Królestwa i Psalmy Dawida (182)", "f": [{"r": "1 Samuela 11:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 42:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 183, "t": "Dzieje Królestwa i Psalmy Dawida (183)", "f": [{"r": "1 Samuela 12:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 44:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 184, "t": "Dzieje Królestwa i Psalmy Dawida (184)", "f": [{"r": "1 Samuela 12:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 46:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 185, "t": "Dzieje Królestwa i Psalmy Dawida (185)", "f": [{"r": "1 Samuela 13:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 48:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 186, "t": "Dzieje Królestwa i Psalmy Dawida (186)", "f": [{"r": "1 Samuela 13:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 50:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 187, "t": "Dzieje Królestwa i Psalmy Dawida (187)", "f": [{"r": "1 Samuela 14:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 52:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 188, "t": "Dzieje Królestwa i Psalmy Dawida (188)", "f": [{"r": "1 Samuela 14:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 54:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 189, "t": "Dzieje Królestwa i Psalmy Dawida (189)", "f": [{"r": "1 Samuela 15:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 56:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 190, "t": "Dzieje Królestwa i Psalmy Dawida (190)", "f": [{"r": "1 Samuela 15:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 58:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 191, "t": "Dzieje Królestwa i Psalmy Dawida (191)", "f": [{"r": "1 Samuela 16:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 60:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 192, "t": "Dzieje Królestwa i Psalmy Dawida (192)", "f": [{"r": "1 Samuela 16:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 62:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 193, "t": "Dzieje Królestwa i Psalmy Dawida (193)", "f": [{"r": "1 Samuela 17:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 64:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 194, "t": "Dzieje Królestwa i Psalmy Dawida (194)", "f": [{"r": "1 Samuela 17:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 66:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 195, "t": "Dzieje Królestwa i Psalmy Dawida (195)", "f": [{"r": "1 Samuela 18:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 68:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 196, "t": "Dzieje Królestwa i Psalmy Dawida (196)", "f": [{"r": "1 Samuela 18:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 70:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 197, "t": "Dzieje Królestwa i Psalmy Dawida (197)", "f": [{"r": "1 Samuela 19:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 72:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 198, "t": "Dzieje Królestwa i Psalmy Dawida (198)", "f": [{"r": "1 Samuela 19:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 74:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 199, "t": "Dzieje Królestwa i Psalmy Dawida (199)", "f": [{"r": "1 Samuela 20:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 76:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 200, "t": "Dzieje Królestwa i Psalmy Dawida (200)", "f": [{"r": "1 Samuela 20:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 78:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 201, "t": "Dzieje Królestwa i Psalmy Dawida (201)", "f": [{"r": "1 Samuela 21:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 80:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 202, "t": "Dzieje Królestwa i Psalmy Dawida (202)", "f": [{"r": "1 Samuela 21:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 82:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 203, "t": "Dzieje Królestwa i Psalmy Dawida (203)", "f": [{"r": "1 Samuela 22:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 84:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 204, "t": "Dzieje Królestwa i Psalmy Dawida (204)", "f": [{"r": "1 Samuela 22:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 86:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 205, "t": "Dzieje Królestwa i Psalmy Dawida (205)", "f": [{"r": "1 Samuela 23:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 88:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 206, "t": "Dzieje Królestwa i Psalmy Dawida (206)", "f": [{"r": "1 Samuela 23:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 90:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 207, "t": "Dzieje Królestwa i Psalmy Dawida (207)", "f": [{"r": "1 Samuela 24:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 92:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 208, "t": "Dzieje Królestwa i Psalmy Dawida (208)", "f": [{"r": "1 Samuela 24:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 94:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 209, "t": "Dzieje Królestwa i Psalmy Dawida (209)", "f": [{"r": "1 Samuela 25:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 96:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 210, "t": "Dzieje Królestwa i Psalmy Dawida (210)", "f": [{"r": "1 Samuela 25:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 98:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 211, "t": "Dzieje Królestwa i Psalmy Dawida (211)", "f": [{"r": "1 Samuela 26:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 100:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 212, "t": "Dzieje Królestwa i Psalmy Dawida (212)", "f": [{"r": "1 Samuela 26:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 102:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 213, "t": "Dzieje Królestwa i Psalmy Dawida (213)", "f": [{"r": "1 Samuela 27:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 104:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 214, "t": "Dzieje Królestwa i Psalmy Dawida (214)", "f": [{"r": "1 Samuela 27:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 106:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 215, "t": "Dzieje Królestwa i Psalmy Dawida (215)", "f": [{"r": "1 Samuela 28:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 108:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 216, "t": "Dzieje Królestwa i Psalmy Dawida (216)", "f": [{"r": "1 Samuela 28:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 110:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 217, "t": "Dzieje Królestwa i Psalmy Dawida (217)", "f": [{"r": "1 Samuela 29:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 112:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 218, "t": "Dzieje Królestwa i Psalmy Dawida (218)", "f": [{"r": "1 Samuela 29:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 114:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 219, "t": "Dzieje Królestwa i Psalmy Dawida (219)", "f": [{"r": "1 Samuela 30:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 116:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 220, "t": "Dzieje Królestwa i Psalmy Dawida (220)", "f": [{"r": "1 Samuela 30:1-25", "t": "Panowanie Dawida i wierność Jehowie"}, {"r": "Psalm 118:1-12", "t": "Psalm zaufania i modlitwy"}]}, {"d": 221, "t": "Prorocy i niewola babilońska (221)", "f": [{"r": "Izajasza 1:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 222, "t": "Prorocy i niewola babilońska (222)", "f": [{"r": "Izajasza 2:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 223, "t": "Prorocy i niewola babilońska (223)", "f": [{"r": "Izajasza 3:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 224, "t": "Prorocy i niewola babilońska (224)", "f": [{"r": "Izajasza 4:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 225, "t": "Prorocy i niewola babilońska (225)", "f": [{"r": "Izajasza 5:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 226, "t": "Prorocy i niewola babilońska (226)", "f": [{"r": "Izajasza 6:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 227, "t": "Prorocy i niewola babilońska (227)", "f": [{"r": "Izajasza 7:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 228, "t": "Prorocy i niewola babilońska (228)", "f": [{"r": "Izajasza 8:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 229, "t": "Prorocy i niewola babilońska (229)", "f": [{"r": "Izajasza 9:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 230, "t": "Prorocy i niewola babilońska (230)", "f": [{"r": "Izajasza 10:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 231, "t": "Prorocy i niewola babilońska (231)", "f": [{"r": "Izajasza 11:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 232, "t": "Prorocy i niewola babilońska (232)", "f": [{"r": "Izajasza 12:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 233, "t": "Prorocy i niewola babilońska (233)", "f": [{"r": "Izajasza 13:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 234, "t": "Prorocy i niewola babilońska (234)", "f": [{"r": "Izajasza 14:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 235, "t": "Prorocy i niewola babilońska (235)", "f": [{"r": "Izajasza 15:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 236, "t": "Prorocy i niewola babilońska (236)", "f": [{"r": "Izajasza 16:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 237, "t": "Prorocy i niewola babilońska (237)", "f": [{"r": "Izajasza 17:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 238, "t": "Prorocy i niewola babilońska (238)", "f": [{"r": "Izajasza 18:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 239, "t": "Prorocy i niewola babilońska (239)", "f": [{"r": "Izajasza 19:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 240, "t": "Prorocy i niewola babilońska (240)", "f": [{"r": "Izajasza 20:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 241, "t": "Prorocy i niewola babilońska (241)", "f": [{"r": "Izajasza 21:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 242, "t": "Prorocy i niewola babilońska (242)", "f": [{"r": "Izajasza 22:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 243, "t": "Prorocy i niewola babilońska (243)", "f": [{"r": "Izajasza 23:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 244, "t": "Prorocy i niewola babilońska (244)", "f": [{"r": "Izajasza 24:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 245, "t": "Prorocy i niewola babilońska (245)", "f": [{"r": "Izajasza 25:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 246, "t": "Prorocy i niewola babilońska (246)", "f": [{"r": "Izajasza 26:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 247, "t": "Prorocy i niewola babilońska (247)", "f": [{"r": "Izajasza 27:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 248, "t": "Prorocy i niewola babilońska (248)", "f": [{"r": "Izajasza 28:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 249, "t": "Prorocy i niewola babilońska (249)", "f": [{"r": "Izajasza 29:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 250, "t": "Prorocy i niewola babilońska (250)", "f": [{"r": "Izajasza 30:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 251, "t": "Prorocy i niewola babilońska (251)", "f": [{"r": "Izajasza 31:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 252, "t": "Prorocy i niewola babilońska (252)", "f": [{"r": "Izajasza 32:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 253, "t": "Prorocy i niewola babilońska (253)", "f": [{"r": "Izajasza 33:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 254, "t": "Prorocy i niewola babilońska (254)", "f": [{"r": "Izajasza 34:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 255, "t": "Prorocy i niewola babilońska (255)", "f": [{"r": "Izajasza 35:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 256, "t": "Prorocy i niewola babilońska (256)", "f": [{"r": "Izajasza 36:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 257, "t": "Prorocy i niewola babilońska (257)", "f": [{"r": "Izajasza 37:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 258, "t": "Prorocy i niewola babilońska (258)", "f": [{"r": "Izajasza 38:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 259, "t": "Prorocy i niewola babilońska (259)", "f": [{"r": "Izajasza 39:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 260, "t": "Prorocy i niewola babilońska (260)", "f": [{"r": "Izajasza 40:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 261, "t": "Prorocy i niewola babilońska (261)", "f": [{"r": "Izajasza 41:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 262, "t": "Prorocy i niewola babilońska (262)", "f": [{"r": "Izajasza 42:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 263, "t": "Prorocy i niewola babilońska (263)", "f": [{"r": "Izajasza 43:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 264, "t": "Prorocy i niewola babilońska (264)", "f": [{"r": "Izajasza 44:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 265, "t": "Prorocy i niewola babilońska (265)", "f": [{"r": "Izajasza 45:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 266, "t": "Prorocy i niewola babilońska (266)", "f": [{"r": "Izajasza 46:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 267, "t": "Prorocy i niewola babilońska (267)", "f": [{"r": "Izajasza 47:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 268, "t": "Prorocy i niewola babilońska (268)", "f": [{"r": "Izajasza 48:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 269, "t": "Prorocy i niewola babilońska (269)", "f": [{"r": "Izajasza 49:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 270, "t": "Prorocy i niewola babilońska (270)", "f": [{"r": "Izajasza 50:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 271, "t": "Prorocy i niewola babilońska (271)", "f": [{"r": "Izajasza 51:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 272, "t": "Prorocy i niewola babilońska (272)", "f": [{"r": "Izajasza 52:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 273, "t": "Prorocy i niewola babilońska (273)", "f": [{"r": "Izajasza 53:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 274, "t": "Prorocy i niewola babilońska (274)", "f": [{"r": "Izajasza 54:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 275, "t": "Prorocy i niewola babilońska (275)", "f": [{"r": "Izajasza 55:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 276, "t": "Prorocy i niewola babilońska (276)", "f": [{"r": "Izajasza 56:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 277, "t": "Prorocy i niewola babilońska (277)", "f": [{"r": "Izajasza 57:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 278, "t": "Prorocy i niewola babilońska (278)", "f": [{"r": "Izajasza 58:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 279, "t": "Prorocy i niewola babilońska (279)", "f": [{"r": "Izajasza 59:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 280, "t": "Prorocy i niewola babilońska (280)", "f": [{"r": "Izajasza 60:1-22", "t": "Obietnice mesjańskie i odnowienie"}]}, {"d": 281, "t": "Ewangelie - Służba i ofiara Jezusa (281)", "f": [{"r": "Mateusza 1:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 1:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 282, "t": "Ewangelie - Służba i ofiara Jezusa (282)", "f": [{"r": "Mateusza 1:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 1:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 283, "t": "Ewangelie - Służba i ofiara Jezusa (283)", "f": [{"r": "Mateusza 2:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 1:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 284, "t": "Ewangelie - Służba i ofiara Jezusa (284)", "f": [{"r": "Mateusza 2:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 2:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 285, "t": "Ewangelie - Służba i ofiara Jezusa (285)", "f": [{"r": "Mateusza 3:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 2:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 286, "t": "Ewangelie - Służba i ofiara Jezusa (286)", "f": [{"r": "Mateusza 3:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 2:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 287, "t": "Ewangelie - Służba i ofiara Jezusa (287)", "f": [{"r": "Mateusza 4:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 3:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 288, "t": "Ewangelie - Służba i ofiara Jezusa (288)", "f": [{"r": "Mateusza 4:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 3:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 289, "t": "Ewangelie - Służba i ofiara Jezusa (289)", "f": [{"r": "Mateusza 5:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 3:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 290, "t": "Ewangelie - Służba i ofiara Jezusa (290)", "f": [{"r": "Mateusza 5:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 4:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 291, "t": "Ewangelie - Służba i ofiara Jezusa (291)", "f": [{"r": "Mateusza 6:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 4:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 292, "t": "Ewangelie - Służba i ofiara Jezusa (292)", "f": [{"r": "Mateusza 6:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 4:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 293, "t": "Ewangelie - Służba i ofiara Jezusa (293)", "f": [{"r": "Mateusza 7:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 5:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 294, "t": "Ewangelie - Służba i ofiara Jezusa (294)", "f": [{"r": "Mateusza 7:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 5:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 295, "t": "Ewangelie - Służba i ofiara Jezusa (295)", "f": [{"r": "Mateusza 8:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 5:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 296, "t": "Ewangelie - Służba i ofiara Jezusa (296)", "f": [{"r": "Mateusza 8:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 6:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 297, "t": "Ewangelie - Służba i ofiara Jezusa (297)", "f": [{"r": "Mateusza 9:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 6:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 298, "t": "Ewangelie - Służba i ofiara Jezusa (298)", "f": [{"r": "Mateusza 9:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 6:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 299, "t": "Ewangelie - Służba i ofiara Jezusa (299)", "f": [{"r": "Mateusza 10:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 7:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 300, "t": "Ewangelie - Służba i ofiara Jezusa (300)", "f": [{"r": "Mateusza 10:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 7:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 301, "t": "Ewangelie - Służba i ofiara Jezusa (301)", "f": [{"r": "Mateusza 11:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 7:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 302, "t": "Ewangelie - Służba i ofiara Jezusa (302)", "f": [{"r": "Mateusza 11:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 8:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 303, "t": "Ewangelie - Służba i ofiara Jezusa (303)", "f": [{"r": "Mateusza 12:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 8:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 304, "t": "Ewangelie - Służba i ofiara Jezusa (304)", "f": [{"r": "Mateusza 12:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 8:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 305, "t": "Ewangelie - Służba i ofiara Jezusa (305)", "f": [{"r": "Mateusza 13:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 9:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 306, "t": "Ewangelie - Służba i ofiara Jezusa (306)", "f": [{"r": "Mateusza 13:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 9:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 307, "t": "Ewangelie - Służba i ofiara Jezusa (307)", "f": [{"r": "Mateusza 14:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 9:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 308, "t": "Ewangelie - Służba i ofiara Jezusa (308)", "f": [{"r": "Mateusza 14:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 10:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 309, "t": "Ewangelie - Służba i ofiara Jezusa (309)", "f": [{"r": "Mateusza 15:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 10:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 310, "t": "Ewangelie - Służba i ofiara Jezusa (310)", "f": [{"r": "Mateusza 15:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 10:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 311, "t": "Ewangelie - Służba i ofiara Jezusa (311)", "f": [{"r": "Mateusza 16:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 11:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 312, "t": "Ewangelie - Służba i ofiara Jezusa (312)", "f": [{"r": "Mateusza 16:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 11:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 313, "t": "Ewangelie - Służba i ofiara Jezusa (313)", "f": [{"r": "Mateusza 17:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 11:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 314, "t": "Ewangelie - Służba i ofiara Jezusa (314)", "f": [{"r": "Mateusza 17:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 12:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 315, "t": "Ewangelie - Służba i ofiara Jezusa (315)", "f": [{"r": "Mateusza 18:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 12:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 316, "t": "Ewangelie - Służba i ofiara Jezusa (316)", "f": [{"r": "Mateusza 18:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 12:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 317, "t": "Ewangelie - Służba i ofiara Jezusa (317)", "f": [{"r": "Mateusza 19:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 13:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 318, "t": "Ewangelie - Służba i ofiara Jezusa (318)", "f": [{"r": "Mateusza 19:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 13:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 319, "t": "Ewangelie - Służba i ofiara Jezusa (319)", "f": [{"r": "Mateusza 20:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 13:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 320, "t": "Ewangelie - Służba i ofiara Jezusa (320)", "f": [{"r": "Mateusza 20:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 14:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 321, "t": "Ewangelie - Służba i ofiara Jezusa (321)", "f": [{"r": "Mateusza 21:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 14:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 322, "t": "Ewangelie - Służba i ofiara Jezusa (322)", "f": [{"r": "Mateusza 21:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 14:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 323, "t": "Ewangelie - Służba i ofiara Jezusa (323)", "f": [{"r": "Mateusza 22:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 15:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 324, "t": "Ewangelie - Służba i ofiara Jezusa (324)", "f": [{"r": "Mateusza 22:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 15:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 325, "t": "Ewangelie - Służba i ofiara Jezusa (325)", "f": [{"r": "Mateusza 23:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 15:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 326, "t": "Ewangelie - Służba i ofiara Jezusa (326)", "f": [{"r": "Mateusza 23:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 16:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 327, "t": "Ewangelie - Służba i ofiara Jezusa (327)", "f": [{"r": "Mateusza 24:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 16:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 328, "t": "Ewangelie - Służba i ofiara Jezusa (328)", "f": [{"r": "Mateusza 24:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 16:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 329, "t": "Ewangelie - Służba i ofiara Jezusa (329)", "f": [{"r": "Mateusza 25:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 17:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 330, "t": "Ewangelie - Służba i ofiara Jezusa (330)", "f": [{"r": "Mateusza 25:1-28", "t": "Nauczanie o Królestwie Bożym"}, {"r": "Jana 17:1-20", "t": "Cuda i prawda o Chrystusie"}]}, {"d": 331, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (331)", "f": [{"r": "Rzymian 1:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie -13:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 332, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (332)", "f": [{"r": "Rzymian 2:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie -12:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 333, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (333)", "f": [{"r": "Rzymian 3:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie -11:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 334, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (334)", "f": [{"r": "Rzymian 4:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie -10:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 335, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (335)", "f": [{"r": "Rzymian 5:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie -9:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 336, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (336)", "f": [{"r": "Rzymian 6:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie -8:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 337, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (337)", "f": [{"r": "Rzymian 7:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie -7:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 338, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (338)", "f": [{"r": "Rzymian 8:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie -6:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 339, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (339)", "f": [{"r": "Rzymian 9:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie -5:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 340, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (340)", "f": [{"r": "Rzymian 10:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie -4:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 341, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (341)", "f": [{"r": "Rzymian 11:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie -3:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 342, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (342)", "f": [{"r": "Rzymian 12:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie -2:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 343, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (343)", "f": [{"r": "Rzymian 13:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie -1:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 344, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (344)", "f": [{"r": "Rzymian 14:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 0:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 345, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (345)", "f": [{"r": "Rzymian 15:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 1:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 346, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (346)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 2:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 347, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (347)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 3:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 348, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (348)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 4:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 349, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (349)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 5:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 350, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (350)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 6:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 351, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (351)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 7:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 352, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (352)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 8:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 353, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (353)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 9:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 354, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (354)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 10:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 355, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (355)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 11:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 356, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (356)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 12:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 357, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (357)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 13:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 358, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (358)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 14:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 359, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (359)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 15:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 360, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (360)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 16:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 361, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (361)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 17:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 362, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (362)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 18:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 363, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (363)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 19:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 364, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (364)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 20:1-21", "t": "Triumf Królestwa Bożego"}]}, {"d": 365, "t": "Dzieje Apostolskie, Listy i Wizja Przyszłości (365)", "f": [{"r": "Rzymian 16:1-25", "t": "Zbór chrześcijański i nadzieja"}, {"r": "Objawienie 21:1-21", "t": "Triumf Królestwa Bożego"}]}];
-const JWS_PLAN_JAN = [{"d": 1, "t": "Słowo stało się ciałem, Baranek Boży, pierwsi uczniowie", "f": [{"r": "Jana 1:1-51", "t": "Słowo stało się ciałem, Baranek Boży, pierwsi uczniowie"}]}, {"d": 2, "t": "Wesele w Kanie Galilejskiej, oczyszczenie świątyni", "f": [{"r": "Jana 2:1-25", "t": "Wesele w Kanie Galilejskiej, oczyszczenie świątyni"}]}, {"d": 3, "t": "Rozmowa z Nikodemem, miłość Boża do świata", "f": [{"r": "Jana 3:1-36", "t": "Rozmowa z Nikodemem, miłość Boża do świata"}]}, {"d": 4, "t": "Samarytanka przy studni, uzdrowienie syna urzędnika", "f": [{"r": "Jana 4:1-54", "t": "Samarytanka przy studni, uzdrowienie syna urzędnika"}]}, {"d": 5, "t": "Sadzafka Betesda, autorytet Syna Bożego", "f": [{"r": "Jana 5:1-47", "t": "Sadzafka Betesda, autorytet Syna Bożego"}]}, {"d": 6, "t": "Nakarmienie 5000, Jezus Chlebem życia", "f": [{"r": "Jana 6:1-40", "t": "Nakarmienie 5000, Jezus Chlebem życia"}]}, {"d": 7, "t": "Słowa życia wiecznego, lojalność Piotra", "f": [{"r": "Jana 6:41-71", "t": "Słowa życia wiecznego, lojalność Piotra"}]}, {"d": 8, "t": "Święto Namiotów, strumienie wody żywej", "f": [{"r": "Jana 7:1-52", "t": "Święto Namiotów, strumienie wody żywej"}]}, {"d": 9, "t": "Światłość świata, prawda was wyzwoli", "f": [{"r": "Jana 8:12-59", "t": "Światłość świata, prawda was wyzwoli"}]}, {"d": 10, "t": "Uzdrowienie niewidomego od urodzenia", "f": [{"r": "Jana 9:1-41", "t": "Uzdrowienie niewidomego od urodzenia"}]}, {"d": 11, "t": "Wspaniały Pasterz i Jego owce", "f": [{"r": "Jana 10:1-42", "t": "Wspaniały Pasterz i Jego owce"}]}, {"d": 12, "t": "Wskrzeszenie Łazarza, Zmartwychwstanie i życie", "f": [{"r": "Jana 11:1-57", "t": "Wskrzeszenie Łazarza, Zmartwychwstanie i życie"}]}, {"d": 13, "t": "Namaszczenie w Betanii, wjazd do Jerozolimy", "f": [{"r": "Jana 12:1-50", "t": "Namaszczenie w Betanii, wjazd do Jerozolimy"}]}, {"d": 14, "t": "Umycie nóg apostołom, przykazanie wzajemnej miłości", "f": [{"r": "Jana 13:1-38", "t": "Umycie nóg apostołom, przykazanie wzajemnej miłości"}]}, {"d": 15, "t": "Droga, Prawda i Życie, obietnica wspomożyciela", "f": [{"r": "Jana 14:1-31", "t": "Droga, Prawda i Życie, obietnica wspomożyciela"}]}, {"d": 16, "t": "Prawdziwy krzew winny i latorośle", "f": [{"r": "Jana 15:1-27", "t": "Prawdziwy krzew winny i latorośle"}]}, {"d": 17, "t": "Zwycięstwo nad światem, rola ducha świętego", "f": [{"r": "Jana 16:1-33", "t": "Zwycięstwo nad światem, rola ducha świętego"}]}, {"d": 18, "t": "Głęboka modlitwa Jezusa za jedność uczniów", "f": [{"r": "Jana 17:1-26", "t": "Głęboka modlitwa Jezusa za jedność uczniów"}]}, {"d": 19, "t": "Ogród Getsemani, aresztowanie i proces przed Piłatem", "f": [{"r": "Jana 18:1-40", "t": "Ogród Getsemani, aresztowanie i proces przed Piłatem"}]}, {"d": 20, "t": "Cierpienie, śmierć na palu i złożenie w grobowcu", "f": [{"r": "Jana 19:1-42", "t": "Cierpienie, śmierć na palu i złożenie w grobowcu"}]}, {"d": 21, "t": "Zmartwychwstanie, ukazanie się uczniom w Galilei", "f": [{"r": "Jana 20:1-21:25", "t": "Zmartwychwstanie, ukazanie się uczniom w Galilei"}]}];
-const JWS_PLAN_PRZYPOWIESCI = [{"d": 1, "t": "Siewca i cztery rodzaje gleby", "f": [{"r": "Mateusza 13:1-23", "t": "Siewca i cztery rodzaje gleby"}]}, {"d": 2, "t": "Pszenica i chwasty", "f": [{"r": "Mateusza 13:24-43", "t": "Pszenica i chwasty"}]}, {"d": 3, "t": "Ukryty skarb, drogocenna perła i sieć", "f": [{"r": "Mateusza 13:44-52", "t": "Ukryty skarb, drogocenna perła i sieć"}]}, {"d": 4, "t": "Miłosierny Samarytanin", "f": [{"r": "Łukasza 10:25-37", "t": "Miłosierny Samarytanin"}]}, {"d": 5, "t": "Nierozsądny bogacz", "f": [{"r": "Łukasza 12:13-21", "t": "Nierozsądny bogacz"}]}, {"d": 6, "t": "Zagubiona owca i odnaleziona drachma", "f": [{"r": "Łukasza 15:1-10", "t": "Zagubiona owca i odnaleziona drachma"}]}, {"d": 7, "t": "Syn marnotrawny i miłosierny ojciec", "f": [{"r": "Łukasza 15:11-32", "t": "Syn marnotrawny i miłosierny ojciec"}]}, {"d": 8, "t": "Roztropny zarządca", "f": [{"r": "Łukasza 16:1-13", "t": "Roztropny zarządca"}]}, {"d": 9, "t": "Wytrwała wdowa oraz faryzeusz i poborca podatków", "f": [{"r": "Łukasza 18:1-14", "t": "Wytrwała wdowa oraz faryzeusz i poborca podatków"}]}, {"d": 10, "t": "Robotnicy w winnicy", "f": [{"r": "Mateusza 20:1-16", "t": "Robotnicy w winnicy"}]}, {"d": 11, "t": "Dwóch synów i niegodziwi rolnicy", "f": [{"r": "Mateusza 21:28-46", "t": "Dwóch synów i niegodziwi rolnicy"}]}, {"d": 12, "t": "Uczta weselna króla", "f": [{"r": "Mateusza 22:1-14", "t": "Uczta weselna króla"}]}, {"d": 13, "t": "Dziesięć dziewic z lampami", "f": [{"r": "Mateusza 25:1-13", "t": "Dziesięć dziewic z lampami"}]}, {"d": 14, "t": "Powierzone talenty oraz owce i kozy", "f": [{"r": "Mateusza 25:14-46", "t": "Powierzone talenty oraz owce i kozy"}]}];
-const JWS_PLAN_NT = [{"d": 1, "t": "Ewangelia według Mateusza (rozdz. 1-2)", "f": [{"r": "Mateusza 1-2", "t": "Życie i nauki Jezusa"}]}, {"d": 2, "t": "Ewangelia według Mateusza (rozdz. 3-4)", "f": [{"r": "Mateusza 3-4", "t": "Życie i nauki Jezusa"}]}, {"d": 3, "t": "Ewangelia według Mateusza (rozdz. 5-6)", "f": [{"r": "Mateusza 5-6", "t": "Życie i nauki Jezusa"}]}, {"d": 4, "t": "Ewangelia według Mateusza (rozdz. 7-8)", "f": [{"r": "Mateusza 7-8", "t": "Życie i nauki Jezusa"}]}, {"d": 5, "t": "Ewangelia według Mateusza (rozdz. 9-10)", "f": [{"r": "Mateusza 9-10", "t": "Życie i nauki Jezusa"}]}, {"d": 6, "t": "Ewangelia według Mateusza (rozdz. 11-12)", "f": [{"r": "Mateusza 11-12", "t": "Życie i nauki Jezusa"}]}, {"d": 7, "t": "Ewangelia według Mateusza (rozdz. 13-14)", "f": [{"r": "Mateusza 13-14", "t": "Życie i nauki Jezusa"}]}, {"d": 8, "t": "Ewangelia według Mateusza (rozdz. 15-16)", "f": [{"r": "Mateusza 15-16", "t": "Życie i nauki Jezusa"}]}, {"d": 9, "t": "Ewangelia według Mateusza (rozdz. 17-18)", "f": [{"r": "Mateusza 17-18", "t": "Życie i nauki Jezusa"}]}, {"d": 10, "t": "Ewangelia według Mateusza (rozdz. 19-20)", "f": [{"r": "Mateusza 19-20", "t": "Życie i nauki Jezusa"}]}, {"d": 11, "t": "Ewangelia według Mateusza (rozdz. 21-22)", "f": [{"r": "Mateusza 21-22", "t": "Życie i nauki Jezusa"}]}, {"d": 12, "t": "Ewangelia według Mateusza (rozdz. 23-24)", "f": [{"r": "Mateusza 23-24", "t": "Życie i nauki Jezusa"}]}, {"d": 13, "t": "Ewangelia według Mateusza (rozdz. 25-26)", "f": [{"r": "Mateusza 25-26", "t": "Życie i nauki Jezusa"}]}, {"d": 14, "t": "Ewangelia według Mateusza (rozdz. 27-28)", "f": [{"r": "Mateusza 27-28", "t": "Życie i nauki Jezusa"}]}, {"d": 15, "t": "Ewangelia według Marka (rozdz. 1-2)", "f": [{"r": "Marka 1-2", "t": "Dynamiczna służba Syna Bożego"}]}, {"d": 16, "t": "Ewangelia według Marka (rozdz. 3-4)", "f": [{"r": "Marka 3-4", "t": "Dynamiczna służba Syna Bożego"}]}, {"d": 17, "t": "Ewangelia według Marka (rozdz. 5-6)", "f": [{"r": "Marka 5-6", "t": "Dynamiczna służba Syna Bożego"}]}, {"d": 18, "t": "Ewangelia według Marka (rozdz. 7-8)", "f": [{"r": "Marka 7-8", "t": "Dynamiczna służba Syna Bożego"}]}, {"d": 19, "t": "Ewangelia według Marka (rozdz. 9-10)", "f": [{"r": "Marka 9-10", "t": "Dynamiczna służba Syna Bożego"}]}, {"d": 20, "t": "Ewangelia według Marka (rozdz. 11-12)", "f": [{"r": "Marka 11-12", "t": "Dynamiczna służba Syna Bożego"}]}, {"d": 21, "t": "Ewangelia według Marka (rozdz. 13-14)", "f": [{"r": "Marka 13-14", "t": "Dynamiczna służba Syna Bożego"}]}, {"d": 22, "t": "Ewangelia według Marka (rozdz. 15-16)", "f": [{"r": "Marka 15-16", "t": "Dynamiczna służba Syna Bożego"}]}, {"d": 23, "t": "Ewangelia według Łukasza (rozdz. 1-2)", "f": [{"r": "Łukasza 1-2", "t": "Szczegółowa relacja ewangeliczna"}]}, {"d": 24, "t": "Ewangelia według Łukasza (rozdz. 3-4)", "f": [{"r": "Łukasza 3-4", "t": "Szczegółowa relacja ewangeliczna"}]}, {"d": 25, "t": "Ewangelia według Łukasza (rozdz. 5-6)", "f": [{"r": "Łukasza 5-6", "t": "Szczegółowa relacja ewangeliczna"}]}, {"d": 26, "t": "Ewangelia według Łukasza (rozdz. 7-8)", "f": [{"r": "Łukasza 7-8", "t": "Szczegółowa relacja ewangeliczna"}]}, {"d": 27, "t": "Ewangelia według Łukasza (rozdz. 9-10)", "f": [{"r": "Łukasza 9-10", "t": "Szczegółowa relacja ewangeliczna"}]}, {"d": 28, "t": "Ewangelia według Łukasza (rozdz. 11-12)", "f": [{"r": "Łukasza 11-12", "t": "Szczegółowa relacja ewangeliczna"}]}, {"d": 29, "t": "Ewangelia według Łukasza (rozdz. 13-14)", "f": [{"r": "Łukasza 13-14", "t": "Szczegółowa relacja ewangeliczna"}]}, {"d": 30, "t": "Ewangelia według Łukasza (rozdz. 15-16)", "f": [{"r": "Łukasza 15-16", "t": "Szczegółowa relacja ewangeliczna"}]}, {"d": 31, "t": "Ewangelia według Łukasza (rozdz. 17-18)", "f": [{"r": "Łukasza 17-18", "t": "Szczegółowa relacja ewangeliczna"}]}, {"d": 32, "t": "Ewangelia według Łukasza (rozdz. 19-20)", "f": [{"r": "Łukasza 19-20", "t": "Szczegółowa relacja ewangeliczna"}]}, {"d": 33, "t": "Ewangelia według Łukasza (rozdz. 21-22)", "f": [{"r": "Łukasza 21-22", "t": "Szczegółowa relacja ewangeliczna"}]}, {"d": 34, "t": "Ewangelia według Łukasza (rozdz. 23-24)", "f": [{"r": "Łukasza 23-24", "t": "Szczegółowa relacja ewangeliczna"}]}, {"d": 35, "t": "Ewangelia według Jana (rozdz. 1-2)", "f": [{"r": "Jana 1-2", "t": "Duchowe orędzie o wierze"}]}, {"d": 36, "t": "Ewangelia według Jana (rozdz. 3-4)", "f": [{"r": "Jana 3-4", "t": "Duchowe orędzie o wierze"}]}, {"d": 37, "t": "Ewangelia według Jana (rozdz. 5-6)", "f": [{"r": "Jana 5-6", "t": "Duchowe orędzie o wierze"}]}, {"d": 38, "t": "Ewangelia według Jana (rozdz. 7-8)", "f": [{"r": "Jana 7-8", "t": "Duchowe orędzie o wierze"}]}, {"d": 39, "t": "Ewangelia według Jana (rozdz. 9-10)", "f": [{"r": "Jana 9-10", "t": "Duchowe orędzie o wierze"}]}, {"d": 40, "t": "Ewangelia według Jana (rozdz. 11-12)", "f": [{"r": "Jana 11-12", "t": "Duchowe orędzie o wierze"}]}, {"d": 41, "t": "Ewangelia według Jana (rozdz. 13-14)", "f": [{"r": "Jana 13-14", "t": "Duchowe orędzie o wierze"}]}, {"d": 42, "t": "Ewangelia według Jana (rozdz. 15-16)", "f": [{"r": "Jana 15-16", "t": "Duchowe orędzie o wierze"}]}, {"d": 43, "t": "Ewangelia według Jana (rozdz. 17-18)", "f": [{"r": "Jana 17-18", "t": "Duchowe orędzie o wierze"}]}, {"d": 44, "t": "Ewangelia według Jana (rozdz. 19-20)", "f": [{"r": "Jana 19-20", "t": "Duchowe orędzie o wierze"}]}, {"d": 45, "t": "Ewangelia według Jana (rozdz. 21-21)", "f": [{"r": "Jana 21-21", "t": "Duchowe orędzie o wierze"}]}, {"d": 46, "t": "Dzieje Apostolskie (rozdz. 1-2)", "f": [{"r": "Dzieje 1-2", "t": "Rozwój zboru w I wieku"}]}, {"d": 47, "t": "Dzieje Apostolskie (rozdz. 3-4)", "f": [{"r": "Dzieje 3-4", "t": "Rozwój zboru w I wieku"}]}, {"d": 48, "t": "Dzieje Apostolskie (rozdz. 5-6)", "f": [{"r": "Dzieje 5-6", "t": "Rozwój zboru w I wieku"}]}, {"d": 49, "t": "Dzieje Apostolskie (rozdz. 7-8)", "f": [{"r": "Dzieje 7-8", "t": "Rozwój zboru w I wieku"}]}, {"d": 50, "t": "Dzieje Apostolskie (rozdz. 9-10)", "f": [{"r": "Dzieje 9-10", "t": "Rozwój zboru w I wieku"}]}, {"d": 51, "t": "Dzieje Apostolskie (rozdz. 11-12)", "f": [{"r": "Dzieje 11-12", "t": "Rozwój zboru w I wieku"}]}, {"d": 52, "t": "Dzieje Apostolskie (rozdz. 13-14)", "f": [{"r": "Dzieje 13-14", "t": "Rozwój zboru w I wieku"}]}, {"d": 53, "t": "Dzieje Apostolskie (rozdz. 15-16)", "f": [{"r": "Dzieje 15-16", "t": "Rozwój zboru w I wieku"}]}, {"d": 54, "t": "Dzieje Apostolskie (rozdz. 17-18)", "f": [{"r": "Dzieje 17-18", "t": "Rozwój zboru w I wieku"}]}, {"d": 55, "t": "Dzieje Apostolskie (rozdz. 19-20)", "f": [{"r": "Dzieje 19-20", "t": "Rozwój zboru w I wieku"}]}, {"d": 56, "t": "Dzieje Apostolskie (rozdz. 21-22)", "f": [{"r": "Dzieje 21-22", "t": "Rozwój zboru w I wieku"}]}, {"d": 57, "t": "Dzieje Apostolskie (rozdz. 23-24)", "f": [{"r": "Dzieje 23-24", "t": "Rozwój zboru w I wieku"}]}, {"d": 58, "t": "Dzieje Apostolskie (rozdz. 25-26)", "f": [{"r": "Dzieje 25-26", "t": "Rozwój zboru w I wieku"}]}, {"d": 59, "t": "Dzieje Apostolskie (rozdz. 27-28)", "f": [{"r": "Dzieje 27-28", "t": "Rozwój zboru w I wieku"}]}, {"d": 60, "t": "List do Rzymian (rozdz. 1-2)", "f": [{"r": "Rzymian 1-2", "t": "Uzasadnienie wiary i prawości"}]}, {"d": 61, "t": "List do Rzymian (rozdz. 3-4)", "f": [{"r": "Rzymian 3-4", "t": "Uzasadnienie wiary i prawości"}]}, {"d": 62, "t": "List do Rzymian (rozdz. 5-6)", "f": [{"r": "Rzymian 5-6", "t": "Uzasadnienie wiary i prawości"}]}, {"d": 63, "t": "List do Rzymian (rozdz. 7-8)", "f": [{"r": "Rzymian 7-8", "t": "Uzasadnienie wiary i prawości"}]}, {"d": 64, "t": "List do Rzymian (rozdz. 9-10)", "f": [{"r": "Rzymian 9-10", "t": "Uzasadnienie wiary i prawości"}]}, {"d": 65, "t": "List do Rzymian (rozdz. 11-12)", "f": [{"r": "Rzymian 11-12", "t": "Uzasadnienie wiary i prawości"}]}, {"d": 66, "t": "List do Rzymian (rozdz. 13-14)", "f": [{"r": "Rzymian 13-14", "t": "Uzasadnienie wiary i prawości"}]}, {"d": 67, "t": "List do Rzymian (rozdz. 15-16)", "f": [{"r": "Rzymian 15-16", "t": "Uzasadnienie wiary i prawości"}]}, {"d": 68, "t": "1 i 2 Koryntian (część 1)", "f": [{"r": "1 Koryntian 3", "t": "Wskazówki dla zboru"}]}, {"d": 69, "t": "1 i 2 Koryntian (część 2)", "f": [{"r": "1 Koryntian 6", "t": "Wskazówki dla zboru"}]}, {"d": 70, "t": "1 i 2 Koryntian (część 3)", "f": [{"r": "1 Koryntian 9", "t": "Wskazówki dla zboru"}]}, {"d": 71, "t": "1 i 2 Koryntian (część 4)", "f": [{"r": "1 Koryntian 12", "t": "Wskazówki dla zboru"}]}, {"d": 72, "t": "1 i 2 Koryntian (część 5)", "f": [{"r": "1 Koryntian 15", "t": "Wskazówki dla zboru"}]}, {"d": 73, "t": "Listy apostolskie - dzień 73", "f": [{"r": "Efezjan 1", "t": "Budowanie dojrzałości chrześcijańskiej"}]}, {"d": 74, "t": "Listy apostolskie - dzień 74", "f": [{"r": "Efezjan 2", "t": "Budowanie dojrzałości chrześcijańskiej"}]}, {"d": 75, "t": "Listy apostolskie - dzień 75", "f": [{"r": "Efezjan 3", "t": "Budowanie dojrzałości chrześcijańskiej"}]}, {"d": 76, "t": "Listy apostolskie - dzień 76", "f": [{"r": "Efezjan 4", "t": "Budowanie dojrzałości chrześcijańskiej"}]}, {"d": 77, "t": "Listy apostolskie - dzień 77", "f": [{"r": "Efezjan 5", "t": "Budowanie dojrzałości chrześcijańskiej"}]}, {"d": 78, "t": "Listy apostolskie - dzień 78", "f": [{"r": "Efezjan 6", "t": "Budowanie dojrzałości chrześcijańskiej"}]}, {"d": 79, "t": "Listy apostolskie - dzień 79", "f": [{"r": "Efezjan 6", "t": "Budowanie dojrzałości chrześcijańskiej"}]}, {"d": 80, "t": "Listy apostolskie - dzień 80", "f": [{"r": "Efezjan 6", "t": "Budowanie dojrzałości chrześcijańskiej"}]}, {"d": 81, "t": "Listy apostolskie - dzień 81", "f": [{"r": "Efezjan 6", "t": "Budowanie dojrzałości chrześcijańskiej"}]}, {"d": 82, "t": "Listy apostolskie - dzień 82", "f": [{"r": "Efezjan 6", "t": "Budowanie dojrzałości chrześcijańskiej"}]}, {"d": 83, "t": "Listy apostolskie - dzień 83", "f": [{"r": "Efezjan 6", "t": "Budowanie dojrzałości chrześcijańskiej"}]}, {"d": 84, "t": "Listy apostolskie - dzień 84", "f": [{"r": "Efezjan 6", "t": "Budowanie dojrzałości chrześcijańskiej"}]}, {"d": 85, "t": "Objawienie (rozdz. 1-4)", "f": [{"r": "Objawienie 1-4", "t": "Wizje czasów końca i Nowy Świat"}]}, {"d": 86, "t": "Objawienie (rozdz. 5-8)", "f": [{"r": "Objawienie 5-8", "t": "Wizje czasów końca i Nowy Świat"}]}, {"d": 87, "t": "Objawienie (rozdz. 9-12)", "f": [{"r": "Objawienie 9-12", "t": "Wizje czasów końca i Nowy Świat"}]}, {"d": 88, "t": "Objawienie (rozdz. 13-16)", "f": [{"r": "Objawienie 13-16", "t": "Wizje czasów końca i Nowy Świat"}]}, {"d": 89, "t": "Objawienie (rozdz. 17-20)", "f": [{"r": "Objawienie 17-20", "t": "Wizje czasów końca i Nowy Świat"}]}, {"d": 90, "t": "Objawienie (rozdz. 21-22)", "f": [{"r": "Objawienie 21-22", "t": "Wizje czasów końca i Nowy Świat"}]}];
+/* ═══ NOWE MODUŁY I BAZY DANYCH PLANÓW CZYTANIA BIBLII (v3.74) ═══ */
 
+/* 1. Kanon biblijny (66 ksiąg, 1189 rozdziałów) */
+const BIBLE_CANON_CHAPS = [
+  { n: "Rodzaju", ch: 50 }, { n: "Wyjścia", ch: 40 }, { n: "Kapłańska", ch: 27 }, { n: "Liczb", ch: 36 }, { n: "Powtórzonego Prawa", ch: 34 },
+  { n: "Jozuego", ch: 24 }, { n: "Sędziów", ch: 21 }, { n: "Rut", ch: 4 }, { n: "1 Samuela", ch: 31 }, { n: "2 Samuela", ch: 24 },
+  { n: "1 Królów", ch: 22 }, { n: "2 Królów", ch: 25 }, { n: "1 Kronik", ch: 29 }, { n: "2 Kronik", ch: 36 }, { n: "Ezdrasza", ch: 10 },
+  { n: "Nehemiasza", ch: 13 }, { n: "Estery", ch: 10 }, { n: "Hioba", ch: 42 }, { n: "Psalmy", ch: 150 }, { n: "Przysłów", ch: 31 },
+  { n: "Kaznodziei", ch: 12 }, { n: "Pieśń nad Pieśniami", ch: 8 }, { n: "Izajasza", ch: 66 }, { n: "Jeremiasza", ch: 52 }, { n: "Lamentacje", ch: 5 },
+  { n: "Ezechiela", ch: 48 }, { n: "Daniela", ch: 12 }, { n: "Ozeasza", ch: 14 }, { n: "Joela", ch: 3 }, { n: "Amosa", ch: 9 },
+  { n: "Abdiasza", ch: 1 }, { n: "Jonasza", ch: 4 }, { n: "Micheasza", ch: 7 }, { n: "Nahuma", ch: 3 }, { n: "Habakuka", ch: 3 },
+  { n: "Sofoniasza", ch: 3 }, { n: "Aggeusza", ch: 2 }, { n: "Zachariasza", ch: 14 }, { n: "Malachiasza", ch: 4 },
+  { n: "Mateusza", ch: 28 }, { n: "Marka", ch: 16 }, { n: "Łukasza", ch: 24 }, { n: "Jana", ch: 21 }, { n: "Dzieje Apostolskie", ch: 28 },
+  { n: "Rzymian", ch: 16 }, { n: "1 Koryntian", ch: 16 }, { n: "2 Koryntian", ch: 13 }, { n: "Galatów", ch: 6 }, { n: "Efezjan", ch: 6 },
+  { n: "Filipian", ch: 4 }, { n: "Kolosan", ch: 4 }, { n: "1 Tesaloniczan", ch: 5 }, { n: "2 Tesaloniczan", ch: 3 }, { n: "1 Tymoteusza", ch: 6 },
+  { n: "2 Tymoteusza", ch: 4 }, { n: "Tytusa", ch: 3 }, { n: "Filemona", ch: 1 }, { n: "Hebrajczyków", ch: 13 }, { n: "Jakuba", ch: 5 },
+  { n: "1 Piotra", ch: 5 }, { n: "2 Piotra", ch: 3 }, { n: "1 Jana", ch: 5 }, { n: "2 Jana", ch: 1 }, { n: "3 Jana", ch: 1 },
+  { n: "Judy", ch: 1 }, { n: "Objawienie", ch: 22 }
+];
+
+/* 2. Porządek chronologiczny (1189 rozdziałów w sekwencji historycznej) */
+const BIBLE_CHRONO_BLOCKS = [
+  ["Rodzaju", 1, 11], ["Hioba", 1, 42], ["Rodzaju", 12, 50],
+  ["Wyjścia", 1, 40], ["Kapłańska", 1, 27], ["Liczb", 1, 36], ["Powtórzonego Prawa", 1, 34],
+  ["Jozuego", 1, 24], ["Sędziów", 1, 21], ["Rut", 1, 4],
+  ["1 Samuela", 1, 31], ["2 Samuela", 1, 24], ["1 Kronik", 1, 29],
+  ["Psalmy", 1, 150], ["1 Królów", 1, 11], ["2 Kronik", 1, 9],
+  ["Przysłów", 1, 31], ["Kaznodziei", 1, 12], ["Pieśń nad Pieśniami", 1, 8],
+  ["1 Królów", 12, 22], ["2 Kronik", 10, 28],
+  ["Abdiasza", 1, 1], ["Joela", 1, 3], ["Jonasza", 1, 4], ["Amosa", 1, 9], ["Ozeasza", 1, 14], ["Micheasza", 1, 7], ["Izajasza", 1, 39],
+  ["2 Królów", 1, 20], ["2 Kronik", 29, 32], ["Izajasza", 40, 66],
+  ["Nahuma", 1, 3], ["Sofoniasza", 1, 3], ["Habakuka", 1, 3],
+  ["2 Królów", 21, 25], ["2 Kronik", 33, 36], ["Jeremiasza", 1, 52], ["Lamentacje", 1, 5],
+  ["Ezechiela", 1, 48], ["Daniela", 1, 12],
+  ["Ezdrasza", 1, 6], ["Aggeusza", 1, 2], ["Zachariasza", 1, 14], ["Estery", 1, 10], ["Ezdrasza", 7, 10], ["Nehemiasza", 1, 13], ["Malachiasza", 1, 4],
+  ["Mateusza", 1, 28], ["Marka", 1, 16], ["Łukasza", 1, 24], ["Jana", 1, 21],
+  ["Dzieje Apostolskie", 1, 14], ["Jakuba", 1, 5], ["Galatów", 1, 6],
+  ["Dzieje Apostolskie", 15, 18], ["1 Tesaloniczan", 1, 5], ["2 Tesaloniczan", 1, 3],
+  ["Dzieje Apostolskie", 19, 20], ["1 Koryntian", 1, 16], ["2 Koryntian", 1, 13], ["Rzymian", 1, 16],
+  ["Dzieje Apostolskie", 21, 28], ["Efezjan", 1, 6], ["Filipian", 1, 4], ["Kolosan", 1, 4], ["Filemona", 1, 1], ["Hebrajczyków", 1, 13],
+  ["1 Tymoteusza", 1, 6], ["Tytusa", 1, 3], ["1 Piotra", 1, 5], ["2 Piotra", 1, 3], ["2 Tymoteusza", 1, 4], ["Judy", 1, 1],
+  ["1 Jana", 1, 5], ["2 Jana", 1, 1], ["3 Jana", 1, 1], ["Objawienie", 1, 22]
+];
+
+/* 3. Plany tematyczne statyczne */
+const JWS_PLAN_JAN = [
+  { d: 1, t: "Słowo stało się ciałem (Świadectwo Jana Chrzciciela)", f: [{ r: "Jana 1", t: "Słowo u Boga, Baranek Boży, pierwsi uczniowie" }] },
+  { d: 2, t: "Cud w Kanie Galilejskiej i oczyszczenie świątyni", f: [{ r: "Jana 2", t: "Woda w wino w Kanie, gorliwość o dom Jehowy" }] },
+  { d: 3, t: "Rozmowa z Nikodemem i miłość Boża", f: [{ r: "Jana 3", t: "Narodzenie z ducha, Jan 3:16 — miłość ku światu" }] },
+  { d: 4, t: "Samarytanka przy studni Jakuba", f: [{ r: "Jana 4", t: "Woda życia i oddawanie czci w duchu i prawdzie" }] },
+  { d: 5, t: "Uzdrwienie przy sadzawce Betesda", f: [{ r: "Jana 5", t: "Władza Syna od Ojca i nadzieja zmartwychwstania" }] },
+  { d: 6, t: "Nakarmienie 5000 i Chleb życia", f: [{ r: "Jana 6", t: "Cudowne rozmnożenie chleba, Jezus chlebem z nieba" }] },
+  { d: 7, t: "Święto Namiotów i nauczanie w świątyni", f: [{ r: "Jana 7", t: "Rzeki wody żywej i podział w tłumie" }] },
+  { d: 8, t: "Światłość świata i wolność przez prawdę", f: [{ r: "Jana 8", t: "Prawda was wyzwoli, Abraham ujrzał mój dzień" }] },
+  { d: 9, t: "Uzdrowienie niewidomego od urodzenia", f: [{ r: "Jana 9", t: "Sadzawka Syloe i odważne świadectwo uzdrowionego" }] },
+  { d: 10, t: "Wspaniały Pasterz i owce", f: [{ r: "Jana 10", t: "Pasterz oddaje życie za owce, jedno stado i jeden pasterz" }] },
+  { d: 11, t: "Wskrzeszenie Łazarza w Betanii", f: [{ r: "Jana 11", t: "Ja jestem zmartwychwstaniem i życiem" }] },
+  { d: 12, t: "Namaszczenie w Betanii i wjazd do Jerozolimy", f: [{ r: "Jana 12", t: "Olejek Marii, triumfalny wjazd Króla" }] },
+  { d: 13, t: "Umycie nóg apostołom i nowe przykazanie", f: [{ r: "Jana 13", t: "Wzór pokory i miłości wzajemnej" }] },
+  { d: 14, t: "Droga, Prawda i Życie oraz Pocieszyciel", f: [{ r: "Jana 14", t: "Mieszkania w domu Ojca, dar ducha świętego" }] },
+  { d: 15, t: "Prawdziwy krzew winny i latorośle", f: [{ r: "Jana 15", t: "Trwajcie w mojej miłości, przynoście obfity owoc" }] },
+  { d: 16, t: "Działanie ducha świętego i zwycięstwo nad światem", f: [{ r: "Jana 16", t: "Odwagi! Ja zwyciężyłem świat" }] },
+  { d: 17, t: "Arcykapłańska modlitwa Jezusa", f: [{ r: "Jana 17", t: "Poznawanie jedynego prawdziwego Boga, jedność uczniów" }] },
+  { d: 18, t: "Ogród Getsemani, pojmanie i proces", f: [{ r: "Jana 18", t: "Przed Annaszem, Kajfaszem i Piłatem" }] },
+  { d: 19, t: "Biczowanie, Golgota i śmierć Chrystusa", f: [{ r: "Jana 19", t: "Dokonało się! Ofiara odkupienia" }] },
+  { d: 20, t: "Pusty grobowiec i ukazanie się uczniom", f: [{ r: "Jana 20", t: "Zmartwychwstanie, Maria Magdalena i Tomasz" }] },
+  { d: 21, t: "Połów ryb nad Jeziorem Tyberiadzkim", f: [{ r: "Jana 21", t: "Paś moje owieczki, podążaj za mną" }] }
+];
+
+const JWS_PLAN_PRZYPOWIESCI = [
+  { d: 1, t: "Siewca i cztery rodzaje gleby", f: [{ r: "Mateusza 13:1-23", t: "Siewca i cztery rodzaje gleby" }] },
+  { d: 2, t: "Pszenica i chwasty", f: [{ r: "Mateusza 13:24-43", t: "Pszenica i chwasty" }] },
+  { d: 3, t: "Ukryty skarb, drogocenna perła i sieć", f: [{ r: "Mateusza 13:44-52", t: "Ukryty skarb, drogocenna perła i sieć" }] },
+  { d: 4, t: "Miłosierny Samarytanin", f: [{ r: "Łukasza 10:25-37", t: "Miłosierny Samarytanin" }] },
+  { d: 5, t: "Nierozsądny bogacz", f: [{ r: "Łukasza 12:13-21", t: "Nierozsądny bogacz" }] },
+  { d: 6, t: "Zagubiona owca i odnaleziona drachma", f: [{ r: "Łukasza 15:1-10", t: "Zagubiona owca i odnaleziona drachma" }] },
+  { d: 7, t: "Syn marnotrawny i miłosierny ojciec", f: [{ r: "Łukasza 15:11-32", t: "Syn marnotrawny i miłosierny ojciec" }] },
+  { d: 8, t: "Roztropny zarządca", f: [{ r: "Łukasza 16:1-13", t: "Roztropny zarządca" }] },
+  { d: 9, t: "Wytrwała wdowa oraz faryzeusz i poborca podatków", f: [{ r: "Łukasza 18:1-14", t: "Wytrwała wdowa oraz faryzeusz i poborca podatków" }] },
+  { d: 10, t: "Robotnicy w winnicy", f: [{ r: "Mateusza 20:1-16", t: "Robotnicy w winnicy" }] },
+  { d: 11, t: "Dwóch synów i niegodziwi rolnicy", f: [{ r: "Mateusza 21:28-46", t: "Dwóch synów i niegodziwi rolnicy" }] },
+  { d: 12, t: "Uczta weselna króla", f: [{ r: "Mateusza 22:1-14", t: "Uczta weselna króla" }] },
+  { d: 13, t: "Dziesięć dziewic z lampami", f: [{ r: "Mateusza 25:1-13", t: "Dziesięć dziewic z lampami" }] },
+  { d: 14, t: "Powierzone talenty oraz owce i kozy", f: [{ r: "Mateusza 25:14-46", t: "Powierzone talenty oraz owce i kozy" }] }
+];
+
+/* 4. Globalny stan czytania i filtrów */
 let _centrAktywnyPlanId = lsGet(KP + "CentrumAktywnyPlan", "chrono");
-let _centrWybranyDzien = parseInt(lsGet(KP + "CentrumCurDay", "47"), 10) || 47;
+let _centrWybranyDzien = parseInt(lsGet(KP + "CentrumCurDay", "1"), 10) || 1;
 let _centrWybranyTematId = lsGet(KP + "CentrumCurTemat", "wiara-abrahama");
+let _centrPlanTab = "wszystkie";
 let _centrListaTab = "wszystkie";
 let _centrListaSzukaj = "";
 let _centrStatTab = "ogolny";
 let _centrStudiumTab = "tematy";
 const _cenNow = new Date();
 let _centrKalRok = _cenNow.getFullYear();
-let _centrKalMies = _cenNow.getMonth(); // Bieżący miesiąc
+let _centrKalMies = _cenNow.getMonth();
+
+/* Czyszczenie starych danych testowych / mocków */
+(function _centrAutoCleanMockData(){
+  try {
+    const rawChrono = lsGet(KP + "CentrumDniDone_chrono", null);
+    if(rawChrono && !lsGet(KP + "CentrumMockCleaned_v2", null)){
+      const arr = JSON.parse(rawChrono);
+      if(Array.isArray(arr) && arr.length === 46 && arr[0] === 1 && arr[45] === 46){
+        lsRem(KP + "CentrumDniDone_chrono");
+      }
+      lsSet(KP + "CentrumMockCleaned_v2", "1");
+    }
+    const rawNt = lsGet(KP + "CentrumDniDone_nt", null);
+    if(rawNt && !lsGet(KP + "CentrumNtMockCleaned_v2", null)){
+      const arrNt = JSON.parse(rawNt);
+      if(Array.isArray(arrNt) && arrNt.length === 90){
+        lsRem(KP + "CentrumDniDone_nt");
+      }
+      lsSet(KP + "CentrumNtMockCleaned_v2", "1");
+    }
+    const rawFragi = lsGet(KP + "CentrumFragiDone", null);
+    if(rawFragi && (rawFragi.includes("chrono_47_0") || rawFragi.includes("47_0")) && !lsGet(KP + "CentrumFragiMockCleaned_v2", null)){
+      lsRem(KP + "CentrumFragiDone");
+      lsSet(KP + "CentrumFragiMockCleaned_v2", "1");
+    }
+  } catch(e){}
+})();
+
+/* 5. Generator planów z sekwencji rozdziałów */
+function _centrPobierzKanoniczneRozdzialy(){
+  const all = [];
+  BIBLE_CANON_CHAPS.forEach(b => {
+    for(let c = 1; c <= b.ch; c++) all.push({ book: b.n, ch: c });
+  });
+  return all;
+}
+
+function _centrPobierzChronoRozdzialy(){
+  const all = [];
+  BIBLE_CHRONO_BLOCKS.forEach(([b, s, e]) => {
+    for(let c = s; c <= e; c++) all.push({ book: b, ch: c });
+  });
+  return all;
+}
+
+function _centrGenerujPlanZRozdzialow(chapters, totalDays, tytulPrefix){
+  const totalCh = chapters.length;
+  const days = [];
+  for(let d = 1; d <= totalDays; d++){
+    const startIdx = Math.round(((d - 1) * totalCh) / totalDays);
+    const endIdx = Math.round((d * totalCh) / totalDays);
+    let slice = chapters.slice(startIdx, endIdx);
+    if(!slice.length){
+      slice = [chapters[Math.min(startIdx, totalCh - 1)]];
+    }
+    const frags = [];
+    let curBook = "", curStart = 0, curEnd = 0;
+    slice.forEach(chObj => {
+      if(chObj.book === curBook && chObj.ch === curEnd + 1){
+        curEnd = chObj.ch;
+      } else {
+        if(curBook){
+          frags.push({
+            r: curBook + " " + (curStart === curEnd ? curStart : curStart + "-" + curEnd),
+            t: curBook + (curStart === curEnd ? " rozdział " + curStart : " rozdziały " + curStart + "–" + curEnd)
+          });
+        }
+        curBook = chObj.book;
+        curStart = chObj.ch;
+        curEnd = chObj.ch;
+      }
+    });
+    if(curBook){
+      frags.push({
+        r: curBook + " " + (curStart === curEnd ? curStart : curStart + "-" + curEnd),
+        t: curBook + (curStart === curEnd ? " rozdział " + curStart : " rozdziały " + curStart + "–" + curEnd)
+      });
+    }
+    const tytul = frags.map(f => f.r).join(", ");
+    days.push({ d: d, t: (tytulPrefix ? tytulPrefix + ": " : "") + tytul, f: frags });
+  }
+  return days;
+}
+
+function _centrGenerujPlanPoKolei(totalDays, tytulPrefix){
+  return _centrGenerujPlanZRozdzialow(_centrPobierzKanoniczneRozdzialy(), totalDays, tytulPrefix);
+}
+
+function _centrGenerujPlanChronologiczny(totalDays, tytulPrefix){
+  return _centrGenerujPlanZRozdzialow(_centrPobierzChronoRozdzialy(), totalDays, tytulPrefix);
+}
+
+function _centrGenerujPlanZbalansowany(totalDays, tytulPrefix){
+  const canon = _centrPobierzKanoniczneRozdzialy();
+  const ot = canon.slice(0, 929);
+  const nt = canon.slice(929);
+  const days = [];
+  for(let d = 1; d <= totalDays; d++){
+    const ot_s = Math.round(((d - 1) * ot.length) / totalDays);
+    const ot_e = Math.round((d * ot.length) / totalDays);
+    const nt_s = Math.round(((d - 1) * nt.length) / totalDays);
+    const nt_e = Math.round((d * nt.length) / totalDays);
+    const slice_ot = ot.slice(ot_s, ot_e).length ? ot.slice(ot_s, ot_e) : [ot[Math.min(ot_s, ot.length - 1)]];
+    const slice_nt = nt.slice(nt_s, nt_e).length ? nt.slice(nt_s, nt_e) : [nt[Math.min(nt_s, nt.length - 1)]];
+    const frags = [];
+    [slice_ot, slice_nt].forEach(slice => {
+      let curBook = "", curStart = 0, curEnd = 0;
+      slice.forEach(chObj => {
+        if(chObj.book === curBook && chObj.ch === curEnd + 1){
+          curEnd = chObj.ch;
+        } else {
+          if(curBook){
+            frags.push({
+              r: curBook + " " + (curStart === curEnd ? curStart : curStart + "-" + curEnd),
+              t: curBook + (curStart === curEnd ? " rozdział " + curStart : " rozdziały " + curStart + "–" + curEnd)
+            });
+          }
+          curBook = chObj.book;
+          curStart = chObj.ch;
+          curEnd = chObj.ch;
+        }
+      });
+      if(curBook){
+        frags.push({
+          r: curBook + " " + (curStart === curEnd ? curStart : curStart + "-" + curEnd),
+          t: curBook + (curStart === curEnd ? " rozdział " + curStart : " rozdziały " + curStart + "–" + curEnd)
+        });
+      }
+    });
+    const tytul = frags.map(f => f.r).join(", ");
+    days.push({ d: d, t: (tytulPrefix ? tytulPrefix + ": " : "") + tytul, f: frags });
+  }
+  return days;
+}
+
+function _centrGenerujPlanNT(totalDays, tytulPrefix){
+  const canon = _centrPobierzKanoniczneRozdzialy();
+  const nt = canon.slice(929);
+  return _centrGenerujPlanZRozdzialow(nt, totalDays, tytulPrefix);
+}
+
+function _centrGenerujPlanMadrosciowe(totalDays, tytulPrefix){
+  const canon = _centrPobierzKanoniczneRozdzialy();
+  const ps = canon.filter(c => c.book === "Psalmy" || c.book === "Przysłów");
+  return _centrGenerujPlanZRozdzialow(ps, totalDays, tytulPrefix);
+}
+
+/* 6. Pamięć podręczna i pobieranie danych planów */
+let _centrCachePlanow = null;
 
 function _centrPobierzWszystkiePlanyDane(){
-  return {
-    "chrono": { id: "chrono", name: "Czytanie chronologiczne", days: 365, plan: JWS_CHRONO_PLAN, desc: "Wydarzenia biblijne w porządku historycznym" },
-    "jan": { id: "jan", name: "Ewangelia Jana", days: 21, plan: JWS_PLAN_JAN, desc: "Głębokie rozważanie życia i nauk Jezusa" },
-    "przypowiesci": { id: "przypowiesci", name: "Przypowieści Jezusa", days: 14, plan: JWS_PLAN_PRZYPOWIESCI, desc: "Drogocenne lekcje z przypowieści Chrystusa" },
-    "nt": { id: "nt", name: "Nowy Testament", days: 90, plan: JWS_PLAN_NT, desc: "Całość Chrześcijańskich Pism Greckich w 3 miesiące" }
+  if(_centrCachePlanow) return _centrCachePlanow;
+  _centrCachePlanow = {
+    // === CHRONOLOGICZNE ===
+    "chrono": {
+      id: "chrono",
+      name: "Czytanie chronologiczne (1 rok)",
+      days: 365,
+      cat: "chrono",
+      catName: "Chronologiczny",
+      duration: "1 rok",
+      pace: "~3,25 partii/dzień",
+      timeEst: "⏱ 15–20 min",
+      plan: _centrGenerujPlanChronologiczny(365, "Chronologicznie"),
+      desc: "Wydarzenia biblijne w porządku historycznym na 365 dni. Zobacz spójną oś czasu od stworzenia świata po czasy apostolskie."
+    },
+    "chrono-2lata": {
+      id: "chrono-2lata",
+      name: "Czytanie chronologiczne (2 lata)",
+      days: 730,
+      cat: "chrono",
+      catName: "Chronologiczny",
+      duration: "2 lata",
+      pace: "~1,6 partii/dzień",
+      timeEst: "⏱ 8–10 min",
+      plan: _centrGenerujPlanChronologiczny(730, "Chronologicznie"),
+      desc: "Wydarzenia w porządku historycznym w spokojnym tempie na 2 lata (730 dni). Hiob w czasach patriarchów, prorocy wpleceni w historię królów."
+    },
+    "chrono-3lata": {
+      id: "chrono-3lata",
+      name: "Czytanie chronologiczne (3 lata)",
+      days: 1095,
+      cat: "chrono",
+      catName: "Chronologiczny",
+      duration: "3 lata",
+      pace: "~1 partia/dzień",
+      timeEst: "⏱ 4–6 min",
+      plan: _centrGenerujPlanChronologiczny(1095, "Chronologicznie"),
+      desc: "Wydarzenia w porządku historycznym w bardzo spokojnym tempie na 3 lata (1095 dni). Dokładne studium epoka po epoce z czasem na notatki."
+    },
+
+    // === PO KOLEI (KANONICZNE) ===
+    "pokolei-1rok": {
+      id: "pokolei-1rok",
+      name: "Cała Biblia po kolei (1 rok)",
+      days: 365,
+      cat: "pokolei",
+      catName: "Księgi po kolei",
+      duration: "1 rok",
+      pace: "~3,25 rozdz./dzień",
+      timeEst: "⏱ 15–20 min",
+      plan: _centrGenerujPlanPoKolei(365, "Po kolei"),
+      desc: "Od Księgi Rodzaju do Objawienia w 1 rok. Klasyczny układ 66 ksiąg biblijnych (3–4 rozdziały dziennie)."
+    },
+    "pokolei-2lata": {
+      id: "pokolei-2lata",
+      name: "Cała Biblia po kolei (2 lata)",
+      days: 730,
+      cat: "pokolei",
+      catName: "Księgi po kolei",
+      duration: "2 lata",
+      pace: "~1,6 rozdz./dzień",
+      timeEst: "⏱ 8–10 min",
+      plan: _centrGenerujPlanPoKolei(730, "Po kolei"),
+      desc: "Od Księgi Rodzaju do Objawienia w 2 lata (730 dni). Średnio 1–2 rozdziały dziennie – zrównoważony czas na refleksję."
+    },
+    "pokolei-3lata": {
+      id: "pokolei-3lata",
+      name: "Cała Biblia po kolei (3 lata)",
+      days: 1095,
+      cat: "pokolei",
+      catName: "Księgi po kolei",
+      duration: "3 lata",
+      pace: "~1 rozdz./dzień",
+      timeEst: "⏱ 4–6 min",
+      plan: _centrGenerujPlanPoKolei(1095, "Po kolei"),
+      desc: "Od Księgi Rodzaju do Objawienia w 3 lata (1095 dni). Dokładnie 1 rozdział dziennie – łatwy do utrzymania codzienny nawyk."
+    },
+
+    // === ZRÓWNOWAŻONE (ST + NT) ===
+    "zbalansowany-1rok": {
+      id: "zbalansowany-1rok",
+      name: "ST i NT równolegle (1 rok)",
+      days: 365,
+      cat: "zbalansowany",
+      catName: "Zbalansowany",
+      duration: "1 rok",
+      pace: "2-3 rozdz. ST + 1 rozdz. NT",
+      timeEst: "⏱ 15–20 min",
+      plan: _centrGenerujPlanZbalansowany(365, "ST + NT"),
+      desc: "Codziennie fragment Pism Hebrajskich oraz Chrześcijańskich Pism Greckich. Idealna równowaga dla umysłu i serca."
+    },
+    "zbalansowany-2lata": {
+      id: "zbalansowany-2lata",
+      name: "ST i NT równolegle (2 lata)",
+      days: 730,
+      cat: "zbalansowany",
+      catName: "Zbalansowany",
+      duration: "2 lata",
+      pace: "1-2 rozdz. ST + fragment NT",
+      timeEst: "⏱ 8–10 min",
+      plan: _centrGenerujPlanZbalansowany(730, "ST + NT"),
+      desc: "Pisma Hebrajskie i Greckie równolegle w spokojnym 2-letnim tempie. Codzienny kontakt z życiem i naukami Chrystusa."
+    },
+
+    // === TEMATYCZNE I NOWY TESTAMENT ===
+    "nt": {
+      id: "nt",
+      name: "Nowy Testament (90 dni)",
+      days: 90,
+      cat: "temat",
+      catName: "Nowy Testament",
+      duration: "90 dni",
+      pace: "~2,8 rozdz./dzień",
+      timeEst: "⏱ 10–15 min",
+      plan: _centrGenerujPlanNT(90, "Nowy Testament"),
+      desc: "Wszystkie 27 ksiąg Chrześcijańskich Pism Greckich w 3 miesiące (od Ewangelii Mateusza do Objawienia)."
+    },
+    "nt-1rok": {
+      id: "nt-1rok",
+      name: "Nowy Testament (1 rok)",
+      days: 365,
+      cat: "temat",
+      catName: "Nowy Testament",
+      duration: "1 rok",
+      pace: "~0,7 rozdz./dzień",
+      timeEst: "⏱ 3–5 min",
+      plan: _centrGenerujPlanNT(365, "Nowy Testament"),
+      desc: "Cały Nowy Testament rozłożony na pełny rok – krótkie, inspirujące fragmenty każdego dnia."
+    },
+    "jan": {
+      id: "jan",
+      name: "Ewangelia według Jana (21 dni)",
+      days: 21,
+      cat: "temat",
+      catName: "Ewangelie",
+      duration: "21 dni",
+      pace: "1 rozdział / dzień",
+      timeEst: "⏱ 5 min",
+      plan: JWS_PLAN_JAN,
+      desc: "Głębokie rozważanie życia, cudów i miłości Jezusa Chrystusa rozdział po rozdziale."
+    },
+    "przypowiesci": {
+      id: "przypowiesci",
+      name: "Przypowieści Jezusa (14 dni)",
+      days: 14,
+      cat: "temat",
+      catName: "Tematyczny",
+      duration: "14 dni",
+      pace: "1 przypowieść / dzień",
+      timeEst: "⏱ 5 min",
+      plan: JWS_PLAN_PRZYPOWIESCI,
+      desc: "Drogocenne lekcje moralne i duchowe ukryte w najsłynniejszych przypowieściach Chrystusa."
+    },
+    "madrosciowe-60dni": {
+      id: "madrosciowe-60dni",
+      name: "Psalmy i Księga Przysłów (60 dni)",
+      days: 60,
+      cat: "temat",
+      catName: "Mądrościowe",
+      duration: "60 dni",
+      pace: "~3 rozdz./dzień",
+      timeEst: "⏱ 10 min",
+      plan: _centrGenerujPlanMadrosciowe(60, "Mądrościowe"),
+      desc: "Codzienna porcja modlitw, uwielbienia i mądrości życiowej z Psalmów oraz Księgi Przysłów."
+    }
   };
+  return _centrCachePlanow;
 }
 
 function _centrPobierzPlanData(planId){
@@ -30206,24 +30859,25 @@ function _centrPobierzPlanData(planId){
   return map[planId] || map["chrono"];
 }
 
+function _centrZnajdzBiezacyDzienPlanu(planId){
+  const planInfo = _centrPobierzPlanData(planId);
+  const doneSet = _centrPobierzUkonczoneDni(planInfo.id);
+  for(let d = 1; d <= planInfo.days; d++){
+    if(!doneSet.has(d)) return d;
+  }
+  return planInfo.days || 1;
+}
+
+/* 7. Odczyt i zapis postępu użytkownika */
 function _centrPobierzUkonczoneDni(planId){
   planId = planId || _centrAktywnyPlanId || "chrono";
   const klucz = KP + "CentrumDniDone_" + planId;
   const raw = lsGet(klucz, null);
   if(raw) {
-    try { return new Set(JSON.parse(raw)); } catch(e) {}
-  }
-  if(planId === "chrono"){
-    const domyslne = [];
-    for(let i=1; i<=46; i++) domyslne.push(i);
-    return new Set(domyslne);
-  }
-  if(planId === "jan") return new Set([1, 2, 3, 4, 5, 6, 7, 8]);
-  if(planId === "przypowiesci") return new Set([1, 2, 3, 4, 5, 6]);
-  if(planId === "nt"){
-    const allDone = [];
-    for(let i=1; i<=90; i++) allDone.push(i);
-    return new Set(allDone);
+    try {
+      const arr = JSON.parse(raw);
+      if(Array.isArray(arr)) return new Set(arr);
+    } catch(e) {}
   }
   return new Set();
 }
@@ -30236,13 +30890,31 @@ function _centrZapiszUkonczoneDni(set, planId){
 function _centrPobierzUkonczoneFragi(){
   const raw = lsGet(KP + "CentrumFragiDone", null);
   if(raw) {
-    try { return new Set(JSON.parse(raw)); } catch(e) {}
+    try {
+      const arr = JSON.parse(raw);
+      if(Array.isArray(arr)) return new Set(arr);
+    } catch(e) {}
   }
-  return new Set(["chrono_47_0", "chrono_47_1", "47_0", "47_1"]);
+  return new Set();
 }
 
 function _centrZapiszUkonczoneFragi(set){
   lsSet(KP + "CentrumFragiDone", JSON.stringify(Array.from(set)));
+}
+
+function _centrResetujPostepPlanu(planId){
+  planId = planId || _centrAktywnyPlanId || "chrono";
+  lsRem(KP + "CentrumDniDone_" + planId);
+  const rawFragi = lsGet(KP + "CentrumFragiDone", null);
+  if(rawFragi){
+    try {
+      const arr = JSON.parse(rawFragi);
+      if(Array.isArray(arr)){
+        const filtered = arr.filter(k => !k.startsWith(planId + "_") && !k.startsWith(planId + ":"));
+        lsSet(KP + "CentrumFragiDone", JSON.stringify(filtered));
+      }
+    } catch(e){}
+  }
 }
 
 function _centrPobierzTematyStudium(){
@@ -30275,16 +30947,25 @@ function _centrPobierzNotatkiTematu(temat){
 }
 
 function _centrPobierzPlany(){
+  const allData = _centrPobierzWszystkiePlanyDane();
+  const defKeys = Object.keys(allData);
   const raw = lsGet(KP + "CentrumPlany", null);
+  let savedArr = [];
   if(raw) {
-    try { return JSON.parse(raw); } catch(e) {}
+    try { savedArr = JSON.parse(raw); } catch(e) {}
   }
-  return [
-    { id: "chrono", name: "Czytanie chronologiczne", days: 365, active: true },
-    { id: "jan", name: "Ewangelia Jana", days: 21, active: true },
-    { id: "przypowiesci", name: "Przypowieści Jezusa", days: 14, active: true },
-    { id: "nt", name: "Nowy Testament", days: 90, active: false, done: true }
-  ];
+  const savedMap = new Map();
+  if(Array.isArray(savedArr)) savedArr.forEach(p => savedMap.set(p.id, p));
+
+  return defKeys.map(k => {
+    const item = allData[k];
+    const s = savedMap.get(item.id) || {};
+    return {
+      ...item,
+      active: s.active !== undefined ? s.active : true,
+      done: s.done !== undefined ? s.done : false
+    };
+  });
 }
 
 const CEN_MODERN_ICO = {
@@ -30301,102 +30982,105 @@ const CEN_MODERN_ICO = {
   plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
   check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><polyline points="20 6 9 17 4 12"/></svg>',
   sync: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/></svg>',
-  jw: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>'
+  jw: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>',
+  star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+  rotate: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>'
 };
 
-/* 1. GŁÓWNY PULPIT CENTRUM STUDIUM */
-function centrWidokPulpitGlowny(){
-  const dniDone = _centrPobierzUkonczoneDni("chrono");
-  const curDzien = _centrWybranyDzien || 47;
-  const planInfo = JWS_CHRONO_PLAN.find(x=>x.d===curDzien) || JWS_CHRONO_PLAN[0];
-  const totalDni = 365;
+/* 1. GŁÓWNY WIDOK CENTRUM (DASHBOARD) */
+function renderCentrumWidok(){
+  const curPlan = _centrPobierzPlanData(_centrAktywnyPlanId);
+  const dniDone = _centrPobierzUkonczoneDni(curPlan.id);
+  const totalDni = curPlan.days;
   const doneCount = dniDone.size;
-  const pct = ((doneCount / totalDni) * 100).toFixed(1).replace(".", ",");
-  const tematy = _centrPobierzTematyStudium();
-  const plany = _centrPobierzPlany();
-  const aktywnePlanyCount = plany.filter(p=>p.active).length;
+  const pctNum = totalDni > 0 ? (doneCount / totalDni) * 100 : 0;
+  const pct = pctNum.toFixed(1).replace(".", ",");
+  const curDzien = _centrZnajdzBiezacyDzienPlanu(curPlan.id);
+  const planList = curPlan.plan || [];
+  const planDzis = planList.find(x => x.d === curDzien) || planList[0] || { d: 1, t: "Czytanie biblijne", f: [] };
 
-  return '<div class="cenNaglModern">'
-    + '<div class="cenTytGlowny">Centrum Studium</div>'
-    + '<div class="cenNaglAkcje">'
-    + '<button type="button" class="cenNaglBtnIko" data-cakcja="nowa-notatka" title="Nowa notatka">' + CEN_MODERN_ICO.note + '</button>'
-    + '<button type="button" class="cenNaglBtnIko" data-cakcja="lista" title="Pokaż wszystkie notatki">' + CEN_MODERN_ICO.list + '</button>'
-    + '</div></div>'
-    
-    + '<div class="cenHeroGrid">'
-    
-    /* 1. CZYTANIE CHRONOLOGICZNE */
+  const tematy = _centrPobierzTematyStudium();
+  const tCount = tematy.length;
+  const plany = _centrPobierzPlany();
+  const aktywnePlany = plany.filter(p=>p.active).length;
+
+  return '<div class="cenHeroGrid">'
+    // Karta 1: Aktywny plan czytania
     + '<div class="cenHeroCard card-blue" data-cwidok="czytanie-chronologiczne">'
     + '<div class="cenHeroCardTop">'
     + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.book + '</div>'
     + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt">Czytanie chronologiczne</div>'
-    + '<div class="cenHeroOpis">Czytaj Biblię w kolejności historycznych wydarzeń. Każdego dnia inne fragmenty z różnych ksiąg.</div>'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;">'
+    + '<span class="cenHeroTag">' + esc(curPlan.catName || "Plan") + ' • ' + esc(curPlan.duration || (curPlan.days + ' dni')) + '</span>'
+    + '<button type="button" class="cenHeroChangePlanBtn" data-cwidok="moje-plany" title="Zmień aktywny plan czytania">Zmień plan ▾</button>'
+    + '</div>'
+    + '<div class="cenHeroTyt">' + esc(curPlan.name) + '</div>'
+    + '<div class="cenHeroOpis">' + esc(curPlan.desc) + '</div>'
     + '</div></div>'
     + '<div class="cenHeroBottom">'
     + '<div class="cenHeroMetaRow">'
     + '<span class="cenHeroMetaLabel">Postęp planu</span>'
     + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> <span style="color:var(--cen-text-muted);font-weight:400;margin-left:4px;">' + pct + '%</span></span>'
     + '</div>'
-    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(5, (doneCount/totalDni)*100)) + '%;"></div></div>'
+    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;"></div></div>'
     + '</div></div>'
 
-    /* 2. STUDIUM OSOBISTE */
+    // Karta 2: Studium osobiste
     + '<div class="cenHeroCard card-green" data-cwidok="studium-osobiste">'
     + '<div class="cenHeroCardTop">'
     + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.note + '</div>'
     + '<div class="cenHeroInfo">'
     + '<div class="cenHeroTyt">Studium osobiste</div>'
-    + '<div class="cenHeroOpis">Twórz własne tematy studium, dodawaj wersety, notatki, komentarze i odsyłacze.</div>'
+    + '<div class="cenHeroOpis">Prowadź tematyczne badania biblijne, gromadź wersety i własne przemyślenia.</div>'
     + '</div></div>'
     + '<div class="cenHeroBottom">'
     + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Twoje tematy</span>'
-    + '<span class="cenHeroMetaVal val-green">' + tematy.length + ' <span class="cenPozStrz" style="color:inherit;">' + CEN_MODERN_ICO.chevron + '</span></span>'
+    + '<span class="cenHeroMetaLabel">Aktywne tematy</span>'
+    + '<span class="cenHeroMetaVal val-green">' + tCount + ' tematów studium</span>'
     + '</div></div></div>'
 
-    /* 3. MOJE PLANY */
+    // Karta 3: Wybór i zarządzanie planami
     + '<div class="cenHeroCard card-purple" data-cwidok="moje-plany">'
     + '<div class="cenHeroCardTop">'
     + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.clipboard + '</div>'
     + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt">Moje plany</div>'
-    + '<div class="cenHeroOpis">Twórz własne plany czytania Biblii lub studium na wybrany temat. Dopasuj do swoich potrzeb.</div>'
+    + '<div class="cenHeroTyt">Plany czytania Biblii</div>'
+    + '<div class="cenHeroOpis">Wybieraj plany na 1, 2 lub 3 lata (chronologicznie, po kolei księgami lub zbalansowane).</div>'
     + '</div></div>'
     + '<div class="cenHeroBottom">'
     + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Aktywne plany</span>'
-    + '<span class="cenHeroMetaVal val-purple">' + aktywnePlanyCount + ' <span class="cenPozStrz" style="color:inherit;">' + CEN_MODERN_ICO.chevron + '</span></span>'
+    + '<span class="cenHeroMetaLabel">Dostępne plany</span>'
+    + '<span class="cenHeroMetaVal val-purple">' + plany.length + ' gotowych planów</span>'
     + '</div></div></div>'
 
-    /* 4. CELE I POSTĘP */
+    // Karta 4: Statystyki i cele
     + '<div class="cenHeroCard card-orange" data-cwidok="statystyki">'
     + '<div class="cenHeroCardTop">'
     + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.target + '</div>'
     + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt">Cele i postęp</div>'
-    + '<div class="cenHeroOpis">Śledź swoje postępy, utrzymaj serie dni i osiągaj cele w studium.</div>'
+    + '<div class="cenHeroTyt">Cele i Statystyki</div>'
+    + '<div class="cenHeroOpis">Śledź tempo czytania, ukończone fragmenty, serie dni i stopień realizacji celów.</div>'
     + '</div></div>'
     + '<div class="cenHeroBottom">'
     + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Obecna seria</span>'
-    + '<span class="cenHeroMetaVal val-orange">5 dni <span class="cenPozStrz" style="color:inherit;">' + CEN_MODERN_ICO.chevron + '</span></span>'
+    + '<span class="cenHeroMetaLabel">Bieżący status</span>'
+    + '<span class="cenHeroMetaVal val-orange">' + doneCount + ' dni ukończonych</span>'
     + '</div></div></div>'
-
     + '</div>'
 
-    /* DZISIEJSZE ZADANIE BANNER CARD */
+    // BANNER: DZISIEJSZE ZADANIE
     + '<div class="cenZadanieCard">'
     + '<div class="cenZadanieLewo">'
-    + '<div class="cenZadanieIko">' + CEN_MODERN_ICO.calendar + '</div>'
+    + '<div class="cenZadanieIko">' + CEN_MODERN_ICO.book + '</div>'
     + '<div>'
-    + '<div class="cenZadanieTyt">Dzisiejsze zadanie</div>'
-    + '<div class="cenZadaniePodtyt"><b>Dzień ' + curDzien + '</b> • ' + planInfo.f.length + ' fragmenty do przeczytania</div>'
+    + '<div class="cenZadanieTyt">' + esc(curPlan.name) + ' — Dzień ' + curDzien + '</div>'
+    + '<div class="cenZadaniePodtyt">' + (planDzis.f ? planDzis.f.length : 0) + ' fragmenty • ' + esc(planDzis.t) + '</div>'
     + '</div></div>'
-    + '<button type="button" class="cenZadanieBtn" data-cwidok="dzien" data-cdzien="' + curDzien + '">Rozpocznij ' + CEN_MODERN_ICO.chevron + '</button>'
-    + '</div>'
+    + '<div style="display:flex;align-items:center;gap:8px;">'
+    + '<button type="button" class="cenZadanieBtn" data-cwidok="dzien" data-cdzien="' + curDzien + '">Czytaj dzisiaj ' + CEN_MODERN_ICO.chevron + '</button>'
+    + '</div></div>'
 
-    /* DOLNA BELKA FUNKCJI */
+    // BANNER: CECHY I MOŻLIWOŚCI
     + '<div class="cenFeaturesBanner">'
     + '<div class="cenFeatureItem">'
     + '<div class="cenFeatureIko">' + CEN_MODERN_ICO.jw + '</div>'
@@ -30408,49 +31092,64 @@ function centrWidokPulpitGlowny(){
     + '</div>'
     + '<div class="cenFeatureItem">'
     + '<div class="cenFeatureIko">' + CEN_MODERN_ICO.clipboard + '</div>'
-    + '<div class="cenFeatureTxt"><b>Zakładki</b><span>Zapisuj ważne fragmenty i wracaj do nich w każdej chwili</span></div>'
+    + '<div class="cenFeatureTxt"><b>Własne tempo</b><span>Wybieraj między 1, 2 a 3 latami czytania</span></div>'
     + '</div>'
     + '<div class="cenFeatureItem">'
     + '<div class="cenFeatureIko">' + CEN_MODERN_ICO.sync + '</div>'
-    + '<div class="cenFeatureTxt"><b>Synchronizacja</b><span>Twoje dane są w pełni bezpieczne i zawsze dostępne</span></div>'
+    + '<div class="cenFeatureTxt"><b>Zapisywanie postępu</b><span>Twój stan czytania jest zawsze automatycznie zapisywany</span></div>'
     + '</div>'
     + '</div>';
 }
 
-/* 2. CZYTANIE CHRONOLOGICZNE / AKTYWNY PLAN */
+/* 2. CZYTANIE AKTYWNEGO PLANU BIBLIJNEGO */
 function centrWidokCzytanieChrono(){
   const planInfo = _centrPobierzPlanData(_centrAktywnyPlanId);
   const dniDone = _centrPobierzUkonczoneDni(planInfo.id);
   const totalDni = planInfo.days;
   const planList = planInfo.plan || [];
-  const curDzien = Math.min(totalDni, _centrWybranyDzien || 1);
+  const curDzien = Math.min(totalDni, _centrWybranyDzien || _centrZnajdzBiezacyDzienPlanu(planInfo.id));
   const planDzis = planList.find(x=>x.d===curDzien) || planList[0] || { d: 1, t: "Czytanie biblijne", f: [] };
   const doneCount = dniDone.size;
-  const pct = ((doneCount / totalDni) * 100).toFixed(1).replace(".", ",");
+  const pctNum = totalDni > 0 ? (doneCount / totalDni) * 100 : 0;
+  const pct = pctNum.toFixed(1).replace(".", ",");
   const nastDni = planList.filter(x=>x.d > curDzien && x.d <= curDzien + 3);
 
   return '<div class="cenSubHeader">'
-    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' ' + esc(planInfo.name) + '</button>'
-    + '<button type="button" class="cenNaglBtnIko" data-cakcja="ustawienia-planu" title="Ustawienia planu">' + CEN_MODERN_ICO.gear + '</button>'
-    + '</div>'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' Centrum</button>'
+    + '<div style="display:flex;align-items:center;gap:8px;">'
+    + '<button type="button" class="cenHeroChangePlanBtn" data-cwidok="moje-plany" title="Przełącz plan czytania">Zmień plan (' + esc(planInfo.duration || (planInfo.days + ' dni')) + ') ▾</button>'
+    + '<button type="button" class="cenNaglBtnIko" data-cakcja="ustawienia-planu" title="Wybór i ustawienia planów">' + CEN_MODERN_ICO.gear + '</button>'
+    + '</div></div>'
 
     + '<div class="cenHeroCard card-blue" style="margin-bottom:20px;cursor:default;">'
-    + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Postęp planu</span>'
-    + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> <span style="color:var(--cen-text-muted);font-weight:400;margin-left:4px;">' + pct + '%</span></span>'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;">'
+    + '<div>'
+    + '<span class="cenHeroTag">' + esc(planInfo.catName || "Plan") + ' • ' + esc(planInfo.duration || (planInfo.days + ' dni')) + '</span>'
+    + '<div class="cenHeroTyt" style="font-size:18px;margin-top:2px;">' + esc(planInfo.name) + '</div>'
+    + '<div class="cenHeroOpis" style="font-size:13px;">' + esc(planInfo.desc) + '</div>'
+    + '</div></div>'
+
+    + '<div class="cenHeroMetaRow" style="margin-top:10px;">'
+    + '<span class="cenHeroMetaLabel">Postęp czytania</span>'
+    + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> <span style="color:var(--cen-text-muted);font-weight:400;margin-left:4px;">(' + pct + '%)</span></span>'
     + '</div>'
-    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(5, (doneCount/totalDni)*100)) + '%;"></div></div>'
-    + '</div>'
+    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;"></div></div>'
+
+    + '<div class="cenPlanStatsGrid">'
+    + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + doneCount + '</div><div class="cenPlanStatLbl">Ukończono dni</div></div>'
+    + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + (totalDni - doneCount) + '</div><div class="cenPlanStatLbl">Pozostało dni</div></div>'
+    + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + (planInfo.pace || "~1 rozdz./dzień") + '</div><div class="cenPlanStatLbl">Średnie tempo</div></div>'
+    + '</div></div>'
 
     + '<div class="cenChronoAkcjeRow">'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="kalendarz">' + CEN_MODERN_ICO.calendar + '<span>Kalendarz</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="lista-dni">' + CEN_MODERN_ICO.list + '<span>Lista dni</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki">' + CEN_MODERN_ICO.chart + '<span>Statystyki</span></button>'
-    + '<button type="button" class="cenChronoAkcjaBtn" data-cakcja="ustawienia-planu">' + CEN_MODERN_ICO.gear + '<span>Ustawienia</span></button>'
+    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="moje-plany">' + CEN_MODERN_ICO.clipboard + '<span>Zmień plan</span></button>'
     + '</div>'
 
     + '<div style="margin-bottom:20px;">'
-    + '<div class="cenSecHeadTyt">Dzisiejsze czytanie</div>'
+    + '<div class="cenSecHeadTyt">Czytanie na dziś</div>'
     + '<div class="cenZadanieCard" style="margin-bottom:0;">'
     + '<div class="cenZadanieLewo">'
     + '<div class="cenZadanieIko">' + CEN_MODERN_ICO.book + '</div>'
@@ -30458,11 +31157,12 @@ function centrWidokCzytanieChrono(){
     + '<div class="cenZadanieTyt">Dzień ' + curDzien + '</div>'
     + '<div class="cenZadaniePodtyt">' + (planDzis.f ? planDzis.f.length : 0) + ' fragmenty • ' + esc(planDzis.t) + '</div>'
     + '</div></div>'
-    + '<button type="button" class="cenZadanieBtn" data-cwidok="dzien" data-cdzien="' + curDzien + '">Czytaj ' + CEN_MODERN_ICO.chevron + '</button>'
+    + '<button type="button" class="cenZadanieBtn" data-cwidok="dzien" data-cdzien="' + curDzien + '">Otwórz dzień ' + CEN_MODERN_ICO.chevron + '</button>'
     + '</div></div>'
 
     + '<div>'
     + '<div class="cenSecHeadTyt">Następne dni</div>'
+    + (!nastDni.length ? '<div class="cenPusto">Dotarłeś do końca planu lub to ostatni dzień! Gratulacje!</div>' : '')
     + nastDni.map(nd=>'<div class="cenRowItem" data-cwidok="dzien" data-cdzien="'+nd.d+'">'
       + '<div class="cenRowLewo">'
       + '<div><div class="cenRowTyt">Dzień '+nd.d+'</div><div class="cenRowPodtyt">'+nd.f.length+' fragmenty • '+esc(nd.t)+'</div></div>'
@@ -30476,7 +31176,8 @@ function centrWidokCzytanieChrono(){
 function centrWidokDzien(dNr){
   const planInfo = _centrPobierzPlanData(_centrAktywnyPlanId);
   const planList = planInfo.plan || [];
-  dNr = Math.min(planInfo.days, dNr || 1);
+  dNr = Math.min(planInfo.days, dNr || _centrWybranyDzien || 1);
+  _centrWybranyDzien = dNr;
   const plan = planList.find(x=>x.d===dNr) || planList[0] || { d: 1, t: "Czytanie biblijne", f: [] };
   const fragiDone = _centrPobierzUkonczoneFragi();
   const dniDone = _centrPobierzUkonczoneDni(planInfo.id);
@@ -30489,7 +31190,7 @@ function centrWidokDzien(dNr){
     + '</div></div>'
 
     + '<div style="margin-bottom:18px;">'
-    + '<div class="cenSecHeadTyt" style="margin-bottom:4px;">Dzisiejsze czytanie</div>'
+    + '<div class="cenSecHeadTyt" style="margin-bottom:4px;">Fragmenty do przeczytania</div>'
     + '<div style="font-size:13px;color:var(--cen-text-muted);">' + (plan.f ? plan.f.length : 0) + ' fragmenty • ' + esc(plan.t) + '</div>'
     + '</div>'
 
@@ -30514,8 +31215,8 @@ function centrWidokDzien(dNr){
       }).join('')
     + '</div>'
 
-    + '<button type="button" class="cenDzienUkonczBtn" data-cdzien-ukoncz="' + dNr + '">'
-    + CEN_MODERN_ICO.check + ' ' + (jestDzienUkonczony ? 'Dzień oznaczony jako ukończony (Zapisz ponownie)' : 'Ukończyłem dzisiejsze czytanie')
+    + '<button type="button" class="cenDzienUkonczBtn' + (jestDzienUkonczony ? ' done' : '') + '" data-cdzien-ukoncz="' + dNr + '">'
+    + CEN_MODERN_ICO.check + ' ' + (jestDzienUkonczony ? 'Dzień oznaczony jako ukończony (Kliknij, aby odznaczyć)' : 'Ukończyłem dzisiejsze czytanie')
     + '</button>';
 }
 
@@ -30526,7 +31227,7 @@ function centrWidokListaDni(filtr, szukaj){
   const planInfo = _centrPobierzPlanData(_centrAktywnyPlanId);
   const planList = planInfo.plan || [];
   const dniDone = _centrPobierzUkonczoneDni(planInfo.id);
-  const curDzien = Math.min(planInfo.days, _centrWybranyDzien || 1);
+  const curDzien = Math.min(planInfo.days, _centrWybranyDzien || _centrZnajdzBiezacyDzienPlanu(planInfo.id));
 
   let filtered = planList.filter(item=>{
     const isDone = dniDone.has(item.d);
@@ -30547,9 +31248,9 @@ function centrWidokListaDni(filtr, szukaj){
     + '</div>'
 
     + '<div class="cenTabsRow">'
-    + '<button type="button" class="cenTabBtn' + (filtr==="wszystkie"?' active':'') + '" data-clista-tab="wszystkie">Wszystkie</button>'
-    + '<button type="button" class="cenTabBtn' + (filtr==="ukonczone"?' active':'') + '" data-clista-tab="ukonczone">Ukończone</button>'
-    + '<button type="button" class="cenTabBtn' + (filtr==="nieukonczone"?' active':'') + '" data-clista-tab="nieukonczone">Nieukończone</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="wszystkie"?' active':'') + '" data-clista-tab="wszystkie">Wszystkie (' + planList.length + ')</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="ukonczone"?' active':'') + '" data-clista-tab="ukonczone">Ukończone (' + dniDone.size + ')</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="nieukonczone"?' active':'') + '" data-clista-tab="nieukonczone">Nieukończone (' + (planList.length - dniDone.size) + ')</button>'
     + '</div>'
 
     + '<div class="cenListaDniContainer">'
@@ -30557,14 +31258,14 @@ function centrWidokListaDni(filtr, szukaj){
     + filtered.map(item=>{
         const isDone = dniDone.has(item.d);
         const isCur = item.d === curDzien;
-        return '<div class="cenRowItem" style="' + (isCur ? 'border-color:#3b82f6;background:rgba(37,99,235,0.1);' : '') + '" data-cwidok="dzien" data-cdzien="' + item.d + '">'
+        return '<div class="cenRowItem" style="' + (isCur ? 'border-color:#3b82f6;background:rgba(37,99,235,0.08);' : '') + '" data-cwidok="dzien" data-cdzien="' + item.d + '">'
           + '<div class="cenRowLewo">'
           + '<div>'
-          + '<div class="cenRowTyt" style="' + (isCur ? 'color:#60a5fa;' : '') + '">Dzień ' + item.d + (isCur ? ' (Bieżący)' : '') + '</div>'
+          + '<div class="cenRowTyt" style="' + (isCur ? 'color:#2563eb;font-weight:700;' : '') + '">Dzień ' + item.d + (isCur ? ' (Bieżący)' : '') + '</div>'
           + '<div class="cenRowPodtyt">' + (item.f ? item.f.length : 0) + ' fragmenty • ' + esc(item.t) + '</div>'
           + '</div></div>'
           + '<div style="display:flex;align-items:center;gap:10px;">'
-          + (isDone ? '<span style="color:#10b981;display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;">' + CEN_MODERN_ICO.check + '</span>' : '<span class="cenPozStrz">' + CEN_MODERN_ICO.chevron + '</span>')
+          + (isDone ? '<span style="color:#10b981;display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;">' + CEN_MODERN_ICO.check + ' Ukończono</span>' : '<span class="cenPozStrz">' + CEN_MODERN_ICO.chevron + '</span>')
           + '</div>'
           + '</div>';
       }).join('')
@@ -30584,7 +31285,6 @@ function centrWidokStatystyki(tab){
   const circumference = 2 * Math.PI * 80;
   const strokeOffset = circumference - (pctNum / 100) * circumference;
 
-  // Obliczenie prawdziwych serii dni
   const dniArr = Array.from(dniDone).sort((a,b) => a-b);
   let _bestSer = 0, _curCh = 0, _prevD = -99;
   for(const _dd of dniArr){
@@ -30599,12 +31299,11 @@ function centrWidokStatystyki(tab){
       if(dniDone.has(_dd2)) _curSer++; else break;
     }
   }
-  // Prawdziwa liczba fragmentów
   const _totalFragy = planList.reduce((s, day) => s + (day.f ? day.f.length : 0), 0);
   const _fragiDone = _centrPobierzUkonczoneFragi().size;
 
   const _nagl = '<div class="cenSubHeader">'
-    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' Statystyki (' + esc(planInfo.name) + ')</button>'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="czytanie-chronologiczne">' + CEN_MODERN_ICO.chevronLeft + ' Statystyki (' + esc(planInfo.name) + ')</button>'
     + '</div>'
     + '<div class="cenTabsRow">'
     + '<button type="button" class="cenTabBtn' + (tab==="ogolny"?' active':'') + '" data-cstat-tab="ogolny">Ogólny</button>'
@@ -30612,7 +31311,6 @@ function centrWidokStatystyki(tab){
     + '<button type="button" class="cenTabBtn' + (tab==="serie"?' active':'') + '" data-cstat-tab="serie">Serie dni</button>'
     + '</div>';
 
-  // === Zakładka: Według sekcji ===
   if(tab === "ksiegi"){
     const _krok = Math.max(7, Math.floor(totalDni / 10));
     let _sHtml = '';
@@ -30632,7 +31330,6 @@ function centrWidokStatystyki(tab){
     return _nagl + '<div class="cenStatsGrid" style="grid-template-columns:1fr;">' + _sHtml + '</div>';
   }
 
-  // === Zakładka: Serie dni ===
   if(tab === "serie"){
     const _serArr = [];
     let _sCh = 0, _sChStart = -1;
@@ -30658,7 +31355,6 @@ function centrWidokStatystyki(tab){
       + '<div class="cenStatsGrid">' + _serHtml + '</div>';
   }
 
-  // === Zakładka: Ogólny (domyślna) ===
   return _nagl
     + '<div class="cenStatsShell">'
     + '<div class="cenRadialContainer">'
@@ -30693,9 +31389,9 @@ function centrWidokKalendarz(rok, mies){
     gridHtml += '<div class="cenKalDzienKomorka" style="opacity:0.2;"></div>';
   }
   const dniDoneKal = _centrPobierzUkonczoneDni(planInfo.id);
-  const curDzienKal = Math.min(planInfo.days, _centrWybranyDzien || 1);
+  const curDzienKal = Math.min(planInfo.days, _centrWybranyDzien || _centrZnajdzBiezacyDzienPlanu(planInfo.id));
   for(let d=1; d<=totalDays; d++){
-    const planDay = Math.min(planInfo.days, d + 21);
+    const planDay = Math.min(planInfo.days, d);
     const czyDone = dniDoneKal.has(planDay);
     const isCur = (planDay === curDzienKal);
     gridHtml += '<div class="cenKalDzienKomorka' + (isCur ? ' active' : '') + '" data-cwidok="dzien" data-cdzien="' + planDay + '">'
@@ -30722,64 +31418,95 @@ function centrWidokKalendarz(rok, mies){
 
     + '<div class="cenKalLegenda">'
     + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-done" style="margin:0;"></span> <span>Ukończone</span></div>'
-    + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-part" style="margin:0;"></span> <span>Częściowo</span></div>'
+    + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-part" style="margin:0;"></span> <span>Bieżący dzień</span></div>'
     + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-empty" style="border:1px solid var(--cen-text-muted);margin:0;"></span> <span>Nieukończone</span></div>'
     + '</div>';
 }
 
-/* 7. MOJE PLANY */
-function centrWidokMojePlany(){
+/* 7. WYBÓR I ZARZĄDZANIE PLANAMI CZYTANIA (SELEKTOR PLANÓW) */
+function centrWidokMojePlany(tab){
+  tab = tab || _centrPlanTab || "wszystkie";
+  _centrPlanTab = tab;
   const plany = _centrPobierzPlany();
-  const aktywne = plany.filter(p=>p.active);
-  const zakonczone = plany.filter(p=>!p.active);
+
+  let filtered = plany.filter(p => {
+    if(tab === "chrono") return p.cat === "chrono";
+    if(tab === "pokolei") return p.cat === "pokolei";
+    if(tab === "zbalansowany") return p.cat === "zbalansowany";
+    if(tab === "temat") return p.cat === "temat";
+    return true;
+  });
 
   return '<div class="cenSubHeader">'
-    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' Moje plany</button>'
-    + '<button type="button" class="cenNaglBtnIko" data-cakcja="nowy-plan" title="Dodaj nowy plan czytania">' + CEN_MODERN_ICO.plus + '</button>'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' Centrum</button>'
+    + '<div style="font-weight:700;font-size:16px;color:var(--cen-text);">Wybór planu czytania Biblii</div>'
+    + '<button type="button" class="cenNaglBtnIko" data-cakcja="nowy-plan" title="Dodaj własny plan czytania">' + CEN_MODERN_ICO.plus + '</button>'
     + '</div>'
 
-    + '<div style="margin-bottom:26px;">'
-    + '<div class="cenSecHeadTyt">Aktywne plany (' + aktywne.length + ')</div>'
-    + aktywne.map(p=>{
+    + '<div class="cenTabsRow" style="overflow-x:auto;">'
+    + '<button type="button" class="cenTabBtn' + (tab==="wszystkie"?' active':'') + '" data-cplan-tab="wszystkie">Wszystkie (' + plany.length + ')</button>'
+    + '<button type="button" class="cenTabBtn' + (tab==="chrono"?' active':'') + '" data-cplan-tab="chrono">Chronologiczne (1, 2, 3 lata)</button>'
+    + '<button type="button" class="cenTabBtn' + (tab==="pokolei"?' active':'') + '" data-cplan-tab="pokolei">Księgi po kolei (1, 2, 3 lata)</button>'
+    + '<button type="button" class="cenTabBtn' + (tab==="zbalansowany"?' active':'') + '" data-cplan-tab="zbalansowany">ST + NT równolegle</button>'
+    + '<button type="button" class="cenTabBtn' + (tab==="temat"?' active':'') + '" data-cplan-tab="temat">Nowy Testament i Tematyczne</button>'
+    + '</div>'
+
+    + '<div class="cenPlanGrid">'
+    + filtered.map(p => {
         const doneSet = _centrPobierzUkonczoneDni(p.id);
         const doneCount = doneSet.size;
-        const pct = ((doneCount / p.days) * 100).toFixed(0);
+        const totalDni = p.days;
+        const pctNum = totalDni > 0 ? (doneCount / totalDni) * 100 : 0;
+        const pct = pctNum.toFixed(1).replace(".", ",");
         const isGlowny = (p.id === _centrAktywnyPlanId);
-        return '<div class="cenRowItem" style="'+(isGlowny ? 'border-color:rgba(59,130,246,0.5);background:rgba(59,130,246,0.06);' : '')+'" data-cplan-otworz="'+p.id+'">'
-          + '<div class="cenRowLewo">'
-          + '<div style="width:38px;height:38px;border-radius:12px;background:var(--cen-btn-bg);display:flex;align-items:center;justify-content:center;color:'+(isGlowny?'#2563eb':'var(--cen-text-muted)')+';flex-shrink:0;">'
-          + CEN_MODERN_ICO.book
-          + '</div>'
-          + '<div>'
-          + '<div class="cenRowTyt">' + esc(p.name) + (isGlowny ? ' <span style="font-size:11px;color:#60a5fa;font-weight:600;">(Główny)</span>' : '') + '</div>'
-          + '<div class="cenRowPodtyt">' + p.days + ' dni • Ukończono ' + doneCount + '/' + p.days + ' (' + pct + '%)</div>'
-          + '</div></div>'
-          + '<div style="display:flex;align-items:center;gap:10px;">'
-          + '<span class="cenBadge aktywny">Aktywny</span>'
-          + '<button type="button" class="cenFragBtnJW" data-cplan-wybierz="'+p.id+'" style="font-size:12px;padding:6px 12px;">Czytaj ' + CEN_MODERN_ICO.chevron + '</button>'
-          + '</div>'
-          + '</div>';
-      }).join('')
-    + '</div>'
+        const curDzien = _centrZnajdzBiezacyDzienPlanu(p.id);
+        const isDone = doneCount >= totalDni && totalDni > 0;
+        const catClass = 'card-' + (p.cat || 'chrono');
+        const ico = p.cat === 'pokolei' ? CEN_MODERN_ICO.book : p.cat === 'zbalansowany' ? CEN_MODERN_ICO.clipboard : p.cat === 'temat' ? CEN_MODERN_ICO.target : CEN_MODERN_ICO.calendar;
 
-    + '<div>'
-    + '<div class="cenSecHeadTyt">Zakończone plany (' + zakonczone.length + ')</div>'
-    + zakonczone.map(p=>{
-        return '<div class="cenRowItem" data-cplan-otworz="'+p.id+'">'
-          + '<div class="cenRowLewo">'
-          + '<div style="width:38px;height:38px;border-radius:12px;background:var(--cen-btn-bg);display:flex;align-items:center;justify-content:center;color:#10b981;flex-shrink:0;">'
-          + CEN_MODERN_ICO.check
+        return '<div class="cenPlanCard ' + catClass + (isGlowny ? ' active' : '') + '">'
+          + '<div>'
+          + '<div class="cenPlanCardHeader">'
+          + '<div class="cenPlanIkoBox">' + ico + '</div>'
+          + '<div class="cenPlanHeaderInfo">'
+          + '<div class="cenPlanBadgeRow">'
+          + '<span class="cenPlanCatBadge">' + esc(p.catName || "Plan") + '</span>'
+          + '<span class="cenPlanDurationBadge">' + esc(p.duration || (p.days + ' dni')) + '</span>'
+          + (isGlowny ? '<span class="cenPlanActiveBadge">★ Twój aktywny plan</span>' : '')
           + '</div>'
-          + '<div><div class="cenRowTyt">'+esc(p.name)+'</div><div class="cenRowPodtyt">'+p.days+' dni • Ukończono 100%</div></div>'
+          + '<div class="cenPlanTyt">' + esc(p.name) + '</div>'
+          + '</div></div>'
+
+          + '<div class="cenPlanPaceRow">'
+          + '<span class="cenPlanPaceTag">⚡ ' + esc(p.pace || "~1 rozdz./dzień") + '</span>'
+          + '<span class="cenPlanTimeTag">' + esc(p.timeEst || "⏱ 10 min") + '</span>'
           + '</div>'
-          + '<div style="display:flex;align-items:center;gap:10px;">'
-          + '<span class="cenBadge ukonczony">Ukończony</span>'
-          + '<button type="button" class="btn" data-cplan-restart="'+p.id+'" style="font-size:11.5px;padding:4px 10px;">Wznów plan</button>'
+
+          + '<div class="cenPlanDesc">' + esc(p.desc || "") + '</div>'
+          + '</div>'
+
+          + '<div class="cenPlanCardFooter">'
+          + '<div class="cenPlanProgressWrap">'
+          + '<div class="cenPlanProgressMeta">'
+          + '<span>Postęp: <b>' + doneCount + ' z ' + totalDni + ' dni</b> (' + pct + '%)</span>'
+          + '<span>' + (isDone ? '🎉 Ukończono 100%' : 'Bieżący: Dzień ' + curDzien) + '</span>'
+          + '</div>'
+          + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;"></div></div>'
+          + '</div>'
+
+          + '<div class="cenPlanActionsRow">'
+          + (isGlowny
+              ? '<button type="button" class="cenPlanBtnPrimary active" data-cplan-wybierz="' + p.id + '">Czytaj Dzień ' + curDzien + ' →</button>'
+              : '<button type="button" class="cenPlanBtnPrimary" data-cplan-wybierz="' + p.id + '">Wybierz ten plan</button>')
+          + '<button type="button" class="cenPlanBtnSec" data-cwidok="lista-dni" data-cplan-otworz="' + p.id + '" title="Spis wszystkich dni">Lista dni</button>'
+          + (doneCount > 0 ? '<button type="button" class="cenPlanBtnSec" data-cplan-reset="' + p.id + '" title="Zresetuj postęp tego planu">Resetuj</button>' : '')
+          + '</div>'
           + '</div>'
           + '</div>';
       }).join('')
     + '</div>';
 }
+
 
 /* 8. STUDIUM OSOBISTE */
 function centrWidokStudiumOsobiste(tab){
@@ -32162,11 +32889,13 @@ function centrPodstronaBezpieczenstwa(){
 
 /** Kompozycja 3.06 rozwinięta o boczną nawigację w 3.08. Każdy duży blok powstaje dopiero wtedy, gdy jest widoczny,
     więc ukrycie statystyk lub sekcji z zadaniami oszczędza również obliczenia. */
+function centrWidokPulpitGlowny(){ return renderCentrumWidok(); }
+
 function rysujCentrumWnetrze306(el){
   let tresc = '';
-  if(centrWidok === "centrum") tresc = centrWidokPulpitGlowny();
+  if(centrWidok === "centrum") tresc = renderCentrumWidok();
   else if(centrWidok === "czytanie-chronologiczne") tresc = centrWidokCzytanieChrono();
-  else if(centrWidok === "dzien") tresc = centrWidokDzien(_centrWybranyDzien || 47);
+  else if(centrWidok === "dzien") tresc = centrWidokDzien(_centrWybranyDzien || _centrZnajdzBiezacyDzienPlanu(_centrAktywnyPlanId) || 1);
   else if(centrWidok === "lista-dni") tresc = centrWidokListaDni(_centrListaTab, _centrListaSzukaj);
   else if(centrWidok === "statystyki") tresc = centrWidokStatystyki(_centrStatTab);
   else if(centrWidok === "kalendarz") tresc = centrWidokKalendarz(_centrKalRok, _centrKalMies);
@@ -32178,7 +32907,7 @@ function rysujCentrumWnetrze306(el){
   else if(centrWidok === "inbox") tresc = centrPodstronaKolejki("ceni");
   else if(centrWidok === "ostatnie") tresc = centrOstatnieSekcje(centrKontynuuj());
   else if(centrWidok === "bezpieczenstwo") tresc = centrPodstronaBezpieczenstwa();
-  else tresc = centrWidokPulpitGlowny();
+  else tresc = renderCentrumWidok();
 
   const html = '<div class="cenCentrumShell">' + centrBoczna() + '<div class="cenCentrumMain">'
     + tresc + '</div></div>';
@@ -32355,6 +33084,13 @@ if($("centrum")){
         _centrWybranyDzien = parseInt(dNr, 10);
         lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
       }
+      const planOtw = widokBtn.dataset.cplanOtworz;
+      if(planOtw){
+        _centrAktywnyPlanId = planOtw;
+        lsSet(KP + "CentrumAktywnyPlan", planOtw);
+        _centrWybranyDzien = _centrZnajdzBiezacyDzienPlanu(planOtw);
+        lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
+      }
       if(v === "temat-szczegoly"){
         const _tid = widokBtn.dataset.ctematId;
         if(_tid){ _centrWybranyTematId = _tid; lsSet(KP + "CentrumCurTemat", _tid); }
@@ -32380,28 +33116,36 @@ if($("centrum")){
       return;
     }
 
-    // 3. Ukończenie całego dnia
+    // 3. Ukończenie / odznaczenie dnia
     const dzienUkonczBtn = ev.target.closest("[data-cdzien-ukoncz]");
     if(dzienUkonczBtn){
-      const d = parseInt(dzienUkonczBtn.dataset.cdzienUkoncz, 10) || _centrWybranyDzien || 47;
+      const d = parseInt(dzienUkonczBtn.dataset.cdzienUkoncz, 10) || _centrWybranyDzien || 1;
       const dni = _centrPobierzUkonczoneDni(_centrAktywnyPlanId);
-      dni.add(d);
-      _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
-      
-      // Zaznacz wszystkie fragmenty tego dnia
       const _planUk = _centrPobierzPlanData(_centrAktywnyPlanId);
-      const planDay = (_planUk.plan||[]).find(x=>x.d===d);
-      if(planDay){
-        const fragi = _centrPobierzUkonczoneFragi();
-        planDay.f.forEach((_, idx)=>fragi.add(_centrAktywnyPlanId + "_" + d + "_" + idx));
-        _centrZapiszUkonczoneFragi(fragi);
-      }
-      toast("🎉 Wspaniale! Ukończono czytanie na Dzień " + d + "!", "ok");
+      const planDay = (_planUk.plan || []).find(x => x.d === d);
       
-      // Przejdź do następnego dnia lub odśwież
-      if(d < 365) {
-        _centrWybranyDzien = d + 1;
-        lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
+      if(dni.has(d)){
+        dni.delete(d);
+        _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
+        if(planDay){
+          const fragi = _centrPobierzUkonczoneFragi();
+          planDay.f.forEach((_, idx) => fragi.delete(_centrAktywnyPlanId + "_" + d + "_" + idx));
+          _centrZapiszUkonczoneFragi(fragi);
+        }
+        toast("Cofnięto oznaczenie Dnia " + d, "info");
+      } else {
+        dni.add(d);
+        _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
+        if(planDay){
+          const fragi = _centrPobierzUkonczoneFragi();
+          planDay.f.forEach((_, idx) => fragi.add(_centrAktywnyPlanId + "_" + d + "_" + idx));
+          _centrZapiszUkonczoneFragi(fragi);
+        }
+        toast("🎉 Wspaniale! Ukończono czytanie na Dzień " + d + "!", "ok");
+        if(d < _planUk.days){
+          _centrWybranyDzien = d + 1;
+          lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
+        }
       }
       rysujCentrum();
       return;
@@ -32592,12 +33336,46 @@ if($("centrum")){
       return;
     }
 
+    // Tabs w Wyborze Planów
+    const planTabBtn = ev.target.closest("[data-cplan-tab]");
+    if(planTabBtn){
+      _centrPlanTab = planTabBtn.dataset.cplanTab;
+      rysujCentrum();
+      return;
+    }
+
+    // Resetowanie postępu planu
+    const planResetBtn = ev.target.closest("[data-cplan-reset]");
+    if(planResetBtn){
+      const pid = planResetBtn.dataset.cplanReset;
+      const pInfo = _centrPobierzPlanData(pid);
+      const zgoda = typeof askConfirm === "function"
+        ? await askConfirm(
+            "Zresetować postęp planu?",
+            "Czy na pewno chcesz zresetować postęp dla planu „<b>" + esc(pInfo.name) + "</b>”? Wszystkie oznaczone dni i fragmenty w tym planie zostaną wyczyszczone.",
+            { okLabel: "Zresetuj postęp", danger: true }
+          )
+        : confirm("Czy na pewno chcesz zresetować postęp dla planu „" + pInfo.name + "”?");
+      if(zgoda){
+        _centrResetujPostepPlanu(pid);
+        if(_centrAktywnyPlanId === pid){
+          _centrWybranyDzien = 1;
+          lsSet(KP + "CentrumCurDay", "1");
+        }
+        toast("Zresetowano postęp planu „" + pInfo.name + "”", "ok");
+        rysujCentrum();
+      }
+      return;
+    }
+
     // Wybór i otwarcie planu
     const planWybierzBtn = ev.target.closest("[data-cplan-wybierz]");
     if(planWybierzBtn){
       const pid = planWybierzBtn.dataset.cplanWybierz;
       _centrAktywnyPlanId = pid;
       lsSet(KP + "CentrumAktywnyPlan", pid);
+      _centrWybranyDzien = _centrZnajdzBiezacyDzienPlanu(pid);
+      lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
       centrWidok = "czytanie-chronologiczne";
       lsSet(CENTR_WIDOK_KLUCZ, centrWidok);
       rysujCentrum();
@@ -32610,6 +33388,8 @@ if($("centrum")){
       const pid = planOtworzRow.dataset.cplanOtworz;
       _centrAktywnyPlanId = pid;
       lsSet(KP + "CentrumAktywnyPlan", pid);
+      _centrWybranyDzien = _centrZnajdzBiezacyDzienPlanu(pid);
+      lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
       centrWidok = "czytanie-chronologiczne";
       lsSet(CENTR_WIDOK_KLUCZ, centrWidok);
       rysujCentrum();
