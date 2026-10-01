@@ -617,29 +617,74 @@ html[data-theme="dark"] .cenHeroMetaVal.val-orange { color: #fb923c; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
-  gap: 10px;
+  margin-bottom: 22px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cenSubHeaderLewo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
 }
 
 .cenSubWsteczBtn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  background: transparent;
-  border: none;
-  color: var(--cen-text);
-  font-size: clamp(15px, 2vw, 18px);
-  font-weight: 700;
+  background: var(--cen-btn-bg, rgba(255, 255, 255, 0.08));
+  border: 1px solid var(--cen-btn-border, rgba(255, 255, 255, 0.14));
+  color: var(--cen-text, #f1f5f9);
+  font-size: 13.5px;
+  font-weight: 600;
   cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 10px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  transition: all 0.14s ease;
+  padding: 7px 14px;
+  border-radius: 12px;
+  transition: all 0.16s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.cenSubWsteczBtn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  stroke: currentColor;
 }
 .cenSubWsteczBtn:hover {
-  background: var(--cen-btn-bg);
-  color: var(--accent2);
+  background: var(--cen-btn-hover-bg, rgba(37, 99, 235, 0.15));
+  border-color: #3b82f6;
+  color: #3b82f6;
+  transform: translateX(-2px);
+}
+.cenSubWsteczBtn:active {
+  transform: translateX(0);
+}
+
+.cenSubTytulBox {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.cenSubTytul {
+  font-size: clamp(15px, 2vw, 18px);
+  font-weight: 700;
+  color: var(--cen-text, #ffffff);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cenSubPodtytul {
+  font-size: 12px;
+  color: var(--cen-text-muted, #94a3b8);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cenTabsRow {
@@ -31115,7 +31160,12 @@ function centrWidokCzytanieChrono(){
   const nastDni = planList.filter(x=>x.d > curDzien && x.d <= curDzien + 3);
 
   return '<div class="cenSubHeader">'
-    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' Centrum</button>'
+    + '<div class="cenSubHeaderLewo">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
+    + '<div class="cenSubTytulBox">'
+    + '<div class="cenSubTytul">Plan czytania Biblii</div>'
+    + '<div class="cenSubPodtytul">' + esc(planInfo.name) + ' • ' + esc(planInfo.duration || (planInfo.days + ' dni')) + '</div>'
+    + '</div></div>'
     + '<div style="display:flex;align-items:center;gap:8px;">'
     + '<button type="button" class="cenHeroChangePlanBtn" data-cwidok="moje-plany" title="Przełącz plan czytania">Zmień plan (' + esc(planInfo.duration || (planInfo.days + ' dni')) + ') ▾</button>'
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="ustawienia-planu" title="Wybór i ustawienia planów">' + CEN_MODERN_ICO.gear + '</button>'
@@ -31184,7 +31234,12 @@ function centrWidokDzien(dNr){
   const jestDzienUkonczony = dniDone.has(dNr);
 
   return '<div class="cenSubHeader">'
-    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="czytanie-chronologiczne">' + CEN_MODERN_ICO.chevronLeft + ' ' + esc(planInfo.name) + ' — Dzień ' + dNr + '</button>'
+    + '<div class="cenSubHeaderLewo">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="czytanie-chronologiczne">' + CEN_MODERN_ICO.chevronLeft + ' <span>Plan czytania</span></button>'
+    + '<div class="cenSubTytulBox">'
+    + '<div class="cenSubTytul">Dzień ' + dNr + ' <span style="font-weight:400;opacity:0.75;font-size:0.9em;">(' + esc(planInfo.name) + ')</span></div>'
+    + '<div class="cenSubPodtytul">' + (plan.f ? plan.f.length : 0) + ' fragmenty • ' + esc(plan.t) + '</div>'
+    + '</div></div>'
     + '<div class="cenNaglAkcje">'
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="notatka-dnia" title="Dodaj notatkę">' + CEN_MODERN_ICO.note + '</button>'
     + '</div></div>'
@@ -31241,7 +31296,12 @@ function centrWidokListaDni(filtr, szukaj){
   });
 
   return '<div class="cenSubHeader">'
-    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="czytanie-chronologiczne">' + CEN_MODERN_ICO.chevronLeft + ' ' + esc(planInfo.name) + ' — Lista dni</button>'
+    + '<div class="cenSubHeaderLewo">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="czytanie-chronologiczne">' + CEN_MODERN_ICO.chevronLeft + ' <span>Plan czytania</span></button>'
+    + '<div class="cenSubTytulBox">'
+    + '<div class="cenSubTytul">Lista dni czytania</div>'
+    + '<div class="cenSubPodtytul">' + esc(planInfo.name) + ' • ' + planList.length + ' dni</div>'
+    + '</div></div>'
     + '<div style="position:relative;">'
     + '<input type="text" id="cenSzukajDniInp" class="cenSearchInp" placeholder="Szukaj dnia, wersetu..." value="' + esc(_centrListaSzukaj||'') + '">'
     + '</div>'
@@ -31303,7 +31363,12 @@ function centrWidokStatystyki(tab){
   const _fragiDone = _centrPobierzUkonczoneFragi().size;
 
   const _nagl = '<div class="cenSubHeader">'
-    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="czytanie-chronologiczne">' + CEN_MODERN_ICO.chevronLeft + ' Statystyki (' + esc(planInfo.name) + ')</button>'
+    + '<div class="cenSubHeaderLewo">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="czytanie-chronologiczne">' + CEN_MODERN_ICO.chevronLeft + ' <span>Plan czytania</span></button>'
+    + '<div class="cenSubTytulBox">'
+    + '<div class="cenSubTytul">Statystyki i postęp</div>'
+    + '<div class="cenSubPodtytul">' + esc(planInfo.name) + ' • ' + doneCount + ' z ' + totalDni + ' dni (' + pctStr + '%)</div>'
+    + '</div></div>'
     + '</div>'
     + '<div class="cenTabsRow">'
     + '<button type="button" class="cenTabBtn' + (tab==="ogolny"?' active':'') + '" data-cstat-tab="ogolny">Ogólny</button>'
@@ -31401,7 +31466,12 @@ function centrWidokKalendarz(rok, mies){
   }
 
   return '<div class="cenSubHeader">'
-    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="czytanie-chronologiczne">' + CEN_MODERN_ICO.chevronLeft + ' Kalendarz (' + esc(planInfo.name) + ')</button>'
+    + '<div class="cenSubHeaderLewo">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="czytanie-chronologiczne">' + CEN_MODERN_ICO.chevronLeft + ' <span>Plan czytania</span></button>'
+    + '<div class="cenSubTytulBox">'
+    + '<div class="cenSubTytul">Kalendarz czytania</div>'
+    + '<div class="cenSubPodtytul">' + esc(planInfo.name) + ' • ' + nazwyMies[mies] + ' ' + rok + '</div>'
+    + '</div></div>'
     + '</div>'
 
     + '<div class="cenKalendarzMiesiac">'
@@ -31438,10 +31508,15 @@ function centrWidokMojePlany(tab){
   });
 
   return '<div class="cenSubHeader">'
-    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' Centrum</button>'
-    + '<div style="font-weight:700;font-size:16px;color:var(--cen-text);">Wybór planu czytania Biblii</div>'
+    + '<div class="cenSubHeaderLewo">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
+    + '<div class="cenSubTytulBox">'
+    + '<div class="cenSubTytul">Plany czytania Biblii</div>'
+    + '<div class="cenSubPodtytul">Wybierz lub skonfiguruj plan czytania</div>'
+    + '</div></div>'
+    + '<div class="cenNaglAkcje">'
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="nowy-plan" title="Dodaj własny plan czytania">' + CEN_MODERN_ICO.plus + '</button>'
-    + '</div>'
+    + '</div></div>'
 
     + '<div class="cenTabsRow" style="overflow-x:auto;">'
     + '<button type="button" class="cenTabBtn' + (tab==="wszystkie"?' active':'') + '" data-cplan-tab="wszystkie">Wszystkie (' + plany.length + ')</button>'
@@ -31559,11 +31634,17 @@ function centrWidokStudiumOsobiste(tab){
     }
   }
   return '<div class="cenSubHeader">'
-    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' Studium osobiste</button>'
+    + '<div class="cenSubHeaderLewo">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
+    + '<div class="cenSubTytulBox">'
+    + '<div class="cenSubTytul">Studium osobiste</div>'
+    + '<div class="cenSubPodtytul">' + tematy.length + ' tematów • Zbiory wersetów i notatek</div>'
+    + '</div></div>'
+    + '<div class="cenNaglAkcje">'
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="nowy-temat" title="Dodaj nowy temat studium">' + CEN_MODERN_ICO.plus + '</button>'
-    + '</div>'
+    + '</div></div>'
     + '<div class="cenTabsRow">'
-    + '<button type="button" class="cenTabBtn' + (tab==="tematy"?' active':'') + '" data-cstudium-tab="tematy">Moje tematy</button>'
+    + '<button type="button" class="cenTabBtn' + (tab==="tematy"?' active':'') + '" data-cstudium-tab="tematy">Moje tematy (' + tematy.length + ')</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="ostatnie"?' active':'') + '" data-cstudium-tab="ostatnie">Ostatnie</button>'
     + '</div>'
     + '<div class="cenTematyLista">' + _soTresc + '</div>';
@@ -31578,7 +31659,12 @@ function centrWidokTematSzczegoly(tematId){
   const myNotes = _centrPobierzNotatkiTematu(t);
 
   return '<div class="cenSubHeader">'
-    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="studium-osobiste">' + CEN_MODERN_ICO.chevronLeft + ' Studium osobiste</button>'
+    + '<div class="cenSubHeaderLewo">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="studium-osobiste">' + CEN_MODERN_ICO.chevronLeft + ' <span>Studium</span></button>'
+    + '<div class="cenSubTytulBox">'
+    + '<div class="cenSubTytul">' + esc(t.name) + '</div>'
+    + '<div class="cenSubPodtytul">' + verses.length + ' wersetów • ' + myNotes.length + ' ' + (myNotes.length===1?'notatka':myNotes.length<5?'notatki':'notatek') + '</div>'
+    + '</div></div>'
     + '<div class="cenNaglAkcje">'
     + '<button type="button" class="cenFragBtnJW" data-ctemat-nowanota="'+t.id+'" title="Napisz nową notatkę do tego tematu">' + CEN_MODERN_ICO.note + ' Nowa notatka</button>'
     + '<button type="button" class="cenNaglBtnIko" data-ctemat-dodajwers="'+t.id+'" title="Dodaj werset do tematu">' + CEN_MODERN_ICO.plus + '</button>'
@@ -32835,13 +32921,22 @@ function centrNaglowekWidoku(){
     bezpieczenstwo:["Bezpieczeństwo danych","Kopia, pamięć i kontrola bazy"]
   };
   const o=opisy[centrWidok]||opisy.centrum;
-  const akcje=centrWidok==="centrum"
-    ? '<button type="button" class="btn" data-cakcja="dostosuj" aria-expanded="'+centrDostosujOtwarte+'">'
-      +ICO.gear+' Dostosuj</button><button type="button" class="btn" data-cakcja="lista">Pokaż wszystkie notatki</button>'
-    : '<button type="button" class="btn" data-cwidok="centrum">← Centrum</button>'
-      +'<button type="button" class="btn" data-cakcja="lista">Pokaż wszystkie notatki</button>';
-  return '<div class="cenNagl"><div class="cenTyt"><b>'+esc(o[0])+'</b><span>'+esc(o[1])+'</span></div>'
-    +'<div class="cenNaglAkcje">'+akcje+'</div></div>';
+  if(centrWidok === "centrum"){
+    const akcje='<button type="button" class="btn" data-cakcja="dostosuj" aria-expanded="'+centrDostosujOtwarte+'">'
+      +ICO.gear+' Dostosuj</button><button type="button" class="btn" data-cakcja="lista">Pokaż wszystkie notatki</button>';
+    return '<div class="cenNagl"><div class="cenTyt"><b>'+esc(o[0])+'</b><span>'+esc(o[1])+'</span></div>'
+      +'<div class="cenNaglAkcje">'+akcje+'</div></div>';
+  }
+  const akcje='<button type="button" class="btn" data-cakcja="lista">Wszystkie notatki</button>';
+  return '<div class="cenSubHeader">'
+    +'<div class="cenSubHeaderLewo">'
+    +'<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
+    +'<div class="cenSubTytulBox">'
+    +'<div class="cenSubTytul">'+esc(o[0])+'</div>'
+    +'<div class="cenSubPodtytul">'+esc(o[1])+'</div>'
+    +'</div></div>'
+    +'<div class="cenNaglAkcje">'+akcje+'</div>'
+    +'</div>';
 }
 
 function centrOstatnieSekcje(kont){
@@ -32902,11 +32997,11 @@ function rysujCentrumWnetrze306(el){
   else if(centrWidok === "moje-plany") tresc = centrWidokMojePlany();
   else if(centrWidok === "studium-osobiste") tresc = centrWidokStudiumOsobiste(_centrStudiumTab);
   else if(centrWidok === "temat-szczegoly") tresc = centrWidokTematSzczegoly(_centrWybranyTematId);
-  else if(centrWidok === "projekty") tresc = centrPodstronaProjektow();
-  else if(centrWidok === "kolejka") tresc = centrPodstronaKolejki("cenq");
-  else if(centrWidok === "inbox") tresc = centrPodstronaKolejki("ceni");
-  else if(centrWidok === "ostatnie") tresc = centrOstatnieSekcje(centrKontynuuj());
-  else if(centrWidok === "bezpieczenstwo") tresc = centrPodstronaBezpieczenstwa();
+  else if(centrWidok === "projekty") tresc = centrNaglowekWidoku() + centrPodstronaProjektow();
+  else if(centrWidok === "kolejka") tresc = centrNaglowekWidoku() + centrPodstronaKolejki("cenq");
+  else if(centrWidok === "inbox") tresc = centrNaglowekWidoku() + centrPodstronaKolejki("ceni");
+  else if(centrWidok === "ostatnie") tresc = centrNaglowekWidoku() + centrOstatnieSekcje(centrKontynuuj());
+  else if(centrWidok === "bezpieczenstwo") tresc = centrNaglowekWidoku() + centrPodstronaBezpieczenstwa();
   else tresc = renderCentrumWidok();
 
   const html = '<div class="cenCentrumShell">' + centrBoczna() + '<div class="cenCentrumMain">'
