@@ -23723,7 +23723,8 @@ function daneKopii(){
     autoTopics: (typeof autoTematyEksport==="function" ? autoTematyEksport() : {custom:[]}),
     deletedTags: (Array.isArray(deletedTagNames) ? deletedTagNames : []),
     deletedGuids: (Array.isArray(deletedGuids) ? deletedGuids : []),
-    centrumLayout: (typeof centrUklad==="function" ? centrUklad() : lsGet("jws_centrum_layout_306", null))
+    centrumLayout: (typeof centrUklad==="function" ? centrUklad() : lsGet("jws_centrum_layout_306", null)),
+    centrum: (typeof _centrEksportDanych==="function" ? _centrEksportDanych() : null)
   };
 }
 
@@ -24289,6 +24290,13 @@ async function wczytajKopieZTekstu(tekstPliku){
         saveSections();
         if(typeof savePubTabs==="function") savePubTabs();   // zakładki publikacji z kopii
       }
+      let stCentrum = null;
+      if((data.centrum || data.centrumLayout) && typeof _centrImportDanych === "function"){
+        try {
+          const cPayload = data.centrum || (data.centrumLayout ? { layout: data.centrumLayout } : null);
+          stCentrum = _centrImportDanych(cPayload, choice);
+        } catch(eCentr){ console.warn("Błąd importu centrum:", eCentr); }
+      }
       const kontrolaM = idb ? await sprawdzZapis(notes.length, tags.length) : null;
       renderAll();
       /* Do tablicy trafiło naraz dużo notatek — pamięć podręczna szukania
@@ -24313,6 +24321,8 @@ async function wczytajKopieZTekstu(tekstPliku){
         `• Nowych etykiet: <b>${st.tagsAdded}</b>${st.secAdded?` · sekcji: <b>${st.secAdded}</b>`:""}`+
         (st.tabsAdded?`<br>• Nowych zakładek w publikacjach: <b>${st.tabsAdded}</b>`:"")+
         (st.zakSekAdded?`<br>• Nowych zakładek w sekcjach: <b>${st.zakSekAdded}</b>`:"")+
+        (stCentrum && stCentrum.dniMerged ? `<br>• Dni w planach czytania: <b>+${stCentrum.dniMerged}</b>` : "")+
+        (stCentrum && stCentrum.tematyMerged ? `<br>• Tematów studium: <b>+${stCentrum.tematyMerged}</b>` : "")+
         (choice==="mergeLayout" ? `<br>• Etykiet uporządkowanych wg układu z pliku: <b>${st.organized}</b>` : ""));
       return;
     }
@@ -24369,6 +24379,12 @@ async function wczytajKopieZTekstu(tekstPliku){
       searchOpts=bezpieczneOpcjeSzukania(data.searchOpts);
       lsSet(KP+"SearchMode",searchMode); lsSet(KP+"SearchOpts",JSON.stringify(searchOpts));
     }
+    if((data.centrum || data.centrumLayout) && typeof _centrImportDanych === "function"){
+      try {
+        const cPayload = data.centrum || (data.centrumLayout ? { layout: data.centrumLayout } : null);
+        _centrImportDanych(cPayload, "replace");
+      } catch(eCentr){ console.warn("Błąd importu centrum:", eCentr); }
+    }
     renderAll();
     /* Do tablicy trafiło naraz dużo notatek — pamięć podręczna szukania
        buduje się od nowa w bezczynności, a nie przy pierwszym klawiszu. */
@@ -24383,6 +24399,7 @@ async function wczytajKopieZTekstu(tekstPliku){
       (noweZakladki.length ? `<br>• Zakładek w publikacjach: <b>${noweZakladki.length}</b>` : "")+
       (noweZakladkiSekcji.length ? `<br>• Zakładek w sekcjach: <b>${noweZakladkiSekcji.length}</b>` : "")+
       (noweSzablony.length ? `<br>• Szablonów: <b>${noweSzablony.length}</b>` : "")+
+      (data.centrum ? `<br>• Dane Centrum Studium i Planów: <b>przywrócone</b>` : "")+
       (kontrola ? "" : "<br><br><i>Baza urządzenia niedostępna — dane działają do zamknięcia karty.</i>"));
   }catch(err){
     console.warn("Wczytywanie kopii nie powiodło się", err);
@@ -31432,6 +31449,188 @@ function _centrPobierzPlany(){
       done: s.done !== undefined ? s.done : false
     };
   });
+}
+
+/* 7b. Pełny eksport i import danych Centrum Studium i Planów czytania do kopii JSON */
+function _centrEksportDanych(){
+  const dniMap = {};
+  try {
+    const pref = KP + "CentrumDniDone_";
+    if(typeof localStorage !== "undefined"){
+      for(let i = 0; i < localStorage.length; i++){
+        const k = localStorage.key(i);
+        if(k && k.startsWith(pref)){
+          const planId = k.substring(pref.length);
+          const raw = lsGet(k, null);
+          if(raw){
+            try {
+              const arr = JSON.parse(raw);
+              if(Array.isArray(arr) && arr.length) dniMap[planId] = arr;
+            }catch(e){}
+          }
+        }
+      }
+    }
+  } catch(e){}
+
+  ["chrono", "nt", "temat", "canon", "chronoblocks"].forEach(pId => {
+    if(!dniMap[pId]){
+      const raw = lsGet(KP + "CentrumDniDone_" + pId, null);
+      if(raw){
+        try {
+          const arr = JSON.parse(raw);
+          if(Array.isArray(arr) && arr.length) dniMap[pId] = arr;
+        }catch(e){}
+      }
+    }
+  });
+
+  let fragiArr = [];
+  try {
+    const rawFragi = lsGet(KP + "CentrumFragiDone", null);
+    if(rawFragi) {
+      const parsed = JSON.parse(rawFragi);
+      if(Array.isArray(parsed)) fragiArr = parsed;
+    }
+  } catch(e){}
+
+  let tematyArr = [];
+  try {
+    const rawTematy = lsGet(KP + "CentrumTematy", null);
+    if(rawTematy){
+      const parsed = JSON.parse(rawTematy);
+      if(Array.isArray(parsed)) tematyArr = parsed;
+    }
+  } catch(e){}
+
+  let planyArr = [];
+  try {
+    const rawPlany = lsGet(KP + "CentrumPlany", null);
+    if(rawPlany){
+      const parsed = JSON.parse(rawPlany);
+      if(Array.isArray(parsed)) planyArr = parsed;
+    }
+  } catch(e){}
+
+  return {
+    dni: dniMap,
+    fragi: fragiArr,
+    tematy: tematyArr,
+    plany: planyArr,
+    aktywnyPlan: lsGet(KP + "CentrumAktywnyPlan", null),
+    curDay: lsGet(KP + "CentrumCurDay", null),
+    curTemat: lsGet(KP + "CentrumCurTemat", null),
+    layout: (typeof centrUklad === "function" ? centrUklad() : lsGet("jws_centrum_layout_306", null))
+  };
+}
+
+function _centrImportDanych(centrumData, tryb){
+  if(!centrumData || typeof centrumData !== "object") return { dniMerged: 0, fragiMerged: 0, tematyMerged: 0 };
+  const st = { dniMerged: 0, fragiMerged: 0, tematyMerged: 0 };
+  const isReplace = (tryb === "replace");
+
+  // 1. Ukończone dni w planach czytania
+  if(centrumData.dni && typeof centrumData.dni === "object"){
+    if(isReplace){
+      try {
+        const pref = KP + "CentrumDniDone_";
+        const doUsuniecia = [];
+        if(typeof localStorage !== "undefined"){
+          for(let i = 0; i < localStorage.length; i++){
+            const k = localStorage.key(i);
+            if(k && k.startsWith(pref)) doUsuniecia.push(k);
+          }
+        }
+        doUsuniecia.forEach(k => lsRem(k));
+      } catch(e){}
+    }
+
+    Object.keys(centrumData.dni).forEach(planId => {
+      const incArr = centrumData.dni[planId];
+      if(!Array.isArray(incArr)) return;
+      if(isReplace){
+        lsSet(KP + "CentrumDniDone_" + planId, JSON.stringify(incArr));
+        st.dniMerged += incArr.length;
+      } else {
+        const curSet = _centrPobierzUkonczoneDni(planId);
+        const staryRozmiar = curSet.size;
+        incArr.forEach(d => {
+          const num = Number(d);
+          if(!isNaN(num) && num > 0) curSet.add(num);
+        });
+        _centrZapiszUkonczoneDni(curSet, planId);
+        st.dniMerged += (curSet.size - staryRozmiar);
+      }
+    });
+  }
+
+  // 2. Ukończone fragmenty
+  if(Array.isArray(centrumData.fragi)){
+    if(isReplace){
+      lsSet(KP + "CentrumFragiDone", JSON.stringify(centrumData.fragi));
+      st.fragiMerged = centrumData.fragi.length;
+    } else {
+      const curFragi = _centrPobierzUkonczoneFragi();
+      const staryRozmiar = curFragi.size;
+      centrumData.fragi.forEach(f => { if(f) curFragi.add(String(f)); });
+      _centrZapiszUkonczoneFragi(curFragi);
+      st.fragiMerged = (curFragi.size - staryRozmiar);
+    }
+  }
+
+  // 3. Tematy studium
+  if(Array.isArray(centrumData.tematy) && centrumData.tematy.length){
+    if(isReplace){
+      _centrZapiszTematyStudium(centrumData.tematy);
+      st.tematyMerged = centrumData.tematy.length;
+    } else {
+      const curTematy = _centrPobierzTematyStudium();
+      let dodano = 0;
+      centrumData.tematy.forEach(incT => {
+        if(!incT || !incT.name) return;
+        const normName = (typeof norm === "function") ? norm(incT.name) : incT.name.toLowerCase();
+        const istniejacy = curTematy.find(t => (incT.id && t.id === incT.id) || (((typeof norm === "function") ? norm(t.name) : t.name.toLowerCase()) === normName));
+        if(!istniejacy){
+          curTematy.push(incT);
+          dodano++;
+        }
+      });
+      if(dodano){
+        _centrZapiszTematyStudium(curTematy);
+        st.tematyMerged = dodano;
+      }
+    }
+  }
+
+  // 4. Plany czytania i konfiguracja
+  if(Array.isArray(centrumData.plany) && centrumData.plany.length){
+    if(isReplace || !lsGet(KP + "CentrumPlany", null)){
+      lsSet(KP + "CentrumPlany", JSON.stringify(centrumData.plany));
+    }
+  }
+
+  if(isReplace){
+    if(centrumData.aktywnyPlan) lsSet(KP + "CentrumAktywnyPlan", centrumData.aktywnyPlan);
+    if(centrumData.curDay) lsSet(KP + "CentrumCurDay", String(centrumData.curDay));
+    if(centrumData.curTemat) lsSet(KP + "CentrumCurTemat", String(centrumData.curTemat));
+  } else {
+    if(!lsGet(KP + "CentrumAktywnyPlan", null) && centrumData.aktywnyPlan){
+      lsSet(KP + "CentrumAktywnyPlan", centrumData.aktywnyPlan);
+    }
+  }
+
+  if(centrumData.layout && (isReplace || tryb === "mergeLayout")){
+    try {
+      if(typeof centrZapiszUklad === "function") centrZapiszUklad(centrumData.layout);
+      else lsSet("jws_centrum_layout_306", JSON.stringify(centrumData.layout));
+    } catch(e){}
+  }
+
+  if(typeof centrumOdswiez === "function") {
+    try { centrumOdswiez(); } catch(e){}
+  }
+
+  return st;
 }
 
 /* 8. Drzewo Wzrostu Duchowego / Czytania (Psalm 1:3) */
