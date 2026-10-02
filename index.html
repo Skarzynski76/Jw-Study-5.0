@@ -324,6 +324,11 @@ html[data-theme="sepia"] {
   cursor: pointer;
   transition: all 0.16s ease;
 }
+.cenNaglBtnIko svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
 
 .cenNaglBtnIko:hover {
   background: var(--cen-btn-hover-bg);
@@ -856,32 +861,67 @@ html[data-theme="dark"] .cenChronoAkcjaBtn svg {
   gap: 6px;
   white-space: nowrap;
 }
+.cenFragBtnJW svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
 .cenFragBtnJW:hover {
   background: #1d4ed8;
 }
 
-.cenDzienUkonczBtn {
+.cenDzienUkonczWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 20px;
   width: 100%;
-  padding: 15px 24px;
-  border-radius: 16px;
+}
+
+.cenDzienUkonczBtn {
+  width: auto;
+  min-width: 260px;
+  max-width: 440px;
+  padding: 12px 24px;
+  border-radius: 12px;
   background: #10b981;
   color: #ffffff;
-  border: none;
-  font-size: 15.5px;
-  font-weight: 700;
+  border: 1.5px solid transparent;
+  font-size: 14.5px;
+  font-weight: 600;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
-  margin-top: 24px;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.22);
   transition: all 0.16s ease;
+  text-align: center;
+}
+.cenDzienUkonczBtn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 .cenDzienUkonczBtn:hover {
   background: #059669;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.45);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.32);
+}
+.cenDzienUkonczBtn.done {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: none;
+}
+html[data-theme="dark"] .cenDzienUkonczBtn.done {
+  background: rgba(16, 185, 129, 0.18);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.45);
+}
+.cenDzienUkonczBtn.done:hover {
+  background: rgba(16, 185, 129, 0.22);
 }
 
 /* STATS RADIAL PROGRESS & METRICS */
@@ -960,6 +1000,230 @@ html[data-theme="dark"] .cenChronoAkcjaBtn svg {
   font-size: 16px;
   font-weight: 700;
   color: var(--cen-text);
+}
+
+/* DRZEWO WZROSTU DUCHOWEGO / CZYTANIA (PSALM 1:3) */
+@keyframes cenSway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(1.2deg); }
+}
+@keyframes cenLeafPop {
+  0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+  70% { transform: scale(1.25) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes cenLeafFall {
+  0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  30% { transform: translateY(60px) translateX(25px) rotate(45deg) scale(0.95); }
+  60% { transform: translateY(130px) translateX(-20px) rotate(110deg) scale(0.9); }
+  90% { transform: translateY(200px) translateX(15px) rotate(190deg) scale(0.85); opacity: 0.8; }
+  100% { transform: translateY(240px) translateX(5px) rotate(220deg) scale(0.8); opacity: 0.2; }
+}
+@keyframes cenPulseGlow {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.4)); }
+  50% { filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.85)); }
+}
+
+.cenDrzewoCard {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: var(--cen-card-shadow);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.cenDrzewoCytatBox {
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(16, 185, 129, 0.08);
+  border-left: 3px solid #10b981;
+  font-size: 13px;
+  color: var(--cen-text-muted);
+  font-style: italic;
+  line-height: 1.5;
+}
+.cenDrzewoStage {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cenDrzewoSvg {
+  width: 100%;
+  height: auto;
+  max-height: 380px;
+  overflow: visible;
+}
+.cenDrzewoSway {
+  transform-origin: bottom center;
+  animation: cenSway 6s ease-in-out infinite;
+}
+.cenDrzewoLeafNew {
+  transform-origin: center;
+  animation: cenLeafPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+.cenDrzewoLeafFall {
+  transform-origin: center;
+  animation: cenLeafFall 2.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.cenDrzewoFruitGlow {
+  animation: cenPulseGlow 3s ease-in-out infinite;
+}
+.cenDrzewoHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.cenDrzewoEtapBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #059669;
+  font-weight: 700;
+  font-size: 13px;
+}
+html[data-theme="dark"] .cenDrzewoEtapBadge {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+.cenDrzewoStatsBar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+  width: 100%;
+}
+.cenDrzewoStatBox {
+  background: var(--cen-row-bg, rgba(0,0,0,0.03));
+  border: 1px solid var(--cen-card-border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  text-align: center;
+}
+.cenDrzewoStatBoxLbl {
+  font-size: 11.5px;
+  color: var(--cen-text-muted);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.cenDrzewoStatBoxVal {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cen-text);
+}
+.cenMiniDrzewoBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.14s ease;
+  text-decoration: none;
+}
+html[data-theme="dark"] .cenMiniDrzewoBadge {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.18);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+.cenMiniDrzewoBadge:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+.cenFruitGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.cenFruitItem {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+  box-shadow: var(--cen-card-shadow);
+}
+.cenFruitItem.unlocked {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: linear-gradient(135deg, var(--cen-card-bg) 0%, rgba(16, 185, 129, 0.06) 100%);
+}
+.cenFruitItem.locked {
+  opacity: 0.65;
+  filter: grayscale(0.5);
+}
+.cenFruitIko {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.04);
+}
+.cenFruitItem.unlocked .cenFruitIko {
+  background: rgba(16, 185, 129, 0.15);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+.cenFruitInfo {
+  flex: 1;
+  min-width: 0;
+}
+.cenFruitName {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cen-text);
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cenFruitDesc {
+  font-size: 12px;
+  color: var(--cen-text-muted);
+  line-height: 1.35;
+}
+.cenFruitBadge {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.cenFruitBadge.unlocked {
+  background: #10b981;
+  color: #ffffff;
+}
+.cenFruitBadge.locked {
+  background: var(--cen-row-bg, rgba(0,0,0,0.06));
+  color: var(--cen-text-muted);
 }
 
 /* KALENDARZ SIATKA */
@@ -30631,7 +30895,7 @@ const CENTR_KLUCZ = KP + "Centrum";        // "auto" albo "lista"
 const CENTR_WLACZONE = KP + "CentrumWl";   // "1" albo "0"
 const CENTR_UKLAD_KLUCZ = KP + "CentrumUklad306";
 const CENTR_WIDOK_KLUCZ = KP + "CentrumWidok308";
-const CENTR_WIDOKI = ["centrum","czytanie-chronologiczne","dzien","lista-dni","kalendarz","statystyki","moje-plany","studium-osobiste","temat-szczegoly","projekty","kolejka","inbox","ostatnie","bezpieczenstwo"];
+const CENTR_WIDOKI = ["centrum","czytanie-chronologiczne","dzien","lista-dni","kalendarz","statystyki","drzewo","moje-plany","studium-osobiste","temat-szczegoly","projekty","kolejka","inbox","ostatnie","bezpieczenstwo"];
 /* ═══ NOWE MODUŁY I BAZY DANYCH PLANÓW CZYTANIA BIBLII (v3.74) ═══ */
 
 /* 1. Kanon biblijny (66 ksiąg, 1189 rozdziałów) */
@@ -31165,6 +31429,292 @@ function _centrPobierzPlany(){
   });
 }
 
+/* 8. Drzewo Wzrostu Duchowego / Czytania (Psalm 1:3) */
+function _centrPobierzEtapDrzewa(doneCount, totalDni){
+  doneCount = doneCount || 0;
+  totalDni = totalDni || 365;
+  if(doneCount >= totalDni && totalDni > 0) return { name: "Wspaniałe Drzewo Życia (100%)", short: "Drzewo Życia 🏆", desc: "Ukończyłeś cały plan czytania! Twoje drzewo obficie obrodziło w duchowe owoce." };
+  if(doneCount >= 100) return { name: "Dojrzałe Drzewo Oliwne", short: "Dojrzałe Drzewo ⭐", desc: "Głęboko zakorzenione, silne drzewo wydające dojrzałe owoce regularnego czytania Słowa Bożego." };
+  if(doneCount >= 30) return { name: "Rozłożyste Drzewko", short: "Rozłożyste Drzewo 🍇", desc: "Drzewo dynamicznie rozrasta się w koronę o gęstym listowiu i silnych gałęziach." };
+  if(doneCount >= 14) return { name: "Młode Drzewo Oliwne", short: "Młode Drzewo 🍊", desc: "Wytrwałe pędy rozwijają się w młode drzewko z pierwszymi owocami." };
+  if(doneCount >= 7) return { name: "Silny Młody Pęd", short: "Młody Pęd 🍎", desc: "Pierwszy tydzień regularnego czytania przyniósł pierwszy owoc i nowe listki." };
+  if(doneCount >= 1) return { name: "Wschodzący Kiełek", short: "Kiełek 🌱", desc: "Zasiane ziarno wykiełkowało nad strumieniem żywej wody." };
+  return { name: "Zasiane Ziarno", short: "Zasiane Ziarno 🌱", desc: "Rozpocznij czytanie planu, aby Twoje drzewo zaczęło wzrastać każdego dnia." };
+}
+
+function _centrGenerujDrzewoGrowthSvg(totalDni, doneCount, curSer, bestSer, animujNowy){
+  totalDni = totalDni || 365;
+  doneCount = doneCount || 0;
+  curSer = curSer || 0;
+  bestSer = bestSer || 0;
+
+  const leafAnchorPoints = [
+    // Korona góra
+    { x: 250, y: 110, angle: -90 },
+    { x: 235, y: 125, angle: -120 },
+    { x: 265, y: 125, angle: -60 },
+    { x: 220, y: 140, angle: -135 },
+    { x: 280, y: 140, angle: -45 },
+    { x: 205, y: 155, angle: -140 },
+    { x: 295, y: 155, angle: -40 },
+    { x: 250, y: 160, angle: -90 },
+
+    // Lewa gałąź 1
+    { x: 110, y: 228, angle: -150 },
+    { x: 125, y: 235, angle: -130 },
+    { x: 95, y: 220, angle: -160 },
+    { x: 140, y: 245, angle: -120 },
+    { x: 155, y: 260, angle: -110 },
+    { x: 130, y: 275, angle: -170 },
+    { x: 150, y: 285, angle: -150 },
+    { x: 175, y: 292, angle: -140 },
+    { x: 200, y: 305, angle: -130 },
+
+    // Prawa gałąź 1
+    { x: 400, y: 218, angle: -30 },
+    { x: 385, y: 225, angle: -50 },
+    { x: 415, y: 210, angle: -20 },
+    { x: 370, y: 240, angle: -60 },
+    { x: 350, y: 255, angle: -70 },
+    { x: 375, y: 268, angle: -10 },
+    { x: 355, y: 280, angle: -30 },
+    { x: 330, y: 288, angle: -40 },
+    { x: 300, y: 300, angle: -50 },
+
+    // Środek i wypełnienia
+    { x: 230, y: 190, angle: -110 },
+    { x: 270, y: 190, angle: -70 },
+    { x: 250, y: 220, angle: -90 },
+    { x: 215, y: 230, angle: -130 },
+    { x: 285, y: 230, angle: -50 },
+    { x: 190, y: 210, angle: -140 },
+    { x: 310, y: 210, angle: -40 },
+    { x: 165, y: 220, angle: -150 },
+    { x: 335, y: 220, angle: -30 },
+    { x: 250, y: 135, angle: -80 },
+    { x: 235, y: 170, angle: -100 },
+    { x: 265, y: 170, angle: -80 },
+    { x: 180, y: 180, angle: -135 },
+    { x: 320, y: 180, angle: -45 }
+  ];
+
+  const totalPossible = leafAnchorPoints.length;
+  let activeLeafCount = 0;
+  if(doneCount > 0){
+    const scaled = Math.floor(doneCount * 1.5) + 1;
+    activeLeafCount = Math.min(64, Math.max(2, scaled));
+  }
+
+  let opBranchL = "1", opBranchR = "1", opBranchSub = "1", opBranchTop = "1";
+  if(doneCount === 0){
+    opBranchL = "0.2"; opBranchR = "0.2"; opBranchSub = "0"; opBranchTop = "0.3";
+  } else if(doneCount < 7){
+    opBranchL = "0.45"; opBranchR = "0.45"; opBranchSub = "0.2"; opBranchTop = "0.5";
+  } else if(doneCount < 21){
+    opBranchL = "0.8"; opBranchR = "0.8"; opBranchSub = "0.6"; opBranchTop = "0.85";
+  }
+
+  let leavesHtml = '';
+  for(let i = 0; i < activeLeafCount; i++){
+    const pt = leafAnchorPoints[i % totalPossible];
+    const jitterX = (i >= totalPossible) ? Math.sin(i * 99) * 16 : 0;
+    const jitterY = (i >= totalPossible) ? Math.cos(i * 99) * 16 : 0;
+    const posX = pt.x + jitterX;
+    const posY = pt.y + jitterY;
+    const rot = pt.angle + ((i % 3) * 14 - 14);
+    const isNew = animujNowy && (i >= activeLeafCount - 2);
+
+    leavesHtml += '<g transform="translate(' + posX.toFixed(1) + ',' + posY.toFixed(1) + ') rotate(' + rot.toFixed(1) + ')"' + (isNew ? ' class="cenDrzewoLeafNew"' : '') + '>'
+      + '<path d="M 0 0 C 14 -10, 24 -6, 30 0 C 24 6, 14 10, 0 0 Z" fill="url(#cenLeafGradGreen)" stroke="#065f46" stroke-width="0.8" opacity="0.94"/>'
+      + '<line x1="0" y1="0" x2="24" y2="0" stroke="#a7f3d0" stroke-width="0.7" opacity="0.75"/>'
+      + '</g>';
+  }
+
+  const fruitMilestones = [
+    { day: 7, x: 230, y: 145, icon: '🍎' },
+    { day: 14, x: 280, y: 155, icon: '🍊' },
+    { day: 30, x: 140, y: 250, icon: '🍇' },
+    { day: 60, x: 370, y: 245, icon: '👑' },
+    { day: 100, x: 250, y: 100, icon: '⭐' },
+    { day: totalDni, x: 250, y: 65, icon: '🏆' }
+  ];
+
+  let fruitsHtml = '';
+  fruitMilestones.forEach(fm => {
+    if(doneCount >= fm.day && (fm.day <= totalDni || fm.day <= 365)){
+      fruitsHtml += '<g transform="translate(' + fm.x + ',' + fm.y + ')" class="cenDrzewoFruitGlow">'
+        + '<circle cx="0" cy="0" r="8" fill="#f59e0b" stroke="#fef08a" stroke-width="1.5"/>'
+        + '<text x="0" y="3.5" text-anchor="middle" font-size="9px">' + fm.icon + '</text>'
+        + '</g>';
+    }
+  });
+
+  let fallenHtml = '';
+  if(curSer === 0 && doneCount > 0){
+    fallenHtml = '<g transform="translate(290, 448) rotate(35)" opacity="0.85">'
+      + '<path d="M 0 0 C 12 -8, 20 -5, 24 0 C 20 5, 12 8, 0 0 Z" fill="#b45309" stroke="#78350f" stroke-width="0.8"/>'
+      + '<line x1="0" y1="0" x2="20" y2="0" stroke="#fde68a" stroke-width="0.6" opacity="0.6"/>'
+      + '</g>'
+      + '<g transform="translate(195, 452) rotate(-25)" opacity="0.75">'
+      + '<path d="M 0 0 C 12 -8, 20 -5, 24 0 C 20 5, 12 8, 0 0 Z" fill="#92400e" stroke="#451a03" stroke-width="0.8"/>'
+      + '</g>';
+  }
+
+  return '<svg viewBox="0 0 500 480" class="cenDrzewoSvg">'
+    + '<defs>'
+    + '<linearGradient id="cenTrunkGrad" x1="0%" y1="0%" x2="100%" y2="0%">'
+    + '<stop offset="0%" stop-color="#451a03" />'
+    + '<stop offset="40%" stop-color="#78350f" />'
+    + '<stop offset="70%" stop-color="#92400e" />'
+    + '<stop offset="100%" stop-color="#451a03" />'
+    + '</linearGradient>'
+    + '<linearGradient id="cenGroundGrad" x1="0%" y1="0%" x2="0%" y2="100%">'
+    + '<stop offset="0%" stop-color="#065f46" />'
+    + '<stop offset="100%" stop-color="#022c22" />'
+    + '</linearGradient>'
+    + '<linearGradient id="cenLeafGradGreen" x1="0%" y1="0%" x2="100%" y2="100%">'
+    + '<stop offset="0%" stop-color="#6ee7b7" />'
+    + '<stop offset="100%" stop-color="#059669" />'
+    + '</linearGradient>'
+    + '<linearGradient id="cenStreamGrad" x1="0%" y1="0%" x2="100%" y2="0%">'
+    + '<stop offset="0%" stop-color="#0284c7" stop-opacity="0.25" />'
+    + '<stop offset="50%" stop-color="#38bdf8" stop-opacity="0.85" />'
+    + '<stop offset="100%" stop-color="#0284c7" stop-opacity="0.25" />'
+    + '</linearGradient>'
+    + '</defs>'
+
+    // Strumień wód (Psalm 1:3) z falującą animacją
+    + '<g opacity="0.88">'
+    + '<path d="M 0 455 Q 120 440, 250 460 T 500 450 L 500 480 L 0 480 Z" fill="url(#cenStreamGrad)">'
+    + '<animate attributeName="d" values="M 0 455 Q 120 440, 250 460 T 500 450 L 500 480 L 0 480 Z; M 0 458 Q 130 465, 250 455 T 500 458 L 500 480 L 0 480 Z; M 0 455 Q 120 440, 250 460 T 500 450 L 500 480 L 0 480 Z" dur="6s" repeatCount="indefinite" />'
+    + '</path>'
+    + '</g>'
+
+    // Ziemia i korzenie
+    + '<g>'
+    + '<ellipse cx="250" cy="450" rx="140" ry="24" fill="url(#cenGroundGrad)" opacity="0.92"/>'
+    + '<path d="M 235 440 Q 210 455, 170 462" stroke="#5c2c10" stroke-width="4" stroke-linecap="round" fill="none" />'
+    + '<path d="M 265 440 Q 295 455, 330 460" stroke="#5c2c10" stroke-width="4.5" stroke-linecap="round" fill="none" />'
+    + '<path d="M 245 442 Q 248 460, 250 472" stroke="#451a03" stroke-width="3" stroke-linecap="round" fill="none" />'
+    + '<path d="M 180 442 L 182 434 L 186 443" stroke="#10b981" stroke-width="2" stroke-linecap="round" fill="none" />'
+    + '<path d="M 315 443 L 318 433 L 322 444" stroke="#34d399" stroke-width="2" stroke-linecap="round" fill="none" />'
+    + '</g>'
+
+    // Drzewo kołyszące się
+    + '<g class="cenDrzewoSway">'
+    + '<g>'
+    + '<path d="M 232 445 C 235 370, 230 310, 250 260 C 265 310, 265 370, 268 445 Z" fill="url(#cenTrunkGrad)"/>'
+    + '<path d="M 242 330 C 220 310, 180 300, 140 280 C 175 292, 210 298, 240 315" fill="#78350f" stroke="#78350f" stroke-width="2" stroke-linecap="round" opacity="' + opBranchL + '"/>'
+    + '<path d="M 175 295 C 160 265, 130 245, 110 230" fill="none" stroke="#78350f" stroke-width="4.5" stroke-linecap="round" opacity="' + opBranchSub + '"/>'
+    + '<path d="M 256 320 C 285 305, 330 295, 370 270 C 335 285, 295 292, 258 305" fill="#78350f" stroke="#78350f" stroke-width="2" stroke-linecap="round" opacity="' + opBranchR + '"/>'
+    + '<path d="M 325 292 C 345 260, 380 240, 400 220" fill="none" stroke="#78350f" stroke-width="4.5" stroke-linecap="round" opacity="' + opBranchSub + '"/>'
+    + '<path d="M 248 265 C 242 215, 220 170, 205 130 M 252 265 C 258 205, 280 165, 305 125" fill="none" stroke="#78350f" stroke-width="5" stroke-linecap="round" opacity="' + opBranchTop + '"/>'
+    + '<path d="M 250 210 L 250 120" fill="none" stroke="#78350f" stroke-width="4" stroke-linecap="round" opacity="' + opBranchTop + '"/>'
+    + '</g>'
+
+    // Liście
+    + '<g>' + leavesHtml + '</g>'
+
+    // Owoce
+    + '<g>' + fruitsHtml + '</g>'
+    + '</g>'
+
+    // Opadłe liście na ziemi (jeśli przerwana seria)
+    + '<g>' + fallenHtml + '</g>'
+    + '</svg>';
+}
+
+function _centrWidokDrzewoWzrostu(planInfo, dniDone, curSer, bestSer){
+  const totalDni = planInfo.days || 365;
+  const doneCount = dniDone.size;
+  const pctNum = totalDni > 0 ? (doneCount / totalDni) * 100 : 0;
+  const pctStr = pctNum.toFixed(1).replace(".", ",");
+  const etap = _centrPobierzEtapDrzewa(doneCount, totalDni);
+
+  const spiritualFruits = [
+    { day: 7, name: "Miłość", icon: "❤️", desc: "1. tydzień czytania (Gal 5:22) — fundament duchowego wzrostu" },
+    { day: 14, name: "Radość", icon: "🍊", desc: "2 tygodnie w Słowie Bożym — serce napełnione wdzięcznością" },
+    { day: 30, name: "Pokój", icon: "🕊️", desc: "1 miesiąc regularności — wewnętrzny spokój ze studium Biblii" },
+    { day: 60, name: "Cierpliwość", icon: "🫒", desc: "2 miesiące wytrwałości — budowanie stałego nawyku" },
+    { day: 90, name: "Życzliwość", icon: "🌾", desc: "1. kwartał planu — dobre serce i chęć dzielenia się wiarą" },
+    { day: 120, name: "Dobroć", icon: "🍯", desc: "4 miesiące w Piśmie Świętym — prawe postępowanie na co dzień" },
+    { day: 180, name: "Wiara", icon: "⭐", desc: "Pół roku regularnego czytania — niezłomne zaufanie do Jehowy" },
+    { day: 270, name: "Łagodność", icon: "🌿", desc: "9 miesięcy studium — mądrość, wyrozumiałość i pokora" },
+    { day: totalDni, name: "Drzewo Życia / Opanowanie", icon: "👑", desc: "Ukończony cały plan biblijny — wspaniały duchowy triumf!" }
+  ];
+
+  const unlockedFruitsCount = spiritualFruits.filter(f => doneCount >= f.day).length;
+  const activeLeavesCount = doneCount > 0 ? Math.min(64, Math.max(2, Math.floor(doneCount * 1.5) + 1)) : 0;
+
+  const nextFruit = spiritualFruits.find(f => doneCount < f.day);
+  let nextStageText = "Osiągnięto wszystkie kamienie milowe planu!";
+  if(nextFruit){
+    const left = nextFruit.day - doneCount;
+    nextStageText = "Kolejny owoc: <b>" + nextFruit.name + " " + nextFruit.icon + "</b> za <b>" + left + (left === 1 ? " dzień" : " dni") + "</b> czytania.";
+  }
+
+  const svgTree = _centrGenerujDrzewoGrowthSvg(totalDni, doneCount, curSer, bestSer, false);
+
+  let fruitsHtml = '';
+  spiritualFruits.forEach(f => {
+    const isUnlocked = doneCount >= f.day;
+    fruitsHtml += '<div class="cenFruitItem ' + (isUnlocked ? 'unlocked' : 'locked') + '">'
+      + '<div class="cenFruitIko">' + f.icon + '</div>'
+      + '<div class="cenFruitInfo">'
+      + '<div class="cenFruitName">'
+      + '<span>' + esc(f.name) + '</span>'
+      + '<span class="cenFruitBadge ' + (isUnlocked ? 'unlocked' : 'locked') + '">' + (isUnlocked ? 'Zdobyto' : ('Dzień ' + f.day)) + '</span>'
+      + '</div>'
+      + '<div class="cenFruitDesc">' + esc(f.desc) + '</div>'
+      + '</div>'
+      + '</div>';
+  });
+
+  return '<div class="cenDrzewoCard">'
+    + '<div class="cenDrzewoCytatBox">'
+    + '„Będzie on jak drzewo zasadzone nad strumieniami wód, które wydaje owoc we właściwym czasie i którego liście nie więdną...” — <b>Psalm 1:3</b>'
+    + '</div>'
+    + '<div class="cenDrzewoHeaderRow">'
+    + '<div>'
+    + '<span class="cenHeroTag" style="margin-bottom:4px;">Etap rozwoju</span>'
+    + '<div style="font-size:18px;font-weight:700;color:var(--cen-text);">' + esc(etap.name) + '</div>'
+    + '<div style="font-size:13px;color:var(--cen-text-muted);margin-top:2px;">' + esc(etap.desc) + '</div>'
+    + '</div>'
+    + '<div class="cenDrzewoEtapBadge">' + etap.short + '</div>'
+    + '</div>'
+
+    + '<div class="cenDrzewoStage">'
+    + svgTree
+    + '</div>'
+
+    + '<div style="background:var(--cen-row-bg, rgba(0,0,0,0.03));border:1px solid var(--cen-card-border);border-radius:14px;padding:12px 16px;margin-bottom:8px;">'
+    + '<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:6px;">'
+    + '<span style="color:var(--cen-text);font-weight:600;">' + nextStageText + '</span>'
+    + '<span style="color:var(--cen-text-muted);font-weight:600;">' + doneCount + ' / ' + totalDni + ' dni (' + pctStr + '%)</span>'
+    + '</div>'
+    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;background:#10b981;"></div></div>'
+    + '</div>'
+
+    + '<div class="cenDrzewoStatsBar">'
+    + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Ukończone dni</div><div class="cenDrzewoStatBoxVal" style="color:#10b981;">' + doneCount + ' / ' + totalDni + '</div></div>'
+    + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Zielone liście</div><div class="cenDrzewoStatBoxVal" style="color:#34d399;">' + activeLeavesCount + ' liści 🌿</div></div>'
+    + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Owoce Ducha</div><div class="cenDrzewoStatBoxVal" style="color:#f59e0b;">' + unlockedFruitsCount + ' / ' + spiritualFruits.length + ' 🍎</div></div>'
+    + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Obecna seria</div><div class="cenDrzewoStatBoxVal" style="color:#fb923c;">' + (curSer > 0 ? (curSer + ' dni 🔥') : 'Dziś') + '</div></div>'
+    + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Najdłuższa seria</div><div class="cenDrzewoStatBoxVal" style="color:#6366f1;">' + (bestSer > 0 ? (bestSer + ' dni 🏆') : '—') + '</div></div>'
+    + '</div>'
+    + '</div>'
+
+    + '<div style="margin-top:24px;">'
+    + '<div class="cenSecHeadTyt" style="display:flex;align-items:center;justify-content:space-between;">'
+    + '<span>🍎 Owoce Ducha & Kamienie Milowe</span>'
+    + '<span style="font-size:12px;font-weight:500;color:var(--cen-text-muted);">Galatów 5:22-23</span>'
+    + '</div>'
+    + '<div class="cenFruitGrid">'
+    + fruitsHtml
+    + '</div>'
+    + '</div>';
+}
+
 const CEN_MODERN_ICO = {
   book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
   note: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
@@ -31324,12 +31874,16 @@ function centrWidokCzytanieChrono(){
     + '</div></div>'
 
     + '<div class="cenHeroCard card-blue" style="margin-bottom:20px;cursor:default;">'
-    + '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap;">'
     + '<div>'
     + '<span class="cenHeroTag">' + esc(planInfo.catName || "Plan") + ' • ' + esc(planInfo.duration || (planInfo.days + ' dni')) + '</span>'
     + '<div class="cenHeroTyt" style="font-size:18px;margin-top:2px;">' + esc(planInfo.name) + '</div>'
     + '<div class="cenHeroOpis" style="font-size:13px;">' + esc(planInfo.desc) + '</div>'
-    + '</div></div>'
+    + '</div>'
+    + '<button type="button" class="cenMiniDrzewoBadge" data-cwidok="statystyki" data-cstat-tab="drzewo" title="Zobacz swoje Drzewo Wzrostu Duchowego">'
+    + '🌱 Drzewo wzrostu (' + doneCount + ' dni)'
+    + '</button>'
+    + '</div>'
 
     + '<div class="cenHeroMetaRow" style="margin-top:10px;">'
     + '<span class="cenHeroMetaLabel">Postęp czytania</span>'
@@ -31347,6 +31901,7 @@ function centrWidokCzytanieChrono(){
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="kalendarz">' + CEN_MODERN_ICO.calendar + '<span>Kalendarz</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="lista-dni">' + CEN_MODERN_ICO.list + '<span>Lista dni</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki">' + CEN_MODERN_ICO.chart + '<span>Statystyki</span></button>'
+    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki" data-cstat-tab="drzewo">🌱 <span>Drzewo</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="moje-plany">' + CEN_MODERN_ICO.clipboard + '<span>Zmień plan</span></button>'
     + '</div>'
 
@@ -31422,9 +31977,11 @@ function centrWidokDzien(dNr){
       }).join('')
     + '</div>'
 
+    + '<div class="cenDzienUkonczWrap">'
     + '<button type="button" class="cenDzienUkonczBtn' + (jestDzienUkonczony ? ' done' : '') + '" data-cdzien-ukoncz="' + dNr + '">'
     + CEN_MODERN_ICO.check + ' ' + (jestDzienUkonczony ? 'Dzień oznaczony jako ukończony (Kliknij, aby odznaczyć)' : 'Ukończyłem dzisiejsze czytanie')
-    + '</button>';
+    + '</button>'
+    + '</div>';
 }
 
 /* 4. LISTA DNI */
@@ -31524,9 +32081,14 @@ function centrWidokStatystyki(tab){
     + '</div>'
     + '<div class="cenTabsRow">'
     + '<button type="button" class="cenTabBtn' + (tab==="ogolny"?' active':'') + '" data-cstat-tab="ogolny">Ogólny</button>'
+    + '<button type="button" class="cenTabBtn' + (tab==="drzewo"?' active':'') + '" data-cstat-tab="drzewo">🌳 Drzewo wzrostu</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="ksiegi"?' active':'') + '" data-cstat-tab="ksiegi">Według sekcji</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="serie"?' active':'') + '" data-cstat-tab="serie">Serie dni</button>'
     + '</div>';
+
+  if(tab === "drzewo"){
+    return _nagl + _centrWidokDrzewoWzrostu(planInfo, dniDone, _curSer, _bestSer);
+  }
 
   if(tab === "ksiegi"){
     const _krok = Math.max(7, Math.floor(totalDni / 10));
