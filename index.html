@@ -1050,36 +1050,26 @@ html[data-theme="dark"] .cenDzienUkonczBtn.done {
 .cenDrzewoStage {
   position: relative;
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
   margin: 0 auto 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
   border: 1px solid var(--cen-card-border);
-  background: #0b1120;
+  background: #09111e;
 }
 .cenDrzewoSvg {
   width: 100%;
   height: auto;
   max-height: 380px;
   display: block;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  shape-rendering: crispEdges;
-}
-@keyframes cenPixelWater {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-32px); }
-}
-.cenDrzewoWaterAnim {
-  animation: cenPixelWater 1.6s steps(4) infinite;
 }
 .cenDrzewoSway {
   transform-origin: 240px 290px;
-  animation: cenSway 6s ease-in-out infinite;
+  animation: cenSway 7s ease-in-out infinite;
 }
 .cenDrzewoLeafNew {
   transform-origin: center;
@@ -1090,7 +1080,7 @@ html[data-theme="dark"] .cenDzienUkonczBtn.done {
   animation: cenLeafFall 2.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 .cenDrzewoFruitGlow {
-  animation: cenPulseGlow 2.5s ease-in-out infinite;
+  animation: cenPulseGlow 3s ease-in-out infinite;
 }
 .cenDrzewoHeaderRow {
   display: flex;
@@ -31462,224 +31452,307 @@ function _centrGenerujDrzewoGrowthSvg(totalDni, doneCount, curSer, bestSer, anim
   doneCount = doneCount || 0;
   curSer = curSer || 0;
   bestSer = bestSer || 0;
-
   const pct = totalDni > 0 ? (doneCount / totalDni) : 0;
-  
-  // 16-bit Retro Palette
-  const barkDark = '#381605';
-  const barkMid = '#6b320d';
-  const barkLight = '#a15516';
-  const barkHighlight = '#d97706';
 
-  let treeContent = '';
+  // Unikalne kotwice liści dla drzewa (naturalne rozłożenie na gałęziach i koronie)
+  const leafAnchors = [
+    // Szczyt i górna korona
+    { x: 240, y: 88, a: -90, s: 0.95 },
+    { x: 224, y: 100, a: -125, s: 0.9 },
+    { x: 256, y: 100, a: -55, s: 0.9 },
+    { x: 208, y: 115, a: -140, s: 0.95 },
+    { x: 272, y: 115, a: -40, s: 0.95 },
+    { x: 240, y: 120, a: -85, s: 1.0 },
+    { x: 195, y: 132, a: -150, s: 0.9 },
+    { x: 285, y: 132, a: -30, s: 0.9 },
 
-  if(doneCount === 0){
-    // ETAP 0: Zasiane Ziarno w żyznej glebie
-    treeContent = '<g>'
-      + '<rect x="234" y="264" width="12" height="10" fill="#d97706" rx="1"/>'
-      + '<rect x="236" y="262" width="8" height="4" fill="#fde68a"/>'
-      + '<rect x="238" y="260" width="4" height="2" fill="#ffffff" opacity="0.8"/>'
-      + '<g class="cenDrzewoFruitGlow"><circle cx="240" cy="268" r="12" fill="none" stroke="#fde68a" stroke-width="1.5" opacity="0.6" stroke-dasharray="3 3"/></g>'
-      + '<rect x="170" y="215" width="140" height="22" fill="rgba(0,0,0,0.6)" rx="4"/>'
-      + '<text x="240" y="230" fill="#e2e8f0" font-size="10px" font-weight="bold" font-family="monospace" text-anchor="middle" letter-spacing="1">ZASIANE ZIARNO 🌱</text>'
+    // Lewe konary
+    { x: 175, y: 152, a: -155, s: 0.95 },
+    { x: 155, y: 172, a: -160, s: 1.0 },
+    { x: 135, y: 188, a: -165, s: 0.9 },
+    { x: 120, y: 205, a: -170, s: 0.85 },
+    { x: 145, y: 215, a: -140, s: 0.9 },
+    { x: 168, y: 198, a: -130, s: 0.95 },
+    { x: 188, y: 178, a: -120, s: 0.9 },
+    { x: 210, y: 162, a: -110, s: 0.95 },
+
+    // Prawe konary
+    { x: 305, y: 152, a: -25, s: 0.95 },
+    { x: 325, y: 172, a: -20, s: 1.0 },
+    { x: 345, y: 188, a: -15, s: 0.9 },
+    { x: 360, y: 205, a: -10, s: 0.85 },
+    { x: 335, y: 215, a: -40, s: 0.9 },
+    { x: 312, y: 198, a: -50, s: 0.95 },
+    { x: 292, y: 178, a: -60, s: 0.9 },
+    { x: 270, y: 162, a: -70, s: 0.95 },
+
+    // Środek i wypełnienie korony
+    { x: 228, y: 142, a: -105, s: 0.9 },
+    { x: 252, y: 142, a: -75, s: 0.9 },
+    { x: 215, y: 175, a: -115, s: 0.95 },
+    { x: 265, y: 175, a: -65, s: 0.95 },
+    { x: 240, y: 165, a: -90, s: 1.0 },
+    { x: 185, y: 140, a: -135, s: 0.85 },
+    { x: 295, y: 140, a: -45, s: 0.85 },
+    { x: 240, y: 195, a: -90, s: 0.9 }
+  ];
+
+  // Owoce Ducha (Galatów 5:22)
+  const fruitMilestones = [
+    { day: 7, x: 220, y: 130, icon: "❤️", name: "Miłość", color: "#f43f5e" },
+    { day: 14, x: 262, y: 135, icon: "🍊", name: "Radość", color: "#fb923c" },
+    { day: 30, x: 165, y: 185, icon: "🕊️", name: "Pokój", color: "#38bdf8" },
+    { day: 60, x: 315, y: 185, icon: "🫒", name: "Cierpliwość", color: "#a3e635" },
+    { day: 90, x: 240, y: 95, icon: "🌾", name: "Życzliwość", color: "#facc15" },
+    { day: 120, x: 195, y: 160, icon: "🍯", name: "Dobroć", color: "#f59e0b" },
+    { day: 180, x: 285, y: 160, icon: "⭐", name: "Wiara", color: "#ec4899" },
+    { day: 270, x: 140, y: 210, icon: "🌿", name: "Łagodność", color: "#34d399" },
+    { day: totalDni, x: 240, y: 68, icon: "👑", name: "Drzewo Życia", color: "#fbbf24" }
+  ];
+
+  let treeGraphic = '';
+
+  if (doneCount === 0) {
+    // ETAP 0: Zasiane Ziarno w żyznej glebie z ciepłym blaskiem
+    treeGraphic = '<g>'
+      + '<!-- Promienie ciepła nad ziarnem -->'
+      + '<circle cx="240" cy="265" r="28" fill="url(#cenSunGlowGrad)" opacity="0.4" />'
+      + '<circle cx="240" cy="265" r="14" fill="url(#cenGoldGrad)" opacity="0.6" filter="url(#cenSubtleBlur)" />'
+      + '<!-- Złote ziarno -->'
+      + '<path d="M 235 267 C 235 261, 240 256, 240 256 C 240 256, 245 261, 245 267 C 245 271, 241 273, 238 273 C 235 273, 235 270, 235 267 Z" fill="url(#cenGoldGrad)" stroke="#b45309" stroke-width="1" />'
+      + '<circle cx="238.5" cy="264" r="1.5" fill="#ffffff" opacity="0.9" />'
+      + '<!-- Etykieta -->'
+      + '<rect x="160" y="210" width="160" height="24" rx="12" fill="rgba(15, 23, 42, 0.75)" stroke="rgba(251, 191, 36, 0.3)" stroke-width="1"/>'
+      + '<text x="240" y="226" fill="#fef08a" font-size="11px" font-weight="600" text-anchor="middle" letter-spacing="0.5">Zasiane Ziarno Nadziei 🌱</text>'
       + '</g>';
-  } else if(doneCount < 7){
+  } else if (doneCount < 7) {
     // ETAP 1: Wschodzący Kiełek
-    const sproutH = Math.min(36, 16 + doneCount * 3);
-    const topY = 270 - sproutH;
-    treeContent = '<g>'
-      + '<!-- Kiełek pęd -->'
-      + '<rect x="238" y="' + topY + '" width="5" height="' + sproutH + '" fill="#16a34a"/>'
-      + '<rect x="238" y="' + topY + '" width="2" height="' + sproutH + '" fill="#86efac"/>'
-      + '<!-- Listki kiełka -->'
-      + '<rect x="224" y="' + (topY - 4) + '" width="14" height="8" fill="#22c55e" rx="2"/>'
-      + '<rect x="226" y="' + (topY - 2) + '" width="8" height="4" fill="#86efac"/>'
-      + '<rect x="242" y="' + (topY - 8) + '" width="16" height="9" fill="#22c55e" rx="2"/>'
-      + '<rect x="245" y="' + (topY - 6) + '" width="9" height="4" fill="#a7f3d0"/>'
-      + '<!-- Kropla rosy -->'
-      + '<circle cx="240" cy="' + (topY - 1) + '" r="2.5" fill="#e0f2fe" class="cenDrzewoFruitGlow"/>'
+    const sproutH = Math.min(48, 22 + doneCount * 4.5);
+    const topY = 268 - sproutH;
+    treeGraphic = '<g>'
+      + '<!-- Blask wzrostu -->'
+      + '<circle cx="240" cy="' + topY + '" r="25" fill="url(#cenEmeraldGlowGrad)" opacity="0.35" />'
+      + '<!-- Główna łodyżka kiełka -->'
+      + '<path d="M 240 270 Q 237 ' + (270 - sproutH*0.5) + ', 240 ' + topY + '" stroke="url(#cenSproutGrad)" stroke-width="3.5" stroke-linecap="round" fill="none" />'
+      + '<!-- Młode listki oliwne -->'
+      + '<path d="M 240 ' + topY + ' C 226 ' + (topY - 10) + ', 218 ' + (topY + 4) + ', 240 ' + (topY + 6) + ' Z" fill="url(#cenLeafGradLight)" stroke="#059669" stroke-width="0.8" />'
+      + '<path d="M 240 ' + topY + ' C 254 ' + (topY - 10) + ', 262 ' + (topY + 4) + ', 240 ' + (topY + 6) + ' Z" fill="url(#cenLeafGrad)" stroke="#047857" stroke-width="0.8" />'
+      + (doneCount >= 3 ? ('<path d="M 240 ' + (topY + 12) + ' C 228 ' + (topY + 4) + ', 222 ' + (topY + 14) + ', 240 ' + (topY + 16) + ' Z" fill="url(#cenLeafGradLight)" stroke="#059669" stroke-width="0.8" />'
+                         + '<path d="M 240 ' + (topY + 12) + ' C 252 ' + (topY + 4) + ', 258 ' + (topY + 14) + ', 240 ' + (topY + 16) + ' Z" fill="url(#cenLeafGrad)" stroke="#047857" stroke-width="0.8" />') : '')
+      + '<!-- Kropla rosy na szczycie -->'
+      + '<circle cx="240" cy="' + (topY - 1) + '" r="2.2" fill="#e0f2fe" opacity="0.95" filter="url(#cenSubtleBlur)" />'
       + '</g>';
   } else {
-    // ETAP 2-7: 16-Bit Drzewo Pixelowe
-    const scale = Math.min(1.0, 0.42 + pct * 0.58);
-    const trunkH = Math.min(125, 45 + pct * 80);
-    const trunkW = Math.min(32, 14 + pct * 18);
-    const crownR = Math.min(96, 32 + pct * 64);
-    const trunkBaseY = 272;
-    const trunkTopY = trunkBaseY - trunkH;
-    const crownY = trunkTopY - crownR * 0.45;
+    // ETAP 2–5: Piękne, rozłożyste drzewo oliwne / biblijne
+    const maturity = Math.min(1.0, doneCount / Math.min(180, totalDni));
+    const trunkThickness = 12 + maturity * 14;
+    const branchOpacityL1 = Math.min(1.0, (doneCount - 5) / 10);
+    const branchOpacitySub = Math.min(1.0, Math.max(0, (doneCount - 20) / 20));
 
-    // 1. Pnie i gałęzie 16-bit
-    let trunkSvg = '<!-- Pień Główny -->'
-      + '<rect x="' + (240 - trunkW/2) + '" y="' + trunkTopY + '" width="' + trunkW + '" height="' + trunkH + '" fill="' + barkMid + '"/>'
-      + '<rect x="' + (240 - trunkW/2) + '" y="' + trunkTopY + '" width="' + (trunkW*0.35) + '" height="' + trunkH + '" fill="' + barkDark + '"/>'
-      + '<rect x="' + (240 + trunkW*0.2) + '" y="' + trunkTopY + '" width="' + (trunkW*0.25) + '" height="' + trunkH + '" fill="' + barkLight + '"/>'
-      + '<rect x="' + (240 + trunkW*0.35) + '" y="' + (trunkTopY + 10) + '" width="3" height="' + (trunkH - 20) + '" fill="' + barkHighlight + '"/>'
-      + '<!-- Korzenie wrastające w ziemię -->'
-      + '<rect x="' + (240 - trunkW/2 - 14) + '" y="' + (trunkBaseY - 6) + '" width="18" height="10" fill="' + barkDark + '" rx="1"/>'
-      + '<rect x="' + (240 - trunkW/2 - 26) + '" y="' + (trunkBaseY - 2) + '" width="16" height="8" fill="' + barkDark + '" rx="1"/>'
-      + '<rect x="' + (240 + trunkW/2 - 4) + '" y="' + (trunkBaseY - 6) + '" width="20" height="10" fill="' + barkMid + '" rx="1"/>'
-      + '<rect x="' + (240 + trunkW/2 + 10) + '" y="' + (trunkBaseY - 2) + '" width="18" height="8" fill="' + barkLight + '" rx="1"/>';
+    // 1. Pnie i konary
+    let branchesSvg = '<!-- Pień Główny Drzewa Oliwnego -->'
+      + '<path d="M ' + (240 - trunkThickness*0.7) + ' 274 C ' + (238 - trunkThickness*0.4) + ' 220, 234 180, 240 135 C 246 180, ' + (242 + trunkThickness*0.4) + ' 220, ' + (240 + trunkThickness*0.7) + ' 274 Z" fill="url(#cenTrunkGrad)" />'
+      + '<path d="M ' + (240 - trunkThickness*0.2) + ' 274 C ' + (238 - trunkThickness*0.1) + ' 210, 237 170, 240 135" stroke="#451a03" stroke-width="1.5" fill="none" opacity="0.4" />'
+      + '<!-- Korzenie czerpiące ze strumienia -->'
+      + '<path d="M ' + (240 - trunkThickness*0.6) + ' 270 Q 210 278, 175 284" stroke="#5c2c10" stroke-width="' + (3 + maturity*2) + '" stroke-linecap="round" fill="none" />'
+      + '<path d="M ' + (240 + trunkThickness*0.6) + ' 270 Q 270 278, 305 283" stroke="#5c2c10" stroke-width="' + (3 + maturity*2) + '" stroke-linecap="round" fill="none" />'
+      + '<path d="M 238 272 Q 240 286, 242 294" stroke="#451a03" stroke-width="2.5" stroke-linecap="round" fill="none" />';
 
-    // Konary boczne
-    if(doneCount >= 14){
-      const branchReach = Math.min(80, 25 + pct * 55);
-      trunkSvg += '<!-- Konary boczne -->'
-        + '<rect x="' + (240 - trunkW/2 - branchReach*0.6) + '" y="' + (trunkTopY + trunkH*0.3) + '" width="' + (branchReach*0.65) + '" height="8" fill="' + barkDark + '"/>'
-        + '<rect x="' + (240 - trunkW/2 - branchReach) + '" y="' + (trunkTopY + trunkH*0.2) + '" width="' + (branchReach*0.5) + '" height="7" fill="' + barkDark + '"/>'
-        + '<rect x="' + (240 + trunkW/2) + '" y="' + (trunkTopY + trunkH*0.35) + '" width="' + (branchReach*0.7) + '" height="8" fill="' + barkLight + '"/>'
-        + '<rect x="' + (240 + trunkW/2 + branchReach*0.5) + '" y="' + (trunkTopY + trunkH*0.24) + '" width="' + (branchReach*0.55) + '" height="7" fill="' + barkHighlight + '"/>';
+    // Lewe i prawe konary
+    if (doneCount >= 7) {
+      branchesSvg += '<!-- Główne konary boczne -->'
+        + '<path d="M 238 185 C 205 175, 170 185, 138 200" stroke="url(#cenTrunkGrad)" stroke-width="' + (4 + maturity*3) + '" stroke-linecap="round" fill="none" opacity="' + branchOpacityL1 + '" />'
+        + '<path d="M 242 180 C 275 170, 310 180, 342 195" stroke="url(#cenTrunkGrad)" stroke-width="' + (4 + maturity*3) + '" stroke-linecap="round" fill="none" opacity="' + branchOpacityL1 + '" />';
+    }
+    if (doneCount >= 20) {
+      branchesSvg += '<!-- Podkonary i gałązki -->'
+        + '<path d="M 175 180 C 160 155, 135 145, 115 140" stroke="url(#cenTrunkGrad)" stroke-width="' + (2.5 + maturity*1.5) + '" stroke-linecap="round" fill="none" opacity="' + branchOpacitySub + '" />'
+        + '<path d="M 305 175 C 320 150, 345 140, 365 135" stroke="url(#cenTrunkGrad)" stroke-width="' + (2.5 + maturity*1.5) + '" stroke-linecap="round" fill="none" opacity="' + branchOpacitySub + '" />'
+        + '<path d="M 239 140 C 230 115, 215 100, 200 90" stroke="url(#cenTrunkGrad)" stroke-width="3" stroke-linecap="round" fill="none" opacity="' + branchOpacitySub + '" />'
+        + '<path d="M 241 140 C 250 115, 265 100, 280 90" stroke="url(#cenTrunkGrad)" stroke-width="3" stroke-linecap="round" fill="none" opacity="' + branchOpacitySub + '" />';
     }
 
-    // 2. Gęsta korona 16-bit (Layered Pixel Foliage)
-    let crownSvg = '<!-- Główna Korona Liści -->'
-      + '<!-- Cień dolny / Dark Emerald -->'
-      + '<rect x="' + (240 - crownR*1.05) + '" y="' + (crownY - crownR*0.2) + '" width="' + (crownR*2.1) + '" height="' + (crownR*1.15) + '" rx="8" fill="#022c22" opacity="0.9"/>'
-      + '<rect x="' + (240 - crownR*0.85) + '" y="' + (crownY - crownR*0.65) + '" width="' + (crownR*1.7) + '" height="' + (crownR*1.4) + '" rx="12" fill="#064e3b"/>'
-      + '<!-- Środkowa zieleń -->'
-      + '<rect x="' + (240 - crownR*0.75) + '" y="' + (crownY - crownR*0.8) + '" width="' + (crownR*1.5) + '" height="' + (crownR*1.35) + '" rx="10" fill="#047857"/>'
-      + '<rect x="' + (240 - crownR*0.6) + '" y="' + (crownY - crownR*0.95) + '" width="' + (crownR*1.2) + '" height="' + (crownR*1.3) + '" rx="8" fill="#059669"/>'
-      + '<!-- Jasne piksele i refleksy -->'
-      + '<rect x="' + (240 - crownR*0.45) + '" y="' + (crownY - crownR*0.85) + '" width="' + (crownR*0.9) + '" height="' + (crownR*0.8) + '" rx="6" fill="#10b981"/>'
-      + '<rect x="' + (240 - crownR*0.25) + '" y="' + (crownY - crownR*0.92) + '" width="' + (crownR*0.5) + '" height="' + (crownR*0.4) + '" rx="4" fill="#34d399"/>'
-      + '<rect x="' + (240 - crownR*0.1) + '" y="' + (crownY - crownR*0.95) + '" width="' + (crownR*0.22) + '" height="' + (crownR*0.18) + '" rx="2" fill="#a7f3d0"/>'
-      + '<!-- Boczne kępy liści -->'
-      + '<rect x="' + (240 - crownR*1.1) + '" y="' + (crownY) + '" width="' + (crownR*0.6) + '" height="' + (crownR*0.6) + '" rx="6" fill="#047857"/>'
-      + '<rect x="' + (240 - crownR*0.95) + '" y="' + (crownY - crownR*0.1) + '" width="' + (crownR*0.4) + '" height="' + (crownR*0.4) + '" rx="4" fill="#10b981"/>'
-      + '<rect x="' + (240 + crownR*0.5) + '" y="' + (crownY - crownR*0.1) + '" width="' + (crownR*0.6) + '" height="' + (crownR*0.6) + '" rx="6" fill="#059669"/>'
-      + '<rect x="' + (240 + crownR*0.6) + '" y="' + (crownY - crownR*0.05) + '" width="' + (crownR*0.35) + '" height="' + (crownR*0.35) + '" rx="4" fill="#34d399"/>';
+    // 2. Miękka, puszysta korona w tle (Organic Canopy Backdrop)
+    const crownScale = Math.min(1.0, 0.4 + maturity * 0.6);
+    let softCanopy = '<!-- Subtelna poświata i korona liści w tle -->'
+      + '<ellipse cx="240" cy="140" rx="' + (110 * crownScale) + '" ry="' + (75 * crownScale) + '" fill="url(#cenCanopyGradDark)" opacity="0.45" filter="url(#cenCanopyBlur)" />'
+      + '<ellipse cx="185" cy="165" rx="' + (75 * crownScale) + '" ry="' + (55 * crownScale) + '" fill="url(#cenCanopyGradMid)" opacity="0.4" filter="url(#cenCanopyBlur)" />'
+      + '<ellipse cx="295" cy="160" rx="' + (75 * crownScale) + '" ry="' + (55 * crownScale) + '" fill="url(#cenCanopyGradMid)" opacity="0.4" filter="url(#cenCanopyBlur)" />'
+      + '<ellipse cx="240" cy="120" rx="' + (80 * crownScale) + '" ry="' + (50 * crownScale) + '" fill="url(#cenCanopyGradLight)" opacity="0.35" filter="url(#cenCanopyBlur)" />';
 
-    // 3. Dynamiczne pojedyncze liście
-    const activeLeaves = Math.min(64, Math.max(4, Math.floor(doneCount * 1.5) + 2));
-    let dynamicLeavesSvg = '';
-    for(let i = 0; i < activeLeaves; i++){
-      const angle = (i * 137.5) * (Math.PI / 180);
-      const dist = (Math.sqrt(i + 1) / Math.sqrt(64)) * (crownR * 0.95);
-      const lx = 240 + Math.cos(angle) * dist * 1.05;
-      const ly = crownY + Math.sin(angle) * dist * 0.85;
-      const isRecent = animujNowy && (i >= activeLeaves - 2);
+    // 3. Dynamiczne pojedyncze liście oliwne
+    const activeLeavesCount = Math.min(leafAnchors.length * 2, Math.max(4, Math.floor(doneCount * 1.6) + 2));
+    let leavesSvg = '<!-- Eleganckie liście oliwne -->';
+    
+    for (let i = 0; i < activeLeavesCount; i++) {
+      const anchor = leafAnchors[i % leafAnchors.length];
+      const isSecondLayer = i >= leafAnchors.length;
+      const jitterX = isSecondLayer ? (Math.sin(i * 13) * 14) : 0;
+      const jitterY = isSecondLayer ? (Math.cos(i * 17) * 12) : 0;
+      const posX = (anchor.x + jitterX).toFixed(1);
+      const posY = (anchor.y + jitterY).toFixed(1);
+      const rot = (anchor.a + (isSecondLayer ? ((i % 5) * 8 - 16) : 0)).toFixed(1);
+      const leafScale = (anchor.s * (isSecondLayer ? 0.85 : 1.0)).toFixed(2);
+      const grad = (i % 3 === 0) ? 'url(#cenLeafGradLight)' : ((i % 3 === 1) ? 'url(#cenLeafGrad)' : 'url(#cenLeafGradDeep)');
+      const isRecent = animujNowy && (i >= activeLeavesCount - 2);
 
-      dynamicLeavesSvg += '<g transform="translate(' + lx.toFixed(1) + ',' + ly.toFixed(1) + ')"' + (isRecent ? ' class="cenDrzewoLeafNew"' : '') + '>'
-        + '<rect x="-4" y="-4" width="8" height="8" fill="#10b981" rx="1"/>'
-        + '<rect x="-2" y="-2" width="4" height="4" fill="#6ee7b7" rx="1"/>'
-        + '<rect x="0" y="0" width="2" height="2" fill="#a7f3d0"/>'
+      leavesSvg += '<g transform="translate(' + posX + ',' + posY + ') rotate(' + rot + ') scale(' + leafScale + ')"' + (isRecent ? ' class="cenDrzewoLeafNew"' : '') + '>'
+        + '<path d="M 0 0 C 14 -9, 24 -5, 30 0 C 24 5, 14 9, 0 0 Z" fill="' + grad + '" stroke="#064e3b" stroke-width="0.7" opacity="0.94"/>'
+        + '<line x1="0" y1="0" x2="24" y2="0" stroke="#a7f3d0" stroke-width="0.6" opacity="0.75"/>'
         + '</g>';
     }
 
-    // 4. Owoce Ducha (Pixel Fruit Sprites)
-    const fruitMilestones = [
-      { day: 7, dx: -0.35, dy: -0.1, icon: '❤️', color: '#ef4444', name: 'Miłość' },
-      { day: 14, dx: 0.4, dy: -0.15, icon: '🍊', color: '#f97316', name: 'Radość' },
-      { day: 30, dx: -0.65, dy: 0.15, icon: '🕊️', color: '#38bdf8', name: 'Pokój' },
-      { day: 60, dx: 0.65, dy: 0.12, icon: '🫒', color: '#84cc16', name: 'Cierpliwość' },
-      { day: 90, dx: 0.0, dy: -0.6, icon: '🌾', color: '#eab308', name: 'Życzliwość' },
-      { day: 120, dx: -0.3, dy: 0.35, icon: '🍯', color: '#f59e0b', name: 'Dobroć' },
-      { day: 180, dx: 0.32, dy: -0.52, icon: '⭐', color: '#ec4899', name: 'Wiara' },
-      { day: 270, dx: -0.58, dy: -0.38, icon: '🌿', color: '#10b981', name: 'Łagodność' },
-      { day: totalDni, dx: 0.0, dy: -0.92, icon: '👑', color: '#fbbf24', name: 'Drzewo Życia' }
-    ];
-
-    let fruitsSvg = '';
+    // 4. Owoce Ducha (Subtelne ikony w lśniących medalionach)
+    let fruitsSvg = '<!-- Owoce Ducha Świętego (Gal 5:22) -->';
     fruitMilestones.forEach(fm => {
-      if(doneCount >= fm.day && (fm.day <= totalDni || fm.day <= 365)){
-        const fx = 240 + fm.dx * crownR;
-        const fy = crownY + fm.dy * crownR;
-        fruitsSvg += '<g transform="translate(' + fx.toFixed(1) + ',' + fy.toFixed(1) + ')" class="cenDrzewoFruitGlow">'
-          + '<rect x="-7" y="-7" width="14" height="14" fill="' + fm.color + '" stroke="#fef08a" stroke-width="1" rx="2"/>'
-          + '<rect x="-4" y="-4" width="4" height="4" fill="#ffffff" opacity="0.75"/>'
-          + '<text x="0" y="4" text-anchor="middle" font-size="8.5px">' + fm.icon + '</text>'
+      if (doneCount >= fm.day && (fm.day <= totalDni || fm.day <= 365)) {
+        fruitsSvg += '<g transform="translate(' + fm.x + ',' + fm.y + ')" class="cenDrzewoFruitGlow">'
+          + '<circle cx="0" cy="0" r="10" fill="' + fm.color + '" stroke="#fef08a" stroke-width="1.5" opacity="0.95" />'
+          + '<circle cx="-3" cy="-3" r="3" fill="#ffffff" opacity="0.5" />'
+          + '<text x="0" y="3.5" text-anchor="middle" font-size="9px">' + fm.icon + '</text>'
           + '</g>';
       }
     });
 
-    treeContent = trunkSvg + crownSvg + dynamicLeavesSvg + fruitsSvg;
+    treeGraphic = softCanopy + branchesSvg + leavesSvg + fruitsSvg;
   }
 
-  // Opadłe liście na ziemi (gdy przerwana seria)
-  let fallenLeavesSvg = '';
-  if(curSer === 0 && doneCount > 0){
-    fallenLeavesSvg = '<!-- Opadłe liście -->'
-      + '<rect x="190" y="270" width="8" height="5" fill="#b45309" rx="1" transform="rotate(20 194 272)"/>'
-      + '<rect x="285" y="269" width="7" height="4" fill="#92400e" rx="1" transform="rotate(-15 288 271)"/>'
-      + '<rect x="215" y="272" width="6" height="4" fill="#78350f" rx="1" transform="rotate(35 218 274)"/>';
+  // Opadły liść przy przerwaniu serii
+  let fallenLeafSvg = '';
+  if (curSer === 0 && doneCount > 0) {
+    fallenLeafSvg = '<!-- Opadły liść przypominający o czytaniu -->'
+      + '<g transform="translate(195, 276) rotate(25)">'
+      + '<path d="M 0 0 C 10 -6, 18 -3, 22 0 C 18 3, 10 6, 0 0 Z" fill="#d97706" stroke="#78350f" stroke-width="0.8" opacity="0.85"/>'
+      + '</g>'
+      + '<g transform="translate(285, 278) rotate(-18)">'
+      + '<path d="M 0 0 C 9 -5, 16 -3, 20 0 C 16 3, 9 5, 0 0 Z" fill="#b45309" stroke="#78350f" stroke-width="0.8" opacity="0.75"/>'
+      + '</g>';
   }
 
-  return '<svg viewBox="0 0 480 340" class="cenDrzewoSvg pixelated">'
+  return '<svg viewBox="0 0 480 340" class="cenDrzewoSvg">'
     + '<defs>'
-    + '<pattern id="cenPixelSkyTile" width="16" height="16" patternUnits="userSpaceOnUse">'
-    + '<rect width="16" height="16" fill="#0c1427"/>'
-    + '<rect x="0" y="0" width="2" height="2" fill="#1e293b"/>'
-    + '<rect x="8" y="8" width="2" height="2" fill="#1e293b"/>'
-    + '</pattern>'
-    + '<pattern id="cenPixelWaterTile" width="32" height="12" patternUnits="userSpaceOnUse">'
-    + '<rect width="32" height="12" fill="#0284c7"/>'
-    + '<rect x="0" y="2" width="12" height="3" fill="#38bdf8"/>'
-    + '<rect x="16" y="8" width="12" height="3" fill="#7dd3fc"/>'
-    + '<rect x="8" y="5" width="6" height="2" fill="#ffffff" opacity="0.6"/>'
-    + '</pattern>'
-    + '<linearGradient id="cenRetroSkyGrad" x1="0%" y1="0%" x2="0%" y2="100%">'
-    + '<stop offset="0%" stop-color="#0b1120"/>'
-    + '<stop offset="45%" stop-color="#1e1b4b"/>'
-    + '<stop offset="80%" stop-color="#1e293b"/>'
-    + '<stop offset="100%" stop-color="#0f172a"/>'
+    + '<!-- Subtelne gradienty nieba, wody i liści -->'
+    + '<linearGradient id="cenSkyGrad" x1="0%" y1="0%" x2="0%" y2="100%">'
+    + '<stop offset="0%" stop-color="#09111e"/>'
+    + '<stop offset="40%" stop-color="#0f2027"/>'
+    + '<stop offset="80%" stop-color="#163832"/>'
+    + '<stop offset="100%" stop-color="#1b4332"/>'
     + '</linearGradient>'
+    + '<radialGradient id="cenSunGlowGrad" cx="50%" cy="50%" r="50%">'
+    + '<stop offset="0%" stop-color="#fef08a" stop-opacity="0.55"/>'
+    + '<stop offset="50%" stop-color="#f59e0b" stop-opacity="0.2"/>'
+    + '<stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>'
+    + '</radialGradient>'
+    + '<radialGradient id="cenGoldGrad" cx="30%" cy="30%" r="70%">'
+    + '<stop offset="0%" stop-color="#fef08a"/>'
+    + '<stop offset="60%" stop-color="#f59e0b"/>'
+    + '<stop offset="100%" stop-color="#b45309"/>'
+    + '</radialGradient>'
+    + '<linearGradient id="cenTrunkGrad" x1="0%" y1="0%" x2="100%" y2="0%">'
+    + '<stop offset="0%" stop-color="#3e1c08"/>'
+    + '<stop offset="35%" stop-color="#6e3512"/>'
+    + '<stop offset="70%" stop-color="#8a4419"/>'
+    + '<stop offset="100%" stop-color="#451a03"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="cenLeafGradLight" x1="0%" y1="0%" x2="100%" y2="100%">'
+    + '<stop offset="0%" stop-color="#6ee7b7"/>'
+    + '<stop offset="100%" stop-color="#10b981"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="cenLeafGrad" x1="0%" y1="0%" x2="100%" y2="100%">'
+    + '<stop offset="0%" stop-color="#34d399"/>'
+    + '<stop offset="100%" stop-color="#059669"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="cenLeafGradDeep" x1="0%" y1="0%" x2="100%" y2="100%">'
+    + '<stop offset="0%" stop-color="#10b981"/>'
+    + '<stop offset="100%" stop-color="#047857"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="cenSproutGrad" x1="0%" y1="100%" x2="0%" y2="0%">'
+    + '<stop offset="0%" stop-color="#047857"/>'
+    + '<stop offset="100%" stop-color="#6ee7b7"/>'
+    + '</linearGradient>'
+    + '<radialGradient id="cenEmeraldGlowGrad" cx="50%" cy="50%" r="50%">'
+    + '<stop offset="0%" stop-color="#6ee7b7" stop-opacity="0.6"/>'
+    + '<stop offset="100%" stop-color="#059669" stop-opacity="0"/>'
+    + '</radialGradient>'
+    + '<radialGradient id="cenCanopyGradDark" cx="50%" cy="50%" r="50%">'
+    + '<stop offset="0%" stop-color="#064e3b" stop-opacity="0.9"/>'
+    + '<stop offset="100%" stop-color="#064e3b" stop-opacity="0"/>'
+    + '</radialGradient>'
+    + '<radialGradient id="cenCanopyGradMid" cx="50%" cy="50%" r="50%">'
+    + '<stop offset="0%" stop-color="#047857" stop-opacity="0.85"/>'
+    + '<stop offset="100%" stop-color="#047857" stop-opacity="0"/>'
+    + '</radialGradient>'
+    + '<radialGradient id="cenCanopyGradLight" cx="50%" cy="50%" r="50%">'
+    + '<stop offset="0%" stop-color="#10b981" stop-opacity="0.75"/>'
+    + '<stop offset="100%" stop-color="#10b981" stop-opacity="0"/>'
+    + '</radialGradient>'
+    + '<linearGradient id="cenWaterFlowGrad" x1="0%" y1="0%" x2="100%" y2="0%">'
+    + '<stop offset="0%" stop-color="#0284c7" stop-opacity="0.7"/>'
+    + '<stop offset="35%" stop-color="#38bdf8" stop-opacity="0.95"/>'
+    + '<stop offset="70%" stop-color="#0ea5e9" stop-opacity="0.8"/>'
+    + '<stop offset="100%" stop-color="#0369a1" stop-opacity="0.7"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="cenWaterSurfaceGrad" x1="0%" y1="0%" x2="0%" y2="100%">'
+    + '<stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.9"/>'
+    + '<stop offset="100%" stop-color="#0284c7" stop-opacity="0"/>'
+    + '</linearGradient>'
+    + '<linearGradient id="cenGroundHillGrad" x1="0%" y1="0%" x2="0%" y2="100%">'
+    + '<stop offset="0%" stop-color="#065f46"/>'
+    + '<stop offset="60%" stop-color="#044734"/>'
+    + '<stop offset="100%" stop-color="#022c22"/>'
+    + '</linearGradient>'
+    + '<filter id="cenSubtleBlur">'
+    + '<feGaussianBlur stdDeviation="1.5" />'
+    + '</filter>'
+    + '<filter id="cenCanopyBlur">'
+    + '<feGaussianBlur stdDeviation="8" />'
+    + '</filter>'
     + '</defs>'
 
-    + '<!-- 1. Retro Sky & Stars -->'
-    + '<rect width="480" height="270" fill="url(#cenRetroSkyGrad)"/>'
-    + '<rect width="480" height="270" fill="url(#cenPixelSkyTile)" opacity="0.4"/>'
-    + '<!-- Pixel Sun / Morning Radiance -->'
-    + '<rect x="36" y="32" width="28" height="28" fill="#fbbf24" opacity="0.9" rx="2"/>'
-    + '<rect x="32" y="36" width="36" height="20" fill="#f59e0b" opacity="0.5" rx="2"/>'
-    + '<rect x="42" y="38" width="16" height="16" fill="#fef08a"/>'
-    + '<!-- Stars -->'
-    + '<rect x="130" y="25" width="3" height="3" fill="#ffffff" opacity="0.75"/>'
-    + '<rect x="310" y="35" width="3" height="3" fill="#fef08a" opacity="0.8"/>'
-    + '<rect x="415" y="20" width="4" height="4" fill="#ffffff" opacity="0.85"/>'
-    + '<rect x="220" y="18" width="2" height="2" fill="#ffffff" opacity="0.6"/>'
+    + '<!-- 1. Tło: Spokojne Niebo o poranku z delikatnymi promieniami -->'
+    + '<rect width="480" height="270" fill="url(#cenSkyGrad)"/>'
+    + '<!-- Poranne słońce / Blask Ducha Świętego -->'
+    + '<circle cx="65" cy="55" r="45" fill="url(#cenSunGlowGrad)" />'
+    + '<circle cx="65" cy="55" r="16" fill="#fef08a" opacity="0.85" filter="url(#cenSubtleBlur)" />'
+    + '<circle cx="65" cy="55" r="7" fill="#ffffff" opacity="0.95" />'
 
-    + '<!-- 2. Distant Retro Mountains -->'
-    + '<polygon points="0,265 65,195 130,265" fill="#1e1b4b" opacity="0.7"/>'
-    + '<polygon points="90,265 175,180 260,265" fill="#172554" opacity="0.65"/>'
-    + '<polygon points="295,265 375,190 455,265" fill="#1e1b4b" opacity="0.7"/>'
-    + '<polygon points="390,265 440,210 480,265" fill="#0f172a" opacity="0.85"/>'
+    + '<!-- 2. Wzgórza w oddali (Galilea / Judea) -->'
+    + '<path d="M 0 240 Q 90 205, 190 235 T 390 225 T 480 238 L 480 270 L 0 270 Z" fill="#0d2b26" opacity="0.65" />'
+    + '<path d="M 0 252 Q 130 228, 260 250 T 480 245 L 480 270 L 0 270 Z" fill="#0b382f" opacity="0.85" />'
 
-    + '<!-- 3. Island / Stepped Grassy Shore -->'
-    + '<rect x="40" y="264" width="400" height="20" fill="#022c22" rx="3"/>'
-    + '<rect x="55" y="260" width="370" height="10" fill="#064e3b" rx="2"/>'
-    + '<rect x="75" y="256" width="330" height="8" fill="#047857" rx="2"/>'
-    + '<rect x="95" y="254" width="290" height="5" fill="#10b981" rx="1"/>'
-    + '<!-- Pixel Grass Tufts -->'
-    + '<rect x="110" y="248" width="4" height="7" fill="#34d399"/>'
-    + '<rect x="114" y="246" width="3" height="9" fill="#6ee7b7"/>'
-    + '<rect x="170" y="250" width="4" height="5" fill="#34d399"/>'
-    + '<rect x="310" y="248" width="4" height="7" fill="#34d399"/>'
-    + '<rect x="314" y="246" width="3" height="9" fill="#6ee7b7"/>'
-    + '<rect x="365" y="250" width="4" height="5" fill="#34d399"/>'
-    + '<!-- Tiny Wildflowers -->'
-    + '<rect x="135" y="250" width="3" height="3" fill="#f43f5e"/>'
-    + '<rect x="340" y="249" width="3" height="3" fill="#facc15"/>'
-    + '<rect x="280" y="251" width="3" height="3" fill="#38bdf8"/>'
+    + '<!-- 3. Żyzny pagórek nad wodami (Psalm 1:3) -->'
+    + '<path d="M 40 272 Q 240 242, 440 272 L 480 282 L 0 282 Z" fill="url(#cenGroundHillGrad)" />'
+    + '<!-- Kępki traw i polne kwiaty -->'
+    + '<path d="M 120 262 Q 123 254, 126 263 M 124 262 Q 127 252, 130 263" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" fill="none" />'
+    + '<path d="M 350 263 Q 353 255, 356 264 M 354 263 Q 357 253, 360 264" stroke="#34d399" stroke-width="1.5" stroke-linecap="round" fill="none" />'
+    + '<circle cx="145" cy="263" r="2" fill="#f43f5e" opacity="0.9" />'
+    + '<circle cx="330" cy="264" r="2" fill="#facc15" opacity="0.9" />'
+    + '<circle cx="290" cy="267" r="2" fill="#38bdf8" opacity="0.9" />'
 
-    + '<!-- 4. Drzewo z animacją kołysania (cenDrzewoSway) -->'
+    + '<!-- 4. Drzewo z łagodną animacją kołysania (cenDrzewoSway) -->'
     + '<g class="cenDrzewoSway">'
-    + treeContent
+    + treeGraphic
     + '</g>'
 
-    + fallenLeavesSvg
+    + fallenLeafSvg
 
-    + '<!-- 5. Strumień żywej wody (Psalm 1:3) z animacją fal -->'
-    + '<g transform="translate(0, 276)">'
-    + '<rect x="0" y="0" width="480" height="64" fill="#0369a1"/>'
-    + '<rect x="0" y="0" width="480" height="5" fill="#38bdf8" opacity="0.9"/>'
-    + '<g class="cenDrzewoWaterAnim">'
-    + '<rect x="-32" y="5" width="544" height="44" fill="url(#cenPixelWaterTile)"/>'
-    + '</g>'
-    + '<!-- Sparkling pixel reflections -->'
-    + '<rect x="60" y="16" width="6" height="3" fill="#ffffff" opacity="0.9"/>'
-    + '<rect x="190" y="26" width="8" height="3" fill="#e0f2fe" opacity="0.85"/>'
-    + '<rect x="320" y="14" width="7" height="3" fill="#ffffff" opacity="0.9"/>'
-    + '<rect x="410" y="32" width="8" height="3" fill="#7dd3fc" opacity="0.8"/>'
+    + '<!-- 5. Strumień żywej wody (Psalm 1:3) -->'
+    + '<g transform="translate(0, 272)">'
+    + '<!-- Baza koryta rzeki -->'
+    + '<rect x="0" y="0" width="480" height="68" fill="#02496d" />'
+    + '<!-- Płynąca woda z falami -->'
+    + '<path d="M 0 10 Q 120 2, 240 10 T 480 8 L 480 68 L 0 68 Z" fill="url(#cenWaterFlowGrad)">'
+    + '<animate attributeName="d" '
+    + '  values="M 0 10 Q 120 2, 240 10 T 480 8 L 480 68 L 0 68 Z;'
+    + '          M 0 8 Q 120 16, 240 8 T 480 10 L 480 68 L 0 68 Z;'
+    + '          M 0 10 Q 120 2, 240 10 T 480 8 L 480 68 L 0 68 Z" '
+    + '  dur="6s" repeatCount="indefinite" />'
+    + '</path>'
+    + '<path d="M 0 0 L 480 0 L 480 8 L 0 8 Z" fill="url(#cenWaterSurfaceGrad)" />'
+    + '<!-- Błyski światła na wodzie -->'
+    + '<ellipse cx="110" cy="18" rx="22" ry="2.5" fill="#ffffff" opacity="0.35" />'
+    + '<ellipse cx="280" cy="26" rx="35" ry="3" fill="#e0f2fe" opacity="0.4" />'
+    + '<ellipse cx="390" cy="16" rx="18" ry="2" fill="#ffffff" opacity="0.3" />'
     + '</g>'
     + '</svg>';
 }
