@@ -11732,34 +11732,150 @@ html[data-theme="sepia"] .sidebar-float-trigger {
   opacity: 0.6;
 }
 
-/* RWD / Ekrany mobilne i tablety */
+/* RWD / Ekrany mobilne i tablety (Wysuwany Drawer Sidebar & Menu) */
+.mobile-menu-btn {
+  display: none !important;
+}
+.sidebar-close-btn {
+  display: none !important;
+}
+.sidebar-backdrop {
+  display: none;
+}
+
 @media (max-width: 900px) {
-  #modernSidebar {
-    width: 60px;
-    min-width: 60px;
-    padding: 10px 6px;
-  }
-  .sidebar-brand {
+  .mobile-menu-btn {
+    display: inline-flex !important;
+    align-items: center;
     justify-content: center;
-    padding: 6px 0 14px 0;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.16) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    color: #ffffff !important;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+    margin-right: 4px;
+    transition: background 0.14s ease, transform 0.1s ease;
   }
+  .mobile-menu-btn:hover {
+    background: rgba(255, 255, 255, 0.28) !important;
+  }
+  .mobile-menu-btn:active {
+    transform: scale(0.95);
+  }
+  .mobile-menu-btn .ic {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Pasek boczny jako wysuwany Drawer na telefonach i tabletach */
+  #modernSidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    height: 100dvh !important;
+    width: 280px !important;
+    min-width: 280px !important;
+    max-width: 86vw !important;
+    z-index: 10005 !important;
+    transform: translateX(-105%) !important;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.25, 1), box-shadow 0.25s ease !important;
+    background: var(--panel, #ffffff) !important;
+    box-shadow: none !important;
+    padding: max(16px, calc(10px + env(safe-area-inset-top, 0px))) 14px max(16px, calc(10px + env(safe-area-inset-bottom, 0px))) 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  body.mobile-sidebar-open #modernSidebar,
+  #appContainer.mobile-sidebar-open #modernSidebar {
+    transform: translateX(0) !important;
+    box-shadow: 6px 0 36px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.52);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.24s ease;
+  }
+
+  body.mobile-sidebar-open .sidebar-backdrop,
+  #appContainer.mobile-sidebar-open .sidebar-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .sidebar-brand {
+    justify-content: flex-start !important;
+    padding: 6px 4px 14px 4px !important;
+  }
+
   .sidebar-brand-title,
   .sidebar-new-btn span,
-  .sidebar-nav-item span,
-  .sidebar-collapse-btn {
-    display: none;
+  .sidebar-nav-item span {
+    display: inline !important;
   }
+
   .sidebar-new-btn {
-    padding: 10px 0;
+    padding: 11px 14px !important;
+    font-size: 13.5px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    margin: 12px 0 6px 0 !important;
+    justify-content: center !important;
   }
+
   .sidebar-nav-item {
-    justify-content: center;
-    padding: 10px 0;
+    justify-content: flex-start !important;
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+    gap: 12px !important;
+    border-radius: 10px !important;
+    width: 100% !important;
+    margin: 0 0 3px 0 !important;
   }
-}
-@media (max-width: 600px) {
-  #modernSidebar {
-    display: none;
+
+  .sidebar-nav-item .ic {
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  .sidebar-close-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-left: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.14s ease;
+    flex-shrink: 0;
+  }
+  .sidebar-close-btn:hover {
+    background: var(--sel);
+    color: var(--accent);
+  }
+  .sidebar-close-btn .ic {
+    width: 16px;
+    height: 16px;
   }
 }
 
@@ -11983,6 +12099,9 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
         <span class="sidebar-brand-title">JW Study</span>
         <span class="sidebar-brand-ver">v5.0</span>
       </div>
+      <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
 
     <button class="sidebar-new-btn" id="sidebarBtnNew" title="Nowa notatka (Ctrl+N)">
@@ -12043,8 +12162,12 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
       </button>
     </div>
   </aside>
+  <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
   <div id="appMainContent">
 <header>
+  <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
+    <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+  </button>
   <div class="searchwrap">
     <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
     <div id="searchSug"></div>
@@ -12099,6 +12222,8 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
   <button data-p="colTags">Etykiety</button>
   <button data-p="colPubs">Publikacje</button>
   <button data-p="colNotes" class="on">Notatki</button>
+  <button data-p="centrum" id="tabMobileCentrum">Centrum</button>
+  <button data-p="menu" id="tabMobileMenu" class="tab-menu" title="Menu, kopia, motyw i ustawienia">Menu ☰</button>
 </div>
 
 <main id="glowna">
@@ -24182,6 +24307,21 @@ function download(blob,name){
   setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);
 }
 function mobileShow(id){
+  if (id === "menu") {
+    if (typeof toggleMobileSidebar === "function") {
+      toggleMobileSidebar(true);
+    }
+    return;
+  }
+  if (id === "centrum") {
+    if (typeof centrumWidoczne === "function" && centrumWidoczne()) {
+      if (typeof centrumSchowaj === "function") centrumSchowaj();
+    } else {
+      if (typeof centrumPokaz === "function") centrumPokaz();
+    }
+    return;
+  }
+
   const cols = ["colBooks", "colTags", "colPubs", "colNotes"];
   cols.forEach(c => {
     const el = $(c);
@@ -24189,10 +24329,22 @@ function mobileShow(id){
   });
 
   document.querySelectorAll("#mobileTabs button").forEach(b=>{
-    b.classList.toggle("on", b.dataset.p === id);
+    if (b.dataset.p !== "menu" && b.dataset.p !== "centrum") {
+      b.classList.toggle("on", b.dataset.p === id);
+    }
   });
 }
-document.querySelectorAll("#mobileTabs button").forEach(b=>b.onclick=()=>mobileShow(b.dataset.p));
+document.querySelectorAll("#mobileTabs button").forEach(b => {
+  b.onclick = () => {
+    const p = b.dataset.p;
+    if (p !== "centrum" && p !== "menu") {
+      if (document.body.classList.contains("centrum-open") && typeof centrumSchowaj === "function") {
+        centrumSchowaj();
+      }
+    }
+    mobileShow(p);
+  };
+});
 
 /* ===== KOLUMNY BOCZNE (Biblia / Etykiety / Publikacje) ===== */
 const KOLUMNY_BOCZNE = [
@@ -36697,11 +36849,15 @@ const helpMore=document.createElement("p");
 helpMore.textContent='Przykłady: „notatki o pokorze po 2024 roku”, „wersety o pokorze z Mateusza”, „podkreślone na żółto o zaufaniu”, „Diabeł rządzi światem”. Tryb inteligentny rozpoznaje cały temat i pokazuje nad wynikami „Rozumiem jako”. To reguły lokalne, nie AI. Daty dotyczą zmiany notatki. Zawężaj etykiety i publikacje pod wynikami. Korekty zatwierdzasz dotknięciem. Zaznacz tekst i wybierz ⌕, aby szukać cytatu, podobnych notatek lub adresów wersetów.';
 document.querySelector(".searchHelp").appendChild(helpMore);
 
-/* JW Study — Powiązania Paska Bocznego (Modern App Rail) */
+/* JW Study — Powiązania Paska Bocznego (Modern App Rail) & Mobile Drawer */
 (function initSidebarEvents(){
   const appContainer = document.getElementById("appContainer");
   const btnSidebarCollapse = document.getElementById("btnSidebarCollapse");
   const sidebarFloatTrigger = document.getElementById("sidebarFloatTrigger");
+  const btnMobileMenu = document.getElementById("btnMobileMenu");
+  const sidebarCloseBtn = document.getElementById("sidebarCloseBtn");
+  const sidebarBackdrop = document.getElementById("sidebarBackdrop");
+  const sidebarEl = document.getElementById("modernSidebar");
 
   const btnNewNote = document.getElementById("sidebarBtnNew");
   const navNotes = document.getElementById("navItemNotes");
@@ -36717,10 +36873,23 @@ document.querySelector(".searchHelp").appendChild(helpMore);
   const navColors = document.getElementById("navItemColors");
   const navSettings = document.getElementById("navItemSettings");
 
+  function toggleMobileSidebar(open) {
+    const isCurrentlyOpen = document.body.classList.contains("mobile-sidebar-open");
+    const shouldOpen = open !== undefined ? Boolean(open) : !isCurrentlyOpen;
+    document.body.classList.toggle("mobile-sidebar-open", shouldOpen);
+    if (appContainer) appContainer.classList.toggle("mobile-sidebar-open", shouldOpen);
+    const bd = document.getElementById("sidebarBackdrop");
+    if (bd) bd.setAttribute("aria-hidden", shouldOpen ? "false" : "true");
+  }
+  window.toggleMobileSidebar = toggleMobileSidebar;
+
   function updateSidebarActiveStates() {
     const isCentrumOpen = document.body.classList.contains("centrum-open");
     const navCentrum = document.getElementById("navItemCentrum");
     if (navCentrum) navCentrum.classList.toggle("active", isCentrumOpen);
+
+    const tabCentrum = document.getElementById("tabMobileCentrum");
+    if (tabCentrum) tabCentrum.classList.toggle("on", isCentrumOpen);
 
     const tagsCol = document.getElementById("colTags");
     const navTags = document.getElementById("navItemTags");
@@ -36770,13 +36939,55 @@ document.querySelector(".searchHelp").appendChild(helpMore);
 
   const sidebarBrand = document.getElementById("sidebarBrand") || document.querySelector(".sidebar-brand");
   if (sidebarBrand) {
-    sidebarBrand.addEventListener("click", () => toggleSidebar());
+    sidebarBrand.addEventListener("click", (e) => {
+      if (e.target && e.target.closest("#sidebarCloseBtn")) return;
+      if (window.innerWidth > 768) {
+        toggleSidebar();
+      }
+    });
   }
   if (btnSidebarCollapse) btnSidebarCollapse.addEventListener("click", () => toggleSidebar(true));
   if (sidebarFloatTrigger) sidebarFloatTrigger.addEventListener("click", () => toggleSidebar(false));
 
-  // Klawisz skrótu Ctrl+B / Cmd+B do zwijania/rozwijania paska bocznego
+  if (btnMobileMenu) {
+    btnMobileMenu.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleMobileSidebar();
+    });
+  }
+
+  if (sidebarCloseBtn) {
+    sidebarCloseBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleMobileSidebar(false);
+    });
+  }
+
+  if (sidebarBackdrop) {
+    sidebarBackdrop.addEventListener("click", () => {
+      toggleMobileSidebar(false);
+    });
+  }
+
+  // Zamykanie drawera na telefonie po kliknięciu dowolnej pozycji w pasku bocznym
+  if (sidebarEl) {
+    sidebarEl.addEventListener("click", (e) => {
+      const btn = e.target && e.target.closest ? e.target.closest(".sidebar-nav-item, .sidebar-new-btn") : null;
+      if (btn) {
+        if (window.innerWidth <= 768 || document.body.classList.contains("mobile-sidebar-open")) {
+          toggleMobileSidebar(false);
+        }
+      }
+    });
+  }
+
+  // Klawisze skrótu
   document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && document.body.classList.contains("mobile-sidebar-open")) {
+      e.preventDefault();
+      toggleMobileSidebar(false);
+      return;
+    }
     if ((e.ctrlKey || e.metaKey) && (e.key === "b" || e.key === "B") && !e.shiftKey && !e.altKey) {
       const tag = (e.target.tagName || "").toLowerCase();
       if (tag === "input" || tag === "textarea" || e.target.isContentEditable) return;
@@ -36785,7 +36996,7 @@ document.querySelector(".searchHelp").appendChild(helpMore);
     }
   });
 
-  // Wczytaj stan paska bocznego
+  // Wczytaj stan paska bocznego na desktopie
   try {
     if (localStorage.getItem("jws_sidebar_collapsed") === "1") {
       if (appContainer) appContainer.classList.add("sidebar-collapsed");
