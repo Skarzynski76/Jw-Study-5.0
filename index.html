@@ -2480,27 +2480,33 @@ html[data-theme="dark"] .exp-base.warn,html[data-theme="dark"] .exp-warn{backgro
   transition: color 0.12s ease;
 }
 .ncontent a:hover { color: var(--accent2); }
-.ncontent a.jwl-ref {
-  font-weight: 600;
-  text-decoration: none;
-  background: var(--sel);
-  padding: 2px 8px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  white-space: nowrap;
-}
-.ncontent a.jwl-ref::before { content: "📖 "; font-size: 0.9em; }
+.ncontent a.jwl-ref,
 .ncontent a.jwl-ref.auto {
-  background: none;
+  display: inline;
+  background: transparent;
   border: none;
   padding: 0;
-  white-space: normal;
-  font-weight: 600;
+  border-radius: 0;
+  color: #2563eb;
+  font-size: 1em;
+  font-weight: 700;
   text-decoration: underline;
-  text-decoration-style: dotted;
-  text-underline-offset: 2px;
+  text-underline-offset: 2.5px;
+  white-space: normal;
+  box-shadow: none;
+  transition: color 0.12s ease;
 }
-.ncontent a.jwl-ref.auto::before { content: ""; }
+.ncontent a.jwl-ref:hover,
+.ncontent a.jwl-ref.auto:hover {
+  color: #1d4ed8;
+  background: transparent;
+  text-decoration: underline;
+}
+.ncontent a.jwl-ref::before,
+.ncontent a.jwl-ref.auto::before {
+  content: "";
+  display: none;
+}
 
 .ncontent sup { font-size: 0.72em; vertical-align: super; }
 .ncontent sub { font-size: 0.72em; vertical-align: sub; }
@@ -3932,10 +3938,18 @@ html[data-theme="dark"] .callout-verse {
   padding: 12px 16px !important;
   margin: 14px 0 !important;
 }
-html[data-theme="dark"] .ncontent a.jwl-ref {
-  background: rgba(16, 185, 129, 0.12);
-  border-color: rgba(16, 185, 129, 0.25);
-  color: var(--accent2, #34d399);
+html[data-theme="dark"] .ncontent a.jwl-ref,
+html[data-theme="dark"] .ncontent a.jwl-ref.auto {
+  background: transparent;
+  border: none;
+  color: #60a5fa;
+  font-size: 1em;
+  font-weight: 700;
+}
+html[data-theme="dark"] .ncontent a.jwl-ref:hover,
+html[data-theme="dark"] .ncontent a.jwl-ref.auto:hover {
+  background: transparent;
+  color: #93c5fd;
 }
 
 /* ——— Okna modalne, nakładki i toasty ——— */
@@ -11377,22 +11391,29 @@ header #search,
   color: inherit !important;
   font-style: normal !important;
 }
-.ncontent a.jwl-ref {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 4px !important;
-  padding: 2px 8px !important;
-  border-radius: 6px !important;
-  background: color-mix(in srgb, var(--accent) 8%, transparent) !important;
-  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent) !important;
-  color: var(--accent) !important;
-  font-weight: 600 !important;
-  text-decoration: none !important;
-  transition: all 0.14s ease !important;
+.ncontent a.jwl-ref,
+.ncontent a.jwl-ref.auto {
+  display: inline !important;
+  align-items: baseline !important;
+  gap: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  color: #2563eb !important;
+  font-size: 1em !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 2.5px !important;
+  white-space: normal !important;
+  box-shadow: none !important;
+  transition: color 0.12s ease !important;
 }
-.ncontent a.jwl-ref:hover {
-  background: var(--accent) !important;
-  color: #ffffff !important;
+.ncontent a.jwl-ref:hover,
+.ncontent a.jwl-ref.auto:hover {
+  background: transparent !important;
+  color: #1d4ed8 !important;
+  text-decoration: underline !important;
 }
 
 /* Pływające paski narzędziowe (Toolbar) */
@@ -11478,14 +11499,18 @@ html[data-theme="dark"] .callout-verse {
   background: rgba(16, 185, 129, 0.09) !important;
   color: #e2e8f0 !important;
 }
-html[data-theme="dark"] .ncontent a.jwl-ref {
-  background: rgba(16, 185, 129, 0.12) !important;
-  border-color: rgba(16, 185, 129, 0.25) !important;
-  color: #34d399 !important;
+html[data-theme="dark"] .ncontent a.jwl-ref,
+html[data-theme="dark"] .ncontent a.jwl-ref.auto {
+  background: transparent !important;
+  border: none !important;
+  color: #60a5fa !important;
+  font-size: 1em !important;
+  font-weight: 700 !important;
 }
-html[data-theme="dark"] .ncontent a.jwl-ref:hover {
-  background: #10b981 !important;
-  color: #ffffff !important;
+html[data-theme="dark"] .ncontent a.jwl-ref:hover,
+html[data-theme="dark"] .ncontent a.jwl-ref.auto:hover {
+  background: transparent !important;
+  color: #93c5fd !important;
 }
 html[data-theme="dark"] ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.14);
