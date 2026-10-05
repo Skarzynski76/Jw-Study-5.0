@@ -2120,7 +2120,7 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
 #fsWrap .ncontent h5, #fsWrap .ncontent h6{font-size:var(--fsNoteFs, calc(var(--noteFs,14px) + 3px))}
 /* pełny ekran: wygodna szerokość czytania + przyklejona belka tytułu */
 #fsWrap .ncontent,#fsWrap .nmeta2,#fsWrap .chips{max-width:var(--fsMax,760px);margin-left:auto;margin-right:auto}
-#fsWrap .ncontent{line-height:var(--noteLh,1.7);font-family:var(--noteFont,var(--readFont,inherit))}
+#fsWrap .ncontent{line-height:var(--noteLh,1.7);font-family:var(--noteFont,var(--readFont,inherit));text-align:var(--readAlign,left);hyphens:var(--readHyphens,manual);-webkit-hyphens:var(--readHyphens,manual);text-justify:inter-word}
 #fsWrap .ntitle{font-family:var(--readFont,inherit)}
 /* pasek postępu czytania */
 #fsProg{position:sticky;top:0;left:0;height:3px;background:var(--accent);width:100%;z-index:20;border-radius:0 2px 2px 0;
@@ -2167,16 +2167,14 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
   .fsNav.prev{left:14px} .fsNav.next{right:14px}
 }
 /* panel typografii (Aa) */
-#readPop{position:fixed;display:none;z-index:10020;background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:0 16px 44px rgba(0,0,0,.28);padding:14px;min-width:270px;max-width:320px}
-#readPop .rp-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 2px;border-top:1px solid var(--border)}
+#readPop{position:fixed;display:none;z-index:10020;background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:0 18px 48px rgba(0,0,0,.28);padding:14px 15px;min-width:290px;max-width:350px;max-height:min(84dvh,660px);overflow:auto;-webkit-overflow-scrolling:touch}
+#readPop .rp-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 2px;border-top:1px solid var(--border)}
 #readPop .rp-row:first-child{border-top:none}
-#readPop .rp-lbl{font-size:12.5px;color:var(--muted);font-weight:600}
-#readPop .rp-grp{display:inline-flex;border:1px solid var(--border);border-radius:10px;overflow:hidden}
-#readPop .rp-grp button{border:none;background:var(--panel);color:var(--text);cursor:pointer;padding:7px 12px;font-size:13px;line-height:1}
-#readPop .rp-grp button+button{border-left:1px solid var(--border)}
-#readPop .rp-grp button.on{background:var(--sel);color:var(--accent);font-weight:600}
-#readPop .rp-grp button:hover{background:var(--sel)}
-#readPop{max-height:min(78dvh,620px);overflow:auto;-webkit-overflow-scrolling:touch}
+#readPop .rp-lbl{font-size:12px;color:var(--muted);font-weight:600;flex-shrink:0}
+#readPop .rp-grp{display:inline-flex;flex-wrap:wrap;justify-content:flex-end;gap:3px;background:var(--sel);padding:2px;border-radius:9px;border:1px solid var(--border);max-width:240px}
+#readPop .rp-grp button{border:none;background:transparent;color:var(--text);cursor:pointer;padding:5px 9px;font-size:12px;line-height:1.15;font-weight:500;border-radius:7px;transition:background .12s ease,color .12s ease,box-shadow .12s ease;flex:0 0 auto;text-align:center}
+#readPop .rp-grp button:hover{background:rgba(0,0,0,.06)}
+#readPop .rp-grp button.on{background:var(--panel);color:var(--accent);font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.14)}
 
 /* Motyw czytnika jest niezależny od motywu całej aplikacji. Zmienne są
    ograniczone do pełnego ekranu, więc wybranie sepii nie przemalowuje list,
@@ -2184,11 +2182,26 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
 #modalFs[data-reader-theme="light"]{--bg:#fbfbfa;--panel:#fff;--text:#202421;--muted:#737a76;--border:#dfe4e1;--sel:#e9f2ed;--accent:#236c52;--accent2:#74a994}
 #modalFs[data-reader-theme="sepia"]{--bg:#f2e8d1;--panel:#fbf3e2;--text:#352f25;--muted:#746a58;--border:#d9c9aa;--sel:#eadcbc;--accent:#6b6047;--accent2:#9a8662}
 #modalFs[data-reader-theme="dark"]{--bg:#151816;--panel:#202421;--text:#eef1ed;--muted:#a7aea9;--border:#3a413d;--sel:#2b3832;--accent:#79c7a5;--accent2:#8bbca7}
-#modalFs[data-reader-theme]:not([data-reader-theme="app"]) .fsmodal{background:var(--bg);color:var(--text)}
-#modalFs[data-reader-theme]:not([data-reader-theme="app"]) #fsWrap .ncard{background:var(--panel);color:var(--text)}
+#modalFs[data-reader-theme="oled"]{--bg:#000000;--panel:#080808;--text:#f3f4f6;--muted:#9ca3af;--border:#27272a;--sel:#18181b;--accent:#38bdf8;--accent2:#60a5fa}
+#modalFs[data-reader-theme="sage"]{--bg:#e2eae4;--panel:#eef4ef;--text:#192c1e;--muted:#586b5c;--border:#c5d4c7;--sel:#d7e4d9;--accent:#275a37;--accent2:#3f7c52}
+
+#modalFs[data-reader-theme]:not([data-reader-theme="app"]) .fsmodal{background:var(--bg)!important;color:var(--text)!important}
+#modalFs[data-reader-theme]:not([data-reader-theme="app"]) #fsWrap .ncard{background:var(--panel)!important;color:var(--text)!important}
 #modalFs[data-reader-theme="dark"] #fsWrap .nhead{filter:brightness(.72) saturate(.8)}
+#modalFs[data-reader-theme="oled"] #fsWrap .nhead{filter:brightness(.65) saturate(.75)}
 #modalFs[data-reader-theme="dark"] #fsWrap .chip-study{background:var(--panel)!important;color:var(--accent)!important}
+#modalFs[data-reader-theme="oled"] #fsWrap .chip-study{background:var(--panel)!important;color:var(--accent)!important}
 #modalFs[data-reader-theme="sepia"] #fsWrap .chip-study{background:#fbf3e2!important;color:var(--accent)!important}
+#modalFs[data-reader-theme="sage"] #fsWrap .chip-study{background:#eef4ef!important;color:var(--accent)!important}
+
+#modalFs[data-reader-theme="oled"] .ncontent a.jwl-ref,
+#modalFs[data-reader-theme="oled"] .ncontent a.jwl-ref.auto{color:#60a5fa!important}
+#modalFs[data-reader-theme="oled"] .ncontent a.jwl-ref:hover,
+#modalFs[data-reader-theme="oled"] .ncontent a.jwl-ref.auto:hover{color:#93c5fd!important}
+#modalFs[data-reader-theme="sage"] .ncontent a.jwl-ref,
+#modalFs[data-reader-theme="sage"] .ncontent a.jwl-ref.auto{color:#1d4ed8!important}
+#modalFs[data-reader-theme="sage"] .ncontent a.jwl-ref:hover,
+#modalFs[data-reader-theme="sage"] .ncontent a.jwl-ref.auto:hover{color:#1e40af!important}
 
 </style>
 <style>
@@ -6549,6 +6562,28 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
 #modalFs .fsmodal > #fsClose:hover{ background:var(--sel); color:var(--accent); }
 #modalFs #fsClose:active,
 #modalFs .fsmodal > #fsClose:active{ transform:scale(.92); }
+#modalFs #fsFull,
+#modalFs .fsmodal > #fsFull{
+  display:flex!important; position:fixed!important;
+  top:calc(12px + env(safe-area-inset-top, 0px))!important;
+  right:calc(56px + env(safe-area-inset-right, 0px))!important;
+  z-index:10025!important;
+  width:36px; height:36px; border-radius:50%;
+  align-items:center; justify-content:center;
+  border:1px solid var(--border); background:var(--panel); color:var(--text);
+  font-size:15px; line-height:1; cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,.2);
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+  transition:transform .14s ease, background .14s ease, color .14s ease, border-color .14s ease;
+}
+#modalFs #fsFull:hover,
+#modalFs .fsmodal > #fsFull:hover{ background:var(--sel); color:var(--accent); }
+#modalFs #fsFull:active,
+#modalFs .fsmodal > #fsFull:active{ transform:scale(.92); }
+#modalFs #fsFull .ic{ width:18px; height:18px; }
+#modalFs #fsFull.active{ background:var(--accent); color:#ffffff; border-color:var(--accent); }
+#modalFs #fsFull.active:hover{ opacity:.9; }
 /* Skoro krzyżyk jest w rogu okna, ten w nagłówku byłby drugi taki sam. */
 #fsWrap .fsCloseInline{ display:none!important; }
 #fsWrap .nhead{ padding-right:clamp(4px, 2vw, 20px)!important; }
@@ -11189,7 +11224,10 @@ body.ipad-standalone #modalFs .fsmodal::before{
   -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
 }
 body.ipad-standalone #modalFs #fsWrap .nhead{background:var(--panel)!important;padding-top:18px!important}
-body.ipad-standalone #modalFs .fsmodal > #fsClose{
+body.ipad-standalone #modalFs .fsmodal > #fsClose,
+body.ipad-standalone #modalFs .fsmodal > #fsFull,
+body.ipad-standalone #modalFs #fsClose,
+body.ipad-standalone #modalFs #fsFull{
   top:calc(env(safe-area-inset-top,0px) + var(--ipad-reader-clearance) + 10px)!important;
 }
 html[data-theme="sepia"] body.ipad-standalone #modalFs .fsmodal::before,
@@ -12704,7 +12742,8 @@ html.is-ios #modernSidebar, body.is-ios #modernSidebar {
 <div class="overlay" id="modalFs">
   <div class="fsmodal">
     <div id="fsProg" role="progressbar" aria-label="Postęp czytania" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
-    <button id="fsClose" title="Zamknij">✕</button>
+    <button id="fsFull" title="Pełny ekran" aria-label="Pełny ekran"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
+    <button id="fsClose" title="Zamknij" aria-label="Zamknij">✕</button>
     <div id="fsWrap"></div>
   </div>
   <button id="fsPrev" class="fsNav prev" title="Poprzednia notatka" aria-label="Poprzednia">‹</button>
@@ -17141,6 +17180,7 @@ function openFs(n){
   applyReaderTheme();
   renderFs(); openModal("modalFs");
   acquireWake(); updateFsNav();
+  if(typeof updateFsFullBtn==="function") updateFsFullBtn();
   const fm=$("modalFs").querySelector(".fsmodal"); if(fm) fm.scrollTop=0;
   updateFsProgress();
 }
@@ -17542,7 +17582,15 @@ function closeFs(){
   /* Notatkę do wskazania trzeba wziąć PRZED skasowaniem śladu i fsGuid. */
   const wrocDo = fsSlad.length ? fsSlad[0] : fsGuid;
   fsSlad.length = 0; fsGuid = null;
-  $("modalFs").classList.remove("dok-schowany","pow-open");
+  $("modalFs").classList.remove("dok-schowany","pow-open","is-fullscreen");
+  $("modalFs")?.querySelector(".fsmodal")?.classList.remove("is-fullscreen");
+  if(typeof updateFsFullBtn==="function") updateFsFullBtn(false);
+  if(document.fullscreenElement || document.webkitFullscreenElement){
+    try{
+      if(document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+      else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
+    }catch(e){}
+  }
   document.body.classList.remove("fs-open", "ma-zaznaczenie");
   const zazn = getSelection(); if(zazn && typeof zazn.removeAllRanges==="function") zazn.removeAllRanges();
   closeModal("modalFs"); releaseWake(); updateFsNav();
