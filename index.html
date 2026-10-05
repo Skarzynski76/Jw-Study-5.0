@@ -6515,19 +6515,26 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
    dokumentu i ma się przewijać razem z treścią.
    ============================================================ */
 #fsWrap .nhead{ position:static!important; }
-/* Krzyżyk odjeżdżał razem z nagłówkiem, więc zamknięcie znikało po przewinięciu.
-   Trzyma się teraz rogu okna, niezależnie od tego, gdzie jest tytuł. */
+/* Krzyżyk trzyma się rogu okna (position:fixed), niezależnie od przewinięcia czy edycji. */
+#modalFs #fsClose,
 #modalFs .fsmodal > #fsClose{
-  display:flex!important; position:absolute;
-  top:calc(10px + env(safe-area-inset-top, 0px)); right:10px;
-  z-index:14;
-  width:34px; height:34px; border-radius:50%;
+  display:flex!important; position:fixed!important;
+  top:calc(12px + env(safe-area-inset-top, 0px))!important;
+  right:calc(14px + env(safe-area-inset-right, 0px))!important;
+  z-index:10025!important;
+  width:36px; height:36px; border-radius:50%;
   align-items:center; justify-content:center;
   border:1px solid var(--border); background:var(--panel); color:var(--text);
   font-size:17px; line-height:1; cursor:pointer;
-  box-shadow:0 3px 10px rgba(0,0,0,.22);
+  box-shadow:0 4px 14px rgba(0,0,0,.2);
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+  transition:transform .14s ease, background .14s ease;
 }
-#modalFs .fsmodal > #fsClose:active{ transform:scale(.93); }
+#modalFs #fsClose:hover,
+#modalFs .fsmodal > #fsClose:hover{ background:var(--sel); color:var(--accent); }
+#modalFs #fsClose:active,
+#modalFs .fsmodal > #fsClose:active{ transform:scale(.92); }
 /* Skoro krzyżyk jest w rogu okna, ten w nagłówku byłby drugi taki sam. */
 #fsWrap .fsCloseInline{ display:none!important; }
 #fsWrap .nhead{ padding-right:clamp(4px, 2vw, 20px)!important; }
@@ -7646,9 +7653,12 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
 #fsWrap .ncard.editing .fsBackInline,
 #fsWrap .ncard.editing .fsCloseInline{ top:6px; }
 
-/* ——— pasek narzędzi bliżej tekstu ——— */
+/* ——— pasek narzędzi bliżej tekstu i wycentrowany z kolumną notatki ——— */
 #fsWrap .ncard.editing .editbar{
-  margin:6px 12px 4px;
+  max-width:var(--fsMax, 760px);
+  margin:6px auto 4px;
+  width:100%;
+  box-sizing:border-box;
   padding:4px 8px;
 }
 #fsWrap .ncard.editing .editbar .ebSel,
@@ -7683,7 +7693,7 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
   }
   #fsWrap .ncard.editing .ntools::-webkit-scrollbar{ display:none; }
   #fsWrap .ncard.editing .ntools .btnrow{ flex-wrap:nowrap; }
-  #fsWrap .ncard.editing .editbar{ margin:4px 8px 2px; }
+  #fsWrap .ncard.editing .editbar{ margin:4px auto 2px; }
 }
 
 /* ——— telefon: koniec z rezerwą pod strzałki ‹ › ———
@@ -26271,29 +26281,30 @@ if(window.visualViewport){
 addEventListener("orientationchange", ()=>setTimeout(kbOdswiez, 250));
 
 /* ——— gdzie stoi kursor ——— */
-/* Zaznaczenie o zerowej długości nie ma wymiarów, więc wstawiamy na moment pusty
-   element, mierzymy go i natychmiast usuwamy. */
+/* Mierzymy prostokąt zaznaczenia bez modyfikowania DOM i bez wywoływania normalize(). */
 function kursorProstokat(){
   const sel = getSelection();
   if(!sel || !sel.rangeCount) return null;
-  const zakres = sel.getRangeAt(0).cloneRange();
+  const zakres = sel.getRangeAt(0);
+  const rects = zakres.getClientRects();
+  if(rects && rects.length > 0) return rects[0];
   let r = zakres.getBoundingClientRect();
-  if(r && (r.top || r.bottom)) return r;
-  const znacznik = document.createElement("span");
-  znacznik.textContent = "​";
-  zakres.collapse(false);
-  try{ zakres.insertNode(znacznik); }catch(e){ return null; }
-  r = znacznik.getBoundingClientRect();
-  const rodzic = znacznik.parentNode;
-  znacznik.remove();
-  if(rodzic) rodzic.normalize();
-  return r;
+  if(r && (r.top || r.bottom || r.height)) return r;
+  const node = sel.anchorNode;
+  if(node){
+    const el = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
+    if(el) return el.getBoundingClientRect();
+  }
+  return null;
 }
 
 /* Element, wewnątrz którego faktycznie przewijamy: czytnik, okno albo cała lista. */
 function kbPojemnik(el){
+  if(!el) return null;
+  const spec = el.closest ? el.closest("#modalFs .fsmodal, .fsmodal, .modal, #colReader, #czytnik, #noteList, .nlist") : null;
+  if(spec && spec.scrollHeight > spec.clientHeight) return spec;
   let p = el;
-  while(p && p !== document.body){
+  while(p && p !== document.body && p !== document.documentElement){
     const st = getComputedStyle(p);
     if(/(auto|scroll)/.test(st.overflowY) && p.scrollHeight > p.clientHeight + 4) return p;
     p = p.parentElement;
@@ -26301,15 +26312,18 @@ function kbPojemnik(el){
   return null;
 }
 
-/** Przewija tak, żeby kursor stanął nad klawiaturą. Nic nie robi, gdy już jest widoczny. */
+/** Przewija tak, żeby kursor stanął nad klawiaturą. Nic nie robi, gdy już jest widoczny lub gdy brak klawiatury ekranowej. */
 function kbPokazKursor(){
+  const h = kbWysokosc();
+  if(h <= 0) return;                             // brak klawiatury ekranowej — przeglądarka zarządza kursorem naturalnie
   const akt = document.activeElement;
   if(!akt) return;
   const wPolu = akt.tagName === "TEXTAREA" || akt.tagName === "INPUT";
   const wTresci = akt.isContentEditable;
   if(!wPolu && !wTresci) return;
 
-  const dolnaGranica = (window.visualViewport ? window.visualViewport.height + window.visualViewport.offsetTop : innerHeight) - KB_ZAPAS;
+  const vv = window.visualViewport;
+  const dolnaGranica = (vv ? vv.height + vv.offsetTop : innerHeight) - 24;
   const r = wTresci ? kursorProstokat() : akt.getBoundingClientRect();
   if(!r) return;
 
@@ -26318,27 +26332,27 @@ function kbPokazKursor(){
 
   const poj = kbPojemnik(akt);
   if(poj) poj.scrollTop += nadmiar + 8;
-  else scrollBy({top: nadmiar + 8, behavior: "auto"});
+  else if(!akt.closest("#modalFs, .modal, .fsmodal")){
+    scrollBy({top: nadmiar + 8, behavior: "auto"});
+  }
 }
 
 /* ——— kiedy sprawdzać ——— */
-/* Enter zmienia wiersz, więc reagujemy od razu po nim; przy zwykłym pisaniu
-   wystarczy sprawdzić raz na klatkę, żeby nie liczyć tego przy każdej literze. */
 let _kbRaf = 0;
 function kbWkrotce(){
-  if(_kbRaf) return;
+  if(_kbRaf || kbWysokosc() <= 0) return;
   _kbRaf = requestAnimationFrame(()=>{ _kbRaf = 0; kbPokazKursor(); });
 }
 document.addEventListener("keydown", e=>{
-  if(e.key === "Enter") setTimeout(kbPokazKursor, 0);
+  if(e.key === "Enter" && kbWysokosc() > 0) setTimeout(kbPokazKursor, 0);
 }, true);
 document.addEventListener("input", e=>{
   const t = e.target;
-  if(t && (t.isContentEditable || t.tagName === "TEXTAREA")) kbWkrotce();
+  if(t && (t.isContentEditable || t.tagName === "TEXTAREA") && kbWysokosc() > 0) kbWkrotce();
 }, true);
 document.addEventListener("focusin", e=>{
   const t = e.target;
-  if(t && (t.isContentEditable || t.tagName === "TEXTAREA" || t.tagName === "INPUT")){
+  if(t && (t.isContentEditable || t.tagName === "TEXTAREA" || t.tagName === "INPUT") && kbWysokosc() > 0){
     setTimeout(kbPokazKursor, 320);              // po wysunięciu się klawiatury
   }
 });
@@ -31293,56 +31307,68 @@ function _centrPobierzWszystkiePlanyDane(){
       desc: "Od Księgi Rodzaju do Objawienia w 3 lata (1095 dni). Dokładnie 1 rozdział dziennie – łatwy do utrzymania codzienny nawyk."
     },
 
-    // === ZRÓWNOWAŻONE (ST + NT) ===
+    // === ZRÓWNOWAŻONE (PISMA HEBRAJSKIE I GRECKIE) ===
     "zbalansowany-1rok": {
       id: "zbalansowany-1rok",
-      name: "ST i NT równolegle (1 rok)",
+      name: "Pisma Hebrajskie i Greckie (1 rok)",
       days: 365,
       cat: "zbalansowany",
-      catName: "Zbalansowany",
+      catName: "Pisma Hebr. + Greckie",
       duration: "1 rok",
-      pace: "2-3 rozdz. ST + 1 rozdz. NT",
+      pace: "2-3 rozdz. Hebr. + 1 rozdz. Greckich",
       timeEst: "⏱ 15–20 min",
-      plan: _centrGenerujPlanZbalansowany(365, "ST + NT"),
+      plan: _centrGenerujPlanZbalansowany(365, "Pisma Hebr. + Greckie"),
       desc: "Codziennie fragment Pism Hebrajskich oraz Chrześcijańskich Pism Greckich. Idealna równowaga dla umysłu i serca."
     },
     "zbalansowany-2lata": {
       id: "zbalansowany-2lata",
-      name: "ST i NT równolegle (2 lata)",
+      name: "Pisma Hebrajskie i Greckie (2 lata)",
       days: 730,
       cat: "zbalansowany",
-      catName: "Zbalansowany",
+      catName: "Pisma Hebr. + Greckie",
       duration: "2 lata",
-      pace: "1-2 rozdz. ST + fragment NT",
+      pace: "1-2 rozdz. Hebr. + fragment Greckich",
       timeEst: "⏱ 8–10 min",
-      plan: _centrGenerujPlanZbalansowany(730, "ST + NT"),
+      plan: _centrGenerujPlanZbalansowany(730, "Pisma Hebr. + Greckie"),
       desc: "Pisma Hebrajskie i Greckie równolegle w spokojnym 2-letnim tempie. Codzienny kontakt z życiem i naukami Chrystusa."
     },
+    "zbalansowany-3lata": {
+      id: "zbalansowany-3lata",
+      name: "Pisma Hebrajskie i Greckie (3 lata)",
+      days: 1095,
+      cat: "zbalansowany",
+      catName: "Pisma Hebr. + Greckie",
+      duration: "3 lata",
+      pace: "~1 rozdz. Hebr. + fragment Greckich",
+      timeEst: "⏱ 4–6 min",
+      plan: _centrGenerujPlanZbalansowany(1095, "Pisma Hebr. + Greckie"),
+      desc: "Pisma Hebrajskie i Greckie równolegle w bardzo spokojnym 3-letnim tempie (1095 dni). Niezwykle przystępna codzienna lektura."
+    },
 
-    // === TEMATYCZNE I NOWY TESTAMENT ===
+    // === TEMATYCZNE I PISMA GRECKIE ===
     "nt": {
       id: "nt",
-      name: "Nowy Testament (90 dni)",
+      name: "Pisma Greckie (90 dni)",
       days: 90,
       cat: "temat",
-      catName: "Nowy Testament",
+      catName: "Pisma Greckie",
       duration: "90 dni",
       pace: "~2,8 rozdz./dzień",
       timeEst: "⏱ 10–15 min",
-      plan: _centrGenerujPlanNT(90, "Nowy Testament"),
+      plan: _centrGenerujPlanNT(90, "Pisma Greckie"),
       desc: "Wszystkie 27 ksiąg Chrześcijańskich Pism Greckich w 3 miesiące (od Ewangelii Mateusza do Objawienia)."
     },
     "nt-1rok": {
       id: "nt-1rok",
-      name: "Nowy Testament (1 rok)",
+      name: "Pisma Greckie (1 rok)",
       days: 365,
       cat: "temat",
-      catName: "Nowy Testament",
+      catName: "Pisma Greckie",
       duration: "1 rok",
       pace: "~0,7 rozdz./dzień",
       timeEst: "⏱ 3–5 min",
-      plan: _centrGenerujPlanNT(365, "Nowy Testament"),
-      desc: "Cały Nowy Testament rozłożony na pełny rok – krótkie, inspirujące fragmenty każdego dnia."
+      plan: _centrGenerujPlanNT(365, "Pisma Greckie"),
+      desc: "Wszystkie Chrześcijańskie Pisma Greckie rozłożone na pełny rok – krótkie, inspirujące fragmenty każdego dnia."
     },
     "jan": {
       id: "jan",
@@ -32616,8 +32642,8 @@ function centrWidokMojePlany(tab){
     + '<button type="button" class="cenTabBtn' + (tab==="wszystkie"?' active':'') + '" data-cplan-tab="wszystkie">Wszystkie (' + plany.length + ')</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="chrono"?' active':'') + '" data-cplan-tab="chrono">Chronologiczne (1, 2, 3 lata)</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="pokolei"?' active':'') + '" data-cplan-tab="pokolei">Księgi po kolei (1, 2, 3 lata)</button>'
-    + '<button type="button" class="cenTabBtn' + (tab==="zbalansowany"?' active':'') + '" data-cplan-tab="zbalansowany">ST + NT równolegle</button>'
-    + '<button type="button" class="cenTabBtn' + (tab==="temat"?' active':'') + '" data-cplan-tab="temat">Nowy Testament i Tematyczne</button>'
+    + '<button type="button" class="cenTabBtn' + (tab==="zbalansowany"?' active':'') + '" data-cplan-tab="zbalansowany">Pisma Hebr. i Greckie (1, 2, 3 lata)</button>'
+    + '<button type="button" class="cenTabBtn' + (tab==="temat"?' active':'') + '" data-cplan-tab="temat">Pisma Greckie i Tematyczne</button>'
     + '</div>'
 
     + '<div class="cenPlanGrid">'
