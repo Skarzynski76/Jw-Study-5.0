@@ -6584,6 +6584,58 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
 #modalFs #fsFull .ic{ width:18px; height:18px; }
 #modalFs #fsFull.active{ background:var(--accent); color:#ffffff; border-color:var(--accent); }
 #modalFs #fsFull.active:hover{ opacity:.9; }
+/* Pełny ekran czytnika — usunięcie marginesów i zaokrągleń */
+#modalFs.is-fullscreen,
+html:fullscreen #modalFs,
+body:fullscreen #modalFs,
+:fullscreen #modalFs,
+:-webkit-full-screen #modalFs,
+html:-webkit-full-screen #modalFs,
+body.fs-fullscreen #modalFs {
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100% !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+}
+#modalFs.is-fullscreen .fsmodal,
+html:fullscreen #modalFs .fsmodal,
+body:fullscreen #modalFs .fsmodal,
+:fullscreen #modalFs .fsmodal,
+:-webkit-full-screen #modalFs .fsmodal,
+html:-webkit-full-screen #modalFs .fsmodal,
+body.fs-fullscreen #modalFs .fsmodal {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100% !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+#modalFs.is-fullscreen .fsNav.prev,
+html:fullscreen #modalFs .fsNav.prev,
+body:fullscreen #modalFs .fsNav.prev,
+:fullscreen #modalFs .fsNav.prev,
+:-webkit-full-screen #modalFs .fsNav.prev,
+html:-webkit-full-screen #modalFs .fsNav.prev,
+body.fs-fullscreen #modalFs .fsNav.prev {
+  left: 12px !important;
+}
+#modalFs.is-fullscreen .fsNav.next,
+html:fullscreen #modalFs .fsNav.next,
+body:fullscreen #modalFs .fsNav.next,
+:fullscreen #modalFs .fsNav.next,
+:-webkit-full-screen #modalFs .fsNav.next,
+html:-webkit-full-screen #modalFs .fsNav.next,
+body.fs-fullscreen #modalFs .fsNav.next {
+  right: 12px !important;
+}
 /* Skoro krzyżyk jest w rogu okna, ten w nagłówku byłby drugi taki sam. */
 #fsWrap .fsCloseInline{ display:none!important; }
 #fsWrap .nhead{ padding-right:clamp(4px, 2vw, 20px)!important; }
@@ -17690,6 +17742,112 @@ $("readPop").addEventListener("pointerdown", e=>{
 /* Zamykanie przy dotknięciu obok — wspólne dla wszystkich okienek, w 45-zamykanie.js */
 $("fsClose").onclick = closeFs;
 $("modalFs").addEventListener("click", e=>{ if(e.target.id==="modalFs") closeFs(); });
+
+/* ===== PEŁNY EKRAN CZYTNIKA (modalFs) ===== */
+const FS_ICON_EXPAND = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>';
+const FS_ICON_COMPRESS = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>';
+
+function isFsActive(){
+  return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || $("modalFs")?.classList.contains("is-fullscreen") || document.body.classList.contains("fs-fullscreen"));
+}
+
+function updateFsFullBtn(forcedState){
+  const btn = $("fsFull");
+  if(!btn) return;
+  const active = (typeof forcedState === "boolean") ? forcedState : isFsActive();
+  if(active){
+    btn.classList.add("active");
+    btn.setAttribute("title", "Opuść pełny ekran");
+    btn.setAttribute("aria-label", "Opuść pełny ekran");
+    btn.innerHTML = FS_ICON_COMPRESS;
+  } else {
+    btn.classList.remove("active");
+    btn.setAttribute("title", "Pełny ekran");
+    btn.setAttribute("aria-label", "Pełny ekran");
+    btn.innerHTML = FS_ICON_EXPAND;
+  }
+}
+
+function toggleFsFullscreen(){
+  const modal = $("modalFs");
+  if(!modal) return;
+  const isFull = isFsActive();
+  if(isFull){
+    exitFsFullscreen();
+  } else {
+    enterFsFullscreen();
+  }
+}
+
+function enterFsFullscreen(){
+  const modal = $("modalFs");
+  if(modal){
+    modal.classList.add("is-fullscreen");
+    modal.querySelector(".fsmodal")?.classList.add("is-fullscreen");
+  }
+  document.body.classList.add("fs-fullscreen");
+
+  const docEl = document.documentElement;
+  const req = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.mozRequestFullScreen || docEl.msRequestFullscreen;
+  if(req){
+    try{
+      const p = req.call(docEl);
+      if(p && p.catch) p.catch(()=>{});
+    }catch(e){}
+  }
+  updateFsFullBtn(true);
+}
+
+function exitFsFullscreen(){
+  const modal = $("modalFs");
+  if(modal){
+    modal.classList.remove("is-fullscreen");
+    modal.querySelector(".fsmodal")?.classList.remove("is-fullscreen");
+  }
+  document.body.classList.remove("fs-fullscreen");
+
+  if(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement){
+    try{
+      const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+      if(exit){
+        const p = exit.call(document);
+        if(p && p.catch) p.catch(()=>{});
+      }
+    }catch(e){}
+  }
+  updateFsFullBtn(false);
+}
+
+const btnFsFull = $("fsFull");
+if(btnFsFull){
+  btnFsFull.onclick = (e)=>{
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFsFullscreen();
+  };
+}
+
+["fullscreenchange", "webkitfullscreenchange", "mozfullscreenchange", "MSFullscreenChange"].forEach(evt => {
+  document.addEventListener(evt, () => {
+    const isNative = !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+    const modal = $("modalFs");
+    if(!isNative){
+      if(modal){
+        modal.classList.remove("is-fullscreen");
+        modal.querySelector(".fsmodal")?.classList.remove("is-fullscreen");
+      }
+      document.body.classList.remove("fs-fullscreen");
+    } else {
+      if(modal){
+        modal.classList.add("is-fullscreen");
+        modal.querySelector(".fsmodal")?.classList.add("is-fullscreen");
+      }
+      document.body.classList.add("fs-fullscreen");
+    }
+    updateFsFullBtn();
+  });
+});
+
 // nawigacja poprzednia/następna
 $("fsPrev").onclick = ()=>fsGo(-1);
 $("fsNext").onclick = ()=>fsGo(1);
