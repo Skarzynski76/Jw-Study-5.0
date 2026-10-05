@@ -17119,6 +17119,16 @@ function openFs(n){
   const fm=$("modalFs").querySelector(".fsmodal"); if(fm) fm.scrollTop=0;
   updateFsProgress();
 }
+function selectNote(guid){
+  if(!guid) return;
+  const n = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes.find(x=>x.g===guid && !x.del) : null;
+  if(!n){
+    if(typeof toast === "function") toast("Tej notatki już nie ma");
+    return;
+  }
+  if(typeof touchAccess === "function") touchAccess(n);
+  if(typeof openFs === "function") openFs(n);
+}
 function renderFs(){
   const n = notes.find(x=>x.g===fsGuid);
   if(!n || n.del){ closeFs(); return; }
@@ -31491,14 +31501,16 @@ function _centrZapiszTematyStudium(arr){
 
 function _centrPobierzNotatkiTematu(temat){
   if(!temat || typeof notes === "undefined" || !Array.isArray(notes)) return [];
-  const tNorm = (typeof norm === "function") ? norm(temat.name) : temat.name.toLowerCase();
+  const tNorm = (typeof norm === "function") ? norm(temat.name) : (temat.name || "").toLowerCase().trim();
+  if(!tNorm) return [];
   const tagMatching = (typeof tags !== "undefined" && Array.isArray(tags))
-    ? tags.find(t=>norm(t.name)===tNorm) : null;
+    ? tags.find(t=> (typeof norm === "function" ? norm(t.name) : (t.name || "").toLowerCase().trim()) === tNorm) : null;
   return notes.filter(n=>{
     if(n.del) return false;
     if(tagMatching && Array.isArray(n.tg) && n.tg.includes(tagMatching.id)) return true;
     if(n.t && norm(n.t).includes(tNorm)) return true;
-    if(n.c && norm(n.c).includes(tNorm)) return true;
+    const txt = n.c || (n.h ? String(n.h).replace(/<[^>]*>/g," ") : "");
+    if(txt && norm(txt).includes(tNorm)) return true;
     return false;
   });
 }
