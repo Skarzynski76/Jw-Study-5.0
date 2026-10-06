@@ -50,9 +50,21 @@
 })();
 </script>
 </head>
-</head>
 <body>
 <div id="loading" role="status" aria-live="polite"><div class="spinner" aria-hidden="true"></div><div id="loadMsg">Wczytywanie notatek…</div></div>
+<script>
+setTimeout(function(){
+  var ld = document.getElementById("loading");
+  if(ld && ld.style.display !== "none"){
+    var msg = document.getElementById("loadMsg");
+    if(msg){
+      msg.innerHTML = '<div style="line-height:1.5">Wczytywanie trwa dłużej niż zwykle…<br><br>' +
+        '<button onclick="location.reload(true)" style="padding:8px 16px;border-radius:8px;border:none;background:#22a06b;color:#fff;font-weight:600;font-size:14px;cursor:pointer;margin-right:8px">Odśwież</button>' +
+        '<button onclick="if(window.caches){caches.keys().then(function(k){return Promise.all(k.map(function(n){return caches.delete(n);}));}).then(function(){if(navigator.serviceWorker){return navigator.serviceWorker.getRegistrations().then(function(r){return Promise.all(r.map(function(reg){return reg.unregister();}));});}}).then(function(){location.reload(true);});}else{location.reload(true);}" style="padding:8px 16px;border-radius:8px;border:1px solid #ccc;background:#f4f5f8;color:#222;font-weight:600;font-size:14px;cursor:pointer">Wyczyść pamięć i wymuś aktualizację</button></div>';
+    }
+  }
+}, 3000);
+</script>
 
 <div id="appContainer">
   <aside id="modernSidebar">
