@@ -36164,6 +36164,48 @@ const BIBLE_CAT_COLORS = {
   } catch(e){}
 })();
 
+/* 3. Plany tematyczne statyczne */
+const JWS_PLAN_JAN = [
+  { d: 1, t: "Słowo stało się ciałem (Świadectwo Jana Chrzciciela)", f: [{ r: "Jana 1", t: "Słowo u Boga, Baranek Boży, pierwsi uczniowie" }] },
+  { d: 2, t: "Cud w Kanie Galilejskiej i oczyszczenie świątyni", f: [{ r: "Jana 2", t: "Woda w wino w Kanie, gorliwość o dom Jehowy" }] },
+  { d: 3, t: "Rozmowa z Nikodemem i miłość Boża", f: [{ r: "Jana 3", t: "Narodzenie z ducha, Jan 3:16 — miłość ku światu" }] },
+  { d: 4, t: "Samarytanka przy studni Jakuba", f: [{ r: "Jana 4", t: "Woda życia i oddawanie czci w duchu i prawdzie" }] },
+  { d: 5, t: "Uzdrwienie przy sadzawce Betesda", f: [{ r: "Jana 5", t: "Władza Syna od Ojca i nadzieja zmartwychwstania" }] },
+  { d: 6, t: "Nakarmienie 5000 i Chleb życia", f: [{ r: "Jana 6", t: "Cudowne rozmnożenie chleba, Jezus chlebem z nieba" }] },
+  { d: 7, t: "Święto Namiotów i nauczanie w świątyni", f: [{ r: "Jana 7", t: "Rzeki wody żywej i podział w tłumie" }] },
+  { d: 8, t: "Światłość świata i wolność przez prawdę", f: [{ r: "Jana 8", t: "Prawda was wyzwoli, Abraham ujrzał mój dzień" }] },
+  { d: 9, t: "Uzdrowienie niewidomego od urodzenia", f: [{ r: "Jana 9", t: "Sadzawka Syloe i odważne świadectwo uzdrowionego" }] },
+  { d: 10, t: "Wspaniały Pasterz i owce", f: [{ r: "Jana 10", t: "Pasterz oddaje życie za owce, jedno stado i jeden pasterz" }] },
+  { d: 11, t: "Wskrzeszenie Łazarza w Betanii", f: [{ r: "Jana 11", t: "Ja jestem zmartwychwstaniem i życiem" }] },
+  { d: 12, t: "Namaszczenie w Betanii i wjazd do Jerozolimy", f: [{ r: "Jana 12", t: "Olejek Marii, triumfalny wjazd Króla" }] },
+  { d: 13, t: "Umycie nóg apostołom i nowe przykazanie", f: [{ r: "Jana 13", t: "Wzór pokory i miłości wzajemnej" }] },
+  { d: 14, t: "Droga, Prawda i Życie oraz Pocieszyciel", f: [{ r: "Jana 14", t: "Mieszkania w domu Ojca, dar ducha świętego" }] },
+  { d: 15, t: "Prawdziwy krzew winny i latorośle", f: [{ r: "Jana 15", t: "Trwajcie w mojej miłości, przynoście obfity owoc" }] },
+  { d: 16, t: "Działanie ducha świętego i zwycięstwo nad światem", f: [{ r: "Jana 16", t: "Odwagi! Ja zwyciężyłem świat" }] },
+  { d: 17, t: "Arcykapłańska modlitwa Jezusa", f: [{ r: "Jana 17", t: "Poznawanie jedynego prawdziwego Boga, jedność uczniów" }] },
+  { d: 18, t: "Ogród Getsemani, pojmanie i proces", f: [{ r: "Jana 18", t: "Przed Annaszem, Kajfaszem i Piłatem" }] },
+  { d: 19, t: "Biczowanie, Golgota i śmierć Chrystusa", f: [{ r: "Jana 19", t: "Dokonało się! Ofiara odkupienia" }] },
+  { d: 20, t: "Pusty grobowiec i ukazanie się uczniom", f: [{ r: "Jana 20", t: "Zmartwychwstanie, Maria Magdalena i Tomasz" }] },
+  { d: 21, t: "Połów ryb nad Jeziorem Tyberiadzkim", f: [{ r: "Jana 21", t: "Paś moje owieczki, podążaj za mną" }] }
+];
+
+const JWS_PLAN_PRZYPOWIESCI = [
+  { d: 1, t: "Siewca i cztery rodzaje gleby", f: [{ r: "Mateusza 13:1-23", t: "Siewca i cztery rodzaje gleby" }] },
+  { d: 2, t: "Pszenica i chwasty", f: [{ r: "Mateusza 13:24-43", t: "Pszenica i chwasty" }] },
+  { d: 3, t: "Ukryty skarb, drogocenna perła i sieć", f: [{ r: "Mateusza 13:44-52", t: "Ukryty skarb, drogocenna perła i sieć" }] },
+  { d: 4, t: "Miłosierny Samarytanin", f: [{ r: "Łukasza 10:25-37", t: "Miłosierny Samarytanin" }] },
+  { d: 5, t: "Nierozsądny bogacz", f: [{ r: "Łukasza 12:13-21", t: "Nierozsądny bogacz" }] },
+  { d: 6, t: "Zagubiona owca i odnaleziona drachma", f: [{ r: "Łukasza 15:1-10", t: "Zagubiona owca i odnaleziona drachma" }] },
+  { d: 7, t: "Syn marnotrawny i miłosierny ojciec", f: [{ r: "Łukasza 15:11-32", t: "Syn marnotrawny i miłosierny ojciec" }] },
+  { d: 8, t: "Roztropny zarządca", f: [{ r: "Łukasza 16:1-13", t: "Roztropny zarządca" }] },
+  { d: 9, t: "Wytrwała wdowa oraz faryzeusz i poborca podatków", f: [{ r: "Łukasza 18:1-14", t: "Wytrwała wdowa oraz faryzeusz i poborca podatków" }] },
+  { d: 10, t: "Robotnicy w winnicy", f: [{ r: "Mateusza 20:1-16", t: "Robotnicy w winnicy" }] },
+  { d: 11, t: "Dwóch synów i niegodziwi rolnicy", f: [{ r: "Mateusza 21:28-46", t: "Dwóch synów i niegodziwi rolnicy" }] },
+  { d: 12, t: "Uczta weselna króla", f: [{ r: "Mateusza 22:1-14", t: "Uczta weselna króla" }] },
+  { d: 13, t: "Dziesięć dziewic z lampami", f: [{ r: "Mateusza 25:1-13", t: "Dziesięć dziewic z lampami" }] },
+  { d: 14, t: "Powierzone talenty oraz owce i kozy", f: [{ r: "Mateusza 25:14-46", t: "Powierzone talenty oraz owce i kozy" }] }
+];
+
 /* 5. Generator planów z sekwencji rozdziałów */
 function _centrPobierzKanoniczneRozdzialy(){
   const all = [];
