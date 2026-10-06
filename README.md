@@ -1,9 +1,8 @@
-# JW Study 3.56
+# JW Study 5.0
 
-Aplikacja do notatek i studium.
+Aplikacja do notatek i studium Biblii.
 
-Wersja 3.56 poprawia zachowanie Enter w edytorze. Nowy wiersz rozpoczyna się zwykłym stylem, nawet jeśli poprzednia linia była pogrubiona, pochylona, podkreślona, przekreślona, pokolorowana lub podświetlona. Istniejący tekst po prawej stronie kursora zachowuje wcześniejsze formatowanie.
+Wersja 5.0 wprowadza zaawansowaną synchronizację i granularny eksport/import danych, optymalizacje interfejsu (w tym poprawki okna nowej notatki na urządzeniach mobilnych), ulepszoną obsługę szablonów i fragmentów oraz pełne działanie w trybie offline.
 
-Wydanie zawiera także pełny audyt zapisu, importu PDF/Word/OCR, działania offline, wyszukiwania, nawigacji, Centrum studium, ilustracji i narzędzi edycji.
+Wydanie zawiera pełny audyt zapisu, synchronizacji, importu PDF/Word/OCR, działania offline, wyszukiwania, nawigacji, Centrum studium i narzędzi edycji.
 
-Instrukcja aktualizacji: `AKTUALIZACJA-3.56.txt`. Testy: `node testy/regresja.js`.

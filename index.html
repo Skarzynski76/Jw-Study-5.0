@@ -23549,7 +23549,7 @@ function smartPodzielNaglowki(html, tytulBazowy){
 const smartAssetUrls=new Map();
 function smartAssetBytes(nazwa){
   const el=document.getElementById("smartAsset-"+nazwa);
-  if(!el)throw new Error("Niekompletna wersja aplikacji: brak biblioteki "+nazwa+". Wgraj index.html wersji 3.56.");
+  if(!el)throw new Error("Niekompletna wersja aplikacji: brak biblioteki "+nazwa+". Wgraj index.html wersji 5.0.");
   const raw=atob(el.textContent.trim()),bytes=new Uint8Array(raw.length);
   for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);
   return bytes;
@@ -40989,10 +40989,10 @@ window.GranularSync = (function() {
     }
 
     const exportPackage = {
-      version: "3.56-package",
+      version: "5.0-package",
       type: "jw-study-granular-export",
       exportedAt: new Date().toISOString(),
-      appVersion: "3.56",
+      appVersion: "5.0",
       summary: {
         totalNotes: finalNotes.length,
         totalTags: exportTags.length,
