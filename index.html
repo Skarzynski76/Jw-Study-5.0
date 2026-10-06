@@ -10787,6 +10787,64 @@ html[data-theme="dark"] .bezp-stan.ok{color:#9ce0c4;background:#183d31}html[data
 .bezp-result{display:none;margin-top:12px;border-radius:13px;padding:12px 14px;font-size:12.5px;line-height:1.55}.bezp-result.show{display:block}.bezp-result.ok{background:#e8f5ee;color:#185c43}.bezp-result.warn{background:#fff2d5;color:#714f14}.bezp-result.err{background:#fde9ea;color:#8f3035}
 html[data-theme="dark"] .bezp-result.ok{background:#173b2f;color:#a8dec8}html[data-theme="dark"] .bezp-result.warn{background:#493a1c;color:#efd494}html[data-theme="dark"] .bezp-result.err{background:#482427;color:#ffb8bb}
 @media(max-width:700px){.bezp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.bezp-modal{width:100vw;height:100dvh;max-height:100dvh;border-radius:0}.bezp-actions{position:sticky;bottom:-18px;background:var(--panel);padding:10px 0 calc(8px + env(safe-area-inset-bottom,0px));z-index:2}}
+
+/* ================= GRANULARNY EKSPORT I IMPORT ================= */
+.gran-modal{width:min(900px,calc(100vw - 24px));max-height:min(92dvh,880px);display:flex;flex-direction:column;overflow:hidden;padding:0}
+.gran-header{display:flex;align-items:flex-start;gap:13px;padding:18px 22px 14px;border-bottom:1px solid var(--border);background:var(--panel);flex-shrink:0}
+.gran-head-ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 12%,var(--panel));color:var(--accent);flex:0 0 auto}
+.gran-head-ic svg{width:24px;height:24px}
+.gran-header h3{margin:1px 0 3px;font-size:18px;font-weight:750;color:var(--text)}
+.gran-sub{color:var(--muted);font-size:13px;line-height:1.45}
+.gran-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 22px;background:color-mix(in srgb,var(--panel) 95%,var(--accent) 5%);border-bottom:1px solid var(--border);flex-shrink:0}
+.gran-search-box{flex:1 1 200px;position:relative}
+.gran-search-box input{width:100%;padding:7px 12px;border-radius:9px;border:1px solid var(--border);background:var(--panel);color:var(--text);font-size:13px}
+.gran-toolbar-btns{display:flex;gap:6px;flex-wrap:wrap}
+.gran-toolbar-btns .btn{padding:6px 10px;font-size:12px;min-height:32px}
+.gran-body{flex:1 1 auto;overflow-y:auto;padding:16px 22px;display:flex;flex-direction:column;gap:12px}
+.gran-group{border:1px solid var(--border);border-radius:12px;background:var(--panel);overflow:hidden}
+.gran-group-head{display:flex;align-items:center;gap:10px;padding:11px 14px;background:color-mix(in srgb,var(--panel) 92%,var(--accent) 8%);cursor:pointer;user-select:none;font-weight:650;font-size:13.5px}
+.gran-group-head:hover{background:var(--sel)}
+.gran-group-head input[type=checkbox]{margin:0;cursor:pointer;width:17px;height:17px}
+.gran-group-title{flex:1;display:flex;align-items:center;gap:8px}
+.gran-badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:999px;font-size:11px;font-weight:700;background:var(--sel);color:var(--muted)}
+.gran-badge.nowy{background:#e5f4ed;color:#176b4c}
+.gran-badge.konflikt{background:#fff1cc;color:#7a5311}
+.gran-badge.identyczny{background:var(--sel);color:var(--muted)}
+html[data-theme="dark"] .gran-badge.nowy{background:#183d31;color:#9ce0c4}
+html[data-theme="dark"] .gran-badge.konflikt{background:#493b1b;color:#f2d28b}
+html[data-theme="dark"] .gran-badge.identyczny{background:var(--sel);color:var(--muted)}
+.gran-chevron{transition:transform .2s ease;color:var(--muted);font-size:12px;display:inline-block}
+.gran-group.collapsed .gran-chevron{transform:rotate(-90deg)}
+.gran-group.collapsed .gran-group-body{display:none}
+.gran-group-body{padding:8px 12px;display:flex;flex-direction:column;gap:6px}
+.gran-grid-subitems{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px;padding:4px 0}
+.gran-item{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);font-size:12.5px;cursor:pointer;user-select:none}
+.gran-item:hover{background:var(--sel)}
+.gran-item input[type=checkbox]{margin:0;cursor:pointer}
+.gran-item-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.gran-item-title{font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gran-item-sub{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gran-diff-card{border:1px solid var(--border);border-radius:10px;padding:9px 12px;background:var(--bg);margin-top:4px}
+.gran-diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;font-size:11.5px}
+.gran-diff-side{background:var(--panel);border:1px solid var(--border);border-radius:7px;padding:7px 9px;display:flex;flex-direction:column;gap:4px}
+.gran-diff-side-h{font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);display:flex;justify-content:space-between}
+.gran-diff-snip{color:var(--text);font-style:italic;max-height:50px;overflow:hidden;text-overflow:ellipsis;line-height:1.35}
+.gran-strat-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:10px 14px;background:color-mix(in srgb,var(--panel) 90%,var(--accent) 10%);border-radius:10px;border:1px solid var(--border)}
+.gran-strat-bar label{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;cursor:pointer;color:var(--text)}
+.gran-strat-bar input[type=radio]{margin:0;cursor:pointer}
+.gran-options-box{display:flex;flex-direction:column;gap:8px;padding:12px 14px;border-radius:10px;background:var(--panel);border:1px solid var(--border)}
+.gran-options-box label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text);cursor:pointer}
+.gran-options-box input[type=checkbox]{margin:0;cursor:pointer}
+.gran-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:14px 22px;border-top:1px solid var(--border);background:var(--panel);flex-shrink:0}
+.gran-foot-status{font-size:13px;font-weight:650;color:var(--muted)}
+.gran-foot-status strong{color:var(--text)}
+.gran-foot-actions{display:flex;gap:8px}
+.gran-drag-area{border:2px dashed var(--border);border-radius:14px;padding:28px 20px;text-align:center;background:var(--panel);cursor:pointer;transition:border-color .2s,background .2s;display:flex;flex-direction:column;align-items:center;gap:10px}
+.gran-drag-area:hover,.gran-drag-area.dragover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--panel))}
+.gran-drag-ic{width:48px;height:48px;color:var(--accent)}
+.gran-drag-txt{font-size:14px;font-weight:650;color:var(--text)}
+.gran-drag-sub{font-size:12px;color:var(--muted)}
+@media(max-width:700px){.gran-modal{width:100vw;height:100dvh;max-height:100dvh;border-radius:0}.gran-diff-grid{grid-template-columns:1fr}}
 .searchMode{ display:grid; grid-template-columns:1fr 1fr; gap:6px; padding:5px; background:var(--bg); border-radius:13px; margin:8px 0 14px; }
 .searchMode button{ border:0; border-radius:10px; padding:10px; background:transparent; color:var(--muted); font-weight:650; }
 .searchMode button.on{ background:var(--panel); color:var(--accent); box-shadow:var(--cien-1); }
@@ -12945,6 +13003,457 @@ html[data-theme="dark"] #pasekZbiorczy {
   flex-wrap: wrap;
 }
 
+/* ==========================================================================
+   JW Study — Export/Import & Sharing Modals
+   ========================================================================== */
+.exp-modal {
+  max-width: 620px;
+  width: 95vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+}
+.exp-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+}
+.exp-modal-head-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.exp-modal-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--sel);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.exp-modal-head h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+.exp-modal-sub {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+.exp-close-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+.exp-close-btn:hover {
+  background: var(--sel);
+  color: var(--text);
+}
+.exp-tabs {
+  display: flex;
+  background: var(--sel);
+  padding: 4px;
+  border-bottom: 1px solid var(--border);
+  gap: 4px;
+}
+.exp-tab-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.exp-tab-btn:hover {
+  color: var(--text);
+}
+.exp-tab-btn.active {
+  background: var(--bg);
+  color: var(--text);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.exp-modal-body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.exp-lbl {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+  display: block;
+}
+.exp-select, .exp-input, .imp-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--sel);
+  color: var(--text);
+  font-size: 13.5px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+.exp-select:focus, .exp-input:focus, .imp-textarea:focus {
+  border-color: var(--accent);
+}
+.exp-sec-stats {
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.exp-tags-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.exp-tags-quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+.exp-link-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+.exp-link-btn:hover {
+  text-decoration: underline;
+}
+.exp-tags-checklist {
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--bg);
+}
+.exp-tag-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.12s ease;
+}
+.exp-tag-item:hover {
+  background: var(--sel);
+}
+.exp-tag-item label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  flex: 1;
+}
+.exp-tag-item .exp-tag-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.exp-tag-item .exp-tag-cnt {
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+.exp-options-box {
+  background: var(--sel);
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+.exp-checkbox-lbl {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+}
+.exp-summary-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+.exp-summary-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.exp-stat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.exp-stat-pill {
+  background: var(--sel);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.exp-stat-pill.highlight {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.exp-actions-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.exp-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 8px;
+}
+.exp-act-btn {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: var(--text);
+}
+.exp-act-btn:hover {
+  border-color: var(--accent);
+  background: var(--sel);
+  transform: translateY(-1px);
+}
+.exp-act-btn.exp-btn-primary {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+.exp-act-btn.exp-btn-primary:hover {
+  opacity: 0.92;
+}
+.exp-act-btn.exp-btn-primary .exp-act-ico,
+.exp-act-btn.exp-btn-primary small {
+  color: rgba(255,255,255,0.85);
+}
+.exp-act-ico {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.exp-act-ico svg {
+  width: 20px;
+  height: 20px;
+}
+.exp-act-txt {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.exp-act-txt b {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.exp-act-txt small {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.exp-json-details {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  background: var(--panel);
+}
+.exp-json-details summary {
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+.exp-json-code {
+  max-height: 140px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 11.5px;
+  background: var(--sel);
+  padding: 8px;
+  border-radius: 6px;
+  margin-top: 8px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.exp-modal-footer {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--panel);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Dropzone & Import styles */
+.imp-dropzone {
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 24px 16px;
+  text-align: center;
+  background: var(--sel);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.imp-dropzone.dragover {
+  border-color: var(--accent);
+  background: rgba(var(--accent-rgb, 50, 150, 100), 0.1);
+}
+.imp-dropzone-ico {
+  font-size: 32px;
+  margin-bottom: 6px;
+}
+.imp-dropzone-txt {
+  font-size: 13.5px;
+  color: var(--text);
+}
+.imp-dropzone-hint {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.imp-textarea {
+  font-family: monospace;
+  font-size: 12px;
+  resize: vertical;
+  min-height: 70px;
+}
+.imp-preview-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+.imp-preview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.imp-status-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.imp-status-badge.ok {
+  background: #d4edda;
+  color: #155724;
+}
+.imp-conflicts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 0;
+}
+.imp-conflict-opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  background: var(--panel);
+  transition: all 0.15s ease;
+}
+.imp-conflict-opt:hover {
+  background: var(--sel);
+}
+.imp-conflict-opt input {
+  margin-top: 3px;
+}
+.imp-opt-info {
+  display: flex;
+  flex-direction: column;
+}
+.imp-opt-info b {
+  font-size: 13px;
+  color: var(--text);
+}
+.imp-opt-info span {
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+.imp-target-sec-box {
+  margin-top: 10px;
+}
+
 </style>
 <script>
 (function(){
@@ -13543,7 +14052,228 @@ html[data-theme="dark"] #pasekZbiorczy {
     <div class="sec-move-list" id="bulkTagsList" style="max-height:48vh;overflow-y:auto;display:flex;flex-direction:column;gap:6px;padding:4px 2px"></div>
     <div class="sec-move-custom-actions" style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
       <button class="btn" id="btnBulkNewTag" type="button">+ Utwórz nową etykietę</button>
+      <button class="btn" id="btnBulkExportTags" type="button">Eksportuj etykiety…</button>
       <button class="btn" data-zamknij="modalEtykietyZbiorczo" type="button">Zamknij</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="modalEksportDanych" aria-hidden="true">
+  <div class="modal exp-modal" role="dialog" aria-modal="true" aria-labelledby="expModalTitle">
+    <div class="exp-modal-head">
+      <div class="exp-modal-head-title">
+        <span class="exp-modal-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></span>
+        <div>
+          <h3 id="expModalTitle">Eksport i udostępnianie</h3>
+          <p class="exp-modal-sub">Wybierz sekcję, zakładkę lub etykiety do wyeksportowania lub przesłania</p>
+        </div>
+      </div>
+      <button class="exp-close-btn" data-zamknij="modalEksportDanych" title="Zamknij">✕</button>
+    </div>
+
+    <!-- Pasek wyboru trybu -->
+    <div class="exp-tabs" role="tablist">
+      <button type="button" class="exp-tab-btn active" data-expmode="section">📁 Cała sekcja</button>
+      <button type="button" class="exp-tab-btn" data-expmode="tab">🔖 Zakładka sekcji</button>
+      <button type="button" class="exp-tab-btn" data-expmode="tags">🏷️ Wybrane etykiety</button>
+    </div>
+
+    <div class="exp-modal-body">
+      <!-- Panel Sekcja -->
+      <div class="exp-panel" id="expPanelSection">
+        <label class="exp-lbl" for="expSecSelect">Wybierz sekcję do wyeksportowania:</label>
+        <select id="expSecSelect" class="exp-select"></select>
+        <div class="exp-sec-stats" id="expSecStats"></div>
+      </div>
+
+      <!-- Panel Zakładka -->
+      <div class="exp-panel" id="expPanelTab" style="display:none">
+        <label class="exp-lbl" for="expTabSelect">Wybierz zakładkę do wyeksportowania:</label>
+        <select id="expTabSelect" class="exp-select"></select>
+        <div class="exp-sec-stats" id="expTabStats"></div>
+      </div>
+
+      <!-- Panel Wybrane etykiety -->
+      <div class="exp-panel" id="expPanelTags" style="display:none">
+        <div class="exp-tags-head">
+          <label class="exp-lbl">Zaznacz etykiety do wyeksportowania:</label>
+          <div class="exp-tags-quick-actions">
+            <button type="button" class="exp-link-btn" id="expTagsSelectAll">Zaznacz wszystkie</button>
+            <span>·</span>
+            <button type="button" class="exp-link-btn" id="expTagsSelectNone">Odznacz</button>
+          </div>
+        </div>
+        <input type="search" id="expTagsFilter" placeholder="Filtruj etykiety…" class="exp-input">
+        <div class="exp-tags-checklist" id="expTagsChecklist"></div>
+      </div>
+
+      <!-- Opcje wspólne -->
+      <div class="exp-options-box">
+        <label class="exp-checkbox-lbl">
+          <input type="checkbox" id="expIncludeNotes" checked>
+          <span>Dołącz notatki przypisane do wybranych pozycji</span>
+        </label>
+      </div>
+
+      <!-- Podsumowanie pakietu -->
+      <div class="exp-summary-card" id="expSummaryCard">
+        <div class="exp-summary-title">Podsumowanie pakietu danych:</div>
+        <div class="exp-stat-pills" id="expStatPills"></div>
+      </div>
+
+      <!-- Przyciski akcji eksportu / udostępniania -->
+      <div class="exp-actions-group">
+        <div class="exp-actions-label">Wybierz sposób eksportu lub przesłania:</div>
+        <div class="exp-actions-grid">
+          <button type="button" class="exp-act-btn exp-btn-primary" id="btnExpDownload">
+            <span class="exp-act-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3h11l3 3v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M8 3v5h7"/><path d="M8 21v-6h8v6"/></svg></span>
+            <span class="exp-act-txt"><b>Pobierz plik .json</b><small>Zapisz na dysku / urządzeniu</small></span>
+          </button>
+          <button type="button" class="exp-act-btn" id="btnExpShare">
+            <span class="exp-act-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4"/><path d="M8 8l4-4 4 4"/><path d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg></span>
+            <span class="exp-act-txt"><b>Udostępnij / AirDrop</b><small>Wyślij do innej aplikacji</small></span>
+          </button>
+          <button type="button" class="exp-act-btn" id="btnExpCopyPretty">
+            <span class="exp-act-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></span>
+            <span class="exp-act-txt"><b>Kopiuj sformatowany JSON</b><small>Czytelny kod do wklejenia</small></span>
+          </button>
+          <button type="button" class="exp-act-btn" id="btnExpCopyCompact">
+            <span class="exp-act-ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></span>
+            <span class="exp-act-txt"><b>Kopiuj zwarty JSON</b><small>Kompaktowy ciąg znaków</small></span>
+          </button>
+          <button type="button" class="exp-act-btn" id="btnExpEmail">
+            <span class="exp-act-ico">✉️</span>
+            <span class="exp-act-txt"><b>Wyślij e-mail</b><small>Otwórz program pocztowy</small></span>
+          </button>
+          <button type="button" class="exp-act-btn" id="btnExpQr">
+            <span class="exp-act-ico">🔲</span>
+            <span class="exp-act-txt"><b>Pokaż kod QR</b><small>Zeskanuj telefonem</small></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Podgląd JSON -->
+      <details class="exp-json-details">
+        <summary>Podgląd generowanego kodu JSON</summary>
+        <pre class="exp-json-code" id="expJsonPreview"></pre>
+      </details>
+    </div>
+
+    <div class="exp-modal-footer">
+      <button type="button" class="btn" data-zamknij="modalEksportDanych">Zamknij</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="modalImportDanych" aria-hidden="true">
+  <div class="modal exp-modal" role="dialog" aria-modal="true" aria-labelledby="impModalTitle">
+    <div class="exp-modal-head">
+      <div class="exp-modal-head-title">
+        <span class="exp-modal-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h8l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h5"/></svg></span>
+        <div>
+          <h3 id="impModalTitle">Import danych</h3>
+          <p class="exp-modal-sub">Wczytaj sekcje, zakładki, etykiety i notatki z pliku JSON lub schowka</p>
+        </div>
+      </div>
+      <button class="exp-close-btn" data-zamknij="modalImportDanych" title="Zamknij">✕</button>
+    </div>
+
+    <div class="exp-modal-body">
+      <!-- Strefa przeciągania / wyboru pliku -->
+      <div class="imp-dropzone" id="impDropZone">
+        <input type="file" id="impFileInput" accept=".json,application/json" style="display:none">
+        <div class="imp-dropzone-ico">📁</div>
+        <div class="imp-dropzone-txt"><b>Przeciągnij i upuść plik .json tutaj</b> lub <button type="button" class="exp-link-btn" id="impBrowseBtn">wybierz z dysku</button></div>
+        <div class="imp-dropzone-hint">Obsługuje wyeksportowane pakiety sekcji, zakładek, etykiet oraz kopie zapasowe</div>
+      </div>
+
+      <!-- Wklejanie bezpośrednie -->
+      <div class="imp-paste-box">
+        <div class="exp-tags-head">
+          <label class="exp-lbl" for="impJsonInput">Lub wklej kod JSON bezpośrednio:</label>
+          <button type="button" class="exp-link-btn" id="impPasteClipboardBtn">📋 Wklej ze schowka</button>
+        </div>
+        <textarea id="impJsonInput" class="imp-textarea" placeholder='Wklej tutaj dane w formacie JSON (np. {"type":"jw-study-export", ...})' rows="4"></textarea>
+      </div>
+
+      <!-- Wynik analizy / Podgląd zawartości -->
+      <div class="imp-preview-card" id="impPreviewCard" style="display:none">
+        <div class="imp-preview-head">
+          <span class="imp-status-badge ok">✓ Poprawny pakiet danych</span>
+          <span class="imp-source-name" id="impSourceName" style="font-size:12.5px;color:var(--text-muted)"></span>
+        </div>
+        <div class="exp-stat-pills" id="impStatPills"></div>
+      </div>
+
+      <!-- Opcje importu & Rozstrzyganie konfliktów -->
+      <div class="imp-options-section" id="impOptionsSection" style="display:none">
+        <div class="exp-lbl">Sposób dołączenia danych i rozstrzyganie konfliktów:</div>
+        <div class="imp-conflicts-list">
+          <label class="imp-conflict-opt">
+            <input type="radio" name="impConflict" value="merge" checked>
+            <div class="imp-opt-info">
+              <b>Bezpieczne dołączenie (zalecane)</b>
+              <span>Tworzy nowe unikalne ID w razie konfliktu. Nic istniejącego na urządzeniu nie zostanie skasowane ani nadpisane.</span>
+            </div>
+          </label>
+          <label class="imp-conflict-opt">
+            <input type="radio" name="impConflict" value="overwrite">
+            <div class="imp-opt-info">
+              <b>Aktualizuj / Nadpisz pasujące pozycje</b>
+              <span>Jeśli na urządzeniu istnieje sekcja, zakładka lub notatka o tym samym identyfikatorze lub nazwie, zaktualizuje jej treść.</span>
+            </div>
+          </label>
+          <label class="imp-conflict-opt">
+            <input type="radio" name="impConflict" value="skip">
+            <div class="imp-opt-info">
+              <b>Pomiń istniejące duplikaty</b>
+              <span>Dołącza tylko te elementy, które jeszcze nie istnieją na tym urządzeniu.</span>
+            </div>
+          </label>
+        </div>
+
+        <div class="imp-target-sec-box">
+          <label class="exp-lbl" for="impTargetSecSelect">Sekcja docelowa:</label>
+          <select id="impTargetSecSelect" class="exp-select">
+            <option value="original">Zachowaj oryginalną strukturę sekcji z pliku</option>
+            <option value="none">Umieść wszystko poza sekcjami (luzem)</option>
+            <option value="new_section">+ Utwórz nową sekcję dla importowanych danych…</option>
+          </select>
+        </div>
+
+        <label class="exp-checkbox-lbl" style="margin-top:10px">
+          <input type="checkbox" id="impIncludeNotesCheck" checked>
+          <span>Zaimportuj także notatki zawarte w pakiecie</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="exp-modal-footer">
+      <button type="button" class="btn" data-zamknij="modalImportDanych">Anuluj</button>
+      <button type="button" class="btn primary" id="btnExecuteImport" disabled>Zastosuj import</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="modalQrDanych" aria-hidden="true">
+  <div class="modal exp-modal" style="max-width:440px" role="dialog" aria-modal="true">
+    <div class="exp-modal-head">
+      <div class="exp-modal-head-title">
+        <span class="exp-modal-icon">🔲</span>
+        <div>
+          <h3>Kod QR pakietu</h3>
+          <p class="exp-modal-sub" id="qrSubtitle">Zeskanuj kod drugim urządzeniem</p>
+        </div>
+      </div>
+      <button class="exp-close-btn" data-zamknij="modalQrDanych" title="Zamknij">✕</button>
+    </div>
+    <div class="exp-modal-body" style="text-align:center;padding:16px 8px;">
+      <div id="qrCanvasContainer" style="display:flex;justify-content:center;margin:10px 0;"></div>
+      <p id="qrNotice" style="font-size:12px;color:var(--text-muted);margin:8px 12px 0;line-height:1.4;"></p>
+    </div>
+    <div class="exp-modal-footer" style="justify-content:center;">
+      <button type="button" class="btn primary" id="btnCopyQrJson">Kopiuj kod JSON</button>
+      <button type="button" class="btn" data-zamknij="modalQrDanych">Zamknij</button>
     </div>
   </div>
 </div>
@@ -13556,6 +14286,103 @@ html[data-theme="dark"] #pasekZbiorczy {
     <div class="actions">
       <button class="btn" data-zamknij="modalTrash">Zamknij</button>
       <button class="btn danger" id="trashEmpty">Opróżnij kosz</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EKSPORT WYBRANYCH DANYCH -->
+<div class="overlay" id="modalExportWybierz" aria-hidden="true">
+  <div class="modal gran-modal" role="dialog" aria-modal="true" aria-labelledby="granExpTytul">
+    <div class="gran-header">
+      <span class="gran-head-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
+      <div>
+        <h3 id="granExpTytul">Eksport wybranych danych</h3>
+        <div class="gran-sub">Wybierz kategorie, księgi biblijne, publikacje lub etykiety do wyeksportowania w osobnym pakiecie.</div>
+      </div>
+    </div>
+    <div class="gran-toolbar">
+      <div class="gran-search-box">
+        <input type="search" id="granExpSearch" placeholder="🔍 Szukaj w elementach..." autocomplete="off">
+      </div>
+      <div class="gran-toolbar-btns">
+        <button class="btn" type="button" id="granExpSelectAll">Zaznacz wszystko</button>
+        <button class="btn" type="button" id="granExpDeselectAll">Odznacz wszystko</button>
+        <button class="btn" type="button" id="granExpSelectBible">Tylko Biblia</button>
+        <button class="btn" type="button" id="granExpSelectOwn">Tylko własne</button>
+      </div>
+    </div>
+    <div class="gran-body" id="granExpTree">
+      <!-- Generowane dynamicznie przez JS -->
+    </div>
+    <div class="gran-options-box" style="margin: 0 22px 10px;">
+      <label><input type="checkbox" id="granExpOptTags" checked> <span>Dołącz powiązane etykiety i ich sekcje</span></label>
+      <label><input type="checkbox" id="granExpOptImages" checked> <span>Dołącz zdjęcia osadzone w treści notatek</span></label>
+    </div>
+    <div class="gran-footer">
+      <div class="gran-foot-status" id="granExpStatus">Wybrano: <strong>0</strong> elementów</div>
+      <div class="gran-foot-actions">
+        <button class="btn" type="button" data-zamknij="modalExportWybierz">Anuluj</button>
+        <button class="btn primary" type="button" id="granExpSubmit">⬇️ Eksportuj pakiet JSON</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL IMPORT PAKIETU DANYCH Z PODGLĄDEM RÓŻNIC -->
+<div class="overlay" id="modalImportWybierz" aria-hidden="true">
+  <div class="modal gran-modal" role="dialog" aria-modal="true" aria-labelledby="granImpTytul">
+    <div class="gran-header">
+      <span class="gran-head-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></span>
+      <div>
+        <h3 id="granImpTytul">Import pakietu danych</h3>
+        <div class="gran-sub">Podgląd zawartości pliku, porównanie różnic i bezpieczne rozwiązywanie konfliktów.</div>
+      </div>
+    </div>
+    
+    <!-- Widok 1: Wybór / Upuszczenie pliku -->
+    <div id="granImpDropStep" class="gran-body" style="padding: 28px 22px;">
+      <div class="gran-drag-area" id="granImpDropZone">
+        <svg class="gran-drag-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        <div class="gran-drag-txt">Przeciągnij i upuść plik JSON lub kliknij, aby wybrać</div>
+        <div class="gran-drag-sub">Obsługuje pakiety eksportu granularnego oraz pełne kopie JW-Study</div>
+        <button class="btn primary" type="button" id="granImpPickFileBtn" style="margin-top: 6px;">Wybierz plik z dysku</button>
+      </div>
+      <input type="file" id="granImpFileInput" accept="application/json,.json" hidden>
+    </div>
+
+    <!-- Widok 2: Interaktywny podgląd, diff i selekcja -->
+    <div id="granImpPreviewStep" style="display: none; flex-direction: column; flex: 1 1 auto; overflow: hidden;">
+      <div class="gran-toolbar">
+        <div class="gran-search-box">
+          <input type="search" id="granImpSearch" placeholder="🔍 Filtruj elementy w pliku..." autocomplete="off">
+        </div>
+        <div class="gran-toolbar-btns">
+          <button class="btn" type="button" id="granImpFilterAll">Wszystkie</button>
+          <button class="btn" type="button" id="granImpFilterConflicts">Tylko konflikty</button>
+          <button class="btn" type="button" id="granImpFilterNew">Tylko nowe</button>
+          <button class="btn" type="button" id="granImpSelectAll">Zaznacz widoczne</button>
+          <button class="btn" type="button" id="granImpDeselectAll">Odznacz</button>
+        </div>
+      </div>
+      <div class="gran-body">
+        <!-- Global Strategy Selector -->
+        <div class="gran-strat-bar">
+          <span style="font-weight: 750; font-size: 13px;">Domyślne traktowanie konfliktów:</span>
+          <label><input type="radio" name="granImpStrategy" value="nadpisz" checked> <span>🔄 Nadpisz istniejące</span></label>
+          <label><input type="radio" name="granImpStrategy" value="pomin"> <span>⏭️ Pomiń (zostaw moje)</span></label>
+          <label><input type="radio" name="granImpStrategy" value="nowa_kopia"> <span>📑 Utwórz kopie (obie wersje)</span></label>
+        </div>
+        <!-- Diff Tree -->
+        <div id="granImpTree"></div>
+      </div>
+      <div class="gran-footer">
+        <div class="gran-foot-status" id="granImpStatus">Wybrano: <strong>0</strong> elementów</div>
+        <div class="gran-foot-actions">
+          <button class="btn" type="button" id="granImpBackToFile">Zmień plik</button>
+          <button class="btn" type="button" data-zamknij="modalImportWybierz">Anuluj</button>
+          <button class="btn primary" type="button" id="granImpSubmit">📥 Zaimportuj wybrane</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -13586,6 +14413,8 @@ html[data-theme="dark"] #pasekZbiorczy {
     <div class="bezp-actions">
       <button class="btn primary" id="bezpMakeBackup" type="button">Zrób kopię</button>
       <button class="btn" id="bezpCheckBackup" type="button">Sprawdź kopię</button>
+      <button class="btn" id="bezpExportCustom" type="button">Eksportuj wybrane…</button>
+      <button class="btn" id="bezpImportCustom" type="button">Importuj pakiet…</button>
       <button class="btn" type="button" data-zamknij="modalBezpieczenstwo">Zamknij</button>
     </div>
     <input type="file" id="bezpBackupInput" accept="application/json,.json" hidden>
@@ -16465,6 +17294,8 @@ function sectionMenu(e, s){
      <div data-sm="up">${upI}Przesuń w górę</div>
      <div data-sm="down">${downI}Przesuń w dół</div>
      <div class="dd-sep"></div>
+     <div data-sm="eksport">${ICO.copy}Eksportuj / Wyślij sekcję…</div>
+     <div class="dd-sep"></div>
      <div data-sm="del" class="dd-danger">${ICO.trash}Usuń sekcję</div>`;
   dd.style.display="block";
   placeDropdown(dd, e.target);
@@ -16480,6 +17311,7 @@ function sectionMenu(e, s){
     else if(a==="tab") createSecTab(s.id);
     else if(a==="up") moveSection(s.id,-1);
     else if(a==="down") moveSection(s.id,1);
+    else if(a==="eksport") eksportujSekcje(s.id);
     else if(a==="del") deleteSection(s.id);
   };
 }
@@ -22046,8 +22878,10 @@ $("btnMenu").onclick = e=>{
     <div class="dd-lbl">Kopia zapasowa</div>
     <div data-m="security">${ic.info}<b>Centrum bezpieczeństwa danych</b></div>
     <div data-m="json">${ICO.save}Zapisz kopię danych <span class="dd-hint">JSON</span></div>
+    <div data-m="custom-export">${ic.up}<b>Eksport wybranych danych…</b> <span class="dd-hint">wybór</span></div>
     <div data-m="cloud">${ic.cloud}Zapisz kopię w chmurze <span class="dd-hint">iCloud, Drive…</span></div>
     <div data-m="loadjson">${ic.folder}Wczytaj kopię danych…</div>
+    <div data-m="custom-import">${ic.down}<b>Import pakietu danych…</b> <span class="dd-hint">diff</span></div>
     ${backupStatusHtml()}
     <div class="dd-sep"></div>
     <!-- COFNIJ TAKŻE TUTAJ (2.77). W pasku górnym ten przycisk znika na
@@ -22084,8 +22918,10 @@ $("btnMenu").onclick = e=>{
     else if(m==="apple")openFilePicker("apple");
     else if(m==="export")startExport();
     else if(m==="json")exportJson();
+    else if(m==="custom-export"){ if(window.GranularSync) window.GranularSync.openExport(); }
     else if(m==="cloud")shareBackup();
     else if(m==="loadjson")openFilePicker("json");
+    else if(m==="custom-import"){ if(window.GranularSync) window.GranularSync.openImport(); }
     else if(m==="undo"){ if(typeof doUndo === "function" && undoIle) doUndo(); }
     else if(m==="redo"){ if(typeof doRedo === "function" && redoIle) doRedo(); }
     else if(m==="trash")openTrash();
@@ -23978,11 +24814,12 @@ function exportNoteSection(n){
       <div class="meta">${exportMetaLine(n)}</div>
       <div class="content">${exportNoteBody(n)}</div></section>`;
 }
-function notesExportHtml(list, heading){
-  const countLabel = list.length===1 ? "notatka" : "notatek";
+function notesExportHtml(list, heading, customSub){
+  const countLabel = (typeof formatujLiczbeNotatek==="function") ? formatujLiczbeNotatek(list.length) : (list.length===1 ? "1 notatka" : list.length+" notatek");
+  const sub = customSub || `Zakładka · ${countLabel} · ${new Date().toLocaleDateString("pl")}`;
   return exportDocHtml(heading, EXPORT_CSS_MANY,
 `<div class="doc-title">${esc(heading)}</div>
-<div class="doc-sub">Zakładka · ${list.length} ${countLabel} · ${new Date().toLocaleDateString("pl")}</div>
+<div class="doc-sub">${esc(sub)}</div>
 ${list.map(exportNoteSection).join("")}`);
 }
 function safeName(s){ return (s||"zakladka").replace(/[^\p{L}\p{N} ,-]/gu,"").trim().substring(0,50)||"zakladka"; }
@@ -39701,6 +40538,1041 @@ document.querySelector(".searchHelp").appendChild(helpMore);
 
   updateSidebarActiveStates();
 })();
+</script>
+<script>
+/* ==========================================================================
+   JW Study — Granular Data Sync (Export & Import with Interactive Diff)
+   ========================================================================== */
+window.GranularSync = (function() {
+  "use strict";
+
+  let _expTreeData = null;
+  let _impData = null;
+  let _impDiffItems = [];
+  let _impGlobalStrategy = "nadpisz";
+  let _impCurrentFilter = "all";
+
+  // Escape HTML helper
+  function _esc(str) {
+    if (str === null || str === undefined) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  // Strip HTML tags for clean diff previews
+  function _stripHtml(html) {
+    if (!html) return "";
+    const tmp = document.createElement("div");
+    tmp.innerHTML = html;
+    return (tmp.textContent || tmp.innerText || "").trim();
+  }
+
+  // Format date helper
+  function _formatDate(iso) {
+    if (!iso) return "Brak daty";
+    try {
+      const d = new Date(iso);
+      if (isNaN(d.getTime())) return iso;
+      return d.toLocaleDateString("pl-PL", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+    } catch (_) {
+      return iso;
+    }
+  }
+
+  // Check if book identifier is a Bible book (1..66)
+  function _isBibleBook(b) {
+    if (b === undefined || b === null || b === "" || b === 0 || b === "0") return false;
+    const n = Number(b);
+    if (!isNaN(n) && n >= 1 && n <= 66) return true;
+    if (typeof BOOKS !== "undefined" && Array.isArray(BOOKS)) {
+      const idx = BOOKS.indexOf(b);
+      return idx >= 1 && idx <= 66;
+    }
+    return false;
+  }
+
+  function _getBibleBookIndex(b) {
+    const n = Number(b);
+    if (!isNaN(n) && n >= 1 && n <= 66) return n;
+    if (typeof BOOKS !== "undefined" && Array.isArray(BOOKS)) {
+      return BOOKS.indexOf(b);
+    }
+    return 0;
+  }
+
+  function _getBibleBookName(b) {
+    const idx = _getBibleBookIndex(b);
+    if (idx >= 1 && typeof BOOKS !== "undefined" && BOOKS[idx]) return BOOKS[idx];
+    return String(b || "");
+  }
+
+  function _isPub(b) {
+    if (!b || b === "0" || b === 0) return false;
+    return !_isBibleBook(b);
+  }
+
+  function _getPubName(b) {
+    if (!_isPub(b)) return "";
+    if (typeof pubFullName === "function") {
+      const fn = pubFullName(b);
+      if (fn) return fn;
+    }
+    if (typeof PUB_NAMES !== "undefined" && PUB_NAMES[b]) return PUB_NAMES[b];
+    return String(b);
+  }
+
+  function _getTagName(tagId) {
+    if (typeof tags !== "undefined" && Array.isArray(tags)) {
+      const t = tags.find(x => x.id === tagId);
+      if (t) return t.name;
+    }
+    return "Etykieta #" + tagId;
+  }
+
+  function _getTagColor(tagId) {
+    if (typeof tags !== "undefined" && Array.isArray(tags)) {
+      const t = tags.find(x => x.id === tagId);
+      if (t && t.color) return t.color;
+    }
+    return "#3b82f6";
+  }
+
+  /* ==========================================================================
+     EXPORT LOGIC
+     ========================================================================== */
+  function openExport() {
+    const searchInput = document.getElementById("granExpSearch");
+    if (searchInput) searchInput.value = "";
+
+    _buildExportTree();
+    _updateExportStatus();
+
+    if (typeof openModal === "function") {
+      openModal("modalExportWybierz");
+    } else {
+      const m = document.getElementById("modalExportWybierz");
+      if (m) m.classList.add("show");
+    }
+  }
+
+  function _buildExportTree() {
+    const container = document.getElementById("granExpTree");
+    if (!container) return;
+
+    const allNotes = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes : [];
+    const allTags = (typeof tags !== "undefined" && Array.isArray(tags)) ? tags : [];
+
+    // Grouping
+    const bibleMap = new Map(); // bookIdx -> notes[]
+    const pubMap = new Map();   // pubCode -> notes[]
+    const ownNotes = [];        // notes[]
+
+    allNotes.forEach(n => {
+      if (_isBibleBook(n.b)) {
+        const bIdx = _getBibleBookIndex(n.b);
+        if (!bibleMap.has(bIdx)) bibleMap.set(bIdx, []);
+        bibleMap.get(bIdx).push(n);
+      } else if (_isPub(n.b)) {
+        const pCode = String(n.b);
+        if (!pubMap.has(pCode)) pubMap.set(pCode, []);
+        pubMap.get(pCode).push(n);
+      } else {
+        ownNotes.push(n);
+      }
+    });
+
+    let html = `<div class="gran-tree">`;
+
+    // 1. BIBLIA
+    const bibleBooksWithNotes = Array.from(bibleMap.keys()).sort((a,b) => a - b);
+    const bibleTotalNotes = bibleBooksWithNotes.reduce((acc, k) => acc + bibleMap.get(k).length, 0);
+
+    html += `
+      <div class="gran-group" data-cat="bible">
+        <div class="gran-group-header">
+          <label class="gran-check-label">
+            <input type="checkbox" class="gran-check-cat" data-target="bible" checked>
+            <span class="gran-group-title">📖 Pismo Święte (Biblia)</span>
+          </label>
+          <span class="gran-group-count">${bibleTotalNotes} notatek w ${bibleBooksWithNotes.length} księgach</span>
+          <button type="button" class="gran-toggle-group" title="Zwiń / Rozwiń">▼</button>
+        </div>
+        <div class="gran-group-content">`;
+
+    if (bibleBooksWithNotes.length === 0) {
+      html += `<div class="gran-empty-msg">Brak notatek przypisanych do ksiąg biblijnych.</div>`;
+    } else {
+      bibleBooksWithNotes.forEach(bIdx => {
+        const bName = _getBibleBookName(bIdx);
+        const bNotes = bibleMap.get(bIdx);
+        html += `
+          <div class="gran-item" data-type="bible" data-book="${bIdx}">
+            <label class="gran-check-label">
+              <input type="checkbox" class="gran-exp-item-check" data-type="bible" data-book="${bIdx}" checked>
+              <span class="gran-item-name">${_esc(bName)}</span>
+            </label>
+            <span class="gran-item-badge">${bNotes.length} not.</span>
+          </div>`;
+      });
+    }
+    html += `</div></div>`;
+
+    // 2. PUBLIKACJE
+    const pubKeys = Array.from(pubMap.keys()).sort((a,b) => _getPubName(a).localeCompare(_getPubName(b)));
+    const pubTotalNotes = pubKeys.reduce((acc, k) => acc + pubMap.get(k).length, 0);
+
+    html += `
+      <div class="gran-group" data-cat="pub">
+        <div class="gran-group-header">
+          <label class="gran-check-label">
+            <input type="checkbox" class="gran-check-cat" data-target="pub" checked>
+            <span class="gran-group-title">📚 Publikacje Towarzystwa Strażnica</span>
+          </label>
+          <span class="gran-group-count">${pubTotalNotes} notatek w ${pubKeys.length} publikacjach</span>
+          <button type="button" class="gran-toggle-group" title="Zwiń / Rozwiń">▼</button>
+        </div>
+        <div class="gran-group-content">`;
+
+    if (pubKeys.length === 0) {
+      html += `<div class="gran-empty-msg">Brak notatek przypisanych do publikacji.</div>`;
+    } else {
+      pubKeys.forEach(pCode => {
+        const pName = _getPubName(pCode);
+        const pNotes = pubMap.get(pCode);
+        html += `
+          <div class="gran-item" data-type="pub" data-pub="${_esc(pCode)}">
+            <label class="gran-check-label">
+              <input type="checkbox" class="gran-exp-item-check" data-type="pub" data-pub="${_esc(pCode)}" checked>
+              <span class="gran-item-name">${_esc(pName)} <small style="color:var(--muted); opacity:0.8;">(${_esc(pCode)})</small></span>
+            </label>
+            <span class="gran-item-badge">${pNotes.length} not.</span>
+          </div>`;
+      });
+    }
+    html += `</div></div>`;
+
+    // 3. WŁASNE NOTATKI / ARTYKUŁY
+    html += `
+      <div class="gran-group" data-cat="own">
+        <div class="gran-group-header">
+          <label class="gran-check-label">
+            <input type="checkbox" class="gran-check-cat" data-target="own" checked>
+            <span class="gran-group-title">📝 Notatki tematyczne i własne artykuły</span>
+          </label>
+          <span class="gran-group-count">${ownNotes.length} notatek</span>
+          <button type="button" class="gran-toggle-group" title="Zwiń / Rozwiń">▼</button>
+        </div>
+        <div class="gran-group-content">`;
+
+    if (ownNotes.length === 0) {
+      html += `<div class="gran-empty-msg">Brak samodzielnych notatek tematycznych.</div>`;
+    } else {
+      ownNotes.forEach(n => {
+        const title = (n.t || "").trim() || "Bez tytułu";
+        const dateStr = _formatDate(n.mo || n.cr);
+        html += `
+          <div class="gran-item" data-type="own" data-guid="${_esc(n.g)}">
+            <label class="gran-check-label">
+              <input type="checkbox" class="gran-exp-item-check" data-type="own" data-guid="${_esc(n.g)}" checked>
+              <span class="gran-item-name">${_esc(title)}</span>
+            </label>
+            <span class="gran-item-date">${_esc(dateStr)}</span>
+          </div>`;
+      });
+    }
+    html += `</div></div>`;
+
+    // 4. ETYKIETY
+    html += `
+      <div class="gran-group" data-cat="tags">
+        <div class="gran-group-header">
+          <label class="gran-check-label">
+            <input type="checkbox" class="gran-check-cat" data-target="tags" checked>
+            <span class="gran-group-title">🏷️ Etykiety użytkownika</span>
+          </label>
+          <span class="gran-group-count">${allTags.length} etykiet</span>
+          <button type="button" class="gran-toggle-group" title="Zwiń / Rozwiń">▼</button>
+        </div>
+        <div class="gran-group-content">`;
+
+    if (allTags.length === 0) {
+      html += `<div class="gran-empty-msg">Brak utworzonych etykiet.</div>`;
+    } else {
+      allTags.forEach(t => {
+        const count = allNotes.filter(n => Array.isArray(n.tg) && n.tg.includes(t.id)).length;
+        html += `
+          <div class="gran-item" data-type="tag" data-tag="${t.id}">
+            <label class="gran-check-label">
+              <input type="checkbox" class="gran-exp-item-check" data-type="tag" data-tag="${t.id}" checked>
+              <span class="gran-tag-dot" style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${_esc(t.color || "#3b82f6")};margin-right:6px;"></span>
+              <span class="gran-item-name">${_esc(t.name)}</span>
+            </label>
+            <span class="gran-item-badge">${count} not.</span>
+          </div>`;
+      });
+    }
+    html += `</div></div></div>`;
+
+    container.innerHTML = html;
+
+    // Attach collapsible & checkbox sync listeners
+    container.querySelectorAll(".gran-toggle-group").forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        const grp = btn.closest(".gran-group");
+        if (grp) grp.classList.toggle("collapsed");
+      };
+    });
+
+    container.querySelectorAll(".gran-check-cat").forEach(chk => {
+      chk.onchange = () => {
+        const grp = chk.closest(".gran-group");
+        if (grp) {
+          grp.querySelectorAll(".gran-exp-item-check").forEach(c => { c.checked = chk.checked; });
+        }
+        _updateExportStatus();
+      };
+    });
+
+    container.querySelectorAll(".gran-exp-item-check").forEach(chk => {
+      chk.onchange = () => {
+        const grp = chk.closest(".gran-group");
+        if (grp) {
+          const allChecks = Array.from(grp.querySelectorAll(".gran-exp-item-check"));
+          const parentChk = grp.querySelector(".gran-check-cat");
+          if (parentChk) {
+            parentChk.checked = allChecks.some(c => c.checked);
+          }
+        }
+        _updateExportStatus();
+      };
+    });
+  }
+
+  function _updateExportStatus() {
+    const statusEl = document.getElementById("granExpStatus");
+    if (!statusEl) return;
+
+    const selectedNotes = _collectSelectedNotes();
+    const selectedTags = _collectSelectedTags();
+
+    statusEl.innerHTML = `Wybrano: <strong>${selectedNotes.length}</strong> notatek, <strong>${selectedTags.length}</strong> etykiet`;
+  }
+
+  function _collectSelectedNotes() {
+    const allNotes = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes : [];
+    const container = document.getElementById("granExpTree");
+    if (!container) return [];
+
+    const checkedItems = Array.from(container.querySelectorAll(".gran-exp-item-check:checked"));
+    const selectedGuids = new Set();
+
+    const checkedBooks = new Set(checkedItems.filter(c => c.dataset.type === "bible").map(c => Number(c.dataset.book)));
+    const checkedPubs = new Set(checkedItems.filter(c => c.dataset.type === "pub").map(c => c.dataset.pub));
+    const checkedOwn = new Set(checkedItems.filter(c => c.dataset.type === "own").map(c => c.dataset.guid));
+    const checkedTags = new Set(checkedItems.filter(c => c.dataset.type === "tag").map(c => Number(c.dataset.tag)));
+
+    allNotes.forEach(n => {
+      if (_isBibleBook(n.b)) {
+        if (checkedBooks.has(_getBibleBookIndex(n.b))) selectedGuids.add(n.g);
+      } else if (_isPub(n.b)) {
+        if (checkedPubs.has(String(n.b))) selectedGuids.add(n.g);
+      } else {
+        if (checkedOwn.has(n.g)) selectedGuids.add(n.g);
+      }
+
+      // Notes tagged with any of selected tags
+      if (Array.isArray(n.tg) && n.tg.some(t => checkedTags.has(t))) {
+        selectedGuids.add(n.g);
+      }
+    });
+
+    return allNotes.filter(n => selectedGuids.has(n.g));
+  }
+
+  function _collectSelectedTags() {
+    const allTags = (typeof tags !== "undefined" && Array.isArray(tags)) ? tags : [];
+    const container = document.getElementById("granExpTree");
+    if (!container) return [];
+
+    const checkedTagIds = new Set(
+      Array.from(container.querySelectorAll('.gran-exp-item-check[data-type="tag"]:checked'))
+        .map(c => Number(c.dataset.tag))
+    );
+
+    const optIncludeReferencedTags = document.getElementById("granExpOptTags") ? document.getElementById("granExpOptTags").checked : true;
+    if (optIncludeReferencedTags) {
+      const selectedNotes = _collectSelectedNotes();
+      selectedNotes.forEach(n => {
+        if (Array.isArray(n.tg)) {
+          n.tg.forEach(tId => checkedTagIds.add(tId));
+        }
+      });
+    }
+
+    return allTags.filter(t => checkedTagIds.has(t.id));
+  }
+
+  function executeExport() {
+    const exportNotes = _collectSelectedNotes();
+    const exportTags = _collectSelectedTags();
+    const allSections = (typeof sections !== "undefined" && Array.isArray(sections)) ? sections : [];
+    const allPubTabs = (typeof pubTabs !== "undefined" && Array.isArray(pubTabs)) ? pubTabs : [];
+    const allSecTabs = (typeof secTabs !== "undefined" && Array.isArray(secTabs)) ? secTabs : [];
+    const allSzablony = (typeof szablony !== "undefined" && Array.isArray(szablony)) ? szablony : [];
+
+    if (exportNotes.length === 0 && exportTags.length === 0) {
+      if (typeof toast === "function") toast("Wybierz przynajmniej jedną notatkę lub etykietę do eksportu.");
+      return;
+    }
+
+    // Include sections of exported tags
+    const usedSecIds = new Set(exportTags.map(t => t.sec).filter(s => s !== undefined && s !== null));
+    const exportSections = allSections.filter(s => usedSecIds.has(s.id));
+
+    // Include tabs relevant to exported notes
+    const usedPubTabs = new Set(exportNotes.map(n => n.ptb).filter(pt => pt !== undefined));
+    const exportPubTabs = allPubTabs.filter(pt => usedPubTabs.has(pt.id));
+
+    const usedSecTabs = new Set(exportNotes.map(n => n.stb).filter(st => st !== undefined));
+    const exportSecTabs = allSecTabs.filter(st => usedSecTabs.has(st.id));
+
+    // Handle images option
+    const optIncludeImages = document.getElementById("granExpOptImages") ? document.getElementById("granExpOptImages").checked : true;
+    let finalNotes = exportNotes;
+    if (!optIncludeImages) {
+      finalNotes = exportNotes.map(n => {
+        const copy = Object.assign({}, n);
+        if (copy.h && copy.h.includes("data:image/")) {
+          copy.h = copy.h.replace(/src="data:image\/[^"]+"/g, 'src="" data-stripped-img="1" title="[Zdjęcie pominięte podczas eksportu]" alt="[Zdjęcie pominięte]"');
+        }
+        return copy;
+      });
+    }
+
+    const exportPackage = {
+      version: "3.56-package",
+      type: "jw-study-granular-export",
+      exportedAt: new Date().toISOString(),
+      appVersion: "3.56",
+      summary: {
+        totalNotes: finalNotes.length,
+        totalTags: exportTags.length,
+        totalSections: exportSections.length,
+        createdFormatted: new Date().toLocaleString("pl-PL")
+      },
+      notes: finalNotes,
+      tags: exportTags,
+      sections: exportSections,
+      pubTabs: exportPubTabs,
+      secTabs: exportSecTabs,
+      szablony: allSzablony
+    };
+
+    const jsonStr = JSON.stringify(exportPackage, null, 2);
+    const blob = new Blob([jsonStr], { type: "application/json" });
+    const fileName = `jw-study-wybrane-${new Date().toISOString().slice(0,10)}.json`;
+
+    if (typeof saveFile === "function") {
+      saveFile(blob, fileName, "Pakiet danych JW-Study");
+    } else if (typeof download === "function") {
+      download(blob, fileName);
+    } else {
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 200);
+    }
+
+    if (typeof closeModal === "function") closeModal("modalExportWybierz");
+    if (typeof toast === "function") toast(`Pomyślnie wyeksportowano ${finalNotes.length} notatek i ${exportTags.length} etykiet.`);
+  }
+
+  /* ==========================================================================
+     IMPORT LOGIC & DIFF ENGINE
+     ========================================================================== */
+  function openImport() {
+    const dropStep = document.getElementById("granImpDropStep");
+    const previewStep = document.getElementById("granImpPreviewStep");
+    const fileInput = document.getElementById("granImpFileInput");
+
+    if (dropStep) dropStep.style.display = "block";
+    if (previewStep) previewStep.style.display = "none";
+    if (fileInput) fileInput.value = "";
+
+    _impData = null;
+    _impDiffItems = [];
+    _impGlobalStrategy = "nadpisz";
+    _impCurrentFilter = "all";
+
+    if (typeof openModal === "function") {
+      openModal("modalImportWybierz");
+    } else {
+      const m = document.getElementById("modalImportWybierz");
+      if (m) m.classList.add("show");
+    }
+  }
+
+  function handleImportFile(file) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const parsed = JSON.parse(e.target.result);
+        _processImportData(parsed);
+      } catch (err) {
+        alert("Nie udało się odczytać pliku JSON: " + err.message);
+      }
+    };
+    reader.readAsText(file, "UTF-8");
+  }
+
+  function _processImportData(data) {
+    if (!data || typeof data !== "object") {
+      alert("Plik nie zawiera poprawnych danych JSON.");
+      return;
+    }
+
+    // Normalization for legacy / full backups
+    let incomingNotes = [];
+    if (Array.isArray(data.notes)) incomingNotes = data.notes;
+    else if (Array.isArray(data)) incomingNotes = data;
+
+    _impData = {
+      notes: incomingNotes,
+      tags: Array.isArray(data.tags) ? data.tags : [],
+      sections: Array.isArray(data.sections) ? data.sections : [],
+      pubTabs: Array.isArray(data.pubTabs) ? data.pubTabs : [],
+      secTabs: Array.isArray(data.secTabs) ? data.secTabs : [],
+      szablony: Array.isArray(data.szablony) ? data.szablony : []
+    };
+
+    const localNotes = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes : [];
+    const localByGuid = new Map(localNotes.map(n => [n.g, n]));
+
+    _impDiffItems = [];
+
+    _impData.notes.forEach(inc => {
+      if (!inc || !inc.g) return;
+      const mine = localByGuid.get(inc.g);
+
+      if (!mine) {
+        _impDiffItems.push({
+          guid: inc.g,
+          incNote: inc,
+          mineNote: null,
+          status: "nowy",
+          selected: true,
+          strategy: "default",
+          diff: null
+        });
+      } else {
+        // Compare fields
+        const titleDiff = (mine.t || "").trim() !== (inc.t || "").trim();
+        const contentDiff = (mine.h || "").trim() !== (inc.h || "").trim();
+        const locDiff = (mine.b || "") !== (inc.b || "") || (mine.c || "") !== (inc.c || "") || (mine.v || "") !== (inc.v || "");
+        const colDiff = (mine.col || 0) !== (inc.col || 0);
+
+        const mineTg = (mine.tg || []).slice().sort().join(",");
+        const incTg = (inc.tg || []).slice().sort().join(",");
+        const tagDiff = mineTg !== incTg;
+
+        const isIdentical = !titleDiff && !contentDiff && !locDiff && !colDiff && !tagDiff;
+
+        const mineMo = mine.mo || mine.cr || "";
+        const incMo = inc.mo || inc.cr || "";
+        let newer = "same";
+        if (incMo > mineMo) newer = "inc";
+        else if (mineMo > incMo) newer = "mine";
+
+        if (isIdentical) {
+          _impDiffItems.push({
+            guid: inc.g,
+            incNote: inc,
+            mineNote: mine,
+            status: "identyczny",
+            selected: false,
+            strategy: "default",
+            diff: null
+          });
+        } else {
+          _impDiffItems.push({
+            guid: inc.g,
+            incNote: inc,
+            mineNote: mine,
+            status: "konflikt",
+            selected: true,
+            strategy: "default",
+            diff: {
+              title: { old: mine.t || "", new: inc.t || "", diff: titleDiff },
+              content: { old: mine.h || "", new: inc.h || "", diff: contentDiff },
+              loc: { old: `${mine.b || ""}:${mine.c || ""}:${mine.v || ""}`, new: `${inc.b || ""}:${inc.c || ""}:${inc.v || ""}`, diff: locDiff },
+              tags: { old: mine.tg || [], new: inc.tg || [], diff: tagDiff },
+              col: { old: mine.col || 0, new: inc.col || 0, diff: colDiff },
+              dates: { old: mineMo, new: incMo, newer }
+            }
+          });
+        }
+      }
+    });
+
+    // Switch to preview step
+    const dropStep = document.getElementById("granImpDropStep");
+    const previewStep = document.getElementById("granImpPreviewStep");
+    if (dropStep) dropStep.style.display = "none";
+    if (previewStep) previewStep.style.display = "flex";
+
+    _renderImportDiffTree();
+    _updateImportStatus();
+  }
+
+  function _renderImportDiffTree() {
+    const container = document.getElementById("granImpTree");
+    if (!container) return;
+
+    const filterQuery = (document.getElementById("granImpSearch") ? document.getElementById("granImpSearch").value : "").trim().toLowerCase();
+
+    const filtered = _impDiffItems.filter(item => {
+      if (_impCurrentFilter === "conflicts" && item.status !== "konflikt") return false;
+      if (_impCurrentFilter === "new" && item.status !== "nowy") return false;
+
+      if (filterQuery) {
+        const title = (item.incNote.t || (item.mineNote && item.mineNote.t) || "").toLowerCase();
+        const body = _stripHtml(item.incNote.h || "").toLowerCase();
+        const bookName = _getBibleBookName(item.incNote.b).toLowerCase();
+        if (!title.includes(filterQuery) && !body.includes(filterQuery) && !bookName.includes(filterQuery)) return false;
+      }
+      return true;
+    });
+
+    if (filtered.length === 0) {
+      container.innerHTML = `<div class="gran-empty-msg" style="padding:40px 20px;text-align:center;">Brak elementów spełniających kryteria filtrowania.</div>`;
+      return;
+    }
+
+    let html = `<div class="gran-tree" style="padding: 10px 0;">`;
+
+    filtered.forEach((item) => {
+      const inc = item.incNote;
+      const mine = item.mineNote;
+      const title = (inc.t || (mine && mine.t) || "Notatka bez tytułu").trim();
+
+      let refText = "";
+      if (_isBibleBook(inc.b)) {
+        refText = `${_getBibleBookName(inc.b)} ${inc.c || 1}${inc.v ? ":" + inc.v : ""}`;
+      } else if (_isPub(inc.b)) {
+        refText = `${_getPubName(inc.b)} ${inc.c ? "ak. " + inc.c : ""}`;
+      } else {
+        refText = "Notatka tematyczna";
+      }
+
+      const statusBadge = item.status === "nowy"
+        ? `<span class="gran-badge nowy">Nowy</span>`
+        : (item.status === "konflikt" ? `<span class="gran-badge konflikt">Konflikt / Zmodyfikowany</span>` : `<span class="gran-badge identyczny">Identyczny</span>`);
+
+      html += `
+        <div class="gran-item-diff-card" data-guid="${_esc(item.guid)}" style="border:1px solid var(--border);border-radius:12px;margin-bottom:10px;background:var(--panel);padding:12px 14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+            <label class="gran-check-label" style="display:flex;align-items:center;gap:8px;font-weight:650;font-size:14px;cursor:pointer;flex:1;min-width:200px;">
+              <input type="checkbox" class="gran-imp-item-check" data-guid="${_esc(item.guid)}" ${item.selected ? "checked" : ""}>
+              <span>${_esc(title)}</span>
+              <small style="color:var(--muted);font-weight:normal;margin-left:4px;">(${_esc(refText)})</small>
+            </label>
+            <div style="display:flex;align-items:center;gap:8px;">
+              ${statusBadge}
+              ${item.status === "konflikt" ? `
+                <select class="gran-item-strat-sel" data-guid="${_esc(item.guid)}" style="padding:4px 8px;border-radius:8px;border:1px solid var(--border);background:var(--panel2);font-size:12px;color:var(--text);">
+                  <option value="default" ${item.strategy === "default" ? "selected" : ""}>Domyślnie z paska</option>
+                  <option value="nadpisz" ${item.strategy === "nadpisz" ? "selected" : ""}>🔄 Nadpisz moją</option>
+                  <option value="pomin" ${item.strategy === "pomin" ? "selected" : ""}>⏭️ Pomiń (zostaw moją)</option>
+                  <option value="nowa_kopia" ${item.strategy === "nowa_kopia" ? "selected" : ""}>📑 Dodaj jako kopię</option>
+                </select>
+                <button type="button" class="btn gran-toggle-diff-btn" data-guid="${_esc(item.guid)}" style="padding:4px 10px;font-size:12px;">Pokaż różnice</button>
+              ` : ""}
+            </div>
+          </div>`;
+
+      // Diff box for conflicts
+      if (item.status === "konflikt" && item.diff) {
+        const d = item.diff;
+        const oldBodyTxt = _stripHtml(d.content.old);
+        const newBodyTxt = _stripHtml(d.content.new);
+
+        html += `
+          <div class="gran-diff-box" id="diff-${_esc(item.guid)}" style="display:none;margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12.5px;">
+              <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:10px;">
+                <div style="font-weight:750;color:#dc2626;margin-bottom:6px;display:flex;justify-content:space-between;">
+                  <span>Lokalna wersja (w aplikacji)</span>
+                  <small style="font-weight:normal;opacity:0.85;">${_esc(_formatDate(d.dates.old))}</small>
+                </div>
+                <div style="margin-bottom:4px;"><strong>Tytuł:</strong> ${_esc(d.title.old || "—")}</div>
+                <div><strong>Treść:</strong> <div style="max-height:120px;overflow-y:auto;white-space:pre-wrap;color:var(--text);margin-top:2px;">${_esc(oldBodyTxt.slice(0, 400))}${oldBodyTxt.length > 400 ? "…" : ""}</div></div>
+              </div>
+
+              <div style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:10px;">
+                <div style="font-weight:750;color:#059669;margin-bottom:6px;display:flex;justify-content:space-between;">
+                  <span>Wersja z pliku (import)</span>
+                  <small style="font-weight:normal;opacity:0.85;">${_esc(_formatDate(d.dates.new))}</small>
+                </div>
+                <div style="margin-bottom:4px;"><strong>Tytuł:</strong> ${_esc(d.title.new || "—")}</div>
+                <div><strong>Treść:</strong> <div style="max-height:120px;overflow-y:auto;white-space:pre-wrap;color:var(--text);margin-top:2px;">${_esc(newBodyTxt.slice(0, 400))}${newBodyTxt.length > 400 ? "…" : ""}</div></div>
+              </div>
+            </div>
+          </div>`;
+      }
+
+      html += `</div>`;
+    });
+
+    html += `</div>`;
+    container.innerHTML = html;
+
+    // Attach listeners
+    container.querySelectorAll(".gran-imp-item-check").forEach(chk => {
+      chk.onchange = () => {
+        const guid = chk.dataset.guid;
+        const item = _impDiffItems.find(x => x.guid === guid);
+        if (item) item.selected = chk.checked;
+        _updateImportStatus();
+      };
+    });
+
+    container.querySelectorAll(".gran-item-strat-sel").forEach(sel => {
+      sel.onchange = () => {
+        const guid = sel.dataset.guid;
+        const item = _impDiffItems.find(x => x.guid === guid);
+        if (item) item.strategy = sel.value;
+      };
+    });
+
+    container.querySelectorAll(".gran-toggle-diff-btn").forEach(btn => {
+      btn.onclick = () => {
+        const guid = btn.dataset.guid;
+        const diffBox = document.getElementById("diff-" + guid);
+        if (diffBox) {
+          const isHidden = diffBox.style.display === "none";
+          diffBox.style.display = isHidden ? "block" : "none";
+          btn.textContent = isHidden ? "Ukryj różnice" : "Pokaż różnice";
+        }
+      };
+    });
+  }
+
+  function _updateImportStatus() {
+    const statusEl = document.getElementById("granImpStatus");
+    if (!statusEl) return;
+
+    const selectedCount = _impDiffItems.filter(x => x.selected).length;
+    const totalCount = _impDiffItems.length;
+    const conflictCount = _impDiffItems.filter(x => x.status === "konflikt").length;
+    const newCount = _impDiffItems.filter(x => x.status === "nowy").length;
+
+    statusEl.innerHTML = `Wybrano: <strong>${selectedCount}</strong> z ${totalCount} elementów (${newCount} nowych, ${conflictCount} konfliktów)`;
+  }
+
+  function executeImport() {
+    if (!_impData) return;
+
+    const selectedItems = _impDiffItems.filter(x => x.selected);
+    if (selectedItems.length === 0) {
+      if (typeof toast === "function") toast("Zaznacz przynajmniej jeden element do zaimportowania.");
+      return;
+    }
+
+    const currentNotes = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes : [];
+    const currentTags = (typeof tags !== "undefined" && Array.isArray(tags)) ? tags : [];
+    const currentSections = (typeof sections !== "undefined" && Array.isArray(sections)) ? sections : [];
+
+    // 1. Merge sections
+    const secMap = {};
+    (_impData.sections || []).forEach(s => {
+      let mine = currentSections.find(x => (x.name || "").trim().toLowerCase() === (s.name || "").trim().toLowerCase());
+      if (!mine) {
+        mine = {
+          id: (typeof nextSecId === "function" ? nextSecId() : Date.now() + Math.floor(Math.random()*1000)),
+          name: s.name,
+          ord: s.ord ?? currentSections.length,
+          open: true,
+          color: s.color
+        };
+        currentSections.push(mine);
+      }
+      secMap[s.id] = mine.id;
+    });
+
+    // 2. Merge tags
+    const tagMap = {};
+    (_impData.tags || []).forEach(t => {
+      let mine = currentTags.find(x => (x.name || "").trim().toLowerCase() === (t.name || "").trim().toLowerCase());
+      if (!mine) {
+        mine = {
+          id: (typeof nastepnyNumer === "function" ? nastepnyNumer(currentTags) : Date.now() + Math.floor(Math.random()*1000)),
+          name: t.name,
+          color: t.color,
+          nw: true
+        };
+        if (t.sec !== undefined && secMap[t.sec] !== undefined) mine.sec = secMap[t.sec];
+        if (t.ord !== undefined) mine.ord = t.ord;
+        currentTags.push(mine);
+      }
+      tagMap[t.id] = mine.id;
+    });
+
+    // 3. Process notes
+    let addedCount = 0;
+    let updatedCount = 0;
+    let copiedCount = 0;
+    let skippedCount = 0;
+
+    const localByGuid = new Map(currentNotes.map(n => [n.g, n]));
+
+    selectedItems.forEach(item => {
+      const inc = Object.assign({}, item.incNote);
+
+      // Remap tag IDs
+      if (Array.isArray(inc.tg)) {
+        inc.tg = inc.tg.map(tid => tagMap[tid] !== undefined ? tagMap[tid] : tid);
+      }
+
+      if (item.status === "nowy") {
+        currentNotes.push(inc);
+        localByGuid.set(inc.g, inc);
+        addedCount++;
+      } else if (item.status === "identyczny") {
+        // Keep local
+      } else if (item.status === "konflikt") {
+        const strat = item.strategy === "default" ? _impGlobalStrategy : item.strategy;
+
+        if (strat === "nadpisz") {
+          const mine = localByGuid.get(item.guid);
+          if (mine) {
+            Object.assign(mine, inc);
+            updatedCount++;
+          }
+        } else if (strat === "pomin") {
+          skippedCount++;
+        } else if (strat === "nowa_kopia") {
+          const copy = Object.assign({}, inc);
+          copy.g = "g-" + Date.now() + "-" + Math.random().toString(36).substr(2, 7);
+          copy.t = (copy.t || "Notatka") + " (kopia z importu)";
+          copy.mo = new Date().toISOString();
+          currentNotes.push(copy);
+          localByGuid.set(copy.g, copy);
+          copiedCount++;
+        }
+      }
+    });
+
+    // Save to IDB
+    if (typeof idbBulk === "function") {
+      idbBulk("notes", currentNotes).catch(err => console.error("IDB notes save error:", err));
+      if (typeof saveTags === "function") saveTags();
+      if (typeof saveSections === "function") saveSections();
+    }
+    if (typeof bumpDirty === "function") bumpDirty();
+
+    // Refresh views
+    if (typeof renderAll === "function") renderAll();
+    if (typeof odswiezCentrumBezpieczenstwa === "function") odswiezCentrumBezpieczenstwa();
+
+    if (typeof closeModal === "function") closeModal("modalImportWybierz");
+
+    const msg = `Zaimportowano: ${addedCount} nowych, ${updatedCount} zaktualizowanych, ${copiedCount} utworzonych kopii.`;
+    if (typeof toast === "function") toast(msg);
+    else alert(msg);
+  }
+
+  // Setup DOM listeners
+  function init() {
+    // Export toolbar
+    const expSearch = document.getElementById("granExpSearch");
+    if (expSearch) {
+      expSearch.addEventListener("input", (e) => {
+        const q = e.target.value.trim().toLowerCase();
+        const tree = document.getElementById("granExpTree");
+        if (!tree) return;
+        tree.querySelectorAll(".gran-item").forEach(item => {
+          const name = (item.querySelector(".gran-item-name") ? item.querySelector(".gran-item-name").textContent : "").toLowerCase();
+          const match = !q || name.includes(q);
+          item.style.display = match ? "flex" : "none";
+        });
+      });
+    }
+
+    const expSelectAll = document.getElementById("granExpSelectAll");
+    if (expSelectAll) {
+      expSelectAll.onclick = () => {
+        const tree = document.getElementById("granExpTree");
+        if (tree) tree.querySelectorAll("input[type=checkbox]").forEach(c => { c.checked = true; });
+        _updateExportStatus();
+      };
+    }
+
+    const expDeselectAll = document.getElementById("granExpDeselectAll");
+    if (expDeselectAll) {
+      expDeselectAll.onclick = () => {
+        const tree = document.getElementById("granExpTree");
+        if (tree) tree.querySelectorAll("input[type=checkbox]").forEach(c => { c.checked = false; });
+        _updateExportStatus();
+      };
+    }
+
+    const expSelectBible = document.getElementById("granExpSelectBible");
+    if (expSelectBible) {
+      expSelectBible.onclick = () => {
+        const tree = document.getElementById("granExpTree");
+        if (tree) {
+          tree.querySelectorAll("input[type=checkbox]").forEach(c => { c.checked = false; });
+          const bibleGrp = tree.querySelector('.gran-group[data-cat="bible"]');
+          if (bibleGrp) bibleGrp.querySelectorAll("input[type=checkbox]").forEach(c => { c.checked = true; });
+        }
+        _updateExportStatus();
+      };
+    }
+
+    const expSelectOwn = document.getElementById("granExpSelectOwn");
+    if (expSelectOwn) {
+      expSelectOwn.onclick = () => {
+        const tree = document.getElementById("granExpTree");
+        if (tree) {
+          tree.querySelectorAll("input[type=checkbox]").forEach(c => { c.checked = false; });
+          const ownGrp = tree.querySelector('.gran-group[data-cat="own"]');
+          if (ownGrp) ownGrp.querySelectorAll("input[type=checkbox]").forEach(c => { c.checked = true; });
+        }
+        _updateExportStatus();
+      };
+    }
+
+    const expSubmit = document.getElementById("granExpSubmit");
+    if (expSubmit) expSubmit.onclick = executeExport;
+
+    // Import Step 1: Drop & Pick File
+    const dropZone = document.getElementById("granImpDropZone");
+    const fileInput = document.getElementById("granImpFileInput");
+    const pickBtn = document.getElementById("granImpPickFileBtn");
+
+    if (pickBtn && fileInput) pickBtn.onclick = () => fileInput.click();
+    if (fileInput) {
+      fileInput.onchange = (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (file) handleImportFile(file);
+      };
+    }
+
+    if (dropZone) {
+      dropZone.ondragover = (e) => { e.preventDefault(); dropZone.classList.add("dragover"); };
+      dropZone.ondragleave = () => { dropZone.classList.remove("dragover"); };
+      dropZone.ondrop = (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("dragover");
+        const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if (file) handleImportFile(file);
+      };
+    }
+
+    // Import Step 2: Toolbar & Filters
+    const impBack = document.getElementById("granImpBackToFile");
+    if (impBack) {
+      impBack.onclick = () => {
+        const dropStep = document.getElementById("granImpDropStep");
+        const previewStep = document.getElementById("granImpPreviewStep");
+        if (dropStep) dropStep.style.display = "block";
+        if (previewStep) previewStep.style.display = "none";
+      };
+    }
+
+    const impSearch = document.getElementById("granImpSearch");
+    if (impSearch) {
+      impSearch.addEventListener("input", () => {
+        _renderImportDiffTree();
+      });
+    }
+
+    const filterAll = document.getElementById("granImpFilterAll");
+    const filterConf = document.getElementById("granImpFilterConflicts");
+    const filterNew = document.getElementById("granImpFilterNew");
+
+    if (filterAll) filterAll.onclick = () => { _impCurrentFilter = "all"; _renderImportDiffTree(); };
+    if (filterConf) filterConf.onclick = () => { _impCurrentFilter = "conflicts"; _renderImportDiffTree(); };
+    if (filterNew) filterNew.onclick = () => { _impCurrentFilter = "new"; _renderImportDiffTree(); };
+
+    const impSelectAll = document.getElementById("granImpSelectAll");
+    if (impSelectAll) {
+      impSelectAll.onclick = () => {
+        _impDiffItems.forEach(item => { item.selected = true; });
+        _renderImportDiffTree();
+        _updateImportStatus();
+      };
+    }
+
+    const impDeselectAll = document.getElementById("granImpDeselectAll");
+    if (impDeselectAll) {
+      impDeselectAll.onclick = () => {
+        _impDiffItems.forEach(item => { item.selected = false; });
+        _renderImportDiffTree();
+        _updateImportStatus();
+      };
+    }
+
+    // Global strategy radios
+    document.querySelectorAll("input[name=granImpStrategy]").forEach(radio => {
+      radio.onchange = () => {
+        if (radio.checked) {
+          _impGlobalStrategy = radio.value;
+        }
+      };
+    });
+
+    const impSubmit = document.getElementById("granImpSubmit");
+    if (impSubmit) impSubmit.onclick = executeImport;
+
+    // Connect triggers in Menu and Centrum Bezpieczeństwa
+    const bezpExp = document.getElementById("bezpExportCustom");
+    if (bezpExp) {
+      bezpExp.onclick = () => {
+        if (typeof closeModal === "function") closeModal("modalBezpieczenstwo");
+        openExport();
+      };
+    }
+
+    const bezpImp = document.getElementById("bezpImportCustom");
+    if (bezpImp) {
+      bezpImp.onclick = () => {
+        if (typeof closeModal === "function") closeModal("modalBezpieczenstwo");
+        openImport();
+      };
+    }
+  }
+
+  // Self-init when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    setTimeout(init, 100);
+  }
+
+  return {
+    openExport,
+    openImport,
+    executeExport,
+    executeImport,
+    handleImportFile,
+    init
+  };
+})();
+
 </script>
 </body>
 </html>
