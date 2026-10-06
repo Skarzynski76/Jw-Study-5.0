@@ -13743,6 +13743,1835 @@ html[data-theme="dark"] #pasekZbiorczy {
   margin-top: 10px;
 }
 
+/* ══════════════════════════════════════════════════════════════════════════
+   CENTRUM STUDIUM 5.0 — NOWE MODUŁY I ROZSZERZENIA WIDOKÓW
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* 1. KARTA TEKSTU DZIENNEGO (DASHBOARD & STUDIUM OSOBISTE) */
+.cenDailyTextCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 4.5px solid #f59e0b;
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.08), 0 1px 3px rgba(0,0,0,0.04);
+  transition: all 0.18s ease;
+}
+.cenDailyTextCard:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 6px 22px rgba(245, 158, 11, 0.14);
+}
+.cenDailyTextTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.cenDailyTextTitleBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cenDailyTextIko {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(245, 158, 11, 0.35);
+}
+.cenDailyTextIko svg {
+  width: 20px;
+  height: 20px;
+}
+.cenDailyTextTyt {
+  font-size: 16px;
+  font-weight: 750;
+  color: var(--text);
+  letter-spacing: -0.015em;
+}
+.cenDailyTextSub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+.cenDailyPromptList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+  margin: 14px 0 16px;
+}
+.cenDailyPromptItem {
+  background: color-mix(in srgb, var(--sel) 75%, var(--panel));
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.cenDailyPromptNum {
+  font-size: 11px;
+  font-weight: 800;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.14);
+  padding: 2px 6px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.cenDailyPromptTxt {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--text);
+  font-weight: 500;
+}
+.cenDailyTextActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.cenBtnGold {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #ffffff !important;
+  border: none !important;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+  transition: all 0.15s ease;
+}
+.cenBtnGold:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+}
+.cenBtnGold:active {
+  transform: scale(0.97);
+}
+
+/* 2. SZABLONY GŁĘBOKIEJ MEDYTACJI (DZIEŃ CZYTANIA) */
+.cenMeditPromptBox {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin: 18px 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+.cenMeditHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.cenMeditHeadLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cenMeditIko {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: rgba(139, 92, 246, 0.12);
+  color: #8b5cf6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cenMeditIko svg {
+  width: 18px;
+  height: 18px;
+}
+.cenMeditTyt {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+.cenMeditSub {
+  font-size: 12px;
+  color: var(--muted);
+}
+.cenMeditQuestionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 10px;
+  margin: 12px 0 16px;
+}
+.cenMeditQuestionCard {
+  background: var(--sel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cenMeditQTitle {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #8b5cf6;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.cenMeditQBody {
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+/* 3. WIZUALNA MAPA 66 KSIĄG BIBLII */
+.cenBibleMapShell {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.cenBibleMapHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.cenBibleMapFilterPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0;
+}
+.cenBibleFilterPill {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.14s ease;
+}
+.cenBibleFilterPill:hover {
+  background: var(--sel);
+  border-color: var(--accent);
+}
+.cenBibleFilterPill.active {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.cenBibleMapGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+  gap: 10px;
+}
+.cenBookTile {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 10px 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.16s cubic-bezier(0.2, 0.8, 0.25, 1);
+  user-select: none;
+}
+.cenBookTile:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.cenBookTile:active {
+  transform: scale(0.97);
+}
+.cenBookTile.completed {
+  border-color: #10b981;
+  background: color-mix(in srgb, #10b981 6%, var(--panel));
+}
+.cenBookTileTopBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.5px;
+  background: var(--cen-book-cat-color, var(--accent));
+}
+.cenBookTileNr {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.cenBookTileAbbr {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.cenBookTileName {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin-top: 2px;
+}
+.cenBookTileChaps {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 6px;
+  background: var(--sel);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+.cenBookTileNotesBadge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 6px;
+  background: rgba(37, 99, 235, 0.14);
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.cenBookTileProgress {
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--border);
+  margin-top: 8px;
+  overflow: hidden;
+}
+.cenBookTileProgressFill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+/* 4. OŚ CZASU BIBLIJNA (8 EPOC) */
+.cenTimelineContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  padding: 10px 0;
+}
+.cenTimelineCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  transition: all 0.18s ease;
+}
+.cenTimelineCard:hover {
+  border-color: var(--accent);
+  box-shadow: 0 6px 22px rgba(0,0,0,0.08);
+}
+.cenTimelineCardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.cenTimelineEraBadge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 7px;
+  background: var(--era-badge-bg, rgba(37,99,235,0.12));
+  color: var(--era-badge-color, #2563eb);
+  letter-spacing: 0.02em;
+}
+.cenTimelineEraDate {
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--muted);
+}
+.cenTimelineEraTitle {
+  font-size: 16.5px;
+  font-weight: 750;
+  color: var(--text);
+  margin-top: 4px;
+}
+.cenTimelineEraDesc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.cenTimelineMetaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.cenTimelineTag {
+  background: var(--sel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 3px 8px;
+  font-size: 11.5px;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 5. KATALOG POSTACI BIBLIJNYCH */
+.cenCharFilterBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.cenCharGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+.cenCharCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  transition: all 0.16s ease;
+}
+.cenCharCard:hover {
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+}
+.cenCharHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cenCharAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--sel);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+.cenCharName {
+  font-size: 15.5px;
+  font-weight: 750;
+  color: var(--text);
+}
+.cenCharEra {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.cenCharTraits {
+  font-size: 12.5px;
+  color: var(--accent);
+  font-weight: 600;
+  background: color-mix(in srgb, var(--accent) 8%, var(--panel));
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+.cenCharLesson {
+  font-size: 12.5px;
+  color: var(--text);
+  line-height: 1.45;
+  flex: 1;
+}
+.cenCharActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  gap: 8px;
+}
+
+/* 6. TRYB SKUPIENIA NA STUDIUM (FOCUS MODE) */
+.cenFocusShell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 16px 40px;
+  max-width: 760px;
+  margin: 0 auto;
+  gap: 24px;
+  text-align: center;
+}
+.cenFocusTimerBox {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 10px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cenFocusSvg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.cenFocusCircleBg {
+  fill: none;
+  stroke: var(--border);
+  stroke-width: 8;
+}
+.cenFocusCircleFill {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.4s linear;
+}
+.cenFocusTimeDisplay {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cenFocusTimeDigits {
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.cenFocusTimeLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cenFocusControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.cenFocusBtnPrimary {
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 35%, transparent);
+  transition: all 0.15s ease;
+}
+.cenFocusBtnPrimary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+.cenFocusBtnPrimary:active {
+  transform: scale(0.96);
+}
+.cenFocusBtnSec {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cenFocusBtnSec:hover {
+  background: var(--sel);
+  border-color: var(--accent);
+}
+.cenFocusScratchBox {
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: left;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+.cenFocusTextarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 90px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--sel);
+  color: var(--text);
+  font-size: 13.5px;
+  font-family: inherit;
+  resize: vertical;
+  margin-top: 8px;
+  outline: none;
+}
+.cenFocusTextarea:focus {
+  border-color: var(--accent);
+}
+
+/* 7. CELE DUCHOWE I ODZNAKI */
+.cenGoalsShell {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.cenBadgesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+.cenBadgeCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.15s ease;
+}
+.cenBadgeCard.unlocked {
+  border-color: #f59e0b;
+  background: color-mix(in srgb, #f59e0b 5%, var(--panel));
+}
+.cenBadgeCard.locked {
+  opacity: 0.6;
+}
+.cenBadgeIko {
+  font-size: 28px;
+  flex-shrink: 0;
+}
+.cenBadgeTyt {
+  font-size: 13.5px;
+  font-weight: 750;
+  color: var(--text);
+}
+.cenBadgeDesc {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.35;
+  margin-top: 2px;
+}
+.cenCustomGoalsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cenCustomGoalItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  gap: 10px;
+}
+.cenCustomGoalItem.done {
+  border-color: #10b981;
+  background: color-mix(in srgb, #10b981 5%, var(--panel));
+}
+
+/* ==========================================================================
+   NOWOCZESNE STYLE CENTRUM STUDIUM (v5.0)
+   ========================================================================== */
+
+/* Główny kontener i układ */
+.cenCentrumShell {
+  display: flex;
+  min-height: 100%;
+  position: relative;
+  background: var(--bg);
+}
+.cenCentrumMain {
+  flex: 1;
+  min-width: 0;
+  padding: 24px 32px 48px;
+  max-width: 1300px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+@media (max-width: 900px) {
+  .cenCentrumMain {
+    padding: 16px 16px 36px;
+  }
+}
+
+/* Sub-Header widoków */
+.cenSubHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.cenSubHeaderLewo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.cenSubWsteczBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 7px 13px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cenSubWsteczBtn:hover {
+  background: var(--sel);
+  border-color: var(--accent);
+}
+.cenSubWsteczBtn svg {
+  width: 16px;
+  height: 16px;
+}
+.cenSubTytulBox {
+  display: flex;
+  flex-direction: column;
+}
+.cenSubTytul {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.cenSubPodtytul {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+/* Tabs / Filtry poziome */
+.cenTabsRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.cenTabsRow::-webkit-scrollbar {
+  display: none;
+}
+.cenTabBtn {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 7px 15px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.cenTabBtn:hover {
+  background: var(--sel);
+  border-color: var(--accent);
+}
+.cenTabBtn.active {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+/* Główny banner Hero na Pulpicie */
+.cenHeroMainBanner {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 14%, var(--panel)), color-mix(in srgb, var(--accent2, #3b82f6) 8%, var(--panel)));
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+  border-radius: 20px;
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+  position: relative;
+  overflow: hidden;
+}
+.cenHeroMainHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.cenHeroBadgeRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.cenPlanActiveBadge {
+  background: var(--accent);
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 8px;
+  letter-spacing: 0.02em;
+}
+.cenHeroTag {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 8px;
+}
+.cenHeroMainTitle {
+  font-size: 22px;
+  font-weight: 850;
+  color: var(--text);
+  letter-spacing: -0.025em;
+  margin-bottom: 4px;
+}
+.cenHeroMainSub {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.cenHeroStreakBox {
+  background: var(--panel);
+  border: 1px solid color-mix(in srgb, #f97316 35%, var(--border));
+  border-radius: 16px;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.12);
+  min-width: 90px;
+}
+.cenHeroStreakNum {
+  font-size: 22px;
+  font-weight: 900;
+  color: #f97316;
+  letter-spacing: -0.02em;
+}
+.cenHeroStreakLbl {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 1px;
+}
+.cenHeroQuickStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
+}
+.cenHeroQuickStatItem {
+  background: color-mix(in srgb, var(--sel) 60%, var(--panel));
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+}
+.cenHeroQuickStatVal {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+}
+.cenHeroQuickStatLbl {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* Układ dwóch kolumn na dziś: Czytanie + Tekst Dzienny */
+.cenTodayTwoColsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+/* Karta Tekstu Dziennego (nowoczesna) */
+.cenDailyCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 4.5px solid #f59e0b;
+  border-radius: 18px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+  transition: all 0.18s ease;
+}
+.cenDailyCard:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.12);
+}
+.cenDailyCardTop {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.cenDailyCardIko {
+  font-size: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(245, 158, 11, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cenDailyCardInfo {
+  flex: 1;
+}
+.cenDailyCardTag {
+  font-size: 11.5px;
+  font-weight: 750;
+  color: #f59e0b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 3px;
+}
+.cenDailyCardTyt {
+  font-size: 16.5px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.015em;
+  margin-bottom: 4px;
+}
+.cenDailyCardDesc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.cenDailyCardActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  margin-top: 14px;
+}
+.cenDailyBtnJW {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff !important;
+  border: none !important;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.cenDailyBtnJW:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+.cenDailyBtnJW svg {
+  width: 16px;
+  height: 16px;
+}
+.cenDailyBtnNote {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 13px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 650;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.cenDailyBtnNote:hover {
+  background: var(--sel);
+  border-color: var(--accent);
+}
+.cenDailyBtnNote svg {
+  width: 16px;
+  height: 16px;
+}
+.cenDailyBtnFocus {
+  background: color-mix(in srgb, #a855f7 12%, var(--panel));
+  border: 1px solid color-mix(in srgb, #a855f7 30%, var(--border));
+  color: #a855f7;
+  padding: 8px 13px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-left: auto;
+}
+.cenDailyBtnFocus:hover {
+  background: color-mix(in srgb, #a855f7 22%, var(--panel));
+  border-color: #a855f7;
+}
+
+/* 6 Głównych Modułów Studium Osobistego */
+.cenModulesSixGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.cenModuleTile {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.2, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+.cenModuleTile:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+}
+.cenModuleTile:active {
+  transform: scale(0.98);
+}
+.cenModuleTileTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.cenModuleTileIko {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--sel);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cenModuleTileIko svg {
+  width: 22px;
+  height: 22px;
+}
+.cenModuleTileTyt {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 5px;
+  letter-spacing: -0.015em;
+}
+.cenModuleTileOpis {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-bottom: 14px;
+  flex: 1;
+}
+.cenModuleTileFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.cenModuleTileMeta {
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--accent);
+}
+
+/* Wieloplanowość / Multi-Plans Section */
+.cenMultiPlansSection {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px 22px;
+  margin-bottom: 28px;
+}
+.cenMultiPlansHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.cenMultiPlansHeaderTitle {
+  font-size: 16.5px;
+  font-weight: 800;
+  color: var(--text);
+}
+.cenMultiPlansGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+}
+.cenMultiPlanCard {
+  background: var(--sel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  transition: all 0.16s ease;
+}
+.cenMultiPlanCard:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+.cenMultiPlanCard.active-focused {
+  border-color: #2563eb;
+  background: color-mix(in srgb, #2563eb 5%, var(--sel));
+}
+.cenMultiPlanCardTop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.cenMultiPlanCardIko {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cenMultiPlanCardIko svg {
+  width: 18px;
+  height: 18px;
+}
+.cenMultiPlanCardTopInfo {
+  min-width: 0;
+}
+.cenMultiPlanCardTyt {
+  font-size: 14px;
+  font-weight: 750;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cenMultiPlanCardSub {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.cenMultiPlanCardTask {
+  font-size: 12.5px;
+  color: var(--text);
+  background: var(--panel);
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.cenMultiPlanCardActions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+.cenMultiPlanBtnRead {
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  transition: all 0.14s ease;
+}
+.cenMultiPlanBtnRead:hover {
+  filter: brightness(1.08);
+}
+.cenMultiPlanBtnSec {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+.cenMultiPlanBtnSec:hover {
+  background: var(--sel);
+  border-color: var(--accent);
+}
+
+/* Banner Cech / Features */
+.cenFeaturesBanner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px 22px;
+  margin-top: 10px;
+}
+.cenFeatureItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.cenFeatureIko {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--sel);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cenFeatureIko svg {
+  width: 18px;
+  height: 18px;
+}
+.cenFeatureTxt {
+  display: flex;
+  flex-direction: column;
+}
+.cenFeatureTxt b {
+  font-size: 13px;
+  color: var(--text);
+}
+.cenFeatureTxt span {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
+/* 1b. MAPA BIBLII — SIATKA 66 KSIĄG */
+.cenMapGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+}
+.cenMapTile {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 10px 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.16s cubic-bezier(0.2, 0.8, 0.25, 1);
+  user-select: none;
+}
+.cenMapTile:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+.cenMapTile:active {
+  transform: scale(0.97);
+}
+.cenMapTileTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.cenMapTileBadge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+}
+.cenMapTileChaps {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.cenMapTileName {
+  font-size: 13px;
+  font-weight: 750;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cenMapTileSub {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+.cenMapTileMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* Modal Księgi */
+.cenModalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: cenFadeIn 0.15s ease-out;
+}
+.cenModalCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  animation: cenScaleUp 0.18s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+.cenModalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.cenModalCloseBtn {
+  background: var(--sel);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.14s ease;
+}
+.cenModalCloseBtn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+.cenModalMetaGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+}
+.cenModalMetaItem {
+  background: var(--sel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+}
+.cenModalMetaLbl {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.cenModalMetaVal {
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--text);
+  margin-top: 2px;
+}
+.cenModalActionsRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+.cenModalNotesList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cenModalPusto {
+  padding: 16px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  background: var(--sel);
+  border-radius: 12px;
+  border: 1px dashed var(--border);
+}
+
+/* 1c. OŚ CZASU (TIMELINE) */
+.cenTimelineWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.cenTimelineCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+  transition: all 0.16s ease;
+}
+.cenTimelineCard:hover {
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+.cenTimelineCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.cenTimelineNumBadge {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cenTimelineCardTyt {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.015em;
+}
+.cenTimelineCardSpan {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.cenTimelineCardDesc {
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.cenTimelineEventsList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cenTimelineEventItem {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.cenTimelineEventItem span {
+  color: var(--accent);
+  font-weight: 800;
+  margin-right: 4px;
+}
+
+/* 1d. POSTACIE BIBLIJNE */
+.cenCharactersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+.cenCharacterCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+  transition: all 0.16s ease;
+}
+.cenCharacterCard:hover {
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+.cenCharacterHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.cenCharacterAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.3);
+}
+.cenCharacterName {
+  font-size: 16.5px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.015em;
+}
+.cenCharacterEraTag {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+.cenCharacterQualityBox {
+  background: color-mix(in srgb, #3b82f6 8%, var(--sel));
+  border: 1px solid color-mix(in srgb, #3b82f6 20%, var(--border));
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+.cenCharacterQualityLbl {
+  font-size: 10.5px;
+  font-weight: 750;
+  color: #3b82f6;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.cenCharacterQualityTxt {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 2px;
+}
+.cenCharacterLessonBox {
+  background: color-mix(in srgb, #10b981 8%, var(--sel));
+  border: 1px solid color-mix(in srgb, #10b981 20%, var(--border));
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+.cenCharacterLessonLbl {
+  font-size: 10.5px;
+  font-weight: 750;
+  color: #10b981;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.cenCharacterLessonTxt {
+  font-size: 12.5px;
+  color: var(--text);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+.cenCharacterCardActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+/* 1e. CELE DUCHOWE I NAWYKI */
+.cenGoalsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.cenGoalCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+.cenGoalCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cenGoalCardIko {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cenGoalCardTyt {
+  font-size: 14.5px;
+  font-weight: 750;
+  color: var(--text);
+}
+.cenGoalCardSub {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.cenCustomGoalCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+  transition: all 0.15s ease;
+}
+.cenCustomGoalCard.done {
+  border-color: #10b981;
+  background: color-mix(in srgb, #10b981 5%, var(--panel));
+}
+.cenCustomGoalTyt {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+.cenCustomGoalTyt.done {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+.cenCustomGoalDate {
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+/* 1f. TRYB SKUPIENIA I MEDYTACJI */
+.cenFocusGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: stretch;
+}
+@media (max-width: 800px) {
+  .cenFocusGrid {
+    grid-template-columns: 1fr;
+  }
+}
+.cenFocusTimerCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+.cenFocusPresetRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cenFocusRadialWrap {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 10px auto 20px;
+}
+.cenFocusSvg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.cenFocusSvgBg {
+  fill: none;
+  stroke: var(--sel);
+  stroke-width: 8;
+}
+.cenFocusSvgFill {
+  fill: none;
+  stroke: #a855f7;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s linear;
+}
+.cenFocusRadialCenter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cenFocusTimeDigits {
+  font-size: 40px;
+  font-weight: 850;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+.cenFocusStatusLbl {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+.cenFocusControlsRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cenFocusScratchpadCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+.cenFocusScratchHeader {
+  margin-bottom: 12px;
+}
+.cenFocusScratchpadTextarea {
+  width: 100%;
+  box-sizing: border-box;
+  flex: 1;
+  min-height: 180px;
+  background: var(--sel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+.cenFocusScratchpadTextarea:focus {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.12);
+}
+
+/* Animacje pomocnicze */
+@keyframes cenFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes cenScaleUp {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
 </style>
 <script>
 (function(){
@@ -33688,7 +35517,7 @@ const CENTR_KLUCZ = KP + "Centrum";        // "auto" albo "lista"
 const CENTR_WLACZONE = KP + "CentrumWl";   // "1" albo "0"
 const CENTR_UKLAD_KLUCZ = KP + "CentrumUklad306";
 const CENTR_WIDOK_KLUCZ = KP + "CentrumWidok308";
-const CENTR_WIDOKI = ["centrum","czytanie-chronologiczne","dzien","lista-dni","kalendarz","statystyki","drzewo","moje-plany","studium-osobiste","temat-szczegoly","projekty","kolejka","inbox","ostatnie","bezpieczenstwo"];
+const CENTR_WIDOKI = ["centrum","czytanie-chronologiczne","dzien","lista-dni","kalendarz","statystyki","drzewo","moje-plany","studium-osobiste","temat-szczegoly","mapa-biblii","os-czasu","postacie","cele","skupienie","projekty","kolejka","inbox","ostatnie","bezpieczenstwo"];
 /* ═══ NOWE MODUŁY I BAZY DANYCH PLANÓW CZYTANIA BIBLII (v3.74) ═══ */
 
 /* 1. Kanon biblijny (66 ksiąg, 1189 rozdziałów) */
@@ -33709,70 +35538,450 @@ const BIBLE_CANON_CHAPS = [
   { n: "Judy", ch: 1 }, { n: "Objawienie", ch: 22 }
 ];
 
-/* 2. Porządek chronologiczny (1189 rozdziałów w sekwencji historycznej) */
-const BIBLE_CHRONO_BLOCKS = [
-  ["Rodzaju", 1, 11], ["Hioba", 1, 42], ["Rodzaju", 12, 50],
-  ["Wyjścia", 1, 40], ["Kapłańska", 1, 27], ["Liczb", 1, 36], ["Powtórzonego Prawa", 1, 34],
-  ["Jozuego", 1, 24], ["Sędziów", 1, 21], ["Rut", 1, 4],
-  ["1 Samuela", 1, 31], ["2 Samuela", 1, 24], ["1 Kronik", 1, 29],
-  ["Psalmy", 1, 150], ["1 Królów", 1, 11], ["2 Kronik", 1, 9],
-  ["Przysłów", 1, 31], ["Kaznodziei", 1, 12], ["Pieśń nad Pieśniami", 1, 8],
-  ["1 Królów", 12, 22], ["2 Kronik", 10, 28],
-  ["Abdiasza", 1, 1], ["Joela", 1, 3], ["Jonasza", 1, 4], ["Amosa", 1, 9], ["Ozeasza", 1, 14], ["Micheasza", 1, 7], ["Izajasza", 1, 39],
-  ["2 Królów", 1, 20], ["2 Kronik", 29, 32], ["Izajasza", 40, 66],
-  ["Nahuma", 1, 3], ["Sofoniasza", 1, 3], ["Habakuka", 1, 3],
-  ["2 Królów", 21, 25], ["2 Kronik", 33, 36], ["Jeremiasza", 1, 52], ["Lamentacje", 1, 5],
-  ["Ezechiela", 1, 48], ["Daniela", 1, 12],
-  ["Ezdrasza", 1, 6], ["Aggeusza", 1, 2], ["Zachariasza", 1, 14], ["Estery", 1, 10], ["Ezdrasza", 7, 10], ["Nehemiasza", 1, 13], ["Malachiasza", 1, 4],
-  ["Mateusza", 1, 28], ["Marka", 1, 16], ["Łukasza", 1, 24], ["Jana", 1, 21],
-  ["Dzieje Apostolskie", 1, 14], ["Jakuba", 1, 5], ["Galatów", 1, 6],
-  ["Dzieje Apostolskie", 15, 18], ["1 Tesaloniczan", 1, 5], ["2 Tesaloniczan", 1, 3],
-  ["Dzieje Apostolskie", 19, 20], ["1 Koryntian", 1, 16], ["2 Koryntian", 1, 13], ["Rzymian", 1, 16],
-  ["Dzieje Apostolskie", 21, 28], ["Efezjan", 1, 6], ["Filipian", 1, 4], ["Kolosan", 1, 4], ["Filemona", 1, 1], ["Hebrajczyków", 1, 13],
-  ["1 Tymoteusza", 1, 6], ["Tytusa", 1, 3], ["1 Piotra", 1, 5], ["2 Piotra", 1, 3], ["2 Tymoteusza", 1, 4], ["Judy", 1, 1],
-  ["1 Jana", 1, 5], ["2 Jana", 1, 1], ["3 Jana", 1, 1], ["Objawienie", 1, 22]
+/* 1b. Rozszerzone dane metryczne i podział kanonu 66 ksiąg */
+const BIBLE_CANON_META = [
+  { b: 1, n: "Rodzaju", ch: 50, cat: "prawo", catName: "Prawo (Mojżeszowe)", author: "Mojżesz", place: "Pustkowie", done: "ok. 1513 p.n.e.", span: "Od początku do 1657 p.n.e." },
+  { b: 2, n: "Wyjścia", ch: 40, cat: "prawo", catName: "Prawo (Mojżeszowe)", author: "Mojżesz", place: "Pustkowie", done: "ok. 1512 p.n.e.", span: "1657–1512 p.n.e." },
+  { b: 3, n: "Kapłańska", ch: 27, cat: "prawo", catName: "Prawo (Mojżeszowe)", author: "Mojżesz", place: "Pustkowie", done: "ok. 1512 p.n.e.", span: "1 miesiąc (1512 p.n.e.)" },
+  { b: 4, n: "Liczb", ch: 36, cat: "prawo", catName: "Prawo (Mojżeszowe)", author: "Mojżesz", place: "Pustkowie / Równiny Moabu", done: "ok. 1473 p.n.e.", span: "1512–1473 p.n.e." },
+  { b: 5, n: "Powtórzonego Prawa", ch: 34, cat: "prawo", catName: "Prawo (Mojżeszowe)", author: "Mojżesz", place: "Równiny Moabu", done: "ok. 1473 p.n.e.", span: "2 miesiące (1473 p.n.e.)" },
+  { b: 6, n: "Jozuego", ch: 24, cat: "historia", catName: "Księgi historyczne", author: "Jozue", place: "Kanaan", done: "ok. 1450 p.n.e.", span: "1473 – ok. 1450 p.n.e." },
+  { b: 7, n: "Sędziów", ch: 21, cat: "historia", catName: "Księgi historyczne", author: "Samuel", place: "Izrael", done: "ok. 1100 p.n.e.", span: "ok. 1450 – ok. 1120 p.n.e." },
+  { b: 8, n: "Rut", ch: 4, cat: "historia", catName: "Księgi historyczne", author: "Samuel", place: "Izrael", done: "ok. 1090 p.n.e.", span: "11 lat z czasów sędziów" },
+  { b: 9, n: "1 Samuela", ch: 31, cat: "historia", catName: "Księgi historyczne", author: "Samuel, Gad, Natan", place: "Izrael", done: "ok. 1078 p.n.e.", span: "ok. 1180–1078 p.n.e." },
+  { b: 10, n: "2 Samuela", ch: 24, cat: "historia", catName: "Księgi historyczne", author: "Gad, Natan", place: "Izrael", done: "ok. 1040 p.n.e.", span: "1077 – ok. 1040 p.n.e." },
+  { b: 11, n: "1 Królów", ch: 22, cat: "historia", catName: "Księgi historyczne", author: "Jeremiasz", place: "Jerozolima / Egipt", done: "ok. 580 p.n.e.", span: "ok. 1040–911 p.n.e." },
+  { b: 12, n: "2 Królów", ch: 25, cat: "historia", catName: "Księgi historyczne", author: "Jeremiasz", place: "Jerozolima / Egipt", done: "ok. 580 p.n.e.", span: "ok. 920–580 p.n.e." },
+  { b: 13, n: "1 Kronik", ch: 29, cat: "historia", catName: "Księgi historyczne", author: "Ezdrasz", place: "Jerozolima", done: "ok. 460 p.n.e.", span: "Od 1 Kronik 9:44: 1077–1037 p.n.e." },
+  { b: 14, n: "2 Kronik", ch: 36, cat: "historia", catName: "Księgi historyczne", author: "Ezdrasz", place: "Jerozolima", done: "ok. 460 p.n.e.", span: "1037 – ok. 537 p.n.e." },
+  { b: 15, n: "Ezdrasza", ch: 10, cat: "historia", catName: "Księgi historyczne", author: "Ezdrasz", place: "Jerozolima", done: "ok. 460 p.n.e.", span: "ok. 537 – ok. 467 p.n.e." },
+  { b: 16, n: "Nehemiasza", ch: 13, cat: "historia", catName: "Księgi historyczne", author: "Nehemiasz", place: "Jerozolima", done: "po 443 p.n.e.", span: "456 – po 443 p.n.e." },
+  { b: 17, n: "Estery", ch: 10, cat: "historia", catName: "Księgi historyczne", author: "Mardocheusz", place: "Suza (Elam)", done: "ok. 475 p.n.e.", span: "493 – ok. 475 p.n.e." },
+  { b: 18, n: "Hioba", ch: 42, cat: "poezja", catName: "Poezja i mądrość", author: "Mojżesz", place: "Pustkowie", done: "ok. 1473 p.n.e.", span: "Ponad 140 lat między 1657 a 1473 p.n.e." },
+  { b: 19, n: "Psalmy", ch: 150, cat: "poezja", catName: "Poezja i mądrość", author: "Dawid i inni", place: "Jerozolima", done: "ok. 460 p.n.e.", span: "Ponad 1000 lat" },
+  { b: 20, n: "Przysłów", ch: 31, cat: "poezja", catName: "Poezja i mądrość", author: "Salomon i inni", place: "Jerozolima", done: "ok. 717 p.n.e.", span: "Kolekcja mądrości" },
+  { b: 21, n: "Kaznodziei", ch: 12, cat: "poezja", catName: "Poezja i mądrość", author: "Salomon", place: "Jerozolima", done: "przed 1000 p.n.e.", span: "Rozważania mędrca" },
+  { b: 22, n: "Pieśń nad Pieśniami", ch: 8, cat: "poezja", catName: "Poezja i mądrość", author: "Salomon", place: "Jerozolima", done: "ok. 1020 p.n.e.", span: "Wierne uczucie Szulamitki" },
+  { b: 23, n: "Izajasza", ch: 66, cat: "prorocy", catName: "Księgi prorocze", author: "Izajasz", place: "Jerozolima", done: "po 732 p.n.e.", span: "ok. 778 – po 732 p.n.e." },
+  { b: 24, n: "Jeremiasza", ch: 52, cat: "prorocy", catName: "Księgi prorocze", author: "Jeremiasz", place: "Juda / Egipt", done: "ok. 580 p.n.e.", span: "647–580 p.n.e." },
+  { b: 25, n: "Lamentacje", ch: 5, cat: "prorocy", catName: "Księgi prorocze", author: "Jeremiasz", place: "Koło Jerozolimy", done: "ok. 607 p.n.e.", span: "Żałoba po upadku miasta" },
+  { b: 26, n: "Ezechiela", ch: 48, cat: "prorocy", catName: "Księgi prorocze", author: "Ezechiel", place: "Babilon", done: "ok. 591 p.n.e.", span: "613 – ok. 591 p.n.e." },
+  { b: 27, n: "Daniela", ch: 12, cat: "prorocy", catName: "Księgi prorocze", author: "Daniel", place: "Babilon", done: "ok. 536 p.n.e.", span: "618 – ok. 536 p.n.e." },
+  { b: 28, n: "Ozeasza", ch: 14, cat: "prorocy", catName: "Księgi prorocze", author: "Ozeasz", place: "Samaria (okręg)", done: "po 745 p.n.e.", span: "przed 804 – po 745 p.n.e." },
+  { b: 29, n: "Joela", ch: 3, cat: "prorocy", catName: "Księgi prorocze", author: "Joel", place: "Juda", done: "ok. 820 p.n.e.", span: "Dzień Jehowy i wylanie ducha" },
+  { b: 30, n: "Amosa", ch: 9, cat: "prorocy", catName: "Księgi prorocze", author: "Amos", place: "Juda", done: "ok. 804 p.n.e.", span: "Sądy nad narodami" },
+  { b: 31, n: "Abdiasza", ch: 1, cat: "prorocy", catName: "Księgi prorocze", author: "Abdiasz", place: "Juda", done: "ok. 607 p.n.e.", span: "Wyrok na Edom" },
+  { b: 32, n: "Jonasza", ch: 4, cat: "prorocy", catName: "Księgi prorocze", author: "Jonasz", place: "Izrael", done: "ok. 844 p.n.e.", span: "Misja w Niniwie" },
+  { b: 33, n: "Micheasza", ch: 7, cat: "prorocy", catName: "Księgi prorocze", author: "Micheasz", place: "Juda", done: "przed 717 p.n.e.", span: "ok. 777–717 p.n.e." },
+  { b: 34, n: "Nahuma", ch: 3, cat: "prorocy", catName: "Księgi prorocze", author: "Nahum", place: "Juda", done: "przed 632 p.n.e.", span: "Wyrok na Niniwę" },
+  { b: 35, n: "Habakuka", ch: 3, cat: "prorocy", catName: "Księgi prorocze", author: "Habakuk", place: "Juda", done: "ok. 628 p.n.e.", span: "Sprawiedliwy z wiary żyć będzie" },
+  { b: 36, n: "Sofoniasza", ch: 3, cat: "prorocy", catName: "Księgi prorocze", author: "Sofoniasz", place: "Juda", done: "przed 648 p.n.e.", span: "Wielki dzień gniewu Jehowy" },
+  { b: 37, n: "Aggeusza", ch: 2, cat: "prorocy", catName: "Księgi prorocze", author: "Aggeusz", place: "Odbudowana Jerozolima", done: "520 p.n.e.", span: "112 dni (520 p.n.e.)" },
+  { b: 38, n: "Zachariasza", ch: 14, cat: "prorocy", catName: "Księgi prorocze", author: "Zachariasz", place: "Odbudowana Jerozolima", done: "518 p.n.e.", span: "520–518 p.n.e." },
+  { b: 39, n: "Malachiasza", ch: 4, cat: "prorocy", catName: "Księgi prorocze", author: "Malachiasz", place: "Jerozolima", done: "po 443 p.n.e.", span: "Oczyszczenie czystego wielbienia" },
+  { b: 40, n: "Mateusza", ch: 28, cat: "ewangelie", catName: "Ewangelie i Dzieje", author: "Mateusz", place: "Judea", done: "ok. 41 n.e.", span: "2 p.n.e. – 33 n.e." },
+  { b: 41, n: "Marka", ch: 16, cat: "ewangelie", catName: "Ewangelie i Dzieje", author: "Marek", place: "Rzym", done: "ok. 60–65 n.e.", span: "29–33 n.e." },
+  { b: 42, n: "Łukasza", ch: 24, cat: "ewangelie", catName: "Ewangelie i Dzieje", author: "Łukasz", place: "Cezarea", done: "ok. 56–58 n.e.", span: "3 p.n.e. – 33 n.e." },
+  { b: 43, n: "Jana", ch: 21, cat: "ewangelie", catName: "Ewangelie i Dzieje", author: "Jan", place: "Efez / okolice", done: "ok. 98 n.e.", span: "Po wstępie: 29–33 n.e." },
+  { b: 44, n: "Dzieje Apostolskie", ch: 28, cat: "ewangelie", catName: "Ewangelie i Dzieje", author: "Łukasz", place: "Rzym", done: "ok. 61 n.e.", span: "33 – ok. 61 n.e." },
+  { b: 45, n: "Rzymian", ch: 16, cat: "listy", catName: "Listy apostolskie", author: "Paweł", place: "Korynt", done: "ok. 56 n.e.", span: "Uzasadnienie wiary i jedność" },
+  { b: 46, n: "1 Koryntian", ch: 16, cat: "listy", catName: "Listy apostolskie", author: "Paweł", place: "Efez", done: "ok. 55 n.e.", span: "Porządek i miłość w zborze" },
+  { b: 47, n: "2 Koryntian", ch: 13, cat: "listy", catName: "Listy apostolskie", author: "Paweł", place: "Macedonia", done: "ok. 55 n.e.", span: "Służba i pocieszenie od Boga" },
+  { b: 48, n: "Galatów", ch: 6, cat: "listy", catName: "Listy apostolskie", author: "Paweł", place: "Korynt lub Antiochia Syr.", done: "ok. 50–52 n.e.", span: "Wolność chrześcijańska i owoce ducha" },
+  { b: 49, n: "Efezjan", ch: 6, cat: "listy", catName: "Listy apostolskie", author: "Paweł", place: "Rzym (więzienie)", done: "ok. 60–61 n.e.", span: "Jedność w ciele Chrystusa" },
+  { b: 50, n: "Filipian", ch: 4, cat: "listy", catName: "Listy apostolskie", author: "Paweł", place: "Rzym (więzienie)", done: "ok. 60–61 n.e.", span: "Radość w Panu i pokój Boży" },
+  { b: 51, n: "Kolosan", ch: 4, cat: "listy", catName: "Listy apostolskie", author: "Paweł", place: "Rzym (więzienie)", done: "ok. 60–61 n.e.", span: "Chrystus Głową zboru" },
+  { b: 52, n: "1 Tesaloniczan", ch: 5, cat: "listy", catName: "Listy apostolskie", author: "Paweł", place: "Korynt", done: "ok. 50 n.e.", span: "Zachęta do świętości i czujności" },
+  { b: 53, n: "2 Tesaloniczan", ch: 3, cat: "listy", catName: "Listy apostolskie", author: "Paweł", place: "Korynt", done: "ok. 51 n.e.", span: "Dzień Pański i człowiek bezprawia" },
+  { b: 54, n: "1 Tymoteusza", ch: 6, cat: "listy", catName: "Listy apostolskie", author: "Paweł", place: "Macedonia", done: "ok. 61–64 n.e.", span: "Wskazówki dla nadzorców zboru" },
+  { b: 55, n: "2 Tymoteusza", ch: 4, cat: "listy", catName: "Listy apostolskie", author: "Paweł", place: "Rzym (więzienie)", done: "ok. 65 n.e.", span: "Bieg ukończyłem, wiarę ustrzegłem" },
+  { b: 56, n: "Tytusa", ch: 3, cat: "listy", catName: "Listy apostolskie", author: "Paweł", place: "Macedonia (?)", done: "ok. 61–64 n.e.", span: "Ustanawianie starszych na Krecie" },
+  { b: 57, n: "Filemona", ch: 1, cat: "listy", catName: "Listy apostolskie", author: "Paweł", place: "Rzym (więzienie)", done: "ok. 60–61 n.e.", span: "Przyjęcie Onezyma jako brata" },
+  { b: 58, n: "Hebrajczyków", ch: 13, cat: "listy", catName: "Listy apostolskie", author: "Paweł", place: "Rzym", done: "ok. 61 n.e.", span: "Wyższość Chrystusa i Nowego Przymierza" },
+  { b: 59, n: "Jakuba", ch: 5, cat: "listy", catName: "Listy apostolskie", author: "Jakub (brat Jezusa)", place: "Jerozolima", done: "przed 62 n.e.", span: "Wiara żywa potwierdzona uczynkami" },
+  { b: 60, n: "1 Piotra", ch: 5, cat: "listy", catName: "Listy apostolskie", author: "Piotr", place: "Babilon", done: "ok. 62–64 n.e.", span: "Nadzieja i wytrwałość w próbach" },
+  { b: 61, n: "2 Piotra", ch: 3, cat: "listy", catName: "Listy apostolskie", author: "Piotr", place: "Babilon (?)", done: "ok. 64 n.e.", span: "Wzrost w poznaniu i obietnica nowego nieba" },
+  { b: 62, n: "1 Jana", ch: 5, cat: "listy", catName: "Listy apostolskie", author: "Jan", place: "Efez / okolice", done: "ok. 98 n.e.", span: "Bóg jest światłością i miłością" },
+  { b: 63, n: "2 Jana", ch: 1, cat: "listy", catName: "Listy apostolskie", author: "Jan", place: "Efez / okolice", done: "ok. 98 n.e.", span: "Chodzenie w prawdzie i ostrzeżenie przed zwodzicielami" },
+  { b: 64, n: "3 Jana", ch: 1, cat: "listy", catName: "Listy apostolskie", author: "Jan", place: "Efez / okolice", done: "ok. 98 n.e.", span: "Pochwała gościnności Gajusa" },
+  { b: 65, n: "Judy", ch: 1, cat: "listy", catName: "Listy apostolskie", author: "Juda (brat Jezusa)", place: "Judea (?)", done: "ok. 65 n.e.", span: "Podjęcie zaciętej walki o wiarę" },
+  { b: 66, n: "Objawienie", ch: 22, cat: "objawienie", catName: "Księga prorocza", author: "Jan", place: "Wyspa Patmos", done: "ok. 96 n.e.", span: "Objawienie Jezusa Chrystusa na czas końca" }
 ];
 
-/* 3. Plany tematyczne statyczne */
-const JWS_PLAN_JAN = [
-  { d: 1, t: "Słowo stało się ciałem (Świadectwo Jana Chrzciciela)", f: [{ r: "Jana 1", t: "Słowo u Boga, Baranek Boży, pierwsi uczniowie" }] },
-  { d: 2, t: "Cud w Kanie Galilejskiej i oczyszczenie świątyni", f: [{ r: "Jana 2", t: "Woda w wino w Kanie, gorliwość o dom Jehowy" }] },
-  { d: 3, t: "Rozmowa z Nikodemem i miłość Boża", f: [{ r: "Jana 3", t: "Narodzenie z ducha, Jan 3:16 — miłość ku światu" }] },
-  { d: 4, t: "Samarytanka przy studni Jakuba", f: [{ r: "Jana 4", t: "Woda życia i oddawanie czci w duchu i prawdzie" }] },
-  { d: 5, t: "Uzdrwienie przy sadzawce Betesda", f: [{ r: "Jana 5", t: "Władza Syna od Ojca i nadzieja zmartwychwstania" }] },
-  { d: 6, t: "Nakarmienie 5000 i Chleb życia", f: [{ r: "Jana 6", t: "Cudowne rozmnożenie chleba, Jezus chlebem z nieba" }] },
-  { d: 7, t: "Święto Namiotów i nauczanie w świątyni", f: [{ r: "Jana 7", t: "Rzeki wody żywej i podział w tłumie" }] },
-  { d: 8, t: "Światłość świata i wolność przez prawdę", f: [{ r: "Jana 8", t: "Prawda was wyzwoli, Abraham ujrzał mój dzień" }] },
-  { d: 9, t: "Uzdrowienie niewidomego od urodzenia", f: [{ r: "Jana 9", t: "Sadzawka Syloe i odważne świadectwo uzdrowionego" }] },
-  { d: 10, t: "Wspaniały Pasterz i owce", f: [{ r: "Jana 10", t: "Pasterz oddaje życie za owce, jedno stado i jeden pasterz" }] },
-  { d: 11, t: "Wskrzeszenie Łazarza w Betanii", f: [{ r: "Jana 11", t: "Ja jestem zmartwychwstaniem i życiem" }] },
-  { d: 12, t: "Namaszczenie w Betanii i wjazd do Jerozolimy", f: [{ r: "Jana 12", t: "Olejek Marii, triumfalny wjazd Króla" }] },
-  { d: 13, t: "Umycie nóg apostołom i nowe przykazanie", f: [{ r: "Jana 13", t: "Wzór pokory i miłości wzajemnej" }] },
-  { d: 14, t: "Droga, Prawda i Życie oraz Pocieszyciel", f: [{ r: "Jana 14", t: "Mieszkania w domu Ojca, dar ducha świętego" }] },
-  { d: 15, t: "Prawdziwy krzew winny i latorośle", f: [{ r: "Jana 15", t: "Trwajcie w mojej miłości, przynoście obfity owoc" }] },
-  { d: 16, t: "Działanie ducha świętego i zwycięstwo nad światem", f: [{ r: "Jana 16", t: "Odwagi! Ja zwyciężyłem świat" }] },
-  { d: 17, t: "Arcykapłańska modlitwa Jezusa", f: [{ r: "Jana 17", t: "Poznawanie jedynego prawdziwego Boga, jedność uczniów" }] },
-  { d: 18, t: "Ogród Getsemani, pojmanie i proces", f: [{ r: "Jana 18", t: "Przed Annaszem, Kajfaszem i Piłatem" }] },
-  { d: 19, t: "Biczowanie, Golgota i śmierć Chrystusa", f: [{ r: "Jana 19", t: "Dokonało się! Ofiara odkupienia" }] },
-  { d: 20, t: "Pusty grobowiec i ukazanie się uczniom", f: [{ r: "Jana 20", t: "Zmartwychwstanie, Maria Magdalena i Tomasz" }] },
-  { d: 21, t: "Połów ryb nad Jeziorem Tyberiadzkim", f: [{ r: "Jana 21", t: "Paś moje owieczki, podążaj za mną" }] }
+/* 1c. Oś Czasu Biblijnego — 8 Epok */
+const BIBLE_ERAS = [
+  {
+    id: "era_poczatki",
+    name: "Początki dziejów",
+    date: "ok. 4026–2018 p.n.e.",
+    desc: "Od stworzenia człowieka w Edenie, przez powszechny potop za dni Noego, po rozproszenie narodów pod wieżą Babel.",
+    books: ["Rodzaju 1-11"],
+    chars: ["Adam i Ewa", "Abel", "Henoch", "Noe"],
+    bg: "rgba(59, 130, 246, 0.12)",
+    color: "#3b82f6"
+  },
+  {
+    id: "era_patriarchowie",
+    name: "Era Patriarchów",
+    date: "ok. 2018–1513 p.n.e.",
+    desc: "Przymierze Jehowy z Abrahamem, wiara i próba Hioba, dzieje Izaaka, Jakuba oraz ocalenie rodziny w Egipcie przez Józefa.",
+    books: ["Rodzaju 12-50", "Hioba 1-42"],
+    chars: ["Abraham", "Sara", "Izaak", "Rebeka", "Jakub", "Józef", "Hiob"],
+    bg: "rgba(168, 85, 247, 0.12)",
+    color: "#a855f7"
+  },
+  {
+    id: "era_wyjscie",
+    name: "Wyjście z Egiptu i Wędrówka",
+    date: "ok. 1513–1473 p.n.e.",
+    desc: "Cudowne wyzwolenie z niewoli egipskiej, Przymierze Prawa nadane na Synaju, budowa Przybytku i 40 lat na pustkowiu.",
+    books: ["Wyjścia", "Kapłańska", "Liczb", "Powtórzonego Prawa"],
+    chars: ["Mojżesz", "Aaron", "Miriam", "Jozue", "Kaleb"],
+    bg: "rgba(234, 179, 8, 0.12)",
+    color: "#eab308"
+  },
+  {
+    id: "era_sedziowie",
+    name: "Zdobycie Kanaanu i Epoka Sędziów",
+    date: "ok. 1473–1117 p.n.e.",
+    desc: "Przekroczenie Jordanu pod wodzą Jozuego, rządy wiernych sędziów wyzwalających lud, lojalność i wiara Moabitki Rut.",
+    books: ["Jozuego", "Sędziów", "Rut", "1 Samuela 1-7"],
+    chars: ["Jozue", "Debora", "Barak", "Gedeon", "Samson", "Rut", "Samuel"],
+    bg: "rgba(16, 185, 129, 0.12)",
+    color: "#10b981"
+  },
+  {
+    id: "era_krolestwo_zjedn",
+    name: "Królestwo Zjednoczone",
+    date: "ok. 1117–997 p.n.e.",
+    desc: "Pierwszy król Saul, panowanie Dawida — człowieka według serca Bożego, złoty wiek pokoju i wspaniała świątynia Salomona.",
+    books: ["1-2 Samuela", "1 Królów 1-11", "1 Kronik", "Psalmy", "Przysłów", "Kaznodziei", "Pieśń nad Pieśniami"],
+    chars: ["Saul", "Dawid", "Jonatan", "Abigail", "Salomon", "Natan"],
+    bg: "rgba(249, 115, 22, 0.12)",
+    color: "#f97316"
+  },
+  {
+    id: "era_krolestwo_podz",
+    name: "Królestwo Podzielone i Prorocy",
+    date: "ok. 997–607 p.n.e.",
+    desc: "Podział na królestwo północne (Izrael) i południowe (Juda), odważna służba Eliasza i proroków, upadek Samarii i zburzenie Jerozolimy.",
+    books: ["1-2 Królów", "2 Kronik", "Izajasza", "Jeremiasza", "Lamentacje", "Ozeasza", "Joela", "Amosa", "Abdiasza", "Jonasza", "Micheasza", "Nahuma", "Habakuka", "Sofoniasza"],
+    chars: ["Eliasz", "Elizeusz", "Ezechiasz", "Jozjasz", "Izajasz", "Jeremiasz"],
+    bg: "rgba(239, 68, 68, 0.12)",
+    color: "#ef4444"
+  },
+  {
+    id: "era_niewola_powrot",
+    name: "Niewola Babilońska i Powrót",
+    date: "ok. 607–443 p.n.e.",
+    desc: "70 lat spustoszenia Judy, niezłomna wierność Daniela w Babilonie, dekret Cyrusa i gorliwa odbudowa świątyni oraz murów Jerozolimy.",
+    books: ["Daniela", "Ezechiela", "Ezdrasza", "Nehemiasza", "Estery", "Aggeusza", "Zachariasza", "Malachiasza"],
+    chars: ["Daniel", "Szadrach, Meszach, Abed-Nego", "Ezdrasz", "Nehemiasz", "Estera", "Mardocheusz"],
+    bg: "rgba(139, 92, 246, 0.12)",
+    color: "#8b5cf6"
+  },
+  {
+    id: "era_i_wiek",
+    name: "I wiek n.e. — Mesjasz i Zbór",
+    date: "ok. 29–98 n.e.",
+    desc: "Ziemska służba i ofiara Jezusa Chrystusa, wylanie ducha świętego w 33 n.e., dynamiczny rozrost zboru i spisanie Chrześcijańskich Pism Greckich.",
+    books: ["Mateusza", "Marka", "Łukasza", "Jana", "Dzieje Apostolskie", "Listy Apostolskie", "Objawienie"],
+    chars: ["Jezus Chrystus", "Jan Chrzciciel", "Piotr", "Jan", "Paweł", "Tymoteusz", "Lidia", "Pryscylla i Akwila", "Szczepan"],
+    bg: "rgba(6, 182, 212, 0.12)",
+    color: "#06b6d4"
+  }
 ];
 
-const JWS_PLAN_PRZYPOWIESCI = [
-  { d: 1, t: "Siewca i cztery rodzaje gleby", f: [{ r: "Mateusza 13:1-23", t: "Siewca i cztery rodzaje gleby" }] },
-  { d: 2, t: "Pszenica i chwasty", f: [{ r: "Mateusza 13:24-43", t: "Pszenica i chwasty" }] },
-  { d: 3, t: "Ukryty skarb, drogocenna perła i sieć", f: [{ r: "Mateusza 13:44-52", t: "Ukryty skarb, drogocenna perła i sieć" }] },
-  { d: 4, t: "Miłosierny Samarytanin", f: [{ r: "Łukasza 10:25-37", t: "Miłosierny Samarytanin" }] },
-  { d: 5, t: "Nierozsądny bogacz", f: [{ r: "Łukasza 12:13-21", t: "Nierozsądny bogacz" }] },
-  { d: 6, t: "Zagubiona owca i odnaleziona drachma", f: [{ r: "Łukasza 15:1-10", t: "Zagubiona owca i odnaleziona drachma" }] },
-  { d: 7, t: "Syn marnotrawny i miłosierny ojciec", f: [{ r: "Łukasza 15:11-32", t: "Syn marnotrawny i miłosierny ojciec" }] },
-  { d: 8, t: "Roztropny zarządca", f: [{ r: "Łukasza 16:1-13", t: "Roztropny zarządca" }] },
-  { d: 9, t: "Wytrwała wdowa oraz faryzeusz i poborca podatków", f: [{ r: "Łukasza 18:1-14", t: "Wytrwała wdowa oraz faryzeusz i poborca podatków" }] },
-  { d: 10, t: "Robotnicy w winnicy", f: [{ r: "Mateusza 20:1-16", t: "Robotnicy w winnicy" }] },
-  { d: 11, t: "Dwóch synów i niegodziwi rolnicy", f: [{ r: "Mateusza 21:28-46", t: "Dwóch synów i niegodziwi rolnicy" }] },
-  { d: 12, t: "Uczta weselna króla", f: [{ r: "Mateusza 22:1-14", t: "Uczta weselna króla" }] },
-  { d: 13, t: "Dziesięć dziewic z lampami", f: [{ r: "Mateusza 25:1-13", t: "Dziesięć dziewic z lampami" }] },
-  { d: 14, t: "Powierzone talenty oraz owce i kozy", f: [{ r: "Mateusza 25:14-46", t: "Powierzone talenty oraz owce i kozy" }] }
+/* 1d. Katalog Postaci Biblijnych (~25 wzorów wiary) */
+const BIBLE_CHARACTERS = [
+  {
+    id: "abraham",
+    name: "Abraham",
+    eraId: "era_patriarchowie",
+    eraName: "Patriarchowie",
+    cat: "patriarchowie",
+    catName: "Patriarchowie",
+    qualities: "Ojciec wierzących • Przyjaciel Boga",
+    verses: ["Rodzaju 12:1-4", "Rodzaju 22:1-19", "Hebrajczyków 11:8-19", "Jakuba 2:21-23"],
+    lesson: "Niezłomne zaufanie obietnicom Jehowy nawet wtedy, gdy po ludzku droga wydaje się niemożliwa."
+  },
+  {
+    id: "sara",
+    name: "Sara",
+    eraId: "era_patriarchowie",
+    eraName: "Patriarchowie",
+    cat: "kobiety",
+    catName: "Kobiety wiary",
+    qualities: "Lojalność • Szacunek • Cierpliwość",
+    verses: ["Rodzaju 18:9-15", "Rodzaju 21:1-7", "Hebrajczyków 11:11", "1 Piotra 3:5-6"],
+    lesson: "Wierność u boku męża i ufność, że dla Jehowy nie ma rzeczy zbyt niezwykłej."
+  },
+  {
+    id: "hiob",
+    name: "Hiob",
+    eraId: "era_patriarchowie",
+    eraName: "Patriarchowie",
+    cat: "patriarchowie",
+    catName: "Patriarchowie",
+    qualities: "Niezłomna prawość • Nieskazitelność",
+    verses: ["Hioba 1:20-22", "Hioba 2:9-10", "Hioba 42:10-17", "Jakuba 5:11"],
+    lesson: "Lojalność wobec Boga płynąca z czystej miłości, niezależnie od cierpień czy utraty wszystkiego."
+  },
+  {
+    id: "jozef",
+    name: "Józef (syn Jakuba)",
+    eraId: "era_patriarchowie",
+    eraName: "Patriarchowie",
+    cat: "patriarchowie",
+    catName: "Patriarchowie",
+    qualities: "Czystość moralna • Gotowość do przebaczenia",
+    verses: ["Rodzaju 39:7-12", "Rodzaju 45:1-15", "Rodzaju 50:19-21"],
+    lesson: "Ucieczka przed pokusą i dostrzeganie ręki Jehowy kierującej wydarzeniami ku dobru."
+  },
+  {
+    id: "mojzesz",
+    name: "Mojżesz",
+    eraId: "era_wyjscie",
+    eraName: "Wyjście i Wędrówka",
+    cat: "wodzowie",
+    catName: "Wodzowie i Prorocy",
+    qualities: "Najpokorniejszy z ludzi • Odwaga • Zażyłość z Bogiem",
+    verses: ["Wyjścia 3:1-12", "Liczb 12:3", "Powtórzonego Prawa 34:10-12", "Hebrajczyków 11:24-27"],
+    lesson: "Wybór służby dla ludu Bożego zamiast przemijających rozkoszy i bogactw świata."
+  },
+  {
+    id: "jozue",
+    name: "Jozue",
+    eraId: "era_sedziowie",
+    eraName: "Zdobycie Kanaanu",
+    cat: "wodzowie",
+    catName: "Wodzowie i Królowie",
+    qualities: "Męstwo • Codzienne czytanie Prawa",
+    verses: ["Jozuego 1:7-9", "Jozuego 24:14-15"],
+    lesson: "Sukces i odwaga wynikające ze stałego rozmyślania nad Słowem Bożym i wprowadzania go w czyn."
+  },
+  {
+    id: "rut",
+    name: "Rut",
+    eraId: "era_sedziowie",
+    eraName: "Epoka Sędziów",
+    cat: "kobiety",
+    catName: "Kobiety wiary",
+    qualities: "Lojalna miłość • Pracowitość • Pokora",
+    verses: ["Rut 1:16-17", "Rut 2:11-12", "Rut 4:13-17"],
+    lesson: "Bezinteresowne przywiązanie do prawdziwego Boga i troska o bliskich owocują sowitą nagrodą od Jehowy."
+  },
+  {
+    id: "samuel",
+    name: "Samuel",
+    eraId: "era_sedziowie",
+    eraName: "Epoka Sędziów",
+    cat: "prorocy",
+    catName: "Prorocy",
+    qualities: "Posłuszeństwo od dzieciństwa • Uczciwość",
+    verses: ["1 Samuela 3:1-10", "1 Samuela 12:1-5", "1 Samuela 15:22"],
+    lesson: "Posłuszeństwo jest lepsze niż jakakolwiek ofiara; wierność przez całe długie życie."
+  },
+  {
+    id: "dawid",
+    name: "Dawid",
+    eraId: "era_krolestwo_zjedn",
+    eraName: "Królestwo Zjednoczone",
+    cat: "wodzowie",
+    catName: "Wodzowie i Królowie",
+    qualities: "Serce oddane Jehowie • Skrucha • Talent poetycki",
+    verses: ["1 Samuela 17:45-47", "2 Samuela 12:13", "Psalm 23", "Psalm 51"],
+    lesson: "Odwaga płynąca z obrony imienia Jehowy oraz szczera pokora i skrucha po popełnieniu błędu."
+  },
+  {
+    id: "jonatan",
+    name: "Jonatan",
+    eraId: "era_krolestwo_zjedn",
+    eraName: "Królestwo Zjednoczone",
+    cat: "wodzowie",
+    catName: "Wzorce braterstwa",
+    qualities: "Niezrównana przyjaźń • Lojalność • Brak zazdrości",
+    verses: ["1 Samuela 18:1-4", "1 Samuela 20:12-17", "1 Samuela 23:16-18"],
+    lesson: "Wspieranie innych i radość z ich powodzenia bez cienia rywalizacji."
+  },
+  {
+    id: "abigail",
+    name: "Abigail",
+    eraId: "era_krolestwo_zjedn",
+    eraName: "Królestwo Zjednoczone",
+    cat: "kobiety",
+    catName: "Kobiety wiary",
+    qualities: "Roztropność • Rozsądek • Odwaga w zażegnaniu sporu",
+    verses: ["1 Samuela 25:14-35"],
+    lesson: "Mądre i szybkie działanie potrafi ustrzec innych przed grzechem i rozlewem krwi."
+  },
+  {
+    id: "eliasz",
+    name: "Eliasz",
+    eraId: "era_krolestwo_podz",
+    eraName: "Królestwo Podzielone",
+    cat: "prorocy",
+    catName: "Prorocy",
+    qualities: "Gorliwość o czyste wielbienie • Wytrwałość w modlitwie",
+    verses: ["1 Królów 18:21-39", "1 Królów 19:1-18", "Jakuba 5:17-18"],
+    lesson: "Jehowa dodaje sił i pociesza swoich sług w chwilach największego zniechęcenia i samotności."
+  },
+  {
+    id: "ezechiasz",
+    name: "Ezechiasz",
+    eraId: "era_krolestwo_podz",
+    eraName: "Królestwo Podzielone",
+    cat: "wodzowie",
+    catName: "Wodzowie i Królowie",
+    qualities: "Zaufanie w obliczu wroga • Odnowienie czystego wielbienia",
+    verses: ["2 Królów 18:1-7", "2 Królów 19:14-19", "Izajasza 38:1-6"],
+    lesson: "Zwracanie się do Jehowy w żarliwej modlitwie w obliczu przytłaczających zagrożeń."
+  },
+  {
+    id: "izajasz",
+    name: "Izajasz",
+    eraId: "era_krolestwo_podz",
+    eraName: "Królestwo Podzielone",
+    cat: "prorocy",
+    catName: "Prorocy",
+    qualities: "Gotowość: „Oto jestem! Mnie poślij” • Prorok Mesjasza",
+    verses: ["Izajasza 6:8", "Izajasza 9:6-7", "Izajasza 53:1-12"],
+    lesson: "Chętny duch w podejmowaniu każdego zadania od Boga z całkowitym oddaniem."
+  },
+  {
+    id: "jeremiasz",
+    name: "Jeremiasz",
+    eraId: "era_krolestwo_podz",
+    eraName: "Królestwo Podzielone",
+    cat: "prorocy",
+    catName: "Prorocy",
+    qualities: "Odwaga mimo młodego wieku • Słowo jak ogień płonący",
+    verses: ["Jeremiasza 1:4-10", "Jeremiasza 20:7-9", "Lamentacje 3:22-26"],
+    lesson: "Słowo Boże daje wewnętrzną siłę do głoszenia nawet w niesprzyjających i wrogich warunkach."
+  },
+  {
+    id: "daniel",
+    name: "Daniel",
+    eraId: "era_niewola_powrot",
+    eraName: "Niewola i Powrót",
+    cat: "prorocy",
+    catName: "Prorocy i Mężowie wiary",
+    qualities: "Niezłomny nawyk modlitwy • Stałość zasad • Głębokie studium",
+    verses: ["Daniela 1:8", "Daniela 6:10-23", "Daniela 9:1-4"],
+    lesson: "Nienaruszalna wierność zasadom od najmłodszych lat i stały zwyczaj regularnej modlitwy."
+  },
+  {
+    id: "estera",
+    name: "Estera",
+    eraId: "era_niewola_powrot",
+    eraName: "Niewola i Powrót",
+    cat: "kobiety",
+    catName: "Kobiety wiary",
+    qualities: "Poświęcenie • Samozaparcie: „Jeśli mam zginąć, to zginę”",
+    verses: ["Estery 4:14-16", "Estery 7:1-6", "Estery 8:3-8"],
+    lesson: "Odwaga wstawiania się za ludem Bożym z narażeniem własnego bezpieczeństwa i pozycji."
+  },
+  {
+    id: "nehemiasz",
+    name: "Nehemiasz",
+    eraId: "era_niewola_powrot",
+    eraName: "Niewola i Powrót",
+    cat: "wodzowie",
+    catName: "Wodzowie i Organizatorzy",
+    qualities: "Modlitwa przed każdym działaniem • Zapał • Bezinteresowność",
+    verses: ["Nehemiasza 1:4-11", "Nehemiasza 2:4-5", "Nehemiasza 4:14"],
+    lesson: "Błyskawiczne modlitwy o kierownictwo Boże i wytrwałość w budowaniu dzieła duchowego."
+  },
+  {
+    id: "piotr",
+    name: "Apostoł Piotr",
+    eraId: "era_i_wiek",
+    eraName: "I wiek n.e.",
+    cat: "apostolowie",
+    catName: "Apostołowie i Uczniowie",
+    qualities: "Gorące serce • Szczerość • Podnoszenie się po upadku",
+    verses: ["Mateusza 16:16-18", "Łukasza 22:31-34", "Jana 21:15-17", "Dzieje 2:14-36"],
+    lesson: "Jehowa i Jezus dostrzegają potencjał i szczere serce, przebaczając słabości i powierzając wielkie zadania."
+  },
+  {
+    id: "pawel",
+    name: "Apostoł Paweł",
+    eraId: "era_i_wiek",
+    eraName: "I wiek n.e.",
+    cat: "apostolowie",
+    catName: "Apostołowie i Uczniowie",
+    qualities: "Niezmordowana gorliwość • Pokora • Miłość do zborów",
+    verses: ["Dzieje 9:1-19", "1 Koryntian 9:22-27", "2 Koryntian 11:23-28", "Filipian 4:13"],
+    lesson: "Wszystko mogę w Tym, który mnie umacnia; dostosowywanie się do każdego człowieka, by pozyskać go dla prawdy."
+  },
+  {
+    id: "jan",
+    name: "Apostoł Jan",
+    eraId: "era_i_wiek",
+    eraName: "I wiek n.e.",
+    cat: "apostolowie",
+    catName: "Apostołowie i Uczniowie",
+    qualities: "Apostoł miłości • Lojalność pod palem męki",
+    verses: ["Jana 19:25-27", "1 Jana 4:7-21", "Objawienie 1:9-10"],
+    lesson: "Prawdziwa miłość chrześcijańska jest spoiwem doskonałości i znakiem rozpoznawczym uczniów Chrystusa."
+  },
+  {
+    id: "tymoteusz",
+    name: "Tymoteusz",
+    eraId: "era_i_wiek",
+    eraName: "I wiek n.e.",
+    cat: "apostolowie",
+    catName: "Młodzi w wierze",
+    qualities: "Szczera troska o innych • Znajomość Pism od niemowlęctwa",
+    verses: ["Dzieje 16:1-3", "Filipian 2:19-22", "2 Tymoteusza 1:5", "2 Tymoteusza 3:14-15"],
+    lesson: "Wzorowa postawa młodego chrześcijanina, który staje się niezastąpionym pomocnikiem i wiernym pasterzem."
+  },
+  {
+    id: "lidia",
+    name: "Lidia z Tiatyry",
+    eraId: "era_i_wiek",
+    eraName: "I wiek n.e.",
+    cat: "kobiety",
+    catName: "Kobiety wiary",
+    qualities: "Gościnność z całego serca • Otwartość umysłu",
+    verses: ["Dzieje 16:13-15", "Dzieje 16:40"],
+    lesson: "Jehowa otwiera serca tych, którzy Go szukają; gościnność przynosi obfite duchowe błogosławieństwa."
+  },
+  {
+    id: "pryscylla_akwila",
+    name: "Pryscylla i Akwila",
+    eraId: "era_i_wiek",
+    eraName: "I wiek n.e.",
+    cat: "apostolowie",
+    catName: "Małżeństwa w wierze",
+    qualities: "Jedność w małżeństwie • Umiejętne nauczanie • Odwaga",
+    verses: ["Dzieje 18:1-3", "Dzieje 18:24-26", "Rzymian 16:3-4"],
+    lesson: "Wspólne służenie Jehowie w małżeństwie i gotowość do narażania własnego życia dla dobra braci."
+  },
+  {
+    id: "szczepan",
+    name: "Szczepan",
+    eraId: "era_i_wiek",
+    eraName: "I wiek n.e.",
+    cat: "apostolowie",
+    catName: "Męczennicy i Świadkowie",
+    qualities: "Pełen ducha i mądrości • Przebaczenie prześladowcom",
+    verses: ["Dzieje 6:8-15", "Dzieje 7:54-60"],
+    lesson: "Niezłomne świadectwo prawdzie aż do śmierci oraz naśladowanie miłosierdzia i przebaczenia Jezusa."
+  }
+];
+
+/* 1e. Duchowe Odznaki i Osiągnięcia */
+const SPIRITUAL_BADGES = [
+  { id: "b_start", name: "Pierwszy Krok", icon: "🌟", desc: "Ukończono pierwszy dzień czytania w planie biblijnym", reqDays: 1 },
+  { id: "b_week", name: "Młody Pęd", icon: "🌿", desc: "7 ukończonych dni regularnego czytania Słowa Bożego", reqDays: 7 },
+  { id: "b_month", name: "Ukorzeniony w Wierze", icon: "🌳", desc: "30 dni studium — solidny nawyk czytania Biblii", reqDays: 30 },
+  { id: "b_streak14", name: "Niezłomna Wytrwałość", icon: "🔥", desc: "Seria co najmniej 14 dni czytania bez przerwy", reqStreak: 14 },
+  { id: "b_notes10", name: "Badacz Słowa", icon: "📖", desc: "Sporządzono co najmniej 10 osobistych notatek biblijnych", reqNotes: 10 },
+  { id: "b_notes50", name: "Mistrz Pism", icon: "📜", desc: "Sporządzono ponad 50 wartościowych notatek studium", reqNotes: 50 },
+  { id: "b_medit", name: "Głęboka Medytacja", icon: "🕊️", desc: "Utworzono 5 notatek z tekstu dziennego lub pytań medytacji", reqMedit: 5 },
+  { id: "b_canon_half", name: "Wielka Podróż", icon: "🧭", desc: "Ukończono ponad 50% wybranego planu rocznego", reqPct: 50 },
+  { id: "b_complete", name: "Zwycięzca i Korona", icon: "👑", desc: "Ukończono cały plan czytania Biblii (100%)", reqPct: 100 }
 ];
 
 /* 4. Globalny stan czytania i filtrów */
@@ -33784,9 +35993,33 @@ let _centrListaTab = "wszystkie";
 let _centrListaSzukaj = "";
 let _centrStatTab = "ogolny";
 let _centrStudiumTab = "tematy";
+let _centrMapaFiltr = "wszystkie";
+let _centrMapFilter = "wszystkie";
+let _centrWybranaKsiegaModal = null;
+let _centrPostacieFiltr = "wszystkie";
+let _centrPostacieFiltrEra = "wszystkie";
+let _centrPostacieSzukaj = "";
+let _centrFocusPreset = 25;
+let _centrFocusTimeLeft = 25 * 60;
+let _centrFocusTotalTime = 25 * 60;
+let _centrFocusRunning = false;
+let _centrFocusTimerId = null;
+let _centrFocusScratchpad = "";
 const _cenNow = new Date();
 let _centrKalRok = _cenNow.getFullYear();
 let _centrKalMies = _cenNow.getMonth();
+
+const BIBLE_TIMELINE_ERAS = BIBLE_ERAS;
+
+const BIBLE_CAT_COLORS = {
+  prawo: { color: "#3b82f6", bg: "rgba(59, 130, 246, 0.12)", name: "Prawo (Mojżeszowe)" },
+  historia: { color: "#10b981", bg: "rgba(16, 185, 129, 0.12)", name: "Księgi historyczne" },
+  poezja: { color: "#f59e0b", bg: "rgba(245, 158, 11, 0.12)", name: "Poezja i mądrość" },
+  prorocy: { color: "#ef4444", bg: "rgba(239, 68, 68, 0.12)", name: "Księgi prorocze" },
+  ewangelie: { color: "#8b5cf6", bg: "rgba(139, 92, 246, 0.12)", name: "Ewangelie i Dzieje" },
+  listy: { color: "#06b6d4", bg: "rgba(6, 182, 212, 0.12)", name: "Listy apostolskie" },
+  objawienie: { color: "#ec4899", bg: "rgba(236, 72, 153, 0.12)", name: "Objawienie" }
+};
 
 /* Czyszczenie starych danych testowych / mocków */
 (function _centrAutoCleanMockData(){
@@ -34945,8 +37178,389 @@ const CEN_MODERN_ICO = {
   sync: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/></svg>',
   jw: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>',
   star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
-  rotate: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>'
+  rotate: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>',
+  bars: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>',
+  map: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>',
+  user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+  clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  flame: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>',
+  search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+  trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>'
 };
+
+/* ─── NOWE FUNKCJE POMOCNICZE CENTRUM STUDIUM ─── */
+function _centrObliczPostepKsiegi(bIdx, bName, totalCh){
+  let doneCh = 0;
+  try {
+    const fragiSet = _centrPobierzUkonczoneFragi();
+    const activePlanIds = _centrPobierzAktywnePlanyIds();
+    const allData = _centrPobierzWszystkiePlanyDane();
+    const checkedChaps = new Set();
+
+    activePlanIds.forEach(pid => {
+      const pInfo = allData[pid] || _centrPobierzPlanData(pid);
+      const dniDone = _centrPobierzUkonczoneDni(pid);
+      const planDays = pInfo.plan || [];
+      planDays.forEach(day => {
+        const isDayDone = dniDone.has(day.d);
+        (day.f || []).forEach((frag, fIdx) => {
+          const fragKey = pid + "_" + day.d + "_" + fIdx;
+          if(isDayDone || fragiSet.has(fragKey)){
+            if(frag.r && frag.r.startsWith(bName + " ")){
+              const rest = frag.r.substring(bName.length).trim();
+              const parts = rest.split("-");
+              const startCh = parseInt(parts[0], 10) || 1;
+              const endCh = parts.length > 1 ? (parseInt(parts[1], 10) || startCh) : startCh;
+              for(let c = startCh; c <= endCh; c++){
+                if(c <= totalCh) checkedChaps.add(c);
+              }
+            }
+          }
+        });
+      });
+    });
+    doneCh = checkedChaps.size;
+  } catch(e){}
+
+  const notesCount = (typeof notes !== "undefined" && Array.isArray(notes))
+    ? notes.filter(n => !n.del && n.b === bIdx).length
+    : 0;
+
+  const pct = totalCh > 0 ? Math.min(100, Math.round((doneCh / totalCh) * 100)) : 0;
+  return { pct, doneCh, totalCh, noteCount: notesCount };
+}
+
+function _centrPobierzNotatkiKsiegi(bIdx){
+  if(typeof notes === "undefined" || !Array.isArray(notes)) return [];
+  return notes.filter(n => !n.del && n.b === bIdx);
+}
+
+function _centrPobierzNotatkiPostaci(charName){
+  if(!charName || typeof notes === "undefined" || !Array.isArray(notes)) return [];
+  const cNorm = (typeof norm === "function") ? norm(charName) : charName.toLowerCase().trim();
+  return notes.filter(n => {
+    if(n.del) return false;
+    if(n.t && (typeof norm === "function" ? norm(n.t) : n.t.toLowerCase()).includes(cNorm)) return true;
+    const txt = n.c || (n.h ? String(n.h).replace(/<[^>]*>/g, " ") : "");
+    if(txt && (typeof norm === "function" ? norm(txt) : txt.toLowerCase()).includes(cNorm)) return true;
+    return false;
+  });
+}
+
+function _centrPobierzCeleDuchowe(){
+  const raw = lsGet(KP + "CentrumCeleDuchowe", null);
+  if(raw){
+    try {
+      const arr = JSON.parse(raw);
+      if(Array.isArray(arr) && arr.length) return arr;
+    } catch(e){}
+  }
+  const curPlan = _centrPobierzPlanData(_centrAktywnyPlanId);
+  const doneDays = _centrPobierzUkonczoneDni(curPlan.id).size;
+  const nTotal = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes.filter(n => !n.del).length : 0;
+
+  return [
+    { id: "c_biblia_rok", cat: "Biblia", title: "Przeczytać całą Biblię w 1 rok", target: 365, current: doneDays, unit: "dni", done: doneDays >= 365 },
+    { id: "c_tekst_dzienny", cat: "Nawyk", title: "Codzienne rozważanie tekstu dziennego", target: 30, current: Math.min(30, doneDays), unit: "dni", done: doneDays >= 30 },
+    { id: "c_notatki", cat: "Notatki", title: "Sporządzić 20 osobistych notatek ze studium", target: 20, current: nTotal, unit: "notatek", done: nTotal >= 20 },
+    { id: "c_postacie", cat: "Postacie", title: "Głębokie studium 5 postaci biblijnych", target: 5, current: 2, unit: "postacie", done: false }
+  ];
+}
+
+function _centrZapiszCeleDuchowe(arr){
+  lsSet(KP + "CentrumCeleDuchowe", JSON.stringify(arr));
+}
+
+function _centrUtworzNotatkeTekstDzienny(){
+  if(typeof createNote !== "function") return;
+  const n = createNote();
+  if(!n) return;
+  const dniTyg = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
+  const miesiace = ["stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca", "lipca", "sierpnia", "września", "października", "listopada", "grudnia"];
+  const d = new Date();
+  const dataPl = dniTyg[d.getDay()] + ", " + d.getDate() + " " + miesiace[d.getMonth()] + " " + d.getFullYear();
+
+  n.t = "Tekst Dzienny — " + dataPl + ": Rozważania i Zastosowanie";
+  n.h = "<h3>📖 Tekst Dzienny — " + esc(dataPl) + "</h3>"
+    + "<p><strong>📌 Werset przewodni & Myśl z komentarza:</strong><br><em>(Wpisz lub wklej treść wersetu i główną myśl)</em></p>"
+    + "<hr>"
+    + "<h4>💡 Czego ten werset uczy mnie o Jehowie?</h4>"
+    + "<p><em>(Jego przymioty, miłość, mądrość, sprawiedliwość, sposób działania wobec ludzi...)</em></p>"
+    + "<h4>🌱 Jak mogę zastosować tę radę w praktyce dzisiaj?</h4>"
+    + "<p><em>(W rodzinie, w pracy, w zborze, w myślach i decyzjach...)</em></p>"
+    + "<h4>🤝 Komu mogę dzisiaj pomóc lub przekazać tę zachętę?</h4>"
+    + "<p><em>(Konkretna osoba ze zboru, rodzina, rozmowa w służbie...)</em></p>"
+    + "<h4>✍️ Osobista modlitwa / refleksja:</h4>"
+    + "<p><em>(Moja szczera prośba do Jehowy w związku z tą myślą...)</em></p>";
+  n.c = "Tekst Dzienny — " + dataPl + "\n\nWerset przewodni:\n\nCzego uczy o Jehowie:\n\nJak zastosować dzisiaj:\n\nKomu pomóc:\n\nModlitwa i refleksja:\n";
+
+  if(typeof createTag === "function"){
+    const tTekst = createTag("Tekst Dzienny");
+    const tMedit = createTag("Medytacja");
+    n.tg = [tTekst.id, tMedit.id];
+  }
+  saveNote(n);
+  toast("Utworzono notatkę: Tekst Dzienny (" + dataPl + ")", "ok");
+  if(typeof selectNote === "function") selectNote(n.g);
+  if(typeof centrumSchowaj === "function") centrumSchowaj();
+}
+
+function _centrUtworzNotatkeMedytacji(dNr){
+  if(typeof createNote !== "function") return;
+  const n = createNote();
+  if(!n) return;
+  const pInfo = _centrPobierzPlanData(_centrAktywnyPlanId);
+  const planDay = (pInfo.plan || []).find(x => x.d === dNr) || { d: dNr, t: "Czytanie biblijne", f: [] };
+
+  n.t = "Studium — Dzień " + dNr + " (" + esc(pInfo.name) + "): Medytacja";
+  n.h = "<h3>🧘 Głębokie Rozważania — Dzień " + dNr + "</h3>"
+    + "<p><strong>Plan:</strong> " + esc(pInfo.name) + "<br><strong>Fragmenty:</strong> " + esc(planDay.t) + "</p>"
+    + "<hr>"
+    + "<h4>1. Czego ten fragment uczy mnie o przymiotach Jehowy?</h4>"
+    + "<p><em>(Miłość, mądrość, bezwzględna sprawiedliwość, niezrównana moc, cierpliwość...)</em></p>"
+    + "<h4>2. Jaka zasada lub wzór postępowania ma bezpośrednie zastosowanie w moim życiu?</h4>"
+    + "<p><em>(Co powinienem zmienić, naśladować lub czego unikać...)</em></p>"
+    + "<h4>3. Jak mogę wykorzystać te wersety w służbie kaznodziejskiej lub by zachęcić kogoś w zborze?</h4>"
+    + "<p><em>(Dla kogo ta prawda może być szczególnym pokrzepieniem...)</em></p>"
+    + "<h4>4. Co szczególnie poruszyło moje serce podczas dzisiejszego czytania?</h4>"
+    + "<p><em>(Osobiste duchowe odkrycie...)</em></p>";
+  n.c = "Studium — Dzień " + dNr + "\nFragmenty: " + planDay.t + "\n\n1. O Jehowie:\n\n2. Zastosowanie w życiu:\n\n3. W służbie i dla braci:\n\n4. Co poruszyło serce:\n";
+
+  if(typeof createTag === "function"){
+    const tStudium = createTag("Głębokie Studium");
+    const tPlan = createTag("Plan Czytania");
+    n.tg = [tStudium.id, tPlan.id];
+  }
+  saveNote(n);
+  toast("Utworzono notatkę medytacyjną dla Dnia " + dNr, "ok");
+  if(typeof selectNote === "function") selectNote(n.g);
+  if(typeof centrumSchowaj === "function") centrumSchowaj();
+}
+
+function _centrUtworzNotatkePostaci(charName, eraName){
+  if(typeof createNote !== "function") return;
+  const n = createNote();
+  if(!n) return;
+  const charObj = BIBLE_CHARACTERS.find(c => c.name === charName || c.id === charName) || { name: charName, qualities: "Wzór wiary", verses: [], lesson: "" };
+
+  n.t = "Postać biblijna: " + charObj.name + " — Wzór Wiary";
+  n.h = "<h3>👑 Postać biblijna: " + esc(charObj.name) + "</h3>"
+    + "<p><strong>Epoka:</strong> " + esc(eraName || charObj.eraName || "Biblia") + "<br>"
+    + "<strong>Dominujące cechy:</strong> " + esc(charObj.qualities) + "</p>"
+    + "<p><strong>Kluczowe wersety:</strong> " + (charObj.verses || []).join(", ") + "</p>"
+    + "<hr>"
+    + "<h4>🌟 Główna lekcja z życia " + esc(charObj.name) + ":</h4>"
+    + "<p>" + esc(charObj.lesson) + "</p>"
+    + "<h4>🔍 Moje osobiste odkrycia i wnioski ze studium tej postaci:</h4>"
+    + "<p><em>(W jakich próbach ta postać zachowała wierność? Co czuła? Skąd czerpała siłę?...)</em></p>"
+    + "<h4>🎯 W jakich sytuacjach mogę dzisiaj naśladować taką postawę?</h4>"
+    + "<p><em>(Konkretne wyzwanie, w którym potrzebuję podobnej wiary, odwagi lub lojalności...)</em></p>";
+  n.c = "Postać biblijna: " + charObj.name + "\nEpoka: " + (eraName || charObj.eraName) + "\nCechy: " + charObj.qualities + "\n\nLekcja: " + charObj.lesson + "\n\nWnioski:\n\nZastosowanie:\n";
+
+  if(typeof createTag === "function"){
+    const tPostac = createTag("Postacie Biblijne");
+    const tWzory = createTag("Wzory Wiary");
+    n.tg = [tPostac.id, tWzory.id];
+  }
+  saveNote(n);
+  toast("Utworzono notatkę studium: " + charObj.name, "ok");
+  if(typeof selectNote === "function") selectNote(n.g);
+  if(typeof centrumSchowaj === "function") centrumSchowaj();
+}
+
+function _centrZagrajGong(){
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(659.25, ctx.currentTime + 0.3);
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.8);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + 1.8);
+  } catch(e){}
+}
+
+function _centrStartFocusTimer(){
+  if(_centrFocusRunning) return;
+  _centrFocusRunning = true;
+  _centrFocusTimerId = setInterval(() => {
+    if(_centrFocusTimeLeft > 0){
+      _centrFocusTimeLeft--;
+      _centrAktualizujFocusTimerUI();
+    } else {
+      _centrPauzaFocusTimer();
+      _centrZagrajGong();
+      toast("🔔 Czas skupienia minął! Wspaniała praca nad studium.", "ok");
+      _centrAktualizujFocusTimerUI();
+    }
+  }, 1000);
+  _centrAktualizujFocusTimerUI();
+}
+
+function _centrPauzaFocusTimer(){
+  _centrFocusRunning = false;
+  if(_centrFocusTimerId){
+    clearInterval(_centrFocusTimerId);
+    _centrFocusTimerId = null;
+  }
+  _centrAktualizujFocusTimerUI();
+}
+
+function _centrResetFocusTimer(){
+  _centrPauzaFocusTimer();
+  _centrFocusTimeLeft = _centrFocusPreset * 60;
+  _centrFocusTotalTime = _centrFocusPreset * 60;
+  _centrAktualizujFocusTimerUI();
+}
+
+function _centrUstawFocusPreset(min){
+  _centrPauzaFocusTimer();
+  _centrFocusPreset = min;
+  _centrFocusTimeLeft = min * 60;
+  _centrFocusTotalTime = min * 60;
+  _centrAktualizujFocusTimerUI();
+}
+
+function _centrAktualizujFocusTimerUI(){
+  const disp = document.getElementById("cenFocusTimeDisplay");
+  const fill = document.getElementById("cenFocusRadialFill");
+  const btnStart = document.getElementById("cenFocusBtnStart");
+  const btnPause = document.getElementById("cenFocusBtnPause");
+
+  const min = Math.floor(_centrFocusTimeLeft / 60);
+  const sec = _centrFocusTimeLeft % 60;
+  const timeStr = String(min).padStart(2, "0") + ":" + String(sec).padStart(2, "0");
+
+  if(disp) disp.textContent = timeStr;
+  if(fill && _centrFocusTotalTime > 0){
+    const circumference = 2 * Math.PI * 108;
+    const progress = (_centrFocusTotalTime - _centrFocusTimeLeft) / _centrFocusTotalTime;
+    fill.style.strokeDashoffset = String(circumference - progress * circumference);
+  }
+  if(btnStart && btnPause){
+    btnStart.style.display = _centrFocusRunning ? "none" : "";
+    btnPause.style.display = _centrFocusRunning ? "" : "none";
+  }
+}
+
+function _centrZapiszNotatkeZeSkupienia(){
+  const inp = document.getElementById("cenFocusScratchpadInp");
+  const txt = inp ? inp.value.trim() : (_centrFocusScratchpad || "").trim();
+  if(!txt){
+    toast("Wpisz najpierw swoje przemyślenia w brudnopisie", "info");
+    return;
+  }
+  if(typeof createNote !== "function") return;
+  const n = createNote();
+  if(!n) return;
+
+  const curPlan = _centrPobierzPlanData(_centrAktywnyPlanId);
+  const curDay = _centrWybranyDzien || 1;
+  const d = new Date();
+  const dataShort = d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear();
+
+  n.t = "Głębokie Rozważania — " + dataShort + " (" + curPlan.name + ", Dzień " + curDay + ")";
+  n.h = "<h3>🧘 Owoc Sesji Skupienia — " + dataShort + "</h3>"
+    + "<p><strong>Plan czytania:</strong> " + esc(curPlan.name) + " • Dzień " + curDay + "</p><hr>"
+    + "<p>" + esc(txt).replace(/\n/g, "<br>") + "</p>";
+  n.c = "Głębokie Rozważania — " + dataShort + "\nPlan: " + curPlan.name + " (Dzień " + curDay + ")\n\n" + txt;
+
+  if(typeof createTag === "function"){
+    const tFoc = createTag("Głębokie Studium");
+    n.tg = [tFoc.id];
+  }
+  saveNote(n);
+  if(inp) inp.value = "";
+  _centrFocusScratchpad = "";
+  toast("Zapisano przemyślenia jako nową notatkę studium!", "ok");
+  if(typeof selectNote === "function") selectNote(n.g);
+  if(typeof centrumSchowaj === "function") centrumSchowaj();
+}
+
+function _centrRenderTekstDziennyCard(){
+  const dniTyg = ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"];
+  const miesiace = ["stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca", "lipca", "sierpnia", "września", "października", "listopada", "grudnia"];
+  const d = new Date();
+  const dataPl = dniTyg[d.getDay()] + ", " + d.getDate() + " " + miesiace[d.getMonth()];
+
+  return '<div class="cenDailyCard">'
+    + '<div class="cenDailyCardTop">'
+    + '<div class="cenDailyCardIko">📖</div>'
+    + '<div class="cenDailyCardInfo">'
+    + '<div class="cenDailyCardTag">Tekst Dzienny • ' + esc(dataPl) + '</div>'
+    + '<div class="cenDailyCardTyt">Codzienne Badanie Pism i Medytacja</div>'
+    + '<div class="cenDailyCardDesc">Rozważ dzisiejszą myśl biblijną. Zastanów się, czego uczy o Jehowie i jak możesz wprowadzić ją w czyn w swoim życiu.</div>'
+    + '</div></div>'
+    + '<div class="cenDailyCardActions">'
+    + '<button type="button" class="cenDailyBtnJW" data-copen-jw="tekst-dzienny" title="Otwórz tekst dzienny">' + CEN_MODERN_ICO.jw + ' Badaj Pisma codziennie</button>'
+    + '<button type="button" class="cenDailyBtnNote" data-czapisz-tekst-dzienny title="Zapisz swoje wnioski">' + CEN_MODERN_ICO.note + ' Zapisz rozważania</button>'
+    + '<button type="button" class="cenDailyBtnFocus" data-cwidok="skupienie" title="Rozpocznij sesję skupienia">🧘 Tryb Skupienia</button>'
+    + '</div></div>';
+}
+
+function _centrRenderModalKsiegi(bIdx){
+  const book = BIBLE_CANON_META.find(b => b.idx === bIdx) || BIBLE_CANON_META[0];
+  const postep = _centrObliczPostepKsiegi(book.idx, book.name, book.chapters);
+  const myNotes = _centrPobierzNotatkiKsiegi(book.idx);
+
+  const notesHtml = !myNotes.length
+    ? '<div class="cenModalPusto">Brak jeszcze notatek do tej księgi.<br><button type="button" class="btn" style="margin-top:8px;" data-cbook-note="' + book.idx + '">+ Napisz pierwszą notatkę</button></div>'
+    : myNotes.slice(0, 8).map(n => {
+        const snip = (n.c || (n.h ? String(n.h).replace(/<[^>]*>/g, " ") : "")).slice(0, 90);
+        return '<div class="cenRowItem" data-cnotatka-otworz="' + n.g + '">'
+          + '<div class="cenRowLewo">'
+          + '<div style="width:30px;height:30px;border-radius:8px;background:var(--cen-btn-bg);display:flex;align-items:center;justify-content:center;color:#2563eb;flex-shrink:0;">' + CEN_MODERN_ICO.note + '</div>'
+          + '<div><div class="cenRowTyt" style="font-size:13px;">' + esc(n.t || "Bez tytułu") + '</div><div class="cenRowPodtyt" style="font-size:11.5px;">' + esc(snip) + '…</div></div>'
+          + '</div><span class="cenPozStrz">' + CEN_MODERN_ICO.chevron + '</span></div>';
+      }).join('');
+
+  return '<div class="cenModalBackdrop" id="cenBookModalBackdrop" data-cmodal-close>'
+    + '<div class="cenModalCard" onclick="event.stopPropagation()">'
+    + '<div class="cenModalHeader" style="border-bottom:1px solid var(--cen-border);padding-bottom:12px;">'
+    + '<div style="display:flex;align-items:center;gap:12px;">'
+    + '<div class="cenMapTileBadge" style="background:' + book.bg + ';color:' + book.color + ';width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;">' + esc(book.abbr) + '</div>'
+    + '<div>'
+    + '<div style="font-size:18px;font-weight:700;color:var(--cen-text-main);">' + esc(book.name) + ' <span style="font-size:13px;font-weight:400;color:var(--cen-text-muted);">(' + esc(book.nameEn) + ')</span></div>'
+    + '<div style="font-size:12px;color:var(--cen-text-muted);margin-top:2px;">' + esc(book.catName) + ' • ' + book.chapters + ' ' + (book.chapters === 1 ? 'rozdział' : book.chapters < 5 ? 'rozdziały' : 'rozdziałów') + '</div>'
+    + '</div></div>'
+    + '<button type="button" class="cenModalCloseBtn" data-cmodal-close title="Zamknij">✕</button>'
+    + '</div>'
+
+    + '<div class="cenModalBody">'
+    + '<div class="cenModalMetaGrid">'
+    + '<div class="cenModalMetaItem"><span class="cenModalMetaLbl">Pisarz biblijny</span><span class="cenModalMetaVal">' + esc(book.author) + '</span></div>'
+    + '<div class="cenModalMetaItem"><span class="cenModalMetaLbl">Miejsce spisania</span><span class="cenModalMetaVal">' + esc(book.place) + '</span></div>'
+    + '<div class="cenModalMetaItem"><span class="cenModalMetaLbl">Czas spisania</span><span class="cenModalMetaVal">' + esc(book.written) + '</span></div>'
+    + '<div class="cenModalMetaItem"><span class="cenModalMetaLbl">Obejmowane czasy</span><span class="cenModalMetaVal">' + esc(book.timeSpan) + '</span></div>'
+    + '</div>'
+
+    + '<div class="cenHeroMetaRow" style="margin:16px 0 6px 0;">'
+    + '<span class="cenHeroMetaLabel">Postęp przeczytania księgi</span>'
+    + '<span class="cenHeroMetaVal"><b>' + postep.doneCh + ' / ' + postep.totalCh + ' rozdz.</b> (' + postep.pct + '%)</span>'
+    + '</div>'
+    + '<div class="cenProgressBar" style="margin-bottom:16px;"><div class="cenProgressFill" style="width:' + Math.max(postep.doneCh > 0 ? 4 : 0, postep.pct) + '%;background:' + book.color + ';"></div></div>'
+
+    + '<div class="cenModalActionsRow">'
+    + '<button type="button" class="cenFragBtnJW" data-cbook-jw="' + esc(book.name) + '" style="flex:1;justify-content:center;">' + CEN_MODERN_ICO.jw + ' Otwórz w JW Library</button>'
+    + '<button type="button" class="btn btn-primary" data-cbook-note="' + book.idx + '" style="flex:1;justify-content:center;">' + CEN_MODERN_ICO.note + ' Nowa notatka</button>'
+    + '</div>'
+
+    + '<div style="margin-top:18px;">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">'
+    + '<div class="cenSecHeadTyt" style="font-size:14px;margin-bottom:0;">Twoje notatki do księgi (' + myNotes.length + ')</div>'
+    + (myNotes.length > 0 ? '<button type="button" class="cenLink" data-cbook-filter-notes="' + book.idx + '">Pokaż w notatkach →</button>' : '')
+    + '</div>'
+    + '<div class="cenModalNotesList">' + notesHtml + '</div>'
+    + '</div>'
+
+    + '</div>'
+    + '</div></div>';
+}
 
 /* 1. GŁÓWNY WIDOK CENTRUM (DASHBOARD) */
 function renderCentrumWidok(){
@@ -34966,68 +37580,200 @@ function renderCentrumWidok(){
   const activePlanIds = _centrPobierzAktywnePlanyIds();
   const allPlanData = _centrPobierzWszystkiePlanyDane();
 
-  return '<div class="cenHeroGrid">'
-    // Karta 1: Aktywny plan czytania
-    + '<div class="cenHeroCard card-blue" data-cwidok="czytanie-chronologiczne">'
+  // Obliczenie serii dni (streak)
+  const dniArr = Array.from(dniDone).sort((a,b) => a-b);
+  let streak = 0;
+  if(dniArr.length > 0){
+    const maxD = dniArr[dniArr.length - 1];
+    for(let dd = maxD; dd >= 1; dd--){
+      if(dniDone.has(dd)) streak++; else break;
+    }
+  }
+
+  // Notatki użytkownika
+  const userNotesCount = (typeof notes !== "undefined" && Array.isArray(notes))
+    ? notes.filter(n => !n.del).length : 0;
+
+  return '<div class="cenHeroMainBanner">'
+    + '<div class="cenHeroMainHeader">'
+    + '<div>'
+    + '<div class="cenHeroBadgeRow">'
+    + '<span class="cenPlanActiveBadge">🌟 Centrum Studium 5.0</span>'
+    + '<span class="cenHeroTag">' + esc(curPlan.name) + '</span>'
+    + '</div>'
+    + '<div class="cenHeroMainTitle">Witaj w Centrum Studium Osobistego</div>'
+    + '<div class="cenHeroMainSub">' + esc(centrPowitanie()) + ' • Wszystkie narzędzia do głębokiego badania Słowa Bożego w jednym miejscu</div>'
+    + '</div>'
+    + '<div class="cenHeroStreakBox">'
+    + '<div class="cenHeroStreakNum">🔥 ' + streak + '</div>'
+    + '<div class="cenHeroStreakLbl">' + (streak === 1 ? 'dzień serii' : streak < 5 ? 'dni serii' : 'dni z rzędu') + '</div>'
+    + '</div>'
+    + '</div>'
+
+    + '<div class="cenHeroMetaRow" style="margin-top:16px;">'
+    + '<span class="cenHeroMetaLabel">Postęp aktywnego planu: <b>' + esc(curPlan.name) + '</b></span>'
+    + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> (' + pct + '%)</span>'
+    + '</div>'
+    + '<div class="cenProgressBar" style="margin-bottom:14px;"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;"></div></div>'
+
+    + '<div class="cenHeroQuickStatsGrid">'
+    + '<div class="cenHeroQuickStatItem"><span class="cenHeroQuickStatVal">' + doneCount + '</span><span class="cenHeroQuickStatLbl">Ukończonych dni</span></div>'
+    + '<div class="cenHeroQuickStatItem"><span class="cenHeroQuickStatVal">' + (totalDni - doneCount) + '</span><span class="cenHeroQuickStatLbl">Pozostało dni</span></div>'
+    + '<div class="cenHeroQuickStatItem"><span class="cenHeroQuickStatVal">' + userNotesCount + '</span><span class="cenHeroQuickStatLbl">Twoich notatek</span></div>'
+    + '<div class="cenHeroQuickStatItem"><span class="cenHeroQuickStatVal">' + tCount + '</span><span class="cenHeroQuickStatLbl">Tematów studium</span></div>'
+    + '</div>'
+    + '</div>'
+
+    // GŁÓWNA PARA KART: DZISIEJSZE CZYTANIE + TEKST DZIENNY
+    + '<div class="cenTodayTwoColsGrid">'
+    // Karta 1: Czytanie na dziś
+    + '<div class="cenHeroCard card-blue" style="cursor:default;">'
     + '<div class="cenHeroCardTop">'
     + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.book + '</div>'
     + '<div class="cenHeroInfo">'
-    + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;">'
-    + '<span class="cenHeroTag">' + esc(curPlan.catName || "Plan") + ' • ' + esc(curPlan.duration || (curPlan.days + ' dni')) + '</span>'
-    + '<button type="button" class="cenHeroChangePlanBtn" data-cwidok="moje-plany" title="Zarządzaj planami czytania">Wszystkie plany ▾</button>'
+    + '<div class="cenHeroTag">' + esc(curPlan.catName || "Plan") + ' • Dzień ' + curDzien + ' z ' + totalDni + '</div>'
+    + '<div class="cenHeroTyt" style="font-size:17px;margin-top:2px;">Czytanie na dziś</div>'
+    + '<div class="cenHeroOpis" style="font-size:13px;">' + (planDzis.f ? planDzis.f.length : 0) + ' fragmenty • ' + esc(planDzis.t) + '</div>'
+    + '</div></div>'
+
+    + '<div class="cenFragiLista" style="margin:12px 0 14px 0;">'
+    + (planDzis.f || []).map((frag, idx) => {
+        return '<div class="cenFragCard" style="padding:8px 12px;margin-bottom:6px;">'
+          + '<div class="cenFragLewo">'
+          + '<div style="font-weight:700;color:var(--cen-text-main);font-size:13.5px;">' + esc(frag.r) + '</div>'
+          + '</div>'
+          + '<div class="cenFragPrawo">'
+          + '<button type="button" class="cenFragBtnJW" data-copen-jw="' + esc(frag.r) + '" title="Otwórz w JW Library">' + CEN_MODERN_ICO.jw + ' JW Library</button>'
+          + '<button type="button" class="cenNaglBtnIko" data-cnotatka-werset="' + esc(frag.r) + '" title="Notatka do wersetu">' + CEN_MODERN_ICO.note + '</button>'
+          + '</div></div>';
+      }).join('')
     + '</div>'
-    + '<div class="cenHeroTyt">' + esc(curPlan.name) + '</div>'
-    + '<div class="cenHeroOpis">' + esc(curPlan.desc) + '</div>'
-    + '</div></div>'
-    + '<div class="cenHeroBottom">'
-    + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Postęp planu</span>'
-    + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> <span style="color:var(--cen-text-muted);font-weight:400;margin-left:4px;">' + pct + '%</span></span>'
+
+    + '<div style="display:flex;align-items:center;gap:8px;margin-top:auto;">'
+    + '<button type="button" class="btn btn-primary" data-cwidok="dzien" data-cdzien="' + curDzien + '" style="flex:1;justify-content:center;">'
+    + 'Otwórz Dzień ' + curDzien + ' →'
+    + '</button>'
+    + '<button type="button" class="cenMultiPlanBtnSec" data-cwidok="czytanie-chronologiczne" title="Pokaż cały plan">'
+    + 'Pełny plan'
+    + '</button>'
     + '</div>'
-    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;"></div></div>'
+    + '</div>'
+
+    // Karta 2: Duchowy Wzrost i Tryb Skupienia (Drzewo Życia Ps 1:3)
+    + '<div class="cenHeroCard card-green" style="cursor:default;display:flex;flex-direction:column;justify-content:space-between;">'
+    + '<div class="cenHeroCardTop">'
+    + '<div class="cenHeroIkoBox" style="background:rgba(16,185,129,0.15);color:#10b981;">' + CEN_MODERN_ICO.target + '</div>'
+    + '<div class="cenHeroInfo">'
+    + '<div class="cenHeroTag" style="color:#10b981;">Duchowy Wzrost • Psalm 1:3</div>'
+    + '<div class="cenHeroTyt" style="font-size:17px;margin-top:2px;">' + esc(_centrPobierzEtapDrzewa(doneCount, totalDni).short || "Wzrost duchowy") + '</div>'
+    + '<div class="cenHeroOpis" style="font-size:12.5px;">' + esc(_centrPobierzEtapDrzewa(doneCount, totalDni).desc) + '</div>'
     + '</div></div>'
 
-    // Karta 2: Studium osobiste
-    + '<div class="cenHeroCard card-green" data-cwidok="studium-osobiste">'
-    + '<div class="cenHeroCardTop">'
-    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.note + '</div>'
-    + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt">Studium osobiste</div>'
-    + '<div class="cenHeroOpis">Prowadź tematyczne badania biblijne, gromadź wersety i własne przemyślenia.</div>'
-    + '</div></div>'
-    + '<div class="cenHeroBottom">'
-    + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Aktywne tematy</span>'
-    + '<span class="cenHeroMetaVal val-green">' + tCount + ' tematów studium</span>'
-    + '</div></div></div>'
+    + '<div style="margin:10px 0 12px 0;padding:10px 12px;background:var(--panel);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;gap:12px;">'
+    + '<div style="width:68px;height:68px;flex-shrink:0;border-radius:10px;overflow:hidden;background:rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;">'
+    + _centrGenerujDrzewoGrowthSvg(totalDni, doneCount, streak, streak, false)
+    + '</div>'
+    + '<div style="flex:1;min-width:0;">'
+    + '<div style="font-size:12px;font-weight:700;color:var(--cen-text-main);margin-bottom:2px;">Postęp: ' + doneCount + ' z ' + totalDni + ' dni (' + pct + '%)</div>'
+    + '<div style="font-size:11px;color:var(--cen-text-muted);line-height:1.35;">„Będzie jak drzewo zasadzone nad strumieniami wód, które wydaje owoc w swoim czasie”.</div>'
+    + '</div>'
+    + '</div>'
 
-    // Karta 3: Wybór i zarządzanie planami
-    + '<div class="cenHeroCard card-purple" data-cwidok="moje-plany">'
-    + '<div class="cenHeroCardTop">'
-    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.clipboard + '</div>'
-    + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt">Plany czytania Biblii</div>'
-    + '<div class="cenHeroOpis">Wybieraj plany na 1, 2 lub 3 lata. Prowadź kilka planów jednocześnie!</div>'
-    + '</div></div>'
-    + '<div class="cenHeroBottom">'
-    + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Aktywne / Dostępne</span>'
-    + '<span class="cenHeroMetaVal val-purple">' + activePlanIds.length + ' aktywne • ' + plany.length + ' gotowych</span>'
-    + '</div></div></div>'
+    + '<div style="display:flex;align-items:center;gap:8px;margin-top:auto;">'
+    + '<button type="button" class="btn" data-cwidok="skupienie" style="flex:1;justify-content:center;font-size:13px;">'
+    + CEN_MODERN_ICO.clock + ' Rozpocznij skupienie'
+    + '</button>'
+    + '<button type="button" class="cenMultiPlanBtnSec" data-cwidok="cele" title="Duchowe cele">'
+    + 'Cele'
+    + '</button>'
+    + '</div>'
+    + '</div>'
+    + '</div>'
 
-    // Karta 4: Statystyki i cele
-    + '<div class="cenHeroCard card-orange" data-cwidok="statystyki">'
-    + '<div class="cenHeroCardTop">'
-    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.target + '</div>'
-    + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt">Cele i Statystyki</div>'
-    + '<div class="cenHeroOpis">Śledź tempo czytania, ukończone fragmenty, serie dni i stopień realizacji celów.</div>'
+    // SEKCJA: 6 GŁÓWNYCH MODUŁÓW STUDIUM OSOBISTEGO
+    + '<div style="margin:26px 0 12px 0;">'
+    + '<div class="cenSecHeadTyt" style="margin-bottom:4px;">Główne moduły studium osobistego</div>'
+    + '<div style="font-size:13px;color:var(--cen-text-muted);margin-bottom:14px;">Wybierz narzędzie do dzisiejszego badania i medytacji</div>'
+    + '</div>'
+
+    + '<div class="cenModulesSixGrid">'
+    // 1. Plan Czytania Biblii
+    + '<div class="cenModuleTile card-blue" data-cwidok="czytanie-chronologiczne">'
+    + '<div class="cenModuleTileTop">'
+    + '<div class="cenModuleTileIko">' + CEN_MODERN_ICO.book + '</div>'
+    + '<span class="cenPlanCatBadge">Plan czytania</span>'
+    + '</div>'
+    + '<div class="cenModuleTileTyt">Plan Czytania Biblii</div>'
+    + '<div class="cenModuleTileOpis">Chronologiczny, po kolei lub zbalansowany. Kalendarz, spis dni i Drzewo Wzrostu.</div>'
+    + '<div class="cenModuleTileFooter">'
+    + '<span class="cenModuleTileMeta">' + doneCount + ' / ' + totalDni + ' dni (' + pct + '%)</span>'
+    + '<span class="cenPozStrz">' + CEN_MODERN_ICO.chevron + '</span>'
     + '</div></div>'
-    + '<div class="cenHeroBottom">'
-    + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Bieżący status</span>'
-    + '<span class="cenHeroMetaVal val-orange">' + doneCount + ' dni ukończonych</span>'
-    + '</div></div></div>'
+
+    // 2. Interaktywna Mapa Biblii (66 Ksiąg)
+    + '<div class="cenModuleTile card-purple" data-cwidok="mapa-biblii">'
+    + '<div class="cenModuleTileTop">'
+    + '<div class="cenModuleTileIko">' + CEN_MODERN_ICO.map + '</div>'
+    + '<span class="cenPlanCatBadge" style="background:rgba(168,85,247,0.15);color:#a855f7;">66 Ksiąg</span>'
+    + '</div>'
+    + '<div class="cenModuleTileTyt">Mapa Biblii — 66 Ksiąg</div>'
+    + '<div class="cenModuleTileOpis">Interaktywny kanon, metryki pisarzy, daty i miejsca spisania oraz osobiste notatki.</div>'
+    + '<div class="cenModuleTileFooter">'
+    + '<span class="cenModuleTileMeta">1189 rozdziałów • Kanon</span>'
+    + '<span class="cenPozStrz">' + CEN_MODERN_ICO.chevron + '</span>'
+    + '</div></div>'
+
+    // 3. Oś Czasu i Epoki Biblijne
+    + '<div class="cenModuleTile card-orange" data-cwidok="os-czasu">'
+    + '<div class="cenModuleTileTop">'
+    + '<div class="cenModuleTileIko">' + CEN_MODERN_ICO.calendar + '</div>'
+    + '<span class="cenPlanCatBadge" style="background:rgba(249,115,22,0.15);color:#f97316;">Oś czasu</span>'
+    + '</div>'
+    + '<div class="cenModuleTileTyt">Oś Czasu i Epoki</div>'
+    + '<div class="cenModuleTileOpis">7 epok od stworzenia przez patriarchów i królów po I wiek n.e. i Objawienie.</div>'
+    + '<div class="cenModuleTileFooter">'
+    + '<span class="cenModuleTileMeta">7 epok historycznych</span>'
+    + '<span class="cenPozStrz">' + CEN_MODERN_ICO.chevron + '</span>'
+    + '</div></div>'
+
+    // 4. Postacie i Wzory Wiary
+    + '<div class="cenModuleTile card-green" data-cwidok="postacie">'
+    + '<div class="cenModuleTileTop">'
+    + '<div class="cenModuleTileIko">' + CEN_MODERN_ICO.user + '</div>'
+    + '<span class="cenPlanCatBadge" style="background:rgba(16,185,129,0.15);color:#10b981;">Wzory wiary</span>'
+    + '</div>'
+    + '<div class="cenModuleTileTyt">Postacie Biblijne</div>'
+    + '<div class="cenModuleTileOpis">Wzorce wiary: Abraham, Mojżesz, Dawid, Jezus, Paweł. Lekcje i szablony analizy.</div>'
+    + '<div class="cenModuleTileFooter">'
+    + '<span class="cenModuleTileMeta">12 kluczowych postaci</span>'
+    + '<span class="cenPozStrz">' + CEN_MODERN_ICO.chevron + '</span>'
+    + '</div></div>'
+
+    // 5. Cele Duchowe i Nawyki
+    + '<div class="cenModuleTile card-blue" data-cwidok="cele">'
+    + '<div class="cenModuleTileTop">'
+    + '<div class="cenModuleTileIko">' + CEN_MODERN_ICO.target + '</div>'
+    + '<span class="cenPlanCatBadge">Cele i nawyki</span>'
+    + '</div>'
+    + '<div class="cenModuleTileTyt">Cele Duchowe i Nawyki</div>'
+    + '<div class="cenModuleTileOpis">Roczne czytanie Biblii, nawyk tekstu dziennego, kamienie milowe i odznaki.</div>'
+    + '<div class="cenModuleTileFooter">'
+    + '<span class="cenModuleTileMeta">Odznaki i postępy</span>'
+    + '<span class="cenPozStrz">' + CEN_MODERN_ICO.chevron + '</span>'
+    + '</div></div>'
+
+    // 6. Tryb Skupienia i Medytacji
+    + '<div class="cenModuleTile card-purple" data-cwidok="skupienie">'
+    + '<div class="cenModuleTileTop">'
+    + '<div class="cenModuleTileIko">' + CEN_MODERN_ICO.clock + '</div>'
+    + '<span class="cenPlanCatBadge" style="background:rgba(168,85,247,0.15);color:#a855f7;">Medytacja</span>'
+    + '</div>'
+    + '<div class="cenModuleTileTyt">Tryb Skupienia i Medytacji</div>'
+    + '<div class="cenModuleTileOpis">Timer Pomodoro (15/25/45 min), gong skupienia i brudnopis myśli do notatek.</div>'
+    + '<div class="cenModuleTileFooter">'
+    + '<span class="cenModuleTileMeta">Spokojna medytacja</span>'
+    + '<span class="cenPozStrz">' + CEN_MODERN_ICO.chevron + '</span>'
+    + '</div></div>'
     + '</div>'
 
     // SEKCJA RÓWNOLEGŁYCH PLANÓW CZYTANIA
@@ -35101,6 +37847,383 @@ function renderCentrumWidok(){
     + '<div class="cenFeatureItem">'
     + '<div class="cenFeatureIko">' + CEN_MODERN_ICO.sync + '</div>'
     + '<div class="cenFeatureTxt"><b>Zapisywanie postępu</b><span>Twój stan czytania każdego planu jest zawsze bezpieczny</span></div>'
+    + '</div>'
+    + '</div>';
+}
+
+/* 1b. INTERAKTYWNA MAPA BIBLII (66 KSIĄG) */
+function centrWidokMapaBiblii(filtr, szukaj){
+  filtr = filtr || _centrMapFilter || "wszystkie";
+  _centrMapFilter = filtr;
+  szukaj = (szukaj != null ? szukaj : "").toLowerCase().trim();
+
+  const totalBooks = BIBLE_CANON_META.length;
+  const totalChaps = BIBLE_CANON_META.reduce((s, b) => s + b.chapters, 0);
+
+  // Filtrowanie ksiąg
+  let filtered = BIBLE_CANON_META.filter(book => {
+    if(filtr === "hebr" && book.idx > 39) return false;
+    if(filtr === "grec" && book.idx <= 39) return false;
+    if(filtr === "prawo" && book.cat !== "prawo") return false;
+    if(filtr === "historia" && book.cat !== "historia") return false;
+    if(filtr === "poezja" && book.cat !== "poezja") return false;
+    if(filtr === "prorocy" && book.cat !== "prorocy") return false;
+    if(filtr === "ewangelie" && book.cat !== "ewangelie") return false;
+    if(filtr === "listy" && book.cat !== "listy") return false;
+    if(filtr === "objawienie" && book.cat !== "objawienie") return false;
+
+    if(szukaj){
+      const match = (book.name + " " + book.nameEn + " " + book.author + " " + book.catName).toLowerCase();
+      if(!match.includes(szukaj)) return false;
+    }
+    return true;
+  });
+
+  return '<div class="cenSubHeader">'
+    + '<div class="cenSubHeaderLewo">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
+    + '<div class="cenSubTytulBox">'
+    + '<div class="cenSubTytul">Mapa Biblii — Kanon 66 Ksiąg</div>'
+    + '<div class="cenSubPodtytul">Pisma Hebrajskie (39) • Chrześcijańskie Pisma Greckie (27) • ' + totalChaps + ' rozdziałów</div>'
+    + '</div></div>'
+    + '</div>'
+
+    + '<div class="cenTabsRow" style="overflow-x:auto;padding-bottom:4px;">'
+    + '<button type="button" class="cenTabBtn' + (filtr==="wszystkie"?' active':'') + '" data-cmap-filter="wszystkie">Wszystkie (66)</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="hebr"?' active':'') + '" data-cmap-filter="hebr">Pisma Hebrajskie (39)</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="grec"?' active':'') + '" data-cmap-filter="grec">Pisma Greckie (27)</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="prawo"?' active':'') + '" data-cmap-filter="prawo">Prawo (5)</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="historia"?' active':'') + '" data-cmap-filter="historia">Historia (12)</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="poezja"?' active':'') + '" data-cmap-filter="poezja">Poezja (5)</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="prorocy"?' active':'') + '" data-cmap-filter="prorocy">Prorocy (17)</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="ewangelie"?' active':'') + '" data-cmap-filter="ewangelie">Ewangelie (5)</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="listy"?' active':'') + '" data-cmap-filter="listy">Listy (21)</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="objawienie"?' active':'') + '" data-cmap-filter="objawienie">Objawienie (1)</button>'
+    + '</div>'
+
+    + '<div class="cenMapGrid">'
+    + (!filtered.length ? '<div class="cenPusto" style="grid-column:1/-1;">Brak ksiąg spełniających kryteria.</div>' : '')
+    + filtered.map(book => {
+        const postep = _centrObliczPostepKsiegi(book.idx, book.name, book.chapters);
+        const myNotes = _centrPobierzNotatkiKsiegi(book.idx);
+
+        return '<div class="cenMapTile" data-cbook-info="' + book.idx + '">'
+          + '<div class="cenMapTileTop">'
+          + '<div class="cenMapTileBadge" style="background:' + book.bg + ';color:' + book.color + ';">' + esc(book.abbr) + '</div>'
+          + '<span class="cenMapTileChaps">' + book.chapters + ' ' + (book.chapters === 1 ? 'rozdz.' : 'rozdz.') + '</span>'
+          + '</div>'
+
+          + '<div class="cenMapTileName">' + esc(book.name) + '</div>'
+          + '<div class="cenMapTileSub">' + esc(book.nameEn) + ' • ' + esc(book.catName) + '</div>'
+
+          + '<div class="cenMapTileMeta">'
+          + '<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc(book.author) + '</span>'
+          + (myNotes.length > 0 ? '<span class="cenBadge" style="background:rgba(37,99,235,0.12);color:#2563eb;font-size:11px;">📝 ' + myNotes.length + '</span>' : '')
+          + '</div>'
+
+          + '<div class="cenProgressBar" style="margin-top:8px;height:4px;"><div class="cenProgressFill" style="width:' + Math.max(postep.doneCh > 0 ? 5 : 0, postep.pct) + '%;background:' + book.color + ';"></div></div>'
+          + '</div>';
+      }).join('')
+    + '</div>'
+    + (_centrWybranaKsiegaModal ? _centrRenderModalKsiegi(_centrWybranaKsiegaModal) : '');
+}
+
+/* 1c. OŚ CZASU I EPOKI BIBLIJNE */
+function centrWidokOsCzasu(){
+  return '<div class="cenSubHeader">'
+    + '<div class="cenSubHeaderLewo">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
+    + '<div class="cenSubTytulBox">'
+    + '<div class="cenSubTytul">Oś Czasu i Epoki Biblijne</div>'
+    + '<div class="cenSubPodtytul">7 kluczowych okresów historycznych od stworzenia świata po czasy apostolskie</div>'
+    + '</div></div>'
+    + '</div>'
+
+    + '<div class="cenTimelineWrapper">'
+    + BIBLE_TIMELINE_ERAS.map((era, idx) => {
+        return '<div class="cenTimelineCard">'
+          + '<div class="cenTimelineCardHeader">'
+          + '<div style="display:flex;align-items:center;gap:10px;">'
+          + '<div class="cenTimelineNumBadge" style="background:' + era.color + ';">' + (idx + 1) + '</div>'
+          + '<div>'
+          + '<div class="cenTimelineCardTyt">' + esc(era.name) + '</div>'
+          + '<div class="cenTimelineCardSpan">' + esc(era.span) + '</div>'
+          + '</div></div>'
+          + '<span class="cenPlanCatBadge" style="background:color-mix(in srgb, ' + era.color + ' 15%, transparent);color:' + era.color + ';">Epoka ' + (idx + 1) + ' / 7</span>'
+          + '</div>'
+
+          + '<div class="cenTimelineCardDesc">' + esc(era.desc) + '</div>'
+
+          + '<div style="margin:14px 0 8px 0;">'
+          + '<div style="font-size:12px;font-weight:700;color:var(--cen-text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Kluczowe wydarzenia epoki:</div>'
+          + '<div class="cenTimelineEventsList">'
+          + era.events.map(evTxt => '<div class="cenTimelineEventItem"><span>•</span> ' + esc(evTxt) + '</div>').join('')
+          + '</div></div>'
+
+          + '<div style="margin:14px 0 6px 0;">'
+          + '<div style="font-size:12px;font-weight:700;color:var(--cen-text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Kluczowe fragmenty biblijne:</div>'
+          + '<div style="display:flex;flex-wrap:wrap;gap:6px;">'
+          + era.scriptures.map(ref => {
+              return '<button type="button" class="cenFragBtnJW" data-copen-jw="' + esc(ref) + '" style="font-size:12px;padding:4px 10px;">'
+                + CEN_MODERN_ICO.jw + ' ' + esc(ref)
+                + '</button>';
+            }).join('')
+          + '</div></div>'
+          + '</div>';
+      }).join('')
+    + '</div>';
+}
+
+/* 1d. POSTACIE I WZORY WIARY */
+function centrWidokPostacie(filtr, szukaj){
+  filtr = filtr || _centrPostacieFiltrEra || "wszystkie";
+  _centrPostacieFiltrEra = filtr;
+  szukaj = (szukaj != null ? szukaj : "").toLowerCase().trim();
+
+  let filtered = BIBLE_CHARACTERS.filter(ch => {
+    if(filtr !== "wszystkie" && ch.eraId !== filtr && ch.cat !== filtr) return false;
+    if(szukaj){
+      const match = (ch.name + " " + ch.eraName + " " + ch.qualities + " " + ch.lesson).toLowerCase();
+      if(!match.includes(szukaj)) return false;
+    }
+    return true;
+  });
+
+  return '<div class="cenSubHeader">'
+    + '<div class="cenSubHeaderLewo">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
+    + '<div class="cenSubTytulBox">'
+    + '<div class="cenSubTytul">Postacie i Wzory Wiary</div>'
+    + '<div class="cenSubPodtytul">Badaj przykłady sług Bożych, wyciągaj lekcje wiary i twórz dedykowane notatki</div>'
+    + '</div></div>'
+    + '</div>'
+
+    + '<div class="cenTabsRow" style="overflow-x:auto;padding-bottom:4px;">'
+    + '<button type="button" class="cenTabBtn' + (filtr==="wszystkie"?' active':'') + '" data-cchar-filter-era="wszystkie">Wszystkie postacie (12)</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="era_patriarchowie"?' active':'') + '" data-cchar-filter-era="era_patriarchowie">Patriarchowie</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="era_wyjscie_sedziowie"?' active':'') + '" data-cchar-filter-era="era_wyjscie_sedziowie">Wyjście i Sędziowie</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="era_krolestwo_zjedn"?' active':'') + '" data-cchar-filter-era="era_krolestwo_zjedn">Królowie i Prorocy</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="era_niewola_powrot"?' active':'') + '" data-cchar-filter-era="era_niewola_powrot">Niewola i Odbudowa</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="era_jezus_apostolowie"?' active':'') + '" data-cchar-filter-era="era_jezus_apostolowie">Jezus i Apostołowie</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="kobiety"?' active':'') + '" data-cchar-filter-era="kobiety">Kobiety wiary</button>'
+    + '</div>'
+
+    + '<div class="cenCharactersGrid">'
+    + (!filtered.length ? '<div class="cenPusto" style="grid-column:1/-1;">Brak postaci spełniających kryteria.</div>' : '')
+    + filtered.map(c => {
+        const myNotes = _centrPobierzNotatkiPostaci(c.name);
+
+        return '<div class="cenCharacterCard">'
+          + '<div class="cenCharacterHeader">'
+          + '<div class="cenCharacterAvatar" style="background:linear-gradient(135deg, #3b82f6, #1d4ed8);">' + c.name.charAt(0) + '</div>'
+          + '<div>'
+          + '<div class="cenCharacterName">' + esc(c.name) + '</div>'
+          + '<div class="cenCharacterEraTag">' + esc(c.eraName) + ' • ' + esc(c.catName) + '</div>'
+          + '</div></div>'
+
+          + '<div class="cenCharacterQualityBox">'
+          + '<span class="cenCharacterQualityLbl">Cechy duchowe</span>'
+          + '<div class="cenCharacterQualityTxt">' + esc(c.qualities) + '</div>'
+          + '</div>'
+
+          + '<div class="cenCharacterLessonBox">'
+          + '<span class="cenCharacterLessonLbl">Lekcja wiary dla nas</span>'
+          + '<div class="cenCharacterLessonTxt">' + esc(c.lesson) + '</div>'
+          + '</div>'
+
+          + '<div style="margin:12px 0;">'
+          + '<div style="font-size:11.5px;font-weight:700;color:var(--cen-text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Kluczowe wersety:</div>'
+          + '<div style="display:flex;flex-wrap:wrap;gap:6px;">'
+          + c.scriptures.map(ref => '<button type="button" class="cenFragBtnJW" data-copen-jw="' + esc(ref) + '" style="font-size:11.5px;padding:3px 8px;">' + esc(ref) + '</button>').join('')
+          + '</div></div>'
+
+          + '<div class="cenCharacterCardActions">'
+          + '<button type="button" class="btn btn-primary" data-cchar-note="' + esc(c.id) + '" style="flex:1;justify-content:center;font-size:12.5px;">'
+          + CEN_MODERN_ICO.note + ' Studium postaci'
+          + '</button>'
+          + (myNotes.length > 0 ? '<span class="cenBadge" style="background:rgba(37,99,235,0.12);color:#2563eb;">' + myNotes.length + ' ' + (myNotes.length === 1 ? 'notatka' : 'notatki') + '</span>' : '')
+          + '</div>'
+          + '</div>';
+      }).join('')
+    + '</div>';
+}
+
+/* 1e. CELE DUCHOWE I NAWYKI */
+function centrWidokCele(){
+  const cele = _centrPobierzCeleDuchowe();
+  const curPlan = _centrPobierzPlanData(_centrAktywnyPlanId);
+  const dniDone = _centrPobierzUkonczoneDni(curPlan.id);
+  const totalDni = curPlan.days;
+  const doneCount = dniDone.size;
+  const pctNum = totalDni > 0 ? (doneCount / totalDni) * 100 : 0;
+
+  const notesCount = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes.filter(n => !n.del).length : 0;
+
+  return '<div class="cenSubHeader">'
+    + '<div class="cenSubHeaderLewo">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
+    + '<div class="cenSubTytulBox">'
+    + '<div class="cenSubTytul">Cele Duchowe i Nawyki</div>'
+    + '<div class="cenSubPodtytul">Śledź realizację postanowień duchowych, rozwijaj nawyki i osiągaj kamienie milowe</div>'
+    + '</div></div>'
+    + '<div class="cenNaglAkcje">'
+    + '<button type="button" class="btn btn-primary" data-ccel-dodaj>' + CEN_MODERN_ICO.plus + ' Nowy cel</button>'
+    + '</div></div>'
+
+    + '<div class="cenSecHeadTyt" style="margin-bottom:12px;">Główne cele duchowe</div>'
+
+    + '<div class="cenGoalsGrid">'
+    // Cel 1: Roczne czytanie Biblii
+    + '<div class="cenGoalCard">'
+    + '<div class="cenGoalCardHeader">'
+    + '<div class="cenGoalCardIko" style="background:rgba(37,99,235,0.15);color:#2563eb;">📖</div>'
+    + '<div>'
+    + '<div class="cenGoalCardTyt">Roczne czytanie całej Biblii</div>'
+    + '<div class="cenGoalCardSub">Aktywny plan: ' + esc(curPlan.name) + '</div>'
+    + '</div></div>'
+    + '<div class="cenHeroMetaRow" style="margin:12px 0 6px 0;">'
+    + '<span class="cenHeroMetaLabel">Postęp czytania</span>'
+    + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> (' + pctNum.toFixed(1) + '%)</span>'
+    + '</div>'
+    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?4:0, pctNum)) + '%;"></div></div>'
+    + '</div>'
+
+    // Cel 2: Codzienny Tekst Biblijny
+    + '<div class="cenGoalCard">'
+    + '<div class="cenGoalCardHeader">'
+    + '<div class="cenGoalCardIko" style="background:rgba(249,115,22,0.15);color:#f97316;">🌅</div>'
+    + '<div>'
+    + '<div class="cenGoalCardTyt">Badaj Pisma Każdego Dnia</div>'
+    + '<div class="cenGoalCardSub">Nawyk porannego rozważania tekstu dziennego</div>'
+    + '</div></div>'
+    + '<div class="cenHeroMetaRow" style="margin:12px 0 6px 0;">'
+    + '<span class="cenHeroMetaLabel">Status nawyku</span>'
+    + '<span class="cenHeroMetaVal" style="color:#10b981;font-weight:700;">Aktywny każdego dnia</span>'
+    + '</div>'
+    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:85%;background:#10b981;"></div></div>'
+    + '</div>'
+
+    // Cel 3: Bank Notatek
+    + '<div class="cenGoalCard">'
+    + '<div class="cenGoalCardHeader">'
+    + '<div class="cenGoalCardIko" style="background:rgba(168,85,247,0.15);color:#a855f7;">📝</div>'
+    + '<div>'
+    + '<div class="cenGoalCardTyt">Bank Osobistych Notatek i Perełek</div>'
+    + '<div class="cenGoalCardSub">Cel: Zbudowanie solidnej bazy wiedzy biblijnej</div>'
+    + '</div></div>'
+    + '<div class="cenHeroMetaRow" style="margin:12px 0 6px 0;">'
+    + '<span class="cenHeroMetaLabel">Liczba notatek</span>'
+    + '<span class="cenHeroMetaVal"><b>' + notesCount + ' notatek</b> (Milestone: 100)</span>'
+    + '</div>'
+    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(5, notesCount)) + '%;background:#a855f7;"></div></div>'
+    + '</div>'
+
+    // Cel 4: Studium Postaci
+    + '<div class="cenGoalCard">'
+    + '<div class="cenGoalCardHeader">'
+    + '<div class="cenGoalCardIko" style="background:rgba(16,185,129,0.15);color:#10b981;">👤</div>'
+    + '<div>'
+    + '<div class="cenGoalCardTyt">Studium Wzorów Wiary</div>'
+    + '<div class="cenGoalCardSub">Opracowanie 12 kluczowych sług Bożych</div>'
+    + '</div></div>'
+    + '<div class="cenHeroMetaRow" style="margin:12px 0 6px 0;">'
+    + '<span class="cenHeroMetaLabel">Postęp analizy</span>'
+    + '<span class="cenHeroMetaVal"><b>12 postaci dostępnych do studium</b></span>'
+    + '</div>'
+    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:100%;background:#10b981;"></div></div>'
+    + '</div>'
+    + '</div>'
+
+    // TWOJE WŁASNE CELE DUCHOWE
+    + '<div style="margin:26px 0 12px 0;display:flex;align-items:center;justify-content:space-between;">'
+    + '<div class="cenSecHeadTyt" style="margin-bottom:0;">Twoje własne cele duchowe (' + cele.length + ')</div>'
+    + '<button type="button" class="btn" data-ccel-dodaj style="font-size:12px;padding:4px 10px;">+ Dodaj cel</button>'
+    + '</div>'
+
+    + '<div class="cenCustomGoalsList">'
+    + (!cele.length ? '<div class="cenPusto">Nie masz jeszcze dodanych własnych celów duchowych. Kliknij „+ Nowy cel”, aby wyznaczyć cel duchowy (np. przygotowanie do zebrania, służba, przeczytanie wybranej księgi).</div>' : '')
+    + cele.map((c, cIdx) => {
+        const isDone = !!c.done;
+        return '<div class="cenCustomGoalCard' + (isDone ? ' done' : '') + '">'
+          + '<div style="display:flex;align-items:center;gap:12px;">'
+          + '<div class="cenFragCheck' + (isDone ? ' checked' : '') + '" data-ccel-toggle="' + cIdx + '">'
+          + (isDone ? CEN_MODERN_ICO.check : '')
+          + '</div>'
+          + '<div>'
+          + '<div class="cenCustomGoalTyt' + (isDone ? ' done' : '') + '">' + esc(c.title) + '</div>'
+          + '<div class="cenCustomGoalDate">Termin: ' + esc(c.date || "Bez terminu") + ' • ' + esc(c.cat || "Osobisty") + '</div>'
+          + '</div></div>'
+          + '<button type="button" class="cenNaglBtnIko" data-ccel-usun="' + cIdx + '" title="Usuń cel" style="color:#f87171;">✕</button>'
+          + '</div>';
+      }).join('')
+    + '</div>';
+}
+
+/* 1f. TRYB SKUPIENIA I MEDYTACJI */
+function centrWidokSkupienie(){
+  const mins = Math.floor(_centrFocusTimeLeft / 60);
+  const secs = _centrFocusTimeLeft % 60;
+  const timeStr = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+
+  const circumference = 2 * Math.PI * 100;
+  const progress = _centrFocusTotalTime > 0 ? (_centrFocusTimeLeft / _centrFocusTotalTime) : 0;
+  const strokeOffset = circumference * (1 - progress);
+
+  return '<div class="cenSubHeader">'
+    + '<div class="cenSubHeaderLewo">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
+    + '<div class="cenSubTytulBox">'
+    + '<div class="cenSubTytul">Tryb Skupienia i Medytacji</div>'
+    + '<div class="cenSubPodtytul">Wycisz otoczenie, skup się na rozmyślaniu nad Słowem Bożym i zapisuj swoje przemyślenia</div>'
+    + '</div></div>'
+    + '</div>'
+
+    + '<div class="cenFocusGrid">'
+    // Lewa kolumna: Timer Pomodoro / Medytacji
+    + '<div class="cenFocusTimerCard">'
+    + '<div class="cenFocusPresetRow">'
+    + '<button type="button" class="cenTabBtn' + (_centrFocusPreset===15?' active':'') + '" data-cfocus-preset="15">15 min (Krótka)</button>'
+    + '<button type="button" class="cenTabBtn' + (_centrFocusPreset===25?' active':'') + '" data-cfocus-preset="25">25 min (Pomodoro)</button>'
+    + '<button type="button" class="cenTabBtn' + (_centrFocusPreset===45?' active':'') + '" data-cfocus-preset="45">45 min (Głębokie)</button>'
+    + '</div>'
+
+    + '<div class="cenFocusRadialWrap">'
+    + '<svg viewBox="0 0 240 240" class="cenFocusSvg">'
+    + '<circle class="cenFocusSvgBg" cx="120" cy="120" r="100"></circle>'
+    + '<circle id="cenFocusProgressCircle" class="cenFocusSvgFill" cx="120" cy="120" r="100" style="stroke-dasharray:' + circumference + ';stroke-dashoffset:' + strokeOffset + ';"></circle>'
+    + '</svg>'
+    + '<div class="cenFocusRadialCenter">'
+    + '<div id="cenFocusTimeDisplay" class="cenFocusTimeDigits">' + timeStr + '</div>'
+    + '<div id="cenFocusStatusText" class="cenFocusStatusLbl">' + (_centrFocusRunning ? 'Trwa medytacja...' : 'Gotowy do startu') + '</div>'
+    + '</div>'
+    + '</div>'
+
+    + '<div class="cenFocusControlsRow">'
+    + (!_centrFocusRunning
+        ? '<button type="button" class="btn btn-primary" data-cfocus-start style="padding:10px 24px;font-size:15px;font-weight:700;">▶ Rozpocznij skupienie</button>'
+        : '<button type="button" class="btn" data-cfocus-pause style="padding:10px 24px;font-size:15px;font-weight:700;background:#f59e0b;color:#fff;">⏸ Wstrzymaj</button>')
+    + '<button type="button" class="btn" data-cfocus-reset style="padding:10px 18px;">↺ Resetuj</button>'
+    + '<button type="button" class="btn" data-cfocus-gong-test title="Odtwórz dźwięk gongu">🔔 Dźwięk</button>'
+    + '</div>'
+    + '</div>'
+
+    // Prawa kolumna: Brudnopis myśli i refleksji
+    + '<div class="cenFocusScratchpadCard">'
+    + '<div class="cenFocusScratchHeader">'
+    + '<div>'
+    + '<div class="cenSecHeadTyt" style="font-size:16px;margin-bottom:2px;">✍️ Notatnik myśli podczas medytacji</div>'
+    + '<div style="font-size:12.5px;color:var(--cen-text-muted);">Zapisuj luźne myśli, modlitwy i pytania, które przychodzą Ci do głowy.</div>'
+    + '</div>'
+    + '</div>'
+
+    + '<textarea id="cenFocusScratchpadInp" class="cenFocusScratchpadTextarea" placeholder="Wpisz tutaj swoje myśli, rozważania, pytania do zbadania i osobiste modlitwy...">' + esc(_centrFocusScratchpad || "") + '</textarea>'
+
+    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;">'
+    + '<span style="font-size:12px;color:var(--cen-text-muted);">Notatka zostanie zachowana w pamięci</span>'
+    + '<button type="button" class="btn btn-primary" data-czapisz-focus-note>'
+    + CEN_MODERN_ICO.note + ' Zapisz jako notatkę studium'
+    + '</button>'
+    + '</div>'
     + '</div>'
     + '</div>';
 }
@@ -36889,11 +40012,19 @@ function centrBoczna(){
     inbox:zywe.filter(n=>n.ceni).length
   };
   const pozycje=[
-    ["centrum","Centrum",ICO.bars,0],
+    ["centrum","Centrum (Pulpit)",CEN_MODERN_ICO.bars,0],
+    ["czytanie-chronologiczne","Plan czytania",CEN_MODERN_ICO.book,0],
+    ["mapa-biblii","Mapa Biblii (66)",CEN_MODERN_ICO.map,66],
+    ["os-czasu","Oś czasu i epoki",CEN_MODERN_ICO.calendar,7],
+    ["postacie","Postacie biblijne",CEN_MODERN_ICO.user,12],
+    ["cele","Cele i nawyki",CEN_MODERN_ICO.target,0],
+    ["skupienie","Tryb skupienia",CEN_MODERN_ICO.clock,0],
+    ["studium-osobiste","Studium osobiste",CEN_MODERN_ICO.note,0],
+    ["moje-plany","Wszystkie plany",CEN_MODERN_ICO.clipboard,0],
+    ["statystyki","Statystyki",CEN_MODERN_ICO.chart,0],
     ["projekty","Projekty",ICO.tag,lic.projekty],
     ["kolejka","Do przeczytania",ICO.bookOpen,lic.kolejka],
     ["inbox","Do opracowania",ICO.notePen,lic.inbox],
-    ["ostatnie","Ostatnie",ICO.clock,0],
     ["bezpieczenstwo","Bezpieczeństwo",ICO.save,0]
   ];
   const nazwa=(pozycje.find(x=>x[0]===centrWidok)||pozycje[0])[1];
@@ -36909,6 +40040,12 @@ function centrBoczna(){
 function centrNaglowekWidoku(){
   const opisy={
     centrum:["Centrum studium",centrPowitanie()],
+    "czytanie-chronologiczne":["Plan czytania Biblii","Wybierz i realizuj swoje tempo czytania"],
+    "mapa-biblii":["Mapa Biblii (66 Ksiąg)","Przeglądaj księgi, metryki i notatki"],
+    "os-czasu":["Oś Czasu i Epoki","Historia biblijna w 7 epokach"],
+    "postacie":["Postacie Biblijne","Wzory wiary i lekcje dla nas"],
+    "cele":["Cele Duchowe i Nawyki","Śledź realizację postanowień duchowych"],
+    "skupienie":["Tryb Skupienia i Medytacji","Spokojna przestrzeń do rozmyślania"],
     projekty:["Projekty","Łącz notatki z różnych wersetów i publikacji"],
     kolejka:["Do przeczytania","Materiały odłożone do spokojnego przeczytania"],
     inbox:["Do opracowania","Pomysły i szkice czekające na rozwinięcie"],
@@ -36989,9 +40126,14 @@ function rysujCentrumWnetrze306(el){
   else if(centrWidok === "lista-dni") tresc = centrWidokListaDni(_centrListaTab, _centrListaSzukaj);
   else if(centrWidok === "statystyki") tresc = centrWidokStatystyki(_centrStatTab);
   else if(centrWidok === "kalendarz") tresc = centrWidokKalendarz(_centrKalRok, _centrKalMies);
-  else if(centrWidok === "moje-plany") tresc = centrWidokMojePlany();
+  else if(centrWidok === "moje-plany") tresc = centrWidokMojePlany(_centrPlanTab);
   else if(centrWidok === "studium-osobiste") tresc = centrWidokStudiumOsobiste(_centrStudiumTab);
   else if(centrWidok === "temat-szczegoly") tresc = centrWidokTematSzczegoly(_centrWybranyTematId);
+  else if(centrWidok === "mapa-biblii") tresc = centrWidokMapaBiblii(_centrMapFilter);
+  else if(centrWidok === "os-czasu") tresc = centrWidokOsCzasu();
+  else if(centrWidok === "postacie") tresc = centrWidokPostacie(_centrPostacieFiltrEra);
+  else if(centrWidok === "cele") tresc = centrWidokCele();
+  else if(centrWidok === "skupienie") tresc = centrWidokSkupienie();
   else if(centrWidok === "projekty") tresc = centrNaglowekWidoku() + centrPodstronaProjektow();
   else if(centrWidok === "kolejka") tresc = centrNaglowekWidoku() + centrPodstronaKolejki("cenq");
   else if(centrWidok === "inbox") tresc = centrNaglowekWidoku() + centrPodstronaKolejki("ceni");
@@ -36999,8 +40141,9 @@ function rysujCentrumWnetrze306(el){
   else if(centrWidok === "bezpieczenstwo") tresc = centrNaglowekWidoku() + centrPodstronaBezpieczenstwa();
   else tresc = renderCentrumWidok();
 
+  const modalHtml = _centrWybranaKsiegaModal ? _centrRenderModalKsiegi(_centrWybranaKsiegaModal) : '';
   const html = '<div class="cenCentrumShell">' + centrBoczna() + '<div class="cenCentrumMain">'
-    + tresc + '</div></div>';
+    + tresc + '</div></div>' + modalHtml;
   setHtml(el, html);
 }
 
@@ -37123,8 +40266,11 @@ function centrumUstawWlaczone(on){
 /* ——— KLIKNIĘCIA ——— */
 if($("centrum")){
   
-  // Obsługa wyszukiwania na liście dni
+  // Obsługa wyszukiwania na liście dni oraz notatnika skupienia
   $("centrum").addEventListener("input", ev=>{
+    if(ev.target && ev.target.id === "cenFocusScratchpadInp"){
+      _centrFocusScratchpad = ev.target.value;
+    }
     if(ev.target && ev.target.id === "cenSzukajDniInp"){
       _centrListaSzukaj = ev.target.value;
       const kontener = $("centrum").querySelector(".cenListaDniContainer");
@@ -37241,10 +40387,21 @@ if($("centrum")){
       return;
     }
 
-    // 4. Otwórz w JW Library (Biblia do studium 2020/2025 - nwtsty)
+    // 4. Otwórz w JW Library (Biblia do studium 2020/2025 - nwtsty lub Tekst Dzienny)
     const jwBtn = ev.target.closest("[data-copen-jw]");
     if(jwBtn){
       const ref = jwBtn.dataset.copenJw;
+      if(ref === "tekst-dzienny" || ref === "daily-text"){
+        toast("Otwieranie tekstu dziennego…");
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, "0");
+        const d = String(now.getDate()).padStart(2, "0");
+        const url = "https://www.jw.org/finder?srcid=jwlshare&wtlocale=P&prefer=lang&pub=es" + String(y).slice(2) + "&docid=110" + y + m + d;
+        if(typeof openUrlJWL === "function") openUrlJWL(url);
+        else window.open(url, "_blank");
+        return;
+      }
       toast("Otwieranie " + ref + "…");
       const parsed = parseRef ? parseRef(ref) : null;
       let url = (parsed && typeof finderUrl === "function") ? finderUrl(parsed) : null;
@@ -37261,6 +40418,212 @@ if($("centrum")){
           window.open(url, "_blank");
         }
       }
+      return;
+    }
+
+    // Filtry Mapy Biblii (66 Ksiąg)
+    const mapFilterBtn = ev.target.closest("[data-cmap-filter]");
+    if(mapFilterBtn){
+      _centrMapFilter = mapFilterBtn.dataset.cmapFilter;
+      rysujCentrum();
+      return;
+    }
+
+    // Filtry Postaci biblijnych
+    const charFilterBtn = ev.target.closest("[data-cchar-filter-era]");
+    if(charFilterBtn){
+      _centrPostacieFiltrEra = charFilterBtn.dataset.ccharFilterEra;
+      rysujCentrum();
+      return;
+    }
+
+    // Modal szczegółów Księgi Biblijnej
+    const bookInfoTile = ev.target.closest("[data-cbook-info]");
+    if(bookInfoTile){
+      const bIdx = parseInt(bookInfoTile.dataset.cbookInfo, 10);
+      _centrWybranaKsiegaModal = bIdx;
+      rysujCentrum();
+      return;
+    }
+
+    // Zamknięcie modala księgi
+    const modalCloseBtn = ev.target.closest("[data-cmodal-close]");
+    if(modalCloseBtn){
+      _centrWybranaKsiegaModal = null;
+      rysujCentrum();
+      return;
+    }
+
+    // Nowa notatka do Księgi z Modala
+    const bookNoteBtn = ev.target.closest("[data-cbook-note]");
+    if(bookNoteBtn){
+      const bIdx = parseInt(bookNoteBtn.dataset.cbookNote, 10);
+      const book = BIBLE_CANON_META.find(b => b.idx === bIdx);
+      if(book && typeof createNote === "function"){
+        const n = createNote();
+        if(n){
+          n.b = book.idx;
+          n.t = book.name + " — Rozważania i studium księgi";
+          n.h = "<h3>📖 Księga: " + esc(book.name) + "</h3><p><strong>Pisarz:</strong> " + esc(book.author) + "<br><strong>Miejsce i czas spisania:</strong> " + esc(book.place) + ", " + esc(book.written) + "</p><hr><p><em>(Wpisz swoje notatki ze studium tej księgi...)</em></p>";
+          n.c = "Księga: " + book.name + "\nPisarz: " + book.author + "\nMiejsce i czas: " + book.place + ", " + book.written + "\n\nNotatki ze studium:\n";
+          if(typeof createTag === "function"){
+            const tKanon = createTag("Kanon Biblijny");
+            if(tKanon) n.tg = [tKanon.id];
+          }
+          saveNote(n);
+          _centrWybranaKsiegaModal = null;
+          toast("Utworzono notatkę dla: " + book.name, "ok");
+          if(typeof selectNote === "function") selectNote(n.g);
+          if(typeof centrumSchowaj === "function") centrumSchowaj();
+        }
+      }
+      return;
+    }
+
+    // Otwarcie księgi w JW Library z modala
+    const bookJwBtn = ev.target.closest("[data-cbook-jw]");
+    if(bookJwBtn){
+      const bookName = bookJwBtn.dataset.cbookJw;
+      toast("Otwieranie " + bookName + " w JW Library…");
+      const parsed = parseRef ? parseRef(bookName + " 1") : null;
+      let url = (parsed && typeof finderUrl === "function") ? finderUrl(parsed) : null;
+      if(!url && parsed && parsed.b){
+        const bPad = String(parsed.b).padStart(2, "0");
+        url = "https://www.jw.org/finder?srcid=jwlshare&wtlocale=P&prefer=lang&bible=" + bPad + "001000&pub=nwtsty";
+      }
+      if(url){
+        if(typeof openUrlJWL === "function") openUrlJWL(url);
+        else window.open(url, "_blank");
+      }
+      return;
+    }
+
+    // Filtrowanie notatek do danej księgi z modala
+    const bookFilterNotesBtn = ev.target.closest("[data-cbook-filter-notes]");
+    if(bookFilterNotesBtn){
+      const bIdx = parseInt(bookFilterNotesBtn.dataset.cbookFilterNotes, 10);
+      _centrWybranaKsiegaModal = null;
+      filt.tag = "all"; filt.book = bIdx; filt.ch = null; filt.pub = "all";
+      if(typeof expandedBook !== "undefined") expandedBook = bIdx;
+      centrTryb = "auto";
+      if(typeof persistFilt === "function") persistFilt();
+      renderAll();
+      if(innerWidth <= 900 && typeof mobileShow === "function") mobileShow("colNotes");
+      return;
+    }
+
+    // Studium postaci biblijnej
+    const charNoteBtn = ev.target.closest("[data-cchar-note]");
+    if(charNoteBtn){
+      const charId = charNoteBtn.dataset.ccharNote;
+      const cObj = BIBLE_CHARACTERS.find(c => c.id === charId || c.name === charId);
+      if(cObj){
+        _centrUtworzNotatkePostaci(cObj.name, cObj.eraName);
+      }
+      return;
+    }
+
+    // Dodanie celu duchowego
+    const celDodajBtn = ev.target.closest("[data-ccel-dodaj]");
+    if(celDodajBtn){
+      const tytul = await askText({title:"Nowy cel duchowy", placeholder:"np. Przeczytać Ewangelie do końca miesiąca", okLabel:"Dalej"});
+      if(tytul && tytul.trim()){
+        const kategoria = await askText({title:"Kategoria celu", placeholder:"np. Czytanie Biblii, Służba, Zebrania, Osobiste", okLabel:"Zapisz cel", initialValue:"Czytanie Biblii"}) || "Osobisty";
+        const termin = await askText({title:"Termin realizacji (opcjonalnie)", placeholder:"np. 31 grudnia, za 2 tygodnie", okLabel:"Zatwierdź"}) || "W toku";
+        const cele = _centrPobierzCeleDuchowe();
+        cele.push({ id: "cel_" + Date.now(), title: tytul.trim(), cat: kategoria.trim(), date: termin.trim(), done: false });
+        _centrZapiszCeleDuchowe(cele);
+        toast("Dodano nowy cel duchowy: „" + tytul + "”", "ok");
+        rysujCentrum();
+      }
+      return;
+    }
+
+    // Przełączenie statusu ukończenia celu
+    const celToggleBtn = ev.target.closest("[data-ccel-toggle]");
+    if(celToggleBtn){
+      const cIdx = parseInt(celToggleBtn.dataset.ccelToggle, 10);
+      const cele = _centrPobierzCeleDuchowe();
+      if(cele[cIdx]){
+        cele[cIdx].done = !cele[cIdx].done;
+        _centrZapiszCeleDuchowe(cele);
+        toast(cele[cIdx].done ? "🎉 Gratulacje z osiągnięcia celu!" : "Zaktualizowano cel", "ok");
+        rysujCentrum();
+      }
+      return;
+    }
+
+    // Usunięcie celu duchowego
+    const celUsunBtn = ev.target.closest("[data-ccel-usun]");
+    if(celUsunBtn){
+      const cIdx = parseInt(celUsunBtn.dataset.ccelUsun, 10);
+      const cele = _centrPobierzCeleDuchowe();
+      if(cele[cIdx]){
+        const zgoda = typeof askConfirm === "function"
+          ? await askConfirm("Usunąć cel duchowy?", "Czy na pewno chcesz usunąć cel „<b>" + esc(cele[cIdx].title) + "</b>”?", { okLabel: "Usuń", danger: true })
+          : confirm("Czy na pewno chcesz usunąć cel?");
+        if(zgoda){
+          cele.splice(cIdx, 1);
+          _centrZapiszCeleDuchowe(cele);
+          toast("Usunięto cel duchowy", "info");
+          rysujCentrum();
+        }
+      }
+      return;
+    }
+
+    // Tryb skupienia: Presety timera
+    const focusPresetBtn = ev.target.closest("[data-cfocus-preset]");
+    if(focusPresetBtn){
+      const p = parseInt(focusPresetBtn.dataset.cfocusPreset, 10) || 25;
+      _centrUstawFocusPreset(p);
+      rysujCentrum();
+      return;
+    }
+
+    // Tryb skupienia: Start
+    const focusStartBtn = ev.target.closest("[data-cfocus-start]");
+    if(focusStartBtn){
+      _centrStartFocusTimer();
+      rysujCentrum();
+      return;
+    }
+
+    // Tryb skupienia: Pauza
+    const focusPauseBtn = ev.target.closest("[data-cfocus-pause]");
+    if(focusPauseBtn){
+      _centrPauzaFocusTimer();
+      rysujCentrum();
+      return;
+    }
+
+    // Tryb skupienia: Reset
+    const focusResetBtn = ev.target.closest("[data-cfocus-reset]");
+    if(focusResetBtn){
+      _centrResetFocusTimer();
+      rysujCentrum();
+      return;
+    }
+
+    // Tryb skupienia: Gong test
+    const focusGongBtn = ev.target.closest("[data-cfocus-gong-test]");
+    if(focusGongBtn){
+      _centrZagrajGong();
+      toast("🔔 Dźwięk gongu skupienia", "ok");
+      return;
+    }
+
+    // Tryb skupienia: Zapisz notatkę
+    const focusSaveNoteBtn = ev.target.closest("[data-czapisz-focus-note]");
+    if(focusSaveNoteBtn){
+      _centrZapiszNotatkeZeSkupienia();
+      return;
+    }
+
+    // Karta Tekstu Dziennego: Zapisz rozważania
+    const zapiszTekstBtn = ev.target.closest("[data-czapisz-tekst-dzienny]");
+    if(zapiszTekstBtn){
+      _centrUtworzNotatkeTekstDzienny();
       return;
     }
 
