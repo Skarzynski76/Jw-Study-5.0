@@ -21655,6 +21655,7 @@ function askText(o){
   dismissPopupsAndSidebar();
   return new Promise(res=>{
     const m=$("askModal");
+    m.style.setProperty("z-index", "100900", "important");
     const t=m.querySelector(".askTitle"), inp=m.querySelector(".askInput"), hint=m.querySelector(".askHint");
     const ok=m.querySelector(".askOk"), cancel=m.querySelector(".askCancel");
     t.textContent=o.title||"Wpisz"; inp.value=o.value||""; inp.placeholder=o.placeholder||"";
@@ -21665,6 +21666,7 @@ function askText(o){
     setTimeout(()=>{ try{ inp.focus(); inp.select(); }catch(e){} }, 60);
     function done(val){
       m.classList.remove("show");
+      m.style.removeProperty("z-index");
       ok.onclick=null; cancel.onclick=null; inp.onkeydown=null; m.onclick=null;
       res(val);
     }
@@ -21677,11 +21679,13 @@ function askText(o){
 function showInfo(title, html){
   dismissPopupsAndSidebar();
   return new Promise(res=>{
-    const m=$("msgModal"); m.querySelector(".askTitle").textContent=title; m.querySelector(".msgBody").innerHTML=html;
+    const m=$("msgModal");
+    m.style.setProperty("z-index", "100900", "important");
+    m.querySelector(".askTitle").textContent=title; m.querySelector(".msgBody").innerHTML=html;
     const ok=m.querySelector(".msgOk"), cancel=m.querySelector(".msgCancel");
     cancel.style.display="none"; ok.textContent="OK"; ok.classList.remove("danger");
     m.classList.add("show");
-    const done=()=>{ m.classList.remove("show"); ok.onclick=null; m.onclick=null; res(); };
+    const done=()=>{ m.classList.remove("show"); m.style.removeProperty("z-index"); ok.onclick=null; m.onclick=null; res(); };
     ok.onclick=done;
     m.onclick=e=>{ if(e.target===m) done(); };
   });
@@ -21691,6 +21695,7 @@ function askChoice(title, html, buttons){
   dismissPopupsAndSidebar();
   return new Promise(res=>{
     const m=$("msgModal");
+    m.style.setProperty("z-index", "100900", "important");
     m.querySelector(".askTitle").textContent=title;
     m.querySelector(".msgBody").innerHTML=html;
     const row=m.querySelector(".askBtns");
@@ -21699,6 +21704,7 @@ function askChoice(title, html, buttons){
     row.querySelectorAll(".msgExtra").forEach(b=>b.remove());
     function cleanup(){
       m.classList.remove("show");
+      m.style.removeProperty("z-index");
       m.onclick=null;
       row.querySelectorAll(".msgExtra").forEach(b=>b.remove());
       oldOk.style.display=""; oldCancel.style.display="";
@@ -21719,12 +21725,14 @@ function askConfirm(title, html, opts){
   opts=opts||{};
   dismissPopupsAndSidebar();
   return new Promise(res=>{
-    const m=$("msgModal"); m.querySelector(".askTitle").textContent=title; m.querySelector(".msgBody").innerHTML=html;
+    const m=$("msgModal");
+    m.style.setProperty("z-index", "100900", "important");
+    m.querySelector(".askTitle").textContent=title; m.querySelector(".msgBody").innerHTML=html;
     const ok=m.querySelector(".msgOk"), cancel=m.querySelector(".msgCancel");
     cancel.style.display=""; cancel.textContent=opts.cancelLabel||"Anuluj";
     ok.textContent=opts.okLabel||"OK"; ok.classList.toggle("danger", !!opts.danger);
     m.classList.add("show");
-    const done=v=>{ m.classList.remove("show"); ok.onclick=null; cancel.onclick=null; m.onclick=null; ok.classList.remove("danger"); res(v); };
+    const done=v=>{ m.classList.remove("show"); m.style.removeProperty("z-index"); ok.onclick=null; cancel.onclick=null; m.onclick=null; ok.classList.remove("danger"); res(v); };
     ok.onclick=()=>done(true); cancel.onclick=()=>done(false);
     m.onclick=e=>{ if(e.target===m) done(false); };
   });
@@ -27745,9 +27753,16 @@ function openSettings(){
       return;
     }
     if(act && act.dataset.act==="odswiez"){
+      closeModal("modalSettings");
       askConfirm("Pobrać najnowszą wersję?",
         "Zapisana kopia plików aplikacji zostanie skasowana i pobrana od nowa z serwera.<br><br>Notatki, etykiety i zakładki <b>zostają nietknięte</b>.",
-        {okLabel:"Pobierz i odśwież"}).then(ok=>{ if(ok) wymusAktualizacje(); });
+        {okLabel:"Pobierz i odśwież"}).then(ok=>{
+          if(ok) {
+            wymusAktualizacje();
+          } else {
+            openModal("modalSettings");
+          }
+        });
       return;
     }
     const opt = e.target.closest(".st-opt[data-v]");
