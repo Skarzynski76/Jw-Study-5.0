@@ -1417,6 +1417,282 @@ html[data-theme="dark"] .cenBadge.aktywny {
   line-height: 1.5;
 }
 
+/* ═══ SZYBKI PRZEŁĄCZNIK WIELU PLANÓW CZYTANIA (PILLS) ═══ */
+.cenAktywnePlanyPillsWrap {
+  margin-bottom: 16px;
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 16px;
+  padding: 8px 12px;
+  box-shadow: var(--cen-card-shadow);
+}
+.cenAktywnePlanyPillsScroll {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 2px 0;
+}
+.cenAktywnePlanyPillsScroll::-webkit-scrollbar {
+  display: none;
+}
+.cenAktywnePlanyLabel {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--cen-text-muted);
+  white-space: nowrap;
+  padding-right: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.cenPlanPillBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border-radius: 20px;
+  border: 1.5px solid var(--cen-card-border);
+  background: var(--cen-btn-bg);
+  color: var(--cen-text);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.16s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.cenPlanPillBtn:hover {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+}
+.cenPlanPillBtn.active {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.32);
+}
+.cenPlanPillBtn.active .cenPlanPillMeta {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+.cenPlanPillDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #60a5fa;
+  box-shadow: 0 0 6px #93c5fd;
+  flex-shrink: 0;
+}
+.cenPlanPillName {
+  max-width: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cenPlanPillMeta {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--cen-text-muted);
+  background: rgba(0, 0, 0, 0.06);
+  padding: 1px 6px;
+  border-radius: 8px;
+}
+html[data-theme="dark"] .cenPlanPillMeta {
+  background: rgba(255, 255, 255, 0.1);
+}
+.cenPlanPillAdd {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px dashed var(--cen-card-border);
+  background: transparent;
+  color: var(--cen-text-sub);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.16s ease;
+}
+.cenPlanPillAdd svg {
+  width: 14px;
+  height: 14px;
+}
+.cenPlanPillAdd:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.06);
+}
+
+/* ═══ SIATKA RÓWNOLEGŁYCH PLANÓW NA PULPICIE ═══ */
+.cenMultiPlansSection {
+  margin-bottom: 22px;
+}
+.cenMultiPlansHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+.cenMultiPlansHeaderTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cen-text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.cenMultiPlansGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 14px;
+}
+.cenMultiPlanCard {
+  background: var(--cen-card-bg);
+  border: 1.5px solid var(--cen-card-border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: var(--cen-card-shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  position: relative;
+}
+.cenMultiPlanCard:hover {
+  transform: translateY(-2px);
+  border-color: var(--cen-card-border-hover);
+  box-shadow: var(--cen-card-shadow-hover);
+}
+.cenMultiPlanCard.active-focused {
+  border-color: #3b82f6;
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.04) 0%, var(--cen-card-bg) 100%);
+}
+.cenMultiPlanCardTop {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.cenMultiPlanCardIko {
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+}
+.cenMultiPlanCardIko svg {
+  width: 20px;
+  height: 20px;
+}
+.cenMultiPlanCardTopInfo {
+  flex: 1;
+  min-width: 0;
+}
+.cenMultiPlanCardTyt {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cen-text);
+  line-height: 1.25;
+  margin-bottom: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cenMultiPlanCardSub {
+  font-size: 11.5px;
+  color: var(--cen-text-muted);
+}
+.cenMultiPlanCardTask {
+  background: var(--cen-btn-bg);
+  border-radius: 10px;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: var(--cen-text);
+  line-height: 1.35;
+}
+.cenMultiPlanCardTask b {
+  color: #2563eb;
+}
+html[data-theme="dark"] .cenMultiPlanCardTask b {
+  color: #60a5fa;
+}
+.cenMultiPlanCardActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+.cenMultiPlanBtnRead {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: none;
+  background: #2563eb;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+}
+.cenMultiPlanBtnRead:hover {
+  background: #1d4ed8;
+}
+.cenMultiPlanBtnSec {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--cen-card-border);
+  background: var(--cen-btn-bg);
+  color: var(--cen-text-sub);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cenMultiPlanBtnSec:hover {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+.cenPlanParallelBadge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+html[data-theme="dark"] .cenPlanParallelBadge {
+  color: #34d399;
+}
+.cenPlanCard.parallel-active {
+  border-color: rgba(16, 185, 129, 0.4);
+}
+.cenPlanBtnParallelActive {
+  background: rgba(16, 185, 129, 0.12) !important;
+  color: #059669 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+html[data-theme="dark"] .cenPlanBtnParallelActive {
+  color: #34d399 !important;
+}
+
 /* ═══ KARTY I SELEKTOR PLANÓW CZYTANIA ═══ */
 .cenPlanGrid {
   display: grid;
@@ -33840,6 +34116,96 @@ function _centrZnajdzBiezacyDzienPlanu(planId){
   return planInfo.days || 1;
 }
 
+/* 7a. Obsługa wielu równoległych planów czytania */
+function _centrPobierzAktywnePlanyIds(){
+  const raw = lsGet(KP + "CentrumAktywnePlany", null);
+  let arr = [];
+  if(raw){
+    try {
+      const parsed = JSON.parse(raw);
+      if(Array.isArray(parsed)) arr = parsed.filter(Boolean);
+    } catch(e){}
+  }
+  const def = _centrAktywnyPlanId || "chrono";
+  if(!arr.includes(def)) arr.unshift(def);
+  return arr;
+}
+
+function _centrZapiszAktywnePlanyIds(arr){
+  if(!Array.isArray(arr) || !arr.length) arr = [_centrAktywnyPlanId || "chrono"];
+  const unique = Array.from(new Set(arr));
+  lsSet(KP + "CentrumAktywnePlany", JSON.stringify(unique));
+  return unique;
+}
+
+function _centrCzyPlanJestAktywny(planId){
+  if(!planId) return false;
+  if(planId === _centrAktywnyPlanId) return true;
+  const list = _centrPobierzAktywnePlanyIds();
+  return list.includes(planId);
+}
+
+function _centrPrzelaczAktywnoscPlanu(planId, wymusStan = null){
+  let list = _centrPobierzAktywnePlanyIds();
+  const currentlyActive = list.includes(planId);
+  const nowState = (wymusStan !== null) ? !!wymusStan : !currentlyActive;
+
+  if(nowState){
+    if(!list.includes(planId)) list.push(planId);
+  } else {
+    if(list.length > 1){
+      list = list.filter(id => id !== planId);
+      if(_centrAktywnyPlanId === planId){
+        _centrAktywnyPlanId = list[0] || "chrono";
+        lsSet(KP + "CentrumAktywnyPlan", _centrAktywnyPlanId);
+      }
+    }
+  }
+  _centrZapiszAktywnePlanyIds(list);
+  return nowState;
+}
+
+function _centrUstawGlownyPlan(planId){
+  if(!planId) return;
+  _centrAktywnyPlanId = planId;
+  lsSet(KP + "CentrumAktywnyPlan", planId);
+  let list = _centrPobierzAktywnePlanyIds();
+  if(!list.includes(planId)) {
+    list.unshift(planId);
+  } else {
+    list = [planId, ...list.filter(id => id !== planId)];
+  }
+  _centrZapiszAktywnePlanyIds(list);
+}
+
+function _centrRenderPillsAktywnychPlanow(curWidok){
+  const activeIds = _centrPobierzAktywnePlanyIds();
+  const allData = _centrPobierzWszystkiePlanyDane();
+
+  return '<div class="cenAktywnePlanyPillsWrap">'
+    + '<div class="cenAktywnePlanyPillsScroll">'
+    + '<div class="cenAktywnePlanyLabel">'
+    + '<span>📚 Twoje plany:</span>'
+    + '</div>'
+    + activeIds.map(pid => {
+        const p = allData[pid] || _centrPobierzPlanData(pid);
+        const isCur = (pid === _centrAktywnyPlanId);
+        const doneSet = _centrPobierzUkonczoneDni(pid);
+        const curD = _centrZnajdzBiezacyDzienPlanu(pid);
+        const pct = p.days > 0 ? Math.round((doneSet.size / p.days) * 100) : 0;
+        return '<button type="button" class="cenPlanPillBtn' + (isCur ? ' active' : '') + '" data-cplan-switch="' + pid + '" title="' + esc(p.name) + '">'
+          + (isCur ? '<span class="cenPlanPillDot"></span>' : '')
+          + '<span class="cenPlanPillName">' + esc(p.name) + '</span>'
+          + '<span class="cenPlanPillMeta">Dz. ' + curD + ' • ' + pct + '%</span>'
+          + '</button>';
+      }).join('')
+    + '<button type="button" class="cenPlanPillAdd" data-cwidok="moje-plany" title="Zarządzaj planami i dodaj kolejny równoległy">'
+    + CEN_MODERN_ICO.plus + ' <span>Więcej / Zarządzaj</span>'
+    + '</button>'
+    + '</div>'
+    + '</div>';
+}
+
 /* 7. Odczyt i zapis postępu użytkownika */
 function _centrPobierzUkonczoneDni(planId){
   planId = planId || _centrAktywnyPlanId || "chrono";
@@ -34009,6 +34375,7 @@ function _centrEksportDanych(){
     tematy: tematyArr,
     plany: planyArr,
     aktywnyPlan: lsGet(KP + "CentrumAktywnyPlan", null),
+    aktywnePlany: _centrPobierzAktywnePlanyIds(),
     curDay: lsGet(KP + "CentrumCurDay", null),
     curTemat: lsGet(KP + "CentrumCurTemat", null),
     layout: (typeof centrUklad === "function" ? centrUklad() : lsGet("jws_centrum_layout_306", null))
@@ -34102,11 +34469,17 @@ function _centrImportDanych(centrumData, tryb){
 
   if(isReplace){
     if(centrumData.aktywnyPlan) lsSet(KP + "CentrumAktywnyPlan", centrumData.aktywnyPlan);
+    if(Array.isArray(centrumData.aktywnePlany)) _centrZapiszAktywnePlanyIds(centrumData.aktywnePlany);
     if(centrumData.curDay) lsSet(KP + "CentrumCurDay", String(centrumData.curDay));
     if(centrumData.curTemat) lsSet(KP + "CentrumCurTemat", String(centrumData.curTemat));
   } else {
     if(!lsGet(KP + "CentrumAktywnyPlan", null) && centrumData.aktywnyPlan){
       lsSet(KP + "CentrumAktywnyPlan", centrumData.aktywnyPlan);
+    }
+    if(Array.isArray(centrumData.aktywnePlany)){
+      const current = _centrPobierzAktywnePlanyIds();
+      centrumData.aktywnePlany.forEach(pid => { if(pid && !current.includes(pid)) current.push(pid); });
+      _centrZapiszAktywnePlanyIds(current);
     }
   }
 
@@ -34572,7 +34945,8 @@ function renderCentrumWidok(){
   const tematy = _centrPobierzTematyStudium();
   const tCount = tematy.length;
   const plany = _centrPobierzPlany();
-  const aktywnePlany = plany.filter(p=>p.active).length;
+  const activePlanIds = _centrPobierzAktywnePlanyIds();
+  const allPlanData = _centrPobierzWszystkiePlanyDane();
 
   return '<div class="cenHeroGrid">'
     // Karta 1: Aktywny plan czytania
@@ -34582,7 +34956,7 @@ function renderCentrumWidok(){
     + '<div class="cenHeroInfo">'
     + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;">'
     + '<span class="cenHeroTag">' + esc(curPlan.catName || "Plan") + ' • ' + esc(curPlan.duration || (curPlan.days + ' dni')) + '</span>'
-    + '<button type="button" class="cenHeroChangePlanBtn" data-cwidok="moje-plany" title="Zmień aktywny plan czytania">Zmień plan ▾</button>'
+    + '<button type="button" class="cenHeroChangePlanBtn" data-cwidok="moje-plany" title="Zarządzaj planami czytania">Wszystkie plany ▾</button>'
     + '</div>'
     + '<div class="cenHeroTyt">' + esc(curPlan.name) + '</div>'
     + '<div class="cenHeroOpis">' + esc(curPlan.desc) + '</div>'
@@ -34615,12 +34989,12 @@ function renderCentrumWidok(){
     + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.clipboard + '</div>'
     + '<div class="cenHeroInfo">'
     + '<div class="cenHeroTyt">Plany czytania Biblii</div>'
-    + '<div class="cenHeroOpis">Wybieraj plany na 1, 2 lub 3 lata (chronologicznie, po kolei księgami lub zbalansowane).</div>'
+    + '<div class="cenHeroOpis">Wybieraj plany na 1, 2 lub 3 lata. Prowadź kilka planów jednocześnie!</div>'
     + '</div></div>'
     + '<div class="cenHeroBottom">'
     + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Dostępne plany</span>'
-    + '<span class="cenHeroMetaVal val-purple">' + plany.length + ' gotowych planów</span>'
+    + '<span class="cenHeroMetaLabel">Aktywne / Dostępne</span>'
+    + '<span class="cenHeroMetaVal val-purple">' + activePlanIds.length + ' aktywne • ' + plany.length + ' gotowych</span>'
     + '</div></div></div>'
 
     // Karta 4: Statystyki i cele
@@ -34638,17 +35012,59 @@ function renderCentrumWidok(){
     + '</div></div></div>'
     + '</div>'
 
-    // BANNER: DZISIEJSZE ZADANIE
-    + '<div class="cenZadanieCard">'
-    + '<div class="cenZadanieLewo">'
-    + '<div class="cenZadanieIko">' + CEN_MODERN_ICO.book + '</div>'
-    + '<div>'
-    + '<div class="cenZadanieTyt">' + esc(curPlan.name) + ' — Dzień ' + curDzien + '</div>'
-    + '<div class="cenZadaniePodtyt">' + (planDzis.f ? planDzis.f.length : 0) + ' fragmenty • ' + esc(planDzis.t) + '</div>'
-    + '</div></div>'
-    + '<div style="display:flex;align-items:center;gap:8px;">'
-    + '<button type="button" class="cenZadanieBtn" data-cwidok="dzien" data-cdzien="' + curDzien + '">Czytaj dzisiaj ' + CEN_MODERN_ICO.chevron + '</button>'
-    + '</div></div>'
+    // SEKCJA RÓWNOLEGŁYCH PLANÓW CZYTANIA
+    + '<div class="cenMultiPlansSection">'
+    + '<div class="cenMultiPlansHeader">'
+    + '<div class="cenMultiPlansHeaderTitle">'
+    + '<span>📚 Twoje plany czytania Biblii (' + activePlanIds.length + ' ' + (activePlanIds.length === 1 ? 'aktywny' : 'aktywne') + ')</span>'
+    + '</div>'
+    + '<button type="button" class="cenPlanPillAdd" data-cwidok="moje-plany">' + CEN_MODERN_ICO.plus + ' <span>Więcej / Zmień plany</span></button>'
+    + '</div>'
+    + '<div class="cenMultiPlansGrid">'
+    + activePlanIds.map(pid => {
+        const p = allPlanData[pid] || _centrPobierzPlanData(pid);
+        const pDoneSet = _centrPobierzUkonczoneDni(pid);
+        const pDoneCount = pDoneSet.size;
+        const pTotal = p.days;
+        const pPctNum = pTotal > 0 ? (pDoneCount / pTotal) * 100 : 0;
+        const pPct = pPctNum.toFixed(1).replace(".", ",");
+        const pCurDay = _centrZnajdzBiezacyDzienPlanu(pid);
+        const pList = p.plan || [];
+        const pDzis = pList.find(x => x.d === pCurDay) || pList[0] || { d: 1, t: "Czytanie biblijne", f: [] };
+        const isFocused = (pid === _centrAktywnyPlanId);
+        const ico = p.cat === 'pokolei' ? CEN_MODERN_ICO.book : p.cat === 'zbalansowany' ? CEN_MODERN_ICO.clipboard : p.cat === 'temat' ? CEN_MODERN_ICO.target : CEN_MODERN_ICO.calendar;
+
+        return '<div class="cenMultiPlanCard' + (isFocused ? ' active-focused' : '') + '">'
+          + '<div>'
+          + '<div class="cenMultiPlanCardTop">'
+          + '<div class="cenMultiPlanCardIko">' + ico + '</div>'
+          + '<div class="cenMultiPlanCardTopInfo">'
+          + '<div class="cenMultiPlanCardTyt" title="' + esc(p.name) + '">' + esc(p.name) + '</div>'
+          + '<div class="cenMultiPlanCardSub">' + esc(p.catName || "Plan") + ' • ' + esc(p.duration || (p.days + ' dni')) + (isFocused ? ' • <b style="color:#2563eb;">★ Bieżący</b>' : '') + '</div>'
+          + '</div></div>'
+
+          + '<div class="cenMultiPlanCardTask">'
+          + '<b>Dzień ' + pCurDay + ':</b> ' + (pDzis.f ? pDzis.f.length : 0) + ' fragm. — ' + esc(pDzis.t)
+          + '</div>'
+
+          + '<div class="cenPlanProgressWrap" style="margin-bottom:8px;">'
+          + '<div class="cenPlanProgressMeta">'
+          + '<span>Postęp: <b>' + pDoneCount + ' / ' + pTotal + ' dni</b></span>'
+          + '<span>' + pPct + '%</span>'
+          + '</div>'
+          + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(pDoneCount>0?3:0, pPctNum)) + '%;"></div></div>'
+          + '</div>'
+          + '</div>'
+
+          + '<div class="cenMultiPlanCardActions">'
+          + '<button type="button" class="cenMultiPlanBtnRead" data-cplan-otworz-dzien="' + pid + '" data-cdzien="' + pCurDay + '">Czytaj Dzień ' + pCurDay + ' →</button>'
+          + '<button type="button" class="cenMultiPlanBtnSec" data-cplan-switch="' + pid + '" title="Wybierz jako bieżący aktywny plan">Wybierz</button>'
+          + '<button type="button" class="cenMultiPlanBtnSec" data-cwidok="lista-dni" data-cplan-otworz="' + pid + '" title="Spis dni">Dni</button>'
+          + '</div>'
+          + '</div>';
+      }).join('')
+    + '</div>'
+    + '</div>'
 
     // BANNER: CECHY I MOŻLIWOŚCI
     + '<div class="cenFeaturesBanner">'
@@ -34662,11 +35078,11 @@ function renderCentrumWidok(){
     + '</div>'
     + '<div class="cenFeatureItem">'
     + '<div class="cenFeatureIko">' + CEN_MODERN_ICO.clipboard + '</div>'
-    + '<div class="cenFeatureTxt"><b>Własne tempo</b><span>Wybieraj między 1, 2 a 3 latami czytania</span></div>'
+    + '<div class="cenFeatureTxt"><b>Wieloplanowość</b><span>Prowadź kilka planów czytania równolegle</span></div>'
     + '</div>'
     + '<div class="cenFeatureItem">'
     + '<div class="cenFeatureIko">' + CEN_MODERN_ICO.sync + '</div>'
-    + '<div class="cenFeatureTxt"><b>Zapisywanie postępu</b><span>Twój stan czytania jest zawsze automatycznie zapisywany</span></div>'
+    + '<div class="cenFeatureTxt"><b>Zapisywanie postępu</b><span>Twój stan czytania każdego planu jest zawsze bezpieczny</span></div>'
     + '</div>'
     + '</div>';
 }
@@ -34692,9 +35108,11 @@ function centrWidokCzytanieChrono(){
     + '<div class="cenSubPodtytul">' + esc(planInfo.name) + ' • ' + esc(planInfo.duration || (planInfo.days + ' dni')) + '</div>'
     + '</div></div>'
     + '<div style="display:flex;align-items:center;gap:8px;">'
-    + '<button type="button" class="cenHeroChangePlanBtn" data-cwidok="moje-plany" title="Przełącz plan czytania">Zmień plan (' + esc(planInfo.duration || (planInfo.days + ' dni')) + ') ▾</button>'
-    + '<button type="button" class="cenNaglBtnIko" data-cakcja="ustawienia-planu" title="Wybór i ustawienia planów">' + CEN_MODERN_ICO.gear + '</button>'
+    + '<button type="button" class="cenHeroChangePlanBtn" data-cwidok="moje-plany" title="Zarządzaj planami czytania">Zarządzaj planami ▾</button>'
+    + '<button type="button" class="cenNaglBtnIko" data-cwidok="moje-plany" title="Wybór i ustawienia planów">' + CEN_MODERN_ICO.clipboard + '</button>'
     + '</div></div>'
+
+    + _centrRenderPillsAktywnychPlanow("czytanie-chronologiczne")
 
     + '<div class="cenHeroCard card-blue" style="margin-bottom:20px;cursor:default;">'
     + '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap;">'
@@ -34774,6 +35192,8 @@ function centrWidokDzien(dNr){
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="notatka-dnia" title="Dodaj notatkę">' + CEN_MODERN_ICO.note + '</button>'
     + '</div></div>'
 
+    + _centrRenderPillsAktywnychPlanow("dzien")
+
     + '<div style="margin-bottom:18px;">'
     + '<div class="cenSecHeadTyt" style="margin-bottom:4px;">Fragmenty do przeczytania</div>'
     + '<div style="font-size:13px;color:var(--cen-text-muted);">' + (plan.f ? plan.f.length : 0) + ' fragmenty • ' + esc(plan.t) + '</div>'
@@ -34839,6 +35259,8 @@ function centrWidokListaDni(filtr, szukaj){
     + '</div>'
     + '</div>'
 
+    + _centrRenderPillsAktywnychPlanow("lista-dni")
+
     + '<div class="cenTabsRow">'
     + '<button type="button" class="cenTabBtn' + (filtr==="wszystkie"?' active':'') + '" data-clista-tab="wszystkie">Wszystkie (' + planList.length + ')</button>'
     + '<button type="button" class="cenTabBtn' + (filtr==="ukonczone"?' active':'') + '" data-clista-tab="ukonczone">Ukończone (' + dniDone.size + ')</button>'
@@ -34902,6 +35324,7 @@ function centrWidokStatystyki(tab){
     + '<div class="cenSubPodtytul">' + esc(planInfo.name) + ' • ' + doneCount + ' z ' + totalDni + ' dni (' + pctStr + '%)</div>'
     + '</div></div>'
     + '</div>'
+    + _centrRenderPillsAktywnychPlanow("statystyki")
     + '<div class="cenTabsRow">'
     + '<button type="button" class="cenTabBtn' + (tab==="ogolny"?' active':'') + '" data-cstat-tab="ogolny">Ogólny</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="drzewo"?' active':'') + '" data-cstat-tab="drzewo">🌳 Drzewo wzrostu</button>'
@@ -35011,6 +35434,8 @@ function centrWidokKalendarz(rok, mies){
     + '</div></div>'
     + '</div>'
 
+    + _centrRenderPillsAktywnychPlanow("kalendarz")
+
     + '<div class="cenKalendarzMiesiac">'
     + '<button type="button" class="cenNaglBtnIko" data-ckal-naw="-1">' + CEN_MODERN_ICO.chevronLeft + '</button>'
     + '<div class="cenKalendarzMiesiacTyt">' + nazwyMies[mies] + ' ' + rok + '</div>'
@@ -35035,8 +35460,10 @@ function centrWidokMojePlany(tab){
   tab = tab || _centrPlanTab || "wszystkie";
   _centrPlanTab = tab;
   const plany = _centrPobierzPlany();
+  const activePlanIds = _centrPobierzAktywnePlanyIds();
 
   let filtered = plany.filter(p => {
+    if(tab === "aktywne") return activePlanIds.includes(p.id);
     if(tab === "chrono") return p.cat === "chrono";
     if(tab === "pokolei") return p.cat === "pokolei";
     if(tab === "zbalansowany") return p.cat === "zbalansowany";
@@ -35049,21 +35476,23 @@ function centrWidokMojePlany(tab){
     + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
     + '<div class="cenSubTytulBox">'
     + '<div class="cenSubTytul">Plany czytania Biblii</div>'
-    + '<div class="cenSubPodtytul">Wybierz lub skonfiguruj plan czytania</div>'
+    + '<div class="cenSubPodtytul">Możesz prowadzić kilka planów czytania równolegle</div>'
     + '</div></div>'
     + '<div class="cenNaglAkcje">'
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="nowy-plan" title="Dodaj własny plan czytania">' + CEN_MODERN_ICO.plus + '</button>'
     + '</div></div>'
 
     + '<div class="cenTabsRow" style="overflow-x:auto;">'
+    + '<button type="button" class="cenTabBtn' + (tab==="aktywne"?' active':'') + '" data-cplan-tab="aktywne">🌟 Aktywne w toku (' + activePlanIds.length + ')</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="wszystkie"?' active':'') + '" data-cplan-tab="wszystkie">Wszystkie (' + plany.length + ')</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="chrono"?' active':'') + '" data-cplan-tab="chrono">Chronologiczne (1, 2, 3 lata)</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="pokolei"?' active':'') + '" data-cplan-tab="pokolei">Księgi po kolei (1, 2, 3 lata)</button>'
-    + '<button type="button" class="cenTabBtn' + (tab==="zbalansowany"?' active':'') + '" data-cplan-tab="zbalansowany">Pisma Hebr. i Greckie (1, 2, 3 lata)</button>'
+    + '<button type="button" class="cenTabBtn' + (tab==="zbalansowany"?' active':'') + '" data-cplan-tab="zbalansowany">Pisma Hebr. i Greckie</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="temat"?' active':'') + '" data-cplan-tab="temat">Pisma Greckie i Tematyczne</button>'
     + '</div>'
 
     + '<div class="cenPlanGrid">'
+    + (!filtered.length ? '<div class="cenPusto" style="grid-column:1/-1;">Brak planów w tej kategorii.</div>' : '')
     + filtered.map(p => {
         const doneSet = _centrPobierzUkonczoneDni(p.id);
         const doneCount = doneSet.size;
@@ -35071,12 +35500,13 @@ function centrWidokMojePlany(tab){
         const pctNum = totalDni > 0 ? (doneCount / totalDni) * 100 : 0;
         const pct = pctNum.toFixed(1).replace(".", ",");
         const isGlowny = (p.id === _centrAktywnyPlanId);
+        const isParallel = activePlanIds.includes(p.id);
         const curDzien = _centrZnajdzBiezacyDzienPlanu(p.id);
         const isDone = doneCount >= totalDni && totalDni > 0;
         const catClass = 'card-' + (p.cat || 'chrono');
         const ico = p.cat === 'pokolei' ? CEN_MODERN_ICO.book : p.cat === 'zbalansowany' ? CEN_MODERN_ICO.clipboard : p.cat === 'temat' ? CEN_MODERN_ICO.target : CEN_MODERN_ICO.calendar;
 
-        return '<div class="cenPlanCard ' + catClass + (isGlowny ? ' active' : '') + '">'
+        return '<div class="cenPlanCard ' + catClass + (isGlowny ? ' active' : (isParallel ? ' parallel-active' : '')) + '">'
           + '<div>'
           + '<div class="cenPlanCardHeader">'
           + '<div class="cenPlanIkoBox">' + ico + '</div>'
@@ -35084,7 +35514,9 @@ function centrWidokMojePlany(tab){
           + '<div class="cenPlanBadgeRow">'
           + '<span class="cenPlanCatBadge">' + esc(p.catName || "Plan") + '</span>'
           + '<span class="cenPlanDurationBadge">' + esc(p.duration || (p.days + ' dni')) + '</span>'
-          + (isGlowny ? '<span class="cenPlanActiveBadge">★ Twój aktywny plan</span>' : '')
+          + (isGlowny
+              ? '<span class="cenPlanActiveBadge">★ Główny plan</span>'
+              : (isParallel ? '<span class="cenPlanParallelBadge">✅ Prowadzony równolegle</span>' : ''))
           + '</div>'
           + '<div class="cenPlanTyt">' + esc(p.name) + '</div>'
           + '</div></div>'
@@ -35106,10 +35538,18 @@ function centrWidokMojePlany(tab){
           + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;"></div></div>'
           + '</div>'
 
-          + '<div class="cenPlanActionsRow">'
+          + '<div class="cenPlanActionsRow" style="flex-wrap:wrap;">'
           + (isGlowny
               ? '<button type="button" class="cenPlanBtnPrimary active" data-cplan-wybierz="' + p.id + '">Czytaj Dzień ' + curDzien + ' →</button>'
-              : '<button type="button" class="cenPlanBtnPrimary" data-cplan-wybierz="' + p.id + '">Wybierz ten plan</button>')
+              : (isParallel
+                  ? '<button type="button" class="cenPlanBtnPrimary" data-cplan-wybierz="' + p.id + '">Czytaj Dzień ' + curDzien + ' →</button>'
+                  : '<button type="button" class="cenPlanBtnPrimary" data-cplan-wybierz="' + p.id + '">Rozpocznij ten plan</button>'))
+          + (isParallel && !isGlowny
+              ? '<button type="button" class="cenPlanBtnSec" data-cplan-ustaw-glowny="' + p.id + '" title="Ustaw jako główny aktywny plan">★ Ustaw główny</button>'
+              : '')
+          + (isParallel
+              ? (activePlanIds.length > 1 ? '<button type="button" class="cenPlanBtnSec cenPlanBtnParallelActive" data-cplan-toggle-aktywny="' + p.id + '" title="Odłącz ten plan z równoległych">Odłącz</button>' : '')
+              : '<button type="button" class="cenPlanBtnSec" data-cplan-toggle-aktywny="' + p.id + '" title="Prowadź ten plan równolegle z obecnym">＋ Równolegle</button>')
           + '<button type="button" class="cenPlanBtnSec" data-cwidok="lista-dni" data-cplan-otworz="' + p.id + '" title="Spis wszystkich dni">Lista dni</button>'
           + (doneCount > 0 ? '<button type="button" class="cenPlanBtnSec" data-cplan-reset="' + p.id + '" title="Zresetuj postęp tego planu">Resetuj</button>' : '')
           + '</div>'
@@ -37005,12 +37445,66 @@ if($("centrum")){
       return;
     }
 
+    // Szybkie przełączanie planu (Pills i Selektory)
+    const planSwitchBtn = ev.target.closest("[data-cplan-switch]");
+    if(planSwitchBtn){
+      const pid = planSwitchBtn.dataset.cplanSwitch;
+      _centrAktywnyPlanId = pid;
+      lsSet(KP + "CentrumAktywnyPlan", pid);
+      _centrWybranyDzien = _centrZnajdzBiezacyDzienPlanu(pid);
+      lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
+      rysujCentrum();
+      return;
+    }
+
+    // Otwarcie konkretnego dnia danego planu z Pulpitu
+    const planOtworzDzienBtn = ev.target.closest("[data-cplan-otworz-dzien]");
+    if(planOtworzDzienBtn){
+      const pid = planOtworzDzienBtn.dataset.cplanOtworzDzien;
+      const d = parseInt(planOtworzDzienBtn.dataset.cdzien || "1", 10);
+      _centrUstawGlownyPlan(pid);
+      _centrWybranyDzien = d;
+      lsSet(KP + "CentrumCurDay", String(d));
+      centrWidok = "dzien";
+      lsSet(CENTR_WIDOK_KLUCZ, centrWidok);
+      rysujCentrum();
+      const c = $("centrum"); if(c) c.scrollTop = 0;
+      return;
+    }
+
+    // Przełączanie równoległej aktywności planu
+    const planToggleAktywnyBtn = ev.target.closest("[data-cplan-toggle-aktywny]");
+    if(planToggleAktywnyBtn){
+      const pid = planToggleAktywnyBtn.dataset.cplanToggleAktywny;
+      const nowActive = _centrPrzelaczAktywnoscPlanu(pid);
+      const pInfo = _centrPobierzPlanData(pid);
+      if(nowActive){
+        toast("Dodano plan „" + pInfo.name + "” do aktywnych planów równoległych!", "ok");
+      } else {
+        toast("Odłączono plan „" + pInfo.name + "” z aktywnych równoległych", "info");
+      }
+      rysujCentrum();
+      return;
+    }
+
+    // Ustawienie planu jako główny
+    const planUstawGlownyBtn = ev.target.closest("[data-cplan-ustaw-glowny]");
+    if(planUstawGlownyBtn){
+      const pid = planUstawGlownyBtn.dataset.cplanUstawGlowny;
+      _centrUstawGlownyPlan(pid);
+      _centrWybranyDzien = _centrZnajdzBiezacyDzienPlanu(pid);
+      lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
+      const pInfo = _centrPobierzPlanData(pid);
+      toast("Ustawiono „" + pInfo.name + "” jako główny plan czytania", "ok");
+      rysujCentrum();
+      return;
+    }
+
     // Wybór i otwarcie planu
     const planWybierzBtn = ev.target.closest("[data-cplan-wybierz]");
     if(planWybierzBtn){
       const pid = planWybierzBtn.dataset.cplanWybierz;
-      _centrAktywnyPlanId = pid;
-      lsSet(KP + "CentrumAktywnyPlan", pid);
+      _centrUstawGlownyPlan(pid);
       _centrWybranyDzien = _centrZnajdzBiezacyDzienPlanu(pid);
       lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
       centrWidok = "czytanie-chronologiczne";
@@ -37021,14 +37515,15 @@ if($("centrum")){
     }
 
     const planOtworzRow = ev.target.closest("[data-cplan-otworz]");
-    if(planOtworzRow && !ev.target.closest("button")){
+    if(planOtworzRow && !ev.target.closest("button[data-cplan-reset]") && !ev.target.closest("button[data-cplan-toggle-aktywny]") && !ev.target.closest("button[data-cplan-ustaw-glowny]")){
       const pid = planOtworzRow.dataset.cplanOtworz;
-      _centrAktywnyPlanId = pid;
-      lsSet(KP + "CentrumAktywnyPlan", pid);
+      _centrUstawGlownyPlan(pid);
       _centrWybranyDzien = _centrZnajdzBiezacyDzienPlanu(pid);
       lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
-      centrWidok = "czytanie-chronologiczne";
-      lsSet(CENTR_WIDOK_KLUCZ, centrWidok);
+      if(!planOtworzRow.dataset.cwidok) {
+        centrWidok = "czytanie-chronologiczne";
+        lsSet(CENTR_WIDOK_KLUCZ, centrWidok);
+      }
       rysujCentrum();
       const c = $("centrum"); if(c) c.scrollTop = 0;
       return;
