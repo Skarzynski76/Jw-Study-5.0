@@ -17287,6 +17287,46 @@ function saveNote(n){
     return false;
   });
 }
+
+/**
+ * Tworzy i inicjalizuje nową notatkę w pamięci i magazynie danych.
+ * @param {Object} [opts] - Opcjonalne pola początkowe
+ * @returns {Object} n - Utworzona notatka
+ */
+function createNote(opts){
+  opts = opts || {};
+  const now = new Date().toISOString();
+  const n = {
+    g: (typeof crypto !== "undefined" && crypto.randomUUID) ? crypto.randomUUID().toUpperCase() : ("N-" + Date.now() + "-" + Math.random().toString(36).substr(2, 9).toUpperCase()),
+    t: opts.t || "",
+    c: opts.c || "",
+    h: opts.h || (opts.c ? (typeof esc === "function" ? esc(opts.c).replace(/\r?\n/g, "<br>") : opts.c) : null),
+    b: typeof opts.b === "number" ? opts.b : 0,
+    ch: typeof opts.ch === "number" ? opts.ch : null,
+    v: typeof opts.v === "number" ? opts.v : null,
+    pub: opts.pub || "",
+    ks: opts.ks || "",
+    doc: opts.doc || 0,
+    itn: opts.itn || 0,
+    col: opts.col || 0,
+    cr: now,
+    mo: now,
+    tg: Array.isArray(opts.tg) ? opts.tg : [],
+    nw: true,
+    tgd: true
+  };
+  if(opts.stb) n.stb = opts.stb;
+  if(typeof notes !== "undefined" && Array.isArray(notes)){
+    notes.unshift(n);
+  }
+  if(typeof saveNote === "function"){
+    saveNote(n);
+  }
+  if(typeof pushUndo === "function"){
+    pushUndo({ type: "newNote", g: n.g, label: "dodanie notatki" });
+  }
+  return n;
+}
 /* sprawdzenie miejsca przed wstawieniem zdjęcia */
 async function checkSpaceForImage(bytes){
   try{
@@ -29188,13 +29228,15 @@ function pokazKarteUstawien(id){
   });
   /* Przewinięcie na górę przy zmianie karty. Bez tego druga karta otwiera się
      w połowie, bo okno pamięta przewinięcie z pierwszej. */
-  const okno = $("modalSettings").querySelector(".modal");
+  const modalSet = $("modalSettings");
+  const okno = modalSet ? modalSet.querySelector(".modal") : null;
   if(okno) okno.scrollTop = 0;
 }
 
 /** Rząd zakładek. Rysowany w nagłówku okna, żeby przyklejał się razem z nim. */
 function rysujZakladkiUstawien(){
-  const head = $("modalSettings").querySelector(".nn-head");
+  const modalSet = $("modalSettings");
+  const head = modalSet ? modalSet.querySelector(".nn-head") : null;
   if(!head) return;
   let rzad = head.querySelector(".st-zakladki");
   if(!rzad){
@@ -29274,6 +29316,7 @@ function skrotyEdycjiHtml(){
 
 function openSettings(){
   const box = $("setBody");
+  if(!box) return;
   box.innerHTML =
     `<div class="st-karta" data-karta="wyglad">
      <div class="st-sec">
@@ -29498,13 +29541,13 @@ function openSettings(){
       const roznica = fs.dataset.fs === "+" ? 1 : -1;
       if(fs.closest('[data-font="ui"]')){
         ustawSkaleInterfejsu(roznica*.05);
-        $("stUiVal").textContent = Math.round(uiScale*100) + "%";
+        const el = $("stUiVal"); if(el) el.textContent = Math.round(uiScale*100) + "%";
       }else if(fs.closest('[data-font="list"]')){
         ustawRozmiarList(roznica);
-        $("stListFsVal").textContent = listFs + " px";
+        const el = $("stListFsVal"); if(el) el.textContent = listFs + " px";
       }else{
         ustawRozmiarTresci(roznica);
-        $("stFsVal").textContent = noteFs + " px";
+        const el = $("stFsVal"); if(el) el.textContent = noteFs + " px";
       }
       return;
     }
@@ -35536,6 +35579,79 @@ const BIBLE_CANON_CHAPS = [
   { n: "2 Tymoteusza", ch: 4 }, { n: "Tytusa", ch: 3 }, { n: "Filemona", ch: 1 }, { n: "Hebrajczyków", ch: 13 }, { n: "Jakuba", ch: 5 },
   { n: "1 Piotra", ch: 5 }, { n: "2 Piotra", ch: 3 }, { n: "1 Jana", ch: 5 }, { n: "2 Jana", ch: 1 }, { n: "3 Jana", ch: 1 },
   { n: "Judy", ch: 1 }, { n: "Objawienie", ch: 22 }
+];
+
+/* 1a. Chronologiczny podział i sekwencje ksiąg (66 ksiąg, 1189 rozdziałów) */
+const BIBLE_CHRONO_BLOCKS = [
+  ["Rodzaju", 1, 11],
+  ["Hioba", 1, 42],
+  ["Rodzaju", 12, 50],
+  ["Wyjścia", 1, 40],
+  ["Kapłańska", 1, 27],
+  ["Liczb", 1, 36],
+  ["Powtórzonego Prawa", 1, 34],
+  ["Jozuego", 1, 24],
+  ["Sędziów", 1, 21],
+  ["Rut", 1, 4],
+  ["1 Samuela", 1, 31],
+  ["2 Samuela", 1, 24],
+  ["1 Kronik", 1, 29],
+  ["Psalmy", 1, 150],
+  ["1 Królów", 1, 11],
+  ["2 Kronik", 1, 9],
+  ["Przysłów", 1, 31],
+  ["Kaznodziei", 1, 12],
+  ["Pieśń nad Pieśniami", 1, 8],
+  ["1 Królów", 12, 22],
+  ["2 Królów", 1, 25],
+  ["2 Kronik", 10, 36],
+  ["Abdiasza", 1, 1],
+  ["Joela", 1, 3],
+  ["Jonasza", 1, 4],
+  ["Amosa", 1, 9],
+  ["Ozeasza", 1, 14],
+  ["Micheasza", 1, 7],
+  ["Izajasza", 1, 66],
+  ["Nahuma", 1, 3],
+  ["Sofoniasza", 1, 3],
+  ["Habakuka", 1, 3],
+  ["Jeremiasza", 1, 52],
+  ["Lamentacje", 1, 5],
+  ["Ezechiela", 1, 48],
+  ["Daniela", 1, 12],
+  ["Ezdrasza", 1, 10],
+  ["Aggeusza", 1, 2],
+  ["Zachariasza", 1, 14],
+  ["Estery", 1, 10],
+  ["Nehemiasza", 1, 13],
+  ["Malachiasza", 1, 4],
+  ["Mateusza", 1, 28],
+  ["Marka", 1, 16],
+  ["Łukasza", 1, 24],
+  ["Jana", 1, 21],
+  ["Dzieje Apostolskie", 1, 28],
+  ["Jakuba", 1, 5],
+  ["Galatów", 1, 6],
+  ["1 Tesaloniczan", 1, 5],
+  ["2 Tesaloniczan", 1, 3],
+  ["1 Koryntian", 1, 16],
+  ["2 Koryntian", 1, 13],
+  ["Rzymian", 1, 16],
+  ["Efezjan", 1, 6],
+  ["Filipian", 1, 4],
+  ["Kolosan", 1, 4],
+  ["Filemona", 1, 1],
+  ["Hebrajczyków", 1, 13],
+  ["1 Tymoteusza", 1, 6],
+  ["Tytusa", 1, 3],
+  ["1 Piotra", 1, 5],
+  ["2 Piotra", 1, 3],
+  ["2 Tymoteusza", 1, 4],
+  ["Judy", 1, 1],
+  ["Objawienie", 1, 22],
+  ["1 Jana", 1, 5],
+  ["2 Jana", 1, 1],
+  ["3 Jana", 1, 1]
 ];
 
 /* 1b. Rozszerzone dane metryczne i podział kanonu 66 ksiąg */
