@@ -16,6 +16,47 @@ let query = "", sortMode = "new";
 let visibleCount = 36;
 let expandedBook = null;
 let idb = null;
+
+/* kolory pasków sekcji */
+var SECCOLORS = ["#cfe3d6","#cfdcea","#dcd4ea","#f0dcc6","#eed6dd","#cfe4e2","#e6e2c6","#dcdfe4","#ecd4d4"];
+/* pastele etykiet */
+var TAGCOLORS = ["#e8c86a","#dcb08a","#e0a89a","#c9b6d8","#a9c4e4","#9fd0c7","#b6d9a8","#efb7c4","#c2c8d0"];
+/* pastelowe kompozycje: jeden zgrany odcień na całą kompozycję kolumn i belek */
+var PASTELS = [["Lawenda","#b9a9d6"],["Mięta","#9ed3c2"],["Brzoskwinia","#e8b894"],["Błękit","#a6c3e0"],["Róż","#e2adc0"],["Piasek","#dccfae"],["Szałwia","#b7c9a8"],["Grafit","#b9bec6"]];
+window.SECCOLORS = SECCOLORS;
+window.TAGCOLORS = TAGCOLORS;
+window.PASTELS = PASTELS;
+
+/**
+ * Fabryka nowego obiektu notatki.
+ * @param {Object} [opts] opcjonalne początkowe pola
+ * @returns {Object} kompletny obiekt notatki
+ */
+function createNote(opts){
+  opts = opts || {};
+  const now = new Date().toISOString();
+  return {
+    g: (typeof crypto !== "undefined" && crypto.randomUUID) ? crypto.randomUUID().toUpperCase() : ("N" + Date.now() + "_" + Math.random().toString(36).slice(2, 7)),
+    t: opts.t || "",
+    c: opts.c || "",
+    h: opts.h || (opts.c ? (typeof esc === "function" ? esc(opts.c).replace(/\r?\n/g,"<br>") : opts.c) : ""),
+    b: Number(opts.b) || 0,
+    ch: (opts.ch !== undefined && opts.ch !== null) ? Number(opts.ch) : null,
+    v: (opts.v !== undefined && opts.v !== null) ? Number(opts.v) : null,
+    pub: opts.pub || "",
+    ks: opts.ks || "",
+    doc: 0,
+    itn: 0,
+    col: 0,
+    cr: now,
+    mo: now,
+    tg: Array.isArray(opts.tg) ? opts.tg : [],
+    nw: true,
+    tgd: true,
+    ...(opts.stb ? { stb: opts.stb } : {})
+  };
+}
+window.createNote = createNote;
 /**
  * Skrót do document.getElementById — najczęściej używana operacja w całym kodzie.
  * @param {string} id  identyfikator elementu

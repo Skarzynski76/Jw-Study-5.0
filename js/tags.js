@@ -451,16 +451,11 @@ function sectionMenu(e, s){
   };
 }
 /* kolory pasków sekcji — nasycone, dobrze widoczne z białym tekstem */
-/* Kolory pasków sekcji. Wcześniej były to nasycone, ciemne barwy, które na tle jasnych
-   kafelków biły po oczach. Teraz to pastele — pasek może więc brać kolor w całości,
-   a mimo to nie przytłacza kolumny. Napis na pasku i tak dobiera czytelnyTekst(). */
-const SECCOLORS = ["#cfe3d6","#cfdcea","#dcd4ea","#f0dcc6","#eed6dd","#cfe4e2","#e6e2c6","#dcdfe4","#ecd4d4"];
-/* Pastele: na tyle nasycone, żeby dało się je od siebie odróżnić, i na tyle jasne,
-   żeby ciemny tekst czytało się na nich bez wysiłku. Kolor napisu i tak liczy
-   czytelnyTekst(), więc dobór barwy nie decyduje już o czytelności. */
-const TAGCOLORS = ["#e8c86a","#dcb08a","#e0a89a","#c9b6d8","#a9c4e4","#9fd0c7","#b6d9a8","#efb7c4","#c2c8d0"];
-/* pastelowe kompozycje: jeden zgrany odcień na całą kompozycję kolumn i belek */
-const PASTELS = [["Lawenda","#b9a9d6"],["Mięta","#9ed3c2"],["Brzoskwinia","#e8b894"],["Błękit","#a6c3e0"],["Róż","#e2adc0"],["Piasek","#dccfae"],["Szałwia","#b7c9a8"],["Grafit","#b9bec6"]];
+if(typeof SECCOLORS === "undefined") var SECCOLORS = ["#cfe3d6","#cfdcea","#dcd4ea","#f0dcc6","#eed6dd","#cfe4e2","#e6e2c6","#dcdfe4","#ecd4d4"];
+/* Pastele etykiet */
+if(typeof TAGCOLORS === "undefined") var TAGCOLORS = ["#e8c86a","#dcb08a","#e0a89a","#c9b6d8","#a9c4e4","#9fd0c7","#b6d9a8","#efb7c4","#c2c8d0"];
+/* Pastelowe kompozycje: jeden zgrany odcień na całą kompozycję kolumn i belek */
+if(typeof PASTELS === "undefined") var PASTELS = [["Lawenda","#b9a9d6"],["Mięta","#9ed3c2"],["Brzoskwinia","#e8b894"],["Błękit","#a6c3e0"],["Róż","#e2adc0"],["Piasek","#dccfae"],["Szałwia","#b7c9a8"],["Grafit","#b9bec6"]];
 /**
  * Gotowa kompozycja — jeden kolor na CAŁY interfejs.
  *

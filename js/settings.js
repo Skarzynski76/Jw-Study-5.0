@@ -53,11 +53,13 @@ function optionGroup(group, options, current){
  */
 function kompozycjeHtml(){
   const teraz = typeof biezacaKompozycja==="function" ? biezacaKompozycja() : "";
-  return PASTELS.map(([nm,c])=>{
+  const lista = (typeof PASTELS !== "undefined" && Array.isArray(PASTELS)) ? PASTELS : (window.PASTELS || []);
+  return lista.map(([nm,c])=>{
     const wybrana = teraz===c;
-    const tlo = shade(desat(c,.18), -.42);
+    const tlo = (typeof shade === "function" && typeof desat === "function") ? shade(desat(c,.18), -.42) : c;
+    const txtKol = typeof czytelnyTekst === "function" ? czytelnyTekst(tlo) : "#ffffff";
     return `<button class="st-kafel${wybrana?" on":""}" data-komp="${c}" `+
-           `style="background:${tlo};color:${czytelnyTekst(tlo)}">${esc(nm)}`+
+           `style="background:${tlo};color:${txtKol}">${esc(nm)}`+
            (wybrana?'<span class="st-ptak">✓</span>':"")+`</button>`;
   }).join("") +
   `<button class="st-kafel st-kafel-domyslny${teraz?"":" on"}" data-komp="reset">Domyślna`+

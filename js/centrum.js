@@ -3465,8 +3465,8 @@ if($("centrum")){
     const notWersBtn = ev.target.closest("[data-cnotatka-werset]");
     if(notWersBtn){
       const ref = notWersBtn.dataset.cnotatkaWerset;
-      const parsed = parseRef ? parseRef(ref) : null;
-      const newN = createNote ? createNote() : null;
+      const parsed = typeof parseRef === "function" ? parseRef(ref) : null;
+      const newN = typeof createNote === "function" ? createNote() : null;
       if(newN && parsed){
         newN.b = parsed.b;
         newN.ch = parsed.ch;
