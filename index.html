@@ -10486,8 +10486,9 @@ body.focus-mode #colNotes{
 #colorMenu, #motywMenu{ z-index:100020 !important; }
 .overlay{ z-index:100100 !important; }
 #replacePanel, #tableSizePanel, #fragmentPanel{ z-index:100150 !important; }
-#askModal, #msgModal{ z-index:100200 !important; }
-#toast, .toast, .gran-toast{ z-index:100300 !important; }
+#nowaWersja{ z-index:100450 !important; }
+#askModal, #msgModal{ z-index:100500 !important; }
+#toast, .toast, .gran-toast{ z-index:100600 !important; }
 
 body.fs-open #dropdown{ z-index:100130 !important; }
 body.fs-open #colorMenu,
@@ -10500,7 +10501,7 @@ body.fs-open #replacePanel,
 body.fs-open #tableSizePanel,
 body.fs-open #fragmentPanel{ z-index:100150 !important; }
 body.fs-open #askModal,
-body.fs-open #msgModal{ z-index:100200 !important; }
+body.fs-open #msgModal{ z-index:100500 !important; }
 
 /* W czytniku działania są zawsze pod ręką, jak w nowoczesnym czytniku książek.
    Pasek nie znika na końcu długiej notatki, a półprzezroczyste tło nie odcina
@@ -12904,11 +12905,13 @@ html[data-theme="sepia"] .sidebar-float-trigger {
 #askModal,
 #msgModal,
 #askModal.overlay,
-#msgModal.overlay {
-  z-index: 10050 !important;
+#msgModal.overlay,
+body.fs-open #askModal,
+body.fs-open #msgModal {
+  z-index: 100500 !important;
 }
 #nowaWersja {
-  z-index: 10060 !important;
+  z-index: 100450 !important;
 }
 
 /* ══════════════ WYSOKOŚĆ I DOPASOWANIE NAGŁÓWKA (IPAD & SAFE AREA) ══════════════ */
