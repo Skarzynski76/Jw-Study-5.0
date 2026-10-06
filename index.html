@@ -10206,15 +10206,25 @@ body.focus-mode #colNotes{
 #hlBar{ z-index:120; }
 #readPop,#ebPop{ z-index:121; }
 #imgBar{ z-index:122; }
-.overlay{ z-index:3000 !important; }
+#dropdown{ z-index:100020 !important; }
+#colorMenu, #motywMenu{ z-index:100020 !important; }
+.overlay{ z-index:100100 !important; }
+#replacePanel, #tableSizePanel, #fragmentPanel{ z-index:100150 !important; }
+#askModal, #msgModal{ z-index:100200 !important; }
+#toast, .toast, .gran-toast{ z-index:100300 !important; }
 
-body.fs-open #dropdown{ z-index:10030; }
+body.fs-open #dropdown{ z-index:100130 !important; }
 body.fs-open #colorMenu,
-body.fs-open #ebPop{ z-index:10035; }
-body.fs-open #readPop{ z-index:10035; }
-body.fs-open #hlBar{ z-index:10036; }
-body.fs-open #imgBar{ z-index:10037; }
-body.fs-open .overlay:not(#modalFs){ z-index:10040; }
+body.fs-open #ebPop{ z-index:100135 !important; }
+body.fs-open #readPop{ z-index:100135 !important; }
+body.fs-open #hlBar{ z-index:100136 !important; }
+body.fs-open #imgBar{ z-index:100137 !important; }
+body.fs-open .overlay:not(#modalFs){ z-index:100140 !important; }
+body.fs-open #replacePanel,
+body.fs-open #tableSizePanel,
+body.fs-open #fragmentPanel{ z-index:100150 !important; }
+body.fs-open #askModal,
+body.fs-open #msgModal{ z-index:100200 !important; }
 
 /* W czytniku działania są zawsze pod ręką, jak w nowoczesnym czytniku książek.
    Pasek nie znika na końcu długiej notatki, a półprzezroczyste tło nie odcina
@@ -21345,9 +21355,25 @@ function insertNodeAtRange(node, ce, range){
     node.parentNode.insertBefore(document.createTextNode(" "), node.nextSibling);
   } else { ce.appendChild(node); ce.appendChild(document.createTextNode(" ")); }
 }
+function dismissPopupsAndSidebar(){
+  const dd=$("dropdown"); if(dd) dd.style.display="none";
+  const cm=$("colorMenu"); if(cm) cm.style.display="none";
+  const mm=$("motywMenu"); if(mm) mm.style.display="none";
+  if(typeof toggleMobileSidebar==="function"){
+    toggleMobileSidebar(false);
+  } else {
+    document.body.classList.remove("mobile-sidebar-open");
+    const ac=document.getElementById("appContainer");
+    if(ac) ac.classList.remove("mobile-sidebar-open");
+    const bd=document.getElementById("sidebarBackdrop");
+    if(bd) bd.setAttribute("aria-hidden","true");
+  }
+}
+
 /* własne okienko tekstowe — działa też w aplikacji na iOS (gdzie prompt() bywa zablokowany) */
 function askText(o){
   o=o||{};
+  dismissPopupsAndSidebar();
   return new Promise(res=>{
     const m=$("askModal");
     const t=m.querySelector(".askTitle"), inp=m.querySelector(".askInput"), hint=m.querySelector(".askHint");
@@ -21370,6 +21396,7 @@ function askText(o){
   });
 }
 function showInfo(title, html){
+  dismissPopupsAndSidebar();
   return new Promise(res=>{
     const m=$("msgModal"); m.querySelector(".askTitle").textContent=title; m.querySelector(".msgBody").innerHTML=html;
     const ok=m.querySelector(".msgOk"), cancel=m.querySelector(".msgCancel");
@@ -21382,6 +21409,7 @@ function showInfo(title, html){
 }
 /* okno z kilkoma odpowiedziami (np. Scal / Zastąp / Anuluj) */
 function askChoice(title, html, buttons){
+  dismissPopupsAndSidebar();
   return new Promise(res=>{
     const m=$("msgModal");
     m.querySelector(".askTitle").textContent=title;
@@ -21410,6 +21438,7 @@ function askChoice(title, html, buttons){
 /* własne okno potwierdzenia — działa w aplikacji na iOS (gdzie confirm() jest zablokowany) */
 function askConfirm(title, html, opts){
   opts=opts||{};
+  dismissPopupsAndSidebar();
   return new Promise(res=>{
     const m=$("msgModal"); m.querySelector(".askTitle").textContent=title; m.querySelector(".msgBody").innerHTML=html;
     const ok=m.querySelector(".msgOk"), cancel=m.querySelector(".msgCancel");
