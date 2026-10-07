@@ -12196,8 +12196,6 @@ html[data-theme="sepia"] .sidebar-float-trigger {
   max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  container-type: inline-size;
-  container-name: notatki;
   overflow-x: hidden;
 }
 
@@ -13581,7 +13579,7 @@ html, body {
   overflow-x: hidden !important;
 }
 
-#colNotes, #centrum {
+#colNotes {
   flex: 1 1 0 !important;
   min-width: 0 !important;
   width: 100% !important;
@@ -13592,15 +13590,77 @@ html, body {
   overflow-x: hidden !important;
 }
 
-/* 3. Płynna siatka notatek (Fluid Grid) i responsywne karty */
-#noteList {
+#centrum {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+}
+
+/* Gwarancja absolutnego rozdzielenia Centrum i Listy Notatek (nigdy nie nakładają się naraz) */
+[hidden],
+#centrum[hidden],
+#noteList[hidden],
+#pasekListy[hidden],
+#viewBar[hidden],
+#quickFilters[hidden],
+#counts[hidden],
+#searchStatus[hidden],
+#pasekZbiorczy[hidden] {
+  display: none !important;
+}
+
+/* Gdy Centrum jest aktywne (body.centrum-open) - ukrywamy CAŁKOWICIE notatki i wszystkie paski listy */
+body.centrum-open #noteList,
+body.centrum-open #pasekListy,
+body.centrum-open #viewBar,
+body.centrum-open #quickFilters,
+body.centrum-open #counts,
+body.centrum-open #searchStatus,
+body.centrum-open #pasekZbiorczy {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Gdy Centrum jest otwarte, zajmuje całą przestrzeń kolumny */
+body.centrum-open #centrum:not([hidden]) {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* Gdy Centrum NIE jest aktywne - ukrywamy CAŁKOWICIE Centrum */
+body:not(.centrum-open) #centrum {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* 3. Płynna siatka notatek (Fluid Grid) i responsywne karty - tylko gdy Centrum nie jest otwarte */
+body:not(.centrum-open) #noteList:not([hidden]) {
   width: 100% !important;
   max-width: 100% !important;
   min-width: 0 !important;
   box-sizing: border-box !important;
 }
 
-#noteList.v-tablica {
+body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
   width: 100% !important;
   max-width: 100% !important;
   min-width: 0 !important;
@@ -13611,7 +13671,7 @@ html, body {
 }
 
 @container notatki (max-width: 500px) {
-  #noteList.v-tablica {
+  body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
     grid-template-columns: 1fr !important;
     gap: 8px !important;
   }
@@ -36551,7 +36611,27 @@ function centrKafelPublikacji(pu){
 }
 
 function rysujCentrum(){
-  const el = $("centrum"); if(!el) return;
+  const el = $("centrum"), l = $("noteList"), p = $("pasekListy");
+  if(!el) return;
+  el.hidden = false;
+  el.style.display = "";
+  if(l){
+    l.hidden = true;
+    l.style.display = "none";
+  }
+  if(p){
+    p.hidden = true;
+    p.style.display = "none";
+  }
+  document.body.classList.add("centrum-open");
+  ["viewBar", "quickFilters", "counts", "searchStatus", "pasekZbiorczy"].forEach(id=>{
+    const e = $(id); if(e){ e.hidden = true; e.style.display = "none"; }
+  });
+  const btn = $("btnCentrum");
+  if(btn){
+    btn.classList.add("on");
+    btn.setAttribute("aria-pressed", "true");
+  }
   _cenPamiec = {};                 // pamięć na czas tego jednego rysowania
   try{
     /* Stary renderer zostaje awaryjną drogą dla niepełnych, ręcznie sklejonych
@@ -36560,6 +36640,7 @@ function rysujCentrum(){
     else rysujCentrumWnetrze(el);
   }
   finally{ _cenPamiec = null; }    // i ani chwili dłużej
+  if(typeof updateSidebarActiveStates === "function") updateSidebarActiveStates();
 }
 function rysujCentrumWnetrze(el){
   const kont = centrKontynuuj();
@@ -36787,19 +36868,37 @@ function centrumOdswiez(){
   const pokaz = centrumWidoczne();
   if(pokaz) rysujCentrum();
   c.hidden = !pokaz;
+  c.style.display = pokaz ? "" : "none";
+  l.hidden = pokaz;
   l.style.display = pokaz ? "none" : "";
-  const pasek=$("pasekListy"); if(pasek) pasek.hidden=pokaz;
+  const pasek = $("pasekListy");
+  if(pasek){
+    pasek.hidden = pokaz;
+    pasek.style.display = pokaz ? "none" : "";
+  }
   document.body.classList.toggle("centrum-open", pokaz);
   /* Pasek widoku, filtry i licznik dotyczą LISTY — przy Centrum nie mają czego
      opisywać i tylko dublowałyby jego nagłówek. */
-  ["viewBar", "quickFilters", "counts"].forEach(id=>{
-    const e = $(id); if(e) e.style.display = pokaz ? "none" : "";
+  ["viewBar", "quickFilters", "counts", "searchStatus", "pasekZbiorczy"].forEach(id=>{
+    const e = $(id);
+    if(e){
+      if(pokaz){
+        e.hidden = true;
+        e.style.display = "none";
+      } else {
+        if(id !== "searchStatus" && id !== "pasekZbiorczy"){
+          e.hidden = false;
+          e.style.display = "";
+        }
+      }
+    }
   });
   const btn = $("btnCentrum");
   if(btn){
     btn.classList.toggle("on", pokaz);
     btn.setAttribute("aria-pressed", pokaz ? "true" : "false");
   }
+  if(typeof updateSidebarActiveStates === "function") updateSidebarActiveStates();
 }
 
 function centrumPokaz(){
@@ -36833,16 +36932,22 @@ function centrumPokaz(){
   const c = $("centrum"), l = $("noteList");
   if(c){
     c.hidden = false;
+    c.style.display = "";
     rysujCentrum();
     c.scrollTop = 0;
   }
   if(l){
+    l.hidden = true;
     l.style.display = "none";
   }
-  const pasek = $("pasekListy"); if(pasek) pasek.hidden = true;
+  const pasek = $("pasekListy");
+  if(pasek){
+    pasek.hidden = true;
+    pasek.style.display = "none";
+  }
   document.body.classList.add("centrum-open");
-  ["viewBar", "quickFilters", "counts"].forEach(id=>{
-    const e = $(id); if(e) e.style.display = "none";
+  ["viewBar", "quickFilters", "counts", "searchStatus", "pasekZbiorczy"].forEach(id=>{
+    const e = $(id); if(e){ e.hidden = true; e.style.display = "none"; }
   });
   const btn = $("btnCentrum");
   if(btn){
@@ -36857,14 +36962,20 @@ function centrumSchowaj(){
   const c = $("centrum"), l = $("noteList");
   if(c){
     c.hidden = true;
+    c.style.display = "none";
   }
   if(l){
+    l.hidden = false;
     l.style.display = "";
   }
-  const pasek = $("pasekListy"); if(pasek) pasek.hidden = false;
+  const pasek = $("pasekListy");
+  if(pasek){
+    pasek.hidden = false;
+    pasek.style.display = "";
+  }
   document.body.classList.remove("centrum-open");
   ["viewBar", "quickFilters", "counts"].forEach(id=>{
-    const e = $(id); if(e) e.style.display = "";
+    const e = $(id); if(e){ e.hidden = false; e.style.display = ""; }
   });
   const btn = $("btnCentrum");
   if(btn){
@@ -37341,6 +37452,8 @@ if($("centrum")){
       if(!t){ toast("Tego projektu już nie ma"); rysujCentrum(); return; }
       filt.tag=id; filt.book="all"; filt.ch=null; filt.pub="all";
       if(typeof quickFilter!=="undefined") quickFilter="all";
+      centrTryb = "auto";
+      lsSet(CENTR_KLUCZ, "auto");
       if(typeof persistFilt==="function") persistFilt();
       renderAll(); if(innerWidth<=900&&typeof mobileShow==="function") mobileShow("colNotes"); return;
     }
@@ -37352,6 +37465,8 @@ if($("centrum")){
       if(!istnieje){ toast("Tej kolekcji już nie ma"); rysujCentrum(); return; }
       filt.tag = "all"; filt.book = "all"; filt.ch = null; filt.pub = "ptb:" + id;
       if(typeof quickFilter !== "undefined") quickFilter = "all";
+      centrTryb = "auto";
+      lsSet(CENTR_KLUCZ, "auto");
       if(typeof persistFilt === "function") persistFilt();
       renderAll();
       if(innerWidth <= 900 && typeof mobileShow === "function") mobileShow("colNotes");
@@ -37365,6 +37480,8 @@ if($("centrum")){
       if(!istnieje){ toast("Tej zakładki już nie ma"); rysujCentrum(); return; }
       filt.tag="stb:"+id; filt.book="all"; filt.ch=null; filt.pub="all";
       if(typeof quickFilter!=="undefined") quickFilter="all";
+      centrTryb = "auto";
+      lsSet(CENTR_KLUCZ, "auto");
       if(typeof persistFilt==="function") persistFilt();
       renderAll();
       if(innerWidth<=900&&typeof mobileShow==="function") mobileShow("colNotes");
@@ -37405,7 +37522,7 @@ if($("centrum")){
         if(sel && [...sel.options].some(o=>o.value === m)){ sel.value = m; lsSet(KP + "Sort", m); }
       };
       if(typeof quickFilter !== "undefined") quickFilter = "all";
-      if(co === "studiowane"){ ustawSort("recent"); centrTryb = "auto"; renderAll(); return; }
+      if(co === "studiowane"){ ustawSort("recent"); centrTryb = "auto"; lsSet(CENTR_KLUCZ, "auto"); renderAll(); return; }
       if(co === "dodane" || co === "notatki") ustawSort("createdNew");
       else if(co === "wersety") ustawSort("bible");
       else if(co === "publikacje") ustawSort("pub");
@@ -37430,6 +37547,7 @@ if($("centrum")){
       filt.tag = "all"; filt.book = b; filt.ch = ch; filt.pub = "all";
       if(typeof expandedBook !== "undefined") expandedBook = b;
       centrTryb = "auto";            // wybór filtra sam odsłoni listę
+      lsSet(CENTR_KLUCZ, "auto");
       if(typeof persistFilt === "function") persistFilt();
       renderAll();
       if(innerWidth <= 900 && typeof mobileShow === "function") mobileShow("colNotes");
@@ -37438,6 +37556,8 @@ if($("centrum")){
     const pub = ev.target.closest("[data-cpub]");
     if(pub){
       filt.tag = "all"; filt.book = "all"; filt.ch = null; filt.pub = "pub:" + pub.dataset.cpub;
+      centrTryb = "auto";
+      lsSet(CENTR_KLUCZ, "auto");
       if(typeof persistFilt === "function") persistFilt();
       renderAll();
       if(innerWidth <= 900 && typeof mobileShow === "function") mobileShow("colNotes");
@@ -37447,6 +37567,8 @@ if($("centrum")){
     if(szuk){
       const inp = $("search");
       if(inp){ inp.value = szuk.dataset.cszuk; parseQuery(inp.value); }
+      centrTryb = "auto";
+      lsSet(CENTR_KLUCZ, "auto");
       renderAll();
       if(innerWidth <= 900 && typeof mobileShow === "function") mobileShow("colNotes");
       return;
