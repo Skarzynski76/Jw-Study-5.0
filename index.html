@@ -1678,6 +1678,388 @@ html[data-theme="dark"] .cenHeroTag {
   color: #60a5fa;
 }
 
+/* ══════════════ DUCHOWE CELE I NAWYKI ══════════════ */
+.cenCeleHeaderBanner {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 20px;
+  padding: clamp(16px, 2.2vw, 24px);
+  margin-bottom: 22px;
+  box-shadow: var(--cen-card-shadow);
+  position: relative;
+  overflow: hidden;
+}
+.cenCeleStatsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+.cenCeleStatTile {
+  background: var(--cen-btn-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.16s ease;
+}
+.cenCeleStatTile:hover {
+  border-color: var(--cen-card-border-hover);
+  transform: translateY(-2px);
+}
+.cenCeleStatVal {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--cen-text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.cenCeleStatLbl {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--cen-text-muted);
+}
+.cenCeleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+  margin-bottom: 26px;
+}
+.cenCelCard {
+  background: var(--cen-card-bg);
+  border: 1.5px solid var(--cen-card-border);
+  border-radius: 20px;
+  padding: clamp(16px, 2vw, 22px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--cen-card-shadow);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+.cenCelCard:hover {
+  transform: translateY(-3px);
+  border-color: var(--cen-card-border-hover);
+  box-shadow: var(--cen-card-shadow-hover);
+}
+.cenCelCard.completed {
+  border-color: rgba(16, 185, 129, 0.45);
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, var(--cen-card-bg) 100%);
+}
+.cenCelTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.cenCelCatBadge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.cenCelStatusBadge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(100, 116, 139, 0.12);
+  color: var(--cen-text-muted);
+}
+.cenCelStatusBadge.done {
+  background: rgba(16, 185, 129, 0.16);
+  color: #10b981;
+  font-weight: 700;
+}
+.cenCelTyt {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--cen-text);
+  margin: 0 0 6px 0;
+  line-height: 1.35;
+}
+.cenCelOpis {
+  font-size: 13px;
+  color: var(--cen-text-sub);
+  line-height: 1.45;
+  margin: 0 0 10px 0;
+}
+.cenCelVerseBox {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--cen-text-muted);
+  background: var(--cen-btn-bg);
+  border-left: 3px solid var(--cel-color, #3b82f6);
+  padding: 6px 10px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cenCelVerseBtn {
+  background: transparent;
+  border: none;
+  color: #3b82f6;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  transition: all 0.14s ease;
+  white-space: nowrap;
+}
+.cenCelVerseBtn:hover {
+  background: rgba(59, 130, 246, 0.12);
+  text-decoration: underline;
+}
+/* TYDZIEŃ NAWYKÓW */
+.cenCelWeekRow {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  margin-bottom: 14px;
+}
+.cenCelDayBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 2px;
+  border-radius: 10px;
+  border: 1px solid var(--cen-card-border);
+  background: var(--cen-btn-bg);
+  cursor: pointer;
+  transition: all 0.14s ease;
+  gap: 2px;
+}
+.cenCelDayBtn:hover {
+  border-color: var(--cel-color, #3b82f6);
+  transform: translateY(-2px);
+}
+.cenCelDayBtn.today {
+  border: 1.5px solid var(--cel-color, #3b82f6);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.18);
+}
+.cenCelDayBtn.done {
+  background: var(--cel-color, #3b82f6);
+  border-color: var(--cel-color, #3b82f6);
+  color: #ffffff;
+}
+.cenCelDayBtn.done .cenCelDayLbl, .cenCelDayBtn.done .cenCelDayNum {
+  color: #ffffff;
+}
+.cenCelDayLbl {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--cen-text-muted);
+}
+.cenCelDayNum {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cen-text);
+}
+.cenCelDayIko {
+  font-size: 9.5px;
+  line-height: 1;
+}
+/* CEL LICZBOWY ROW */
+.cenCelNumWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background: var(--cen-btn-bg);
+  border-radius: 12px;
+  border: 1px solid var(--cen-card-border);
+  gap: 8px;
+}
+.cenCelNumDisplay {
+  display: flex;
+  flex-direction: column;
+}
+.cenCelNumVal {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--cen-text);
+}
+.cenCelNumVal small {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--cen-text-muted);
+}
+.cenCelNumBtns {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.cenCelNumBtn {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  color: var(--cen-text);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 9px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+.cenCelNumBtn:hover {
+  border-color: var(--cel-color, #3b82f6);
+  color: var(--cel-color, #3b82f6);
+  transform: translateY(-1px);
+}
+/* LISTA KROKÓW (MILESTONES) */
+.cenCelStepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.cenCelStepItem {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px;
+  background: var(--cen-btn-bg);
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: var(--cen-text);
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+.cenCelStepItem:hover {
+  background: var(--cen-card-border-hover);
+}
+.cenCelStepItem.done {
+  text-decoration: line-through;
+  color: var(--cen-text-muted);
+  opacity: 0.8;
+}
+.cenCelStepCheck {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid var(--cen-card-border-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--cen-card-bg);
+}
+.cenCelStepItem.done .cenCelStepCheck {
+  background: #10b981;
+  border-color: #10b981;
+  color: #ffffff;
+}
+/* STOPKA KARTY CELU */
+.cenCelFooter {
+  border-top: 1px solid var(--cen-card-border);
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cenCelProgressMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--cen-text-muted);
+}
+.cenCelProgressMeta b {
+  color: var(--cen-text);
+}
+.cenCelActionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cenCelPrimaryBtn {
+  flex: 1;
+  background: var(--cel-color, #3b82f6);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.cenCelPrimaryBtn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+.cenCelPrimaryBtn.done {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+.cenCelIconBtn {
+  background: var(--cen-btn-bg);
+  border: 1px solid var(--cen-card-border);
+  color: var(--cen-text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.14s ease;
+  flex-shrink: 0;
+}
+.cenCelIconBtn:hover {
+  border-color: var(--cen-card-border-hover);
+  color: var(--cen-text);
+  transform: translateY(-1px);
+}
+/* SZABLONY MODAL */
+.cenTemplatesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+  max-height: 55vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.cenTemplateCard {
+  background: var(--cen-btn-bg);
+  border: 1.5px solid var(--cen-card-border);
+  border-radius: 14px;
+  padding: 13px;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cenTemplateCard:hover {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.06);
+  transform: translateY(-2px);
+}
+
 /* ══════════════ RESPONSIVE BREAKPOINTS ══════════════ */
 @media (max-width: 1024px) {
   .cenCentrumShell {
@@ -1704,6 +2086,9 @@ html[data-theme="dark"] .cenHeroTag {
   .cenZadanieCard {
     padding: 16px 20px;
   }
+  .cenCeleStatsRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 640px) {
@@ -1713,6 +2098,20 @@ html[data-theme="dark"] .cenHeroTag {
   .cenNaglModern {
     margin-bottom: 16px;
     padding-bottom: 10px;
+  }
+  .cenCeleGrid {
+    grid-template-columns: 1fr;
+  }
+  .cenCeleStatsRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .cenCelCard {
+    padding: 14px;
+    border-radius: 16px;
+  }
+  .cenCelWeekRow {
+    gap: 4px;
   }
   .cenNaglModern h1, .cenNaglModern .cenTytGlowny {
     font-size: 16px;
@@ -14925,6 +15324,113 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
     <div id="autoTematyLista" class="autoRules"></div>
     <div class="autoModalFoot"><button class="btn" type="button" id="autoResetEx">Brak wykluczeń</button><span>Wykluczenie usuwa notatkę tylko z tematu automatycznego.</span></div>
     <div class="btnrow" style="justify-content:flex-end;margin-top:18px"><button class="btn" data-zamknij="modalAutoTematy">Gotowe</button></div>
+  </div>
+</div>
+
+<div class="overlay" id="modalCelEdycja" aria-hidden="true">
+  <div class="modal smart-modal" role="dialog" aria-modal="true" style="max-width:540px;">
+    <div class="nn-head">
+      <div>
+        <span class="autoModalKicker">✦ DUCHOWE CELE I NAWYKI</span>
+        <h3 id="modalCelEdycjaTytul">Nowy cel duchowy</h3>
+      </div>
+      <button type="button" class="exp-close-btn" data-zamknij="modalCelEdycja" title="Zamknij">✕</button>
+    </div>
+    <form id="formCelEdycja" onsubmit="return false;" style="display:flex;flex-direction:column;gap:14px;margin-top:14px;">
+      <input type="hidden" id="celInpId" value="" />
+      <div>
+        <label style="font-size:12px;font-weight:700;display:block;margin-bottom:5px;color:var(--cen-text);">Tytuł celu lub nawyku *</label>
+        <input type="text" id="celInpTitle" placeholder="np. Codzienne czytanie Biblii" required style="width:100%;box-sizing:border-box;padding:9px 12px;border-radius:10px;border:1px solid var(--cen-card-border);background:var(--cen-btn-bg);color:var(--cen-text);font-size:13.5px;" />
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:700;display:block;margin-bottom:5px;color:var(--cen-text);">Krótki opis lub motywacja</label>
+        <textarea id="celInpDesc" placeholder="Dlaczego ten cel jest dla Ciebie ważny?" rows="2" style="width:100%;box-sizing:border-box;padding:9px 12px;border-radius:10px;border:1px solid var(--cen-card-border);background:var(--cen-btn-bg);color:var(--cen-text);font-size:13px;resize:vertical;font-family:inherit;"></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <label style="font-size:12px;font-weight:700;display:block;margin-bottom:5px;color:var(--cen-text);">Kategoria</label>
+          <select id="celInpCategory" style="width:100%;box-sizing:border-box;padding:9px 12px;border-radius:10px;border:1px solid var(--cen-card-border);background:var(--cen-btn-bg);color:var(--cen-text);font-size:13px;">
+            <option value="czytanie">📖 Czytanie Biblii</option>
+            <option value="modlitwa">🙏 Modlitwa</option>
+            <option value="sluzba">👥 Służba kaznodziejska</option>
+            <option value="studium">📝 Studium osobiste</option>
+            <option value="zebrania">🏛️ Zebrania</option>
+            <option value="owoce">🍎 Owoce ducha & nawyki</option>
+            <option value="inne">🎯 Inny cel</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:700;display:block;margin-bottom:5px;color:var(--cen-text);">Typ celu</label>
+          <select id="celInpType" style="width:100%;box-sizing:border-box;padding:9px 12px;border-radius:10px;border:1px solid var(--cen-card-border);background:var(--cen-btn-bg);color:var(--cen-text);font-size:13px;">
+            <option value="habit">🔥 Nawyk powtarzalny (dni / serie)</option>
+            <option value="numeric">🎯 Cel liczbowy (postęp z liczbami)</option>
+            <option value="steps">📋 Zadanie etapowe (lista kroków)</option>
+            <option value="boolean">✅ Prosty cel jednoetapowy</option>
+          </select>
+        </div>
+      </div>
+      <div id="celNumericFields" style="display:none;background:var(--cen-btn-bg);padding:12px;border-radius:12px;border:1px solid var(--cen-card-border);">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+          <div>
+            <label style="font-size:11.5px;font-weight:700;display:block;margin-bottom:4px;color:var(--cen-text-muted);">Aktualnie</label>
+            <input type="number" id="celInpCurrent" value="0" min="0" style="width:100%;box-sizing:border-box;padding:7px 10px;border-radius:8px;border:1px solid var(--cen-card-border);background:var(--cen-card-bg);color:var(--cen-text);font-size:13px;" />
+          </div>
+          <div>
+            <label style="font-size:11.5px;font-weight:700;display:block;margin-bottom:4px;color:var(--cen-text-muted);">Cel docelowy *</label>
+            <input type="number" id="celInpTarget" value="10" min="1" style="width:100%;box-sizing:border-box;padding:7px 10px;border-radius:8px;border:1px solid var(--cen-card-border);background:var(--cen-card-bg);color:var(--cen-text);font-size:13px;" />
+          </div>
+          <div>
+            <label style="font-size:11.5px;font-weight:700;display:block;margin-bottom:4px;color:var(--cen-text-muted);">Jednostka</label>
+            <input type="text" id="celInpUnit" value="godz." placeholder="godz., dni..." style="width:100%;box-sizing:border-box;padding:7px 10px;border-radius:8px;border:1px solid var(--cen-card-border);background:var(--cen-card-bg);color:var(--cen-text);font-size:13px;" />
+          </div>
+        </div>
+      </div>
+      <div id="celStepsFields" style="display:none;background:var(--cen-btn-bg);padding:12px;border-radius:12px;border:1px solid var(--cen-card-border);">
+        <label style="font-size:11.5px;font-weight:700;display:block;margin-bottom:4px;color:var(--cen-text);">Lista etapów / kroków (każdy krok w nowej linii)</label>
+        <textarea id="celInpStepsText" rows="3" placeholder="1. Przeczytanie materiału&#10;2. Wyszukanie wersetów&#10;3. Przygotowanie wypowiedzi" style="width:100%;box-sizing:border-box;padding:7px 10px;border-radius:8px;border:1px solid var(--cen-card-border);background:var(--cen-card-bg);color:var(--cen-text);font-size:12.5px;font-family:inherit;"></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:12px;">
+        <div>
+          <label style="font-size:12px;font-weight:700;display:block;margin-bottom:5px;color:var(--cen-text);">Inspirujący werset</label>
+          <input type="text" id="celInpVerse" placeholder="np. Jozuego 1:8" style="width:100%;box-sizing:border-box;padding:9px 12px;border-radius:10px;border:1px solid var(--cen-card-border);background:var(--cen-btn-bg);color:var(--cen-text);font-size:13px;" />
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:700;display:block;margin-bottom:5px;color:var(--cen-text);">Kolor akcentu</label>
+          <select id="celInpColor" style="width:100%;box-sizing:border-box;padding:9px 12px;border-radius:10px;border:1px solid var(--cen-card-border);background:var(--cen-btn-bg);color:var(--cen-text);font-size:13px;">
+            <option value="#3b82f6">🔵 Niebieski</option>
+            <option value="#10b981">🟢 Zielony</option>
+            <option value="#a855f7">🟣 Fioletowy</option>
+            <option value="#f59e0b">🟡 Bursztynowy</option>
+            <option value="#ec4899">🌸 Różowy</option>
+            <option value="#06b6d4">🌊 Morski</option>
+            <option value="#ea580c">🟠 Pomarańczowy</option>
+          </select>
+        </div>
+      </div>
+      <div class="btnrow" style="justify-content:flex-end;gap:10px;margin-top:14px;">
+        <button type="button" class="btn" data-zamknij="modalCelEdycja">Anuluj</button>
+        <button type="button" class="btn primary" id="btnZapiszCel">Zapisz cel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="overlay" id="modalCelSzablony" aria-hidden="true">
+  <div class="modal smart-modal" role="dialog" aria-modal="true" style="max-width:720px;">
+    <div class="nn-head">
+      <div>
+        <span class="autoModalKicker">✨ KATALOG DUCHOWYCH CELÓW</span>
+        <h3>Wybierz gotowy szablon celu</h3>
+      </div>
+      <button type="button" class="exp-close-btn" data-zamknij="modalCelSzablony" title="Zamknij">✕</button>
+    </div>
+    <p style="font-size:13px;color:var(--cen-text-muted);margin:8px 0 14px 0;">
+      Wybierz inspirujący cel duchowy z gotowej listy — możesz go od razu dodać lub dostosować do swoich potrzeb.
+    </p>
+    <div id="cenSzablonyLista" class="cenTemplatesGrid"></div>
+    <div class="btnrow" style="justify-content:flex-end;margin-top:16px;">
+      <button type="button" class="btn" data-zamknij="modalCelSzablony">Zamknij</button>
+    </div>
   </div>
 </div>
 
@@ -33675,7 +34181,7 @@ const CENTR_KLUCZ = KP + "Centrum";        // "auto" albo "lista"
 const CENTR_WLACZONE = KP + "CentrumWl";   // "1" albo "0"
 const CENTR_UKLAD_KLUCZ = KP + "CentrumUklad306";
 const CENTR_WIDOK_KLUCZ = KP + "CentrumWidok308";
-const CENTR_WIDOKI = ["centrum","czytanie-chronologiczne","dzien","lista-dni","kalendarz","statystyki","drzewo","moje-plany","studium-osobiste","temat-szczegoly","projekty","kolejka","inbox","ostatnie","bezpieczenstwo"];
+const CENTR_WIDOKI = ["centrum","czytanie-chronologiczne","dzien","lista-dni","kalendarz","statystyki","drzewo","moje-plany","studium-osobiste","temat-szczegoly","duchowe-cele","cele","projekty","kolejka","inbox","ostatnie","bezpieczenstwo"];
 /* ═══ NOWE MODUŁY I BAZY DANYCH PLANÓW CZYTANIA BIBLII (v3.74) ═══ */
 
 /* 1. Kanon biblijny (66 ksiąg, 1189 rozdziałów) */
@@ -33771,6 +34277,10 @@ let _centrListaTab = "wszystkie";
 let _centrListaSzukaj = "";
 let _centrStatTab = "ogolny";
 let _centrStudiumTab = "tematy";
+let _centrCeleTab = "aktywne";
+let _centrCeleKategoria = "wszystkie";
+let _centrCeleSzukaj = "";
+let _centrCeleEdycjaId = null;
 const _cenNow = new Date();
 let _centrKalRok = _cenNow.getFullYear();
 let _centrKalMies = _cenNow.getMonth();
@@ -34223,6 +34733,745 @@ function _centrPobierzPlany(){
   });
 }
 
+/* 7a. DUCHOWE CELE I NAWYKI — KATALOG SZABLONÓW, PERSYSTENCJA I LOGIKA */
+const BIBLE_SPIRITUAL_GOALS_TEMPLATES = [
+  {
+    title: "Codzienne czytanie Biblii",
+    desc: "Przeczytanie przynajmniej jednego rozdziału lub wyznaczonego fragmentu każdego dnia.",
+    category: "czytanie",
+    type: "habit",
+    color: "#3b82f6",
+    verse: "Jozuego 1:8",
+    history: {}
+  },
+  {
+    title: "Żarliwa, codzienna modlitwa",
+    desc: "Znalezienie spokojnego czasu każdego dnia na szczerą i niepospieszną rozmowę z Jehową.",
+    category: "modlitwa",
+    type: "habit",
+    color: "#a855f7",
+    verse: "1 Tesaloniczan 5:17",
+    history: {}
+  },
+  {
+    title: "Pionier pomocniczy w wybranym miesiącu",
+    desc: "Poświęcenie 15 lub 30 godzin na głoszenie dobrej nowiny w wybranym miesiącu kampanii.",
+    category: "sluzba",
+    type: "numeric",
+    color: "#10b981",
+    current: 0,
+    target: 30,
+    unit: "godz.",
+    verse: "Rzymian 12:11"
+  },
+  {
+    title: "Wypowiedź na każdym zebraniu",
+    desc: "Zgłaszanie się i budowanie zboru przemyślanymi komentarzami.",
+    category: "zebrania",
+    type: "numeric",
+    color: "#f59e0b",
+    current: 0,
+    target: 8,
+    unit: "wypowiedzi",
+    verse: "Psalm 35:18"
+  },
+  {
+    title: "Przygotowanie do zebrań z wyprzedzeniem",
+    desc: "Zaznaczanie odpowiedzi i wyszukiwanie wersetów przed zebraniem w tygodniu i w weekend.",
+    category: "zebrania",
+    type: "habit",
+    color: "#ec4899",
+    verse: "Hebrajczyków 10:24-25",
+    history: {}
+  },
+  {
+    title: "Przeczytanie całej Biblii w rok",
+    desc: "Systematyczne czytanie ~3-4 rozdziałów dziennie, by poznać całe Słowo Boże.",
+    category: "czytanie",
+    type: "numeric",
+    color: "#06b6d4",
+    current: 0,
+    target: 1189,
+    unit: "rozdziałów",
+    verse: "Dzieje 17:11"
+  },
+  {
+    title: "Studium o 9 cechach owocu ducha",
+    desc: "Głębokie rozważenie i zastosowanie każdego aspektu owocu ducha świętego w codziennym życiu.",
+    category: "owoce",
+    type: "steps",
+    color: "#ea580c",
+    verse: "Galatów 5:22-23",
+    steps: [
+      { t: "1. Miłość (agape) — niesamolubna troska o drugich", done: false },
+      { t: "2. Radość — źródło wewnętrznej siły od Jehowy", done: false },
+      { t: "3. Pokój — spokój serca i umysłu", done: false },
+      { t: "4. Cierpliwość — wyrozumiałość wobec innych", done: false },
+      { t: "5. Życzliwość — aktywne wyświadczanie dobra", done: false },
+      { t: "6. Dobroć — prawe postępowanie i czyste intencje", done: false },
+      { t: "7. Wiara — niezłomne zaufanie obietnicom Boga", done: false },
+      { t: "8. Łagodność — panowanie nad emocjami i delikatność", done: false },
+      { t: "9. Panowanie nad sobą — samokontrola w mowie i czynach", done: false }
+    ]
+  },
+  {
+    title: "Zapamiętanie 20 kluczowych wersetów",
+    desc: "Nauka na pamięć wersetów przydatnych w służbie kaznodziejskiej i do pocieszania innych.",
+    category: "studium",
+    type: "numeric",
+    color: "#a855f7",
+    current: 0,
+    target: 20,
+    unit: "wersetów",
+    verse: "Psalm 119:11"
+  },
+  {
+    title: "Rozpoczęcie studium biblijnego",
+    desc: "Kultywowanie zainteresowania u napotkanej osoby i rozpoczęcie regularnego studium z broszury.",
+    category: "sluzba",
+    type: "boolean",
+    color: "#10b981",
+    completed: false,
+    verse: "Mateusza 28:19-20"
+  },
+  {
+    title: "Odwiedzenie i zbudowanie kogoś w potrzebie",
+    desc: "Odwiedziny, telefon lub serdeczna pomoc dla osoby starszej, chorej lub samotnej w zborze.",
+    category: "inne",
+    type: "boolean",
+    color: "#f59e0b",
+    completed: false,
+    verse: "Jakuba 1:27"
+  }
+];
+
+const _centrKategorieMap = {
+  czytanie: { name: "Czytanie Biblii", icon: "📖", color: "#3b82f6" },
+  modlitwa: { name: "Modlitwa", icon: "🙏", color: "#a855f7" },
+  sluzba: { name: "Służba kaznodziejska", icon: "👥", color: "#10b981" },
+  studium: { name: "Studium osobiste", icon: "📝", color: "#6366f1" },
+  zebrania: { name: "Zebrania", icon: "🏛️", color: "#f59e0b" },
+  owoce: { name: "Owoce ducha & nawyki", icon: "🍎", color: "#ea580c" },
+  inne: { name: "Osobiste", icon: "🎯", color: "#06b6d4" }
+};
+
+function _centrPobierzCele(){
+  const raw = lsGet(KP + "CentrumCele_v1", null) || lsGet("jw_centr_cele_v1", null);
+  if(raw){
+    try {
+      const arr = JSON.parse(raw);
+      if(Array.isArray(arr) && arr.length) return arr;
+    } catch(e){}
+  }
+  const domyslne = [
+    {
+      id: "cel_domyslny_1",
+      title: "Codzienne czytanie Biblii",
+      desc: "Przeczytanie przynajmniej jednego fragmentu każdego dnia.",
+      category: "czytanie",
+      type: "habit",
+      color: "#3b82f6",
+      verse: "Jozuego 1:8",
+      history: {},
+      created: Date.now(),
+      completed: false
+    },
+    {
+      id: "cel_domyslny_2",
+      title: "Żarliwa modlitwa każdego dnia",
+      desc: "Znalezienie spokojnej chwili na niepospieszną modlitwę.",
+      category: "modlitwa",
+      type: "habit",
+      color: "#a855f7",
+      verse: "1 Tesaloniczan 5:17",
+      history: {},
+      created: Date.now(),
+      completed: false
+    },
+    {
+      id: "cel_domyslny_3",
+      title: "Przygotowanie do zebrań z wyprzedzeniem",
+      desc: "Przestudiowanie materiału i zaznaczenie kluczowych myśli.",
+      category: "zebrania",
+      type: "habit",
+      color: "#f59e0b",
+      verse: "Hebrajczyków 10:24-25",
+      history: {},
+      created: Date.now(),
+      completed: false
+    },
+    {
+      id: "cel_domyslny_4",
+      title: "Wypowiedź na zebraniu w tym miesiącu",
+      desc: "Zgłaszanie się i budowanie zboru przemyślanymi komentarzami.",
+      category: "zebrania",
+      type: "numeric",
+      color: "#10b981",
+      current: 0,
+      target: 8,
+      unit: "wypowiedzi",
+      verse: "Psalm 35:18",
+      created: Date.now(),
+      completed: false
+    }
+  ];
+  _centrZapiszCele(domyslne);
+  return domyslne;
+}
+
+function _centrZapiszCele(cele){
+  if(!Array.isArray(cele)) return;
+  const json = JSON.stringify(cele);
+  lsSet(KP + "CentrumCele_v1", json);
+  lsSet("jw_centr_cele_v1", json);
+}
+
+function _centrDodajLubEdytujCel(dane){
+  const cele = _centrPobierzCele();
+  if(dane.id){
+    const idx = cele.findIndex(c => c.id === dane.id);
+    if(idx >= 0){
+      cele[idx] = { ...cele[idx], ...dane, modified: Date.now() };
+    }
+  } else {
+    const newId = "cel_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5);
+    const newCel = {
+      id: newId,
+      title: dane.title || "Nowy cel",
+      desc: dane.desc || "",
+      category: dane.category || "inne",
+      type: dane.type || "habit",
+      color: dane.color || "#3b82f6",
+      verse: dane.verse || "",
+      completed: !!dane.completed,
+      created: Date.now(),
+      ...dane
+    };
+    if(newCel.type === "habit" && !newCel.history) newCel.history = {};
+    if(newCel.type === "numeric"){
+      newCel.current = Number(dane.current) || 0;
+      newCel.target = Number(dane.target) || 10;
+      newCel.unit = dane.unit || "razy";
+    }
+    if(newCel.type === "steps" && (!newCel.steps || !Array.isArray(newCel.steps))){
+      newCel.steps = [];
+    }
+    cele.unshift(newCel);
+  }
+  _centrZapiszCele(cele);
+}
+
+function _centrUsunCel(celId){
+  const cele = _centrPobierzCele().filter(c => c.id !== celId);
+  _centrZapiszCele(cele);
+}
+
+function _centrPrzelaczCelUkonczony(celId){
+  const cele = _centrPobierzCele();
+  const c = cele.find(x => x.id === celId);
+  if(c){
+    c.completed = !c.completed;
+    c.completedAt = c.completed ? Date.now() : null;
+    _centrZapiszCele(cele);
+  }
+}
+
+function _centrZmienLicznikCelu(celId, delta){
+  const cele = _centrPobierzCele();
+  const c = cele.find(x => x.id === celId);
+  if(c && c.type === "numeric"){
+    c.current = Math.max(0, (Number(c.current) || 0) + delta);
+    if(c.target > 0 && c.current >= c.target){
+      c.completed = true;
+      c.completedAt = Date.now();
+    } else {
+      c.completed = false;
+      c.completedAt = null;
+    }
+    _centrZapiszCele(cele);
+  }
+}
+
+function _centrPrzelaczKrokCelu(celId, stepIdx){
+  const cele = _centrPobierzCele();
+  const c = cele.find(x => x.id === celId);
+  if(c && c.type === "steps" && Array.isArray(c.steps) && c.steps[stepIdx]){
+    c.steps[stepIdx].done = !c.steps[stepIdx].done;
+    const allDone = c.steps.length > 0 && c.steps.every(s => s.done);
+    c.completed = allDone;
+    c.completedAt = allDone ? Date.now() : null;
+    _centrZapiszCele(cele);
+  }
+}
+
+function _centrPrzelaczDzienNawyku(celId, dateStr){
+  const cele = _centrPobierzCele();
+  const c = cele.find(x => x.id === celId);
+  if(c && c.type === "habit"){
+    if(!c.history || typeof c.history !== "object") c.history = {};
+    if(c.history[dateStr]) delete c.history[dateStr];
+    else c.history[dateStr] = true;
+    _centrZapiszCele(cele);
+  }
+}
+
+function _centrPobierzOstatnie7Dni(){
+  const res = [];
+  const dniNazwy = ["Nd", "Pn", "Wt", "Śr", "Cz", "Pt", "Sb"];
+  const now = new Date();
+  for(let i = 6; i >= 0; i--){
+    const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    const dateStr = y + "-" + m + "-" + day;
+    res.push({
+      dateStr: dateStr,
+      dayName: dniNazwy[d.getDay()],
+      dayNum: d.getDate(),
+      isToday: (i === 0)
+    });
+  }
+  return res;
+}
+
+function _centrObliczSerieNawyku(history){
+  if(!history || typeof history !== "object") return { current: 0, best: 0, total: 0 };
+  const doneDates = Object.keys(history).filter(k => history[k]);
+  const total = doneDates.length;
+  if(!total) return { current: 0, best: 0, total: 0 };
+
+  const set = new Set(doneDates);
+  let curStreak = 0;
+  const now = new Date();
+  
+  const getStr = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  
+  let checkDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  let todayStr = getStr(checkDate);
+  
+  if(!set.has(todayStr)){
+    checkDate.setDate(checkDate.getDate() - 1);
+  }
+  
+  while(set.has(getStr(checkDate))){
+    curStreak++;
+    checkDate.setDate(checkDate.getDate() - 1);
+  }
+
+  const sorted = Array.from(set).sort();
+  let bestStreak = 0;
+  let tempStreak = 0;
+  let prevTime = null;
+
+  for(const dStr of sorted){
+    const parts = dStr.split("-").map(Number);
+    const dTime = new Date(parts[0], parts[1]-1, parts[2]).getTime();
+    if(prevTime === null){
+      tempStreak = 1;
+    } else {
+      const diffDays = Math.round((dTime - prevTime) / 86400000);
+      if(diffDays === 1){
+        tempStreak++;
+      } else if(diffDays > 1){
+        tempStreak = 1;
+      }
+    }
+    prevTime = dTime;
+    if(tempStreak > bestStreak) bestStreak = tempStreak;
+  }
+
+  return { current: curStreak, best: Math.max(bestStreak, curStreak), total: total };
+}
+
+function _centrKartaCeluHtml(c){
+  const cat = _centrKategorieMap[c.category] || { name: "Cel", icon: "🎯", color: "#3b82f6" };
+  const color = c.color || cat.color;
+  const isDone = !!c.completed;
+
+  let bodyHtml = '';
+  let footerBtnHtml = '';
+
+  if(c.type === "habit"){
+    const streakInfo = _centrObliczSerieNawyku(c.history);
+    const last7Days = _centrPobierzOstatnie7Dni();
+
+    const weekButtonsHtml = last7Days.map(d => {
+      const isDayDone = !!(c.history && c.history[d.dateStr]);
+      return '<button type="button" class="cenCelDayBtn' + (d.isToday ? ' today' : '') + (isDayDone ? ' done' : '') + '" data-cel-habit-day="' + c.id + '" data-date="' + d.dateStr + '" title="' + d.dateStr + (d.isToday ? ' (Dzisiaj)' : '') + '">'
+        + '<span class="cenCelDayLbl">' + d.dayName + '</span>'
+        + '<span class="cenCelDayNum">' + d.dayNum + '</span>'
+        + '<span class="cenCelDayIko">' + (isDayDone ? '✓' : '○') + '</span>'
+        + '</button>';
+    }).join('');
+
+    bodyHtml = '<div class="cenCelWeekRow" style="--cel-color:' + color + ';">' + weekButtonsHtml + '</div>'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--cen-text-muted);margin-bottom:12px;">'
+      + '<span style="display:inline-flex;align-items:center;gap:4px;font-weight:700;color:' + (streakInfo.current > 0 ? '#f59e0b' : 'var(--cen-text-muted)') + ';">'
+      + '🔥 Bieżąca seria: ' + streakInfo.current + ' ' + (streakInfo.current === 1 ? 'dzień' : 'dni')
+      + '</span>'
+      + '<span>Najdłuższa: <b>' + streakInfo.best + ' dni</b> • Razem: <b>' + streakInfo.total + '</b></span>'
+      + '</div>';
+
+    footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isDone ? ' done' : '') + '" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
+      + (isDone ? '✓ Oznaczony jako ukończony' : '✓ Oznacz jako ukończony')
+      + '</button>';
+  } else if(c.type === "numeric"){
+    const cur = Number(c.current) || 0;
+    const tgt = Number(c.target) || 10;
+    const unit = c.unit || "razy";
+    const pctNum = tgt > 0 ? Math.min(100, Math.round((cur / tgt) * 100)) : 0;
+
+    bodyHtml = '<div class="cenCelNumWrap">'
+      + '<div class="cenCelNumDisplay">'
+      + '<div class="cenCelNumVal">' + cur + ' <small>/ ' + tgt + ' ' + esc(unit) + '</small></div>'
+      + '</div>'
+      + '<div class="cenCelNumBtns" style="--cel-color:' + color + ';">'
+      + '<button type="button" class="cenCelNumBtn" data-cel-num-delta="' + c.id + '" data-delta="-1" title="Odejmij 1">-1</button>'
+      + '<button type="button" class="cenCelNumBtn" data-cel-num-delta="' + c.id + '" data-delta="1" title="Dodaj 1">+1</button>'
+      + '<button type="button" class="cenCelNumBtn" data-cel-num-delta="' + c.id + '" data-delta="5" title="Dodaj 5">+5</button>'
+      + '</div>'
+      + '</div>'
+      + '<div style="margin-bottom:12px;">'
+      + '<div class="cenCelProgressMeta" style="margin-bottom:4px;"><span>Postęp celu:</span><b>' + pctNum + '%</b></div>'
+      + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + pctNum + '%;background:' + color + ';"></div></div>'
+      + '</div>';
+
+    footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isDone ? ' done' : '') + '" data-cel-num-delta="' + c.id + '" data-delta="1" style="--cel-color:' + color + ';">'
+      + (isDone ? '🎉 Osiągnięto cel (' + cur + '/' + tgt + ')' : '+1 ' + esc(unit))
+      + '</button>';
+  } else if(c.type === "steps"){
+    const steps = Array.isArray(c.steps) ? c.steps : [];
+    const doneCount = steps.filter(s => s.done).length;
+    const totalSteps = steps.length;
+    const pctNum = totalSteps > 0 ? Math.round((doneCount / totalSteps) * 100) : 0;
+
+    const stepsListHtml = steps.map((s, idx) => {
+      return '<div class="cenCelStepItem' + (s.done ? ' done' : '') + '" data-cel-step-toggle="' + c.id + '" data-step-idx="' + idx + '">'
+        + '<div class="cenCelStepCheck">' + (s.done ? '✓' : '') + '</div>'
+        + '<span>' + esc(s.t) + '</span>'
+        + '</div>';
+    }).join('');
+
+    bodyHtml = '<div class="cenCelStepsList">' + stepsListHtml + '</div>'
+      + '<div style="margin-bottom:12px;">'
+      + '<div class="cenCelProgressMeta" style="margin-bottom:4px;"><span>Etapy (' + doneCount + ' / ' + totalSteps + '):</span><b>' + pctNum + '%</b></div>'
+      + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + pctNum + '%;background:' + color + ';"></div></div>'
+      + '</div>';
+
+    footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isDone ? ' done' : '') + '" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
+      + (isDone ? '🎉 Wszystkie etapy ukończone' : 'Oznacz całość jako ukończone')
+      + '</button>';
+  } else {
+    bodyHtml = '<div style="padding:10px 14px;background:var(--cen-btn-bg);border-radius:10px;margin-bottom:12px;display:flex;align-items:center;gap:10px;">'
+      + '<span style="font-size:22px;">' + (isDone ? '🎉' : '🎯') + '</span>'
+      + '<div style="font-size:13px;color:var(--cen-text-sub);">' + (isDone ? 'Cel został pomyślnie zrealizowany!' : 'W trakcie realizacji — oznacz po osiągnięciu celu.') + '</div>'
+      + '</div>';
+
+    footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isDone ? ' done' : '') + '" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
+      + (isDone ? '✓ Cel zrealizowany' : '✓ Zrealizuj ten cel')
+      + '</button>';
+  }
+
+  return '<div class="cenGoalCard' + (isDone ? ' done' : '') + '" style="--cel-color:' + color + ';">'
+    + '<div class="cenCelTop">'
+    + '<span class="cenCelCatBadge" style="background:color-mix(in srgb, ' + color + ' 16%, transparent);color:' + color + ';">'
+    + cat.icon + ' ' + cat.name
+    + '</span>'
+    + '<span class="cenCelStatusBadge' + (isDone ? ' done' : '') + '">'
+    + (isDone ? '✓ Ukończony' : 'Aktywny')
+    + '</span>'
+    + '</div>'
+
+    + '<div class="cenCelTyt">' + esc(c.title) + '</div>'
+    + (c.desc ? '<div class="cenCelOpis">' + esc(c.desc) + '</div>' : '')
+    + (c.verse ? '<div class="cenCelVerseBox" style="--cel-color:' + color + ';">'
+        + '<span>📖 ' + esc(c.verse) + '</span>'
+        + '<button type="button" class="cenCelVerseBtn" data-copen-jw="' + esc(c.verse) + '" title="Otwórz werset">' + CEN_MODERN_ICO.jw + ' JW Library</button>'
+        + '</div>' : '')
+
+    + bodyHtml
+
+    + '<div class="cenCelFooter">'
+    + '<div class="cenCelActionsRow">'
+    + footerBtnHtml
+    + '<button type="button" class="cenCelIconBtn" data-cel-edytuj="' + c.id + '" title="Edytuj cel">' + CEN_MODERN_ICO.gear + '</button>'
+    + '<button type="button" class="cenCelIconBtn" data-cel-usun="' + c.id + '" title="Usuń cel" style="color:#ef4444;">✕</button>'
+    + '</div>'
+    + '</div>'
+    + '</div>';
+}
+
+function centrWidokCele(tab, cat, q){
+  tab = tab || _centrCeleTab || "aktywne";
+  cat = cat || _centrCeleKategoria || "wszystkie";
+  q = (q !== undefined ? q : (_centrCeleSzukaj || "")).toLowerCase().trim();
+
+  const cele = _centrPobierzCele();
+  const totalCount = cele.length;
+  const activeCount = cele.filter(c => !c.completed).length;
+  const doneCount = cele.filter(c => c.completed).length;
+  const habitsCount = cele.filter(c => c.type === "habit" && !c.completed).length;
+
+  let maxStreak = 0;
+  cele.forEach(c => {
+    if(c.type === "habit"){
+      const s = _centrObliczSerieNawyku(c.history);
+      if(s.current > maxStreak) maxStreak = s.current;
+    }
+  });
+
+  const filtered = cele.filter(c => {
+    if(tab === "aktywne" && c.completed) return false;
+    if(tab === "ukonczone" && !c.completed) return false;
+    if(cat !== "wszystkie" && c.category !== cat) return false;
+    if(q){
+      const str = (c.title + " " + (c.desc || "") + " " + (c.verse || "")).toLowerCase();
+      if(!str.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const katsList = [
+    { id: "wszystkie", name: "Wszystkie", icon: "✨" },
+    { id: "czytanie", name: "Czytanie", icon: "📖" },
+    { id: "modlitwa", name: "Modlitwa", icon: "🙏" },
+    { id: "sluzba", name: "Służba", icon: "👥" },
+    { id: "studium", name: "Studium", icon: "📝" },
+    { id: "zebrania", name: "Zebrania", icon: "🏛️" },
+    { id: "owoce", name: "Owoce ducha", icon: "🍎" },
+    { id: "inne", name: "Inne", icon: "🎯" }
+  ];
+
+  return '<div class="cenSubHeader">'
+    + '<div class="cenSubHeaderLewo">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
+    + '<div class="cenSubTytulBox">'
+    + '<div class="cenSubTytul">Duchowe cele i nawyki</div>'
+    + '<div class="cenSubPodtytul">Wyznaczaj cele, buduj nawyki i śledź swój wzrost duchowy</div>'
+    + '</div></div>'
+    + '<div class="cenNaglAkcje">'
+    + '<button type="button" class="cenFragBtnJW" data-cakcja="szablony-celow" title="Wybierz z katalogu gotowych celów">✨ Szablony celów</button>'
+    + '<button type="button" class="cenNaglBtnIko" data-cakcja="nowy-cel" title="Dodaj nowy cel">' + CEN_MODERN_ICO.plus + '</button>'
+    + '</div></div>'
+
+    + '<div class="cenCeleStatsRow">'
+    + '<div class="cenCeleStatCard">'
+    + '<div class="cenCeleStatIko" style="background:rgba(59,130,246,0.12);color:#3b82f6;">' + CEN_MODERN_ICO.target + '</div>'
+    + '<div><div class="cenCeleStatVal">' + activeCount + '</div><div class="cenCeleStatLbl">Aktywne cele</div></div>'
+    + '</div>'
+    + '<div class="cenCeleStatCard">'
+    + '<div class="cenCeleStatIko" style="background:rgba(16,185,129,0.12);color:#10b981;">' + CEN_MODERN_ICO.check + '</div>'
+    + '<div><div class="cenCeleStatVal">' + doneCount + '</div><div class="cenCeleStatLbl">Ukończone</div></div>'
+    + '</div>'
+    + '<div class="cenCeleStatCard">'
+    + '<div class="cenCeleStatIko" style="background:rgba(168,85,247,0.12);color:#a855f7;">' + CEN_MODERN_ICO.clock + '</div>'
+    + '<div><div class="cenCeleStatVal">' + habitsCount + '</div><div class="cenCeleStatLbl">Nawyki w toku</div></div>'
+    + '</div>'
+    + '<div class="cenCeleStatCard">'
+    + '<div class="cenCeleStatIko" style="background:rgba(245,158,11,0.12);color:#f59e0b;">🔥</div>'
+    + '<div><div class="cenCeleStatVal">' + maxStreak + ' <small style="font-size:13px;font-weight:600;">dni</small></div><div class="cenCeleStatLbl">Bieżąca seria</div></div>'
+    + '</div>'
+    + '</div>'
+
+    + '<div class="cenTabsRow" style="overflow-x:auto;">'
+    + '<button type="button" class="cenTabBtn' + (tab==="aktywne"?' active':'') + '" data-cel-tab="aktywne">Aktywne (' + activeCount + ')</button>'
+    + '<button type="button" class="cenTabBtn' + (tab==="ukonczone"?' active':'') + '" data-cel-tab="ukonczone">Ukończone (' + doneCount + ')</button>'
+    + '<button type="button" class="cenTabBtn' + (tab==="wszystkie"?' active':'') + '" data-cel-tab="wszystkie">Wszystkie (' + totalCount + ')</button>'
+    + '</div>'
+
+    + '<div style="display:flex;align-items:center;gap:6px;overflow-x:auto;padding-bottom:10px;margin-bottom:16px;">'
+    + katsList.map(k => {
+        const isSel = (cat === k.id);
+        return '<button type="button" class="btn' + (isSel ? ' primary' : '') + '" data-cel-cat="' + k.id + '" style="font-size:12px;padding:5px 11px;border-radius:20px;white-space:nowrap;gap:4px;">'
+          + k.icon + ' ' + esc(k.name)
+          + '</button>';
+      }).join('')
+    + '</div>'
+
+    + (!filtered.length
+        ? '<div class="cenPusto" style="padding:40px 20px;text-align:center;">'
+          + '<div style="font-size:36px;margin-bottom:10px;">🎯</div>'
+          + '<div style="font-size:16px;font-weight:700;color:var(--cen-text);margin-bottom:6px;">Brak celów w tej kategorii</div>'
+          + '<div style="font-size:13px;color:var(--cen-text-muted);margin-bottom:18px;">Dodaj swój pierwszy cel lub skorzystaj z gotowych inspirujących szablonów.</div>'
+          + '<div style="display:flex;justify-content:center;gap:10px;">'
+          + '<button type="button" class="btn primary" data-cakcja="szablony-celow">✨ Wybierz z katalogu szablonów</button>'
+          + '<button type="button" class="btn" data-cakcja="nowy-cel">+ Własny cel</button>'
+          + '</div></div>'
+        : '<div class="cenPlanGrid" style="grid-template-columns:repeat(auto-fill, minmax(310px, 1fr));gap:16px;">'
+          + filtered.map(c => _centrKartaCeluHtml(c)).join('')
+          + '</div>');
+}
+
+function _centrPokazModalCelu(celIdOrData){
+  const modal = $("modalCelEdycja");
+  if(!modal) return;
+  const tytul = $("modalCelEdycjaTytul");
+  const inpId = $("celInpId");
+  const inpTitle = $("celInpTitle");
+  const inpDesc = $("celInpDesc");
+  const inpCat = $("celInpCategory");
+  const inpType = $("celInpType");
+  const numFields = $("celNumericFields");
+  const inpCurrent = $("celInpCurrent");
+  const inpTarget = $("celInpTarget");
+  const inpUnit = $("celInpUnit");
+  const stepsFields = $("celStepsFields");
+  const inpStepsText = $("celInpStepsText");
+  const inpVerse = $("celInpVerse");
+  const inpColor = $("celInpColor");
+
+  const updateTypeFields = (typeVal) => {
+    if(numFields) numFields.style.display = (typeVal === "numeric") ? "block" : "none";
+    if(stepsFields) stepsFields.style.display = (typeVal === "steps") ? "block" : "none";
+  };
+
+  if(inpType){
+    inpType.onchange = () => updateTypeFields(inpType.value);
+  }
+
+  if(typeof celIdOrData === "string"){
+    const cele = _centrPobierzCele();
+    const c = cele.find(x => x.id === celIdOrData);
+    if(c){
+      if(tytul) tytul.textContent = "Edytuj cel duchowy";
+      if(inpId) inpId.value = c.id;
+      if(inpTitle) inpTitle.value = c.title || "";
+      if(inpDesc) inpDesc.value = c.desc || "";
+      if(inpCat) inpCat.value = c.category || "inne";
+      if(inpType) inpType.value = c.type || "habit";
+      if(inpCurrent) inpCurrent.value = c.current || 0;
+      if(inpTarget) inpTarget.value = c.target || 10;
+      if(inpUnit) inpUnit.value = c.unit || "razy";
+      if(inpStepsText) inpStepsText.value = (c.steps || []).map(s => s.t).join("\n");
+      if(inpVerse) inpVerse.value = c.verse || "";
+      if(inpColor) inpColor.value = c.color || "#3b82f6";
+      updateTypeFields(c.type || "habit");
+      openModal("modalCelEdycja");
+      return;
+    }
+  } else if(celIdOrData && typeof celIdOrData === "object"){
+    if(tytul) tytul.textContent = "Nowy cel duchowy";
+    if(inpId) inpId.value = "";
+    if(inpTitle) inpTitle.value = celIdOrData.title || "";
+    if(inpDesc) inpDesc.value = celIdOrData.desc || "";
+    if(inpCat) inpCat.value = celIdOrData.category || "inne";
+    if(inpType) inpType.value = celIdOrData.type || "habit";
+    if(inpCurrent) inpCurrent.value = celIdOrData.current || 0;
+    if(inpTarget) inpTarget.value = celIdOrData.target || 10;
+    if(inpUnit) inpUnit.value = celIdOrData.unit || "razy";
+    if(inpStepsText) inpStepsText.value = (celIdOrData.steps || []).map(s => s.t).join("\n");
+    if(inpVerse) inpVerse.value = celIdOrData.verse || "";
+    if(inpColor) inpColor.value = celIdOrData.color || "#3b82f6";
+    updateTypeFields(celIdOrData.type || "habit");
+    openModal("modalCelEdycja");
+    return;
+  }
+
+  if(tytul) tytul.textContent = "Nowy cel duchowy";
+  if(inpId) inpId.value = "";
+  if(inpTitle) inpTitle.value = "";
+  if(inpDesc) inpDesc.value = "";
+  if(inpCat) inpCat.value = "czytanie";
+  if(inpType) inpType.value = "habit";
+  if(inpCurrent) inpCurrent.value = 0;
+  if(inpTarget) inpTarget.value = 10;
+  if(inpUnit) inpUnit.value = "razy";
+  if(inpStepsText) inpStepsText.value = "";
+  if(inpVerse) inpVerse.value = "";
+  if(inpColor) inpColor.value = "#3b82f6";
+  updateTypeFields("habit");
+  openModal("modalCelEdycja");
+}
+
+function _centrZapiszFormularzCelu(){
+  const inpId = $("celInpId");
+  const inpTitle = $("celInpTitle");
+  const inpDesc = $("celInpDesc");
+  const inpCat = $("celInpCategory");
+  const inpType = $("celInpType");
+  const inpCurrent = $("celInpCurrent");
+  const inpTarget = $("celInpTarget");
+  const inpUnit = $("celInpUnit");
+  const inpStepsText = $("celInpStepsText");
+  const inpVerse = $("celInpVerse");
+  const inpColor = $("celInpColor");
+
+  const titleVal = (inpTitle ? inpTitle.value : "").trim();
+  if(!titleVal){
+    if(inpTitle) inpTitle.focus();
+    return;
+  }
+
+  const typeVal = inpType ? inpType.value : "habit";
+  const dane = {
+    id: inpId ? inpId.value : "",
+    title: titleVal,
+    desc: (inpDesc ? inpDesc.value : "").trim(),
+    category: inpCat ? inpCat.value : "inne",
+    type: typeVal,
+    verse: (inpVerse ? inpVerse.value : "").trim(),
+    color: inpColor ? inpColor.value : "#3b82f6"
+  };
+
+  if(typeVal === "numeric"){
+    dane.current = Number(inpCurrent ? inpCurrent.value : 0) || 0;
+    dane.target = Number(inpTarget ? inpTarget.value : 10) || 10;
+    dane.unit = (inpUnit ? inpUnit.value : "").trim() || "razy";
+  } else if(typeVal === "steps"){
+    const rawLines = (inpStepsText ? inpStepsText.value : "").split("\n").map(s => s.trim()).filter(Boolean);
+    let existingSteps = [];
+    if(dane.id){
+      const cur = _centrPobierzCele().find(x => x.id === dane.id);
+      if(cur && Array.isArray(cur.steps)) existingSteps = cur.steps;
+    }
+    dane.steps = rawLines.map((line, idx) => {
+      const prev = existingSteps[idx];
+      return {
+        t: line,
+        done: (prev && prev.t === line) ? prev.done : false
+      };
+    });
+  }
+
+  _centrDodajLubEdytujCel(dane);
+  closeModal("modalCelEdycja");
+  toast("Zapisano cel duchowy", "ok");
+  rysujCentrum();
+}
+
+function _centrPokazModalSzablonow(){
+  const kontener = $("cenSzablonyLista");
+  if(kontener){
+    kontener.innerHTML = BIBLE_SPIRITUAL_GOALS_TEMPLATES.map((tpl, idx) => {
+      const catInfo = _centrKategorieMap[tpl.category] || { name: "Cel", icon: "🎯", color: "#3b82f6" };
+      let typeLabel = "🔥 Nawyk powtarzalny";
+      if(tpl.type === "numeric") typeLabel = "🎯 Cel liczbowy (" + tpl.target + " " + tpl.unit + ")";
+      else if(tpl.type === "steps") typeLabel = "📋 Zadanie etapowe (" + (tpl.steps ? tpl.steps.length : 0) + " etapów)";
+      else if(tpl.type === "boolean") typeLabel = "✅ Cel jednoetapowy";
+
+      return '<div class="cenTemplateCard">'
+        + '<div>'
+        + '<div style="display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:6px;">'
+        + '<span class="cenCelCatBadge" style="background:color-mix(in srgb, ' + (tpl.color || catInfo.color) + ' 16%, transparent);color:' + (tpl.color || catInfo.color) + ';">'
+        + catInfo.icon + ' ' + catInfo.name
+        + '</span>'
+        + '<span style="font-size:11px;color:var(--cen-text-muted);font-weight:600;">' + typeLabel + '</span>'
+        + '</div>'
+        + '<div style="font-size:14.5px;font-weight:700;color:var(--cen-text);margin-bottom:4px;">' + esc(tpl.title) + '</div>'
+        + '<div style="font-size:12.5px;color:var(--cen-text-sub);line-height:1.4;">' + esc(tpl.desc) + '</div>'
+        + (tpl.verse ? '<div style="font-size:11.5px;font-style:italic;color:var(--cen-text-muted);margin-top:6px;">📖 ' + esc(tpl.verse) + '</div>' : '')
+        + '</div>'
+        + '<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:10px;">'
+        + '<button type="button" class="btn" style="font-size:12px;padding:5px 10px;" data-szablon-dostosuj="' + idx + '">Dostosuj…</button>'
+        + '<button type="button" class="btn primary" style="font-size:12px;padding:5px 12px;" data-szablon-dodaj="' + idx + '">+ Dodaj od razu</button>'
+        + '</div>'
+        + '</div>';
+    }).join("");
+  }
+  openModal("modalCelSzablony");
+}
+
 /* 7b. Pełny eksport i import danych Centrum Studium i Planów czytania do kopii JSON */
 function _centrEksportDanych(){
   const dniMap = {};
@@ -34284,11 +35533,21 @@ function _centrEksportDanych(){
     }
   } catch(e){}
 
+  let celeArr = [];
+  try {
+    const rawCele = lsGet(KP + "CentrumCele_v1", null) || lsGet("jw_centr_cele_v1", null);
+    if(rawCele){
+      const parsed = JSON.parse(rawCele);
+      if(Array.isArray(parsed)) celeArr = parsed;
+    }
+  } catch(e){}
+
   return {
     dni: dniMap,
     fragi: fragiArr,
     tematy: tematyArr,
     plany: planyArr,
+    cele: celeArr,
     aktywnyPlan: lsGet(KP + "CentrumAktywnyPlan", null),
     curDay: lsGet(KP + "CentrumCurDay", null),
     curTemat: lsGet(KP + "CentrumCurTemat", null),
@@ -34297,8 +35556,8 @@ function _centrEksportDanych(){
 }
 
 function _centrImportDanych(centrumData, tryb){
-  if(!centrumData || typeof centrumData !== "object") return { dniMerged: 0, fragiMerged: 0, tematyMerged: 0 };
-  const st = { dniMerged: 0, fragiMerged: 0, tematyMerged: 0 };
+  if(!centrumData || typeof centrumData !== "object") return { dniMerged: 0, fragiMerged: 0, tematyMerged: 0, celeMerged: 0 };
+  const st = { dniMerged: 0, fragiMerged: 0, tematyMerged: 0, celeMerged: 0 };
   const isReplace = (tryb === "replace");
 
   // 1. Ukończone dni w planach czytania
@@ -34374,7 +35633,30 @@ function _centrImportDanych(centrumData, tryb){
     }
   }
 
-  // 4. Plany czytania i konfiguracja
+  // 4. Duchowe cele i nawyki
+  if(Array.isArray(centrumData.cele) && centrumData.cele.length){
+    if(isReplace){
+      _centrZapiszCele(centrumData.cele);
+      st.celeMerged = centrumData.cele.length;
+    } else {
+      const curCele = _centrPobierzCele();
+      let dodanoCele = 0;
+      centrumData.cele.forEach(incC => {
+        if(!incC || !incC.title) return;
+        const istniejacy = curCele.find(c => (incC.id && c.id === incC.id) || (c.title && c.title.toLowerCase() === incC.title.toLowerCase()));
+        if(!istniejacy){
+          curCele.push(incC);
+          dodanoCele++;
+        }
+      });
+      if(dodanoCele){
+        _centrZapiszCele(curCele);
+        st.celeMerged = dodanoCele;
+      }
+    }
+  }
+
+  // 5. Plany czytania i konfiguracja
   if(Array.isArray(centrumData.plany) && centrumData.plany.length){
     if(isReplace || !lsGet(KP + "CentrumPlany", null)){
       lsSet(KP + "CentrumPlany", JSON.stringify(centrumData.plany));
@@ -34854,6 +36136,8 @@ function renderCentrumWidok(){
   const tCount = tematy.length;
   const plany = _centrPobierzPlany();
   const aktywnePlany = plany.filter(p=>p.active).length;
+  const celeList = _centrPobierzCele();
+  const celeAktywneCount = celeList.filter(c => !c.completed).length;
 
   return '<div class="cenHeroGrid">'
     // Karta 1: Aktywny plan czytania
@@ -34890,32 +36174,32 @@ function renderCentrumWidok(){
     + '<span class="cenHeroMetaVal val-green">' + tCount + ' tematów studium</span>'
     + '</div></div></div>'
 
-    // Karta 3: Wybór i zarządzanie planami
-    + '<div class="cenHeroCard card-purple" data-cwidok="moje-plany">'
-    + '<div class="cenHeroCardTop">'
-    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.clipboard + '</div>'
-    + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt">Plany czytania Biblii</div>'
-    + '<div class="cenHeroOpis">Wybieraj plany na 1, 2 lub 3 lata (chronologicznie, po kolei księgami lub zbalansowane).</div>'
-    + '</div></div>'
-    + '<div class="cenHeroBottom">'
-    + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Dostępne plany</span>'
-    + '<span class="cenHeroMetaVal val-purple">' + plany.length + ' gotowych planów</span>'
-    + '</div></div></div>'
-
-    // Karta 4: Statystyki i cele
-    + '<div class="cenHeroCard card-orange" data-cwidok="statystyki">'
+    // Karta 3: Duchowe cele i nawyki
+    + '<div class="cenHeroCard card-purple" data-cwidok="duchowe-cele">'
     + '<div class="cenHeroCardTop">'
     + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.target + '</div>'
     + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt">Cele i Statystyki</div>'
-    + '<div class="cenHeroOpis">Śledź tempo czytania, ukończone fragmenty, serie dni i stopień realizacji celów.</div>'
+    + '<div class="cenHeroTyt">Duchowe cele i nawyki</div>'
+    + '<div class="cenHeroOpis">Wyznaczaj cele osobiste, służby i studium, buduj dobre nawyki i śledź postępy.</div>'
     + '</div></div>'
     + '<div class="cenHeroBottom">'
     + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Bieżący status</span>'
-    + '<span class="cenHeroMetaVal val-orange">' + doneCount + ' dni ukończonych</span>'
+    + '<span class="cenHeroMetaLabel">Aktywne cele</span>'
+    + '<span class="cenHeroMetaVal val-purple">' + celeAktywneCount + ' aktywnych celów</span>'
+    + '</div></div></div>'
+
+    // Karta 4: Statystyki i postęp
+    + '<div class="cenHeroCard card-orange" data-cwidok="statystyki">'
+    + '<div class="cenHeroCardTop">'
+    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.clipboard + '</div>'
+    + '<div class="cenHeroInfo">'
+    + '<div class="cenHeroTyt">Statystyki i postęp</div>'
+    + '<div class="cenHeroOpis">Śledź tempo czytania, ukończone fragmenty, serie dni i drzewo wzrostu.</div>'
+    + '</div></div>'
+    + '<div class="cenHeroBottom">'
+    + '<div class="cenHeroMetaRow">'
+    + '<span class="cenHeroMetaLabel">Ukończone dni</span>'
+    + '<span class="cenHeroMetaVal val-orange">' + doneCount + ' z ' + totalDni + ' dni</span>'
     + '</div></div></div>'
     + '</div>'
 
