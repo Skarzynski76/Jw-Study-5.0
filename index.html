@@ -11812,10 +11812,13 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
    ========================================================================== */
 #appContainer {
   display: flex;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  height: 100dvh;
   overflow: hidden;
   position: relative;
+  box-sizing: border-box;
 }
 
 #modernSidebar {
@@ -11832,6 +11835,49 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.03);
   transition: width 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.22s ease, opacity 0.18s ease, background 0.2s ease;
   box-sizing: border-box;
+}
+
+/* Automatyczny Icon Rail na ekranach średnich (iPad Split View 2/3, 1/2, tablety: 769px - 1180px) */
+@media (min-width: 769px) and (max-width: 1180px) {
+  #modernSidebar {
+    width: 58px !important;
+    min-width: 58px !important;
+    max-width: 58px !important;
+    padding: 12px 6px !important;
+    position: static !important;
+    transform: none !important;
+    display: flex !important;
+  }
+  #modernSidebar .sidebar-brand {
+    justify-content: center !important;
+    padding: 4px 0 12px 0 !important;
+  }
+  #modernSidebar .sidebar-brand-title,
+  #modernSidebar .sidebar-brand-ver,
+  #modernSidebar .sidebar-new-btn span,
+  #modernSidebar .sidebar-nav-item span {
+    display: none !important;
+  }
+  #modernSidebar .sidebar-new-btn {
+    padding: 10px 0 !important;
+    justify-content: center !important;
+    width: 44px !important;
+    margin: 0 auto 10px auto !important;
+    border-radius: 12px !important;
+  }
+  #modernSidebar .sidebar-nav-item {
+    justify-content: center !important;
+    padding: 10px 0 !important;
+    width: 44px !important;
+    margin: 0 auto 3px auto !important;
+    border-radius: 10px !important;
+  }
+  #modernSidebar .sidebar-close-btn {
+    display: none !important;
+  }
+  .sidebar-backdrop {
+    display: none !important;
+  }
 }
 
 /* Stan zwinięty paska bocznego — elegancki tryb kompaktowy (Icon Rail) */
@@ -12047,13 +12093,17 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   gap: 3px;
 }
 #appMainContent {
-  flex: 1;
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   height: 100%;
+  height: 100dvh;
   overflow: hidden;
   min-width: 0;
+  width: 100%;
+  max-width: 100%;
   position: relative;
+  box-sizing: border-box;
 }
 
 /* Motyw Ciemny dla paska bocznego */
@@ -12113,20 +12163,43 @@ html[data-theme="sepia"] .sidebar-float-trigger {
 
 /* ═══════════ KOLUMNY — WIELOKOLUMNOWY UKŁAD OBOK SIEBIE ═══════════ */
 #glowna {
-  flex: 1;
+  flex: 1 1 0;
   display: flex;
   min-height: 0;
-  gap: 12px;
-  padding: 12px;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  gap: 10px;
+  padding: 10px;
   background: var(--bg);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  box-sizing: border-box;
 }
 
-#colBooks { width: 230px; min-width: 170px; flex-shrink: 0; }
-#colTags  { width: 230px; min-width: 170px; flex-shrink: 0; }
-#colPubs  { width: 250px; min-width: 170px; flex-shrink: 0; }
-#colNotes { flex: 1; min-width: 320px; }
+#colBooks { width: 230px; min-width: 140px; flex-shrink: 0; }
+#colTags  { width: 230px; min-width: 140px; flex-shrink: 0; }
+#colPubs  { width: 250px; min-width: 140px; flex-shrink: 0; }
+#colNotes {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  container-type: inline-size;
+  container-name: notatki;
+  overflow: hidden;
+}
+
+#centrum {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  container-type: inline-size;
+  container-name: notatki;
+  overflow-x: hidden;
+}
 
 .col {
   display: flex;
@@ -13462,6 +13535,154 @@ html[data-theme="dark"] #pasekZbiorczy {
 }
 .imp-target-sec-box {
   margin-top: 10px;
+}
+
+/* ==========================================================================
+   JW Study 5.0 — KOMPLEKSOWY AUDYT I ZABEZPIECZENIE RESPONSYWNOŚCI (RWD / RWD+)
+   ========================================================================== */
+
+/* 1. Globalne zabezpieczenie przed poziomym przelewaniem */
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Płynne kontenery głównego widoku */
+#appContainer {
+  width: 100% !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+#appMainContent {
+  flex: 1 1 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+#glowna {
+  flex: 1 1 0 !important;
+  display: flex !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+}
+
+#colNotes, #centrum {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  container-type: inline-size;
+  container-name: notatki;
+  overflow-x: hidden !important;
+}
+
+/* 3. Płynna siatka notatek (Fluid Grid) i responsywne karty */
+#noteList {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+
+#noteList.v-tablica {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--kartaMin, 220px)), 1fr)) !important;
+  gap: 12px !important;
+}
+
+@container notatki (max-width: 500px) {
+  #noteList.v-tablica {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+}
+
+.ncard {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.ncard .ntitle,
+.ncard .ncontent,
+.ncard .nmeta2,
+.ncard .chips,
+.ncard .ntools {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* 4. Pływające paski narzędziowe i elementy interfejsu */
+#hlBar, #imgBar, #selEditBar, #tableBar, #tableSizePanel, #fragmentPanel, #replacePanel, #pasekZbiorczy, #pasekBledu, #pasekKopii, #nowaWersja {
+  max-width: calc(100vw - 16px) !important;
+  box-sizing: border-box !important;
+}
+
+#imgBar, #selEditBar, #tableBar, #hlBar {
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+#imgBar {
+  flex-wrap: nowrap !important;
+}
+
+/* 5. Okna dialogowe i modale */
+.modal, .smart-modal, .exp-modal, .gran-modal, .bezp-modal, .search-modal, .export-search-modal, .mapamodal, .nn-modal {
+  max-width: min(100vw - 16px, 94vw) !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 600px) {
+  .modal, .smart-modal, .exp-modal, .gran-modal, .bezp-modal, .search-modal, .export-search-modal {
+    width: calc(100vw - 12px) !important;
+    max-width: calc(100vw - 12px) !important;
+    padding: 14px 12px !important;
+    border-radius: 14px !important;
+  }
+}
+
+/* 6. Płynne zwijanie kolumn na tabletach i telefonach */
+@media (max-width: 900px) {
+  #glowna {
+    flex-direction: column !important;
+    padding: 6px !important;
+    gap: 0 !important;
+    overflow-y: auto !important;
+  }
+  #glowna .col {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .colResizer {
+    display: none !important;
+  }
 }
 
 </style>
