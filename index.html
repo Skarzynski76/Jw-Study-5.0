@@ -12494,6 +12494,121 @@ html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
   }
 }
 
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   ROZBUDOWA EDYTORA NOTATEK: Paski narzędzi, Autozapis, Bloki Studyjne
+   ══════════════════════════════════════════════════════════════════════ */
+.nn-autosave-status {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--muted);
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--sel, rgba(0,0,0,0.04));
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.nn-autosave-status[data-state="saving"] {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.nn-autosave-status[data-state="saved"] {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+}
+.nn-autosave-status[data-state="dirty"] {
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+}
+.nn-draft-alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: color-mix(in srgb, var(--accent) 10%, var(--panel));
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--text);
+  animation: ovIn 0.2s ease-out;
+}
+.nn-content-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.nn-quick-tools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.nn-tool-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.14s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.nn-tool-btn:hover {
+  border-color: var(--accent);
+  background: var(--sel);
+  color: var(--accent);
+}
+.nn-tool-sep {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  margin: 0 2px;
+}
+
+/* Bloki studyjne i cytaty w treści */
+blockquote.callout-werset, .callout-werset {
+  margin: 0.8em 0;
+  padding: 10px 16px;
+  border-left: 4px solid var(--accent, #10b981);
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg));
+  border-radius: 0 10px 10px 0;
+  font-style: italic;
+}
+.callout-idea {
+  margin: 0.8em 0;
+  padding: 10px 16px;
+  border-left: 4px solid #f59e0b;
+  background: rgba(245, 158, 11, 0.07);
+  border-radius: 0 10px 10px 0;
+}
+.callout-question {
+  margin: 0.8em 0;
+  padding: 10px 16px;
+  border-left: 4px solid #3b82f6;
+  background: rgba(59, 130, 246, 0.07);
+  border-radius: 0 10px 10px 0;
+}
+.callout-important {
+  margin: 0.8em 0;
+  padding: 10px 16px;
+  border-left: 4px solid #ef4444;
+  background: rgba(239, 68, 68, 0.07);
+  border-radius: 0 10px 10px 0;
+  font-weight: 500;
+}
+
 </style><style>
 /* JW Study 3.50 — bloki, malarz formatów i podpisy ilustracji */
 .ncontent > div.callout{margin:.65em 0!important;padding:11px 14px 11px 42px;border:1px solid var(--border);border-left:5px solid var(--callout,#6d8f7d);border-radius:12px;background:color-mix(in srgb,var(--callout,#6d8f7d) 10%,var(--panel));position:relative;clear:both}
@@ -15278,7 +15393,21 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
       <div class="nn-studio-main">
         <div class="nn-head">
           <span class="nn-ic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9a2 2 0 0 0-3-3L5 17v3z"/><path d="M14 7l3 3"/></svg></span>
-          <div><h3>Nowa notatka</h3><div class="nn-sub">Wpisz treść — metadane i werset skonfigurujesz w panelu obok</div></div>
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+              <h3 style="margin:0;">Nowa notatka</h3>
+              <span id="nnAutosaveStatus" class="nn-autosave-status" role="status" aria-live="polite">Wszystko zapisane</span>
+            </div>
+            <div class="nn-sub">Wpisz treść — metadane i werset skonfigurujesz w panelu obok</div>
+          </div>
+        </div>
+
+        <div id="nnDraftAlert" class="nn-draft-alert" style="display:none;">
+          <span>📝 Odnaleziono niezapisany szkic z poprzedniej sesji.</span>
+          <div style="display:flex;gap:6px;">
+            <button type="button" id="nnDraftRestore" class="btn" style="padding:2px 8px;font-size:12px;">Przywróć</button>
+            <button type="button" id="nnDraftDiscard" class="btn" style="padding:2px 8px;font-size:12px;">Odrzuć</button>
+          </div>
         </div>
 
         <div class="nn-field-group">
@@ -15287,8 +15416,26 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
         </div>
 
         <div class="nn-field-group nn-content-group">
-          <label for="nnContent">Treść</label>
-          <textarea id="nnContent" placeholder="Wpisz treść notatki, przemyślenia, punkty do studium…"></textarea>
+          <div class="nn-content-header">
+            <label for="nnContent" style="margin:0;">Treść</label>
+            <div class="nn-quick-tools" id="nnQuickTools">
+              <button type="button" class="nn-tool-btn" data-fmt="bold" title="Pogrubienie (Ctrl+B)"><b>B</b></button>
+              <button type="button" class="nn-tool-btn" data-fmt="italic" title="Kursywa (Ctrl+I)"><i>I</i></button>
+              <button type="button" class="nn-tool-btn" data-fmt="underline" title="Podkreślenie (Ctrl+U)"><u>U</u></button>
+              <span class="nn-tool-sep"></span>
+              <button type="button" class="nn-tool-btn" data-fmt="h2" title="Nagłówek sekcji (H2)">H2</button>
+              <button type="button" class="nn-tool-btn" data-fmt="h3" title="Podtytuł (H3)">H3</button>
+              <span class="nn-tool-sep"></span>
+              <button type="button" class="nn-tool-btn" data-fmt="ul" title="Lista punktowana">• Lista</button>
+              <button type="button" class="nn-tool-btn" data-fmt="ol" title="Lista numerowana">1. Lista</button>
+              <button type="button" class="nn-tool-btn" data-fmt="todo" title="Zadanie / Do zrobienia">☑ Zadanie</button>
+              <span class="nn-tool-sep"></span>
+              <button type="button" class="nn-tool-btn" data-fmt="werset" title="Cytat z wersetu">📖 Werset</button>
+              <button type="button" class="nn-tool-btn" data-fmt="idea" title="Przemyślenie / Wniosek">💡 Wniosek</button>
+              <button type="button" class="nn-tool-btn" data-fmt="question" title="Pytanie do studium">❓ Pytanie</button>
+            </div>
+          </div>
+          <textarea id="nnContent" placeholder="Wpisz treść notatki, przemyślenia, punkty do studium… (obsługuje Markdown: #, ##, >, -, *, 1.)"></textarea>
         </div>
       </div>
 
@@ -26412,6 +26559,137 @@ async function ustalZakladkeNowejNotatki(wybor){
   return z.id;
 }
 
+let _nnAutosaveTimer = null;
+
+function setNnAutosaveState(state, text){
+  const el = $("nnAutosaveStatus");
+  if(!el) return;
+  el.dataset.state = state;
+  el.textContent = text;
+}
+
+function nnSaveDraft(){
+  const t = ($("nnTitle") ? $("nnTitle").value : "").trim();
+  const c = ($("nnContent") ? $("nnContent").value : "").trim();
+  const b = $("nnBook") ? $("nnBook").value : "0";
+  const ch = $("nnCh") ? $("nnCh").value : "";
+  const v = $("nnV") ? $("nnV").value : "";
+  const tagsChecked = $("nnTags") ? [...$("nnTags").querySelectorAll("input:checked")].map(i=>+i.value) : [];
+
+  if(!t && !c){
+    localStorage.removeItem(KP + "DraftStudio");
+    setNnAutosaveState("saved", "Pusty szkic");
+    return;
+  }
+
+  const draft = { t, c, b, ch, v, tg: tagsChecked, savedAt: Date.now() };
+  try{
+    localStorage.setItem(KP + "DraftStudio", JSON.stringify(draft));
+    const timeStr = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    setNnAutosaveState("saved", "✓ Szkic zapisany (" + timeStr + ")");
+  }catch(e){
+    setNnAutosaveState("dirty", "Niezapisane");
+  }
+}
+
+function triggerNnAutosave(){
+  setNnAutosaveState("dirty", "Niezapisane zmiany…");
+  clearTimeout(_nnAutosaveTimer);
+  _nnAutosaveTimer = setTimeout(()=>{
+    setNnAutosaveState("saving", "⏳ Zapisywanie…");
+    setTimeout(nnSaveDraft, 200);
+  }, 800);
+}
+
+function checkNnDraft(){
+  const raw = localStorage.getItem(KP + "DraftStudio");
+  const alertEl = $("nnDraftAlert");
+  if(!raw){
+    if(alertEl) alertEl.style.display = "none";
+    return;
+  }
+  try{
+    const draft = JSON.parse(raw);
+    if(draft && (draft.t || draft.c)){
+      if(alertEl) alertEl.style.display = "flex";
+      if($("nnDraftRestore")){
+        $("nnDraftRestore").onclick = ()=>{
+          if(draft.t) $("nnTitle").value = draft.t;
+          if(draft.c) $("nnContent").value = draft.c;
+          if(draft.b) $("nnBook").value = draft.b;
+          if(draft.ch) $("nnCh").value = draft.ch;
+          if(draft.v) $("nnV").value = draft.v;
+          if(Array.isArray(draft.tg)) renderNnTags(draft.tg);
+          alertEl.style.display = "none";
+          setNnAutosaveState("saved", "Przywrócono szkic");
+          toast("Przywrócono niezapisany szkic");
+        };
+      }
+      if($("nnDraftDiscard")){
+        $("nnDraftDiscard").onclick = ()=>{
+          localStorage.removeItem(KP + "DraftStudio");
+          alertEl.style.display = "none";
+          setNnAutosaveState("saved", "Odrzucono szkic");
+        };
+      }
+    }
+  }catch(e){
+    if(alertEl) alertEl.style.display = "none";
+  }
+}
+
+function initNnQuickTools(){
+  const tools = $("nnQuickTools");
+  const ta = $("nnContent");
+  if(!tools || !ta) return;
+
+  tools.onclick = (e)=>{
+    const btn = e.target.closest("[data-fmt]");
+    if(!btn) return;
+    const fmt = btn.dataset.fmt;
+    const start = ta.selectionStart, end = ta.selectionEnd;
+    const sel = ta.value.substring(start, end);
+    const before = ta.value.substring(0, start);
+    const after = ta.value.substring(end);
+
+    let insert = "", cursorOffset = 0;
+    if(fmt === "bold"){ insert = "**" + (sel || "pogrubiony tekst") + "**"; cursorOffset = sel ? insert.length : 2; }
+    else if(fmt === "italic"){ insert = "*" + (sel || "kursywa") + "*"; cursorOffset = sel ? insert.length : 1; }
+    else if(fmt === "underline"){ insert = "<u>" + (sel || "podkreślenie") + "</u>"; cursorOffset = sel ? insert.length : 3; }
+    else if(fmt === "h2"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "## " + (sel || "Nagłówek sekcji") + "\n"; cursorOffset = insert.length; }
+    else if(fmt === "h3"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "### " + (sel || "Podtytuł") + "\n"; cursorOffset = insert.length; }
+    else if(fmt === "ul"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "- " + (sel || "Punkt listy") + "\n"; cursorOffset = insert.length; }
+    else if(fmt === "ol"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "1. " + (sel || "Punkt numerowany") + "\n"; cursorOffset = insert.length; }
+    else if(fmt === "todo"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "[ ] " + (sel || "Zadanie do zrobienia") + "\n"; cursorOffset = insert.length; }
+    else if(fmt === "werset"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "> 📖 \"" + (sel || "Treść wersetu…") + "\"\n"; cursorOffset = insert.length; }
+    else if(fmt === "idea"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "💡 **Wniosek:** " + (sel || "Osobiste przemyślenie…") + "\n"; cursorOffset = insert.length; }
+    else if(fmt === "question"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "❓ **Pytanie:** " + (sel || "Pytanie do rozważenia…") + "\n"; cursorOffset = insert.length; }
+
+    ta.value = before + insert + after;
+    ta.focus();
+    ta.setSelectionRange(start + cursorOffset, start + cursorOffset);
+    triggerNnAutosave();
+  };
+
+  // Skróty klawiszowe w polu treści (Ctrl+B, Ctrl+I, Ctrl+U, Ctrl+Enter)
+  ta.addEventListener("keydown", (e)=>{
+    if(e.ctrlKey || e.metaKey){
+      if(e.key === "b" || e.key === "B"){ e.preventDefault(); tools.querySelector('[data-fmt="bold"]')?.click(); }
+      else if(e.key === "i" || e.key === "I"){ e.preventDefault(); tools.querySelector('[data-fmt="italic"]')?.click(); }
+      else if(e.key === "u" || e.key === "U"){ e.preventDefault(); tools.querySelector('[data-fmt="underline"]')?.click(); }
+      else if(e.key === "Enter"){ e.preventDefault(); $("nnSaveEdit")?.click(); }
+    }
+  });
+
+  ["input", "change"].forEach(evt => {
+    ta.addEventListener(evt, triggerNnAutosave);
+    if($("nnTitle")) $("nnTitle").addEventListener(evt, triggerNnAutosave);
+    if($("nnBook")) $("nnBook").addEventListener(evt, triggerNnAutosave);
+    if($("nnCh")) $("nnCh").addEventListener(evt, triggerNnAutosave);
+    if($("nnV")) $("nnV").addEventListener(evt, triggerNnAutosave);
+  });
+}
+
 $("btnNew").onclick = ()=>{
   $("nnTitle").value=""; $("nnContent").value=""; $("nnBook").value="0"; $("nnCh").value=""; $("nnV").value="";
   $("nnNewTagName").value="";
@@ -26419,8 +26697,12 @@ $("btnNew").onclick = ()=>{
   renderNnZakladki();
   if(typeof rysujSzablony==="function") rysujSzablony();
   if(typeof filt.book==="number"&&filt.book>0) $("nnBook").value=String(filt.book);
+  setNnAutosaveState("saved", "Nowa notatka");
+  checkNnDraft();
+  initNnQuickTools();
   openModal("modalNew");
 };
+
 /* utworzenie etykiety wprost w oknie nowej notatki */
 function nnCreateTag(){
   const inp=$("nnNewTagName");
@@ -26434,10 +26716,12 @@ function nnCreateTag(){
   renderNnTags(checked);
   inp.value=""; inp.focus();
   renderTags();
+  triggerNnAutosave();
   toast(existing ? ("Etykieta „"+t.name+"” już istnieje — zaznaczono") : ("Utworzono etykietę „"+t.name+"”"));
 }
 $("nnAddTag").onclick = nnCreateTag;
 $("nnNewTagName").addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); nnCreateTag(); } });
+
 async function zapiszNowaNotatke(otworzEdytor){
   const c=$("nnContent").value.trim(), t=$("nnTitle").value.trim();
   if(!c&&!t){ toast("Wpisz tytuł lub treść"); return; }
@@ -26454,9 +26738,16 @@ async function zapiszNowaNotatke(otworzEdytor){
     tg:[...$("nnTags").querySelectorAll("input:checked")].map(i=>+i.value),
     nw:true, tgd:true };
   if(idZakladki) n.stb = idZakladki;
-  notes.unshift(n); await saveNote(n);
+
+  notes.unshift(n);
+  await saveNote(n);
+  if(typeof saveVersion === "function") saveVersion(n);
+  localStorage.removeItem(KP + "DraftStudio");
+
   pushUndo({type:"newNote", g:n.g, label:"dodanie notatki"});
-  closeModal("modalNew"); renderAll();
+  closeModal("modalNew");
+  renderAll();
+
   if(otworzEdytor){
     openFs(n);
     setTimeout(()=>{
@@ -26471,6 +26762,7 @@ async function zapiszNowaNotatke(otworzEdytor){
 }
 $("nnSave").onclick=()=>zapiszNowaNotatke(false);
 $("nnSaveEdit").onclick=()=>zapiszNowaNotatke(true);
+
 
 </script>
 <script>
