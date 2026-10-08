@@ -3184,29 +3184,68 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
 /* Motyw czytnika jest niezależny od motywu całej aplikacji. Zmienne są
    ograniczone do pełnego ekranu, więc wybranie sepii nie przemalowuje list,
    Centrum Studium ani ustawień. */
-#modalFs[data-reader-theme="light"]{--bg:#fbfbfa;--panel:#fff;--text:#202421;--muted:#737a76;--border:#dfe4e1;--sel:#e9f2ed;--accent:#236c52;--accent2:#74a994}
-#modalFs[data-reader-theme="sepia"]{--bg:#f2e8d1;--panel:#fbf3e2;--text:#352f25;--muted:#746a58;--border:#d9c9aa;--sel:#eadcbc;--accent:#6b6047;--accent2:#9a8662}
-#modalFs[data-reader-theme="dark"]{--bg:#151816;--panel:#202421;--text:#eef1ed;--muted:#a7aea9;--border:#3a413d;--sel:#2b3832;--accent:#79c7a5;--accent2:#8bbca7}
-#modalFs[data-reader-theme="oled"]{--bg:#000000;--panel:#080808;--text:#f3f4f6;--muted:#9ca3af;--border:#27272a;--sel:#18181b;--accent:#38bdf8;--accent2:#60a5fa}
-#modalFs[data-reader-theme="sage"]{--bg:#e2eae4;--panel:#eef4ef;--text:#192c1e;--muted:#586b5c;--border:#c5d4c7;--sel:#d7e4d9;--accent:#275a37;--accent2:#3f7c52}
+#modalFs[data-reader-theme="light"]{--bg:#ffffff;--panel:#ffffff;--text:#1d1d1f;--muted:#6e6e73;--border:#e5e5ea;--sel:#f2f2f7;--accent:#236c52;--accent2:#74a994}
+#modalFs[data-reader-theme="sepia"]{--bg:#fbf0d9;--panel:#fbf0d9;--text:#3c2f1f;--muted:#746a58;--border:#e2d3b4;--sel:#ebdcc0;--accent:#6b6047;--accent2:#9a8662}
+#modalFs[data-reader-theme="dark"]{--bg:#1c1c1e;--panel:#1c1c1e;--text:#f5f5f7;--muted:#a7aea9;--border:#3a413d;--sel:#2b3832;--accent:#79c7a5;--accent2:#8bbca7}
+#modalFs[data-reader-theme="oled"]{--bg:#000000;--panel:#000000;--text:#f3f4f6;--muted:#9ca3af;--border:#27272a;--sel:#18181b;--accent:#38bdf8;--accent2:#60a5fa}
+#modalFs[data-reader-theme="sage"]{--bg:#eaf1ec;--panel:#eaf1ec;--text:#192c1e;--muted:#586b5c;--border:#c5d4c7;--sel:#d7e4d9;--accent:#275a37;--accent2:#3f7c52}
 
+#modalFs[data-reader-theme]:not([data-reader-theme="app"]){background:var(--bg)!important}
 #modalFs[data-reader-theme]:not([data-reader-theme="app"]) .fsmodal{background:var(--bg)!important;color:var(--text)!important}
-#modalFs[data-reader-theme]:not([data-reader-theme="app"]) #fsWrap .ncard{background:var(--panel)!important;color:var(--text)!important}
+#modalFs[data-reader-theme]:not([data-reader-theme="app"]) #fsWrap .ncard{background:transparent!important;color:var(--text)!important;border:none!important;box-shadow:none!important;border-radius:0!important}
+#modalFs #fsWrap .ncontent,
+#modalFs #fsWrap .ncontent p,
+#modalFs #fsWrap .ncontent li,
+#modalFs #fsWrap .ncontent blockquote,
+#modalFs #fsWrap .ncontent :is(h1,h2,h3,h4,h5,h6),
+#modalFs #fsWrap .ncontent :is(strong,b,em,i,u,s),
+#modalFs #fsWrap .ncontent span:not(.qhl):not(.chip):not(.x):not([class*="badge"]):not([class*="tag"]):not([class*="jwl-ref"]) {
+  color: var(--text) !important;
+}
+#modalFs #fsWrap .ntitle { color: var(--text) !important; }
+#modalFs #fsWrap .nmeta2,
+#modalFs #fsWrap .nmeta2 .pill,
+#modalFs #fsWrap .nmeta2 a { color: var(--muted) !important; }
+
+#modalFs .fsBar,
+#modalFs .fsStat { color: var(--muted) !important; }
+#modalFs .fsPct { background: var(--sel) !important; color: var(--accent) !important; border-color: var(--border) !important; }
+#modalFs .fsBarBtn { background: color-mix(in srgb, var(--panel) 90%, transparent) !important; color: var(--text) !important; border-color: var(--border) !important; }
+#modalFs .fsBarBtn:hover { background: var(--sel) !important; border-color: var(--accent) !important; color: var(--accent) !important; }
+#modalFs .fsFind,
+#modalFs .fsToc,
+#modalFs .fsMarks { background: color-mix(in srgb, var(--panel) 94%, transparent) !important; border-color: var(--border) !important; color: var(--text) !important; }
+#modalFs .fsFindInp { background: var(--sel) !important; border-color: var(--border) !important; color: var(--text) !important; }
+#modalFs .fsTocItem,
+#modalFs .fsToc a,
+#modalFs .toc-item { color: var(--text) !important; }
+
 #modalFs[data-reader-theme="dark"] #fsWrap .nhead{filter:brightness(.72) saturate(.8)}
 #modalFs[data-reader-theme="oled"] #fsWrap .nhead{filter:brightness(.65) saturate(.75)}
-#modalFs[data-reader-theme="dark"] #fsWrap .chip-study{background:var(--panel)!important;color:var(--accent)!important}
-#modalFs[data-reader-theme="oled"] #fsWrap .chip-study{background:var(--panel)!important;color:var(--accent)!important}
-#modalFs[data-reader-theme="sepia"] #fsWrap .chip-study{background:#fbf3e2!important;color:var(--accent)!important}
-#modalFs[data-reader-theme="sage"] #fsWrap .chip-study{background:#eef4ef!important;color:var(--accent)!important}
+#modalFs[data-reader-theme="dark"] #fsWrap .chip-study{background:rgba(255,255,255,.08)!important;color:var(--accent)!important}
+#modalFs[data-reader-theme="oled"] #fsWrap .chip-study{background:rgba(255,255,255,.08)!important;color:var(--accent)!important}
+#modalFs[data-reader-theme="sepia"] #fsWrap .chip-study{background:rgba(0,0,0,.06)!important;color:var(--accent)!important}
+#modalFs[data-reader-theme="sage"] #fsWrap .chip-study{background:rgba(0,0,0,.06)!important;color:var(--accent)!important}
+
+#modalFs[data-reader-theme="dark"] .ncontent a.jwl-ref,
+#modalFs[data-reader-theme="dark"] .ncontent a.jwl-ref.auto{color:#79c7a5!important}
+#modalFs[data-reader-theme="dark"] .ncontent a.jwl-ref:hover,
+#modalFs[data-reader-theme="dark"] .ncontent a.jwl-ref.auto:hover{color:#a3e0c6!important}
 
 #modalFs[data-reader-theme="oled"] .ncontent a.jwl-ref,
 #modalFs[data-reader-theme="oled"] .ncontent a.jwl-ref.auto{color:#60a5fa!important}
 #modalFs[data-reader-theme="oled"] .ncontent a.jwl-ref:hover,
 #modalFs[data-reader-theme="oled"] .ncontent a.jwl-ref.auto:hover{color:#93c5fd!important}
+
 #modalFs[data-reader-theme="sage"] .ncontent a.jwl-ref,
 #modalFs[data-reader-theme="sage"] .ncontent a.jwl-ref.auto{color:#1d4ed8!important}
 #modalFs[data-reader-theme="sage"] .ncontent a.jwl-ref:hover,
 #modalFs[data-reader-theme="sage"] .ncontent a.jwl-ref.auto:hover{color:#1e40af!important}
+
+#modalFs[data-reader-theme="sepia"] .ncontent a.jwl-ref,
+#modalFs[data-reader-theme="sepia"] .ncontent a.jwl-ref.auto{color:#8d4f13!important}
+#modalFs[data-reader-theme="sepia"] .ncontent a.jwl-ref:hover,
+#modalFs[data-reader-theme="sepia"] .ncontent a.jwl-ref.auto:hover{color:#a96219!important}
 
 /* Czysty wydruk z czytnika */
 @media print {
@@ -6576,18 +6615,10 @@ html[data-fsband="duze"] #sortSel{ max-width:150px; }
 
    Na białym tle tekst może być odrobinę ciemniejszy niż na liście, gdzie karty i tak
    odcinają się od tła. To ta sama barwa, tylko pełne krycie zamiast przygaszenia. */
-#fsWrap .ncontent{ color:#141416; }
-#fsWrap .ntitle{ color:#0f1011!important; }
-html[data-theme="sepia"] #fsWrap .ncontent{ color:#3f3423; }
-html[data-theme="sepia"] #fsWrap .ntitle{ color:#332a1b!important; }
-html[data-theme="dark"] #fsWrap .ncontent{ color:#e9e9ee; }
-html[data-theme="dark"] #fsWrap .ntitle{ color:#f5f5f7!important; }
-/* Wiersz źródła i pasek narzędzi zostają ciche — kontrast podnosimy tam, gdzie się czyta. */
-#fsWrap .nmeta2 .pill{ color:#6b6b70!important; }
-html[data-theme="dark"] #fsWrap .nmeta2 .pill{ color:#9a9aa0!important; }
-/* Cienka linia pod nagłówkiem na białym tle może być delikatniejsza. */
-#fsWrap .nmeta2{ border-bottom-color:rgba(60,60,67,.10); }
-html[data-theme="dark"] #fsWrap .nmeta2{ border-bottom-color:rgba(255,255,255,.10); }
+#fsWrap .ncontent{ color:var(--text); }
+#fsWrap .ntitle{ color:var(--text)!important; }
+#fsWrap .nmeta2 .pill{ color:var(--muted)!important; }
+#fsWrap .nmeta2{ border-bottom-color:color-mix(in srgb, var(--border) 60%, transparent); }
 
 /* ══════════════ UCHWYT DO PRZENOSZENIA POZYCJI ══════════════
 
@@ -8261,22 +8292,59 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
   max-width: 100vw !important;
   max-height: 100dvh !important;
   border-radius: 0 !important;
+  border: none !important;
   box-shadow: none !important;
+  background: var(--bg) !important;
 }
 
 #modalFs .fsmodal {
-  position: absolute !important;
+  position: fixed !important;
   inset: 0 !important;
   width: 100vw !important;
+  width: 100dvw !important;
   max-width: 100vw !important;
-  height: 100% !important;
+  height: 100vh !important;
   height: 100dvh !important;
   max-height: 100dvh !important;
-  padding: clamp(12px, 2vh, 24px) clamp(16px, 4vw, 36px) calc(28px + env(safe-area-inset-bottom, 0px)) !important;
+  padding: 0 !important;
+  margin: 0 !important;
   box-sizing: border-box !important;
   border-radius: 0 !important;
+  border: none !important;
   box-shadow: none !important;
-  background: var(--panel);
+  background: var(--bg) !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+#modalFs #fsWrap {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 100% !important;
+  background: transparent !important;
+}
+
+#modalFs #fsWrap .ncard {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 0 calc(36px + env(safe-area-inset-bottom, 0px)) 0 !important;
+  min-height: 100dvh !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  transform: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+#modalFs #fsWrap .ncard:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
 }
 
 /* W trybie pełnoekranowym wyłączamy wszelkie sztuczne pasy i marginesy */
@@ -8290,6 +8358,7 @@ body.fs-fullscreen #modalFs {
   padding: 0 !important;
   margin: 0 !important;
   border-radius: 0 !important;
+  border: none !important;
   width: 100vw !important;
   max-width: 100vw !important;
   height: 100% !important;
@@ -8311,29 +8380,52 @@ body.fs-fullscreen #modalFs .fsmodal {
   height: 100vh !important;
   height: 100dvh !important;
   max-height: 100dvh !important;
-  padding: clamp(12px, 2vh, 26px) clamp(16px, 4vw, 40px) calc(24px + env(safe-area-inset-bottom, 0px)) !important;
+  padding: 0 !important;
   border-radius: 0 !important;
+  border: none !important;
   box-shadow: none !important;
 }
 
 /* Wyłączenie sztucznych pasów w iPad standalone w czytniku */
 body.ipad-standalone #modalFs.is-fullscreen .fsmodal::before,
 body.ipad-standalone.fs-fullscreen #modalFs .fsmodal::before,
-#modalFs.is-fullscreen::before {
+#modalFs.is-fullscreen::before,
+body.ipad-standalone #modalFs .fsmodal::before {
   display: none !important;
   height: 0 !important;
 }
 
 body.ipad-standalone #modalFs.is-fullscreen .fsmodal,
-body.ipad-standalone.fs-fullscreen #modalFs .fsmodal {
-  padding-top: clamp(12px, 2vh, 24px) !important;
+body.ipad-standalone.fs-fullscreen #modalFs .fsmodal,
+body.ipad-standalone #modalFs .fsmodal {
+  padding: 0 !important;
+}
+
+/* Elementy treści w czytniku — wyśrodkowane z wygodnymi marginesami */
+#modalFs #fsWrap .nhead,
+#modalFs #fsWrap .nmeta2,
+#modalFs #fsWrap .chips,
+#modalFs .fsBar,
+#modalFs .fsFind,
+#modalFs .fsToc,
+#modalFs .fsMarks,
+#modalFs #fsWrap .ncontent,
+#modalFs #fsWrap .powiazane,
+#modalFs #fsWrap .ntools {
+  max-width: var(--fsMax, 860px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding-left: clamp(16px, 4.5vw, 42px) !important;
+  padding-right: clamp(16px, 4.5vw, 42px) !important;
 }
 
 /* Nagłówek notatki — czysty, książkowy, bez wielkich przerw */
 #modalFs #fsWrap .nhead {
-  padding: clamp(8px, 1.5vh, 16px) 0 clamp(4px, 1vh, 10px) 0 !important;
-  max-width: var(--fsMax, 880px) !important;
-  margin: 0 auto !important;
+  padding-top: max(22px, calc(14px + env(safe-area-inset-top, 0px))) !important;
+  padding-bottom: clamp(4px, 1vh, 10px) !important;
+  padding-right: clamp(70px, 9vw, 110px) !important;
   border-bottom: 0 !important;
   background: transparent !important;
 }
@@ -8349,30 +8441,27 @@ body.ipad-standalone.fs-fullscreen #modalFs .fsmodal {
 
 /* Metadane, tagi i pasek statystyk czytnika: zwarte i estetyczne */
 #modalFs #fsWrap .nmeta2 {
-  max-width: var(--fsMax, 880px) !important;
-  margin: 4px auto 10px !important;
+  margin-top: 4px !important;
+  margin-bottom: 10px !important;
   padding-bottom: 8px !important;
   border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent) !important;
   opacity: 0.85;
 }
 
 #modalFs #fsWrap .chips {
-  max-width: var(--fsMax, 880px) !important;
-  margin: 0 auto 10px !important;
+  margin-top: 0 !important;
+  margin-bottom: 10px !important;
 }
 
 #modalFs .fsBar {
-  max-width: var(--fsMax, 880px) !important;
-  margin: 0 auto 12px !important;
-  padding: 4px 0 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 12px !important;
+  padding-top: 4px !important;
   border-bottom: 0 !important;
   opacity: 0.85;
 }
 
 #modalFs #fsWrap .ncontent {
-  max-width: var(--fsMax, 880px) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
   padding-bottom: clamp(60px, 12vh, 120px) !important;
 }
 
@@ -13314,33 +13403,19 @@ blockquote.callout-werset, .callout-werset {
 .toolDialog{width:min(500px,100%);max-height:min(78vh,700px);overflow:auto;border:1px solid var(--border);border-radius:20px;background:var(--panel);box-shadow:0 20px 55px rgba(0,0,0,.3);padding:18px;color:var(--text)}.toolDialogHead{display:flex;align-items:center;gap:10px;margin-bottom:12px}.toolDialogHead h3{margin:0;flex:1;font-size:17px}.toolDialogHead button{border:0;border-radius:8px;background:var(--sel);color:var(--text);width:32px;height:32px}
 #tableSizeGrid{display:grid;grid-template-columns:repeat(6,42px);gap:5px;justify-content:center}#tableSizeGrid button{width:42px;height:38px;border:1px solid var(--border);border-radius:7px;background:var(--panel)}#tableSizeGrid button.on{background:var(--accent2);border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}#tableSizeLabel{text-align:center;color:var(--accent);font-weight:700;margin:0 0 12px}
 .fragmentActions{display:flex;gap:8px;margin-bottom:12px}.fragmentActions button{border:1px solid var(--border);border-radius:9px;background:var(--sel);color:var(--text);padding:8px 11px}.fragmentGroup{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700;margin:12px 4px 5px}.fragmentItem{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:center;border:1px solid var(--border);border-radius:11px;padding:5px 6px;margin:6px 0}.fragmentInsert{border:0;background:transparent;color:var(--text);text-align:left;padding:7px}.fragmentInsert small{display:block;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fragmentDelete{border:0;background:transparent;color:var(--danger,#a33);width:32px;height:32px}
-/* JW Study 3.54 — czytnik na iPadOS 27. Szkło systemowe zajmuje więcej
-   miejsca niż samo env(safe-area-inset-top), więc tytuł zaczyna się dopiero
-   pod dodatkową, nieprzezroczystą strefą. */
-body.ipad-standalone{--ipad-reader-clearance:46px}
+/* JW Study — czytnik na iPadOS (Zen Reader bez sztucznych pasów) */
+body.ipad-standalone{--ipad-reader-clearance:0px}
 body.ipad-standalone #modalFs .fsmodal{
   box-sizing:border-box;
-  padding-top:calc(env(safe-area-inset-top,0px) + var(--ipad-reader-clearance))!important;
+  padding:0 !important;
   -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
 }
 body.ipad-standalone #modalFs .fsmodal::before{
-  content:"";position:absolute;left:0;right:0;top:0;
-  height:calc(env(safe-area-inset-top,0px) + var(--ipad-reader-clearance));
-  background:var(--panel);pointer-events:none;z-index:1;
-  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  display:none !important;
+  content:none !important;
 }
-body.ipad-standalone #modalFs #fsWrap .nhead{background:var(--panel)!important;padding-top:18px!important}
-body.ipad-standalone #modalFs .fsmodal > #fsClose,
-body.ipad-standalone #modalFs .fsmodal > #fsFull,
-body.ipad-standalone #modalFs #fsClose,
-body.ipad-standalone #modalFs #fsFull{
-  top:calc(env(safe-area-inset-top,0px) + var(--ipad-reader-clearance) + 10px)!important;
-}
-html[data-theme="sepia"] body.ipad-standalone #modalFs .fsmodal::before,
-html[data-theme="sepia"] body.ipad-standalone #modalFs #fsWrap .nhead{background:#faf3e3!important}
-html[data-theme="dark"] body.ipad-standalone #modalFs .fsmodal::before,
-html[data-theme="dark"] body.ipad-standalone #modalFs #fsWrap .nhead{background:#151517!important}
-@media (orientation:landscape){body.ipad-standalone{--ipad-reader-clearance:42px}}
+body.ipad-standalone #modalFs #fsWrap .nhead{background:transparent!important;}
+
 
 /* ==========================================================================
    JW Study 3.58 — Nowoczesny Interfejs (Modern Emerald & OLED Dark UI)
