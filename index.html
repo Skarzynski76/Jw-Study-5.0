@@ -3184,15 +3184,69 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
 /* Motyw czytnika jest niezależny od motywu całej aplikacji. Zmienne są
    ograniczone do pełnego ekranu, więc wybranie sepii nie przemalowuje list,
    Centrum Studium ani ustawień. */
-#modalFs[data-reader-theme="light"]{--bg:#ffffff;--panel:#ffffff;--text:#1d1d1f;--muted:#6e6e73;--border:#e5e5ea;--sel:#f2f2f7;--accent:#236c52;--accent2:#74a994}
-#modalFs[data-reader-theme="sepia"]{--bg:#fbf0d9;--panel:#fbf0d9;--text:#3c2f1f;--muted:#746a58;--border:#e2d3b4;--sel:#ebdcc0;--accent:#6b6047;--accent2:#9a8662}
-#modalFs[data-reader-theme="dark"]{--bg:#1c1c1e;--panel:#1c1c1e;--text:#f5f5f7;--muted:#a7aea9;--border:#3a413d;--sel:#2b3832;--accent:#79c7a5;--accent2:#8bbca7}
-#modalFs[data-reader-theme="oled"]{--bg:#000000;--panel:#000000;--text:#f3f4f6;--muted:#9ca3af;--border:#27272a;--sel:#18181b;--accent:#38bdf8;--accent2:#60a5fa}
-#modalFs[data-reader-theme="sage"]{--bg:#eaf1ec;--panel:#eaf1ec;--text:#192c1e;--muted:#586b5c;--border:#c5d4c7;--sel:#d7e4d9;--accent:#275a37;--accent2:#3f7c52}
+#modalFs[data-reader-theme="light"], #readPop[data-reader-theme="light"], #dropdown[data-reader-theme="light"]{--bg:#ffffff;--panel:#ffffff;--text:#1d1d1f;--muted:#6e6e73;--border:#e5e5ea;--sel:#f2f2f7;--accent:#236c52;--accent2:#74a994}
+#modalFs[data-reader-theme="sepia"], #readPop[data-reader-theme="sepia"], #dropdown[data-reader-theme="sepia"]{--bg:#fbf0d9;--panel:#fbf0d9;--text:#3c2f1f;--muted:#746a58;--border:#e2d3b4;--sel:#ebdcc0;--accent:#6b6047;--accent2:#9a8662}
+#modalFs[data-reader-theme="dark"], #readPop[data-reader-theme="dark"], #dropdown[data-reader-theme="dark"]{--bg:#1c1c1e;--panel:#1c1c1e;--text:#f5f5f7;--muted:#a7aea9;--border:#3a413d;--sel:#2b3832;--accent:#79c7a5;--accent2:#8bbca7}
+#modalFs[data-reader-theme="oled"], #readPop[data-reader-theme="oled"], #dropdown[data-reader-theme="oled"]{--bg:#000000;--panel:#000000;--text:#f3f4f6;--muted:#9ca3af;--border:#27272a;--sel:#18181b;--accent:#38bdf8;--accent2:#60a5fa}
+#modalFs[data-reader-theme="sage"], #readPop[data-reader-theme="sage"], #dropdown[data-reader-theme="sage"]{--bg:#eaf1ec;--panel:#eaf1ec;--text:#192c1e;--muted:#586b5c;--border:#c5d4c7;--sel:#d7e4d9;--accent:#275a37;--accent2:#3f7c52}
+#modalFs[data-reader-theme="app"], #modalFs:not([data-reader-theme]), #readPop[data-reader-theme="app"], #dropdown[data-reader-theme="app"]{--bg:var(--panel)}
 
-#modalFs[data-reader-theme]:not([data-reader-theme="app"]){background:var(--bg)!important}
-#modalFs[data-reader-theme]:not([data-reader-theme="app"]) .fsmodal{background:var(--bg)!important;color:var(--text)!important}
-#modalFs[data-reader-theme]:not([data-reader-theme="app"]) #fsWrap .ncard{background:transparent!important;color:var(--text)!important;border:none!important;box-shadow:none!important;border-radius:0!important}
+#modalFs,
+#modalFs[data-reader-theme] {
+  background: var(--bg) !important;
+}
+#modalFs .fsmodal,
+#modalFs[data-reader-theme] .fsmodal {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+#modalFs #fsWrap .ncard,
+#modalFs[data-reader-theme] #fsWrap .ncard {
+  background: transparent !important;
+  color: var(--text) !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* Dolny pasek czytnika i jego elementy — idealne zgranie z wybranym tłem */
+#modalFs #fsWrap .ncard .ntools,
+#modalFs #fsWrap .ncard:not(.editing) .ntools,
+#modalFs #fsWrap .ncard.wlasneTlo .ntools,
+#modalFs #fsWrap .ntools {
+  background: var(--bg) !important;
+  border: 0 !important;
+  border-top: 1px solid var(--border) !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+  transition: background .15s ease, border-color .15s ease, opacity .18s ease, transform .2s ease !important;
+}
+#modalFs #fsWrap .ntools .sbtn.ico {
+  color: var(--text) !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+}
+#modalFs #fsWrap .ntools .sbtn.ico:hover,
+#modalFs #fsWrap .ntools .sbtn.ico:active {
+  background: var(--sel) !important;
+  color: var(--accent) !important;
+}
+#modalFs #fsWrap .ntools .more-btn {
+  background: var(--sel) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+}
+#modalFs #fsWrap .ntools .more-btn:hover {
+  background: color-mix(in srgb, var(--sel) 80%, var(--accent)) !important;
+  color: var(--accent) !important;
+}
+#modalFs #fsWrap .ncard.editing .ntools {
+  background: var(--panel) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+  box-shadow: 0 7px 22px rgba(0,0,0,.2) !important;
+}
+
 #modalFs #fsWrap .ncontent,
 #modalFs #fsWrap .ncontent p,
 #modalFs #fsWrap .ncontent li,
@@ -23237,8 +23291,11 @@ let readerFocus = lsGet(READER_FOCUS_KEY,"1")!=="0";
 let readerWake = lsGet(READER_WAKE_KEY,"0")==="1";
 
 function applyReaderTheme(){
-  const modal=$("modalFs"); if(!modal) return;
-  modal.dataset.readerTheme=readerTheme;
+  const modal=$("modalFs"); if(modal) modal.dataset.readerTheme=readerTheme;
+  const pop=$("readPop"); if(pop) pop.dataset.readerTheme=readerTheme;
+  const dd=$("dropdown"); if(dd) dd.dataset.readerTheme=readerTheme;
+  const cm=$("colorMenu"); if(cm) cm.dataset.readerTheme=readerTheme;
+  const mm=$("motywMenu"); if(mm) mm.dataset.readerTheme=readerTheme;
 }
 /**
  * Otwiera notatkę na pełnym ekranie (czytnik): typografia do czytania, spis treści
@@ -23795,6 +23852,7 @@ function releaseWake(){ try{ if(wakeLock){ wakeLock.release(); wakeLock=null; } 
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState==="visible") acquireWake(); else releaseWake(); });
 // panel typografii
 function openReadPop(btn){
+  applyReaderTheme();
   const pop=$("readPop");
   const seg=(id,items)=>`<div class="rp-grp" data-grp="${id}">`+items.map(it=>`<button type="button" data-v="${it.v}" class="${it.on?"on":""}">${it.t}</button>`).join("")+`</div>`;
   pop.innerHTML =
