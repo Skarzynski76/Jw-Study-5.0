@@ -17992,10 +17992,7 @@ const HistoriaBledow = (function(){
         if(item.stos) rep += `Stos wywołań:
 ${item.stos}
 `;
-        if(item.slady && item.slady.length) rep += `Ślady przed błędem:
-` + item.slady.map(s => `  > ${s}`).join("
-") + "
-";
+        if(item.slady && item.slady.length) rep += "\nŚlady przed błędem:\n" + item.slady.map(s => `  > ${s}`).join("\n") + "\n";
         rep += `
 `;
       });
@@ -18090,11 +18087,7 @@ ${item.stos}
 `;
     if(item.widok) txt += `Widok: ${item.widok}
 `;
-    if(item.slady && item.slady.length) txt += `
-Ostatnie akcje przed błędem:
-` + item.slady.map(s => `  > ${s}`).join("
-") + "
-";
+    if(item.slady && item.slady.length) txt += "\nOstatnie akcje przed błędem:\n" + item.slady.map(s => `  > ${s}`).join("\n") + "\n";
     if(item.stos) txt += `
 Stos wywołań:
 ${item.stos}
@@ -20291,7 +20284,7 @@ function przechodziOpcjeSzukania(n){
   if(searchOpts.dateTo && data>searchOpts.dateTo) return false;
   const hi=String(qSpecial.highlight||searchOpts.highlight);
   if(hi==="has" && !/<mark/i.test(n.h||"")) return false;
-  if(/^[1-7]$/.test(hi) && !(new RegExp("class=["'][^"']*hl"+hi)).test(n.h||"")) return false;
+  if(/^[1-7]$/.test(hi) && !((new RegExp('class=["\'][^"\']*hl' + hi)).test(n.h||""))) return false;
   if((qSpecial.fav||searchOpts.extra==="fav")&&!n.fav) return false;
   if((qSpecial.pin||searchOpts.extra==="pin")&&!n.pin) return false;
   if(qSpecial.tag){ const tagSzuk=norm(qSpecial.tag); const tgs=(n.tg||[]).map(id=>(tags.find(t=>t.id===id)||{}).name||""); if(!tgs.some(t=>norm(t).includes(tagSzuk))) return false; }
@@ -20457,13 +20450,13 @@ function parseQuery(q){
     if(!groups.length) return;
 
     const mk = s => {
-      const base = norm(s).replace(/[.+?^${}()|[\]\]/g,"\$&").replace(/\*/g,"[\p{L}\p{N}]*");
+      const base = norm(s).replace(/[.*+?^${}()|[\]\\]/g,"\$&").replace(/\*/g,"[\p{L}\p{N}]*");
       return /^\d+$/.test(norm(s)) ? "(?<![\p{L}\p{N}])"+base+"(?![\p{L}\p{N}])" : base;
     };
     qComp = groups.map(g=>new RegExp(g.map(mk).join("|"),"iu"));
 
     const G={a:"[aąAĄ]",c:"[cćCĆ]",e:"[eęEĘ]",l:"[lłLŁ]",n:"[nńNŃ]",o:"[oóOÓ]",s:"[sśSŚ]",z:"[zźżZŹŻ]"};
-    const mkHl = s => s.replace(/[.+?^${}()|[\]\]/g,"\$&")
+    const mkHl = s => s.replace(/[.*+?^${}()|[\]\\]/g,"\$&")
       .replace(/[aącćeęlłnńoósśzźżAĄCĆEĘLŁNŃOÓSŚZŹŻ]/g, ch=>G[norm(ch)] || ch)
       .replace(/\*/g,"[\p{L}\p{N}]*");
     qHl = new RegExp("("+groups.flat().map(mkHl).join("|")+")","giu");
@@ -23194,7 +23187,7 @@ function opisFiltrowWynikow(){
   }
   return a.join(" · ");
 }
-let _searchCounts = {all:0, bible:0, publication:0, own:0};
+var _searchCounts = {all:0, bible:0, publication:0, own:0};
 function renderSearchStatus(arr){
   const box=$("searchStatus"); const active=!!query||aktywneOpcjeSzukania(); box.hidden=!active; if(!active){box.innerHTML="";return;}
   if(searchOpts.group==="all" || !_searchCounts || !_searchCounts.all){
@@ -30122,8 +30115,6 @@ function flashOk(el){
    Poniższe funkcje nadają rolę, przenoszą ognisko do okna, zatrzymują
    klawisz Tab w jego obrębie i oddają ognisko tam, skąd okno otwarto.
    ===================================================================== */
-let _skadOkno = null;
-
 /* ==========================================================================
    JW Study — modal-accessibility.js & mobile-gestures.js
    Okna dialogowe: zamykanie gestem w dół (pull-to-dismiss), kliknięcie w tło,
