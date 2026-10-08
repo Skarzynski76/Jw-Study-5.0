@@ -16605,6 +16605,44 @@ const DBNAME = "jwStudyClean";   // nazwa pamięci tej kopii aplikacji
 const KP = "jws";               // prefiks ustawień
 let notes = [], tags = [], deletedGuids = [];
 let filt = {tag:"all", book:"all", ch:null, pub:"all"};
+
+/* ——— Globalne zmienne i funkcje wyszukiwarki (gwarancja dostępności od startu) ——— */
+function norm(s){ return (s||"").toLowerCase().replace(/\u0142/g,"l").normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
+window.norm = norm;
+
+var searchOpts = {scope:"current",group:"all",dateFrom:"",dateTo:"",highlight:"all",extra:"all"};
+var searchScores = new Map();
+var searchDetails = new Map();
+var searchDuplicateSet = null;
+var searchScannedCount = 0;
+var searchWasLimited = false;
+var searchInProgress = false;
+var searchTotalMatches = 0;
+var searchMatchLimit = 250;
+var searchScanLimit = 1200;
+var qComp = null;
+var qHl = null;
+var qFields = null;
+var qBibleMatch = null;
+var _qNorm = "";
+var _qSquash = "";
+var qAdvTerms = [];
+var qAdvNeg = [];
+var qAdvPhrases = [];
+var qSpecial = {};
+var _qCache = null;
+var _searchCounts = {all:0, bible:0, publication:0, own:0};
+
+window.resetQueryCache = function resetQueryCache(){
+  _qCache = null;
+  if(typeof searchScores !== "undefined" && searchScores && searchScores.clear) searchScores.clear();
+  if(typeof searchDetails !== "undefined" && searchDetails && searchDetails.clear) searchDetails.clear();
+  if(typeof searchDuplicateSet !== "undefined") searchDuplicateSet = null;
+};
+function resetQueryCache(){
+  window.resetQueryCache();
+}
+
 let query = "", sortMode = "new";
 /* Pierwsza porcja mieści kilka ekranów, ale nie tworzy od razu sześćdziesięciu
    rozbudowanych kart. Pozostałe dochodzą automatycznie przy przewijaniu. */
@@ -20101,8 +20139,8 @@ function rozgrzejCacheSzukania(){
   kolejka(porcja);
 }
 
-let qComp=null, qHl=null, qFields=null, qBibleMatch=null;
-let _qNorm="", _qSquash="";
+var qComp=null, qHl=null, qFields=null, qBibleMatch=null;
+var _qNorm="", _qSquash="";
 const QFIELD_MAP = {
   "tytuł":"title","tytul":"title","title":"title","t":"title",
   "treść":"body","tresc":"body","body":"body","tekst":"body","c":"body",
@@ -20112,12 +20150,12 @@ const QFIELD_MAP = {
 };
 
 let searchMode=lsGet(KP+"SearchMode","exact")==="smart"?"smart":"exact";
-let searchScores=new Map(), searchDetails=new Map(), searchDuplicateSet=null;
-let qAdvTerms=[],qAdvNeg=[],qAdvPhrases=[],qSpecial={};
+var searchScores=new Map(), searchDetails=new Map(), searchDuplicateSet=null;
+var qAdvTerms=[],qAdvNeg=[],qAdvPhrases=[],qSpecial={};
 const SZUK_STOP = new Set();
 const normSzukStart = s => norm(s).replace(/[^a-z0-9]/g,"");
 const SEARCH_RESULT_STEP=250, SEARCH_SCAN_STEP=1200;
-let searchMatchLimit=SEARCH_RESULT_STEP, searchScanLimit=SEARCH_SCAN_STEP;
+var searchMatchLimit=SEARCH_RESULT_STEP, searchScanLimit=SEARCH_SCAN_STEP, searchScannedCount=0, searchWasLimited=false, searchInProgress=false, searchTotalMatches=0;
 function resetSearchWindow(){
   searchMatchLimit=SEARCH_RESULT_STEP;
   searchScanLimit=SEARCH_SCAN_STEP;
