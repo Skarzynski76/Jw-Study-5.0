@@ -2317,8 +2317,33 @@ html[data-theme="dark"] .cenHeroTag {
   .cenStatCard {
     padding: 12px 16px;
   }
+  #formCelEdycja input, #formCelEdycja select, #formCelEdycja textarea {
+    font-size: 16px !important;
+  }
+  #formCelEdycja > div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+  .cenTemplatesGrid {
+    grid-template-columns: 1fr !important;
+    max-height: 60vh;
+  }
+  .cenCelDayBtn {
+    min-height: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .cenCelNumBtn, .cenCelPrimaryBtn, .cenCelIconBtn, .cenCelVerseBtn {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
+@media (max-width: 768px) {
+  input[type="text"], input[type="number"], input[type="search"], input[type="password"], input[type="email"], select, textarea {
+    font-size: 16px !important;
+    touch-action: manipulation;
+  }
+}
 </style>
 <style>
 /* ==========================================================================
