@@ -12413,6 +12413,87 @@ html[data-theme="dark"] main{background:radial-gradient(900px 500px at 8% -8%,co
 html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
 
 @media(max-width:760px){main{gap:8px;padding:8px}.col{border-radius:15px!important}.ncard{border-radius:15px}.brand-name .ver{background:transparent;padding:0}}
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   MOBILNA ERGONOMIA I GESTY ZAMYKANIA MODALI (iOS Safe Area + Bottom Sheet)
+   ══════════════════════════════════════════════════════════════════════ */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* Wskaźnik przeciągania na górze modali na telefonach i tabletach */
+.modal-drag-handle {
+  display: none;
+  width: 44px;
+  height: 5px;
+  background: var(--border, rgba(128, 128, 128, 0.35));
+  border-radius: 999px;
+  margin: -6px auto 14px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  transition: background-color 0.16s ease, transform 0.16s ease;
+}
+.modal-drag-handle:active {
+  cursor: grabbing;
+  background: var(--accent, #4ade80);
+  transform: scaleX(1.18);
+}
+
+/* Dostosowanie mobilne: modale jako Bottom Sheet z obsługą gestów */
+@media (max-width: 680px) {
+  .overlay {
+    align-items: flex-end !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    padding-top: max(14px, var(--safe-top)) !important;
+    padding-bottom: 0 !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Wyjątki dla mini-alertów: askModal i msgModal pozostają wycentrowane */
+  .overlay#askModal, .overlay#msgModal {
+    align-items: center !important;
+    padding: 16px !important;
+  }
+
+  .modal-drag-handle {
+    display: block !important;
+  }
+
+  .modal:not(.mapamodal):not(.fsmodal) {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    border-radius: 24px 24px 0 0 !important;
+    border-bottom: none !important;
+    max-height: calc(100dvh - max(20px, var(--safe-top))) !important;
+    padding-left: calc(18px + var(--safe-left)) !important;
+    padding-right: calc(18px + var(--safe-right)) !important;
+    padding-bottom: calc(22px + var(--safe-bottom)) !important;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.28) !important;
+    margin: 0 !important;
+    touch-action: pan-y;
+    overscroll-behavior-y: contain;
+  }
+
+  /* Pełnoekranowy czytnik w trybie mobilnym */
+  .fsmodal {
+    padding-top: max(10px, var(--safe-top)) !important;
+    padding-bottom: max(16px, var(--safe-bottom)) !important;
+    padding-left: max(10px, var(--safe-left)) !important;
+    padding-right: max(10px, var(--safe-right)) !important;
+  }
+
+  /* Przyciski i akcje na dole modali z zapasem na pasek iOS Home Indicator */
+  .modal-actions, .modal-btns, .nn-foot, .smart-actions, .modal-foot {
+    padding-bottom: max(6px, var(--safe-bottom));
+  }
+}
+
 </style><style>
 /* JW Study 3.50 — bloki, malarz formatów i podpisy ilustracji */
 .ncontent > div.callout{margin:.65em 0!important;padding:11px 14px 11px 42px;border:1px solid var(--border);border-left:5px solid var(--callout,#6d8f7d);border-radius:12px;background:color-mix(in srgb,var(--callout,#6d8f7d) 10%,var(--panel));position:relative;clear:both}
@@ -29712,23 +29793,46 @@ function flashOk(el){
    ===================================================================== */
 let _skadOkno = null;
 
+/* ==========================================================================
+   JW Study — modal-accessibility.js & mobile-gestures.js
+   Okna dialogowe: zamykanie gestem w dół (pull-to-dismiss), kliknięcie w tło,
+   obsługa klawisza Escape, blokada klawisza Tab w oknie i bezpieczne Safe Area.
+   ========================================================================== */
+let _skadOkno = null;
+
 function openModal(id){
   const okno = $(id); if(!okno) return;
   przygotujOknoDlaCzytnika(okno);
+  const pudlo = okno.querySelector(".modal, .askbox, .fsmodal, .import-box");
+  if(pudlo && !pudlo.classList.contains("fsmodal") && !pudlo.querySelector(".modal-drag-handle")){
+    const handle = document.createElement("div");
+    handle.className = "modal-drag-handle";
+    handle.setAttribute("aria-hidden", "true");
+    pudlo.insertBefore(handle, pudlo.firstChild);
+  }
   _skadOkno = document.activeElement;
   okno.classList.add("show");
   okno.setAttribute("aria-hidden","false");
   const cel = okno.querySelector("input:not([type=hidden]), textarea, select, button, [tabindex]");
   if(cel){ try{ cel.focus(); }catch(e){} }
 }
+
 function closeModal(id){
   const okno = $(id); if(!okno) return;
   okno.classList.remove("show");
   okno.setAttribute("aria-hidden","true");
+  okno.style.opacity = "";
+  okno.style.backgroundColor = "";
+  const pudlo = okno.querySelector(".modal, .askbox, .fsmodal, .import-box");
+  if(pudlo){
+    pudlo.style.transform = "";
+    pudlo.style.transition = "";
+  }
   // ognisko wraca tam, skąd okno otwarto — inaczej ląduje na początku strony
   if(_skadOkno && document.contains(_skadOkno)){ try{ _skadOkno.focus(); }catch(e){} }
   _skadOkno = null;
 }
+
 /** Rola, powiązanie z nagłówkiem i odcięcie tła — nadawane raz, przy pierwszym otwarciu. */
 function przygotujOknoDlaCzytnika(okno){
   const pudlo = okno.querySelector(".modal") || okno;
@@ -29741,6 +29845,7 @@ function przygotujOknoDlaCzytnika(okno){
     pudlo.setAttribute("aria-labelledby", naglowek.id);
   }
 }
+
 /* Tab nie może wyprowadzić poza otwarte okno. */
 document.addEventListener("keydown", e=>{
   if(e.key!=="Tab") return;
@@ -29754,12 +29859,130 @@ document.addEventListener("keydown", e=>{
   if(e.shiftKey && document.activeElement===pierwszy){ e.preventDefault(); ostatni.focus(); }
   else if(!e.shiftKey && document.activeElement===ostatni){ e.preventDefault(); pierwszy.focus(); }
 });
-/**
- * Przyciski z samą ikoną mają podpowiedź w atrybucie title, ale czytniki ekranu
- * traktują ją niepewnie — część pomija ją zupełnie. Kopiujemy ją do aria-label,
- * które jest do tego przeznaczone. Robimy to dla przycisków istniejących
- * i dla dokładanych później (menu, paski narzędzi, karty notatek).
- */
+
+/* ==========================================================================
+   MOBILNE GESTY PRZECIĄGANIA I ZAMYKANIA MODALI (Pull-to-Dismiss)
+   ========================================================================== */
+(function initModalGestures(){
+  let activeOverlay = null;
+  let activeModal = null;
+  let startY = 0;
+  let startX = 0;
+  let startTime = 0;
+  let isDragging = false;
+  let canPullDismiss = false;
+
+  document.addEventListener("touchstart", (e)=>{
+    if(e.touches.length !== 1) return;
+    const ov = document.querySelector(".overlay.show");
+    if(!ov || ov.dataset.lockClose === "1") return;
+
+    const modal = ov.querySelector(".modal, .askbox, .fsmodal, .import-box");
+    if(!modal || modal.classList.contains("fsmodal")) return;
+
+    const touch = e.touches[0];
+    const target = e.target;
+    const isHandle = target && target.closest && target.closest(".modal-drag-handle");
+    const isHeader = target && target.closest && target.closest(".nn-head, .smart-head, h2, h3");
+
+    // Przeciąganie możliwe gdy: dotknięto uchwytu, nagłówka LUB treść jest przewinięta na samą górę
+    const isAtTop = modal.scrollTop <= 0;
+    if(isHandle || isHeader || isAtTop){
+      activeOverlay = ov;
+      activeModal = modal;
+      startY = touch.clientY;
+      startX = touch.clientX;
+      startTime = Date.now();
+      isDragging = false;
+      canPullDismiss = true;
+    } else {
+      canPullDismiss = false;
+    }
+  }, { passive: true });
+
+  document.addEventListener("touchmove", (e)=>{
+    if(!canPullDismiss || !activeModal || e.touches.length !== 1) return;
+    const touch = e.touches[0];
+    const diffY = touch.clientY - startY;
+    const diffX = touch.clientX - startX;
+
+    // Tylko ruch w dół i wyraźnie w pionie
+    if(diffY > 6 && diffY > Math.abs(diffX) * 1.2){
+      if(activeModal.scrollTop > 0){
+        canPullDismiss = false;
+        return;
+      }
+      isDragging = true;
+      if(e.cancelable) e.preventDefault();
+
+      const translateY = Math.max(0, diffY);
+      activeModal.style.transform = `translateY(${translateY}px)`;
+      activeModal.style.transition = "none";
+      const opacityFactor = Math.max(0.1, 1 - translateY / 400);
+      activeOverlay.style.backgroundColor = `rgba(15, 23, 19, ${0.46 * opacityFactor})`;
+    }
+  }, { passive: false });
+
+  function finishGesture(e){
+    if(!activeModal) return;
+    const touch = (e && e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0] : null;
+    const diffY = touch ? (touch.clientY - startY) : 0;
+    const dt = Math.max(1, Date.now() - startTime);
+    const velocity = diffY / dt;
+
+    if(isDragging){
+      // Próg zamykania: przeciągnięcie > 85px LUB szybki gest w dół (> 0.35 px/ms przy diffY > 25px)
+      if(diffY > 85 || (velocity > 0.35 && diffY > 25)){
+        activeModal.style.transition = "transform 0.22s cubic-bezier(0.32, 1, 0.23, 1), opacity 0.22s ease";
+        activeModal.style.transform = "translateY(100%)";
+        activeOverlay.style.transition = "opacity 0.22s ease";
+        activeOverlay.style.opacity = "0";
+        const ovToClose = activeOverlay;
+        const modalToReset = activeModal;
+        setTimeout(()=>{
+          if(ovToClose.id && typeof closeModal === "function"){
+            closeModal(ovToClose.id);
+          } else {
+            ovToClose.classList.remove("show");
+          }
+          modalToReset.style.transform = "";
+          modalToReset.style.transition = "";
+          ovToClose.style.transition = "";
+          ovToClose.style.opacity = "";
+          ovToClose.style.backgroundColor = "";
+        }, 220);
+      } else {
+        // Snap back
+        activeModal.style.transition = "transform 0.24s cubic-bezier(0.22, 1, 0.36, 1)";
+        activeModal.style.transform = "";
+        activeOverlay.style.backgroundColor = "";
+        const m = activeModal;
+        setTimeout(()=>{ if(m) m.style.transition = ""; }, 240);
+      }
+    }
+
+    activeOverlay = null;
+    activeModal = null;
+    isDragging = false;
+    canPullDismiss = false;
+  }
+
+  document.addEventListener("touchend", finishGesture, { passive: true });
+  document.addEventListener("touchcancel", finishGesture, { passive: true });
+
+  // Obsługa kliknięcia w tło (backdrop tap)
+  document.addEventListener("click", (e)=>{
+    const ov = e.target && e.target.classList && e.target.classList.contains("overlay") ? e.target : null;
+    if(ov && ov.dataset.lockClose !== "1"){
+      if(ov.id && typeof closeModal === "function"){
+        closeModal(ov.id);
+      } else {
+        ov.classList.remove("show");
+      }
+    }
+  });
+})();
+
 function nazwijPrzyciskiIkonowe(korzen){
   /* Odsiew robi przeglądarka, nie my — i robi go RAZ na element.
      Wcześniej selektor zwracał wszystkie przyciski z podpowiedzią, a pętla przy
