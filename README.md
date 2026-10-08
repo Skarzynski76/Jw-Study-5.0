@@ -1,4 +1,4 @@
-# JW Study 5.0
+# JW-Study 5.0 5.0 5.0
 
 Aplikacja do notatek i studium Biblii.
 
