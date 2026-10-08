@@ -1689,11 +1689,75 @@ html[data-theme="dark"] .cenHeroTag {
   position: relative;
   overflow: hidden;
 }
+.cenBoczPoz svg, .cenBoczPoz .ic {
+  width: 17px !important;
+  height: 17px !important;
+  max-width: 17px !important;
+  max-height: 17px !important;
+  min-width: 17px !important;
+  min-height: 17px !important;
+  flex-shrink: 0;
+}
 .cenCeleStatsRow {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   margin-top: 14px;
+  margin-bottom: 18px;
+}
+@media(max-width: 840px) {
+  .cenCeleStatsRow {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+.cenCeleStatTile {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 16px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--cen-card-shadow);
+  transition: all 0.18s ease;
+}
+.cenCeleStatTile:hover {
+  border-color: var(--cen-card-border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--cen-card-shadow-hover);
+}
+.cenCeleStatTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cenCeleStatIko {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cenCeleStatIko svg {
+  width: 17px !important;
+  height: 17px !important;
+  max-width: 17px !important;
+  max-height: 17px !important;
+  flex-shrink: 0;
+}
+.cenCeleStatVal {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--cen-text);
+  line-height: 1;
+}
+.cenCeleStatLbl {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--cen-text-muted);
 }
 .cenCeleStatTile {
   background: var(--cen-btn-bg);
@@ -1809,20 +1873,31 @@ html[data-theme="dark"] .cenHeroTag {
   gap: 8px;
 }
 .cenCelVerseBtn {
-  background: transparent;
-  border: none;
-  color: #3b82f6;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.22);
+  color: #2563eb;
   font-weight: 600;
   cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 11.5px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
   transition: all 0.14s ease;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 .cenCelVerseBtn:hover {
-  background: rgba(59, 130, 246, 0.12);
-  text-decoration: underline;
+  background: rgba(59, 130, 246, 0.16);
+  transform: translateY(-1px);
+}
+.cenCelVerseBtn svg {
+  width: 12px !important;
+  height: 12px !important;
+  max-width: 12px !important;
+  max-height: 12px !important;
+  flex-shrink: 0;
 }
 /* TYDZIEŃ NAWYKÓW */
 .cenCelWeekRow {
@@ -2017,14 +2092,34 @@ html[data-theme="dark"] .cenHeroTag {
   background: var(--cen-btn-bg);
   border: 1px solid var(--cen-card-border);
   color: var(--cen-text-muted);
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  min-height: 34px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.14s ease;
+  flex-shrink: 0;
+  padding: 0;
+}
+.cenCelIconBtn:hover {
+  background: var(--cen-card-border-hover);
+  color: var(--cen-text);
+  transform: translateY(-1px);
+}
+.cenCelIconBtn.btn-delete:hover {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.35);
+}
+.cenCelIconBtn svg {
+  width: 15px !important;
+  height: 15px !important;
+  max-width: 15px !important;
+  max-height: 15px !important;
   flex-shrink: 0;
 }
 .cenCelIconBtn:hover {
@@ -21962,6 +22057,7 @@ function odswiezPodswietlenie(lista){
 function norm(s){ return (s||"").toLowerCase().replace(/\u0142/g,"l").normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
 const _svg = p => `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 const ICO = {
+  target:_svg('<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>'),
   star:_svg('<path d="M12 3.6l2.6 5.3 5.8.85-4.2 4.1 1 5.75L12 16.9l-5.2 2.7 1-5.75-4.2-4.1 5.8-.85z"/>'),
   ext:_svg('<path d="M14 4h6v6"/><path d="M20 4l-8.5 8.5"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/>'),
   fs:_svg('<path d="M4 9V5a1 1 0 0 1 1-1h4"/><path d="M15 4h4a1 1 0 0 1 1 1v4"/><path d="M20 15v4a1 1 0 0 1-1 1h-4"/><path d="M9 20H5a1 1 0 0 1-1-1v-4"/>'),
@@ -38405,8 +38501,8 @@ function _centrKartaCeluHtml(c){
     + '<div class="cenCelTyt" data-cel-edytuj="' + c.id + '" style="cursor:pointer;" title="Kliknij, aby edytować cel">' + esc(c.title) + '</div>'
     + (c.desc ? '<div class="cenCelOpis" data-cel-edytuj="' + c.id + '" style="cursor:pointer;" title="Kliknij, aby edytować cel">' + esc(c.desc) + '</div>' : '')
     + (c.verse ? '<div class="cenCelVerseBox" style="--cel-color:' + color + ';">'
-        + '<span>📖 ' + esc(c.verse) + '</span>'
-        + '<button type="button" class="cenCelVerseBtn" data-copen-jw="' + esc(c.verse) + '" title="Otwórz werset">' + CEN_MODERN_ICO.jw + ' JW Library</button>'
+        + '<span style="display:inline-flex;align-items:center;gap:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">📖 <b>' + esc(c.verse) + '</b></span>'
+        + '<button type="button" class="cenCelVerseBtn" data-copen-jw="' + esc(c.verse) + '" title="Otwórz werset w JW Library">' + CEN_MODERN_ICO.jw + ' JW Library</button>'
         + '</div>' : '')
 
     + bodyHtml
@@ -38414,8 +38510,8 @@ function _centrKartaCeluHtml(c){
     + '<div class="cenCelFooter">'
     + '<div class="cenCelActionsRow">'
     + footerBtnHtml
-    + '<button type="button" class="cenCelIconBtn" data-cel-edytuj="' + c.id + '" title="Edytuj cel">' + CEN_MODERN_ICO.gear + '</button>'
-    + '<button type="button" class="cenCelIconBtn" data-cel-usun="' + c.id + '" title="Usuń cel" style="color:#ef4444;">✕</button>'
+    + '<button type="button" class="cenCelIconBtn" data-cel-edytuj="' + c.id + '" title="Edytuj cel">' + CEN_MODERN_ICO.edit + '</button>'
+    + '<button type="button" class="cenCelIconBtn btn-delete" data-cel-usun="' + c.id + '" title="Usuń cel">' + CEN_MODERN_ICO.trash + '</button>'
     + '</div>'
     + '</div>'
     + '</div>';
@@ -38473,26 +38569,39 @@ function centrWidokCele(tab, cat, q){
     + '<button type="button" class="cenFragBtnJW" data-cakcja="szablony-celow" title="Wybierz z katalogu gotowych celów">✨ Szablony celów</button>'
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="nowy-cel" title="Dodaj nowy cel">' + CEN_MODERN_ICO.plus + '</button>'
     + '</div></div>'
-
     + '<div class="cenCeleStatsRow">'
-    + '<div class="cenCeleStatCard">'
+    + '<div class="cenCeleStatTile">'
+    + '<div class="cenCeleStatTop">'
     + '<div class="cenCeleStatIko" style="background:rgba(59,130,246,0.12);color:#3b82f6;">' + CEN_MODERN_ICO.target + '</div>'
-    + '<div><div class="cenCeleStatVal">' + activeCount + '</div><div class="cenCeleStatLbl">Aktywne cele</div></div>'
+    + '<div class="cenCeleStatVal">' + activeCount + '</div>'
     + '</div>'
-    + '<div class="cenCeleStatCard">'
-    + '<div class="cenCeleStatIko" style="background:rgba(16,185,129,0.12);color:#10b981;">' + CEN_MODERN_ICO.check + '</div>'
-    + '<div><div class="cenCeleStatVal">' + doneCount + '</div><div class="cenCeleStatLbl">Ukończone</div></div>'
-    + '</div>'
-    + '<div class="cenCeleStatCard">'
-    + '<div class="cenCeleStatIko" style="background:rgba(168,85,247,0.12);color:#a855f7;">' + CEN_MODERN_ICO.clock + '</div>'
-    + '<div><div class="cenCeleStatVal">' + habitsCount + '</div><div class="cenCeleStatLbl">Nawyki w toku</div></div>'
-    + '</div>'
-    + '<div class="cenCeleStatCard">'
-    + '<div class="cenCeleStatIko" style="background:rgba(245,158,11,0.12);color:#f59e0b;">🔥</div>'
-    + '<div><div class="cenCeleStatVal">' + maxStreak + ' <small style="font-size:13px;font-weight:600;">dni</small></div><div class="cenCeleStatLbl">Bieżąca seria</div></div>'
-    + '</div>'
+    + '<div class="cenCeleStatLbl">Aktywne cele</div>'
     + '</div>'
 
+    + '<div class="cenCeleStatTile">'
+    + '<div class="cenCeleStatTop">'
+    + '<div class="cenCeleStatIko" style="background:rgba(16,185,129,0.12);color:#10b981;">' + CEN_MODERN_ICO.check + '</div>'
+    + '<div class="cenCeleStatVal">' + doneCount + '</div>'
+    + '</div>'
+    + '<div class="cenCeleStatLbl">Ukończone</div>'
+    + '</div>'
+
+    + '<div class="cenCeleStatTile">'
+    + '<div class="cenCeleStatTop">'
+    + '<div class="cenCeleStatIko" style="background:rgba(168,85,247,0.12);color:#a855f7;">' + CEN_MODERN_ICO.clock + '</div>'
+    + '<div class="cenCeleStatVal">' + habitsCount + '</div>'
+    + '</div>'
+    + '<div class="cenCeleStatLbl">Nawyki w toku</div>'
+    + '</div>'
+
+    + '<div class="cenCeleStatTile">'
+    + '<div class="cenCeleStatTop">'
+    + '<div class="cenCeleStatIko" style="background:rgba(245,158,11,0.12);color:#f59e0b;">' + CEN_MODERN_ICO.flame + '</div>'
+    + '<div class="cenCeleStatVal">' + maxStreak + ' <small style="font-size:12px;font-weight:600;opacity:0.8;">dni</small></div>'
+    + '</div>'
+    + '<div class="cenCeleStatLbl">Bieżąca seria</div>'
+    + '</div>'
+    + '</div>'
     + '<div class="cenTabsRow" style="overflow-x:auto;">'
     + '<button type="button" class="cenTabBtn' + (tab==="aktywne"?' active':'') + '" data-cel-tab="aktywne">Aktywne (' + activeCount + ')</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="ukonczone"?' active':'') + '" data-cel-tab="ukonczone">Ukończone (' + doneCount + ')</button>'
@@ -39321,6 +39430,10 @@ function _centrWidokDrzewoWzrostu(planInfo, dniDone, curSer, bestSer){
 }
 
 const CEN_MODERN_ICO = {
+  clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  flame: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>',
+  trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>',
+  edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
   book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
   note: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
   clipboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14l2 2 4-4"/></svg>',
@@ -41239,7 +41352,7 @@ function centrBoczna(){
   };
   const pozycje=[
     ["centrum","Centrum",ICO.bars,0],
-    ["duchowe-cele","Cele i nawyki",CEN_MODERN_ICO.target,lic.cele],
+    ["duchowe-cele","Cele i nawyki",ICO.target,lic.cele],
     ["projekty","Projekty",ICO.tag,lic.projekty],
     ["kolejka","Do przeczytania",ICO.bookOpen,lic.kolejka],
     ["inbox","Do opracowania",ICO.notePen,lic.inbox],
