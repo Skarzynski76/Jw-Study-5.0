@@ -38392,7 +38392,7 @@ function _centrKartaCeluHtml(c){
       + '</button>';
   }
 
-  return '<div class="cenGoalCard' + (isDone ? ' done' : '') + '" style="--cel-color:' + color + ';">'
+  return '<div class="cenCelCard cenGoalCard' + (isDone ? ' completed done' : '') + '" style="--cel-color:' + color + ';">'
     + '<div class="cenCelTop">'
     + '<span class="cenCelCatBadge" style="background:color-mix(in srgb, ' + color + ' 16%, transparent);color:' + color + ';">'
     + cat.icon + ' ' + cat.name
@@ -38402,8 +38402,8 @@ function _centrKartaCeluHtml(c){
     + '</span>'
     + '</div>'
 
-    + '<div class="cenCelTyt">' + esc(c.title) + '</div>'
-    + (c.desc ? '<div class="cenCelOpis">' + esc(c.desc) + '</div>' : '')
+    + '<div class="cenCelTyt" data-cel-edytuj="' + c.id + '" style="cursor:pointer;" title="Kliknij, aby edytować cel">' + esc(c.title) + '</div>'
+    + (c.desc ? '<div class="cenCelOpis" data-cel-edytuj="' + c.id + '" style="cursor:pointer;" title="Kliknij, aby edytować cel">' + esc(c.desc) + '</div>' : '')
     + (c.verse ? '<div class="cenCelVerseBox" style="--cel-color:' + color + ';">'
         + '<span>📖 ' + esc(c.verse) + '</span>'
         + '<button type="button" class="cenCelVerseBtn" data-copen-jw="' + esc(c.verse) + '" title="Otwórz werset">' + CEN_MODERN_ICO.jw + ' JW Library</button>'
@@ -41230,13 +41230,16 @@ function rysujCentrumWnetrze(el){
 /* ══════════════ BOCZNA NAWIGACJA CENTRUM (v3.08) ══════════════ */
 function centrBoczna(){
   const zywe=centrZywe();
+  const celeList = (typeof _centrPobierzCele === "function") ? _centrPobierzCele() : [];
   const lic={
+    cele: celeList.filter(c => !c.completed).length,
     projekty:tags.filter(t=>t.cproj).length,
     kolejka:zywe.filter(n=>n.cenq).length,
     inbox:zywe.filter(n=>n.ceni).length
   };
   const pozycje=[
     ["centrum","Centrum",ICO.bars,0],
+    ["duchowe-cele","Cele i nawyki",CEN_MODERN_ICO.target,lic.cele],
     ["projekty","Projekty",ICO.tag,lic.projekty],
     ["kolejka","Do przeczytania",ICO.bookOpen,lic.kolejka],
     ["inbox","Do opracowania",ICO.notePen,lic.inbox],
@@ -41256,6 +41259,8 @@ function centrBoczna(){
 function centrNaglowekWidoku(){
   const opisy={
     centrum:["Centrum studium",centrPowitanie()],
+    "duchowe-cele":["Duchowe cele i nawyki","Wyznaczaj cele, buduj nawyki i śledź swój wzrost duchowy"],
+    "cele":["Duchowe cele i nawyki","Wyznaczaj cele, buduj nawyki i śledź swój wzrost duchowy"],
     projekty:["Projekty","Łącz notatki z różnych wersetów i publikacji"],
     kolejka:["Do przeczytania","Materiały odłożone do spokojnego przeczytania"],
     inbox:["Do opracowania","Pomysły i szkice czekające na rozwinięcie"],
@@ -41339,6 +41344,7 @@ function rysujCentrumWnetrze306(el){
   else if(centrWidok === "moje-plany") tresc = centrWidokMojePlany();
   else if(centrWidok === "studium-osobiste") tresc = centrWidokStudiumOsobiste(_centrStudiumTab);
   else if(centrWidok === "temat-szczegoly") tresc = centrWidokTematSzczegoly(_centrWybranyTematId);
+  else if(centrWidok === "duchowe-cele" || centrWidok === "cele") tresc = centrWidokCele(_centrCeleTab, _centrCeleKategoria, _centrCeleSzukaj);
   else if(centrWidok === "projekty") tresc = centrNaglowekWidoku() + centrPodstronaProjektow();
   else if(centrWidok === "kolejka") tresc = centrNaglowekWidoku() + centrPodstronaKolejki("cenq");
   else if(centrWidok === "inbox") tresc = centrNaglowekWidoku() + centrPodstronaKolejki("ceni");
@@ -42066,6 +42072,93 @@ if($("centrum")){
       if(innerWidth <= 900 && typeof mobileShow === "function") mobileShow("colNotes");
       return;
     }
+
+    // --- AKCJE MODUŁU CELE I NAWYKI ---
+    const celNowyBtn = ev.target.closest("[data-cakcja=nowy-cel]");
+    if(celNowyBtn){
+      if(typeof _centrPokazModalCelu === "function") _centrPokazModalCelu();
+      return;
+    }
+
+    const celSzablonyBtn = ev.target.closest("[data-cakcja=szablony-celow]");
+    if(celSzablonyBtn){
+      if(typeof _centrPokazModalSzablonow === "function") _centrPokazModalSzablonow();
+      return;
+    }
+
+    const celTabBtn = ev.target.closest("[data-cel-tab]");
+    if(celTabBtn){
+      _centrCeleTab = celTabBtn.dataset.celTab;
+      rysujCentrum();
+      return;
+    }
+
+    const celCatBtn = ev.target.closest("[data-cel-cat]");
+    if(celCatBtn){
+      _centrCeleKategoria = celCatBtn.dataset.celCat;
+      rysujCentrum();
+      return;
+    }
+
+    const celHabitDayBtn = ev.target.closest("[data-cel-habit-day]");
+    if(celHabitDayBtn){
+      const celId = celHabitDayBtn.dataset.celHabitDay;
+      const dateStr = celHabitDayBtn.dataset.date;
+      if(typeof _centrPrzelaczDzienNawyku === "function") _centrPrzelaczDzienNawyku(celId, dateStr);
+      rysujCentrum();
+      return;
+    }
+
+    const celToggleDoneBtn = ev.target.closest("[data-cel-toggle-done]");
+    if(celToggleDoneBtn){
+      const celId = celToggleDoneBtn.dataset.celToggleDone;
+      if(typeof _centrPrzelaczCelUkonczony === "function") _centrPrzelaczCelUkonczony(celId);
+      rysujCentrum();
+      return;
+    }
+
+    const celNumDeltaBtn = ev.target.closest("[data-cel-num-delta]");
+    if(celNumDeltaBtn){
+      const celId = celNumDeltaBtn.dataset.celNumDelta;
+      const delta = parseInt(celNumDeltaBtn.dataset.delta, 10) || 1;
+      if(typeof _centrZmienLicznikCelu === "function") _centrZmienLicznikCelu(celId, delta);
+      rysujCentrum();
+      return;
+    }
+
+    const celStepToggleBtn = ev.target.closest("[data-cel-step-toggle]");
+    if(celStepToggleBtn){
+      const celId = celStepToggleBtn.dataset.celStepToggle;
+      const stepIdx = parseInt(celStepToggleBtn.dataset.stepIdx, 10);
+      if(typeof _centrPrzelaczKrokCelu === "function") _centrPrzelaczKrokCelu(celId, stepIdx);
+      rysujCentrum();
+      return;
+    }
+
+    const celEdytujBtn = ev.target.closest("[data-cel-edytuj]");
+    if(celEdytujBtn){
+      const celId = celEdytujBtn.dataset.celEdytuj;
+      if(typeof _centrPokazModalCelu === "function") _centrPokazModalCelu(celId);
+      return;
+    }
+
+    const celUsunBtn = ev.target.closest("[data-cel-usun]");
+    if(celUsunBtn){
+      const celId = celUsunBtn.dataset.celUsun;
+      const cele = (typeof _centrPobierzCele === "function") ? _centrPobierzCele() : [];
+      const c = cele.find(x => x.id === celId);
+      const tytul = c ? c.title : "ten cel";
+      const zgoda = typeof askConfirm === "function"
+        ? await askConfirm("Usunąć cel duchowy?", "Czy na pewno chcesz usunąć cel „<b>" + esc(tytul) + "</b>”?", { okLabel: "Usuń cel", danger: true })
+        : confirm("Czy na pewno chcesz usunąć cel „" + tytul + "”?");
+      if(zgoda){
+        if(typeof _centrUsunCel === "function") _centrUsunCel(celId);
+        toast("Usunięto cel duchowy", "info");
+        rysujCentrum();
+      }
+      return;
+    }
+
     const szuk = ev.target.closest("[data-cszuk]");
     if(szuk){
       const inp = $("search");
@@ -42080,6 +42173,51 @@ if($("centrum")){
 }
 
 /* Przycisk w pasku górnym. */
+
+/* --- Inicjalizacja formularzy i modalów Celów Duchowych --- */
+(function setupCeleModals(){
+  const btnZapisz = $("btnZapiszCel");
+  if(btnZapisz){
+    btnZapisz.addEventListener("click", () => {
+      if(typeof _centrZapiszFormularzCelu === "function") _centrZapiszFormularzCelu();
+    });
+  }
+  const formCel = $("formCelEdycja");
+  if(formCel){
+    formCel.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if(typeof _centrZapiszFormularzCelu === "function") _centrZapiszFormularzCelu();
+    });
+  }
+  const modalSzablony = $("modalCelSzablony");
+  if(modalSzablony){
+    modalSzablony.addEventListener("click", (ev) => {
+      const btnDodaj = ev.target.closest("[data-szablon-dodaj]");
+      if(btnDodaj){
+        const idx = parseInt(btnDodaj.dataset.szablonDodaj, 10);
+        if(typeof BIBLE_SPIRITUAL_GOALS_TEMPLATES !== "undefined" && BIBLE_SPIRITUAL_GOALS_TEMPLATES[idx]){
+          const tpl = BIBLE_SPIRITUAL_GOALS_TEMPLATES[idx];
+          if(typeof _centrDodajLubEdytujCel === "function") _centrDodajLubEdytujCel({ ...tpl, id: "" });
+          if(typeof closeModal === "function") closeModal("modalCelSzablony");
+          toast("Dodano cel „" + tpl.title + "”", "ok");
+          if(typeof rysujCentrum === "function") rysujCentrum();
+        }
+        return;
+      }
+      const btnDostosuj = ev.target.closest("[data-szablon-dostosuj]");
+      if(btnDostosuj){
+        const idx = parseInt(btnDostosuj.dataset.szablonDostosuj, 10);
+        if(typeof BIBLE_SPIRITUAL_GOALS_TEMPLATES !== "undefined" && BIBLE_SPIRITUAL_GOALS_TEMPLATES[idx]){
+          const tpl = BIBLE_SPIRITUAL_GOALS_TEMPLATES[idx];
+          if(typeof closeModal === "function") closeModal("modalCelSzablony");
+          if(typeof _centrPokazModalCelu === "function") _centrPokazModalCelu(tpl);
+        }
+        return;
+      }
+    });
+  }
+})();
+
 if($("btnCentrum")){
   $("btnCentrum").hidden = !centrWlaczone;
   $("btnCentrum").onclick = ()=>{
