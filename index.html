@@ -24,13 +24,49 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="JW-Study 5.0">
-<meta name="theme-color" content="#256b52">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#134e38">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#134e38">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#11171e">
 <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest">
 <title>JW-Study 5.0</title>
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
+<script>
+(function(){
+  try{
+    var t = localStorage.getItem("jwsTheme") || "auto";
+    if(t === "auto"){
+      t = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+    }
+    if(t){
+      document.documentElement.dataset.theme = t;
+      var isDark = (t === "dark" || t === "oled");
+      document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+      var c = {dark:"#11171e", oled:"#000000", sepia:"#75552b", sage:"#225734", light:"#134e38"}[t] || "#134e38";
+      try {
+        var rawCfg = localStorage.getItem("jwsColors");
+        if(rawCfg){
+          var cfg = JSON.parse(rawCfg);
+          if(cfg && cfg.ui && (t === "light" || t === "sage" || t === "sepia")){
+            c = cfg.ui;
+          }
+        }
+      }catch(err){}
+      document.documentElement.style.backgroundColor = c;
+      var metas = document.querySelectorAll('meta[name="theme-color"]');
+      if(metas && metas.length){
+        metas.forEach(function(m){
+          m.removeAttribute("media");
+          m.content = c;
+        });
+      }
+    }
+  }catch(e){}
+})();
+</script>
 <style>
 /* ==========================================================================
    JW Study — base.css
@@ -56,9 +92,49 @@ html[data-theme="sepia"]{
 html[data-theme="sepia"] main{background:linear-gradient(180deg,#eee6d3,#e5dcbe)}
 *{box-sizing:border-box}
 button,.item,.sbtn,.chip-ch,.pal,a,label,select,summary,#imgBar button,#hlBar .sw,#hlBar button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;margin:0}
+html {
+  background-color: #134e38;
+  color-scheme: light;
+}
+html[data-theme="dark"] {
+  background-color: #11171e;
+  color-scheme: dark;
+}
+html[data-theme="oled"] {
+  background-color: #000000;
+  color-scheme: dark;
+}
+html[data-theme="sepia"] {
+  background-color: #75552b;
+  color-scheme: light;
+}
+html[data-theme="sage"] {
+  background-color: #225734;
+  color-scheme: light;
+}
+html[data-reader-theme="light"] {
+  background-color: #ffffff;
+  color-scheme: light;
+}
+html[data-reader-theme="dark"] {
+  background-color: #1c1c1e;
+  color-scheme: dark;
+}
+html[data-reader-theme="oled"] {
+  background-color: #000000;
+  color-scheme: dark;
+}
+html[data-reader-theme="sepia"] {
+  background-color: #fbf0d9;
+  color-scheme: light;
+}
+html[data-reader-theme="sage"] {
+  background-color: #eaf1ec;
+  color-scheme: light;
+}
+html,body{height:100%;height:100dvh;margin:0}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
-header{display:flex;align-items:center;gap:10px;padding:9px 16px;padding-top:var(--top-safe-clearance, max(30px, calc(16px + env(safe-area-inset-top, 0px))));padding-bottom:9px;background:linear-gradient(135deg,#134e38 0%,#1a5c43 55%,#206d50 100%);border-bottom:1px solid rgba(0,0,0,.15);box-shadow:0 4px 18px -2px rgba(10,35,25,.22);flex-wrap:wrap;position:relative;z-index:20;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;isolation:isolate}
+header{width:100%;flex-shrink:0;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:9px 16px;padding-left:max(16px, calc(16px + env(safe-area-inset-left, 0px)));padding-right:max(16px, calc(16px + env(safe-area-inset-right, 0px)));padding-top:max(9px, calc(9px + env(safe-area-inset-top, 0px)));padding-bottom:9px;background:linear-gradient(135deg,#134e38 0%,#1a5c43 55%,#206d50 100%);border-bottom:1px solid rgba(0,0,0,.15);box-shadow:0 4px 18px -2px rgba(10,35,25,.22);flex-wrap:wrap;position:relative;z-index:20;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;isolation:isolate}
 .brand-name{color:#fff!important}
 .brand-name .ver{color:rgba(255,255,255,.6)!important}
 .brand-sub{color:rgba(255,255,255,.72)!important}
@@ -4058,7 +4134,8 @@ mark { padding: 1px 3px; border-radius: 4px; }
   align-items: center;
   justify-content: center;
   z-index: 10060;
-  padding: 18px;
+  padding: max(18px, calc(18px + env(safe-area-inset-top, 0px))) max(18px, calc(18px + env(safe-area-inset-right, 0px))) max(18px, calc(18px + env(safe-area-inset-bottom, 0px))) max(18px, calc(18px + env(safe-area-inset-left, 0px)));
+  box-sizing: border-box;
 }
 .overlay.show { display: flex; animation: ovIn 0.2s ease-out; }
 @keyframes ovIn { from { opacity: 0; } to { opacity: 1; } }
@@ -4070,7 +4147,9 @@ mark { padding: 1px 3px; border-radius: 4px; }
   padding: 24px 28px;
   width: min(560px, 92vw);
   max-height: 88vh;
+  max-height: 88dvh;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 30px 70px rgba(0, 0, 0, 0.24);
   animation: modIn 0.24s cubic-bezier(0.22, 0.9, 0.32, 1);
 }

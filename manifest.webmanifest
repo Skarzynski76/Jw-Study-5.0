@@ -9,8 +9,8 @@
   "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],
-  "background_color": "#f2f2f7",
-  "theme_color": "#256b52",
+  "background_color": "#134e38",
+  "theme_color": "#134e38",
   "categories": ["productivity", "books", "education"],
   "icons": [
     { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
