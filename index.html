@@ -22368,8 +22368,47 @@ const SECCOLORS = ["#cfe3d6","#cfdcea","#dcd4ea","#f0dcc6","#eed6dd","#cfe4e2","
    żeby ciemny tekst czytało się na nich bez wysiłku. Kolor napisu i tak liczy
    czytelnyTekst(), więc dobór barwy nie decyduje już o czytelności. */
 const TAGCOLORS = ["#e8c86a","#dcb08a","#e0a89a","#c9b6d8","#a9c4e4","#9fd0c7","#b6d9a8","#efb7c4","#c2c8d0"];
-/* pastelowe kompozycje: jeden zgrany odcień na całą kompozycję kolumn i belek */
-const PASTELS = [["Lawenda","#b9a9d6"],["Mięta","#9ed3c2"],["Brzoskwinia","#e8b894"],["Błękit","#a6c3e0"],["Róż","#e2adc0"],["Piasek","#dccfae"],["Szałwia","#b7c9a8"],["Grafit","#b9bec6"]];
+/* pastelowe kompozycje: 31 zgranych, wyważonych odcieni na całą kompozycję kolumn i belek */
+const PASTELS = [
+  /* Fiolety i lilia */
+  ["Lawenda","#b9a9d6"],
+  ["Wrzos","#be9ec7"],
+  ["Śliwka","#9a83ab"],
+  ["Jagoda","#9586b3"],
+  /* Błękity i woda */
+  ["Błękit","#a6c3e0"],
+  ["Lazurowy","#82cae2"],
+  ["Indygo","#8a9ecc"],
+  ["Morski","#7ec2be"],
+  ["Turkus","#72c4b8"],
+  /* Zielenie i natura */
+  ["Mięta","#9ed3c2"],
+  ["Szałwia","#b7c9a8"],
+  ["Pistacja","#b5d692"],
+  ["Szmaragd","#7fb89d"],
+  ["Oliwka","#a2b57a"],
+  ["Mech","#8eab80"],
+  /* Słońce, złoto i piasek */
+  ["Bursztyn","#e5be63"],
+  ["Miód","#e6cb76"],
+  ["Piasek","#dccfae"],
+  ["Wanilia","#ebdca0"],
+  /* Ciepłe brązy i ziemia */
+  ["Brzoskwinia","#e8b894"],
+  ["Koral","#e89988"],
+  ["Karmel","#c79e75"],
+  ["Cynamon","#bd826b"],
+  ["Terakota","#c99179"],
+  /* Róże i owoce */
+  ["Róż","#e2adc0"],
+  ["Malina","#d9889d"],
+  ["Żurawina","#ce7c8d"],
+  /* Neutralne i minerały */
+  ["Kaszmir","#beb4a8"],
+  ["Kamień","#abb3b8"],
+  ["Stal","#97a8b8"],
+  ["Grafit","#b9bec6"]
+];
 /**
  * Gotowa kompozycja — jeden kolor na CAŁY interfejs.
  *
@@ -22519,6 +22558,25 @@ function applyColors(){
   let s=document.getElementById("colorOverrides");
   if(!s){ s=document.createElement("style"); s.id="colorOverrides"; document.head.appendChild(s); }
   s.textContent = buildColorCSS();
+  try{
+    const cfg = loadColorCfg();
+    const th = document.documentElement.dataset.theme || (typeof themeMode !== "undefined" ? themeMode : "light");
+    const isDarkish = th === "dark" || th === "oled";
+    if(!isDarkish && cfg.ui){
+      const baza = desat(cfg.ui, .18);
+      const akcent = akcentCzytelny(baza);
+      document.documentElement.style.backgroundColor = akcent;
+      if(!document.body.classList.contains("fs-open") && typeof updateMetaThemeColor === "function"){
+        updateMetaThemeColor(akcent);
+      }
+    } else {
+      const defBg = {dark:"#11171e", oled:"#000000", sepia:"#75552b", sage:"#225734", light:"#134e38"}[th] || "#134e38";
+      document.documentElement.style.backgroundColor = defBg;
+      if(!document.body.classList.contains("fs-open") && typeof updateMetaThemeColor === "function"){
+        updateMetaThemeColor(defBg);
+      }
+    }
+  }catch(e){}
 }
 /**
  * Menu kolorów spod ikony palety w pasku górnym: kolory poszczególnych kolumn
@@ -23661,13 +23719,18 @@ let readerWake = lsGet(READER_WAKE_KEY,"0")==="1";
 
 function updateMetaThemeColor(color){
   try{
-    let meta = document.querySelector('meta[name="theme-color"]');
-    if(!meta){
-      meta = document.createElement('meta');
-      meta.name = "theme-color";
-      document.head.appendChild(meta);
+    let metas = document.querySelectorAll('meta[name="theme-color"]');
+    if(!metas || !metas.length){
+      let m = document.createElement('meta');
+      m.name = "theme-color";
+      m.content = color;
+      document.head.appendChild(m);
+      return;
     }
-    if(color) meta.content = color;
+    metas.forEach(m => {
+      m.removeAttribute("media");
+      if(color) m.content = color;
+    });
   }catch(e){}
 }
 
@@ -23692,8 +23755,11 @@ function applyReaderTheme(){
     } else {
       delete document.body.dataset.readerTheme;
       delete document.documentElement.dataset.readerTheme;
-      const appTheme = (typeof themeMode !== "undefined" && themeMode === "oled") ? "#000000" : ((typeof themeMode !== "undefined" && themeMode === "dark") ? "#11171e" : ((typeof themeMode !== "undefined" && themeMode === "sepia") ? "#75552b" : ((typeof themeMode !== "undefined" && themeMode === "sage") ? "#225734" : "#134e38")));
-      updateMetaThemeColor(appTheme);
+      if(typeof applyColors === "function") applyColors();
+      else {
+        const appTheme = (typeof themeMode !== "undefined" && themeMode === "oled") ? "#000000" : ((typeof themeMode !== "undefined" && themeMode === "dark") ? "#11171e" : ((typeof themeMode !== "undefined" && themeMode === "sepia") ? "#75552b" : ((typeof themeMode !== "undefined" && themeMode === "sage") ? "#225734" : "#134e38")));
+        updateMetaThemeColor(appTheme);
+      }
     }
   }
 }
@@ -24197,8 +24263,11 @@ function closeFs(){
   document.body.classList.remove("fs-open", "ma-zaznaczenie");
   delete document.body.dataset.readerTheme;
   delete document.documentElement.dataset.readerTheme;
-  const appTheme = (typeof themeMode !== "undefined" && themeMode === "oled") ? "#000000" : ((typeof themeMode !== "undefined" && themeMode === "dark") ? "#11171e" : ((typeof themeMode !== "undefined" && themeMode === "sepia") ? "#75552b" : ((typeof themeMode !== "undefined" && themeMode === "sage") ? "#225734" : "#134e38")));
-  updateMetaThemeColor(appTheme);
+  if(typeof applyColors === "function") applyColors();
+  else {
+    const appTheme = (typeof themeMode !== "undefined" && themeMode === "oled") ? "#000000" : ((typeof themeMode !== "undefined" && themeMode === "dark") ? "#11171e" : ((typeof themeMode !== "undefined" && themeMode === "sepia") ? "#75552b" : ((typeof themeMode !== "undefined" && themeMode === "sage") ? "#225734" : "#134e38")));
+    updateMetaThemeColor(appTheme);
+  }
   const zazn = getSelection(); if(zazn && typeof zazn.removeAllRanges==="function") zazn.removeAllRanges();
   closeModal("modalFs"); releaseWake(); updateFsNav();
   const p=$("readPop"); if(p) p.style.display="none";
