@@ -20421,6 +20421,11 @@ function commitLiveEdit(ce){
     /* Numery przypisów liczy 55-przypisy.js z kolejności odsyłaczy w treści —
        zawsze przed odczytaniem HTML, żeby do bazy nie trafiła stara numeracja. */
     if(typeof przPrzenumeruj==="function") przPrzenumeruj(ce);
+    const titleEl = card.querySelector(".ntitle");
+    if(titleEl && (titleEl.isContentEditable || titleEl.getAttribute("contenteditable")==="true")){
+      const nt = (titleEl.textContent||"").trim();
+      if(nt) n.t = nt;
+    }
     const clean = sanitize(ce.innerHTML);
     n.h = clean; n.c = htmlToPlain(clean);
     n.ed = true; n.mo = new Date().toISOString();
@@ -20430,6 +20435,7 @@ function commitLiveEdit(ce){
       if(ce.dataset.saveSeq===seq) ustawStanZapisu(ce,ok?"saved":"error");
     });
     if(typeof bumpDirty==="function") bumpDirty();
+    if(typeof fsListDirty !== "undefined") fsListDirty = true;
   }catch(e){ ustawStanZapisu(ce,"error"); }
 }
 function saveTags(){ if(idb) idbBulk("tags", tags).catch(e=>reportSaveError(e,"etykiety"));
@@ -23996,6 +24002,90 @@ let fsNavList = [];
 let fsSlad = [];
 const FS_SLAD_MAX = 30;        // dłuższego nikt nie przejdzie palcem, a pamięć ma swój koszt
 let fsListDirty = false;
+let _fsHistoryPushed = 0;
+let _suppressPopstate = false;
+let _suppressPopstateTimer = 0;
+function suppressNextPopstate(duration = 500){
+  _suppressPopstate = true;
+  clearTimeout(_suppressPopstateTimer);
+  _suppressPopstateTimer = setTimeout(()=>{ _suppressPopstate = false; }, duration);
+}
+window.suppressNextPopstate = suppressNextPopstate;
+
+function safeHistoryBack(){
+  try{
+    if(window.history && typeof history.back === "function"){
+      history.back();
+    }
+  }catch(_){}
+}
+window.safeHistoryBack = safeHistoryBack;
+
+let _modalHistoryStack = [];
+function pushModalState(idStr){
+  if(!idStr || idStr === "modalFs") return;
+  if(!window.history || !history.pushState) return;
+  try {
+    history.pushState({ jwModal: idStr }, "");
+    _modalHistoryStack.push(idStr);
+  } catch(_) {}
+}
+window.pushModalState = pushModalState;
+
+function popModalState(idStr, fromPopstate){
+  if(!idStr || idStr === "modalFs") return;
+  const idx = _modalHistoryStack.lastIndexOf(idStr);
+  if(idx !== -1){
+    _modalHistoryStack.splice(idx, 1);
+    if(fromPopstate !== true){
+      suppressNextPopstate(300);
+      safeHistoryBack();
+    }
+  }
+}
+window.popModalState = popModalState;
+
+window.addEventListener("popstate", (e) => {
+  if(_suppressPopstate) return;
+
+  // 1. Otwarty modal inny niż modalFs (w tym ewentualny modal otwarty na wierzchu czytnika)
+  const openModals = [...document.querySelectorAll(".overlay.show:not(#modalFs)")];
+  if(openModals.length > 0){
+    const topModal = openModals[openModals.length - 1];
+    if(topModal && topModal.dataset.lockClose !== "1"){
+      if(topModal.id === "askModal"){
+        const cancelBtn = topModal.querySelector(".askCancel");
+        if(cancelBtn) cancelBtn.click();
+        else topModal.classList.remove("show");
+      } else if(topModal.id === "msgModal"){
+        const okBtn = topModal.querySelector(".msgOk");
+        if(okBtn) okBtn.click();
+        else topModal.classList.remove("show");
+      } else if(typeof closeModal === "function"){
+        closeModal(topModal, true);
+      } else {
+        topModal.classList.remove("show");
+      }
+      return;
+    }
+  }
+
+  // 2. Otwarty czytnik pełnoekranowy (modalFs)
+  const fsModal = $("modalFs");
+  const fsIsOpen = !!fsGuid || (fsModal && fsModal.classList.contains("show"));
+  if(fsIsOpen){
+    if(typeof fsSlad !== "undefined" && fsSlad.length > 0 && typeof _fsHistoryPushed !== "undefined" && _fsHistoryPushed > 1){
+      if(typeof fsWroc === "function"){
+        fsWroc(true);
+        return;
+      }
+    }
+    if(typeof closeFs === "function"){
+      closeFs(true);
+      return;
+    }
+  }
+});
 /* Ustawienia dotyczą wyłącznie czytnika. „app” znaczy: odziedzicz wygląd
    aplikacji; pozostałe warianty nie zmieniają globalnego themeMode. */
 const READER_THEME_KEY = KP+"ReaderTheme";
@@ -24059,9 +24149,11 @@ function applyReaderTheme(){
  * z nagłówków, szukanie w notatce, pasek postępu i zapamiętane miejsce czytania.
  * @param {Note} n
  */
-function openFs(n){
+function openFs(n, fromPopstate){
   // jeśli notatka jest właśnie edytowana — zapisz treść (ze zdjęciami), zanim przerysujemy pełny ekran
-  const ec = document.querySelector('.ncard.editing[data-g="'+n.g+'"] .ncontent');
+  const ec = (fsGuid ? document.querySelector('.ncard.editing[data-g="'+fsGuid+'"] .ncontent') : null) ||
+             document.querySelector('.ncard.editing[data-g="'+n.g+'"] .ncontent') ||
+             document.querySelector('#fsWrap .ncard.editing .ncontent');
   if(ec) commitLiveEdit(ec);
   /* Skok z otwartej notatki do innej zostawia ślad. Otwarcie z listy zaczyna
      od nowa — inaczej ✕ z pierwszej notatki cofałoby do czegoś, czego
@@ -24071,20 +24163,35 @@ function openFs(n){
     saveReadPos();                       // wracając, ma wrócić w to samo miejsce tekstu
     fsSlad.push(fsGuid);
     if(fsSlad.length > FS_SLAD_MAX) fsSlad.shift();
+    if(fromPopstate !== true && window.history && history.pushState){
+      try{
+        history.pushState({jwModal:"modalFs", fsSlad:true, guid:n.g}, "");
+        _fsHistoryPushed++;
+      }catch(_){}
+    }
   } else if(!juzOtwarty){
     fsSlad.length = 0;
+    _fsHistoryPushed = 0;
+    if(fromPopstate !== true && window.history && history.pushState){
+      try{
+        history.pushState({jwModal:"modalFs", fsSlad:false, guid:n.g}, "");
+        _fsHistoryPushed = 1;
+      }catch(_){}
+    } else if(fromPopstate === true){
+      _fsHistoryPushed = 1;
+    }
   }
   fsGuid = n.g;
   $("modalFs").classList.remove("dok-schowany","pow-open");
   document.body.classList.add("fs-open");
   applyReaderTheme();
-  renderFs(); openModal("modalFs");
+  renderFs(); openModal("modalFs", fromPopstate);
   acquireWake(); updateFsNav();
   if(typeof updateFsFullBtn==="function") updateFsFullBtn();
   const fm=$("modalFs").querySelector(".fsmodal"); if(fm) fm.scrollTop=0;
   updateFsProgress();
 }
-function selectNote(guid){
+function selectNote(guid, fromPopstate){
   if(!guid) return;
   const n = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes.find(x=>x.g===guid && !x.del) : null;
   if(!n){
@@ -24092,7 +24199,7 @@ function selectNote(guid){
     return;
   }
   if(typeof touchAccess === "function") touchAccess(n);
-  if(typeof openFs === "function") openFs(n);
+  if(typeof openFs === "function") openFs(n, fromPopstate);
 }
 async function copyNoteContent(n, cont){
   try {
@@ -24128,7 +24235,7 @@ function renderFs(){
   if(nh){
     const x = document.createElement("button");
     x.className = "fsCloseInline"; x.type="button"; x.setAttribute("aria-label","Zamknij"); x.textContent = "✕"; x.title = "Zamknij";
-    x.onclick = closeFs;
+    x.onclick = () => closeFs(false);
     nh.appendChild(x);
     /* Strzałka powrotu pokazuje się DOPIERO wtedy, gdy jest gdzie wracać.
        Wyjście zawsze widoczne, ale nieczynne, uczy go nie próbować. W podpowiedzi
@@ -24142,7 +24249,7 @@ function renderFs(){
       b.className = "fsBackInline"; b.type = "button";
       b.setAttribute("aria-label", opis); b.title = opis;
       b.innerHTML = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
-      b.onclick = fsWroc;
+      b.onclick = () => fsWroc(false);
       nh.insertBefore(b, nh.firstChild);
     }
   }
@@ -24500,13 +24607,24 @@ function restoreReadPos(g){
  * Notatka ze śladu mogła w międzyczasie wylądować w koszu. Wtedy cofamy się
  * dalej, zamiast pokazywać pustą stronę albo zamykać czytnik bez powodu.
  */
-function fsWroc(){
-  if(!fsSlad.length){ closeFs(); return; }
+function fsWroc(fromPopstate){
+  if(!fsSlad.length){ closeFs(fromPopstate); return; }
+  const ec = document.querySelector('#fsWrap .ncard.editing .ncontent');
+  if(ec) commitLiveEdit(ec);
   saveReadPos();
   const g = fsSlad.pop();
-  const n = notes.find(x=>x.g===g && !x.del);
-  if(!n){ fsWroc(); return; }
+  const n = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes.find(x=>x.g===g && !x.del) : null;
+  if(!n){ fsWroc(fromPopstate); return; }
   fsGuid = g; renderFs(); updateFsNav(); updateFsProgress();
+  if(fromPopstate !== true){
+    if(typeof _fsHistoryPushed !== "undefined" && _fsHistoryPushed > 1) _fsHistoryPushed--;
+    if(history.state && history.state.jwModal === "modalFs"){
+      suppressNextPopstate(300);
+      safeHistoryBack();
+    }
+  } else {
+    if(typeof _fsHistoryPushed !== "undefined" && _fsHistoryPushed > 1) _fsHistoryPushed--;
+  }
 }
 /* ——— POWRÓT NA WŁAŚCIWE MIEJSCE LISTY ———
 
@@ -24549,7 +24667,7 @@ function wskazNaLiscie(g){
   karta.addEventListener("animationend", zdejmijWskazanie, {once:true});
   _wskazTimer = setTimeout(zdejmijWskazanie, 1200);
 }
-function closeFs(){
+function closeFs(fromPopstate){
   /* Zamknięcie czytnika w trakcie edycji jest traktowane jak przerwana sesja:
      nie zatwierdzamy notatki, ale zachowujemy jej bieżący szkic awaryjny. */
   if(typeof szkicFlushKarty==="function") szkicFlushKarty();
@@ -24577,16 +24695,30 @@ function closeFs(){
     updateMetaThemeColor(appTheme);
   }
   const zazn = getSelection(); if(zazn && typeof zazn.removeAllRanges==="function") zazn.removeAllRanges();
-  closeModal("modalFs"); releaseWake(); updateFsNav();
+  closeModal("modalFs", fromPopstate); releaseWake(); updateFsNav();
   const p=$("readPop"); if(p) p.style.display="none";
   if(fsListDirty){ fsListDirty=false; renderNotes(); }
   /* Po przerysowaniu listy, nie przed — inaczej wskazywalibyśmy kartę, którą
      renderNotes() zaraz zastąpi nową. */
   wskazNaLiscie(wrocDo);
+  if(fromPopstate !== true && typeof _fsHistoryPushed !== "undefined" && _fsHistoryPushed > 0){
+    const toPop = _fsHistoryPushed;
+    _fsHistoryPushed = 0;
+    suppressNextPopstate(400);
+    try {
+      if(toPop === 1) safeHistoryBack();
+      else if(window.history && typeof history.go === "function") history.go(-toPop);
+      else safeHistoryBack();
+    } catch(_) {}
+  } else {
+    _fsHistoryPushed = 0;
+  }
 }
 /* ===== CZYTNIK: nawigacja, panel Aa, pasek postępu, wake lock ===== */
 function fsGo(dir){
   if(!fsGuid) return;
+  const ec = document.querySelector('#fsWrap .ncard.editing .ncontent');
+  if(ec) commitLiveEdit(ec);
   saveReadPos();
   const i = fsNavList.indexOf(fsGuid); if(i<0) return;
   const j = i+dir; if(j<0 || j>=fsNavList.length) return;
