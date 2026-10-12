@@ -3197,10 +3197,9 @@ html[data-theme="dark"] #pubPanel{border-color:var(--border)}
 .ncard:hover{transform:translateY(-1.5px);border-color:rgba(37,107,82,.28);
   box-shadow:0 6px 20px -4px rgba(0,0,0,.08), 0 2px 6px -1px rgba(0,0,0,.04)}
 .ncard.pinned{border-color:var(--accent2);box-shadow:0 0 0 1.5px var(--accent2), 0 4px 16px rgba(37,107,82,.08)}
-/* wirtualizacja: karty poza ekranem nie są renderowane (płynniej, mniej pamięci) */
-#noteList .ncard{content-visibility:auto;contain-intrinsic-size:auto 240px}
-#noteList.v-compact .ncard{contain-intrinsic-size:auto 110px}
-#noteList .ncard.editing{content-visibility:visible}
+/* Izolacja układu bez wirtualizacji content-visibility (zapobiega skakaniu i zacinaniu przewijania) */
+#noteList .ncard{contain:layout style}
+#noteList .ncard.editing{contain:none}
 .pinmark{font-size:13px;vertical-align:1px;color:var(--accent2)}
 .sbtn.ico.pinon{color:#d97706!important;background:rgba(245,158,11,.14)!important;border-color:rgba(245,158,11,.32)!important;box-shadow:0 1px 6px rgba(245,158,11,.16)}
 .sbtn.ico.pinon .ic{transform:rotate(-12deg);transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
@@ -3335,7 +3334,7 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
 .fsMarkGo{border:0;background:transparent;color:var(--text);text-align:left;min-width:0;padding:2px;cursor:pointer}.fsMarkGo b,.fsMarkGo span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fsMarkGo b{font-size:12.5px}.fsMarkGo span{font-size:11.5px;color:var(--muted);margin-top:2px}
 .fsMarkDel{border:0;background:transparent;color:var(--muted);border-radius:8px;width:30px;height:30px;cursor:pointer}.fsMarkDel:hover{background:var(--sel);color:#b42318}
 /* strzałki poprzednia/następna */
-.fsNav{position:fixed;top:50%;transform:translateY(-50%);z-index:11;width:44px;height:64px;border:none;border-radius:12px;background:rgba(0,0,0,.16);color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.fsNav{position:fixed;top:50%;transform:translateY(-50%);z-index:11;width:44px;height:64px;border:none;border-radius:12px;background:rgba(0,0,0,.35);color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .fsNav:hover{background:rgba(0,0,0,.3)}
 .fsNav.prev{left:8px} .fsNav.next{right:8px}
 .fsNav[disabled]{opacity:.25;pointer-events:none}
@@ -3716,8 +3715,6 @@ html[data-theme="dark"] .exp-base.warn,html[data-theme="dark"] .exp-warn{backgro
   position: sticky;
   top: 0;
   z-index: 12;
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
 }
 .editbar::-webkit-scrollbar { display: none; }
 .editbar button {
@@ -3757,8 +3754,6 @@ html[data-theme="dark"] .exp-base.warn,html[data-theme="dark"] .exp-warn{backgro
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.22);
   padding: 6px;
   min-width: 220px;
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
 }
 #ebPop div[data-cmd], #ebPop div[data-clear], #ebPop div[data-ins] {
   padding: 9px 12px;
@@ -13596,8 +13591,10 @@ html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
     padding-bottom: calc(22px + var(--safe-bottom)) !important;
     box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.28) !important;
     margin: 0 !important;
-    touch-action: pan-y;
-    overscroll-behavior-y: contain;
+    touch-action: pan-y !important;
+    overscroll-behavior-y: contain !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 
   /* Pełnoekranowy czytnik w trybie mobilnym */
@@ -13612,6 +13609,72 @@ html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
   .modal-actions, .modal-btns, .nn-foot, .smart-actions, .modal-foot {
     padding-bottom: max(6px, var(--safe-bottom));
   }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   OPTYMALIZACJA PŁYNNOŚCI PRZEWIJANIA OKIEN I KONTENERÓW (60/120 FPS GPU)
+   ══════════════════════════════════════════════════════════════════════ */
+.overlay {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.overlay > .modal,
+.overlay > .askbox,
+.overlay > .fsmodal,
+.overlay > .import-box,
+.overlay > [class*="modal"] {
+  touch-action: pan-y;
+  transform: translateZ(0);
+  isolation: isolate;
+}
+
+body.modal-open {
+  overscroll-behavior: none !important;
+}
+
+.col .list,
+#noteList,
+#bookList,
+#tagList,
+#pubList,
+.fsmodal,
+#modalFs .fsmodal,
+.smart-preview-list,
+.outlineList,
+.nn-studio-main,
+.nn-studio-side,
+#histLista,
+#smartPreview,
+.replaceBox,
+.search-modal-body,
+.modal,
+.askbox,
+.import-box,
+.mapamodal,
+.trashmodal,
+.cenGoalModal,
+.hb-modal,
+.autoTematyModal,
+.bezp-modal,
+.gran-modal,
+.exp-modal,
+.search-modal,
+.export-search-modal,
+.help-modal,
+.rozmodal,
+.smart-modal,
+.cenLista,
+#centrumLista,
+.modern-sidebar-body,
+#modalMapa .mapaPrawa,
+#modalMapa .mapaLewa {
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior-y: contain;
+}
+
+#noteList .ncard {
+  contain: layout style;
 }
 
 
@@ -24210,16 +24273,31 @@ function zmierzNhead(){
 /* Wysokość belki zmienia się sama: przy łamaniu tytułu, zmianie wielkości pisma
    albo szerokości okna. ResizeObserver łapie każdy taki przypadek — samo
    nasłuchiwanie na zmianę rozmiaru okna to za mało. */
-let _obsNhead = null, _pilnowana = null;
+let _obsNhead = null, _pilnowana = null, _zmierzNheadRaf = 0;
 function pilnujNhead(belka){
-  if(!belka || belka === _pilnowana) return;
+  if(!belka){
+    if(_obsNhead && _pilnowana){
+      try{ _obsNhead.unobserve(_pilnowana); }catch(_){}
+    }
+    _pilnowana = null;
+    return;
+  }
+  if(belka === _pilnowana) return;
   if(typeof ResizeObserver === "undefined") return;
   if(!_obsNhead) _obsNhead = new ResizeObserver(()=>{ if(fsGuid) zmierzNhead(); });
   if(_pilnowana) _obsNhead.unobserve(_pilnowana);
   _obsNhead.observe(belka);
   _pilnowana = belka;
 }
-addEventListener("resize", ()=>{ if(fsGuid) zmierzNhead(); });
+addEventListener("resize", ()=>{
+  if(!fsGuid) return;
+  if(!_zmierzNheadRaf){
+    _zmierzNheadRaf = requestAnimationFrame(()=>{
+      _zmierzNheadRaf = 0;
+      if(fsGuid) zmierzNhead();
+    });
+  }
+});
 
 /* ===== licznik słów i czasu czytania ===== */
 function readStats(el){
@@ -24479,6 +24557,8 @@ function closeFs(){
   /* Notatkę do wskazania trzeba wziąć PRZED skasowaniem śladu i fsGuid. */
   const wrocDo = fsSlad.length ? fsSlad[0] : fsGuid;
   fsSlad.length = 0; fsGuid = null;
+  pilnujNhead(null);
+  if(typeof _zmierzNheadRaf !== "undefined" && _zmierzNheadRaf){ cancelAnimationFrame(_zmierzNheadRaf); _zmierzNheadRaf = 0; }
   $("modalFs").classList.remove("dok-schowany","pow-open","is-fullscreen");
   $("modalFs")?.querySelector(".fsmodal")?.classList.remove("is-fullscreen");
   if(typeof updateFsFullBtn==="function") updateFsFullBtn(false);
@@ -24717,18 +24797,18 @@ $("fsNext").onclick = ()=>fsGo(1);
       const cont = document.querySelector("#fsWrap .ncontent");
       const toc = document.querySelector("#fsWrap .fsToc");
       if(cont && toc && typeof updateTocActive === "function") updateTocActive(cont, toc);
+      const modal=$("modalFs");
+      const st = fm.scrollTop;
+      if(readerFocus && !document.querySelector("#fsWrap .ncard.editing") && !String(window.getSelection ? getSelection() : "").trim()){
+        if(st > lastScrollTop + 8 && st > 40){
+          modal.classList.add("dok-schowany");
+        } else if(st < lastScrollTop - 12 || st <= 20){
+          modal.classList.remove("dok-schowany");
+        }
+      }
+      lastScrollTop = Math.max(0, st);
     });
     clearTimeout(posT); posT=setTimeout(saveReadPos, 400);   // zapamiętaj miejsce czytania
-    const modal=$("modalFs");
-    const st = fm.scrollTop;
-    if(readerFocus && !document.querySelector("#fsWrap .ncard.editing") && !String(getSelection()).trim()){
-      if(st > lastScrollTop + 8 && st > 40){
-        modal.classList.add("dok-schowany");
-      } else if(st < lastScrollTop - 12 || st <= 20){
-        modal.classList.remove("dok-schowany");
-      }
-    }
-    lastScrollTop = Math.max(0, st);
   }, {passive:true});
 
   // Ruch myszką w pobliże góry lub dołu ekranu natychmiast odkrywa przyciski
@@ -27403,11 +27483,32 @@ async function imgPodpis(img){
   let cap=fig.querySelector("figcaption");if(!txt){if(cap)cap.remove();}else{if(!cap){cap=document.createElement("figcaption");fig.appendChild(cap);}cap.textContent=txt;img.alt=txt;}
   commitLiveEdit(img.closest(".ncontent"));showImgBar(img);toast(txt?"Dodano podpis":"Usunięto podpis");
 }
+let _imgBarScrollBound = false;
+function _onImgBarScroll(){
+  if(selImg && $("imgBar") && $("imgBar").style.display === "flex") showImgBar(selImg);
+}
+function _onImgBarHideEvent(){
+  if(selImg) hideImgBar();
+}
+function _bindImgBarListeners(wlacz){
+  if(wlacz && !_imgBarScrollBound){
+    addEventListener("scroll", _onImgBarScroll, {capture:true, passive:true});
+    addEventListener("resize", _onImgBarHideEvent);
+    addEventListener("orientationchange", _onImgBarHideEvent);
+    _imgBarScrollBound = true;
+  }else if(!wlacz && _imgBarScrollBound){
+    removeEventListener("scroll", _onImgBarScroll, {capture:true, passive:true});
+    removeEventListener("resize", _onImgBarHideEvent);
+    removeEventListener("orientationchange", _onImgBarHideEvent);
+    _imgBarScrollBound = false;
+  }
+}
 function showImgBar(img){
   selImg = img;
   document.querySelectorAll(".ncontent img.imgsel").forEach(i=>{ if(i!==img) i.classList.remove("imgsel"); });
   img.classList.add("imgsel");
   const bar = $("imgBar"); bar.style.display = "flex";
+  _bindImgBarListeners(true);
   const r = img.getBoundingClientRect();
   const bw = bar.offsetWidth || 320, bh = bar.offsetHeight || 44;
   const _ob = (typeof widocznyObszar==="function") ? widocznyObszar()
@@ -27431,6 +27532,7 @@ function positionHandles(img){
   h.style.width = r.width + "px"; h.style.height = r.height + "px";
 }
 function hideImgBar(){
+  _bindImgBarListeners(false);
   const b = $("imgBar"); if(b) b.style.display = "none";
   const h = document.getElementById("imgHandles"); if(h) h.style.display = "none";
   document.querySelectorAll(".ncontent img.imgsel").forEach(i=>i.classList.remove("imgsel"));
@@ -27685,6 +27787,7 @@ function imgDragAktywuj(){
   imgDragAt(s.x,s.y);s.raf=requestAnimationFrame(imgDragKlatka);
 }
 function imgDragSprzataj(pokaz){
+  _imgDragBindListeners(false);
   const s=imgDrag;if(!s)return;
   clearTimeout(s.timer);if(s.raf)cancelAnimationFrame(s.raf);
   if(s.ghost)s.ghost.remove();$("dropCaret").style.display="none";
@@ -27702,6 +27805,29 @@ function imgDragUp(e,anuluj){
     commitLiveEdit(s.ce);imgDragSprzataj(true);toast("Przeniesiono zdjęcie");
   }else{imgDragSprzataj(true);if(anuluj)toast("Przenoszenie anulowane");}
 }
+let _imgDragListenersBound=false;
+function _imgDragBindListeners(wlacz){
+  if(wlacz&&!_imgDragListenersBound){
+    document.addEventListener("pointermove",imgDragMove,{capture:true,passive:false});
+    document.addEventListener("pointerup",imgDragPointerUp,true);
+    document.addEventListener("pointercancel",imgDragPointerCancel,true);
+    _imgDragListenersBound=true;
+  }else if(!wlacz&&_imgDragListenersBound){
+    document.removeEventListener("pointermove",imgDragMove,{capture:true,passive:false});
+    document.removeEventListener("pointerup",imgDragPointerUp,true);
+    document.removeEventListener("pointercancel",imgDragPointerCancel,true);
+    _imgDragListenersBound=false;
+  }
+}
+function imgDragMove(e){
+  const s=imgDrag;if(!s||e.pointerId!==s.pointerId)return;
+  s.x=e.clientX;s.y=e.clientY;
+  const dyst=Math.hypot(e.clientX-s.startX,e.clientY-s.startY);
+  if(!s.active&&s.pointerType==="mouse"&&dyst>=IMG_DRAG_PROG)imgDragAktywuj();
+  if(s.active){e.preventDefault();imgDragAt(e.clientX,e.clientY);}
+}
+function imgDragPointerUp(e){imgDragUp(e,false);}
+function imgDragPointerCancel(e){imgDragUp(e,true);}
 document.addEventListener("pointerdown",e=>{
   if(e.button!==undefined&&e.button!==0)return;
   const img=e.target.closest&&e.target.closest('.ncontent[contenteditable="true"] img');
@@ -27710,19 +27836,11 @@ document.addEventListener("pointerdown",e=>{
   const ce=img.closest('.ncontent[contenteditable="true"]');
   imgDrag={img,ce,pointerId:e.pointerId,x:e.clientX,y:e.clientY,startX:e.clientX,startY:e.clientY,
     active:false,range:null,ghost:null,timer:0,raf:0,scrollHost:imgDragScrollHost(ce),pointerType:e.pointerType||"mouse"};
+  _imgDragBindListeners(true);
   try{img.setPointerCapture(e.pointerId);}catch(_){}
   if(imgDrag.pointerType==="mouse"){}else imgDrag.timer=setTimeout(imgDragAktywuj,IMG_DRAG_HOLD);
   e.preventDefault();
 },true);
-document.addEventListener("pointermove",e=>{
-  const s=imgDrag;if(!s||e.pointerId!==s.pointerId)return;
-  s.x=e.clientX;s.y=e.clientY;
-  const dyst=Math.hypot(e.clientX-s.startX,e.clientY-s.startY);
-  if(!s.active&&s.pointerType==="mouse"&&dyst>=IMG_DRAG_PROG)imgDragAktywuj();
-  if(s.active){e.preventDefault();imgDragAt(e.clientX,e.clientY);}
-},{capture:true,passive:false});
-document.addEventListener("pointerup",e=>imgDragUp(e,false),true);
-document.addEventListener("pointercancel",e=>imgDragUp(e,true),true);
 document.addEventListener("contextmenu",e=>{if(e.target.closest&&e.target.closest('.ncontent[contenteditable="true"] img'))e.preventDefault();},true);
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&imgDrag){e.preventDefault();imgDragUp({pointerId:imgDrag.pointerId,preventDefault(){}},true);}});
 addEventListener("blur",()=>{if(imgDrag)imgDragUp({pointerId:imgDrag.pointerId,preventDefault(){}},true);});
@@ -27732,9 +27850,6 @@ document.addEventListener("focusout", e=>{
   const ce = e.target && e.target.closest && e.target.closest('.ncontent[contenteditable="true"]');
   if(ce) commitLiveEdit(ce);
 }, true);
-addEventListener("scroll", ()=>{ if(selImg && $("imgBar").style.display==="flex") showImgBar(selImg); }, {capture:true, passive:true});
-addEventListener("resize", ()=>{ if(selImg) hideImgBar(); });
-addEventListener("orientationchange", ()=>{ if(selImg) hideImgBar(); });
 function captureRange(){
   const s = getSelection();
   return s.rangeCount ? s.getRangeAt(0).cloneRange() : null;
@@ -32421,8 +32536,39 @@ function flashOk(el){
    ========================================================================== */
 let _skadOkno = null;
 
+function syncModalScrollLock(){
+  const hasOpen = !!document.querySelector(".overlay.show");
+  const isLocked = document.documentElement.classList.contains("modal-open");
+  if(hasOpen && !isLocked){
+    document.documentElement.classList.add("modal-open");
+    document.body.classList.add("modal-open");
+  } else if(!hasOpen && isLocked){
+    document.documentElement.classList.remove("modal-open");
+    document.body.classList.remove("modal-open");
+  }
+}
+window.syncModalScrollLock = syncModalScrollLock;
+
+function initModalObserver(){
+  try {
+    const observer = new MutationObserver(()=>{
+      syncModalScrollLock();
+    });
+    document.querySelectorAll(".overlay").forEach(ov => {
+      if(ov._modalObserved) return;
+      ov._modalObserved = true;
+      observer.observe(ov, { attributes: true, attributeFilter: ["class"] });
+    });
+  } catch(e){}
+}
+if(document.readyState === "loading"){
+  document.addEventListener("DOMContentLoaded", initModalObserver);
+} else {
+  initModalObserver();
+}
+
 function openModal(id){
-  const okno = $(id); if(!okno) return;
+  const okno = typeof id === "string" ? $(id) : id; if(!okno) return;
   przygotujOknoDlaCzytnika(okno);
   const pudlo = okno.querySelector(".modal, .askbox, .fsmodal, .import-box");
   if(pudlo && !pudlo.classList.contains("fsmodal") && !pudlo.querySelector(".modal-drag-handle")){
@@ -32434,12 +32580,13 @@ function openModal(id){
   _skadOkno = document.activeElement;
   okno.classList.add("show");
   okno.setAttribute("aria-hidden","false");
+  syncModalScrollLock();
   const cel = okno.querySelector("input:not([type=hidden]), textarea, select, button, [tabindex]");
   if(cel){ try{ cel.focus(); }catch(e){} }
 }
 
 function closeModal(id){
-  const okno = $(id); if(!okno) return;
+  const okno = typeof id === "string" ? $(id) : id; if(!okno) return;
   okno.classList.remove("show");
   okno.setAttribute("aria-hidden","true");
   okno.style.opacity = "";
@@ -32449,6 +32596,7 @@ function closeModal(id){
     pudlo.style.transform = "";
     pudlo.style.transition = "";
   }
+  syncModalScrollLock();
   // ognisko wraca tam, skąd okno otwarto — inaczej ląduje na początku strony
   if(_skadOkno && document.contains(_skadOkno)){ try{ _skadOkno.focus(); }catch(e){} }
   _skadOkno = null;
@@ -32462,7 +32610,7 @@ function przygotujOknoDlaCzytnika(okno){
   pudlo.setAttribute("aria-modal","true");
   const naglowek = pudlo.querySelector("h2, h3");
   if(naglowek){
-    if(!naglowek.id) naglowek.id = okno.id + "-tytul";
+    if(!naglowek.id) naglowek.id = (okno.id || "okno") + "-tytul";
     pudlo.setAttribute("aria-labelledby", naglowek.id);
   }
 }
@@ -32492,23 +32640,83 @@ document.addEventListener("keydown", e=>{
   let startTime = 0;
   let isDragging = false;
   let canPullDismiss = false;
+  let lastDragEndTime = 0;
+  let moveBound = false;
+
+  function bindTouchMove(){
+    if(!moveBound){
+      window.addEventListener("touchmove", onTouchMove, { passive: false });
+      moveBound = true;
+    }
+  }
+
+  function unbindTouchMove(){
+    if(moveBound){
+      window.removeEventListener("touchmove", onTouchMove, { passive: false });
+      moveBound = false;
+    }
+  }
 
   document.addEventListener("touchstart", (e)=>{
-    if(e.touches.length !== 1) return;
-    const ov = document.querySelector(".overlay.show");
-    if(!ov || ov.dataset.lockClose === "1") return;
+    if(e.touches.length !== 1){
+      unbindTouchMove();
+      canPullDismiss = false;
+      return;
+    }
+    const ov = e.target.closest ? e.target.closest(".overlay.show") : null;
+    if(!ov || ov.dataset.lockClose === "1"){
+      unbindTouchMove();
+      canPullDismiss = false;
+      return;
+    }
 
-    const modal = ov.querySelector(".modal, .askbox, .fsmodal, .import-box");
-    if(!modal || modal.classList.contains("fsmodal")) return;
+    const modal = ov.querySelector(".modal, .askbox, .fsmodal, .import-box, [class*='modal']");
+    if(!modal || modal.classList.contains("fsmodal")){
+      unbindTouchMove();
+      canPullDismiss = false;
+      return;
+    }
 
     const touch = e.touches[0];
     const target = e.target;
-    const isHandle = target && target.closest && target.closest(".modal-drag-handle");
-    const isHeader = target && target.closest && target.closest(".nn-head, .smart-head, h2, h3");
+    if(!target){
+      unbindTouchMove();
+      canPullDismiss = false;
+      return;
+    }
 
-    // Przeciąganie możliwe gdy: dotknięto uchwytu, nagłówka LUB treść jest przewinięta na samą górę
-    const isAtTop = modal.scrollTop <= 0;
-    if(isHandle || isHeader || isAtTop){
+    // Dotknięcie tła poza oknem modalnym — nie rozpoczynaj gestu ciągnięcia okna
+    if(target === ov || !modal.contains(target)){
+      unbindTouchMove();
+      canPullDismiss = false;
+      return;
+    }
+
+    // Mini-okna dialogowe (askModal, msgModal) nie podlegają gestowi pull-to-dismiss
+    if(modal.classList.contains("askbox") || ov.id === "askModal" || ov.id === "msgModal"){
+      unbindTouchMove();
+      canPullDismiss = false;
+      return;
+    }
+
+    // Wykrywanie elementów interaktywnych — formularze, edytor tekstu, paski narzędzi, przyciski akcji
+    const isInteractive = !!target.closest(
+      'input, textarea, select, [contenteditable="true"], button, .btn, a, .nn-tool-btn, [role="button"], .color-btn, .nn-tag-pill, .tag-chip, .tagrow, .toolDialog, [data-act], [data-tact], .editbar, #tableBar, #fragmentPanel, #tableSizePanel, .modal-actions, .nn-foot, .modal-btns, .smart-actions'
+    );
+
+    const isHandle = !!target.closest(".modal-drag-handle");
+    const isHeader = !!target.closest(".nn-head, .smart-head, .modal-head, .import-title, h2, h3");
+
+    // Jeśli dotknięto elementu interaktywnego, a nie jest to dedykowany uchwyt — zablokuj pull-to-dismiss
+    if(isInteractive && !isHandle){
+      unbindTouchMove();
+      canPullDismiss = false;
+      return;
+    }
+
+    // Gest zamykania dozwolony wyłącznie z uchwytu (.modal-drag-handle) LUB nagłówka na telefonach/tabletach, gdy treść jest na samej górze
+    const isSmallScreen = window.innerWidth <= 680;
+    if(isHandle || (isSmallScreen && isHeader && modal.scrollTop <= 0)){
       activeOverlay = ov;
       activeModal = modal;
       startY = touch.clientY;
@@ -32516,13 +32724,18 @@ document.addEventListener("keydown", e=>{
       startTime = Date.now();
       isDragging = false;
       canPullDismiss = true;
+      bindTouchMove();
     } else {
+      unbindTouchMove();
       canPullDismiss = false;
     }
   }, { passive: true });
 
-  document.addEventListener("touchmove", (e)=>{
-    if(!canPullDismiss || !activeModal || e.touches.length !== 1) return;
+  function onTouchMove(e){
+    if(!canPullDismiss || !activeModal || e.touches.length !== 1){
+      unbindTouchMove();
+      return;
+    }
     const touch = e.touches[0];
     const diffY = touch.clientY - startY;
     const diffX = touch.clientX - startX;
@@ -32531,6 +32744,7 @@ document.addEventListener("keydown", e=>{
     if(diffY > 6 && diffY > Math.abs(diffX) * 1.2){
       if(activeModal.scrollTop > 0){
         canPullDismiss = false;
+        unbindTouchMove();
         return;
       }
       isDragging = true;
@@ -32539,19 +32753,32 @@ document.addEventListener("keydown", e=>{
       const translateY = Math.max(0, diffY);
       activeModal.style.transform = `translateY(${translateY}px)`;
       activeModal.style.transition = "none";
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      const baseAlpha = isDark ? 0.75 : 0.46;
+      const rgb = isDark ? "8, 12, 16" : "15, 23, 19";
       const opacityFactor = Math.max(0.1, 1 - translateY / 400);
-      activeOverlay.style.backgroundColor = `rgba(15, 23, 19, ${0.46 * opacityFactor})`;
+      activeOverlay.style.backgroundColor = `rgba(${rgb}, ${baseAlpha * opacityFactor})`;
+    } else if(diffY < -6 || Math.abs(diffX) > Math.abs(diffY)){
+      // Przewijanie w górę lub w bok anuluje gest ciągnięcia okna
+      canPullDismiss = false;
+      unbindTouchMove();
     }
-  }, { passive: false });
+  }
 
   function finishGesture(e){
-    if(!activeModal) return;
+    unbindTouchMove();
+    if(!activeModal) {
+      isDragging = false;
+      canPullDismiss = false;
+      return;
+    }
     const touch = (e && e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0] : null;
     const diffY = touch ? (touch.clientY - startY) : 0;
     const dt = Math.max(1, Date.now() - startTime);
     const velocity = diffY / dt;
 
     if(isDragging){
+      lastDragEndTime = Date.now();
       // Próg zamykania: przeciągnięcie > 85px LUB szybki gest w dół (> 0.35 px/ms przy diffY > 25px)
       if(diffY > 85 || (velocity > 0.35 && diffY > 25)){
         activeModal.style.transition = "transform 0.22s cubic-bezier(0.32, 1, 0.23, 1), opacity 0.22s ease";
@@ -32561,19 +32788,24 @@ document.addEventListener("keydown", e=>{
         const ovToClose = activeOverlay;
         const modalToReset = activeModal;
         setTimeout(()=>{
-          if(ovToClose.id && typeof closeModal === "function"){
-            closeModal(ovToClose.id);
-          } else {
+          if(ovToClose && typeof closeModal === "function"){
+            closeModal(ovToClose);
+          } else if(ovToClose) {
             ovToClose.classList.remove("show");
           }
-          modalToReset.style.transform = "";
-          modalToReset.style.transition = "";
-          ovToClose.style.transition = "";
-          ovToClose.style.opacity = "";
-          ovToClose.style.backgroundColor = "";
+          if(modalToReset){
+            modalToReset.style.transform = "";
+            modalToReset.style.transition = "";
+          }
+          if(ovToClose){
+            ovToClose.style.transition = "";
+            ovToClose.style.opacity = "";
+            ovToClose.style.backgroundColor = "";
+          }
+          if(typeof syncModalScrollLock === "function") syncModalScrollLock();
         }, 220);
       } else {
-        // Snap back
+        // Snap back do pozycji wyjściowej
         activeModal.style.transition = "transform 0.24s cubic-bezier(0.22, 1, 0.36, 1)";
         activeModal.style.transform = "";
         activeOverlay.style.backgroundColor = "";
@@ -32591,15 +32823,18 @@ document.addEventListener("keydown", e=>{
   document.addEventListener("touchend", finishGesture, { passive: true });
   document.addEventListener("touchcancel", finishGesture, { passive: true });
 
-  // Obsługa kliknięcia w tło (backdrop tap)
+  // Obsługa kliknięcia/tapnięcia w tło (backdrop tap)
   document.addEventListener("click", (e)=>{
-    const ov = e.target && e.target.classList && e.target.classList.contains("overlay") ? e.target : null;
-    if(ov && ov.dataset.lockClose !== "1"){
-      if(ov.id && typeof closeModal === "function"){
-        closeModal(ov.id);
+    if(Date.now() - lastDragEndTime < 350) return;
+    const ov = e.target.closest ? e.target.closest(".overlay.show") : null;
+    if(!ov || ov.dataset.lockClose === "1") return;
+    if(e.target === ov || (ov.contains(e.target) && !e.target.closest(".modal, .askbox, .fsmodal, .import-box, [class*='modal']"))){
+      if(typeof closeModal === "function"){
+        closeModal(ov);
       } else {
         ov.classList.remove("show");
       }
+      if(typeof syncModalScrollLock === "function") syncModalScrollLock();
     }
   });
 })();
@@ -35905,6 +36140,7 @@ function pozycjeDoUpuszczenia(rodzaj){
 }
 
 function zakonczChwyt(zapisz){
+  if(typeof wlaczChwytTouch === "function") wlaczChwytTouch(false);
   if(!_chwyt) return;
   const {el, duszek, wskaznik, cel, przed, rodzaj, id, celObcy} = _chwyt;
   if(_chwyt.klatka) cancelAnimationFrame(_chwyt.klatka);
@@ -36171,6 +36407,7 @@ document.addEventListener("pointerdown", ev=>{
   const odklej = ()=>{
     if(odklejone) return;
     odklejone = true;
+    if(typeof wlaczChwytTouch === "function") wlaczChwytTouch(true);
     el.classList.add("chwytany");
     document.body.classList.add("wTrakcieChwytu");
     _chwyt = {el, rodzaj:info.rodzaj, id:info.id,
@@ -36288,12 +36525,24 @@ document.addEventListener("pointerdown", ev=>{
    `touch-action:none` na małym uchwycie — wystarczy, że palec wyjedzie poza
    jego obszar. Gdy trwa chwyt elementu listy, zatrzymujemy wyłącznie ten
    natywny ruch; automatyczne przewijanie właściwej listy nadal wykonuje
-   `krokPrzewijania`, więc można dojechać do jej pierwszej pozycji. */
-document.addEventListener("touchmove", ev=>{
+   `krokPrzewijania`, więc można dojechać do jej pierwszej pozycji.
+   Nasłuch touchmove z {passive:false} podpinamy WYŁĄCZNIE na czas aktywnego chwytu,
+   aby w trakcie normalnego przewijania przeglądarka miała 100% pasywne, płynne przewijanie. */
+let _chwytTouchBound = false;
+function onChwytTouchMove(ev){
   if(!_chwyt) return;
   if(["etykieta", "zakladka", "publikacja", "zakladkaPub"].includes(_chwyt.rodzaj))
     ev.preventDefault();
-}, {capture:true, passive:false});
+}
+function wlaczChwytTouch(wlacz){
+  if(wlacz && !_chwytTouchBound){
+    document.addEventListener("touchmove", onChwytTouchMove, {capture:true, passive:false});
+    _chwytTouchBound = true;
+  }else if(!wlacz && _chwytTouchBound){
+    document.removeEventListener("touchmove", onChwytTouchMove, {capture:true, passive:false});
+    _chwytTouchBound = false;
+  }
+}
 
 /* ==========================================================================
    BLOKADA KLIKNIĘĆ MUSI BYĆ CHWILOWA
@@ -36320,6 +36569,7 @@ document.addEventListener("click", e=>{
 /** Awaryjne sprzątanie: cokolwiek się stanie, nie zostawiamy zablokowanej strony. */
 function posprzatajChwyt(){
   if(_chwyt) zakonczChwyt(false);
+  if(typeof wlaczChwytTouch === "function") wlaczChwytTouch(false);
   _polkniecieDo = 0;                       // kasujemy PO zakończeniu gestu
   document.body.classList.remove("wTrakcieChwytu");
   document.querySelectorAll(".chwytDuszek, .chwytWskaznik").forEach(x=>x.remove());
@@ -37763,23 +38013,18 @@ function zaznaczDo(x, y){
   }catch(e){}
 }
 
-document.addEventListener("touchstart", e=>{
-  if(!e.touches || e.touches.length !== 1) return;
-  const d = e.touches[0];
-  if(!toRysik(d, e)) return;
-  const tresc = trescDoZaznaczania(e.target);
-  if(!tresc) return;
-  _rysik = {tresc, x:d.clientX, y:d.clientY, start:null, aktywne:false};
-}, {passive:false});
-
-document.addEventListener("touchmove", e=>{
+let _rysikTouchBound = false;
+function onRysikTouchMove(e){
   if(!_rysik || !e.touches || e.touches.length !== 1) return;
   const d = e.touches[0];
   if(!_rysik.aktywne){
     if(Math.abs(d.clientX - _rysik.x) < RYS_PROG &&
        Math.abs(d.clientY - _rysik.y) < RYS_PROG) return;
     const start = caretRangeFromPoint(_rysik.x, _rysik.y);
-    if(!start || !_rysik.tresc.contains(start.startContainer)){ _rysik = null; return; }
+    if(!start || !_rysik.tresc.contains(start.startContainer)){
+      koniecRysika();
+      return;
+    }
     _rysik.start = start;
     _rysik.aktywne = true;
     document.documentElement.classList.add("rysikZaznacza");
@@ -37788,9 +38033,29 @@ document.addEventListener("touchmove", e=>{
      wcześniej blokowałoby też zwykłe stuknięcie. */
   e.preventDefault();
   zaznaczDo(d.clientX, d.clientY);
-}, {passive:false});
+}
+function wlaczRysikTouch(wlacz){
+  if(wlacz && !_rysikTouchBound){
+    document.addEventListener("touchmove", onRysikTouchMove, {passive:false});
+    _rysikTouchBound = true;
+  }else if(!wlacz && _rysikTouchBound){
+    document.removeEventListener("touchmove", onRysikTouchMove, {passive:false});
+    _rysikTouchBound = false;
+  }
+}
+
+document.addEventListener("touchstart", e=>{
+  if(!e.touches || e.touches.length !== 1) return;
+  const d = e.touches[0];
+  if(!toRysik(d, e)) return;
+  const tresc = trescDoZaznaczania(e.target);
+  if(!tresc) return;
+  _rysik = {tresc, x:d.clientX, y:d.clientY, start:null, aktywne:false};
+  wlaczRysikTouch(true);
+}, {passive:true});
 
 function koniecRysika(){
+  wlaczRysikTouch(false);
   if(!_rysik) return;
   const bylo = _rysik.aktywne;
   _rysik = null;
@@ -37801,6 +38066,7 @@ function koniecRysika(){
 }
 document.addEventListener("touchend", koniecRysika);
 document.addEventListener("touchcancel", koniecRysika);
+window.addEventListener("blur", koniecRysika);
 
 </script>
 <script>
