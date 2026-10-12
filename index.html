@@ -4276,6 +4276,7 @@ mark { padding: 1px 3px; border-radius: 4px; }
 #nnContent {
   flex: 1;
   min-height: 260px;
+  max-height: 520px;
   font-size: 15px;
   line-height: 1.62;
   font-family: inherit;
@@ -4284,13 +4285,21 @@ mark { padding: 1px 3px; border-radius: 4px; }
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text);
-  resize: vertical;
+  overflow-y: auto;
+  outline: none;
+  word-break: break-word;
+  white-space: pre-wrap;
   transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
 }
 #nnContent:focus {
   border-color: var(--accent);
   background: var(--panel);
   box-shadow: 0 0 0 3.5px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+#nnContent:is(:empty, [data-empty="true"]):before {
+  content: attr(data-placeholder);
+  color: var(--muted);
+  pointer-events: none;
 }
 .modal .row { display: flex; gap: 10px; }
 .modal .row > div { flex: 1; }
@@ -4348,6 +4357,130 @@ mark { padding: 1px 3px; border-radius: 4px; }
 .nn-opt { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--muted); text-transform: none; letter-spacing: 0; }
 .nn-card label { margin-top: 0; }
 .nn-card .tagpick { background: var(--bg); border-radius: 10px; padding: 6px 8px; }
+.nn-template-select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 550;
+  margin-bottom: 8px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+.nn-template-select:focus {
+  border-color: var(--accent);
+}
+.nn-color-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.nn-color-lbl {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.nn-color-picker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.nn-color-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  transition: transform 0.14s ease, border-color 0.14s ease;
+}
+.nn-color-dot:hover {
+  transform: scale(1.18);
+}
+.nn-color-dot.active {
+  border-color: var(--text);
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px var(--accent);
+}
+.nn-color-dot.none {
+  background: var(--bg);
+  border: 1.5px dashed var(--muted);
+  font-size: 11px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+.nn-flags-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+.nn-check-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 550;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+}
+.nn-check-label input {
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+.nn-ref-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.nn-linked-verses-list {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.nn-verse-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+  color: var(--accent);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+.nn-verse-chip-del {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0 2px;
+  color: inherit;
+  font-size: 13px;
+  line-height: 1;
+  opacity: 0.65;
+}
+.nn-verse-chip-del:hover {
+  opacity: 1;
+}
 .nn-studio-actions {
   margin-top: auto;
   padding-top: 10px;
@@ -13551,6 +13684,9 @@ html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 .nn-tool-btn:hover {
   border-color: var(--accent);
@@ -13562,6 +13698,62 @@ html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
   height: 16px;
   background: var(--border);
   margin: 0 2px;
+}
+.nn-tool-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.nn-editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.nn-metrics {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.nn-metrics #nnReadingTime {
+  color: var(--accent);
+  font-weight: 600;
+}
+.nn-editor-hints {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.85;
+}
+.nn-content-preview {
+  flex: 1;
+  min-height: 260px;
+  font-size: 15px;
+  line-height: 1.62;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  overflow-y: auto;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+@media (max-width: 900px) {
+  .nn-content-preview { min-height: 180px; }
+}
+@media (max-width: 768px) {
+  .nn-content-preview { min-height: 140px; }
 }
 
 /* Bloki studyjne i cytaty w treści */
@@ -16562,20 +16754,33 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
               <button type="button" class="nn-tool-btn" data-fmt="bold" title="Pogrubienie (Ctrl+B)"><b>B</b></button>
               <button type="button" class="nn-tool-btn" data-fmt="italic" title="Kursywa (Ctrl+I)"><i>I</i></button>
               <button type="button" class="nn-tool-btn" data-fmt="underline" title="Podkreślenie (Ctrl+U)"><u>U</u></button>
+              <button type="button" class="nn-tool-btn" data-fmt="strike" title="Przekreślenie (Ctrl+Shift+X)"><s>S</s></button>
+              <button type="button" class="nn-tool-btn" data-fmt="highlight" title="Zakreślacz tekstu">🖍 Zakreśl</button>
               <span class="nn-tool-sep"></span>
               <button type="button" class="nn-tool-btn" data-fmt="h2" title="Nagłówek sekcji (H2)">H2</button>
               <button type="button" class="nn-tool-btn" data-fmt="h3" title="Podtytuł (H3)">H3</button>
+              <button type="button" class="nn-tool-btn" data-fmt="blockquote" title="Blok cytatu (Alt+3 lub &gt;)">” Cytat</button>
               <span class="nn-tool-sep"></span>
               <button type="button" class="nn-tool-btn" data-fmt="ul" title="Lista punktowana">• Lista</button>
               <button type="button" class="nn-tool-btn" data-fmt="ol" title="Lista numerowana">1. Lista</button>
               <button type="button" class="nn-tool-btn" data-fmt="todo" title="Zadanie / Do zrobienia">☑ Zadanie</button>
+              <button type="button" class="nn-tool-btn" data-fmt="hr" title="Linia pozioma rozdzielająca">― Linia</button>
+              <span class="nn-tool-sep"></span>
+              <button type="button" class="nn-tool-btn" data-fmt="img" id="nnBtnAddImg" title="Wstaw zdjęcie (z pliku lub aparatu)">📷 Zdjęcie</button>
+              <input type="file" id="nnImgFile" accept="image/*" multiple style="display:none;">
               <span class="nn-tool-sep"></span>
               <button type="button" class="nn-tool-btn" data-fmt="werset" title="Cytat z wersetu">📖 Werset</button>
               <button type="button" class="nn-tool-btn" data-fmt="idea" title="Przemyślenie / Wniosek">💡 Wniosek</button>
               <button type="button" class="nn-tool-btn" data-fmt="question" title="Pytanie do studium">❓ Pytanie</button>
             </div>
           </div>
-          <textarea id="nnContent" placeholder="Wpisz treść notatki, przemyślenia, punkty do studium… (obsługuje Markdown: #, ##, >, -, *, 1.)"></textarea>
+          <div id="nnContent" class="nn-content ncontent" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Wpisz treść notatki, przemyślenia, punkty do studium… (skróty: #, ##, >, -, 1., [])" spellcheck="true" lang="pl"></div>
+          <div class="nn-editor-footer">
+            <div id="nnMetrics" class="nn-metrics" title="Licznik słów, znaków i szacowany czas czytania"><span id="nnWordCount">0 słów</span>, <span id="nnCharCount">0 znaków</span><span id="nnReadingTime"></span></div>
+            <div class="nn-editor-hints">
+              <span>Wklejaj i przeciągaj zdjęcia • Skróty: <b>#</b> nagłówek, <b>-</b> lista, <b>[ ]</b> zadanie, <b>&gt;</b> cytat</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -16588,9 +16793,27 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
         <div class="nn-card nn-szab">
           <div class="nn-card-hd">
             <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h9l5 5v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M8 13h8M8 17h5"/></svg>
-            <span>Szablony</span><span class="nn-opt">dotknij, aby wstawić</span>
+            <span>Szablony i struktura</span><span class="nn-opt">gotowe wzorce</span>
           </div>
+          <select id="nnTemplateSelect" class="nn-template-select" aria-label="Wybierz szablon">
+            <option value="">— Czysta notatka (bez szablonu) —</option>
+          </select>
           <div id="nnSzablony"></div>
+        </div>
+
+        <div class="nn-card nn-card-style">
+          <div class="nn-card-hd">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/></svg>
+            <span>Wygląd i wyróżnienie</span>
+          </div>
+          <div class="nn-color-row">
+            <span class="nn-color-lbl">Kolor tła:</span>
+            <div class="nn-color-picker" id="nnColorPicker" role="radiogroup" aria-label="Kolor tła notatki"></div>
+          </div>
+          <div class="nn-flags-row">
+            <label class="nn-check-label"><input type="checkbox" id="nnPinnedCheck"> 📌 Przypnij na górze</label>
+            <label class="nn-check-label"><input type="checkbox" id="nnFavCheck"> ⭐ Ulubiona</label>
+          </div>
         </div>
 
         <div class="nn-card nn-ref">
@@ -16603,6 +16826,11 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
             <div class="col-ch"><label for="nnCh">Rozdział</label><input type="text" id="nnCh" inputmode="numeric" placeholder="—"></div>
             <div class="col-v"><label for="nnV">Werset</label><input type="text" id="nnV" inputmode="numeric" placeholder="—"></div>
           </div>
+          <div class="nn-ref-tools">
+            <button type="button" id="nnBtnInsertRef" class="btn mini" title="Wstaw wybrany werset jako cytat w treści">+ Wstaw cytat wersetu</button>
+            <button type="button" id="nnBtnAddLinkedVerse" class="btn mini" title="Dodaj do listy powiązanych wersetów">+ Dodaj powiązany</button>
+          </div>
+          <div id="nnLinkedVersesList" class="nn-linked-verses-list"></div>
         </div>
 
         <div class="nn-card">
@@ -25545,7 +25773,16 @@ function skrotPisania(e, ce){
      PUSTY, a execCommand w pustym bloku brał blok POPRZEDNI. Nagłówkiem stawał
      się akapit wyżej, a wpisywany tekst dopisywał się na jego końcu. Dotyczyło
      to wszystkich pięciu skrótów. */
-  const blok = blockOf(zakres.startContainer, ce);
+  let blok = blockOf(zakres.startContainer, ce);
+  if(blok === ce){
+    blok = document.createElement("div");
+    if(zakres.startContainer && zakres.startContainer.parentNode === ce){
+      ce.insertBefore(blok, zakres.startContainer);
+      blok.appendChild(zakres.startContainer);
+    } else {
+      ce.appendChild(blok);
+    }
+  }
   let nowy = null;
   if(pasuje.blok) nowy = zamienBlok(blok, pasuje.blok, ce);
   else if(pasuje.cmd === "insertUnorderedList") nowy = zamienNaListe(blok, "ul", "", ce);
@@ -25557,9 +25794,11 @@ function skrotPisania(e, ce){
   }
   else if(pasuje.cmd) document.execCommand(pasuje.cmd, false, null);   // droga awaryjna
   if(typeof commitLiveEdit === "function") commitLiveEdit(ce);
-  histZapisz(ce);
+  if(typeof histZapisz === "function") histZapisz(ce);
   const pasek = ce.parentElement && ce.parentElement.querySelector(".editbar");
   if(pasek && typeof updateEditbarState === "function") updateEditbarState(pasek);
+  if(ce.id === "nnContent" && typeof updateNnQuickToolsState === "function") updateNnQuickToolsState();
+  if(ce.id === "nnContent" && typeof triggerNnAutosave === "function") triggerNnAutosave();
   return true;
 }
 /** Czy podana pozycja to faktycznie początek wiersza (nic przed nią oprócz białych znaków). */
@@ -25831,6 +26070,9 @@ function ustawKursorOffset(ce, poz){
 
 /** Pasek edycji tej samej notatki co podane pole treści. */
 function paskEdycjiDla(ce){
+  if(ce && (ce.id === "nnContent" || (ce.closest && ce.closest("#modalNew")))){
+    return document.getElementById("nnQuickTools");
+  }
   return (ce && ce.parentElement) ? ce.parentElement.querySelector(".editbar") : null;
 }
 
@@ -25883,7 +26125,7 @@ function skrotFormatowania(e, ce){
   e.preventDefault();
   const bar = paskEdycjiDla(ce);
 
-  if(wpis.cmd){ wykonajWTresci(wpis.cmd, bar); return true; }
+  if(wpis.cmd){ wykonajWTresci(wpis.cmd, bar, ce); return true; }
 
   if(wpis.blok){
     /* Nagłówki idą przez zamienBlok, nie przez execCommand("formatBlock") —
@@ -25894,11 +26136,17 @@ function skrotFormatowania(e, ce){
     else document.execCommand("formatBlock", false, "<" + wpis.blok + ">");
     commitLiveEdit(ce);
     if(typeof histZapisz === "function") histZapisz(ce);
-    if(bar) updateEditbarState(bar);
+    if(bar && bar.classList && bar.classList.contains("editbar")) updateEditbarState(bar);
+    if(ce.id === "nnContent" && typeof updateNnQuickToolsState === "function") updateNnQuickToolsState();
+    if(ce.id === "nnContent" && typeof triggerNnAutosave === "function") triggerNnAutosave();
     return true;
   }
 
-  if(wpis.akcja === "zadania"){ insertTaskList(ce); return true; }
+  if(wpis.akcja === "zadania"){
+    insertTaskList(ce);
+    if(ce.id === "nnContent" && typeof triggerNnAutosave === "function") triggerNnAutosave();
+    return true;
+  }
   if(wpis.akcja === "link"){
     /* Okienko linku czyta zapamiętane zaznaczenie, nie bieżące — bo w chwili
        pisania w polu okienka zaznaczenie w notatce już nie istnieje. */
@@ -25920,14 +26168,16 @@ function skrotFormatowania(e, ce){
  *
  * @param {string} cmd  nazwa polecenia execCommand
  * @param {HTMLElement} bar  pasek edycji notatki
+ * @param {HTMLElement} [ceTarget] opcjonalne jawne pole edycji
  */
-function wykonajWTresci(cmd, bar){
-  const ce = bar && bar.parentElement && bar.parentElement.querySelector(".ncontent");
+function wykonajWTresci(cmd, bar, ceTarget){
+  const ce = ceTarget || (bar && bar.parentElement && bar.parentElement.querySelector(".ncontent")) || (bar && bar.closest && bar.closest(".nn-modal") && document.getElementById("nnContent"));
   if(!ce || !ce.isContentEditable) return;
   /* Cofanie i ponawianie obsługuje własny stos — do przeglądarki nie idzie nic. */
   if(cmd === "undo" || cmd === "redo"){
     histSkocz(ce, cmd === "undo" ? -1 : +1);
-    updateEditbarState(bar);
+    if(bar && bar.classList && bar.classList.contains("editbar")) updateEditbarState(bar);
+    if(ce.id === "nnContent" && typeof updateNnQuickToolsState === "function") updateNnQuickToolsState();
     return;
   }
   if(!kursorW(ce)){ ce.focus(); restoreSel(ce); }
@@ -25937,9 +26187,13 @@ function wykonajWTresci(cmd, bar){
   }
   try{ document.execCommand(cmd, false, null); }
   catch(e){ console.warn("Nie udało się wykonać polecenia", cmd, e); return; }
-  updateEditbarState(bar);
-  commitLiveEdit(ce);
-  histZapisz(ce);            // zmiana z paska też jest krokiem do cofnięcia
+  if(bar && bar.classList && bar.classList.contains("editbar")) updateEditbarState(bar);
+  if(ce.id === "nnContent" && typeof updateNnQuickToolsState === "function") updateNnQuickToolsState();
+  if(typeof commitLiveEdit === "function") commitLiveEdit(ce);
+  if(ce.id === "nnContent" && typeof updateNnContentEmptyState === "function") updateNnContentEmptyState();
+  if(ce.id === "nnContent" && typeof updateNnMetrics === "function") updateNnMetrics();
+  if(ce.id === "nnContent" && typeof triggerNnAutosave === "function") triggerNnAutosave();
+  if(typeof histZapisz === "function") histZapisz(ce);            // zmiana z paska też jest krokiem do cofnięcia
 }
 /** Czy zaznaczenie (kursor) znajduje się wewnątrz podanego pola edycji. */
 function kursorW(ce){
@@ -25985,7 +26239,20 @@ function biezacyBlok(){
   }
   return "DIV";
 }
-document.addEventListener("selectionchange", ()=>{ const eb=document.querySelector(".ncard.editing .editbar"); if(eb) updateEditbarState(eb); });
+document.addEventListener("selectionchange", ()=>{
+  const sel = getSelection();
+  if(sel && sel.rangeCount){
+    const r = sel.getRangeAt(0);
+    const cac = r.commonAncestorContainer;
+    const p = cac.nodeType === 1 ? cac : cac.parentElement;
+    if(p && p.closest('.ncontent[contenteditable="true"]')){
+      edSavedRange = r.cloneRange();
+    }
+  }
+  const eb = document.querySelector(".ncard.editing .editbar");
+  if(eb) updateEditbarState(eb);
+  if(typeof updateNnQuickToolsState === "function") updateNnQuickToolsState();
+});
 /* rozwijane menu paska: kolory albo „Więcej" (wcięcia, wyrównanie, cytat, wyczyść) */
 function openEbPop(kind, btn, bar){
   const pop=$("ebPop"); const ce=bar.parentElement.querySelector(".ncontent");
@@ -26871,6 +27138,13 @@ async function insertUrlLink(ce){
 function insertTaskList(ce){
   restoreSel(ce);
   document.execCommand("insertHTML", false, '<ul class="tasklist"><li>Zadanie…</li></ul>');
+  if(ce && ce.id === "nnContent"){
+    if(typeof updateNnContentEmptyState === "function") updateNnContentEmptyState();
+    if(typeof updateNnMetrics === "function") updateNnMetrics();
+    if(typeof updateNnQuickToolsState === "function") updateNnQuickToolsState();
+    if(typeof triggerNnAutosave === "function") triggerNnAutosave();
+    if(typeof histZapisz === "function") histZapisz(ce);
+  }
 }
 /* ===== TABELA ===== */
 function insertTable(ce){
@@ -27073,12 +27347,26 @@ function autoformat(ce){
   commitLiveEdit(ce);
   const bar = ce.parentElement && ce.parentElement.querySelector(".editbar");
   if(bar && typeof updateEditbarState==="function") updateEditbarState(bar);
+  if(ce.id === "nnContent" && typeof updateNnQuickToolsState === "function") updateNnQuickToolsState();
+  if(ce.id === "nnContent" && typeof triggerNnAutosave === "function") triggerNnAutosave();
 }
 document.addEventListener("input", e=>{ const ce=e.target && e.target.closest && e.target.closest('.ncontent[contenteditable="true"]'); if(ce) autoformat(ce); });
 // odhaczanie list zadań (odnośniki do wersetów są zwykłymi <a target="_blank"> — otwierają się natywnie, iOS przekieruje do JW Library)
 document.addEventListener("click", e=>{
   const li=e.target && e.target.closest ? e.target.closest(".ncontent ul.tasklist li") : null;
-  if(li){ const r=li.getBoundingClientRect(); if(e.clientX-r.left<=30){ li.classList.toggle("done"); const ce=li.closest(".ncontent"); if(ce) commitLiveEdit(ce); e.preventDefault(); return; } }
+  if(li){
+    const r=li.getBoundingClientRect();
+    if(e.clientX-r.left<=30){
+      li.classList.toggle("done");
+      const ce=li.closest(".ncontent");
+      if(ce){
+        commitLiveEdit(ce);
+        if(ce.id === "nnContent" && typeof triggerNnAutosave === "function") triggerNnAutosave();
+      }
+      e.preventDefault();
+      return;
+    }
+  }
 });
 
 </script>
@@ -27307,6 +27595,10 @@ document.addEventListener("paste", async e=>{
     if(!wstawCzystyTekst(ce,txt)) document.execCommand("insertText", false, txt);
     if(typeof histZapisz==="function")histZapisz(ce);
     commitLiveEdit(ce);
+    if(ce.id === "nnContent"){
+      if(typeof updateNnContentEmptyState === "function") updateNnContentEmptyState();
+      if(typeof triggerNnAutosave === "function") triggerNnAutosave();
+    }
   }
 });
 /* PRZECIĄGNIJ plik obrazu z pulpitu na edytowaną notatkę (komputer) */
@@ -27322,7 +27614,20 @@ document.addEventListener("drop", async e=>{
     e.preventDefault();
     let range = caretRangeFromPoint(e.clientX, e.clientY);
     if(!(range && ce.contains(range.startContainer))) range=null;
-    for(const f of files){ if(f.type && f.type.indexOf("image")===0){ try{ const url=await compressImage(f); if(!(await checkSpaceForImage(url.length))) return; insertImageUrl(ce, url, range); range=null; }catch(_){} } }
+    for(const f of files){
+      if(f.type && f.type.indexOf("image")===0){
+        try{
+          const url=await compressImage(f);
+          if(!(await checkSpaceForImage(url.length))) return;
+          insertImageUrl(ce, url, range);
+          range=null;
+          if(ce.id === "nnContent"){
+            if(typeof updateNnContentEmptyState === "function") updateNnContentEmptyState();
+            if(typeof triggerNnAutosave === "function") triggerNnAutosave();
+          }
+        }catch(_){}
+      }
+    }
   }
 });
 /* ===== BEZPOŚREDNIE PRZECIĄGANIE ZDJĘCIA =====
@@ -28080,6 +28385,11 @@ async function ustalZakladkeNowejNotatki(wybor){
 }
 
 let _nnAutosaveTimer = null;
+let _nnSelectedBg = null;
+let _nnLinkedVerses = [];
+let _nnQuickToolsInited = false;
+let _nnRefToolsInited = false;
+let _nnTemplateSelectInited = false;
 
 function setNnAutosaveState(state, text){
   const el = $("nnAutosaveStatus");
@@ -28088,21 +28398,307 @@ function setNnAutosaveState(state, text){
   el.textContent = text;
 }
 
+function updateNnContentEmptyState(){
+  const ta = $("nnContent");
+  if(!ta) return;
+  const hasText = !!ta.textContent.trim();
+  const hasMedia = !!ta.querySelector("img, table, hr, blockquote, figure");
+  ta.dataset.empty = (!hasText && !hasMedia) ? "true" : "false";
+}
+
+function odmianaSlowPl(n){
+  if(n === 1) return "słowo";
+  const x = Math.abs(n) % 100, y = Math.abs(n) % 10;
+  if(y >= 2 && y <= 4 && !(x >= 12 && x <= 14)) return "słowa";
+  return "słów";
+}
+
+function odmianaZnakowPl(n){
+  if(n === 1) return "znak";
+  const x = Math.abs(n) % 100, y = Math.abs(n) % 10;
+  if(y >= 2 && y <= 4 && !(x >= 12 && x <= 14)) return "znaki";
+  return "znaków";
+}
+
+function updateNnMetrics(){
+  const ta = $("nnContent");
+  if(!ta) return;
+  const raw = ta.innerText || ta.textContent || "";
+  const txt = raw.replace(/\u200B/g, "").trim();
+  const words = txt ? (txt.match(/[\p{L}\p{N}][\p{L}\p{N}'’-]*/gu) || []).length : 0;
+  const chars = txt.length;
+
+  const wEl = $("nnWordCount");
+  const cEl = $("nnCharCount");
+  const rEl = $("nnReadingTime");
+
+  const slowaOdmiana = odmianaSlowPl(words);
+  const znakiOdmiana = odmianaZnakowPl(chars);
+
+  if(wEl && cEl){
+    wEl.textContent = `${words} ${slowaOdmiana}`;
+    cEl.textContent = `${chars} ${znakiOdmiana}`;
+    if(rEl){
+      if(words > 0){
+        const mins = Math.max(1, Math.round(words / 200));
+        rEl.textContent = ` · ~${mins} min czytania`;
+      } else {
+        rEl.textContent = "";
+      }
+    }
+  } else {
+    const el = $("nnMetrics");
+    if(el){
+      const mins = words > 0 ? ` · ~${Math.max(1, Math.round(words / 200))} min czytania` : "";
+      el.textContent = `${words} ${slowaOdmiana}, ${chars} ${znakiOdmiana}${mins}`;
+    }
+  }
+}
+
+function setNnContent(htmlOrText){
+  const ta = $("nnContent");
+  if(!ta) return;
+  ta.innerHTML = htmlOrText || "";
+  updateNnContentEmptyState();
+  if(typeof updateNnMetrics === "function") updateNnMetrics();
+}
+
+function renderNnColorPicker(selectedHex){
+  const el = $("nnColorPicker");
+  if(!el) return;
+  _nnSelectedBg = selectedHex || null;
+  const teraz = (_nnSelectedBg || "").toLowerCase();
+
+  let html = `<button type="button" class="nn-color-dot none${!teraz ? ' active' : ''}" data-bg="" title="Bez koloru (domyślny)" aria-label="Bez koloru">✕</button>`;
+
+  if(typeof TLA_KARTECZEK !== "undefined" && Array.isArray(TLA_KARTECZEK)){
+    TLA_KARTECZEK.forEach(([nazwa, hex])=>{
+      const sel = teraz === hex.toLowerCase();
+      html += `<button type="button" class="nn-color-dot${sel ? ' active' : ''}" data-bg="${hex}" title="${esc(nazwa)}" aria-label="${esc(nazwa)}" style="background:${hex};"></button>`;
+    });
+  }
+
+  el.innerHTML = html;
+
+  const cont = $("nnContent");
+  if(cont){
+    cont.style.backgroundColor = _nnSelectedBg || "";
+  }
+}
+
+function renderNnLinkedVerses(){
+  const container = $("nnLinkedVersesList");
+  if(!container) return;
+  if(!_nnLinkedVerses || !_nnLinkedVerses.length){
+    container.innerHTML = "";
+    container.style.display = "none";
+    return;
+  }
+  container.style.display = "flex";
+  container.innerHTML = _nnLinkedVerses.map((vItem, idx)=>{
+    let label = "";
+    if(typeof vItem === "object" && vItem !== null){
+      const bNazwa = (typeof BOOKS !== "undefined" && BOOKS[vItem.b]) ? BOOKS[vItem.b] : "";
+      label = `${bNazwa} ${vItem.ch}:${vItem.v}`.trim();
+    } else if(typeof vItem === "number" || typeof vItem === "string"){
+      const bNum = +$("nnBook")?.value || 0;
+      const bNazwa = (typeof BOOKS !== "undefined" && BOOKS[bNum]) ? BOOKS[bNum] : "";
+      const chNum = $("nnCh")?.value || "";
+      label = bNazwa ? `${bNazwa} ${chNum}:${vItem}`.trim() : `Werset ${vItem}`;
+    }
+    return `<span class="nn-verse-chip">📖 ${esc(label)} <button type="button" class="nn-verse-chip-del" data-idx="${idx}" title="Usuń werset" aria-label="Usuń werset">✕</button></span>`;
+  }).join("");
+}
+
+function renderNnTemplateSelect(){
+  const sel = $("nnTemplateSelect");
+  if(!sel) return;
+  let html = '<option value="">— Czysta notatka (bez szablonu) —</option>';
+  if(typeof NOTE_TEMPLATES !== "undefined" && Array.isArray(NOTE_TEMPLATES)){
+    html += '<optgroup label="Szablony wbudowane">';
+    NOTE_TEMPLATES.forEach((tpl, idx)=>{
+      html += `<option value="builtin:${idx}">${esc(tpl.n)}</option>`;
+    });
+    html += '</optgroup>';
+  }
+  const custom = typeof szablonyPoKolei === "function" ? szablonyPoKolei() : (typeof szablony !== "undefined" && Array.isArray(szablony) ? szablony : []);
+  if(custom.length){
+    html += '<optgroup label="Twoje szablony">';
+    custom.forEach(s=>{
+      html += `<option value="custom:${s.id}">${esc(s.nazwa)}</option>`;
+    });
+    html += '</optgroup>';
+  }
+  sel.innerHTML = html;
+  sel.value = "";
+}
+
+function initNnTemplateSelect(){
+  if(_nnTemplateSelectInited) return;
+  _nnTemplateSelectInited = true;
+  const sel = $("nnTemplateSelect");
+  if(!sel) return;
+  sel.onchange = ()=>{
+    const val = sel.value;
+    if(!val) return;
+    const cont = $("nnContent");
+    if(!cont) return;
+
+    if(val.startsWith("builtin:") && typeof NOTE_TEMPLATES !== "undefined"){
+      const idx = +val.split(":")[1];
+      const tpl = NOTE_TEMPLATES[idx];
+      if(tpl){
+        const isCurrentEmpty = !cont.textContent.trim() && !cont.querySelector("img, table, blockquote");
+        if(isCurrentEmpty){
+          cont.innerHTML = tpl.h;
+        } else {
+          cont.innerHTML = cont.innerHTML.trim() + "<br><br>" + tpl.h;
+        }
+        if($("nnTitle") && !$("nnTitle").value.trim()){
+          $("nnTitle").value = tpl.n;
+        }
+        toast("Wstawiono szablon: " + tpl.n);
+      }
+    } else if(val.startsWith("custom:")){
+      const id = +val.split(":")[1];
+      if(typeof zastosujSzablon === "function") zastosujSzablon(id);
+    }
+    updateNnContentEmptyState();
+    if(typeof updateNnMetrics === "function") updateNnMetrics();
+    triggerNnAutosave();
+    if(typeof histZapisz === "function") histZapisz(cont);
+    sel.value = "";
+  };
+}
+
+function initNnRefTools(){
+  if(_nnRefToolsInited) return;
+  _nnRefToolsInited = true;
+
+  const btnInsert = $("nnBtnInsertRef");
+  if(btnInsert){
+    btnInsert.onclick = ()=>{
+      const b = +$("nnBook")?.value || 0;
+      const ch = $("nnCh")?.value.trim() || "";
+      const v = $("nnV")?.value.trim() || "";
+      if(!b){
+        toast("Wybierz najpierw księgę biblijną");
+        $("nnBook")?.focus();
+        return;
+      }
+      const bNazwa = (typeof BOOKS !== "undefined" && BOOKS[b]) ? BOOKS[b] : "";
+      const refText = bNazwa + (ch ? " " + ch + (v ? ":" + v : "") : "");
+      const quoteHtml = `<blockquote class="callout-werset">📖 <b>${esc(refText)}</b>: „Treść wersetu…”</blockquote><div><br></div>`;
+      const cont = $("nnContent");
+      if(!cont) return;
+      cont.focus();
+      document.execCommand("insertHTML", false, quoteHtml);
+      updateNnContentEmptyState();
+      if(typeof updateNnMetrics === "function") updateNnMetrics();
+      triggerNnAutosave();
+      if(typeof histZapisz === "function") histZapisz(cont);
+      toast("Wstawiono cytat: " + refText);
+    };
+  }
+
+  const btnAdd = $("nnBtnAddLinkedVerse");
+  if(btnAdd){
+    btnAdd.onclick = async ()=>{
+      const b = +$("nnBook")?.value || 0;
+      const ch = +$("nnCh")?.value || 0;
+      const v = $("nnV")?.value.trim() || "";
+
+      if(b && ch && v){
+        const vNum = +v;
+        if(vNum > 0){
+          const already = _nnLinkedVerses.some(x=>typeof x==="object" ? (x.b===b && x.ch===ch && x.v===vNum) : (x===vNum));
+          if(!already){
+            _nnLinkedVerses.push({ b, ch, v: vNum });
+            renderNnLinkedVerses();
+            triggerNnAutosave();
+            const bNazwa = (typeof BOOKS !== "undefined" && BOOKS[b]) ? BOOKS[b] : "";
+            toast("Dodano powiązany werset: " + bNazwa + " " + ch + ":" + vNum);
+            $("nnV").value = "";
+            return;
+          } else {
+            toast("Ten werset jest już dodany");
+            return;
+          }
+        }
+      }
+
+      if(typeof askText === "function"){
+        const odp = await askText({
+          title: "Dodaj powiązany werset",
+          placeholder: "np. Jan 3:16, Rzymian 8:28, Psalm 23:1",
+          okLabel: "Dodaj"
+        });
+        if(!odp || !odp.trim()) return;
+        const parsed = typeof parseRef === "function" ? parseRef(odp.trim()) : null;
+        if(parsed && parsed.b){
+          const vList = (Array.isArray(parsed.verses) && parsed.verses.length) ? parsed.verses : [parsed.v || 1];
+          vList.forEach(vN=>{
+            if(!_nnLinkedVerses.some(x=>typeof x==="object" && x.b===parsed.b && x.ch===parsed.ch && x.v===vN)){
+              _nnLinkedVerses.push({ b: parsed.b, ch: parsed.ch, v: vN });
+            }
+          });
+          renderNnLinkedVerses();
+          triggerNnAutosave();
+          toast("Dodano powiązany werset: " + odp.trim());
+        } else {
+          toast("Nie rozpoznano formatu wersetu (np. Jan 3:16)");
+        }
+      }
+    };
+  }
+
+  const versesList = $("nnLinkedVersesList");
+  if(versesList){
+    versesList.onclick = (e)=>{
+      const delBtn = e.target.closest(".nn-verse-chip-del");
+      if(!delBtn) return;
+      const idx = +delBtn.dataset.idx;
+      if(idx >= 0 && idx < _nnLinkedVerses.length){
+        _nnLinkedVerses.splice(idx, 1);
+        renderNnLinkedVerses();
+        triggerNnAutosave();
+      }
+    };
+  }
+
+  const colorPicker = $("nnColorPicker");
+  if(colorPicker){
+    colorPicker.onclick = (e)=>{
+      const dot = e.target.closest("[data-bg]");
+      if(!dot) return;
+      const hex = dot.dataset.bg || null;
+      renderNnColorPicker(hex);
+      triggerNnAutosave();
+    };
+  }
+}
+
 function nnSaveDraft(){
   const t = ($("nnTitle") ? $("nnTitle").value : "").trim();
-  const c = ($("nnContent") ? $("nnContent").value : "").trim();
+  const h = ($("nnContent") ? $("nnContent").innerHTML : "").trim();
+  const c = ($("nnContent") ? $("nnContent").innerText : "").trim();
   const b = $("nnBook") ? $("nnBook").value : "0";
   const ch = $("nnCh") ? $("nnCh").value : "";
   const v = $("nnV") ? $("nnV").value : "";
   const tagsChecked = $("nnTags") ? [...$("nnTags").querySelectorAll("input:checked")].map(i=>+i.value) : [];
+  const pin = !!$("nnPinnedCheck")?.checked;
+  const fav = !!$("nnFavCheck")?.checked;
+  const bg = _nnSelectedBg || null;
+  const verses = _nnLinkedVerses.slice();
 
-  if(!t && !c){
+  const isContentEmpty = !c && !h.replace(/<br\s*\/?>/gi,"").trim();
+  if(!t && isContentEmpty){
     localStorage.removeItem(KP + "DraftStudio");
     setNnAutosaveState("saved", "Pusty szkic");
     return;
   }
 
-  const draft = { t, c, b, ch, v, tg: tagsChecked, savedAt: Date.now() };
+  const draft = { t, c, h, b, ch, v, tg: tagsChecked, pin, fav, bg, verses, savedAt: Date.now() };
   try{
     localStorage.setItem(KP + "DraftStudio", JSON.stringify(draft));
     const timeStr = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
@@ -28130,15 +28726,23 @@ function checkNnDraft(){
   }
   try{
     const draft = JSON.parse(raw);
-    if(draft && (draft.t || draft.c)){
+    if(draft && (draft.t || draft.c || draft.h)){
       if(alertEl) alertEl.style.display = "flex";
       if($("nnDraftRestore")){
         $("nnDraftRestore").onclick = ()=>{
           if(draft.t) $("nnTitle").value = draft.t;
-          if(draft.c) $("nnContent").value = draft.c;
+          if(draft.h) setNnContent(draft.h);
+          else if(draft.c) setNnContent(esc(draft.c).replace(/\r?\n/g,"<br>"));
           if(draft.b) $("nnBook").value = draft.b;
           if(draft.ch) $("nnCh").value = draft.ch;
           if(draft.v) $("nnV").value = draft.v;
+          if(draft.pin && $("nnPinnedCheck")) $("nnPinnedCheck").checked = true;
+          if(draft.fav && $("nnFavCheck")) $("nnFavCheck").checked = true;
+          if(draft.bg) renderNnColorPicker(draft.bg);
+          if(Array.isArray(draft.verses)){
+            _nnLinkedVerses = draft.verses;
+            renderNnLinkedVerses();
+          }
           if(Array.isArray(draft.tg)) renderNnTags(draft.tg);
           alertEl.style.display = "none";
           setNnAutosaveState("saved", "Przywrócono szkic");
@@ -28158,83 +28762,263 @@ function checkNnDraft(){
   }
 }
 
+function updateNnQuickToolsState(){
+  const tools = $("nnQuickTools");
+  const ta = $("nnContent");
+  if(!tools || !ta) return;
+  const sel = getSelection();
+  if(!sel || !sel.rangeCount || (typeof kursorW === "function" && !kursorW(ta))) return;
+
+  try{
+    tools.querySelector('[data-fmt="bold"]')?.classList.toggle("active", !!document.queryCommandState("bold"));
+    tools.querySelector('[data-fmt="italic"]')?.classList.toggle("active", !!document.queryCommandState("italic"));
+    tools.querySelector('[data-fmt="underline"]')?.classList.toggle("active", !!document.queryCommandState("underline"));
+    tools.querySelector('[data-fmt="strike"]')?.classList.toggle("active", !!document.queryCommandState("strikeThrough"));
+    tools.querySelector('[data-fmt="ul"]')?.classList.toggle("active", !!document.queryCommandState("insertUnorderedList"));
+    tools.querySelector('[data-fmt="ol"]')?.classList.toggle("active", !!document.queryCommandState("insertOrderedList"));
+
+    const node = sel.getRangeAt(0).startContainer;
+    const block = typeof blockOf === "function" ? blockOf(node, ta) : null;
+    const tag = block ? block.tagName : "";
+    tools.querySelector('[data-fmt="h2"]')?.classList.toggle("active", tag === "H2");
+    tools.querySelector('[data-fmt="h3"]')?.classList.toggle("active", tag === "H3");
+    tools.querySelector('[data-fmt="blockquote"]')?.classList.toggle("active", tag === "BLOCKQUOTE");
+    tools.querySelector('[data-fmt="todo"]')?.classList.toggle("active", !!block?.closest?.("ul.tasklist"));
+  }catch(_){}
+}
+
 function initNnQuickTools(){
+  if(_nnQuickToolsInited) return;
+  _nnQuickToolsInited = true;
+
   const tools = $("nnQuickTools");
   const ta = $("nnContent");
   if(!tools || !ta) return;
 
-  tools.onclick = (e)=>{
+  function executeTool(fmt, btn){
+    if(!fmt) return;
+    if(!kursorW(ta)){
+      ta.focus();
+      restoreSel(ta);
+    }
+    if(!kursorW(ta)){
+      ustawKursorNaKoncu(ta);
+    }
+    edSavedRange = captureRange();
+
+    const sel = getSelection();
+    const selTxt = (sel && !sel.isCollapsed) ? sel.toString().trim() : "";
+    const r = sel && sel.rangeCount ? sel.getRangeAt(0) : null;
+    const block = (r && typeof blockOf === "function") ? blockOf(r.startContainer, ta) : null;
+
+    if(fmt === "bold"){
+      wykonajWTresci("bold", tools, ta);
+      return;
+    }
+    if(fmt === "italic"){
+      wykonajWTresci("italic", tools, ta);
+      return;
+    }
+    if(fmt === "underline"){
+      wykonajWTresci("underline", tools, ta);
+      return;
+    }
+    if(fmt === "strike"){
+      wykonajWTresci("strikeThrough", tools, ta);
+      return;
+    }
+    if(fmt === "highlight"){
+      if(r && !r.collapsed && ta.contains(r.commonAncestorContainer)){
+        const mark = r.commonAncestorContainer.nodeType === 1 ? r.commonAncestorContainer.closest("mark") : r.commonAncestorContainer.parentElement.closest("mark");
+        if(mark && ta.contains(mark)){
+          unwrapMarks(r, ta);
+        } else {
+          applyMark(r, 1);
+        }
+      } else {
+        toast("Najpierw zaznacz tekst, potem Zakreśl");
+      }
+    } else if(fmt === "h2"){
+      if(block && block !== ta && typeof zamienBlok === "function"){
+        const nowy = block.tagName === "H2" ? zamienBlok(block, "div", ta) : zamienBlok(block, "h2", ta);
+        if(typeof kursorNaPoczatkuBloku === "function") kursorNaPoczatkuBloku(nowy, ta);
+      } else {
+        document.execCommand("formatBlock", false, "<h2>");
+      }
+    } else if(fmt === "h3"){
+      if(block && block !== ta && typeof zamienBlok === "function"){
+        const nowy = block.tagName === "H3" ? zamienBlok(block, "div", ta) : zamienBlok(block, "h3", ta);
+        if(typeof kursorNaPoczatkuBloku === "function") kursorNaPoczatkuBloku(nowy, ta);
+      } else {
+        document.execCommand("formatBlock", false, "<h3>");
+      }
+    } else if(fmt === "blockquote"){
+      if(block && block !== ta && typeof zamienBlok === "function"){
+        const nowy = block.tagName === "BLOCKQUOTE" ? zamienBlok(block, "div", ta) : zamienBlok(block, "blockquote", ta);
+        if(typeof kursorNaPoczatkuBloku === "function") kursorNaPoczatkuBloku(nowy, ta);
+      } else {
+        document.execCommand("formatBlock", false, "<blockquote>");
+      }
+    } else if(fmt === "ul"){
+      wykonajWTresci("insertUnorderedList", tools, ta);
+      return;
+    } else if(fmt === "ol"){
+      wykonajWTresci("insertOrderedList", tools, ta);
+      return;
+    } else if(fmt === "todo"){
+      insertTaskList(ta);
+      return;
+    } else if(fmt === "hr"){
+      wykonajWTresci("insertHorizontalRule", tools, ta);
+      return;
+    } else if(fmt === "img"){
+      edSavedRange = captureRange();
+      $("nnImgFile")?.click();
+      return;
+    } else if(fmt === "werset"){
+      const html = '<blockquote class="callout-werset">📖 „' + (selTxt || "Treść wersetu…") + '”</blockquote><div><br></div>';
+      document.execCommand("insertHTML", false, html);
+    } else if(fmt === "idea"){
+      const html = '<div class="callout-idea">💡 <b>Wniosek:</b> ' + (selTxt || "Osobiste przemyślenie…") + '</div><div><br></div>';
+      document.execCommand("insertHTML", false, html);
+    } else if(fmt === "question"){
+      const html = '<div class="callout-question">❓ <b>Pytanie:</b> ' + (selTxt || "Pytanie do rozważenia…") + '</div><div><br></div>';
+      document.execCommand("insertHTML", false, html);
+    }
+
+    if(typeof updateNnContentEmptyState === "function") updateNnContentEmptyState();
+    if(typeof updateNnMetrics === "function") updateNnMetrics();
+    if(typeof updateNnQuickToolsState === "function") updateNnQuickToolsState();
+    if(typeof triggerNnAutosave === "function") triggerNnAutosave();
+    if(typeof histZapisz === "function") histZapisz(ta);
+  }
+
+  let lastExecTime = 0;
+  function handleToolBtn(e){
     const btn = e.target.closest("[data-fmt]");
     if(!btn) return;
-    const fmt = btn.dataset.fmt;
-    const start = ta.selectionStart, end = ta.selectionEnd;
-    const sel = ta.value.substring(start, end);
-    const before = ta.value.substring(0, start);
-    const after = ta.value.substring(end);
+    if(btn.dataset.fmt === "img"){
+      edSavedRange = captureRange();
+      $("nnImgFile")?.click();
+      return;
+    }
+    e.preventDefault();
+    const now = Date.now();
+    if(now - lastExecTime < 150) return;
+    lastExecTime = now;
+    executeTool(btn.dataset.fmt, btn);
+  }
 
-    let insert = "", cursorOffset = 0;
-    if(fmt === "bold"){ insert = "**" + (sel || "pogrubiony tekst") + "**"; cursorOffset = sel ? insert.length : 2; }
-    else if(fmt === "italic"){ insert = "*" + (sel || "kursywa") + "*"; cursorOffset = sel ? insert.length : 1; }
-    else if(fmt === "underline"){ insert = "<u>" + (sel || "podkreślenie") + "</u>"; cursorOffset = sel ? insert.length : 3; }
-    else if(fmt === "h2"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "## " + (sel || "Nagłówek sekcji") + "\n"; cursorOffset = insert.length; }
-    else if(fmt === "h3"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "### " + (sel || "Podtytuł") + "\n"; cursorOffset = insert.length; }
-    else if(fmt === "ul"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "- " + (sel || "Punkt listy") + "\n"; cursorOffset = insert.length; }
-    else if(fmt === "ol"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "1. " + (sel || "Punkt numerowany") + "\n"; cursorOffset = insert.length; }
-    else if(fmt === "todo"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "[ ] " + (sel || "Zadanie do zrobienia") + "\n"; cursorOffset = insert.length; }
-    else if(fmt === "werset"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "> 📖 \"" + (sel || "Treść wersetu…") + "\"\n"; cursorOffset = insert.length; }
-    else if(fmt === "idea"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "💡 **Wniosek:** " + (sel || "Osobiste przemyślenie…") + "\n"; cursorOffset = insert.length; }
-    else if(fmt === "question"){ insert = (before.endsWith("\n") || !before ? "" : "\n") + "❓ **Pytanie:** " + (sel || "Pytanie do rozważenia…") + "\n"; cursorOffset = insert.length; }
+  tools.addEventListener("pointerdown", handleToolBtn);
+  tools.addEventListener("click", handleToolBtn);
 
-    ta.value = before + insert + after;
-    ta.focus();
-    ta.setSelectionRange(start + cursorOffset, start + cursorOffset);
-    triggerNnAutosave();
-  };
-
-  // Skróty klawiszowe w polu treści (Ctrl+B, Ctrl+I, Ctrl+U, Ctrl+Enter)
-  ta.addEventListener("keydown", (e)=>{
-    if(e.ctrlKey || e.metaKey){
-      if(e.key === "b" || e.key === "B"){ e.preventDefault(); tools.querySelector('[data-fmt="bold"]')?.click(); }
-      else if(e.key === "i" || e.key === "I"){ e.preventDefault(); tools.querySelector('[data-fmt="italic"]')?.click(); }
-      else if(e.key === "u" || e.key === "U"){ e.preventDefault(); tools.querySelector('[data-fmt="underline"]')?.click(); }
-      else if(e.key === "Enter"){ e.preventDefault(); $("nnSaveEdit")?.click(); }
+  $("nnImgFile")?.addEventListener("change", async ev=>{
+    const pliki = [...(ev.target.files || [])];
+    ev.target.value = "";
+    if(!pliki.length) return;
+    let wstawione = 0, zakres = edSavedRange;
+    for(const f of pliki){
+      try{
+        const url = await compressImage(f);
+        if(!(await checkSpaceForImage(url.length))) break;
+        const obraz = insertImageUrl(ta, url, zakres);
+        if(obraz){
+          zakres = document.createRange();
+          zakres.setStartAfter(obraz);
+          zakres.collapse(true);
+          wstawione++;
+        }
+      }catch(err){
+        console.warn("Nie udało się wczytać zdjęcia", f && f.name, err);
+      }
+    }
+    if(!wstawione) toast("Nie udało się wczytać zdjęcia");
+    else if(pliki.length > 1) toastOk("Wstawiono zdjęć: " + wstawione);
+    if(wstawione){
+      if(typeof updateNnContentEmptyState === "function") updateNnContentEmptyState();
+      if(typeof updateNnMetrics === "function") updateNnMetrics();
+      if(typeof triggerNnAutosave === "function") triggerNnAutosave();
+      if(typeof histZapisz === "function") histZapisz(ta);
     }
   });
 
+  ta.addEventListener("keydown", (e)=>{
+    if((e.ctrlKey || e.metaKey) && e.key === "Enter"){
+      e.preventDefault();
+      $("nnSaveEdit")?.click();
+    }
+  });
+
+  ["keyup", "mouseup"].forEach(evt => {
+    ta.addEventListener(evt, updateNnQuickToolsState);
+  });
+
   ["input", "change"].forEach(evt => {
-    ta.addEventListener(evt, triggerNnAutosave);
+    ta.addEventListener(evt, ()=>{
+      updateNnContentEmptyState();
+      if(typeof updateNnMetrics === "function") updateNnMetrics();
+      triggerNnAutosave();
+    });
     if($("nnTitle")) $("nnTitle").addEventListener(evt, triggerNnAutosave);
     if($("nnBook")) $("nnBook").addEventListener(evt, triggerNnAutosave);
     if($("nnCh")) $("nnCh").addEventListener(evt, triggerNnAutosave);
     if($("nnV")) $("nnV").addEventListener(evt, triggerNnAutosave);
   });
+
+  if($("nnPinnedCheck")) $("nnPinnedCheck").addEventListener("change", triggerNnAutosave);
+  if($("nnFavCheck")) $("nnFavCheck").addEventListener("change", triggerNnAutosave);
 }
 
 $("btnNew").onclick = ()=>{
-  $("nnTitle").value=""; $("nnContent").value=""; $("nnBook").value="0"; $("nnCh").value=""; $("nnV").value="";
-  $("nnNewTagName").value="";
-  renderNnTags(typeof filt.tag==="number" ? [filt.tag] : []);
+  $("nnTitle").value = "";
+  setNnContent("");
+  $("nnBook").value = "0";
+  $("nnCh").value = "";
+  $("nnV").value = "";
+  $("nnNewTagName").value = "";
+  if($("nnPinnedCheck")) $("nnPinnedCheck").checked = false;
+  if($("nnFavCheck")) $("nnFavCheck").checked = false;
+  _nnSelectedBg = null;
+  _nnLinkedVerses = [];
+  renderNnColorPicker(null);
+  renderNnLinkedVerses();
+  renderNnTemplateSelect();
+  renderNnTags(typeof filt.tag === "number" ? [filt.tag] : []);
   renderNnZakladki();
-  if(typeof rysujSzablony==="function") rysujSzablony();
-  if(typeof filt.book==="number"&&filt.book>0) $("nnBook").value=String(filt.book);
+  if(typeof rysujSzablony === "function") rysujSzablony();
+  if(typeof filt.book === "number" && filt.book > 0) $("nnBook").value = String(filt.book);
   setNnAutosaveState("saved", "Nowa notatka");
   checkNnDraft();
   initNnQuickTools();
+  initNnRefTools();
+  initNnTemplateSelect();
+  const ta = $("nnContent");
+  if(ta){
+    ta.setAttribute("lang", "pl");
+    ta.setAttribute("spellcheck", "true");
+    ta.setAttribute("autocorrect", "on");
+    ta.setAttribute("autocapitalize", "sentences");
+    try{ document.execCommand("styleWithCSS", false, false); }catch(e){}
+    if(typeof histStart === "function") histStart(ta);
+  }
   openModal("modalNew");
+  setTimeout(()=>{
+    if($("nnTitle")) $("nnTitle").focus();
+  }, 60);
 };
 
 /* utworzenie etykiety wprost w oknie nowej notatki */
 function nnCreateTag(){
-  const inp=$("nnNewTagName");
-  const name=(inp.value||"").trim();
+  const inp = $("nnNewTagName");
+  const name = (inp.value || "").trim();
   if(!name){ toast("Wpisz nazwę etykiety"); inp.focus(); return; }
   const existing = tags.find(t=>norm(t.name)===norm(name));
   const t = existing || createTag(name);
   if(!t) return;
-  const checked=[...$("nnTags").querySelectorAll("input:checked")].map(i=>+i.value);
+  const checked = [...$("nnTags").querySelectorAll("input:checked")].map(i=>+i.value);
   if(!checked.includes(t.id)) checked.push(t.id);
   renderNnTags(checked);
-  inp.value=""; inp.focus();
+  inp.value = ""; inp.focus();
   renderTags();
   triggerNnAutosave();
   toast(existing ? ("Etykieta „"+t.name+"” już istnieje — zaznaczono") : ("Utworzono etykietę „"+t.name+"”"));
@@ -28243,20 +29027,47 @@ $("nnAddTag").onclick = nnCreateTag;
 $("nnNewTagName").addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); nnCreateTag(); } });
 
 async function zapiszNowaNotatke(otworzEdytor){
-  const c=$("nnContent").value.trim(), t=$("nnTitle").value.trim();
-  if(!c&&!t){ toast("Wpisz tytuł lub treść"); return; }
+  const t = ($("nnTitle") ? $("nnTitle").value : "").trim();
+  const rawH = $("nnContent") ? $("nnContent").innerHTML : "";
+  const rawC = ($("nnContent") ? $("nnContent").innerText : "").trim();
+  const cleanH = typeof sanitize === "function" ? sanitize(rawH) : rawH;
+  const c = typeof htmlToPlain === "function" ? htmlToPlain(cleanH) : rawC;
+
+  if(!c && !t && !cleanH.includes("<img") && !cleanH.includes("<table")){
+    toast("Wpisz tytuł lub treść");
+    return;
+  }
   const wybor = $("nnZakladka") ? $("nnZakladka").value : "";
   const idZakladki = await ustalZakladkeNowejNotatki(wybor);
-  if(idZakladki===false) return;
-  const now=new Date().toISOString();
-  /* Wiersze z prostego okna od razu zapisujemy jako BR. Po przejściu do pełnego
-     edytora Enter zachowuje dokładnie ten sam, zwarty sposób pisania. */
-  const h=c ? esc(c).replace(/\r?\n/g,"<br>") : null;
-  const n={ g:crypto.randomUUID().toUpperCase(), t, c, h,
-    b:+$("nnBook").value||0, ch:+$("nnCh").value||null, v:+$("nnV").value||null,
-    pub:"", ks:"", doc:0, itn:0, col:0, cr:now, mo:now,
-    tg:[...$("nnTags").querySelectorAll("input:checked")].map(i=>+i.value),
-    nw:true, tgd:true };
+  if(idZakladki === false) return;
+  const now = new Date().toISOString();
+
+  const h = cleanH || (c ? esc(c).replace(/\r?\n/g,"<br>") : null);
+  const n = {
+    g: crypto.randomUUID().toUpperCase(),
+    t,
+    c: c || "",
+    h,
+    b: +$("nnBook").value || 0,
+    ch: +$("nnCh").value || null,
+    v: +$("nnV").value || null,
+    pub: "",
+    ks: "",
+    doc: 0,
+    itn: 0,
+    col: 0,
+    cr: now,
+    mo: now,
+    tg: [...$("nnTags").querySelectorAll("input:checked")].map(i=>+i.value),
+    nw: true,
+    tgd: true
+  };
+  if($("nnPinnedCheck")?.checked) n.pin = true;
+  if($("nnFavCheck")?.checked) n.fav = true;
+  if(_nnSelectedBg) n.bg = _nnSelectedBg;
+  if(_nnLinkedVerses && _nnLinkedVerses.length){
+    n.verses = [...new Set(_nnLinkedVerses.map(x=>typeof x==="object" ? +x.v : +x).filter(x=>x>0))].sort((a,b)=>a-b);
+  }
   if(idZakladki) n.stb = idZakladki;
 
   notes.unshift(n);
@@ -28271,17 +29082,17 @@ async function zapiszNowaNotatke(otworzEdytor){
   if(otworzEdytor){
     openFs(n);
     setTimeout(()=>{
-      const karta=document.querySelector('#fsWrap .ncard[data-g="'+CSS.escape(n.g)+'"]');
-      if(karta&&!karta.classList.contains("editing"))toggleEdit(karta,n);
-    },60);
+      const karta = document.querySelector('#fsWrap .ncard[data-g="'+CSS.escape(n.g)+'"]');
+      if(karta && !karta.classList.contains("editing")) toggleEdit(karta, n);
+    }, 60);
   }else{
-    const nazwaZak = n.stb && typeof secTabs!=="undefined"
-      ? (secTabs.find(z=>z.id===n.stb)||{}).name : "";
+    const nazwaZak = n.stb && typeof secTabs !== "undefined"
+      ? (secTabs.find(z=>z.id === n.stb)||{}).name : "";
     toast(nazwaZak ? "Notatka dodana do zakładki „"+nazwaZak+"”" : "Notatka dodana");
   }
 }
-$("nnSave").onclick=()=>zapiszNowaNotatke(false);
-$("nnSaveEdit").onclick=()=>zapiszNowaNotatke(true);
+$("nnSave").onclick = ()=>zapiszNowaNotatke(false);
+$("nnSaveEdit").onclick = ()=>zapiszNowaNotatke(true);
 
 
 </script>
@@ -37103,13 +37914,29 @@ function zastosujSzablon(id){
     const {tekst, pozycja} = rozdzielKursor(wypelnijWstawki(s.tresc));
     /* Doklejamy, gdy coś już jest — inaczej wybór szablonu po rozpoczęciu
        pisania kasowałby zapisane zdania. */
-    const bylo = poleC.value;
-    poleC.value = bylo.trim() ? (bylo.replace(/\s*$/,"") + "\n\n" + tekst) : tekst;
-    poleC.focus();
-    const gdzie = bylo.trim()
-      ? poleC.value.length
-      : (pozycja!=null ? pozycja : tekst.length);
-    try{ poleC.setSelectionRange(gdzie, gdzie); }catch(e){}
+    if(poleC.tagName === "TEXTAREA"){
+      const bylo = poleC.value || "";
+      poleC.value = bylo.trim() ? (bylo.replace(/\s*$/,"") + "\n\n" + tekst) : tekst;
+      poleC.focus();
+      const gdzie = bylo.trim()
+        ? poleC.value.length
+        : (pozycja!=null ? pozycja : tekst.length);
+      try{ poleC.setSelectionRange(gdzie, gdzie); }catch(e){}
+    } else {
+      const htmlTekst = esc(tekst).replace(/\r?\n/g, "<br>");
+      const rawC = poleC.textContent.trim();
+      if(rawC){
+        poleC.innerHTML = poleC.innerHTML.trim() + "<div><br></div>" + htmlTekst;
+      } else {
+        poleC.innerHTML = htmlTekst;
+      }
+      poleC.focus();
+      if(typeof ustawKursorNaKoncu === "function") ustawKursorNaKoncu(poleC);
+    }
+    if(typeof updateNnContentEmptyState === "function") updateNnContentEmptyState();
+    if(typeof updateNnMetrics === "function") updateNnMetrics();
+    if(typeof triggerNnAutosave === "function") triggerNnAutosave();
+    if(typeof histZapisz === "function") histZapisz(poleC);
   }
   const pas = $("nnSzablony");
   if(pas) pas.querySelectorAll("[data-szab]").forEach(b=>
