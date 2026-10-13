@@ -6131,12 +6131,12 @@ html[data-theme="dark"] #colBooks,html[data-theme="dark"] #colTags,html[data-the
 
 /* ——— karty notatek ——— */
 .ncard{border:.5px solid var(--border);border-radius:16px;padding:0 0 0 0;overflow:hidden;
-  box-shadow:none;transition:box-shadow .2s ease,transform .16s cubic-bezier(.22,.9,.32,1)}
-.ncard:hover{transform:none;border-color:var(--border);box-shadow:0 1px 4px rgba(0,0,0,.07)}
-.ncard.pinned{box-shadow:0 0 0 1.5px var(--accent2)}
+  box-shadow:0 2px 8px rgba(0,0,0,.04), 0 1px 3px rgba(0,0,0,.03);transition:box-shadow .2s ease,transform .16s cubic-bezier(.22,.9,.32,1)}
+.ncard:hover{transform:none;border-color:var(--border);box-shadow:0 4px 14px rgba(0,0,0,.06), 0 1px 4px rgba(0,0,0,.04)}
+.ncard.pinned{box-shadow:0 0 0 1.5px var(--accent2), 0 2px 8px rgba(0,0,0,.04)}
 .ncard>*:not(.nhead):not(.ntools){margin-left:16px;margin-right:16px}
 .nhead{margin:0;padding:13px 38px 2px 16px;border-radius:0;background:transparent;border-bottom:0;box-shadow:none}
-.ncard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--cardAccent,transparent);z-index:1}
+.ncard::before{display:none}
 #noteList.v-compact .ncard{padding:0;border-radius:13px}
 #noteList.v-compact .nhead{margin:0;padding:10px 34px 2px 14px}
 #noteList.v-compact .ncard>*:not(.nhead):not(.ntools){margin-left:14px;margin-right:14px}
