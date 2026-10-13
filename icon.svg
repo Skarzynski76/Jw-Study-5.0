@@ -8,17 +8,17 @@
   <!-- Apple squircle -->
   <rect width="1024" height="1024" rx="228" fill="url(#bg)"/>
   
-  <text x="507" y="558" 
+  <text x="507" y="572" 
         font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" 
-        font-size="375" 
+        font-size="469" 
         font-weight="600" 
         fill="#ffffff" 
         text-anchor="middle" 
         letter-spacing="-1">JW</text>
         
-  <text x="507" y="734" 
+  <text x="507" y="778" 
         font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" 
-        font-size="126" 
+        font-size="158" 
         font-weight="500" 
         fill="#ffffff" 
         text-anchor="middle" 
