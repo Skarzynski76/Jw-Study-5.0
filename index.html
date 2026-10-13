@@ -3294,64 +3294,497 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
 /* pasek postępu czytania */
 #fsProg{position:sticky;top:0;left:0;height:3px;background:var(--accent);width:100%;z-index:20;border-radius:0 2px 2px 0;
   transform:scaleX(0);transform-origin:left center;will-change:transform;transition:transform .1s linear}
-/* pasek czytnika: licznik + spis + znajdź + akcje */
-.fsBar{display:flex;align-items:center;gap:8px;max-width:var(--fsMax,760px);margin:0 auto 10px;padding:6px 0;border-bottom:1px solid var(--border);flex-wrap:wrap}
-.fsStat{font-size:12px;color:var(--muted)}
-.fsPct{font-size:11.5px;font-weight:700;color:var(--accent);background:var(--sel);border-radius:999px;padding:3px 8px;font-variant-numeric:tabular-nums}
+/* pasek czytnika: licznik + spis + znajdź + akcje — szklany pasek Apple */
+.fsBar{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  max-width:var(--fsMax,760px);
+  margin:0 auto clamp(8px, 1.5vw, 14px);
+  padding:clamp(6px, 1.2vw, 12px) 0 4px;
+  border-bottom:none;
+  flex-wrap:wrap;
+}
+.fsStat{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  font-weight:500;
+  color:var(--muted);
+  letter-spacing:-0.01em;
+  padding:4px 9px;
+  border-radius:999px;
+  background:color-mix(in srgb, var(--panel) 70%, transparent);
+  border:1px solid color-mix(in srgb, var(--border) 50%, transparent);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+}
+.fsPct{
+  font-size:11px;
+  font-weight:700;
+  color:var(--accent);
+  background:color-mix(in srgb, var(--accent) 12%, transparent);
+  border:1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+  border-radius:999px;
+  padding:2px 8px;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:0.02em;
+}
 .fsBarSp{flex:1}
-.fsBarBtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:var(--panel);color:var(--text);border-radius:10px;padding:5px 11px;font-size:12.5px;cursor:pointer;transition:background var(--dur-szybko) var(--ease),color var(--dur-szybko) var(--ease),border-color var(--dur-szybko) var(--ease)}
-.fsBarBtn:hover{background:var(--sel);border-color:var(--accent2);color:var(--text)}
-.fsBarBtn.active{background:var(--sel);border-color:var(--accent);color:var(--accent);font-weight:600}
-.fsBarBtn .ic{width:15px;height:15px;color:var(--muted)}
-/* znajdź w notatce */
-.fsFind{display:flex;align-items:center;gap:6px;max-width:var(--fsMax,760px);margin:0 auto 10px;background:var(--panel);border:1px solid var(--border);border-radius:11px;padding:6px 8px}
-.fsFindInp{flex:1;min-width:80px;border:none;background:transparent;outline:none;font-size:14px;color:var(--text);padding:4px}
-.fsFindCnt{font-size:12px;color:var(--muted);white-space:nowrap}
-.fsFindBtn{border:1px solid var(--border);background:var(--bg);color:var(--text);border-radius:8px;width:30px;height:30px;cursor:pointer;font-size:13px;flex-shrink:0}
-.fsFindBtn:hover{background:var(--sel)}
+.fsBarBtn{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  border:1px solid color-mix(in srgb, var(--border) 60%, rgba(255,255,255,.12));
+  background:color-mix(in srgb, var(--panel) 82%, transparent);
+  color:var(--text);
+  border-radius:999px;
+  padding:5px 12px;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:-0.01em;
+  cursor:pointer;
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+  box-shadow:0 1px 3px rgba(0,0,0,.04);
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+  transition:background var(--dur-szybko) var(--ease),
+             color var(--dur-szybko) var(--ease),
+             border-color var(--dur-szybko) var(--ease),
+             transform var(--dur-szybko) var(--spring-press),
+             box-shadow var(--dur-szybko) var(--ease);
+}
+.fsBarBtn:hover{
+  background:color-mix(in srgb, var(--sel) 85%, var(--accent));
+  border-color:color-mix(in srgb, var(--accent) 35%, transparent);
+  color:var(--accent);
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
+  transform:scale(1.02);
+}
+.fsBarBtn:active{
+  transform:scale(.94);
+}
+.fsBarBtn.active{
+  background:color-mix(in srgb, var(--accent) 15%, transparent);
+  border-color:var(--accent);
+  color:var(--accent);
+  font-weight:600;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+.fsBarBtn .ic,
+.fsBarBtn svg{
+  width:14px;
+  height:14px;
+  color:inherit;
+  flex-shrink:0;
+  opacity:0.85;
+}
+.fsBarBtn [data-fmark-count]{
+  display:inline-block;
+  min-width:16px;
+  padding:0 5px;
+  font-size:10.5px;
+  font-weight:700;
+  border-radius:999px;
+  background:color-mix(in srgb, var(--accent) 20%, transparent);
+  color:var(--accent);
+  text-align:center;
+}
+/* znajdź w notatce — wyszukiwarka iOS */
+.fsFind{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  max-width:var(--fsMax,760px);
+  margin:0 auto 12px;
+  background:color-mix(in srgb, var(--panel) 88%, transparent);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid color-mix(in srgb, var(--border) 70%, rgba(255,255,255,.18));
+  border-radius:14px;
+  padding:7px 10px;
+  box-shadow:0 10px 28px rgba(0,0,0,.12);
+  transition:box-shadow .2s ease, border-color .2s ease;
+}
+.fsFind:focus-within{
+  border-color:color-mix(in srgb, var(--accent) 60%, transparent);
+  box-shadow:0 12px 32px rgba(0,0,0,.16), 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent);
+}
+.fsFindInp{
+  flex:1;
+  min-width:90px;
+  border:none;
+  background:transparent;
+  outline:none;
+  font-size:13.5px;
+  color:var(--text);
+  padding:3px 6px;
+  font-family:inherit;
+}
+.fsFindCnt{
+  font-size:11.5px;
+  font-weight:600;
+  font-variant-numeric:tabular-nums;
+  color:var(--muted);
+  white-space:nowrap;
+  padding:2px 8px;
+  border-radius:999px;
+  background:color-mix(in srgb, var(--sel) 80%, transparent);
+}
+.fsFindBtn{
+  border:1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  background:color-mix(in srgb, var(--panel) 75%, transparent);
+  color:var(--text);
+  border-radius:8px;
+  width:28px;
+  height:28px;
+  cursor:pointer;
+  font-size:13px;
+  flex-shrink:0;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .14s ease, color .14s ease, transform .14s cubic-bezier(.34,1.56,.64,1);
+}
+.fsFindBtn:hover{
+  background:var(--sel);
+  color:var(--accent);
+  transform:scale(1.05);
+}
+.fsFindBtn:active{
+  transform:scale(.92);
+}
 .ncontent mark.fsHit{background:#ffe58a;color:inherit;border-radius:3px;padding:0 1px}
 .ncontent mark.fsHit.cur{background:#ffb43d;box-shadow:0 0 0 2px rgba(255,180,61,.5)}
-/* spis treści */
-.fsToc{max-width:var(--fsMax,760px);margin:0 auto 12px;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:8px}
-.fsTocHead{display:flex;align-items:center;justify-content:space-between;padding:4px 6px 8px;border-bottom:1px solid var(--border);margin-bottom:6px;font-size:12.5px;color:var(--muted)}
-.fsTocHead b{color:var(--text);font-size:13px}
-.fsTocCount{font-size:11.5px;color:var(--muted)}
-.fsTocList{display:flex;flex-direction:column;gap:2px}
-.fsTocItem{padding:7px 11px;border-radius:8px;font-size:13.5px;color:var(--text);cursor:pointer;transition:all .15s ease;border-left:3px solid transparent}
-.fsTocItem:hover{background:var(--sel);color:var(--accent)}
-.fsTocItem.active{background:var(--sel);color:var(--accent);border-left-color:var(--accent);font-weight:600}
-.fsTocItem.sub{padding-left:24px;font-size:13px;color:var(--muted)}
-.fsTocItem.sub.sub2{padding-left:38px;font-size:12.5px}
-.fsTocItem.main-title{font-weight:700}
-.fsTocEmpty{padding:12px;font-size:13px;color:var(--muted);text-align:center}
+/* spis treści — szklany panel Apple */
+.fsToc{
+  max-width:var(--fsMax,760px);
+  margin:0 auto 14px;
+  background:color-mix(in srgb, var(--panel) 90%, transparent);
+  -webkit-backdrop-filter:blur(26px) saturate(180%);
+  backdrop-filter:blur(26px) saturate(180%);
+  border:1px solid color-mix(in srgb, var(--border) 70%, rgba(255,255,255,.18));
+  border-radius:18px;
+  padding:12px 14px;
+  box-shadow:0 16px 42px rgba(0,0,0,.15);
+}
+.fsTocHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:4px 6px 10px;
+  border-bottom:1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  margin-bottom:8px;
+  font-size:12.5px;
+  color:var(--muted);
+}
+.fsTocHead b{
+  color:var(--text);
+  font-size:13.5px;
+  font-weight:650;
+  letter-spacing:-.01em;
+}
+.fsTocCount{
+  font-size:11.5px;
+  font-weight:600;
+  color:var(--muted);
+  background:color-mix(in srgb, var(--sel) 80%, transparent);
+  border-radius:999px;
+  padding:2px 8px;
+}
+.fsTocList{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  max-height:min(50vh, 380px);
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.fsTocItem{
+  padding:8px 12px;
+  border-radius:10px;
+  font-size:13px;
+  font-weight:500;
+  color:var(--text);
+  cursor:pointer;
+  transition:background .15s ease, color .15s ease, transform .15s cubic-bezier(.34,1.56,.64,1), border-left-color .15s ease;
+  border-left:3px solid transparent;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+}
+.fsTocItem:hover{
+  background:color-mix(in srgb, var(--sel) 90%, transparent);
+  color:var(--accent);
+  transform:translateX(3px);
+}
+.fsTocItem:active{
+  transform:scale(.98);
+}
+.fsTocItem.active{
+  background:color-mix(in srgb, var(--accent) 12%, transparent);
+  color:var(--accent);
+  border-left-color:var(--accent);
+  font-weight:600;
+}
+.fsTocItem.sub{
+  padding-left:26px;
+  font-size:12.5px;
+  color:var(--muted);
+}
+.fsTocItem.sub.sub2{
+  padding-left:40px;
+  font-size:12px;
+}
+.fsTocItem.main-title{
+  font-weight:700;
+}
+.fsTocEmpty{
+  padding:16px 12px;
+  font-size:13px;
+  color:var(--muted);
+  text-align:center;
+}
 .tocFlash{background:var(--sel);border-radius:6px;transition:background .3s}
 /* zakładki wewnątrz długiej notatki */
-.fsMarks{max-width:var(--fsMax,760px);margin:0 auto 12px;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:8px}
-.fsMarksHead{display:flex;align-items:center;gap:10px;padding:3px 3px 8px;border-bottom:1px solid var(--border)}
-.fsMarksHead b{font-size:13px;flex:1}.fsMarksAdd{border:1px solid var(--border);background:var(--sel);color:var(--accent);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:650;cursor:pointer}
-.fsMark{display:grid;grid-template-columns:46px minmax(0,1fr) 32px;align-items:center;gap:8px;padding:8px 3px;border-bottom:1px solid color-mix(in srgb,var(--border) 72%,transparent)}
-.fsMark:last-child{border-bottom:0}.fsMarkPct{font-size:11px;font-weight:750;color:var(--accent);text-align:center;font-variant-numeric:tabular-nums}
-.fsMarkGo{border:0;background:transparent;color:var(--text);text-align:left;min-width:0;padding:2px;cursor:pointer}.fsMarkGo b,.fsMarkGo span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fsMarkGo b{font-size:12.5px}.fsMarkGo span{font-size:11.5px;color:var(--muted);margin-top:2px}
-.fsMarkDel{border:0;background:transparent;color:var(--muted);border-radius:8px;width:30px;height:30px;cursor:pointer}.fsMarkDel:hover{background:var(--sel);color:#b42318}
-/* strzałki poprzednia/następna */
-.fsNav{position:fixed;top:50%;transform:translateY(-50%);z-index:11;width:44px;height:64px;border:none;border-radius:12px;background:rgba(0,0,0,.35);color:#fff;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.fsNav:hover{background:rgba(0,0,0,.3)}
-.fsNav.prev{left:8px} .fsNav.next{right:8px}
-.fsNav[disabled]{opacity:.25;pointer-events:none}
-@media (max-width:700px){
-  /* na telefonie strzałki NIE na środku (zasłaniałyby tekst) — małe, okrągłe, w dolnych rogach */
-  .fsNav{top:auto;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:none;width:44px;height:44px;border-radius:50%;font-size:24px;background:rgba(0,0,0,.34);box-shadow:0 2px 10px rgba(0,0,0,.3)}
-  .fsNav.prev{left:14px} .fsNav.next{right:14px}
+.fsMarks{
+  max-width:var(--fsMax,760px);
+  margin:0 auto 14px;
+  background:color-mix(in srgb, var(--panel) 90%, transparent);
+  -webkit-backdrop-filter:blur(26px) saturate(180%);
+  backdrop-filter:blur(26px) saturate(180%);
+  border:1px solid color-mix(in srgb, var(--border) 70%, rgba(255,255,255,.18));
+  border-radius:18px;
+  padding:12px 14px;
+  box-shadow:0 16px 42px rgba(0,0,0,.15);
 }
-/* panel typografii (Aa) */
-#readPop{position:fixed;display:none;z-index:10020;background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:0 18px 48px rgba(0,0,0,.28);padding:14px 15px;min-width:300px;max-width:380px;max-height:min(84dvh,660px);overflow:auto;-webkit-overflow-scrolling:touch}
-#readPop .rp-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 2px;border-top:1px solid var(--border)}
-#readPop .rp-row:first-child{border-top:none}
-#readPop .rp-lbl{font-size:12px;color:var(--muted);font-weight:600;flex-shrink:0}
-#readPop .rp-grp{display:inline-flex;flex-wrap:wrap;justify-content:flex-end;gap:3px;background:var(--sel);padding:2px;border-radius:9px;border:1px solid var(--border);max-width:255px}
-#readPop .rp-grp button{border:none;background:transparent;color:var(--text);cursor:pointer;padding:5px 9px;font-size:12px;line-height:1.15;font-weight:500;border-radius:7px;transition:background .12s ease,color .12s ease,box-shadow .12s ease;flex:0 0 auto;text-align:center}
-#readPop .rp-grp button:hover{background:rgba(127,127,127,.18)}
-#readPop .rp-grp button.on{background:var(--panel);color:var(--accent);font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.14)}
+.fsMarksHead{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:4px 6px 10px;
+  border-bottom:1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  margin-bottom:8px;
+}
+.fsMarksHead b{
+  font-size:13.5px;
+  font-weight:650;
+  letter-spacing:-.01em;
+  color:var(--text);
+  flex:1;
+}
+.fsMarksAdd{
+  border:1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  background:color-mix(in srgb, var(--sel) 85%, transparent);
+  color:var(--accent);
+  border-radius:999px;
+  padding:5px 13px;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .14s cubic-bezier(.34,1.56,.64,1);
+}
+.fsMarksAdd:hover{
+  background:var(--sel);
+  transform:scale(1.04);
+}
+.fsMarksAdd:active{
+  transform:scale(.94);
+}
+.fsMark{
+  display:grid;
+  grid-template-columns:48px minmax(0,1fr) 32px;
+  align-items:center;
+  gap:10px;
+  padding:8px 8px;
+  border-radius:10px;
+  border-bottom:1px solid color-mix(in srgb,var(--border) 50%,transparent);
+  transition:background .15s ease;
+}
+.fsMark:last-child{ border-bottom:0; }
+.fsMark:hover{
+  background:color-mix(in srgb, var(--sel) 65%, transparent);
+}
+.fsMarkPct{
+  font-size:11.5px;
+  font-weight:700;
+  color:var(--accent);
+  text-align:center;
+  font-variant-numeric:tabular-nums;
+  padding:3px 6px;
+  border-radius:999px;
+  background:color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.fsMarkGo{
+  border:0;
+  background:transparent;
+  color:var(--text);
+  text-align:left;
+  min-width:0;
+  padding:2px 4px;
+  cursor:pointer;
+}
+.fsMarkGo b{
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:12.5px;
+  font-weight:600;
+}
+.fsMarkGo span{
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:11.5px;
+  color:var(--muted);
+  margin-top:2px;
+}
+.fsMarkDel{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  border-radius:8px;
+  width:28px;
+  height:28px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  transition:all .14s ease;
+}
+.fsMarkDel:hover{
+  background:color-mix(in srgb, #b42318 15%, transparent);
+  color:#b42318;
+  transform:scale(1.08);
+}
+.fsMarkDel:active{
+  transform:scale(.92);
+}
+/* strzałki poprzednia/następna w czytniku — szklane kapsułki Apple */
+.fsNav{
+  position:fixed;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:10015;
+  width:44px;
+  height:58px;
+  border:1px solid color-mix(in srgb, var(--border) 60%, rgba(255,255,255,.18));
+  border-radius:16px;
+  background:color-mix(in srgb, var(--panel) 78%, transparent);
+  color:var(--text);
+  font-size:24px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  backdrop-filter:blur(20px) saturate(180%);
+  box-shadow:0 4px 16px rgba(0,0,0,.12);
+  transition:transform .22s cubic-bezier(.34,1.56,.64,1), background .16s ease, color .16s ease, opacity .2s ease, box-shadow .2s ease;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+}
+.fsNav:hover{
+  background:color-mix(in srgb, var(--sel) 85%, var(--accent));
+  color:var(--accent);
+  transform:translateY(-50%) scale(1.06);
+  box-shadow:0 6px 20px rgba(0,0,0,.16);
+}
+.fsNav:active{ transform:translateY(-50%) scale(.93); }
+.fsNav.prev{ left:12px; }
+.fsNav.next{ right:12px; }
+.fsNav[disabled]{ opacity:.25; pointer-events:none; }
+@media (max-width:700px){
+  /* na telefonie strzałki w dolnych rogach z dużym polem dotyku Apple */
+  .fsNav{
+    top:auto;
+    bottom:calc(16px + env(safe-area-inset-bottom, 0px));
+    transform:none;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    font-size:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,.18);
+  }
+  .fsNav:hover{ transform:scale(1.05); }
+  .fsNav:active{ transform:scale(.92); }
+  .fsNav.prev{ left:14px; }
+  .fsNav.next{ right:14px; }
+}
+
+/* panel typografii (Aa) — elegancka szklana karta iOS 18 */
+#readPop{
+  position:fixed;
+  display:none;
+  z-index:10020;
+  background:color-mix(in srgb, var(--panel) 90%, transparent);
+  -webkit-backdrop-filter:blur(26px) saturate(180%);
+  backdrop-filter:blur(26px) saturate(180%);
+  border:1px solid color-mix(in srgb, var(--border) 70%, rgba(255,255,255,.18));
+  border-radius:20px;
+  box-shadow:0 20px 54px rgba(0,0,0,.24), 0 4px 14px rgba(0,0,0,.08);
+  padding:15px 18px;
+  min-width:300px;
+  max-width:380px;
+  max-height:min(84dvh,660px);
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+}
+#readPop .rp-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:8px 0;
+  border-top:1px solid color-mix(in srgb, var(--border) 60%, transparent);
+}
+#readPop .rp-row:first-child{ border-top:none; }
+#readPop .rp-lbl{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:600;
+  letter-spacing:-.01em;
+  flex-shrink:0;
+}
+#readPop .rp-grp{
+  display:inline-flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:3px;
+  background:color-mix(in srgb, var(--sel) 80%, transparent);
+  padding:3px;
+  border-radius:10px;
+  border:1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  max-width:255px;
+}
+#readPop .rp-grp button{
+  border:none;
+  background:transparent;
+  color:var(--text);
+  cursor:pointer;
+  padding:5px 10px;
+  font-size:12px;
+  line-height:1.2;
+  font-weight:500;
+  border-radius:7px;
+  transition:background .14s ease, color .14s ease, transform .14s cubic-bezier(.34,1.56,.64,1), box-shadow .14s ease;
+  flex:0 0 auto;
+  text-align:center;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+}
+#readPop .rp-grp button:hover{ background:rgba(127,127,127,.14); color:var(--text); }
+#readPop .rp-grp button:active{ transform:scale(.94); }
+#readPop .rp-grp button.on{
+  background:var(--panel);
+  color:var(--accent);
+  font-weight:650;
+  box-shadow:0 1.5px 5px rgba(0,0,0,.12);
+}
 
 /* Motyw czytnika jest niezależny od motywu całej aplikacji. Zmienne są
    ograniczone do pełnego ekranu, więc wybranie sepii nie przemalowuje list,
@@ -3439,18 +3872,21 @@ body.fs-open #modalFs,
 #modalFs #fsWrap .nmeta2 .pill,
 #modalFs #fsWrap .nmeta2 a { color: var(--muted) !important; }
 
-#modalFs .fsBar,
-#modalFs .fsStat { color: var(--muted) !important; }
-#modalFs .fsPct { background: var(--sel) !important; color: var(--accent) !important; border-color: var(--border) !important; }
-#modalFs .fsBarBtn { background: color-mix(in srgb, var(--panel) 90%, transparent) !important; color: var(--text) !important; border-color: var(--border) !important; }
-#modalFs .fsBarBtn:hover { background: var(--sel) !important; border-color: var(--accent) !important; color: var(--accent) !important; }
+#modalFs .fsBar { color: var(--muted) !important; }
+#modalFs .fsStat { color: var(--muted) !important; border-radius: 999px !important; border: 1px solid color-mix(in srgb, var(--border) 50%, transparent) !important; }
+#modalFs .fsPct { background: color-mix(in srgb, var(--accent) 12%, transparent) !important; color: var(--accent) !important; border-color: color-mix(in srgb, var(--accent) 26%, transparent) !important; border-radius: 999px !important; }
+#modalFs .fsBarBtn { background: color-mix(in srgb, var(--panel) 82%, transparent) !important; color: var(--text) !important; border: 1px solid color-mix(in srgb, var(--border) 60%, rgba(255,255,255,.12)) !important; border-radius: 999px !important; }
+#modalFs .fsBarBtn:hover { background: color-mix(in srgb, var(--sel) 85%, var(--accent)) !important; border-color: color-mix(in srgb, var(--accent) 35%, transparent) !important; color: var(--accent) !important; }
+#modalFs .fsBarBtn.active { background: color-mix(in srgb, var(--accent) 15%, transparent) !important; border-color: var(--accent) !important; color: var(--accent) !important; }
 #modalFs .fsFind,
 #modalFs .fsToc,
-#modalFs .fsMarks { background: color-mix(in srgb, var(--panel) 94%, transparent) !important; border-color: var(--border) !important; color: var(--text) !important; }
-#modalFs .fsFindInp { background: var(--sel) !important; border-color: var(--border) !important; color: var(--text) !important; }
+#modalFs .fsMarks { background: color-mix(in srgb, var(--panel) 90%, transparent) !important; border-color: color-mix(in srgb, var(--border) 70%, rgba(255,255,255,.18)) !important; color: var(--text) !important; }
+#modalFs .fsFindInp { background: transparent !important; border-color: transparent !important; color: var(--text) !important; }
 #modalFs .fsTocItem,
 #modalFs .fsToc a,
 #modalFs .toc-item { color: var(--text) !important; }
+#modalFs .fsTocItem:hover { background: color-mix(in srgb, var(--sel) 90%, transparent) !important; color: var(--accent) !important; }
+#modalFs .fsTocItem.active { background: color-mix(in srgb, var(--accent) 12%, transparent) !important; color: var(--accent) !important; }
 
 #modalFs[data-reader-theme="dark"] #fsWrap .nhead{filter:brightness(.72) saturate(.8)}
 #modalFs[data-reader-theme="oled"] #fsWrap .nhead{filter:brightness(.65) saturate(.75)}
@@ -4094,37 +4530,47 @@ mark { padding: 1px 3px; border-radius: 4px; }
 }
 #hlBar button.tb:hover { background: var(--sel); }
 
-/* Pływający toast */
+/* Pływający toast — szklana kapsułka (Glassmorphism Capsule) */
 #toast {
   position: fixed;
-  bottom: calc(26px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(28px + env(safe-area-inset-bottom, 0px));
   left: 50%;
-  background: rgba(24, 32, 26, 0.94);
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel, #18201a) 86%, transparent);
+  color: var(--text, #fff);
+  padding: 10px 22px;
+  border-radius: 9999px;
   font-size: 13.5px;
   font-weight: 550;
+  letter-spacing: -0.01em;
   pointer-events: none;
   z-index: 10099;
-  max-width: 84%;
+  max-width: min(88%, 520px);
   text-align: center;
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18), 0 16px 40px rgba(0, 0, 0, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid color-mix(in srgb, var(--border, rgba(255,255,255,0.18)) 70%, transparent);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.22), 0 2px 8px rgba(0, 0, 0, 0.12);
   opacity: 0;
-  transform: translateX(-50%) translateY(14px) scale(0.96);
-  transition: opacity 0.22s ease, transform 0.26s cubic-bezier(0.22, 0.9, 0.32, 1);
+  transform: translateX(-50%) translateY(20px) scale(0.92);
+  transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1), transform 0.34s cubic-bezier(0.34, 1.38, 0.64, 1);
+  will-change: transform, opacity;
 }
-#toast.show { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
 
 /* Okna modalne (Modals) */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 19, 0.46);
-  -webkit-backdrop-filter: blur(12px) saturate(1.1);
-  backdrop-filter: blur(12px) saturate(1.1);
+  background: rgba(10, 18, 14, 0.52);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
   display: none;
   align-items: center;
   justify-content: center;
@@ -4132,23 +4578,24 @@ mark { padding: 1px 3px; border-radius: 4px; }
   padding: max(18px, calc(18px + env(safe-area-inset-top, 0px))) max(18px, calc(18px + env(safe-area-inset-right, 0px))) max(18px, calc(18px + env(safe-area-inset-bottom, 0px))) max(18px, calc(18px + env(safe-area-inset-left, 0px)));
   box-sizing: border-box;
 }
-.overlay.show { display: flex; animation: ovIn 0.2s ease-out; }
+.overlay.show { display: flex; animation: ovIn 0.22s ease-out; }
 @keyframes ovIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes modIn { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes modIn { from { opacity: 0; transform: translateY(18px) scale(0.95); } to { opacity: 1; transform: none; } }
 .modal {
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 22px;
   padding: 24px 28px;
   width: min(560px, 92vw);
   max-height: 88vh;
   max-height: 88dvh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 30px 70px rgba(0, 0, 0, 0.24);
-  animation: modIn 0.24s cubic-bezier(0.22, 0.9, 0.32, 1);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.16), 0 32px 72px rgba(0, 0, 0, 0.26);
+  animation: modIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
-.overlay.show .askbox { animation: modIn 0.24s cubic-bezier(0.22, 0.9, 0.32, 1); }
+.overlay.show .askbox { animation: modIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 @media (prefers-reduced-motion: reduce) { .overlay.show, .modal, .overlay.show .askbox { animation: none; } }
 
 .modal h3 { margin: 0 0 14px; color: var(--accent); font-size: 18px; font-weight: 700; }
@@ -5928,20 +6375,28 @@ html[data-theme="dark"] .sbtn.ico.favon .ic{fill:#fbbf24!important}
   --sp-4: calc(16px * var(--dens,1));
   --sp-5: calc(24px * var(--dens,1));
 
-  /* cienie: trzy poziomy wysokości, każdy dwuwarstwowy — bliski styk i miękkie rozejście */
-  --cien-1: 0 1px 2px rgba(16,24,20,.05);
-  --cien-2: 0 2px 6px rgba(16,24,20,.07), 0 8px 20px rgba(16,24,20,.06);
-  --cien-3: 0 6px 16px rgba(16,24,20,.10), 0 24px 56px rgba(16,24,20,.16);
+  /* cienie: trójwarstwowe z miękkim rozproszeniem ambient + key */
+  --cien-1: 0 1px 2px rgba(16,24,20,.04), 0 2px 5px rgba(16,24,20,.03);
+  --cien-2: 0 3px 8px rgba(16,24,20,.05), 0 12px 28px -2px rgba(16,24,20,.06);
+  --cien-3: 0 8px 24px rgba(16,24,20,.07), 0 28px 64px -4px rgba(16,24,20,.14);
 
-  /* ruch: krótko i jednym rytmem */
+  /* ruch i fizyka: Apple spring physics & easing */
   --dur-szybko: .14s;
-  --dur: .2s;
-  --ease: cubic-bezier(.32,.72,.35,1);
+  --dur: .22s;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --spring-soft: cubic-bezier(.16, 1, .3, 1);
+  --spring-bounce: cubic-bezier(.34, 1.38, .64, 1);
+  --spring-press: cubic-bezier(.4, 0, .2, 1);
 }
 html[data-theme="dark"]{
-  --cien-1: 0 1px 2px rgba(0,0,0,.4);
-  --cien-2: 0 2px 6px rgba(0,0,0,.45), 0 8px 20px rgba(0,0,0,.35);
-  --cien-3: 0 6px 16px rgba(0,0,0,.5), 0 24px 56px rgba(0,0,0,.55);
+  --cien-1: 0 1px 3px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.25);
+  --cien-2: 0 4px 12px rgba(0,0,0,.45), 0 12px 30px rgba(0,0,0,.35);
+  --cien-3: 0 10px 32px rgba(0,0,0,.6), 0 32px 72px rgba(0,0,0,.7);
+}
+html[data-theme="oled"]{
+  --cien-1: 0 1px 3px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,0.06);
+  --cien-2: 0 6px 18px rgba(0,0,0,.85), 0 0 0 1px rgba(255,255,255,0.08);
+  --cien-3: 0 16px 48px rgba(0,0,0,.95), 0 0 0 1px rgba(255,255,255,0.12);
 }
 
 /* ══════════════ TYPOGRAFIA ══════════════ */
@@ -6007,35 +6462,57 @@ main{ gap:var(--sp-3); padding:var(--sp-3); }
 .ncard:hover{ box-shadow:var(--cien-1); }
 .ncard.pinned{ box-shadow:0 0 0 1.5px var(--accent2), var(--cien-1); }
 .ncard.dragging{ box-shadow:var(--cien-3); }
-#dropdown,#ebPop,#readPop,#colorMenu,#searchSug{ box-shadow:var(--cien-2); }
+#dropdown,#ebPop,#readPop,#colorMenu,#searchSug{
+  box-shadow:var(--cien-2);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+}
 .modal,#askModal .askbox,#msgModal .askbox,.fsmodal{ box-shadow:var(--cien-3); }
 #toast{ box-shadow:var(--cien-2); }
 .editbar{ box-shadow:var(--cien-1); }
 
 /* ══════════════ PRZYCISKI ══════════════ */
 
-/* Jedna wysokość w pasku górnym, jeden promień, jeden rytm reakcji.
-   Na dotyku pole trafienia rośnie do 44 px — tyle zaleca Apple. */
+/* Jedna wysokość w pasku górnym, jeden promień, sprężysty rytm reakcji.
+   Na dotyku pole trafienia rośnie do 44 px — standard ergonomii Apple. */
 .btn{
   min-height:34px;
   border-radius:11px;
   font-weight:500;
   letter-spacing:-.005em;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
   transition:background var(--dur-szybko) var(--ease),
              border-color var(--dur-szybko) var(--ease),
-             transform var(--dur-szybko) var(--ease);
+             transform var(--dur-szybko) var(--spring-press);
 }
-.btn:active{ transform:scale(.97); }
+.btn:active{ transform:scale(.96) !important; }
 .btn.ico-btn{ width:34px; min-width:34px; padding:0; justify-content:center; }
 .btn[disabled],.btn:disabled{ opacity:.42; pointer-events:none; }
-.sbtn{ border-radius:9px; transition:background var(--dur-szybko) var(--ease), transform var(--dur-szybko) var(--ease); }
-.sbtn:active{ transform:scale(.96); }
+.sbtn{
+  border-radius:9px;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+  transition:background var(--dur-szybko) var(--ease),
+             transform var(--dur-szybko) var(--spring-press);
+}
+.sbtn:active{ transform:scale(.95) !important; }
 .sbtn.ico{ min-width:30px; min-height:28px; justify-content:center; }
-.qf{ min-height:28px; padding:5px 12px; }
-.vb{ min-width:32px; min-height:28px; }
-.tagBtns button{ min-height:32px; }
+.qf{
+  min-height:28px;
+  padding:5px 12px;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+  transition:all var(--dur-szybko) var(--ease), transform var(--dur-szybko) var(--spring-press) !important;
+}
+.qf:active{ transform:scale(.96) !important; }
+.chip:active, .pill.ks:active{ transform:scale(.96) !important; }
+.vb{ min-width:32px; min-height:28px; -webkit-tap-highlight-color:transparent; }
+.vb:active{ transform:scale(.95) !important; }
+.tagBtns button{ min-height:32px; -webkit-tap-highlight-color:transparent; }
+.tagBtns button:active{ transform:scale(.96) !important; }
 
-/* Widoczne obramowanie dla poruszających się klawiaturą — dotąd fokus ginął. */
+/* Widoczne obramowanie dla poruszających się klawiaturą */
 .btn:focus-visible,.sbtn:focus-visible,.qf:focus-visible,.vb:focus-visible,
 .item:focus-visible,.st-opt:focus-visible,#sortSel:focus-visible{
   outline:2px solid var(--accent);
@@ -6053,18 +6530,20 @@ main{ gap:var(--sp-3); padding:var(--sp-3); }
 
 /* ══════════════ ANIMACJE ══════════════ */
 
-/* Wszystko jednym rytmem i wyłącznie na transform oraz opacity —
-   te dwie właściwości nie zmuszają przeglądarki do przeliczania układu strony. */
+/* Wszystko sprężystym rytmem Apple i wyłącznie na transform oraz opacity —
+   GPU acceleration 60/120 FPS bez reflow układu. */
 .item,.chip,.pill,.qf,.vb,.tagBtns button{
   transition:background var(--dur-szybko) var(--ease),
              color var(--dur-szybko) var(--ease),
              transform var(--dur-szybko) var(--ease);
 }
-.ncard{ transition:box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease); }
-@keyframes wejscieOkna{ from{opacity:0; transform:scale(.96) translateY(6px)} to{opacity:1; transform:none} }
-@keyframes wejscieMenu{ from{opacity:0; transform:scale(.97)} to{opacity:1; transform:none} }
-.modal,#askModal .askbox,#msgModal .askbox{ animation:wejscieOkna .22s var(--ease); }
-#dropdown,#ebPop,#readPop,#colorMenu{ animation:wejscieMenu var(--dur-szybko) var(--ease); }
+.ncard{ transition:box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--spring-soft) !important; }
+@keyframes wejscieOkna{ from{opacity:0; transform:scale(.95) translateY(8px)} to{opacity:1; transform:none} }
+@keyframes wejscieMenu{ from{opacity:0; transform:scale(.96) translateY(-4px)} to{opacity:1; transform:none} }
+@keyframes fsModalIn{ from{opacity:0; transform:scale(.985)} to{opacity:1; transform:none} }
+.modal,#askModal .askbox,#msgModal .askbox{ animation:wejscieOkna .28s var(--spring-soft); }
+#dropdown,#ebPop,#readPop,#colorMenu,#searchSug{ animation:wejscieMenu .2s var(--spring-soft); }
+#modalFs.show .fsmodal{ animation:fsModalIn .28s var(--spring-soft) both; }
 .overlay.show{ animation:ovIn var(--dur-szybko) ease-out; }
 /* Ustawienie „Animacje: ograniczone" zostawia samo wygaszanie okien. */
 html[data-anim="ograniczone"] .modal,
@@ -6638,48 +7117,122 @@ html[data-theme="dark"] #modalFs .fsmodal{ background:#151517; }
 #fsWrap .chips{ max-width:var(--fsMax,760px); margin:0 auto clamp(10px,2vw,16px); }
 #fsWrap .chips .chip{ background:var(--sel); font-size:12px; }
 
-/* ——— tekst ——— */
+/* ——— tekst notatki w trybie czytnika — typografia klasy Apple Notes / Books ——— */
 #fsWrap .ncontent{
-  font-size:var(--fsNoteFs, clamp(17px, 1.05rem + .25vw, 19px));
-  line-height:var(--noteLh, 1.75);
-  letter-spacing:.002em;
+  font-size:var(--fsNoteFs, clamp(17px, 1.05rem + .25vw, 19.5px));
+  line-height:var(--noteLh, 1.76);
+  letter-spacing:-0.003em;
   color:var(--text);
   padding-bottom:clamp(40px,10vh,90px);
   -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
   text-rendering:optimizeLegibility;
+  font-feature-settings:"liga" 1, "calt" 1, "kern" 1;
 }
-/* Rytm akapitów: odstęp zamiast samego złamania wiersza. Działa i dla notatek
-   pisanych zwykłym tekstem, i dla tych z edytora. */
+/* Rytm akapitów: harmonijne odstępy */
 #fsWrap .ncontent > div,
-#fsWrap .ncontent > p{ margin:0 0 .85em; }
+#fsWrap .ncontent > p{ margin:0 0 .9em; }
 #fsWrap .ncontent > div:last-child,
 #fsWrap .ncontent > p:last-child{ margin-bottom:0; }
-#fsWrap .ncontent h2,
-#fsWrap .ncontent h3{
-  letter-spacing:-.015em;
-  line-height:1.3;
-  margin:1.6em 0 .45em;
-  font-weight:600;
+#fsWrap .ncontent h1{
+  font-size:1.6em;
+  font-weight:700;
+  letter-spacing:-.025em;
+  line-height:1.24;
+  margin:1.8em 0 .45em;
+  color:var(--text);
 }
+#fsWrap .ncontent h2{
+  font-size:1.32em;
+  font-weight:650;
+  letter-spacing:-.02em;
+  line-height:1.28;
+  margin:1.6em 0 .4em;
+  color:var(--text);
+}
+#fsWrap .ncontent h3{
+  font-size:1.15em;
+  font-weight:600;
+  letter-spacing:-.015em;
+  line-height:1.32;
+  margin:1.4em 0 .35em;
+  color:var(--text);
+}
+#fsWrap .ncontent h4, #fsWrap .ncontent h5, #fsWrap .ncontent h6{
+  font-size:1.02em;
+  font-weight:600;
+  letter-spacing:-.01em;
+  line-height:1.38;
+  margin:1.2em 0 .3em;
+  color:var(--text);
+}
+#fsWrap .ncontent h1:first-child,
 #fsWrap .ncontent h2:first-child,
 #fsWrap .ncontent h3:first-child{ margin-top:0; }
 #fsWrap .ncontent blockquote{
-  margin:1.2em 0;
-  padding:.2em 0 .2em 1.1em;
-  border-left:3px solid var(--accent2);
-  background:transparent;
-  border-radius:0;
+  margin:1.35em 0;
+  padding:.65em 1.15em .65em 1.25em;
+  border-left:3.5px solid var(--accent);
+  background:color-mix(in srgb, var(--accent) 7%, transparent);
+  border-radius:0 12px 12px 0;
   color:var(--text);
-  opacity:.88;
+  font-style:italic;
+  line-height:1.68;
 }
+#fsWrap .ncontent blockquote p,
+#fsWrap .ncontent blockquote div{ margin:0 0 .5em; }
+#fsWrap .ncontent blockquote > :last-child{ margin-bottom:0; }
 #fsWrap .ncontent ul,
-#fsWrap .ncontent ol{ margin:.7em 0 .9em 1.4em; }
-#fsWrap .ncontent li{ margin:.3em 0; }
-#fsWrap .ncontent img{ border-radius:12px; box-shadow:none; }
-#fsWrap .ncontent a{ text-underline-offset:3px; text-decoration-thickness:1px; }
-/* Zaznaczenie tekstu w kolorze aplikacji — drobiazg, ale widać go przy każdym podkreślaniu. */
+#fsWrap .ncontent ol{ margin:.75em 0 .95em 1.45em; padding:0; }
+#fsWrap .ncontent li{ margin:.35em 0; line-height:inherit; }
+#fsWrap .ncontent code{
+  font-family:ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size:0.88em;
+  padding:0.18em 0.44em;
+  background:color-mix(in srgb, var(--sel) 75%, var(--border));
+  border-radius:6px;
+  border:1px solid color-mix(in srgb, var(--border) 60%, transparent);
+}
+#fsWrap .ncontent pre{
+  margin:1.2em 0;
+  padding:14px 18px;
+  background:color-mix(in srgb, var(--sel) 80%, var(--panel));
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow-x:auto;
+  font-size:0.88em;
+  line-height:1.52;
+}
+#fsWrap .ncontent pre code{
+  padding:0;
+  background:transparent;
+  border:none;
+}
+#fsWrap .ncontent hr{
+  border:none;
+  height:1px;
+  background:var(--border);
+  margin:2.2em 0;
+  opacity:0.75;
+}
+#fsWrap .ncontent img{
+  border-radius:14px;
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
+  max-width:100%;
+  height:auto;
+}
+#fsWrap .ncontent a{
+  text-underline-offset:3.5px;
+  text-decoration-thickness:1.5px;
+  color:var(--accent);
+  transition:color .14s ease, opacity .14s ease;
+}
+#fsWrap .ncontent a:hover{
+  opacity:0.82;
+}
+/* Zaznaczenie tekstu w kolorze aplikacji */
 #fsWrap .ncontent::selection,
-#fsWrap .ncontent *::selection{ background:rgba(37,107,82,.18); }
+#fsWrap .ncontent *::selection{ background:color-mix(in srgb, var(--accent) 22%, transparent); }
 
 /* ——— pasek narzędzi czytnika ——— */
 /* Licznik słów, spis i szukanie: bez ramek, jak podpis nad tekstem. */
@@ -6696,8 +7249,13 @@ html[data-theme="dark"] #modalFs .fsmodal{ background:#151517; }
   padding:6px 10px;
   border-radius:9px;
   font-size:12.5px;
-  transition:background var(--dur-szybko) var(--ease), color var(--dur-szybko) var(--ease);
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+  transition:background var(--dur-szybko) var(--ease),
+             color var(--dur-szybko) var(--ease),
+             transform var(--dur-szybko) var(--spring-press);
 }
+.fsBarBtn:active{ transform:scale(.95); }
 .fsBarBtn:hover{ background:var(--sel); color:var(--text); border:0; }
 .fsStat{ font-size:12px; letter-spacing:.01em; }
 
@@ -6717,7 +7275,13 @@ html[data-theme="dark"] #modalFs .fsmodal{ background:#151517; }
 @media (hover:none){ #fsWrap .ntools{ opacity:.85; } }
 
 /* ——— pasek postępu ——— */
-#fsProg{ height:2px; opacity:.85; }
+#fsProg{
+  height:3px !important;
+  background:linear-gradient(90deg, #10b981, #059669) !important;
+  box-shadow:0 0 10px rgba(16, 185, 129, .45) !important;
+  border-radius:0 3px 3px 0 !important;
+  opacity:1 !important;
+}
 
 /* ——— telefon ——— */
 @media (max-width:620px){
@@ -8822,7 +9386,7 @@ body.ipad-standalone #modalFs .fsmodal {
   margin-bottom: 12px !important;
   padding-top: 4px !important;
   border-bottom: 0 !important;
-  opacity: 0.85;
+  opacity: 1 !important;
 }
 
 #modalFs #fsWrap .ncontent {
@@ -13989,16 +14553,18 @@ header #search,
 /* Karty notatek — nowoczesny wygląd z delikatnym cieniem i zaokrągleniami */
 .ncard {
   border-radius: 14px !important;
-  border: 1px solid rgba(0, 0, 0, 0.07) !important;
+  border: 1px solid var(--border, rgba(0, 0, 0, 0.07)) !important;
   background: var(--panel) !important;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02) !important;
   margin-bottom: 10px !important;
-  transition: transform 0.16s cubic-bezier(0.2, 0.8, 0.3, 1), box-shadow 0.16s ease, border-color 0.16s ease !important;
+  transition: transform var(--dur, 0.2s) var(--spring-soft, cubic-bezier(0.16, 1, 0.3, 1)),
+              box-shadow var(--dur, 0.2s) var(--ease, ease),
+              border-color var(--dur, 0.18s) ease !important;
 }
 .ncard:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 6px 20px rgba(18, 48, 36, 0.09), 0 2px 4px rgba(0, 0, 0, 0.03) !important;
-  border-color: color-mix(in srgb, var(--accent, #256b52) 35%, transparent) !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow: 0 6px 20px rgba(18, 48, 36, 0.08), 0 2px 4px rgba(0, 0, 0, 0.03) !important;
+  border-color: color-mix(in srgb, var(--accent, #256b52) 32%, transparent) !important;
 }
 .ncard.selected, .ncard.active, .ncard.otwarta {
   border-left: 4px solid var(--accent) !important;
