@@ -32500,7 +32500,7 @@ function daneKopii(){
     autoTopics: (typeof autoTematyEksport==="function" ? autoTematyEksport() : {custom:[]}),
     deletedTags: (Array.isArray(deletedTagNames) ? deletedTagNames : []),
     deletedGuids: (Array.isArray(deletedGuids) ? deletedGuids : []),
-    centrumLayout: (typeof centrUklad==="function" ? centrUklad() : lsGet("jws_centrum_layout_306", null)),
+    centrumLayout: (typeof centrUklad==="function" ? centrUklad() : ((typeof CENTR_UKLAD_KLUCZ!=="undefined"?lsGet(CENTR_UKLAD_KLUCZ,null):lsGet(KP+"CentrumUklad306",null)) || lsGet("jw_centr_uklad_v1", null) || lsGet("jws_centrum_layout_306", null))),
     centrum: (typeof _centrEksportDanych==="function" ? _centrEksportDanych() : null)
   };
 }
@@ -32823,10 +32823,16 @@ function mergeBackup(data, takeLayout, nadpisuj){
   }
 
   // 3e) Układ Centrum
-  if(takeLayout && data.centrumLayout){
+  if(takeLayout && (data.centrumLayout || (data.centrum && data.centrum.layout))){
     try{
-      if(typeof centrZapiszUklad === "function") centrZapiszUklad(data.centrumLayout);
-      else lsSet("jws_centrum_layout_306", JSON.stringify(data.centrumLayout));
+      const cl = data.centrumLayout || (data.centrum && data.centrum.layout);
+      if(typeof centrZapiszUklad === "function") centrZapiszUklad(cl);
+      else {
+        const json = JSON.stringify(cl);
+        lsSet(KP + "CentrumUklad306", json);
+        lsSet("jw_centr_uklad_v1", json);
+        lsSet("jws_centrum_layout_306", json);
+      }
     }catch(_){}
   }
 
@@ -41170,6 +41176,7 @@ function _centrPobierzUkonczoneDni(planId){
 function _centrZapiszUkonczoneDni(set, planId){
   planId = planId || _centrAktywnyPlanId || "chrono";
   lsSet(KP + "CentrumDniDone_" + planId, JSON.stringify(Array.from(set)));
+  if(typeof bumpDirty === "function") bumpDirty();
 }
 
 function _centrPobierzUkonczoneFragi(){
@@ -41185,6 +41192,7 @@ function _centrPobierzUkonczoneFragi(){
 
 function _centrZapiszUkonczoneFragi(set){
   lsSet(KP + "CentrumFragiDone", JSON.stringify(Array.from(set)));
+  if(typeof bumpDirty === "function") bumpDirty();
 }
 
 function _centrResetujPostepPlanu(planId){
@@ -41200,6 +41208,7 @@ function _centrResetujPostepPlanu(planId){
       }
     } catch(e){}
   }
+  if(typeof bumpDirty === "function") bumpDirty();
 }
 
 function _centrPobierzTematyStudium(){
@@ -41215,6 +41224,7 @@ function _centrPobierzTematyStudium(){
 
 function _centrZapiszTematyStudium(arr){
   lsSet(KP + "CentrumTematy", JSON.stringify(arr));
+  if(typeof bumpDirty === "function") bumpDirty();
 }
 
 function _centrPobierzNotatkiTematu(temat){
@@ -41437,15 +41447,16 @@ function _centrPobierzCele(){
       completed: false
     }
   ];
-  _centrZapiszCele(domyslne);
+  _centrZapiszCele(domyslne, true);
   return domyslne;
 }
 
-function _centrZapiszCele(cele){
+function _centrZapiszCele(cele, pominDirty){
   if(!Array.isArray(cele)) return;
   const json = JSON.stringify(cele);
   lsSet(KP + "CentrumCele_v1", json);
   lsSet("jw_centr_cele_v1", json);
+  if(!pominDirty && typeof bumpDirty === "function") bumpDirty();
 }
 
 function _centrDodajLubEdytujCel(dane){
@@ -42075,7 +42086,14 @@ function _centrEksportDanych(){
     }
   } catch(e){}
 
-  ["chrono", "nt", "temat", "canon", "chronoblocks"].forEach(pId => {
+  const znanePlany = [
+    "chrono", "chrono-2lata", "chrono-3lata",
+    "pokolei-1rok", "pokolei-2lata", "pokolei-3lata",
+    "zbalansowany-1rok", "zbalansowany-2lata", "zbalansowany-3lata",
+    "nt", "nt-1rok", "jan", "przypowiesci", "madrosciowe-60dni",
+    "temat", "canon", "chronoblocks"
+  ];
+  znanePlany.forEach(pId => {
     if(!dniMap[pId]){
       const raw = lsGet(KP + "CentrumDniDone_" + pId, null);
       if(raw){
@@ -42132,6 +42150,10 @@ function _centrEksportDanych(){
     aktywnyPlan: lsGet(KP + "CentrumAktywnyPlan", null),
     curDay: lsGet(KP + "CentrumCurDay", null),
     curTemat: lsGet(KP + "CentrumCurTemat", null),
+    widok: lsGet(CENTR_WIDOK_KLUCZ, null),
+    tryb: lsGet(CENTR_KLUCZ, null),
+    wlaczone: lsGet(CENTR_WLACZONE, null),
+    zakresStat: lsGet(CENTR_ZAKRES_KLUCZ, null),
     layout: (typeof centrUklad === "function" ? centrUklad() : lsGet("jws_centrum_layout_306", null))
   };
 }
@@ -42141,7 +42163,7 @@ function _centrImportDanych(centrumData, tryb){
   const st = { dniMerged: 0, fragiMerged: 0, tematyMerged: 0, celeMerged: 0 };
   const isReplace = (tryb === "replace");
 
-  // 1. Ukończone dni w planach czytania
+  // 1. Ukończone dni we wszystkich planach czytania
   if(centrumData.dni && typeof centrumData.dni === "object"){
     if(isReplace){
       try {
@@ -42228,12 +42250,16 @@ function _centrImportDanych(centrumData, tryb){
         if(!istniejacy){
           curCele.push(incC);
           dodanoCele++;
+        } else if(incC.history && typeof incC.history === "object" && istniejacy.type === "habit"){
+          // Połącz historię nawyku
+          if(!istniejacy.history || typeof istniejacy.history !== "object") istniejacy.history = {};
+          Object.keys(incC.history).forEach(dataK => {
+            if(incC.history[dataK]) istniejacy.history[dataK] = true;
+          });
         }
       });
-      if(dodanoCele){
-        _centrZapiszCele(curCele);
-        st.celeMerged = dodanoCele;
-      }
+      _centrZapiszCele(curCele);
+      st.celeMerged = dodanoCele;
     }
   }
 
@@ -42248,16 +42274,28 @@ function _centrImportDanych(centrumData, tryb){
     if(centrumData.aktywnyPlan) lsSet(KP + "CentrumAktywnyPlan", centrumData.aktywnyPlan);
     if(centrumData.curDay) lsSet(KP + "CentrumCurDay", String(centrumData.curDay));
     if(centrumData.curTemat) lsSet(KP + "CentrumCurTemat", String(centrumData.curTemat));
+    if(centrumData.widok) lsSet(CENTR_WIDOK_KLUCZ, String(centrumData.widok));
+    if(centrumData.tryb) lsSet(CENTR_KLUCZ, String(centrumData.tryb));
+    if(centrumData.wlaczone) lsSet(CENTR_WLACZONE, String(centrumData.wlaczone));
+    if(centrumData.zakresStat) lsSet(CENTR_ZAKRES_KLUCZ, String(centrumData.zakresStat));
   } else {
     if(!lsGet(KP + "CentrumAktywnyPlan", null) && centrumData.aktywnyPlan){
       lsSet(KP + "CentrumAktywnyPlan", centrumData.aktywnyPlan);
     }
+    if(!lsGet(CENTR_ZAKRES_KLUCZ, null) && centrumData.zakresStat){
+      lsSet(CENTR_ZAKRES_KLUCZ, String(centrumData.zakresStat));
+    }
   }
 
-  if(centrumData.layout && (isReplace || tryb === "mergeLayout")){
+  if(centrumData.layout && (isReplace || tryb === "mergeLayout" || !lsGet(CENTR_UKLAD_KLUCZ, null))){
     try {
       if(typeof centrZapiszUklad === "function") centrZapiszUklad(centrumData.layout);
-      else lsSet("jws_centrum_layout_306", JSON.stringify(centrumData.layout));
+      else {
+        const json = typeof centrumData.layout === "string" ? centrumData.layout : JSON.stringify(centrumData.layout);
+        lsSet(KP + "CentrumUklad306", json);
+        lsSet("jw_centr_uklad_v1", json);
+        lsSet("jws_centrum_layout_306", json);
+      }
     } catch(e){}
   }
 
@@ -43475,13 +43513,22 @@ let centrMenuOtwarte = false;
 
 function centrUklad(){
   let zapis={};
-  try{ zapis=JSON.parse(lsGet(CENTR_UKLAD_KLUCZ,"{}"))||{}; }catch(_){ zapis={}; }
+  try{
+    const raw = lsGet(CENTR_UKLAD_KLUCZ,"") || lsGet("jw_centr_uklad_v1","") || lsGet("jws_centrum_layout_306","{}");
+    zapis = JSON.parse(raw) || {};
+  }catch(_){ zapis={}; }
   const ids=CENTR_BLOKI.map(x=>x.id), z=Array.isArray(zapis.order)?zapis.order:[];
   const order=[...z.filter((x,i)=>ids.includes(x)&&z.indexOf(x)===i),...ids.filter(x=>!z.includes(x))];
   const hidden={}; ids.forEach(id=>{ hidden[id]=!!(zapis.hidden&&zapis.hidden[id]); });
   return {order,hidden};
 }
-function centrZapiszUklad(stan){ lsSet(CENTR_UKLAD_KLUCZ,JSON.stringify(stan)); }
+function centrZapiszUklad(stan){
+  const json = typeof stan === "string" ? stan : JSON.stringify(stan);
+  lsSet(CENTR_UKLAD_KLUCZ, json);
+  lsSet("jw_centr_uklad_v1", json);
+  lsSet("jws_centrum_layout_306", json);
+  if(typeof bumpDirty==="function") bumpDirty();
+}
 function centrPanelUkladu(stan){
   if(!centrDostosujOtwarte) return "";
   const nazwa=Object.fromEntries(CENTR_BLOKI.map(x=>[x.id,x.nazwa]));
