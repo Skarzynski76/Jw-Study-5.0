@@ -16069,8 +16069,12 @@ html.is-ipad #modernSidebar, body.is-ipad #modernSidebar {
     box-sizing: border-box !important;
     margin: 0 !important;
   }
-  header #btnWszystkie .bwTxt,
+  header #btnWszystkie .bwTxt {
+    font-size: 0 !important;
+    display: inline !important;
+  }
   header #btnWszystkie .bwTxt::after {
+    content: "Wszystkie" !important;
     font-size: 11.5px !important;
   }
 
@@ -16147,6 +16151,56 @@ html.is-ipad #modernSidebar, body.is-ipad #modernSidebar {
     font-size: 11.5px !important;
     border-radius: 8px !important;
     font-weight: 500 !important;
+  }
+
+  /* Kompaktowy pasek wyników wyszukiwania na telefonie (dokładnie 1 zwarty rząd ~32px) */
+  #searchStatus {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    align-items: center !important;
+    padding: 3px 8px !important;
+    gap: 5px !important;
+    min-height: 32px !important;
+    max-height: 34px !important;
+    height: 32px !important;
+    box-sizing: border-box !important;
+    border-radius: 8px !important;
+    margin: 2px 0 0 0 !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  #searchStatus::-webkit-scrollbar {
+    display: none !important;
+  }
+  #searchStatus .ssInfo {
+    font-size: 11px !important;
+    white-space: nowrap !important;
+    flex: 0 0 auto !important;
+    margin-right: 4px !important;
+    min-width: max-content !important;
+    line-height: 1.2 !important;
+  }
+  #searchStatus .ssChip,
+  #searchStatus .ssNav {
+    padding: 2px 7px !important;
+    font-size: 11px !important;
+    height: 24px !important;
+    min-height: 24px !important;
+    max-height: 24px !important;
+    line-height: 18px !important;
+    border-radius: 999px !important;
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    box-sizing: border-box !important;
+  }
+  #searchStatus .searchFacets {
+    display: none !important;
+  }
+  /* Ukryj zdublowany licznik na liście gdy aktywny jest pasek statusu wyszukiwania */
+  #searchStatus:not([hidden]) ~ #counts {
+    display: none !important;
   }
 }
 
