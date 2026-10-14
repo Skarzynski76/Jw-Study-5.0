@@ -15885,31 +15885,119 @@ html[data-theme="sepia"] .sidebar-float-trigger {
   z-index: 200050 !important;
 }
 
-/* ══════════════ WYSOKOŚĆ I DOPASOWANIE NAGŁÓWKA (IPAD & SAFE AREA) ══════════════ */
+/* ══════════════ WYSOKOŚĆ I DOPASOWANIE NAGŁÓWKA (IPAD & SAFE AREA — POSZERZENIE O 30%) ══════════════ */
 header {
-  padding-top: max(18px, calc(10px + env(safe-area-inset-top, 0px))) !important;
-  padding-bottom: 9px !important;
+  position: relative;
+  min-height: calc(72px + env(safe-area-inset-top, 0px)) !important;
+  padding-top: max(26px, calc(16px + env(safe-area-inset-top, 0px))) !important;
+  padding-bottom: 14px !important;
   padding-left: max(16px, env(safe-area-inset-left, 0px)) !important;
   padding-right: max(16px, env(safe-area-inset-right, 0px)) !important;
+  gap: 10px !important;
+  row-gap: 10px !important;
+  background-color: var(--accent, #1b6348) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  isolation: isolate;
+}
+/* Blokowanie przeźroczystości od góry przy przewijaniu/status barze iOS */
+header::before {
+  content: "";
+  position: absolute;
+  top: -160px;
+  left: -100px;
+  right: -100px;
+  height: 160px;
+  background: inherit;
+  pointer-events: none;
+  z-index: -1;
+}
+html[data-theme="dark"] header {
+  background: #0d1217 !important;
+  background-color: #0d1217 !important;
+}
+html[data-theme="oled"] header {
+  background: #000000 !important;
+  background-color: #000000 !important;
+}
+html.is-ios, html.is-ipad {
+  background-color: var(--accent, #134e38);
+}
+html.is-ios[data-theme="dark"], html.is-ipad[data-theme="dark"] {
+  background-color: #0d1217;
+}
+header .btn,
+header #sortSel,
+header .fontctl button {
+  min-height: 40px !important;
+}
+header .searchwrap {
+  min-height: 42px !important;
+}
+header .mobile-menu-btn {
+  min-width: 42px !important;
+  min-height: 42px !important;
 }
 #modernSidebar {
-  padding-top: max(16px, calc(8px + env(safe-area-inset-top, 0px))) !important;
+  padding-top: max(22px, calc(14px + env(safe-area-inset-top, 0px))) !important;
 }
 
 html.is-ipad header, body.is-ipad header,
 html.is-ios header, body.is-ios header,
 html.ipad-standalone header, body.ipad-standalone header,
 html.ios-standalone header, body.ios-standalone header {
-  padding-top: max(22px, calc(12px + env(safe-area-inset-top, 0px))) !important;
-  padding-bottom: 9px !important;
+  min-height: calc(76px + env(safe-area-inset-top, 0px)) !important;
+  padding-top: max(32px, calc(20px + env(safe-area-inset-top, 0px))) !important;
+  padding-bottom: 14px !important;
 }
 
 html.ipad-standalone #modernSidebar, body.ipad-standalone #modernSidebar,
 html.is-ipad #modernSidebar, body.is-ipad #modernSidebar,
 html.ios-standalone #modernSidebar, body.ios-standalone #modernSidebar,
 html.is-ios #modernSidebar, body.is-ios #modernSidebar {
-  padding-top: max(18px, calc(8px + env(safe-area-inset-top, 0px))) !important;
+  padding-top: max(24px, calc(14px + env(safe-area-inset-top, 0px))) !important;
 }
+
+/* ══════════════ OCHRONA OKIEN FUNKCJI I MENU PRZED ROZMYCIEM W IOS ══════════════ */
+.overlay {
+  padding-top: max(36px, calc(24px + env(safe-area-inset-top, 0px))) !important;
+  padding-bottom: max(20px, calc(16px + env(safe-area-inset-bottom, 0px))) !important;
+}
+.modal, .fsmodal {
+  max-height: calc(min(88vh, 880px) - max(36px, env(safe-area-inset-top, 0px)) - var(--kb, 0px)) !important;
+  background: var(--panel) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  opacity: 1 !important;
+}
+#askModal .askbox,
+#msgModal .askbox,
+#modalImportu .import-box,
+#dropdown,
+#searchSug,
+#colorMenu,
+#ebPop,
+#readPop {
+  background: var(--panel) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  opacity: 1 !important;
+}
+html[data-theme="dark"] .modal,
+html[data-theme="dark"] .fsmodal,
+html[data-theme="dark"] #askModal .askbox,
+html[data-theme="dark"] #msgModal .askbox,
+html[data-theme="dark"] #modalImportu .import-box,
+html[data-theme="dark"] #dropdown,
+html[data-theme="dark"] #searchSug,
+html[data-theme="dark"] #colorMenu,
+html[data-theme="dark"] #ebPop,
+html[data-theme="dark"] #readPop {
+  background: #161e26 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
 
 /* ══════════════ MULTI-SELECT & PRZENOSZENIE ZBIORCZE NOTATEK ══════════════ */
 .nhead {
@@ -21540,18 +21628,19 @@ function placeDropdown(dd, anchor){
   const h = dd.offsetHeight, w = dd.offsetWidth;
   const below = ob.dol - r.bottom - M*2;
   const above = r.top - ob.gora - M*2;
+  const minGora = Math.max(ob.gora + M, 44);
   let top, maxH;
   if(h <= below || below >= above){
     top = r.bottom + 6;
     maxH = Math.max(160, below);
   } else {
     maxH = Math.max(160, above);
-    top = Math.max(ob.gora + M, r.top - 6 - Math.min(h, maxH));
+    top = Math.max(minGora, r.top - 6 - Math.min(h, maxH));
   }
   const wysokosc = Math.min(maxH, ob.wys - M*2);
   dd.style.maxHeight = wysokosc + "px";
   dd.style.overflowY = "auto";
-  dd.style.top  = Math.max(ob.gora + M,
+  dd.style.top  = Math.max(minGora,
                     Math.min(top, ob.dol - Math.min(h, wysokosc) - M)) + "px";
   let left = r.left;
   if(left + w > ob.prawo - M) left = ob.prawo - w - M;
@@ -22200,6 +22289,7 @@ function parsujSiglumBiblijne(raw){
 }
 
 function plainOf(n){
+  if(!n) return "";
   const tagNames = (n.tg && Array.isArray(n.tg)) ? n.tg.map(id => {
     const t = (typeof tags !== "undefined" && Array.isArray(tags)) ? tags.find(x => x.id === id) : null;
     return t ? t.name : "";
@@ -22220,6 +22310,7 @@ function plainOf(n){
    gdy notatka faktycznie się zmieni. WeakMap = wpis znika razem z notatką, bez wycieków. */
 const _searchCache = new WeakMap();
 function noteSearchStamp(n){
+  if(!n) return "";
   return (n.mo||"")+"|"+(n.t||"").length+"|"+(n.c||"").length+"|"+(n.h||"").length+"|"+
          (n.b||0)+"."+(n.ch||0)+"."+(n.v||0)+"|"+(n.ks||"")+"|"+(n.itn||0)+"|"+(n.par||0)+"|"+(n.pub||"")+"|"+
          ((n.tg||[]).join(","));
@@ -22234,6 +22325,7 @@ function noteSearchStamp(n){
  * @returns {Object} pola: stamp, plain, norm, squashed
  */
 function searchTextOf(n){
+  if(!n) return { stamp:"", plain:"", norm:"", squashed:"", tokens:null, tokenSet:null, roots:null };
   const stamp = noteSearchStamp(n);
   let c = _searchCache.get(n);
   if(c && c.stamp === stamp) return c;
@@ -22450,24 +22542,24 @@ function przechodziOpcjeSzukania(n){
 }
 
 function fragmentyTrafienia(n){
-  const tekst=(n.c||n.t||"").replace(/\s+/g," ").trim();
-  if(!tekst) return {snippets:[],occurrences:0,proximity:0};
-  const nt=norm(tekst), grupy=[];
-  if(qAdvPhrases.length) grupy.push(...qAdvPhrases.map(p=>[norm(p)]));
-  if(qAdvTerms.length) grupy.push(...qAdvTerms.map(g=>g.map(norm)));
-  if(!grupy.length) return {snippets:[],occurrences:0,proximity:0};
-  const warianty=searchMode==="smart" ? g.flatMap(wariantyPojecia) : g;
-  const traf=[];
-  grupy.forEach((g,gi)=>{
-    const w=(searchMode==="smart" ? [...new Set(g.flatMap(wariantyPojecia))] : g).map(x=>norm(x).replace(/\*/g,"")).filter(Boolean);
-    w.forEach(term=>{
-      let od=0,ile=0,at;
-      while(ile<4 && (at=nt.indexOf(term,od))!==-1){
-        traf.push({at,len:term.length,g:gi});
-        od=at+Math.max(1,term.length); ile++;
-      }
+  try{
+    const tekst=(n.c||n.t||"").replace(/\s+/g," ").trim();
+    if(!tekst) return {snippets:[],occurrences:0,proximity:0};
+    const nt=norm(tekst), grupy=[];
+    if(qAdvPhrases.length) grupy.push(...qAdvPhrases.map(p=>[norm(p)]));
+    if(qAdvTerms.length) grupy.push(...qAdvTerms.map(g=>g.map(norm)));
+    if(!grupy.length) return {snippets:[],occurrences:0,proximity:0};
+    const traf=[];
+    grupy.forEach((g,gi)=>{
+      const w=(searchMode==="smart" ? [...new Set(g.flatMap(wariantyPojecia))] : g).map(x=>norm(x).replace(/\*/g,"")).filter(Boolean);
+      w.forEach(term=>{
+        let od=0,ile=0,at;
+        while(ile<4 && (at=nt.indexOf(term,od))!==-1){
+          traf.push({at,len:term.length,g:gi});
+          od=at+Math.max(1,term.length); ile++;
+        }
+      });
     });
-  });
   if(!traf.length) return {snippets:[],occurrences:0,proximity:0};
   traf.sort((a,b)=>a.at-b.at);
   const kand=traf.map(h=>{
@@ -22489,53 +22581,60 @@ function fragmentyTrafienia(n){
   }
   const proximity=traf.length>1 ? Math.max(0, 300 - Math.min(300, (traf[traf.length-1].at - traf[0].at))) : 0;
   return {snippets:wybrane.map(x=>x.s),occurrences:traf.length,proximity};
+  }catch(e){
+    return {snippets:[],occurrences:0,proximity:0};
+  }
 }
 
 function ocenTrafnosc(n, bibleMatchedDirectly){
-  const title=norm(n.t||""), body=norm(n.c||""), ref=norm(refLabel(n)||""), tag=norm((n.tg||[]).map(id=>(tags.find(t=>t.id===id)||{}).name||"").join(" "));
-  let score=0,reason="treść",wagaPowodu=0;
-  const powod=(nazwa,waga)=>{ if(waga>wagaPowodu){reason=nazwa;wagaPowodu=waga;} };
+  try{
+    const title=norm(n.t||""), body=norm(n.c||""), ref=norm(refLabel(n)||""), tag=norm((n.tg||[]).map(id=>(tags.find(t=>t.id===id)||{}).name||"").join(" "));
+    let score=0,reason="treść",wagaPowodu=0;
+    const powod=(nazwa,waga)=>{ if(waga>wagaPowodu){reason=nazwa;wagaPowodu=waga;} };
 
-  // 1) Priorytet dla dopasowań sigli biblijnych
-  if(qBibleMatch && n && n.b === qBibleMatch.book){
-    if(qBibleMatch.ch && n.ch === qBibleMatch.ch){
-      if(qBibleMatch.v && n.v && wersetNakladaSie(n.v, qBibleMatch.vStart, qBibleMatch.vEnd)){
-        score += 1500; powod("dokładny werset biblijny", 11);
-      } else if(!qBibleMatch.v){
-        score += 1100; powod("rozdział biblijny", 10);
-      } else {
-        score += 850; powod("werset w tym rozdziale", 9);
+    // 1) Priorytet dla dopasowań sigli biblijnych
+    if(qBibleMatch && n && n.b === qBibleMatch.book){
+      if(qBibleMatch.ch && n.ch === qBibleMatch.ch){
+        if(qBibleMatch.v && n.v && wersetNakladaSie(n.v, qBibleMatch.vStart, qBibleMatch.vEnd)){
+          score += 1500; powod("dokładny werset biblijny", 11);
+        } else if(!qBibleMatch.v){
+          score += 1100; powod("rozdział biblijny", 10);
+        } else {
+          score += 850; powod("werset w tym rozdziale", 9);
+        }
+      } else if(!qBibleMatch.ch){
+        score += 600; powod("księga biblijna", 8);
       }
-    } else if(!qBibleMatch.ch){
-      score += 600; powod("księga biblijna", 8);
     }
-  }
 
-  qAdvPhrases.forEach(p=>{
-    const x=norm(p);
-    if(title===x){score+=900;powod("dokładny tytuł",9);}
-    else if(title.includes(x)){score+=650;powod("fraza w tytule",8);}
-    else if(ref.includes(x)){score+=560;powod("werset",7);}
-    else if(tag.includes(x)){score+=430;powod("etykieta",6);}
-    else if(body.includes(x)){score+=260;powod("dokładna fraza",5);}
-  });
-  qAdvTerms.forEach(g=>{
-    let best=0,bestReason="treść",bestW=1;
-    const warianty=searchMode==="smart"?[...new Set(g.flatMap(wariantyPojecia))]:g;
-    warianty.forEach(t=>{
-      const x=norm(t).replace(/\*/g,""); if(!x)return;
-      if(title===x&&best<800){best=800;bestReason="dokładny tytuł";bestW=9;}
-      else if(title.includes(x)&&best<520){best=520;bestReason="tytuł";bestW=8;}
-      if(ref.includes(x)&&best<470){best=470;bestReason="werset";bestW=7;}
-      if(tag.includes(x)&&best<360){best=360;bestReason="etykieta";bestW=6;}
-      if(body.includes(x)&&best<80){best=80;bestReason="treść";bestW=2;}
+    qAdvPhrases.forEach(p=>{
+      const x=norm(p);
+      if(title===x){score+=900;powod("dokładny tytuł",9);}
+      else if(title.includes(x)){score+=650;powod("fraza w tytule",8);}
+      else if(ref.includes(x)){score+=560;powod("werset",7);}
+      else if(tag.includes(x)){score+=430;powod("etykieta",6);}
+      else if(body.includes(x)){score+=260;powod("dokładna fraza",5);}
     });
-    score+=best||30; powod(bestReason,bestW);
-  });
-  const fr=fragmentyTrafienia(n);
-  if(qAdvTerms.length+qAdvPhrases.length>1 && fr.proximity>=240){score+=220;powod("pojęcia razem",4);}
-  if(n.pin) score+=2; if(n.fav) score+=1;
-  return {score,reason,snippet:fr.snippets[0]||"",snippets:fr.snippets,occurrences:fr.occurrences};
+    qAdvTerms.forEach(g=>{
+      let best=0,bestReason="treść",bestW=1;
+      const warianty=searchMode==="smart"?[...new Set(g.flatMap(wariantyPojecia))]:g;
+      warianty.forEach(t=>{
+        const x=norm(t).replace(/\*/g,""); if(!x)return;
+        if(title===x&&best<800){best=800;bestReason="dokładny tytuł";bestW=9;}
+        else if(title.includes(x)&&best<520){best=520;bestReason="tytuł";bestW=8;}
+        if(ref.includes(x)&&best<470){best=470;bestReason="werset";bestW=7;}
+        if(tag.includes(x)&&best<360){best=360;bestReason="etykieta";bestW=6;}
+        if(body.includes(x)&&best<80){best=80;bestReason="treść";bestW=2;}
+      });
+      score+=best||30; powod(bestReason,bestW);
+    });
+    const fr=fragmentyTrafienia(n);
+    if(qAdvTerms.length+qAdvPhrases.length>1 && fr.proximity>=240){score+=220;powod("pojęcia razem",4);}
+    if(n.pin) score+=2; if(n.fav) score+=1;
+    return {score,reason,snippet:fr.snippets[0]||"",snippets:fr.snippets,occurrences:fr.occurrences};
+  }catch(e){
+    return {score:50,reason:"treść",snippet:"",snippets:[],occurrences:1};
+  }
 }
 
 /**
@@ -22549,17 +22648,25 @@ function ocenTrafnosc(n, bibleMatchedDirectly){
  *   Mt 24:14        — inteligentne rozpoznawanie sigli biblijnych
  */
 function parseQuery(q){
-  const nextQuery=q.trim();
+  const nextQuery=(q||"").trim();
   if(nextQuery!==query){ resetSearchWindow(); if(typeof _searchCounts!=="undefined") _searchCounts={all:0,bible:0,publication:0,own:0}; }
   query = nextQuery;
   resetQueryCache();
   qComp = null; qHl = null; qFields = null; qBibleMatch = null;
   _qNorm = norm(query); _qSquash = squash(query);
-  parseAdvancedQuery(query);
+  try{
+    parseAdvancedQuery(query);
+  }catch(e){
+    qAdvTerms=[]; qAdvNeg=[]; qAdvPhrases=[]; qSpecial={};
+  }
   if(!query) return;
 
   // Inteligentne rozpoznawanie wersetu lub księgi
-  qBibleMatch = parsujSiglumBiblijne(query);
+  try{
+    qBibleMatch = parsujSiglumBiblijne(query);
+  }catch(e){
+    qBibleMatch = null;
+  }
 
   try{
     const groups=[]; const fields=[]; let orFlag=false;
@@ -22590,15 +22697,15 @@ function parseQuery(q){
     if(!groups.length) return;
 
     const mk = s => {
-      const base = norm(s).replace(/[.*+?^${}()|[\]\\]/g,"\$&").replace(/\*/g,"[\p{L}\p{N}]*");
-      return /^\d+$/.test(norm(s)) ? "(?<![\p{L}\p{N}])"+base+"(?![\p{L}\p{N}])" : base;
+      const base = norm(s).replace(/[.+?^${}()|[\]\\]/g,"\\$&").replace(/\*/g,"[\\p{L}\\p{N}]*");
+      return /^\d+$/.test(norm(s)) ? "(?<![\\p{L}\\p{N}])"+base+"(?![\\p{L}\\p{N}])" : base;
     };
     qComp = groups.map(g=>new RegExp(g.map(mk).join("|"),"iu"));
 
     const G={a:"[aąAĄ]",c:"[cćCĆ]",e:"[eęEĘ]",l:"[lłLŁ]",n:"[nńNŃ]",o:"[oóOÓ]",s:"[sśSŚ]",z:"[zźżZŹŻ]"};
-    const mkHl = s => s.replace(/[.*+?^${}()|[\]\\]/g,"\$&")
+    const mkHl = s => s.replace(/[.+?^${}()|[\]\\]/g,"\\$&")
       .replace(/[aącćeęlłnńoósśzźżAĄCĆEĘLŁNŃOÓSŚZŹŻ]/g, ch=>G[norm(ch)] || ch)
-      .replace(/\*/g,"[\p{L}\p{N}]*");
+      .replace(/\*/g,"[\\p{L}\\p{N}]*");
     qHl = new RegExp("("+groups.flat().map(mkHl).join("|")+")","giu");
   }catch(e){ qComp=null; qHl=null; qFields=null; }
 }
@@ -23931,38 +24038,50 @@ function isIOS(){
    już stoi na ekranie — zamiast budować ją od nowa. */
 function podswietlWElemencie(korzen){
   if(!korzen || !query) return;
-  const rx = qHl || new RegExp("("+query.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","gi");
-  (function walk(node){
-    [...node.childNodes].forEach(ch=>{
-      if(ch.nodeType===3 && rx.test(ch.textContent)){
-        rx.lastIndex = 0;
-        const frag = document.createDocumentFragment();
-        ch.textContent.split(rx).forEach((part,i)=>{
-          if(i%2){ const s=document.createElement("span"); s.className="qhl"; s.textContent=part; frag.appendChild(s); }
-          else if(part) frag.appendChild(document.createTextNode(part));
-        });
-        node.replaceChild(frag, ch);
-      } else if(ch.nodeType===1 && !ch.classList.contains("qhl")) walk(ch);
-    });
-  })(korzen);
+  try{
+    let rx = qHl;
+    if(!rx){
+      try{ rx = new RegExp("("+query.replace(/[.+?^${}()|[\\]\\\\]/g,"\\\\$&").replace(/\\*/g,"[\\\\p{L}\\\\p{N}]*")+")","giu"); }
+      catch(_){ rx = new RegExp("("+query.replace(/[.*+?^${}()|[\\]\\\\]/g,"\\\\$&")+")","gi"); }
+    }
+    (function walk(node){
+      [...node.childNodes].forEach(ch=>{
+        if(ch.nodeType===3 && rx.test(ch.textContent)){
+          rx.lastIndex = 0;
+          const frag = document.createDocumentFragment();
+          ch.textContent.split(rx).forEach((part,i)=>{
+            if(i%2){ const s=document.createElement("span"); s.className="qhl"; s.textContent=part; frag.appendChild(s); }
+            else if(part) frag.appendChild(document.createTextNode(part));
+          });
+          node.replaceChild(frag, ch);
+        } else if(ch.nodeType===1 && !ch.classList.contains("qhl")) walk(ch);
+      });
+    })(korzen);
+  }catch(_){}
 }
 /** Zdejmuje podświetlenie, zostawiając sam tekst. */
 function zdejmijPodswietlenie(korzen){
   if(!korzen) return;
-  korzen.querySelectorAll(".qhl").forEach(s=>{
-    const rodzic = s.parentNode;
-    s.replaceWith(...s.childNodes);
-    if(rodzic) rodzic.normalize();     // scalamy rozcięte kawałki tekstu z powrotem
-  });
+  try{
+    korzen.querySelectorAll(".qhl").forEach(s=>{
+      const rodzic = s.parentNode;
+      s.replaceWith(...s.childNodes);
+      if(rodzic) rodzic.normalize();     // scalamy rozcięte kawałki tekstu z powrotem
+    });
+  }catch(_){}
 }
 function hilite(html){
   if(!query) return html;
-  /* Bezwładnie — treść notatki jest wprawdzie już przesiana, ale ta funkcja
-     idzie po KAŻDEJ widocznej karcie przy każdym wyszukiwaniu i nie ma powodu,
-     żeby jedno przeoczenie w sicie stawało się od razu wykonanym kodem. */
-  const tmp = parsujBezwladnie(html);
-  podswietlWElemencie(tmp);
-  return tmp.innerHTML;
+  try{
+    /* Bezwładnie — treść notatki jest wprawdzie już przesiana, ale ta funkcja
+       idzie po KAŻDEJ widocznej karcie przy każdym wyszukiwaniu i nie ma powodu,
+       żeby jedno przeoczenie w sicie stawało się od razu wykonanym kodem. */
+    const tmp = parsujBezwladnie(html);
+    podswietlWElemencie(tmp);
+    return tmp.innerHTML;
+  }catch(_){
+    return html;
+  }
 }
 function contentHtml(n){ return hilite(n.h ? n.h : esc(n.c||"")); }
 function emptyStateEl(){
