@@ -8273,127 +8273,253 @@ body.przenoszenieNotatki{ cursor:grabbing; user-select:none; }
    się „nie działa" i zgadywaniem po obu stronach.
    ============================================================ */
 #pasekBledu{
-  position:fixed; left:8px; right:8px;
-  bottom:calc(8px + env(safe-area-inset-bottom, 0px));
-  z-index:100350 !important; display:none; align-items:center; gap:8px;
-  padding:9px 10px 9px 13px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.22);
-  background:#8c2b2b; color:#fff;
-  font-size:calc(12.5px * var(--uiw)); line-height:1.4;
-  box-shadow:0 10px 28px rgba(0,0,0,.45);
+  position:fixed; left:12px; right:12px;
+  bottom:calc(12px + env(safe-area-inset-bottom, 0px));
+  z-index:100350 !important; display:none; align-items:center; gap:10px;
+  padding:10px 14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.24);
+  background:linear-gradient(135deg, rgba(168,43,43,.96), rgba(120,24,24,.98));
+  color:#fff;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  font-size:calc(12.5px * var(--uiw)); line-height:1.45;
+  box-shadow:0 12px 32px rgba(0,0,0,.45), 0 0 1px rgba(255,255,255,.3);
 }
 #pasekBledu .pbTxt{
   flex:1; min-width:0;
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  font-weight:600;
 }
 #pasekBledu button{
-  flex:0 0 auto; border:1px solid rgba(255,255,255,.45);
-  background:rgba(255,255,255,.14); color:#fff;
-  border-radius:8px; padding:5px 10px; font-size:calc(12px * var(--uiw));
+  flex:0 0 auto; border:1px solid rgba(255,255,255,.4);
+  background:rgba(255,255,255,.16); color:#fff;
+  border-radius:9px; padding:6px 12px; font-size:calc(12px * var(--uiw));
+  font-weight:650;
   cursor:pointer;
-  transition:background .14s ease;
+  transition:all .14s ease;
 }
-#pasekBledu button:hover{ background:rgba(255,255,255,.24); }
-#pasekBledu button:active{ background:rgba(255,255,255,.32); }
-#pasekBledu .pbZam{ padding:5px 9px; }
+#pasekBledu button:hover{ background:rgba(255,255,255,.28); border-color:#fff; transform:translateY(-1px); }
+#pasekBledu button:active{ background:rgba(255,255,255,.36); transform:none; }
+#pasekBledu .pbZam{ padding:6px 10px; border-radius:50%; width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center; }
 
 /* ============================================================
    HISTORIA BŁĘDÓW I ZAAWANSOWANA DIAGNOSTYKA SYSTEMOWA (v5.0)
+   Nowoczesny panel diagnostyczny (Light / Dark / Sepia / OLED)
    ============================================================ */
+
+#modalHistoriaBledow{
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  background:rgba(15,23,42,.45);
+}
+html[data-theme="dark"] #modalHistoriaBledow,
+html[data-theme="oled"] #modalHistoriaBledow,
+html.dark #modalHistoriaBledow,
+body.dark #modalHistoriaBledow{
+  background:rgba(0,0,0,.7);
+}
+
 #modalHistoriaBledow .modal.hb-modal,
 #modalDiagnostyka .modal.hb-modal{
-  width:min(940px, 96vw);
-  max-height:calc(min(92vh, 900px) - var(--kb, 0px));
+  width:min(980px, 95vw);
+  max-height:calc(min(90vh, 880px) - var(--kb, 0px));
   display:flex;
   flex-direction:column;
   padding:0;
   overflow:hidden;
-  border-radius:16px;
-}
-#modalHistoriaBledow .hb-head{
-  position:sticky; top:0; z-index:4;
-  display:flex; flex-direction:column; gap:8px;
-  margin:0;
-  padding:var(--sp-4) var(--sp-5) 0;
+  border-radius:20px;
   background:var(--panel);
+  border:1px solid var(--border);
+  box-shadow:0 25px 60px -12px rgba(0,0,0,.25), 0 0 0 1px rgba(0,0,0,.04);
+}
+
+html[data-theme="dark"] #modalHistoriaBledow .modal.hb-modal,
+html[data-theme="oled"] #modalHistoriaBledow .modal.hb-modal,
+html.dark #modalHistoriaBledow .modal.hb-modal,
+body.dark #modalHistoriaBledow .modal.hb-modal{
+  background:linear-gradient(180deg, #18222d 0%, #11171e 100%);
+  border-color:rgba(255,255,255,.1);
+  box-shadow:0 25px 60px -10px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.08), inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+/* Nagłówek okna */
+#modalHistoriaBledow .hb-head{
+  position:sticky;
+  top:0;
+  z-index:10;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin:0;
+  padding:18px 22px 0 22px;
+  background:color-mix(in srgb, var(--panel) 94%, var(--bg) 6%);
   border-bottom:1px solid var(--border);
 }
 #modalHistoriaBledow .hb-head-top{
-  display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+#modalHistoriaBledow .hb-tytul-wrap{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+#modalHistoriaBledow .autoModalKicker{
+  font-size:11px;
+  letter-spacing:0.08em;
+  font-weight:750;
+  color:var(--accent2);
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  text-transform:uppercase;
 }
 #modalHistoriaBledow .hb-tytul-wrap h3{
-  margin:2px 0 0;
-  font-size:calc(18px * var(--ui, 1));
-  font-weight:700;
+  margin:0;
+  font-size:calc(19px * var(--ui, 1));
+  font-weight:800;
+  letter-spacing:-0.015em;
   color:var(--text);
+  line-height:1.25;
 }
 #modalHistoriaBledow .hb-head-right{
-  display:flex; align-items:center; gap:8px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-/* Główne zakładki panelu diagnostycznego */
+/* Przycisk zamknięcia */
+#modalHistoriaBledow .exp-close-btn{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:1px solid var(--border);
+  background:color-mix(in srgb, var(--panel) 70%, transparent);
+  color:var(--muted);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:all .15s ease;
+  padding:0;
+}
+#modalHistoriaBledow .exp-close-btn:hover{
+  color:var(--text);
+  background:var(--sel);
+  border-color:color-mix(in srgb, var(--accent) 40%, var(--border));
+  transform:scale(1.05);
+}
+
+/* Segmentowany pasek zakładek (Tabs Strip) */
 .diag-tabs-strip{
   display:flex;
   gap:4px;
   overflow-x:auto;
-  margin-top:8px;
-  margin-bottom:-1px;
+  padding:4px;
+  background:color-mix(in srgb, var(--border) 40%, transparent);
+  border-radius:12px;
+  margin-top:4px;
+  margin-bottom:12px;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:none;
 }
 .diag-tabs-strip::-webkit-scrollbar{ display:none; }
+
 .diag-tab-btn{
   background:transparent;
   border:0;
-  border-bottom:2px solid transparent;
   color:var(--muted);
-  font-size:calc(13px * var(--uiw, 1));
+  font-size:calc(12.5px * var(--uiw, 1));
   font-weight:600;
-  padding:8px 12px;
+  padding:7px 12px;
   cursor:pointer;
   white-space:nowrap;
   display:inline-flex;
   align-items:center;
-  gap:6px;
-  transition:all .15s ease;
-  border-radius:6px 6px 0 0;
+  gap:7px;
+  transition:all .16s ease;
+  border-radius:8px;
+}
+.diag-tab-btn svg,
+.diag-tab-btn svg.ic{
+  width:15px;
+  height:15px;
+  opacity:0.8;
+  transition:opacity .15s;
 }
 .diag-tab-btn:hover{
   color:var(--text);
-  background:rgba(0,0,0,.03);
+  background:color-mix(in srgb, var(--panel) 60%, transparent);
 }
-body.dark .diag-tab-btn:hover{ background:rgba(255,255,255,.04); }
+.diag-tab-btn:hover svg,
+.diag-tab-btn:hover svg.ic{ opacity:1; }
+
 .diag-tab-btn.on{
-  color:var(--accent);
-  border-bottom-color:var(--accent);
-  background:rgba(var(--accent-rgb, 43, 114, 186), 0.08);
+  color:var(--text) !important;
+  font-weight:750 !important;
+  background:var(--panel) !important;
+  box-shadow:0 2px 8px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04) !important;
 }
-.diag-tab-badge{
-  font-size:0.8em;
-  padding:1px 6px;
-  border-radius:10px;
-  background:rgba(0,0,0,.08);
-  font-weight:700;
-}
-body.dark .diag-tab-badge{ background:rgba(255,255,255,.12); }
-.diag-tab-btn.on .diag-tab-badge{
-  background:var(--accent);
-  color:#fff;
-}
-.diag-tab-btn.has-err .diag-tab-badge{
-  background:#dc3545;
-  color:#fff;
+.diag-tab-btn.on svg,
+.diag-tab-btn.on svg.ic{
+  color:var(--accent2);
+  opacity:1;
 }
 
-/* Główny kontener treści zakładek */
+@keyframes diagSpin{
+  from{ transform:rotate(0deg); }
+  to{ transform:rotate(360deg); }
+}
+.diag-spin{
+  animation:diagSpin 1s linear infinite;
+  transform-origin:center;
+}
+
+html[data-theme="dark"] .diag-tab-btn.on,
+html.dark .diag-tab-btn.on,
+body.dark .diag-tab-btn.on{
+  background:color-mix(in srgb, var(--panel) 90%, #fff 10%) !important;
+  color:#f8fafc !important;
+  border-color:rgba(255,255,255,.14) !important;
+  box-shadow:0 2px 10px rgba(0,0,0,.35) !important;
+}
+html[data-theme="oled"] .diag-tab-btn.on{
+  background:#1a1a1a !important;
+  color:#f8fafc !important;
+  border-color:rgba(255,255,255,.22) !important;
+  box-shadow:0 2px 10px rgba(0,0,0,.7) !important;
+}
+
+.diag-tab-badge{
+  font-size:10.5px;
+  padding:1px 6px;
+  border-radius:999px;
+  background:color-mix(in srgb, var(--border) 70%, transparent);
+  font-weight:750;
+  font-variant-numeric:tabular-nums;
+  line-height:1.4;
+}
+.diag-tab-btn.on .diag-tab-badge{
+  background:color-mix(in srgb, var(--accent) 18%, transparent);
+  color:var(--accent);
+}
+.diag-tab-btn.has-err .diag-tab-badge{
+  background:#ef4444 !important;
+  color:#ffffff !important;
+}
+
+/* Główny kontener treści */
 .diag-kontener{
   flex:1 1 auto;
   overflow-y:auto;
   overscroll-behavior:contain;
-  padding:var(--sp-4) var(--sp-5);
-  min-height:240px;
+  padding:18px 22px;
+  min-height:260px;
   max-height:64vh;
+  background:color-mix(in srgb, var(--bg) 60%, var(--panel) 40%);
 }
 .diag-sekcja{
   display:none;
@@ -8404,378 +8530,783 @@ body.dark .diag-tab-badge{ background:rgba(255,255,255,.12); }
   display:flex;
 }
 
-/* Podsumowanie i karty metryk */
+/* Hero Status Banner */
 .diag-hero-card{
-  background:var(--card, var(--panel));
+  background:var(--panel);
   border:1px solid var(--border);
-  border-radius:12px;
-  padding:16px;
+  border-radius:16px;
+  padding:18px 20px;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:16px;
   box-shadow:0 2px 8px rgba(0,0,0,.04);
+  transition:all .2s ease;
+  position:relative;
+  overflow:hidden;
 }
+.diag-hero-card::before{
+  content:"";
+  position:absolute;
+  left:0; top:0; bottom:0;
+  width:4px;
+  background:#22a06b;
+  border-radius:4px 0 0 4px;
+}
+.diag-hero-card.hero-warn,
+.diag-hero-card.stan-ostrzezenie{
+  border-color:rgba(245,158,11,.35);
+  background:linear-gradient(135deg, color-mix(in srgb, #f59e0b 6%, var(--panel)), var(--panel));
+}
+.diag-hero-card.hero-warn::before,
+.diag-hero-card.stan-ostrzezenie::before{ background:#f59e0b; }
+
+.diag-hero-card.hero-err,
+.diag-hero-card.stan-blad{
+  border-color:rgba(239,68,68,.35);
+  background:linear-gradient(135deg, color-mix(in srgb, #ef4444 6%, var(--panel)), var(--panel));
+}
+.diag-hero-card.hero-err::before,
+.diag-hero-card.stan-blad::before{ background:#ef4444; }
+
 .diag-hero-info{
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:16px;
 }
 .diag-hero-ico{
-  width:44px;
-  height:44px;
-  border-radius:12px;
+  width:48px;
+  height:48px;
+  border-radius:14px;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:22px;
-  background:rgba(25,135,84,.12);
-  color:#198754;
+  font-weight:800;
+  background:rgba(34,160,107,.12);
+  color:#22a06b;
+  flex-shrink:0;
+  box-shadow:0 0 16px rgba(34,160,107,.15);
 }
+.diag-hero-ico svg,
+.diag-hero-ico svg.ic{
+  width:24px;
+  height:24px;
+  stroke-width:2.4;
+}
+
+.diag-hero-card.hero-warn .diag-hero-ico,
 .diag-hero-card.stan-ostrzezenie .diag-hero-ico{
-  background:rgba(253,126,20,.14);
-  color:#fd7e14;
+  background:rgba(245,158,11,.14);
+  color:#d97706;
+  box-shadow:0 0 16px rgba(245,158,11,.18);
 }
+.diag-hero-card.hero-err .diag-hero-ico,
 .diag-hero-card.stan-blad .diag-hero-ico{
-  background:rgba(220,53,69,.14);
-  color:#dc3545;
+  background:rgba(239,68,68,.14);
+  color:#ef4444;
+  box-shadow:0 0 16px rgba(239,68,68,.18);
 }
+
+/* Ciemne warianty ikony hero */
+html[data-theme="dark"] .diag-hero-ico,
+html[data-theme="oled"] .diag-hero-ico,
+html.dark .diag-hero-ico,
+body.dark .diag-hero-ico{
+  background:rgba(34,197,94,.16);
+  color:#4ade80;
+  box-shadow:0 0 20px rgba(34,197,94,.22);
+}
+html[data-theme="dark"] .diag-hero-card.hero-warn .diag-hero-ico,
+html[data-theme="oled"] .diag-hero-card.hero-warn .diag-hero-ico,
+html.dark .diag-hero-card.hero-warn .diag-hero-ico,
+body.dark .diag-hero-card.hero-warn .diag-hero-ico{
+  background:rgba(251,191,36,.16);
+  color:#fbbf24;
+  box-shadow:0 0 20px rgba(251,191,36,.22);
+}
+html[data-theme="dark"] .diag-hero-card.hero-err .diag-hero-ico,
+html[data-theme="oled"] .diag-hero-card.hero-err .diag-hero-ico,
+html.dark .diag-hero-card.hero-err .diag-hero-ico,
+body.dark .diag-hero-card.hero-err .diag-hero-ico{
+  background:rgba(248,113,113,.16);
+  color:#f87171;
+  box-shadow:0 0 20px rgba(248,113,113,.22);
+}
+
 .diag-hero-tytul{
-  font-size:calc(15px * var(--uiw, 1));
-  font-weight:700;
+  font-size:calc(16px * var(--uiw, 1));
+  font-weight:750;
+  letter-spacing:-0.01em;
   color:var(--text);
-  margin-bottom:2px;
+  margin-bottom:3px;
 }
 .diag-hero-sub{
   font-size:calc(12.5px * var(--uiw, 1));
   color:var(--muted);
+  line-height:1.45;
 }
 
+/* Siatka 4 kart statystyk */
 .diag-grid-4{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-  gap:12px;
+  grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));
+  gap:14px;
 }
 .diag-stat-card{
-  background:var(--card, var(--panel));
+  background:var(--panel);
   border:1px solid var(--border);
-  border-radius:10px;
-  padding:12px 14px;
+  border-radius:14px;
+  padding:14px 16px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  gap:6px;
-  transition:border-color .15s, transform .15s;
+  gap:8px;
+  box-shadow:0 1px 3px rgba(0,0,0,.03);
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 .diag-stat-card:hover{
-  border-color:var(--accent);
-  transform:translateY(-1px);
+  border-color:color-mix(in srgb, var(--accent) 50%, var(--border));
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
 }
+
 .diag-stat-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  font-size:calc(12px * var(--uiw, 1));
-  font-weight:600;
+  font-size:calc(11px * var(--uiw, 1));
+  font-weight:750;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
   color:var(--muted);
 }
-.diag-stat-val{
-  font-size:calc(20px * var(--ui, 1));
-  font-weight:700;
-  color:var(--text);
-  font-variant-numeric:tabular-nums;
-  line-height:1.2;
+.diag-stat-ico-badge{
+  width:28px;
+  height:28px;
+  border-radius:8px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  transition:all .18s ease;
 }
-.diag-stat-desc{
-  font-size:calc(11.5px * var(--uiw, 1));
-  color:var(--muted);
+.diag-stat-ico-badge svg,
+.diag-stat-ico-badge svg.ic{
+  width:15px;
+  height:15px;
+  stroke-width:2.2;
 }
 
-/* Wskaźniki paskowe (Meters & Progress) */
-.diag-meter-box{
-  margin-top:6px;
+.ico-emerald{ background:rgba(34,160,107,.12); color:#22a06b; }
+.ico-violet{ background:rgba(168,85,247,.12); color:#a855f7; }
+.ico-amber{ background:rgba(245,158,11,.12); color:#f59e0b; }
+.ico-cyan{ background:rgba(14,165,233,.12); color:#0ea5e9; }
+.ico-red{ background:rgba(239,68,68,.12); color:#ef4444; }
+.ico-rose{ background:rgba(244,63,94,.12); color:#f43f5e; }
+
+/* Motywy Ciemne dla Badges */
+html[data-theme="dark"] .ico-emerald,
+html[data-theme="oled"] .ico-emerald,
+html.dark .ico-emerald,
+body.dark .ico-emerald{ background:rgba(34,197,94,.16); color:#4ade80; }
+
+html[data-theme="dark"] .ico-violet,
+html[data-theme="oled"] .ico-violet,
+html.dark .ico-violet,
+body.dark .ico-violet{ background:rgba(168,85,247,.16); color:#c084fc; }
+
+html[data-theme="dark"] .ico-amber,
+html[data-theme="oled"] .ico-amber,
+html.dark .ico-amber,
+body.dark .ico-amber{ background:rgba(251,191,36,.16); color:#fbbf24; }
+
+html[data-theme="dark"] .ico-cyan,
+html[data-theme="oled"] .ico-cyan,
+html.dark .ico-cyan,
+body.dark .ico-cyan{ background:rgba(56,189,248,.16); color:#38bdf8; }
+
+html[data-theme="dark"] .ico-red,
+html[data-theme="oled"] .ico-red,
+html.dark .ico-red,
+body.dark .ico-red{ background:rgba(248,113,113,.16); color:#f87171; }
+
+html[data-theme="dark"] .ico-rose,
+html[data-theme="oled"] .ico-rose,
+html.dark .ico-rose,
+body.dark .ico-rose{ background:rgba(251,113,133,.16); color:#fb7185; }
+
+/* Motyw Sepia dla Badges */
+html[data-theme="sepia"] .ico-emerald{ background:rgba(46,125,50,.14); color:#2e7d32; }
+html[data-theme="sepia"] .ico-violet{ background:rgba(123,31,162,.14); color:#7b1fa2; }
+html[data-theme="sepia"] .ico-amber{ background:rgba(230,81,0,.14); color:#e65100; }
+html[data-theme="sepia"] .ico-cyan{ background:rgba(2,136,209,.14); color:#0288d1; }
+html[data-theme="sepia"] .ico-red{ background:rgba(198,40,40,.14); color:#c62828; }
+html[data-theme="sepia"] .ico-rose{ background:rgba(225,29,72,.14); color:#e11d48; }
+
+.diag-stat-val{
+  font-size:calc(24px * var(--ui, 1));
+  font-weight:800;
+  letter-spacing:-0.025em;
+  color:var(--text);
+  font-variant-numeric:tabular-nums;
+  line-height:1.15;
 }
+.diag-stat-desc{
+  font-size:calc(12px * var(--uiw, 1));
+  color:var(--muted);
+  line-height:1.45;
+}
+
+/* Wskaźniki paskowe (Meters) */
+.diag-meter-box{ margin-top:6px; }
 .diag-meter-track{
   width:100%;
-  height:8px;
-  background:rgba(0,0,0,.08);
-  border-radius:6px;
+  height:7px;
+  background:color-mix(in srgb, var(--border) 60%, transparent);
+  border-radius:999px;
   overflow:hidden;
   position:relative;
 }
-body.dark .diag-meter-track{ background:rgba(255,255,255,.1); }
 .diag-meter-bar{
   height:100%;
-  border-radius:6px;
-  transition:width .4s ease;
+  border-radius:999px;
+  transition:width .5s cubic-bezier(0.2, 0, 0, 1);
   background:var(--accent);
 }
-.diag-meter-bar.meter-ok{ background:#198754; }
-.diag-meter-bar.meter-warn{ background:#fd7e14; }
-.diag-meter-bar.meter-err{ background:#dc3545; }
+.diag-meter-bar.meter-ok{ background:linear-gradient(90deg, #10b981, #059669); }
+.diag-meter-bar.meter-warn{ background:linear-gradient(90deg, #f59e0b, #d97706); }
+.diag-meter-bar.meter-err, .diag-meter-bar.meter-crit{ background:linear-gradient(90deg, #ef4444, #dc2626); }
 
-/* Pasek narzędzi i filtry błędów */
+/* Filtry i wyszukiwarka błędów */
 #modalHistoriaBledow .hb-toolbar{
-  display:flex; flex-direction:column; gap:10px;
-  margin-top:4px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
 #modalHistoriaBledow .hb-filtry{
-  display:flex; gap:6px; overflow-x:auto; margin-bottom:-1px;
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
   -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+#modalHistoriaBledow .hb-filtry::-webkit-scrollbar{ display:none; }
+
+#modalHistoriaBledow .st-zak{
+  border-radius:8px;
+  padding:6px 12px;
+  font-size:calc(12.5px * var(--uiw, 1));
+  font-weight:600;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--muted);
+  cursor:pointer;
+  white-space:nowrap;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  transition:all .15s ease;
+}
+#modalHistoriaBledow .st-zak:hover{
+  color:var(--text);
+  border-color:color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+#modalHistoriaBledow .st-zak.on{
+  background:var(--accent) !important;
+  color:#ffffff !important;
+  border-color:var(--accent) !important;
+  font-weight:700;
 }
 #modalHistoriaBledow .hb-tab-cnt{
-  font-size:0.85em; opacity:0.75; margin-left:4px;
-  padding:1px 5px; border-radius:8px; background:rgba(0,0,0,.08);
+  font-size:10.5px;
+  padding:1px 6px;
+  border-radius:999px;
+  background:color-mix(in srgb, var(--border) 60%, transparent);
+  font-weight:750;
+  font-variant-numeric:tabular-nums;
 }
-body.dark #modalHistoriaBledow .hb-tab-cnt{ background:rgba(255,255,255,.1); }
-#modalHistoriaBledow .st-zak.on .hb-tab-cnt{ background:rgba(220,53,69,.2); color:var(--accent); }
+#modalHistoriaBledow .st-zak.on .hb-tab-cnt{
+  background:rgba(255,255,255,.25);
+  color:#ffffff;
+}
 
 #modalHistoriaBledow .hb-szukaj-wrap{
-  position:relative; display:flex; align-items:center; margin-bottom:10px;
+  position:relative;
+  display:flex;
+  align-items:center;
 }
 #modalHistoriaBledow .hb-szukaj-input{
-  width:100%; height:36px; padding:6px 32px 6px 12px;
-  border-radius:8px; border:1px solid var(--border);
-  background:var(--bg); color:var(--text);
+  width:100%;
+  height:38px;
+  padding:6px 36px 6px 14px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
   font-size:calc(13px * var(--uiw, 1));
-  box-sizing:border-box; outline:none; transition:border-color .15s;
+  box-sizing:border-box;
+  outline:none;
+  transition:border-color .15s, box-shadow .15s;
 }
-#modalHistoriaBledow .hb-szukaj-input:focus{ border-color:var(--accent); }
+#modalHistoriaBledow .hb-szukaj-input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
 #modalHistoriaBledow .hb-szukaj-czysc{
-  position:absolute; right:8px; top:50%; transform:translateY(-50%);
-  background:transparent; border:0; color:var(--muted);
-  cursor:pointer; padding:4px 6px; font-size:13px; border-radius:4px;
+  position:absolute;
+  right:10px;
+  top:50%;
+  transform:translateY(-50%);
+  background:transparent;
+  border:0;
+  color:var(--muted);
+  cursor:pointer;
+  padding:4px;
+  font-size:14px;
+  border-radius:50%;
+  line-height:1;
 }
 #modalHistoriaBledow .hb-szukaj-czysc:hover{ color:var(--text); }
 
-#modalHistoriaBledow .hb-lista-wrap{
-  display:flex; flex-direction:column; gap:10px;
+/* Karty błędów */
+.hb-lista{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
-#modalHistoriaBledow .hb-lista{
-  display:flex; flex-direction:column; gap:10px;
-}
-
-/* Karta pojedynczego błędu */
 .hb-karta{
+  background:var(--panel);
   border:1px solid var(--border);
-  background:var(--card, var(--panel));
-  border-radius:10px;
-  padding:12px 14px;
+  border-radius:14px;
+  padding:14px 16px;
+  box-shadow:0 1px 3px rgba(0,0,0,.02);
   transition:border-color .15s, box-shadow .15s;
 }
-.hb-karta:hover{ border-color:var(--accent); }
-.hb-karta.hb-typ-js{ border-left:4px solid #dc3545; }
-.hb-karta.hb-typ-promise{ border-left:4px solid #fd7e14; }
-.hb-karta.hb-typ-siec{ border-left:4px solid #0d6efd; }
-.hb-karta.hb-typ-idb{ border-left:4px solid #6f42c1; }
-.hb-karta.hb-typ-ostrzezenie{ border-left:4px solid #ffc107; }
-.hb-karta.hb-typ-inne{ border-left:4px solid #6c757d; }
+.hb-karta:hover{
+  border-color:color-mix(in srgb, var(--accent) 50%, var(--border));
+  box-shadow:0 4px 14px rgba(0,0,0,.05);
+}
 
 .hb-karta-top{
-  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+.hb-karta-info{
+  flex:1;
+  min-width:0;
+}
+.hb-karta-meta{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
   margin-bottom:6px;
 }
-.hb-karta-tagi{
-  display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+.hb-typ-tag{
+  font-size:10.5px;
+  font-weight:750;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  padding:2px 7px;
+  border-radius:6px;
+  line-height:1.4;
 }
-.hb-typ-badge{
-  font-size:calc(11px * var(--uiw, 1)); font-weight:700;
-  text-transform:uppercase; letter-spacing:0.04em;
-  padding:2px 7px; border-radius:6px;
-}
-.hb-typ-js .hb-typ-badge{ background:rgba(220,53,69,.15); color:#dc3545; }
-.hb-typ-promise .hb-typ-badge{ background:rgba(253,126,20,.15); color:#fd7e14; }
-.hb-typ-siec .hb-typ-badge{ background:rgba(13,110,253,.15); color:#0d6efd; }
-.hb-typ-idb .hb-typ-badge{ background:rgba(111,66,193,.15); color:#6f42c1; }
-.hb-typ-ostrzezenie .hb-typ-badge{ background:rgba(255,193,7,.18); color:#b78103; }
-.hb-typ-inne .hb-typ-badge{ background:rgba(108,117,125,.15); color:#6c757d; }
+.hb-typ-tag.hb-typ-js{ background:rgba(239,68,68,.12); color:#ef4444; border:1px solid rgba(239,68,68,.25); }
+.hb-typ-tag.hb-typ-promise{ background:rgba(245,158,11,.12); color:#f59e0b; border:1px solid rgba(245,158,11,.25); }
+.hb-typ-tag.hb-typ-idb{ background:rgba(168,85,247,.12); color:#a855f7; border:1px solid rgba(168,85,247,.25); }
+.hb-typ-tag.hb-typ-siec{ background:rgba(59,130,246,.12); color:#3b82f6; border:1px solid rgba(59,130,246,.25); }
+.hb-typ-tag.hb-typ-ostrzezenie{ background:rgba(245,158,11,.12); color:#d97706; border:1px solid rgba(245,158,11,.25); }
+.hb-typ-tag.hb-typ-inne{ background:color-mix(in srgb, var(--border) 60%, transparent); color:var(--muted); }
 
-.hb-karta-czas{
-  font-size:calc(11.5px * var(--uiw, 1)); color:var(--muted); font-variant-numeric:tabular-nums;
+.hb-meta-pill{
+  font-size:11.5px;
+  font-weight:550;
+  color:var(--muted);
+  background:color-mix(in srgb, var(--border) 35%, transparent);
+  padding:3px 8px;
+  border-radius:6px;
+  font-variant-numeric:tabular-nums;
+  line-height:1.35;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
 }
-.hb-karta-akcje{
-  display:flex; align-items:center; gap:4px;
+.hb-meta-pill svg,
+.hb-meta-pill svg.ic{
+  width:12px;
+  height:12px;
+  opacity:0.8;
 }
+.hb-meta-repeat{
+  background:rgba(239,68,68,.12);
+  color:#ef4444;
+  font-weight:750;
+}
+
+.hb-karta-tytul{
+  font-size:calc(13.5px * var(--uiw, 1));
+  font-weight:700;
+  color:var(--text);
+  line-height:1.45;
+  word-break:break-word;
+  margin:4px 0 2px 0;
+}
+
 .hb-btn-ikona{
-  background:transparent; border:1px solid var(--border);
-  color:var(--text); border-radius:6px; padding:3px 8px;
-  font-size:calc(11.5px * var(--uiw, 1)); cursor:pointer;
-  transition:background .12s;
+  background:var(--panel);
+  border:1px solid var(--border);
+  color:var(--text);
+  border-radius:8px;
+  padding:5px 10px;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .14s ease;
+  white-space:nowrap;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
 }
-.hb-btn-ikona:hover{ background:var(--sel); border-color:var(--accent); }
-
-.hb-karta-opis{
-  font-weight:600; font-size:calc(13.5px * var(--uiw, 1));
-  color:var(--text); line-height:1.4; word-break:break-word;
-  margin-bottom:4px;
+.hb-btn-ikona svg,
+.hb-btn-ikona svg.ic{
+  width:13px;
+  height:13px;
+  flex-shrink:0;
 }
-.hb-karta-gdzie{
-  font-size:calc(12px * var(--uiw, 1)); color:var(--muted);
-  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
-  word-break:break-all;
+.hb-btn-ikona:hover{
+  background:var(--sel);
+  border-color:color-mix(in srgb, var(--accent) 50%, var(--border));
 }
 
 .hb-karta-szczegoly-btn{
-  display:inline-flex; align-items:center; gap:4px; margin-top:8px;
-  background:none; border:0; color:var(--accent); padding:0;
-  font-size:calc(12px * var(--uiw, 1)); font-weight:600; cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:8px;
+  color:var(--accent2);
+  font-size:calc(12px * var(--uiw, 1));
+  font-weight:700;
+  cursor:pointer;
+  user-select:none;
+  transition:all .15s ease;
+  padding:2px 0;
 }
-.hb-karta-szczegoly-btn:hover{ text-decoration:underline; }
+.hb-karta-szczegoly-btn:hover{
+  color:var(--accent);
+  text-decoration:none;
+}
+.hb-karta-szczegoly-btn svg,
+.hb-karta-szczegoly-btn svg.ic{
+  width:13px;
+  height:13px;
+  flex-shrink:0;
+  transition:transform .18s ease;
+}
 
-.hb-karta-detale{
-  display:none; margin-top:10px; padding-top:10px;
-  border-top:1px dashed var(--border);
+.hb-karta-szczegoly-cialo{
+  display:none;
+  flex-direction:column;
+  gap:12px;
+  margin-top:12px;
+  padding-top:14px;
+  border-top:1px dashed color-mix(in srgb, var(--border) 70%, transparent);
+  animation:hbFadeIn .18s ease;
 }
-.hb-karta.otwarta .hb-karta-detale{ display:block; }
+.hb-karta.otwarta .hb-karta-szczegoly-cialo{
+  display:flex;
+}
 
-.hb-meta-grid{
-  display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:6px;
-  font-size:calc(11.5px * var(--uiw, 1)); margin-bottom:8px;
-  background:rgba(0,0,0,.03); padding:8px 10px; border-radius:6px;
+@keyframes hbFadeIn{
+  from{ opacity:0; transform:translateY(-4px); }
+  to{ opacity:1; transform:translateY(0); }
 }
-body.dark .hb-meta-grid{ background:rgba(255,255,255,.04); }
-.hb-meta-item b{ color:var(--muted); font-weight:600; margin-right:4px; }
 
-.hb-stack-label{
-  font-size:calc(11.5px * var(--uiw, 1)); font-weight:700; color:var(--muted);
-  margin:6px 0 3px; display:flex; justify-content:space-between; align-items:center;
+.hb-szczegol-wiersz{
+  display:flex;
+  gap:10px;
+  font-size:calc(12px * var(--uiw, 1));
+  line-height:1.45;
 }
-.hb-pre-box{
-  background:var(--bg); border:1px solid var(--border); border-radius:6px;
-  padding:8px 10px; font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
-  font-size:calc(11px * var(--uiw, 1)); line-height:1.45;
-  white-space:pre-wrap; word-break:break-all; max-height:180px; overflow-y:auto;
+.hb-szczegol-etykieta{
+  font-weight:750;
+  color:var(--muted);
+  flex-shrink:0;
+  font-size:calc(11.5px * var(--uiw, 1));
+  letter-spacing:0.02em;
+}
+.hb-szczegol-wartosc{
   color:var(--text);
+  font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  word-break:break-all;
+  background:color-mix(in srgb, var(--border) 35%, transparent);
+  padding:2px 6px;
+  border-radius:6px;
+  font-size:calc(11.5px * var(--uiw, 1));
 }
 
-/* Tablice i listy audytu spójności */
+.hb-slady-box{
+  width:100%;
+  box-sizing:border-box;
+  background:color-mix(in srgb, var(--border) 25%, transparent);
+  border:1px solid color-mix(in srgb, var(--border) 45%, transparent);
+  border-radius:10px;
+  padding:10px 12px;
+  font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size:calc(11.5px * var(--uiw, 1));
+  line-height:1.6;
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.hb-slad-item{
+  color:var(--muted);
+  display:flex;
+  align-items:baseline;
+  gap:6px;
+}
+.hb-slad-item::before{
+  content:"›";
+  color:var(--accent2);
+  font-weight:800;
+  font-size:13px;
+}
+
+.hb-pre-box{
+  background:#0d1217;
+  color:#f1f5f9;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;
+  padding:12px 14px;
+  font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size:calc(11.5px * var(--uiw, 1));
+  line-height:1.55;
+  white-space:pre-wrap;
+  word-break:break-all;
+  max-height:220px;
+  overflow-y:auto;
+  box-sizing:border-box;
+  width:100%;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.35);
+  scrollbar-width:thin;
+}
+html[data-theme="dark"] .hb-pre-box,
+html[data-theme="oled"] .hb-pre-box,
+html.dark .hb-pre-box,
+body.dark .hb-pre-box{
+  background:#090d12;
+  border-color:rgba(255,255,255,.08);
+}
+
+/* Pusty stan w dzienniku */
+.hb-pusty-stan{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:48px 24px;
+  border:1.5px dashed color-mix(in srgb, var(--border) 80%, transparent);
+  border-radius:18px;
+  background:color-mix(in srgb, var(--panel) 60%, transparent);
+  transition:border-color .2s ease;
+}
+.hb-pusty-stan:hover{
+  border-color:color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+.hb-pusty-ikona{
+  width:58px;
+  height:58px;
+  border-radius:16px;
+  background:rgba(34,160,107,.12);
+  color:#22a06b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:14px;
+  box-shadow:0 0 20px rgba(34,160,107,.12);
+}
+.hb-pusty-ikona svg,
+.hb-pusty-ikona svg.ic{
+  width:26px;
+  height:26px;
+  stroke-width:2.4;
+}
+.hb-pusty-ikona.pusty-szukaj{
+  background:rgba(14,165,233,.12);
+  color:#0ea5e9;
+  box-shadow:0 0 20px rgba(14,165,233,.12);
+}
+.hb-pusty-tytul{
+  font-size:calc(16px * var(--uiw, 1));
+  font-weight:800;
+  letter-spacing:-0.01em;
+  color:var(--text);
+  margin-bottom:6px;
+}
+.hb-pusty-opis{
+  font-size:calc(13px * var(--uiw, 1));
+  color:var(--muted);
+  max-width:440px;
+  line-height:1.5;
+}
+
+/* Spójność bazy (Integrity checks) */
 .diag-check-lista{
   display:flex;
   flex-direction:column;
   gap:10px;
 }
 .diag-check-item{
-  background:var(--card, var(--panel));
+  background:var(--panel);
   border:1px solid var(--border);
-  border-radius:10px;
-  padding:12px 14px;
+  border-radius:14px;
+  padding:14px 16px;
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
   gap:14px;
+  box-shadow:0 1px 3px rgba(0,0,0,.02);
+  transition:border-color .15s ease;
+}
+.diag-check-item:hover{
+  border-color:color-mix(in srgb, var(--accent) 40%, var(--border));
 }
 .diag-check-left{
   display:flex;
   align-items:flex-start;
-  gap:12px;
+  gap:14px;
   flex:1;
 }
 .diag-check-ico{
-  width:28px;
-  height:28px;
-  border-radius:50%;
+  width:32px;
+  height:32px;
+  border-radius:10px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:14px;
-  font-weight:700;
+  font-size:15px;
+  font-weight:800;
   flex-shrink:0;
-  margin-top:2px;
+  margin-top:1px;
 }
-.diag-check-ico.ico-ok{ background:rgba(25,135,84,.15); color:#198754; }
-.diag-check-ico.ico-warn{ background:rgba(253,126,20,.15); color:#fd7e14; }
-.diag-check-ico.ico-err{ background:rgba(220,53,69,.15); color:#dc3545; }
-.diag-check-ico.ico-info{ background:rgba(13,110,253,.15); color:#0d6efd; }
+.diag-check-ico svg.ic{ width:17px; height:17px; stroke-width:2.5; }
+
+.diag-check-ico.ico-ok{ background:rgba(34,160,107,.12); color:#22a06b; }
+.diag-check-ico.ico-warn{ background:rgba(245,158,11,.12); color:#f59e0b; }
+.diag-check-ico.ico-err{ background:rgba(239,68,68,.12); color:#ef4444; }
+.diag-check-ico.ico-info{ background:rgba(14,165,233,.12); color:#0ea5e9; }
 
 .diag-check-nazwa{
-  font-weight:700;
+  font-weight:750;
   font-size:calc(13.5px * var(--uiw, 1));
   color:var(--text);
-  margin-bottom:2px;
+  margin-bottom:3px;
+  line-height:1.35;
 }
 .diag-check-opis{
-  font-size:calc(12px * var(--uiw, 1));
+  font-size:calc(12.5px * var(--uiw, 1));
   color:var(--muted);
-  line-height:1.4;
+  line-height:1.45;
 }
 
-/* Sekcja Testów Wydajności (Benchmarki) */
+/* Testy Wydajności (Benchmark) */
 .diag-bench-summary{
-  background:var(--card, var(--panel));
+  background:var(--panel);
   border:1px solid var(--border);
-  border-radius:12px;
-  padding:16px;
+  border-radius:16px;
+  padding:18px 22px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:16px;
+  gap:18px;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
 }
 .diag-bench-score{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:16px;
 }
 .diag-score-circle{
-  width:54px;
-  height:54px;
+  width:64px;
+  height:64px;
   border-radius:50%;
-  border:3px solid var(--accent);
+  border:3px solid #22a06b;
+  background:radial-gradient(circle at center, rgba(34,160,107,.15), rgba(34,160,107,.04));
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
-  font-size:calc(18px * var(--ui, 1));
-  font-weight:800;
-  color:var(--accent);
+  font-size:calc(21px * var(--ui, 1));
+  font-weight:850;
+  color:#22a06b;
+  font-variant-numeric:tabular-nums;
+  box-shadow:0 0 16px rgba(34,160,107,.18);
+  flex-shrink:0;
+  line-height:1;
+}
+
+.diag-bench-table-wrap{
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  background:var(--panel);
+  box-shadow:0 1px 4px rgba(0,0,0,.03);
 }
 .diag-bench-table{
   width:100%;
   border-collapse:collapse;
   font-size:calc(12.5px * var(--uiw, 1));
-  margin-top:10px;
 }
 .diag-bench-table th, .diag-bench-table td{
-  padding:8px 12px;
-  border-bottom:1px solid var(--border);
+  padding:10px 14px;
+  border-bottom:1px solid color-mix(in srgb, var(--border) 60%, transparent);
   text-align:left;
 }
 .diag-bench-table th{
+  background:color-mix(in srgb, var(--border) 30%, transparent);
   color:var(--muted);
-  font-weight:600;
-  font-size:calc(11.5px * var(--uiw, 1));
+  font-weight:750;
+  font-size:calc(11px * var(--uiw, 1));
   text-transform:uppercase;
-  letter-spacing:0.04em;
+  letter-spacing:0.05em;
 }
+.diag-bench-table tr:last-child td{ border-bottom:0; }
 .diag-bench-table tr:hover td{
-  background:rgba(0,0,0,.02);
+  background:color-mix(in srgb, var(--sel) 50%, transparent);
 }
-body.dark .diag-bench-table tr:hover td{ background:rgba(255,255,255,.02); }
 
-/* Karty Narzędzi Naprawczych */
+/* Narzędzia Naprawcze */
 .diag-repair-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-  gap:12px;
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  gap:14px;
 }
 .diag-repair-card{
-  background:var(--card, var(--panel));
+  background:var(--panel);
   border:1px solid var(--border);
-  border-radius:12px;
-  padding:14px 16px;
+  border-radius:14px;
+  padding:16px 18px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  gap:12px;
-  transition:border-color .15s, box-shadow .15s;
+  gap:14px;
+  box-shadow:0 1px 3px rgba(0,0,0,.03);
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 .diag-repair-card:hover{
-  border-color:var(--accent);
-  box-shadow:0 3px 12px rgba(0,0,0,.05);
+  border-color:color-mix(in srgb, var(--accent) 50%, var(--border));
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(0,0,0,.06);
 }
 .diag-repair-tytul{
   font-size:calc(14px * var(--uiw, 1));
-  font-weight:700;
+  font-weight:750;
   color:var(--text);
-  margin-bottom:4px;
+  margin-bottom:6px;
   display:flex;
   align-items:center;
   gap:8px;
@@ -8783,82 +9314,160 @@ body.dark .diag-bench-table tr:hover td{ background:rgba(255,255,255,.02); }
 .diag-repair-opis{
   font-size:calc(12px * var(--uiw, 1));
   color:var(--muted);
-  line-height:1.45;
+  line-height:1.5;
+}
+.diag-repair-card .btn{
+  width:100%;
+  justify-content:center;
+  font-weight:650;
+  border-radius:9px;
 }
 
 /* Stopka */
 #modalHistoriaBledow .hb-btnrow{
-  position:sticky; bottom:0; z-index:4;
-  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;
-  margin:0; padding:12px var(--sp-5) var(--sp-4);
-  background:var(--panel); border-top:1px solid var(--border);
+  position:sticky;
+  bottom:0;
+  z-index:10;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:0;
+  padding:14px 22px;
+  background:color-mix(in srgb, var(--panel) 94%, var(--bg) 6%);
+  border-top:1px solid var(--border);
 }
 .hb-actions-left, .hb-actions-right{
-  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
 }
 .hb-btn-danger{
-  color:#dc3545; border-color:rgba(220,53,69,.4); background:transparent;
+  color:#ef4444 !important;
+  border-color:rgba(239,68,68,.35) !important;
+  background:rgba(239,68,68,.06) !important;
+  font-weight:650 !important;
+  border-radius:8px !important;
+  transition:all .15s ease !important;
 }
 .hb-btn-danger:hover{
-  background:rgba(220,53,69,.1); border-color:#dc3545; color:#dc3545;
+  background:#ef4444 !important;
+  color:#ffffff !important;
+  border-color:#ef4444 !important;
 }
 
-@media(max-width:640px){
-  #modalHistoriaBledow .hb-btnrow{ flex-direction:column-reverse; align-items:stretch; }
-  .hb-actions-left, .hb-actions-right{ width:100%; justify-content:stretch; }
-  .hb-actions-left button, .hb-actions-right button{ flex:1; }
-  .diag-grid-4{ grid-template-columns:1fr; }
-  .diag-repair-grid{ grid-template-columns:1fr; }
-  .diag-tabs-strip{ gap:2px; }
-  .diag-tab-btn{ padding:6px 9px; font-size:12px; }
-}
-
-/* Badge statusu diagnostycznego w Ustawieniach */
+/* Badge statusu diagnostycznego */
 .hb-badge-pill{
-  font-size:calc(11px * var(--uiw, 1));
-  font-weight:700;
-  padding:2px 8px;
-  border-radius:12px;
+  font-size:calc(11.5px * var(--uiw, 1));
+  font-weight:750;
+  padding:3px 9px;
+  border-radius:999px;
   border:1px solid transparent;
   display:inline-flex;
   align-items:center;
-  gap:4px;
+  gap:5px;
   transition:all .2s ease;
+  line-height:1.35;
+}
+.hb-badge-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  display:inline-block;
+  background:currentColor;
 }
 .hb-badge-pill.hb-badge-ok{
-  background:rgba(25,135,84,.12);
-  color:#198754;
-  border-color:rgba(25,135,84,.25);
+  background:rgba(34,160,107,.12);
+  color:#22a06b;
+  border-color:rgba(34,160,107,.28);
+}
+.hb-badge-pill.hb-badge-warn{
+  background:rgba(245,158,11,.12);
+  color:#d97706;
+  border-color:rgba(245,158,11,.3);
 }
 .hb-badge-pill.hb-badge-err{
-  background:rgba(220,53,69,.15);
-  color:#dc3545;
-  border-color:rgba(220,53,69,.35);
-  animation:hbPulseErr 2s infinite ease-in-out;
+  background:rgba(239,68,68,.12);
+  color:#ef4444;
+  border-color:rgba(239,68,68,.3);
+  animation:hbPulseErr 2.2s infinite ease-in-out;
 }
-html[data-theme="dark"] .hb-badge-pill.hb-badge-ok{
-  background:rgba(46,196,128,.16);
+
+/* Wersje ciemne (Dark / OLED) */
+html[data-theme="dark"] .hb-badge-pill.hb-badge-ok,
+html[data-theme="oled"] .hb-badge-pill.hb-badge-ok,
+html.dark .hb-badge-pill.hb-badge-ok,
+body.dark .hb-badge-pill.hb-badge-ok{
+  background:rgba(34,197,94,.15);
   color:#4ade80;
-  border-color:rgba(46,196,128,.3);
+  border-color:rgba(34,197,94,.32);
 }
-html[data-theme="dark"] .hb-badge-pill.hb-badge-err{
-  background:rgba(248,113,113,.18);
+html[data-theme="dark"] .hb-badge-pill.hb-badge-warn,
+html[data-theme="oled"] .hb-badge-pill.hb-badge-warn,
+html.dark .hb-badge-pill.hb-badge-warn,
+body.dark .hb-badge-pill.hb-badge-warn{
+  background:rgba(251,191,36,.15);
+  color:#fbbf24;
+  border-color:rgba(251,191,36,.32);
+}
+html[data-theme="dark"] .hb-badge-pill.hb-badge-err,
+html[data-theme="oled"] .hb-badge-pill.hb-badge-err,
+html.dark .hb-badge-pill.hb-badge-err,
+body.dark .hb-badge-pill.hb-badge-err{
+  background:rgba(248,113,113,.16);
   color:#f87171;
   border-color:rgba(248,113,113,.35);
 }
+
+/* Wersje Sepia */
 html[data-theme="sepia"] .hb-badge-pill.hb-badge-ok{
-  background:rgba(40,110,70,.12);
+  background:rgba(46,125,50,.12);
   color:#2e7d32;
-  border-color:rgba(40,110,70,.25);
+  border-color:rgba(46,125,50,.28);
 }
 html[data-theme="sepia"] .hb-badge-pill.hb-badge-err{
-  background:rgba(180,50,50,.14);
+  background:rgba(198,40,40,.14);
   color:#c62828;
-  border-color:rgba(180,50,50,.3);
+  border-color:rgba(198,40,40,.3);
 }
+
 @keyframes hbPulseErr{
-  0%,100%{ transform:scale(1); }
-  50%{ transform:scale(1.04); }
+  0%, 100%{ transform:scale(1); }
+  50%{ transform:scale(1.03); }
+}
+
+/* Responsywność */
+@media(max-width:680px){
+  #modalHistoriaBledow .modal.hb-modal{
+    width:100vw !important;
+    height:100dvh !important;
+    max-height:100dvh !important;
+    border-radius:0 !important;
+  }
+  #modalHistoriaBledow .hb-head{
+    padding:14px 16px 0 16px;
+  }
+  .diag-kontener{
+    padding:14px 16px;
+  }
+  #modalHistoriaBledow .hb-btnrow{
+    flex-direction:column-reverse;
+    align-items:stretch;
+    padding:12px 16px;
+  }
+  .hb-actions-left, .hb-actions-right{
+    width:100%;
+    justify-content:stretch;
+  }
+  .hb-actions-left button, .hb-actions-right button{ flex:1; }
+  .diag-grid-4{ grid-template-columns:1fr; }
+  .diag-repair-grid{ grid-template-columns:1fr; }
+  .diag-hero-card{ flex-direction:column; align-items:stretch; }
+  .diag-bench-summary{ flex-direction:column; align-items:stretch; }
+  .diag-tabs-strip{ gap:2px; }
+  .diag-tab-btn{ padding:6px 9px; font-size:11.5px; }
 }
 
 /* ============================================================
@@ -18786,31 +19395,40 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
         </div>
         <div class="hb-head-right">
           <span class="hb-badge-pill hb-badge-ok" id="diagStanGlownyBadge" title="Stan ogólny aplikacji">● Sprawny</span>
-          <button type="button" class="exp-close-btn" data-zamknij="modalHistoriaBledow" title="Zamknij" aria-label="Zamknij">✕</button>
+          <button type="button" class="exp-close-btn" data-zamknij="modalHistoriaBledow" title="Zamknij" aria-label="Zamknij">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         </div>
       </div>
       <div class="diag-tabs-strip" id="diagGlowneZakladki" role="tablist">
         <button type="button" class="diag-tab-btn on" data-diag-tab="podsumowanie" role="tab" aria-selected="true">
-          <span>📊 Podsumowanie</span>
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          <span>Podsumowanie</span>
         </button>
         <button type="button" class="diag-tab-btn" data-diag-tab="bledy" role="tab" aria-selected="false">
-          <span>⚠️ Dziennik błędów</span>
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Dziennik błędów</span>
           <span class="diag-tab-badge" id="diagTabBledyBadge">0</span>
         </button>
         <button type="button" class="diag-tab-btn" data-diag-tab="pamiec" role="tab" aria-selected="false">
-          <span>⚡ Pamięć i zasoby</span>
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <span>Pamięć i zasoby</span>
         </button>
         <button type="button" class="diag-tab-btn" data-diag-tab="spojnosc" role="tab" aria-selected="false">
-          <span>🔍 Spójność bazy</span>
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          <span>Spójność bazy</span>
         </button>
         <button type="button" class="diag-tab-btn" data-diag-tab="wydajnosc" role="tab" aria-selected="false">
-          <span>🚀 Wydajność</span>
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Wydajność</span>
         </button>
         <button type="button" class="diag-tab-btn" data-diag-tab="naprawa" role="tab" aria-selected="false">
-          <span>🛠️ Naprawa</span>
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <span>Naprawa</span>
         </button>
         <button type="button" class="diag-tab-btn" data-diag-tab="raport" role="tab" aria-selected="false">
-          <span>📋 Raport</span>
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Raport</span>
         </button>
       </div>
     </div>
@@ -18820,7 +19438,9 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
       <div class="diag-sekcja on" id="diagSekcjaPodsumowanie">
         <div class="diag-hero-card" id="diagHeroCard">
           <div class="diag-hero-info">
-            <div class="diag-hero-ico" id="diagHeroIco">✓</div>
+            <div class="diag-hero-ico" id="diagHeroIco">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
             <div>
               <div class="diag-hero-tytul" id="diagHeroTytul">System działa poprawnie</div>
               <div class="diag-hero-sub" id="diagHeroSub">Brak krytycznych problemów z bazą danych i pamięcią podręczną.</div>
@@ -18833,18 +19453,28 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
           <div class="diag-stat-card">
             <div class="diag-stat-head">
               <span>NOTATKI W BAZIE</span>
-              <span>📝</span>
+              <span class="diag-stat-ico-badge ico-emerald">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/></svg>
+              </span>
             </div>
             <div class="diag-stat-val" id="diagStatNotatki">—</div>
             <div class="diag-stat-desc" id="diagStatNotatkiDesc">Wczytywanie bazy...</div>
+            <div class="diag-meter-box">
+              <div class="diag-meter-track">
+                <div class="diag-meter-bar meter-ok" id="diagStatNotatkiBar" style="width:100%"></div>
+              </div>
+            </div>
           </div>
 
           <div class="diag-stat-card">
             <div class="diag-stat-head">
               <span>PAMIĘĆ RAM (HEAP)</span>
-              <span>⚡</span>
+              <span class="diag-stat-ico-badge ico-cyan">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </span>
             </div>
             <div class="diag-stat-val" id="diagStatPamiecVal">—</div>
+            <div class="diag-stat-desc" id="diagStatPamiecDesc">Sterta JS i alokacje</div>
             <div class="diag-meter-box">
               <div class="diag-meter-track">
                 <div class="diag-meter-bar meter-ok" id="diagStatPamiecBar" style="width:0%"></div>
@@ -18855,19 +19485,33 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
           <div class="diag-stat-card">
             <div class="diag-stat-head">
               <span>BŁĘDY W SESJI</span>
-              <span>⚠️</span>
+              <span class="diag-stat-ico-badge ico-amber">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </span>
             </div>
             <div class="diag-stat-val" id="diagStatBledyVal">0</div>
             <div class="diag-stat-desc" id="diagStatBledyDesc">Brak zarejestrowanych wyjątków</div>
+            <div class="diag-meter-box">
+              <div class="diag-meter-track">
+                <div class="diag-meter-bar meter-ok" id="diagStatBledyBar" style="width:100%"></div>
+              </div>
+            </div>
           </div>
 
           <div class="diag-stat-card">
             <div class="diag-stat-head">
               <span>MIEJSCE STORAGE</span>
-              <span>💾</span>
+              <span class="diag-stat-ico-badge ico-violet">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+              </span>
             </div>
             <div class="diag-stat-val" id="diagStatStorageVal">—</div>
             <div class="diag-stat-desc" id="diagStatStorageDesc">Pamięć trwała urządzenia</div>
+            <div class="diag-meter-box">
+              <div class="diag-meter-track">
+                <div class="diag-meter-bar meter-ok" id="diagStatStorageBar" style="width:0%"></div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -18876,9 +19520,15 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
             <span>SZYBKIE SKRÓTY DIAGNOSTYCZNE</span>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <button type="button" class="btn" id="diagSzybkiTestWydajnosc">⚡ Uruchom benchmark szybkości</button>
-            <button type="button" class="btn" id="diagSzybkiTestBaza">🔍 Przeskanuj spójność bazy</button>
-            <button type="button" class="btn" id="diagSzybkiWyczyscCache">🧹 Wyczyść cache widoków</button>
+            <button type="button" class="btn" id="diagSzybkiTestWydajnosc">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;margin-right:6px"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Uruchom benchmark szybkości
+            </button>
+            <button type="button" class="btn" id="diagSzybkiTestBaza">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;margin-right:6px"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Przeskanuj spójność bazy
+            </button>
+            <button type="button" class="btn" id="diagSzybkiWyczyscCache">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;margin-right:6px"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"/><path d="m5 2 5 5"/><path d="M2 22h20"/></svg>Wyczyść cache widoków
+            </button>
           </div>
         </div>
       </div>
@@ -18895,7 +19545,9 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
           </div>
           <div class="hb-szukaj-wrap">
             <input type="text" id="hbSzukaj" class="hb-szukaj-input" placeholder="Szukaj w treści błędu, stosie wywołań lub śladach akcji..." autocomplete="off" spellcheck="false" />
-            <button type="button" id="hbSzukajCzysc" class="hb-szukaj-czysc" title="Wyczyść szukanie" style="display:none">✕</button>
+            <button type="button" id="hbSzukajCzysc" class="hb-szukaj-czysc" title="Wyczyść szukanie" style="display:none">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
           </div>
         </div>
         <div id="hbListaWrap" class="hb-lista-wrap">
@@ -18907,9 +19559,14 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
       <div class="diag-sekcja" id="diagSekcjaPamiec">
         <div class="diag-grid-4">
           <div class="diag-stat-card">
-            <div class="diag-stat-head"><span>UŻYCIE HEAP JS</span><span>🧠</span></div>
+            <div class="diag-stat-head">
+              <span>UŻYCIE HEAP JS</span>
+              <span class="diag-stat-ico-badge ico-violet">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4v1a4 4 0 0 0-2 3.46 3.5 3.5 0 0 0 .54 6.54A4 4 0 0 0 10 20h4a4 4 0 0 0 3.46-3 3.5 3.5 0 0 0 .54-6.54A4 4 0 0 0 16 7V6a4 4 0 0 0-4-4Z"/></svg>
+              </span>
+            </div>
             <div class="diag-stat-val" id="diagPamiecUsedVal">—</div>
-            <div class="diag-stat-desc" id="diagPamiecTotalVal">Calkowity przydział: —</div>
+            <div class="diag-stat-desc" id="diagPamiecTotalVal">Całkowity przydział: —</div>
             <div class="diag-meter-box">
               <div class="diag-meter-track">
                 <div class="diag-meter-bar meter-ok" id="diagPamiecBar" style="width:0%"></div>
@@ -18918,21 +19575,51 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
           </div>
 
           <div class="diag-stat-card">
-            <div class="diag-stat-head"><span>ELEMENTY DOM</span><span>🌳</span></div>
+            <div class="diag-stat-head">
+              <span>ELEMENTY DOM</span>
+              <span class="diag-stat-ico-badge ico-emerald">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+              </span>
+            </div>
             <div class="diag-stat-val" id="diagDomWezlyVal">—</div>
             <div class="diag-stat-desc" id="diagDomKartyVal">Karty notatek: —</div>
+            <div class="diag-meter-box">
+              <div class="diag-meter-track">
+                <div class="diag-meter-bar meter-ok" id="diagDomBar" style="width:0%"></div>
+              </div>
+            </div>
           </div>
 
           <div class="diag-stat-card">
-            <div class="diag-stat-head"><span>NOTATKI W RAM</span><span>📄</span></div>
+            <div class="diag-stat-head">
+              <span>NOTATKI W RAM</span>
+              <span class="diag-stat-ico-badge ico-cyan">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </span>
+            </div>
             <div class="diag-stat-val" id="diagNotatkiRamVal">—</div>
             <div class="diag-stat-desc" id="diagNotatkiZnakiVal">Objętość tekstu: —</div>
+            <div class="diag-meter-box">
+              <div class="diag-meter-track">
+                <div class="diag-meter-bar meter-ok" id="diagNotatkiRamBar" style="width:0%"></div>
+              </div>
+            </div>
           </div>
 
           <div class="diag-stat-card">
-            <div class="diag-stat-head"><span>POBRANE PLIKI (BLOB)</span><span>🖼️</span></div>
+            <div class="diag-stat-head">
+              <span>POBRANE PLIKI (BLOB)</span>
+              <span class="diag-stat-ico-badge ico-amber">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              </span>
+            </div>
             <div class="diag-stat-val" id="diagMediaCountVal">—</div>
             <div class="diag-stat-desc" id="diagMediaRozmiarVal">W magazynie plików</div>
+            <div class="diag-meter-box">
+              <div class="diag-meter-track">
+                <div class="diag-meter-bar meter-ok" id="diagMediaBar" style="width:0%"></div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -18953,7 +19640,9 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
         </div>
 
         <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;">
-          <button type="button" class="btn" id="diagBtnOdswiezPamiec">🔄 Odśwież stan pamięci</button>
+          <button type="button" class="btn" id="diagBtnOdswiezPamiec">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;margin-right:6px"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>Odśwież stan pamięci
+          </button>
         </div>
       </div>
 
@@ -18964,13 +19653,17 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
             <div style="font-weight:700;font-size:calc(14px * var(--uiw, 1));">Automatyczny audyt integralności bazy IndexedDB</div>
             <div style="font-size:calc(12px * var(--uiw, 1));color:var(--muted);">Weryfikacja unikalności GUID, poprawności dat, powiązań etykiet i osieroconych plików.</div>
           </div>
-          <button type="button" class="btn primary" id="diagBtnSkanujBaze">Rozpocznij skanowanie bazy</button>
+          <button type="button" class="btn primary" id="diagBtnSkanujBaze">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;margin-right:6px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>Rozpocznij skanowanie bazy
+          </button>
         </div>
 
         <div class="diag-check-lista" id="diagCheckLista">
           <div class="diag-check-item">
             <div class="diag-check-left">
-              <div class="diag-check-ico ico-info">?</div>
+              <div class="diag-check-ico ico-info">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              </div>
               <div>
                 <div class="diag-check-nazwa">Audyt nie został jeszcze uruchomiony</div>
                 <div class="diag-check-opis">Kliknij przycisk „Rozpocznij skanowanie bazy”, aby przetestować wszystkie magazyny danych.</div>
@@ -18990,7 +19683,9 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
               <div style="font-size:calc(12px * var(--uiw, 1));color:var(--muted);" id="diagBenchOcenaOpis">Kliknij przycisk poniżej, aby zmierzyć szybkość bazy i wyszukiwania.</div>
             </div>
           </div>
-          <button type="button" class="btn primary" id="diagBtnUruchomBenchmark">🚀 Rozpocznij testy</button>
+          <button type="button" class="btn primary" id="diagBtnUruchomBenchmark">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;margin-right:6px"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Rozpocznij testy
+          </button>
         </div>
 
         <table class="diag-bench-table">
@@ -19020,7 +19715,12 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
         <div class="diag-repair-grid">
           <div class="diag-repair-card">
             <div>
-              <div class="diag-repair-tytul"><span>🆔</span> Naprawa brakujących GUID i dat</div>
+              <div class="diag-repair-tytul">
+                <span class="diag-stat-ico-badge ico-violet" style="display:inline-flex;margin-right:8px;vertical-align:middle;width:28px;height:28px;">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h10"/><path d="M7 12h10"/><path d="M7 17h6"/></svg>
+                </span>
+                Naprawa brakujących GUID i dat
+              </div>
               <div class="diag-repair-opis">Sprawdza notatki i uzupełnia brakujące unikalne identyfikatory oraz znaczniki czasu modyfikacji.</div>
             </div>
             <button type="button" class="btn" id="diagFixGuidIDaty">Napraw identyfikatory i daty</button>
@@ -19028,7 +19728,12 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
 
           <div class="diag-repair-card">
             <div>
-              <div class="diag-repair-tytul"><span>🗑️</span> Czyszczenie osieroconych plików</div>
+              <div class="diag-repair-tytul">
+                <span class="diag-stat-ico-badge ico-rose" style="display:inline-flex;margin-right:8px;vertical-align:middle;width:28px;height:28px;">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                </span>
+                Czyszczenie osieroconych plików
+              </div>
               <div class="diag-repair-opis">Wyszukuje i usuwa z pamięci trwałej zdjęcia i pliki, które nie są już używane w żadnej notatce.</div>
             </div>
             <button type="button" class="btn" id="diagFixUsunOsieroconePliki">Usuń zbędne pliki</button>
@@ -19036,7 +19741,12 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
 
           <div class="diag-repair-card">
             <div>
-              <div class="diag-repair-tytul"><span>🏷️</span> Porządkowanie etykiet</div>
+              <div class="diag-repair-tytul">
+                <span class="diag-stat-ico-badge ico-emerald" style="display:inline-flex;margin-right:8px;vertical-align:middle;width:28px;height:28px;">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
+                </span>
+                Porządkowanie etykiet
+              </div>
               <div class="diag-repair-opis">Usuwa z notatek odwołania do etykiet, które zostały wcześniej skasowane z listy.</div>
             </div>
             <button type="button" class="btn" id="diagFixUporzadkujEtykiety">Uporządkuj etykiety</button>
@@ -19044,7 +19754,12 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
 
           <div class="diag-repair-card">
             <div>
-              <div class="diag-repair-tytul"><span>🔍</span> Przebudowa indeksu szukania</div>
+              <div class="diag-repair-tytul">
+                <span class="diag-stat-ico-badge ico-cyan" style="display:inline-flex;margin-right:8px;vertical-align:middle;width:28px;height:28px;">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                </span>
+                Przebudowa indeksu szukania
+              </div>
               <div class="diag-repair-opis">Czyści pamięć podręczną wyszukiwarki i buduje świeży indeks słów dla wszystkich notatek.</div>
             </div>
             <button type="button" class="btn" id="diagFixPrzebudujIndeks">Przebuduj indeks</button>
@@ -19052,7 +19767,12 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
 
           <div class="diag-repair-card">
             <div>
-              <div class="diag-repair-tytul"><span>🧹</span> Reset pamięci podręcznej UI</div>
+              <div class="diag-repair-tytul">
+                <span class="diag-stat-ico-badge ico-amber" style="display:inline-flex;margin-right:8px;vertical-align:middle;width:28px;height:28px;">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z"/><path d="m5 2 5 5"/><path d="M2 22h20"/></svg>
+                </span>
+                Reset pamięci podręcznej UI
+              </div>
               <div class="diag-repair-opis">Resetuje tymczasowe filtry, historię widoków i stany paneli bez usuwania jakichkolwiek notatek.</div>
             </div>
             <button type="button" class="btn" id="diagFixResetCacheUI">Zresetuj cache UI</button>
@@ -19067,9 +19787,15 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
         </div>
         <pre class="hb-pre-box" id="diagRaportPodgladTekst" style="max-height:340px;height:340px;">Generowanie raportu...</pre>
         <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;">
-          <button type="button" class="btn" id="diagBtnKopiujRaportPelny">📋 Kopiuj raport do schowka</button>
-          <button type="button" class="btn" id="diagBtnPobierzRaportTxt">💾 Pobierz raport (TXT)</button>
-          <button type="button" class="btn" id="diagBtnPobierzRaportJson">📦 Pobierz raport (JSON)</button>
+          <button type="button" class="btn" id="diagBtnKopiujRaportPelny">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;margin-right:6px"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>Kopiuj raport do schowka
+          </button>
+          <button type="button" class="btn" id="diagBtnPobierzRaportTxt">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;margin-right:6px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>Pobierz raport (TXT)
+          </button>
+          <button type="button" class="btn" id="diagBtnPobierzRaportJson">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;margin-right:6px"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="12" x2="12" y1="18" y2="12"/><line x1="9" x2="15" y1="15" y2="15"/></svg>Pobierz raport (JSON)
+          </button>
         </div>
       </div>
     </div>
@@ -19077,11 +19803,17 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
     <!-- STOPKA -->
     <div class="btnrow hb-btnrow">
       <div class="hb-actions-left">
-        <button type="button" class="btn hb-btn-danger" id="hbBtnWyczysc" title="Czyści całą historię błędów">Wyczyść historię błędów</button>
+        <button type="button" class="btn hb-btn-danger" id="hbBtnWyczysc" title="Czyści całą historię błędów">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;margin-right:6px"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>Wyczyść historię błędów
+        </button>
       </div>
       <div class="hb-actions-right">
-        <button type="button" class="btn" id="hbBtnEksportJson" title="Pobierz plik JSON z historią błędów">Eksportuj JSON</button>
-        <button type="button" class="btn" id="hbBtnKopiujRaport" title="Kopiuje pełny tekst raportu do schowka">Kopiuj raport</button>
+        <button type="button" class="btn" id="hbBtnEksportJson" title="Pobierz plik JSON z historią błędów">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;margin-right:6px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>Eksportuj JSON
+        </button>
+        <button type="button" class="btn" id="hbBtnKopiujRaport" title="Kopiuje pełny tekst raportu do schowka">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;margin-right:6px"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>Kopiuj raport
+        </button>
         <button type="button" class="btn primary" data-zamknij="modalHistoriaBledow">Zamknij</button>
       </div>
     </div>
@@ -19606,8 +20338,13 @@ const HistoriaBledow = (function(){
     // Stat 1: Notatki
     const elNotatki = document.getElementById("diagStatNotatki");
     const elNotatkiDesc = document.getElementById("diagStatNotatkiDesc");
+    const elNotatkiBar = document.getElementById("diagStatNotatkiBar");
     if(elNotatki) elNotatki.textContent = aktywne.toLocaleString("pl-PL");
     if(elNotatkiDesc) elNotatkiDesc.textContent = `${allNotes.length} łącznie (${wKoszu} w koszu), ${allTags.length} etykiet`;
+    if(elNotatkiBar){
+      elNotatkiBar.style.width = aktywne > 0 ? "100%" : "0%";
+      elNotatkiBar.className = "diag-meter-bar meter-ok";
+    }
 
     // Stat 2: RAM (Heap)
     const elPamiecVal = document.getElementById("diagStatPamiecVal");
@@ -19618,7 +20355,7 @@ const HistoriaBledow = (function(){
       const pct = Math.min(100, Math.round((window.performance.memory.usedJSHeapSize / window.performance.memory.jsHeapSizeLimit) * 100));
       if(elPamiecVal) elPamiecVal.textContent = usedMB + " MB";
       if(elPamiecBar){
-        elPamiecBar.style.width = pct + "%";
+        elPamiecBar.style.width = Math.max(5, pct) + "%";
         elPamiecBar.className = "diag-meter-bar " + (pct > 80 ? "meter-err" : (pct > 50 ? "meter-warn" : "meter-ok"));
       }
     } else {
@@ -19626,18 +20363,34 @@ const HistoriaBledow = (function(){
       allNotes.forEach(n => { if(n) znaki += (n.t ? n.t.length : 0) + (n.c ? n.c.length : 0) + (n.h ? n.h.length : 0); });
       const estKB = Math.round(znaki * 2 / 1024);
       if(elPamiecVal) elPamiecVal.textContent = estKB > 1024 ? (estKB/1024).toFixed(1) + " MB" : estKB + " KB";
-      if(elPamiecBar) elPamiecBar.style.width = "25%";
+      if(elPamiecBar){
+        const estPct = Math.min(100, Math.max(10, Math.round((estKB / 10240) * 100)));
+        elPamiecBar.style.width = estPct + "%";
+        elPamiecBar.className = "diag-meter-bar meter-ok";
+      }
     }
 
     // Stat 3: Błędy
     const elBledyVal = document.getElementById("diagStatBledyVal");
     const elBledyDesc = document.getElementById("diagStatBledyDesc");
+    const elBledyBar = document.getElementById("diagStatBledyBar");
     if(elBledyVal) elBledyVal.textContent = String(errCount);
     if(elBledyDesc) elBledyDesc.textContent = errCount === 0 ? "Brak zarejestrowanych wyjątków" : `${errCount} zarejestrowanych wpisów`;
+    if(elBledyBar){
+      if(errCount === 0){
+        elBledyBar.style.width = "100%";
+        elBledyBar.className = "diag-meter-bar meter-ok";
+      } else {
+        const errPct = Math.min(100, Math.max(15, errCount * 20));
+        elBledyBar.style.width = errPct + "%";
+        elBledyBar.className = "diag-meter-bar " + (errCount > 3 ? "meter-err" : "meter-warn");
+      }
+    }
 
     // Stat 4: Storage Quota
     const elStorageVal = document.getElementById("diagStatStorageVal");
     const elStorageDesc = document.getElementById("diagStatStorageDesc");
+    const elStorageBar = document.getElementById("diagStatStorageBar");
     if(navigator.storage && navigator.storage.estimate){
       try{
         const est = await navigator.storage.estimate();
@@ -19646,11 +20399,23 @@ const HistoriaBledow = (function(){
         const pct = est.quota ? Math.round((est.usage / est.quota) * 100) : 0;
         if(elStorageVal) elStorageVal.textContent = uMB + " MB";
         if(elStorageDesc) elStorageDesc.textContent = `${pct}% z ${qGB} GB dostępnych`;
+        if(elStorageBar){
+          elStorageBar.style.width = Math.max(2, pct) + "%";
+          elStorageBar.className = "diag-meter-bar " + (pct > 85 ? "meter-err" : (pct > 60 ? "meter-warn" : "meter-ok"));
+        }
       }catch(_){
         if(elStorageVal) elStorageVal.textContent = "Dostępny";
+        if(elStorageBar){
+          elStorageBar.style.width = "15%";
+          elStorageBar.className = "diag-meter-bar meter-ok";
+        }
       }
     } else {
       if(elStorageVal) elStorageVal.textContent = "IndexedDB";
+      if(elStorageBar){
+        elStorageBar.style.width = "20%";
+        elStorageBar.className = "diag-meter-bar meter-ok";
+      }
     }
 
     // Hero Card
@@ -19661,17 +20426,17 @@ const HistoriaBledow = (function(){
     if(heroCard && heroIco && heroTytul && heroSub){
       if(errCount === 0 && (!_ostatniAudytSpojnosci || _ostatniAudytSpojnosci.bledy === 0)){
         heroCard.className = "diag-hero-card";
-        heroIco.textContent = "✓";
+        heroIco.innerHTML = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px"><polyline points="20 6 9 17 4 12"/></svg>';
         heroTytul.textContent = "System działa poprawnie";
         heroSub.textContent = "Brak krytycznych problemów z bazą danych i pamięcią podręczną.";
       } else if(errCount > 0){
         heroCard.className = "diag-hero-card hero-warn";
-        heroIco.textContent = "⚠️";
+        heroIco.innerHTML = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
         heroTytul.textContent = `Zarejestrowano ${errCount} ${errCount===1?'błąd':'błędów'} w sesji`;
         heroSub.textContent = "Wykryto zdarzenia diagnostyczne. Przejdź do zakładki Dziennik błędów, aby poznać szczegóły.";
       } else if(_ostatniAudytSpojnosci && _ostatniAudytSpojnosci.bledy > 0){
         heroCard.className = "diag-hero-card hero-err";
-        heroIco.textContent = "✕";
+        heroIco.innerHTML = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
         heroTytul.textContent = "Wykryto niespójności w bazie danych";
         heroSub.textContent = `Audyt wykrył ${_ostatniAudytSpojnosci.bledy} problemów. Przejdź do zakładki Naprawa, aby je rozwiązać.`;
       }
@@ -19711,14 +20476,18 @@ const HistoriaBledow = (function(){
       if(wszystkie.length === 0){
         listaWrap.innerHTML = `
           <div class="hb-pusty-stan">
-            <span class="hb-pusty-ikona">✓</span>
+            <span class="hb-pusty-ikona">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
             <div class="hb-pusty-tytul">Brak zarejestrowanych błędów</div>
             <div class="hb-pusty-opis">Aplikacja działa stabilnie. Wszystkie procesy wykonują się bez zakłóceń.</div>
           </div>`;
       } else {
         listaWrap.innerHTML = `
           <div class="hb-pusty-stan">
-            <span class="hb-pusty-ikona">🔍</span>
+            <span class="hb-pusty-ikona">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </span>
             <div class="hb-pusty-tytul">Brak pasujących wpisów</div>
             <div class="hb-pusty-opis">Żaden błąd nie odpowiada wybranemu filtrowi lub frazie „${_esc(_szukanaFraza)}”.</div>
           </div>`;
@@ -19733,11 +20502,15 @@ const HistoriaBledow = (function(){
       const typEtykieta = item.typ === "idb" ? "BAZA IDB" : (item.typ === "promise" ? "PROMISE" : (item.typ === "siec" ? "SIEĆ" : "BŁĄD JS"));
 
       let metaPills = `
-        <span class="hb-meta-pill">🕒 ${_esc(item.czasFormatowany || item.timestamp)}</span>
-        <span class="hb-meta-pill">📍 ${_esc(item.widok || "Główny")}</span>`;
+        <span class="hb-meta-pill">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;margin-right:4px;vertical-align:middle"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${_esc(item.czasFormatowany || item.timestamp)}
+        </span>
+        <span class="hb-meta-pill">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;margin-right:4px;vertical-align:middle"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>${_esc(item.widok || "Główny")}
+        </span>`;
       
       if(item.stanAplikacji && item.stanAplikacji.notatek != null){
-        metaPills += `<span class="hb-meta-pill">📝 ${item.stanAplikacji.notatek} notatek</span>`;
+        metaPills += `<span class="hb-meta-pill"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;margin-right:4px;vertical-align:middle"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>${item.stanAplikacji.notatek} notatek</span>`;
       }
       if(item.powtorzen > 1){
         metaPills += `<span class="hb-meta-pill hb-meta-repeat">✕ ${item.powtorzen} powtórzeń</span>`;
@@ -19754,7 +20527,9 @@ const HistoriaBledow = (function(){
               <div class="hb-karta-tytul">${_esc(item.komunikat)}</div>
             </div>
             <div class="hb-karta-akcje">
-              <button type="button" class="hb-btn-ikona" data-hb-act="kopiuj" title="Kopiuj ten błąd do schowka">📋 Kopiuj</button>
+              <button type="button" class="hb-btn-ikona" data-hb-act="kopiuj" title="Kopiuj ten błąd do schowka">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;margin-right:4px;vertical-align:middle"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>Kopiuj
+              </button>
             </div>
           </div>
 
@@ -19900,7 +20675,9 @@ const HistoriaBledow = (function(){
       elLista.innerHTML = `
         <div class="diag-check-item">
           <div class="diag-check-left">
-            <div class="diag-check-ico ico-info">⏳</div>
+            <div class="diag-check-ico ico-info" style="display:flex;align-items:center;justify-content:center;">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;animation:spin 0.9s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+            </div>
             <div>
               <div class="diag-check-nazwa">Trwa skanowanie bazy danych IndexedDB...</div>
               <div class="diag-check-opis">Weryfikacja tabel notatek, powiązań tagów, plików i historii wersji.</div>
@@ -20056,12 +20833,22 @@ const HistoriaBledow = (function(){
     if(elLista){
       let html = "";
       wyniki.forEach(w => {
-        const ico = w.stan === "ok" ? "✓" : (w.stan === "warn" ? "⚠️" : "✕");
-        const icoCls = w.stan === "ok" ? "ico-ok" : (w.stan === "warn" ? "ico-warn" : "ico-err");
+        let ico = "";
+        let icoCls = "ico-ok";
+        if(w.stan === "ok"){
+          icoCls = "ico-ok";
+          ico = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><polyline points="20 6 9 17 4 12"/></svg>';
+        } else if(w.stan === "warn"){
+          icoCls = "ico-warn";
+          ico = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+        } else {
+          icoCls = "ico-err";
+          ico = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+        }
         html += `
           <div class="diag-check-item">
             <div class="diag-check-left">
-              <div class="diag-check-ico ${icoCls}">${ico}</div>
+              <div class="diag-check-ico ${icoCls}" style="display:flex;align-items:center;justify-content:center;">${ico}</div>
               <div>
                 <div class="diag-check-nazwa">${_esc(w.nazwa)}</div>
                 <div class="diag-check-opis">${_esc(w.opis)}</div>
