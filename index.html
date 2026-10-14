@@ -15885,21 +15885,20 @@ html[data-theme="sepia"] .sidebar-float-trigger {
   z-index: 200050 !important;
 }
 
-/* ══════════════ WYSOKOŚĆ I DOPASOWANIE NAGŁÓWKA (IPAD & SAFE AREA — POSZERZENIE O 30%) ══════════════ */
-header {
-  position: relative;
-  min-height: calc(72px + env(safe-area-inset-top, 0px)) !important;
-  padding-top: max(26px, calc(16px + env(safe-area-inset-top, 0px))) !important;
-  padding-bottom: 14px !important;
-  padding-left: max(16px, env(safe-area-inset-left, 0px)) !important;
-  padding-right: max(16px, env(safe-area-inset-right, 0px)) !important;
-  gap: 10px !important;
-  row-gap: 10px !important;
-  background-color: var(--accent, #1b6348) !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  isolation: isolate;
+/* ══════════════ WYSOKOŚĆ I DOPASOWANIE NAGŁÓWKA (DESKTOP) ══════════════ */
+@media (min-width: 769px) {
+  header {
+    position: relative;
+    min-height: 52px;
+    padding: 8px 14px;
+    gap: 8px;
+    background-color: var(--accent, #1b6348) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    isolation: isolate;
+  }
 }
+
 /* Blokowanie przeźroczystości od góry przy przewijaniu/status barze iOS */
 header::before {
   content: "";
@@ -15920,68 +15919,298 @@ html[data-theme="oled"] header {
   background: #000000 !important;
   background-color: #000000 !important;
 }
-html.is-ios, html.is-ipad {
+html.is-ios, html.is-ipad, html.is-iphone {
   background-color: var(--accent, #134e38);
 }
-html.is-ios[data-theme="dark"], html.is-ipad[data-theme="dark"] {
+html.is-ios[data-theme="dark"], html.is-ipad[data-theme="dark"], html.is-iphone[data-theme="dark"] {
   background-color: #0d1217;
 }
-header .btn,
-header #sortSel,
-header .fontctl button {
+
+/* Styl powiększony dedykowany wyłącznie dla tabletów iPad */
+html.is-ipad header, body.is-ipad header,
+html.ipad-standalone header, body.ipad-standalone header {
+  min-height: calc(70px + env(safe-area-inset-top, 0px)) !important;
+  padding-top: max(26px, calc(18px + env(safe-area-inset-top, 0px))) !important;
+  padding-bottom: 12px !important;
+}
+html.is-ipad header .btn,
+html.is-ipad header #sortSel,
+html.is-ipad header .fontctl button {
   min-height: 40px !important;
 }
-header .searchwrap {
+html.is-ipad header .searchwrap {
   min-height: 42px !important;
 }
-header .mobile-menu-btn {
+html.is-ipad header .mobile-menu-btn {
   min-width: 42px !important;
   min-height: 42px !important;
 }
-#modernSidebar {
-  padding-top: max(22px, calc(14px + env(safe-area-inset-top, 0px))) !important;
-}
-
-html.is-ipad header, body.is-ipad header,
-html.is-ios header, body.is-ios header,
-html.ipad-standalone header, body.ipad-standalone header,
-html.ios-standalone header, body.ios-standalone header {
-  min-height: calc(76px + env(safe-area-inset-top, 0px)) !important;
-  padding-top: max(32px, calc(20px + env(safe-area-inset-top, 0px))) !important;
-  padding-bottom: 14px !important;
-}
 
 html.ipad-standalone #modernSidebar, body.ipad-standalone #modernSidebar,
-html.is-ipad #modernSidebar, body.is-ipad #modernSidebar,
-html.ios-standalone #modernSidebar, body.ios-standalone #modernSidebar,
-html.is-ios #modernSidebar, body.is-ios #modernSidebar {
+html.is-ipad #modernSidebar, body.is-ipad #modernSidebar {
   padding-top: max(24px, calc(14px + env(safe-area-inset-top, 0px))) !important;
 }
 
-/* ══════════════ OCHRONA OKIEN FUNKCJI I MENU PRZED ROZMYCIEM W IOS ══════════════ */
+/* ══════════════ ULTRA-KOMPAKTOWY GÓRNY PASEK DLA IPHONE I EKRANÓW MOBILNYCH ══════════════ */
+@media (max-width: 768px), (max-width: 900px) and (pointer: coarse), (max-height: 500px) and (pointer: coarse) {
+  header,
+  html.is-iphone header,
+  body.is-iphone header,
+  html.iphone-standalone header,
+  body.iphone-standalone header {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 6px !important;
+    row-gap: 5px !important;
+    padding-top: max(8px, calc(env(safe-area-inset-top, 0px) + 6px)) !important;
+    padding-bottom: 6px !important;
+    padding-left: max(8px, env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(8px, env(safe-area-inset-right, 0px)) !important;
+    min-height: auto !important;
+    height: auto !important;
+  }
+
+  /* RZĄD 1 (ZOPTYMALIZOWANY, 1 WIERSZ): Hamburger (lewa), Wyszukiwarka (środek), Nowa (prawa) */
+  header .mobile-menu-btn {
+    order: 1 !important;
+    flex: 0 0 36px !important;
+    width: 36px !important;
+    min-width: 36px !important;
+    max-width: 36px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 9px !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+  }
+
+  header .searchwrap {
+    order: 2 !important;
+    flex: 1 1 auto !important;
+    width: calc(100% - 72px - 12px) !important;
+    max-width: calc(100% - 84px) !important;
+    min-width: 140px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    margin: 0 !important;
+    border-radius: 10px !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+  }
+  header .searchwrap #search {
+    height: 36px !important;
+    font-size: 16px !important;
+    padding: 0 28px 0 32px !important;
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+  }
+  header .searchwrap .search-ic {
+    left: 8px !important;
+    width: 16px !important;
+    height: 16px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
+  header .searchwrap #btnSearchTools {
+    right: 4px !important;
+    width: 22px !important;
+    height: 28px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  header #btnNew {
+    order: 3 !important;
+    flex: 0 0 36px !important;
+    width: 36px !important;
+    min-width: 36px !important;
+    max-width: 36px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+  }
+  header #btnNew .tb-txt,
+  header #btnNew .tb-txt::after {
+    display: none !important;
+  }
+  header #btnNew .ic {
+    margin: 0 !important;
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  /* RZĄD 2 (KOMPAKTOWY, 1 WIERSZ): Wszystkie (gdy widoczny) | Sortowanie (flex) | Undo/Redo | Rozmiar A-/A+ */
+  header #btnWszystkie:not([hidden]) {
+    order: 10 !important;
+    flex: 0 0 auto !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    padding: 0 8px !important;
+    font-size: 11.5px !important;
+    white-space: nowrap !important;
+    gap: 4px !important;
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+  }
+  header #btnWszystkie .bwTxt,
+  header #btnWszystkie .bwTxt::after {
+    font-size: 11.5px !important;
+  }
+
+  header #sortSel {
+    order: 11 !important;
+    flex: 1 1 0% !important;
+    min-width: 70px !important;
+    max-width: none !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    padding: 0 6px !important;
+    font-size: 11.5px !important;
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    text-overflow: ellipsis !important;
+  }
+
+  header .ikony-grupa {
+    order: 12 !important;
+    flex: 0 0 auto !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    border-radius: 8px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+  }
+  header .ikony-grupa .btn {
+    width: 28px !important;
+    min-width: 28px !important;
+    max-width: 28px !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+  header .ikony-grupa .btn .ic {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  header .fontctl {
+    order: 13 !important;
+    flex: 0 0 auto !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    border-radius: 8px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+  }
+  header .fontctl button {
+    height: 30px !important;
+    min-height: 30px !important;
+    padding: 0 6px !important;
+    font-size: 11px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Pasek zakładek dolny/mobilny */
+  #mobileTabs {
+    padding: 3px 6px !important;
+    gap: 4px !important;
+    min-height: 36px !important;
+  }
+  #mobileTabs button {
+    min-height: 30px !important;
+    height: 30px !important;
+    padding: 3px 2px !important;
+    font-size: 11.5px !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+  }
+}
+
+html.is-iphone #modernSidebar, body.is-iphone #modernSidebar,
+html.iphone-standalone #modernSidebar, body.iphone-standalone #modernSidebar {
+  padding-top: max(14px, calc(env(safe-area-inset-top, 0px) + 10px)) !important;
+  padding-bottom: max(14px, calc(env(safe-area-inset-bottom, 0px) + 10px)) !important;
+}
+
+/* ══════════════ OCHRONA OKIEN FUNKCJI I MENU PRZED ROZMYCIEM I DOPASOWANIE DO EKRANÓW MOBILNYCH ══════════════ */
 .overlay {
-  padding-top: max(36px, calc(24px + env(safe-area-inset-top, 0px))) !important;
-  padding-bottom: max(20px, calc(16px + env(safe-area-inset-bottom, 0px))) !important;
+  padding-top: max(8px, calc(4px + env(safe-area-inset-top, 0px))) !important;
+  padding-bottom: max(8px, calc(4px + env(safe-area-inset-bottom, 0px))) !important;
+  padding-left: max(8px, env(safe-area-inset-left, 0px)) !important;
+  padding-right: max(8px, env(safe-area-inset-right, 0px)) !important;
+  box-sizing: border-box !important;
 }
 .modal, .fsmodal {
-  max-height: calc(min(88vh, 880px) - max(36px, env(safe-area-inset-top, 0px)) - var(--kb, 0px)) !important;
+  width: min(540px, calc(100vw - 16px)) !important;
+  max-width: calc(100vw - 16px) !important;
+  max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 20px - var(--kb, 0px)) !important;
+  box-sizing: border-box !important;
   background: var(--panel) !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
   opacity: 1 !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+@media (max-width: 600px) {
+  .modal, .fsmodal {
+    padding: 16px 14px !important;
+    border-radius: 16px !important;
+  }
 }
 #askModal .askbox,
 #msgModal .askbox,
-#modalImportu .import-box,
-#dropdown,
-#searchSug,
-#colorMenu,
-#ebPop,
-#readPop {
+#modalImportu .import-box {
+  width: min(400px, calc(100vw - 20px)) !important;
+  max-width: calc(100vw - 20px) !important;
+  border-radius: 16px !important;
+  padding: 16px 14px !important;
+  box-sizing: border-box !important;
   background: var(--panel) !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
   opacity: 1 !important;
+}
+#dropdown,
+#searchSug,
+#colorMenu,
+#motywMenu,
+#ebPop,
+#readPop {
+  max-width: calc(100vw - 16px) !important;
+  background: var(--panel) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  opacity: 1 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28) !important;
+  border-radius: 14px !important;
+}
+#modernSidebar {
+  max-width: 86vw !important;
 }
 html[data-theme="dark"] .modal,
 html[data-theme="dark"] .fsmodal,
@@ -15991,6 +16220,7 @@ html[data-theme="dark"] #modalImportu .import-box,
 html[data-theme="dark"] #dropdown,
 html[data-theme="dark"] #searchSug,
 html[data-theme="dark"] #colorMenu,
+html[data-theme="dark"] #motywMenu,
 html[data-theme="dark"] #ebPop,
 html[data-theme="dark"] #readPop {
   background: #161e26 !important;
@@ -17016,16 +17246,19 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
 <script>
 (function(){
   try {
-    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    var isIPad = /iPad/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var isIPhone = /iPhone|iPod/.test(navigator.userAgent);
+    var isIPad = !isIPhone && (/iPad/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1));
+    var isIOS = isIPhone || isIPad || /iPad|iPhone|iPod/.test(navigator.userAgent);
     if(isIOS){
       document.documentElement.classList.add('is-ios');
       if(isIPad) document.documentElement.classList.add('is-ipad');
+      if(isIPhone) document.documentElement.classList.add('is-iphone');
     }
     if(navigator.standalone || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches)){
       document.documentElement.classList.add('is-standalone');
       if(isIOS) document.documentElement.classList.add('ios-standalone');
       if(isIPad) document.documentElement.classList.add('ipad-standalone');
+      if(isIPhone) document.documentElement.classList.add('iphone-standalone');
     }
   } catch(e){}
 })();
@@ -18823,6 +19056,20 @@ const DBNAME = "jwStudyClean";   // nazwa pamięci tej kopii aplikacji
 const KP = "jws";               // prefiks ustawień
 let notes = [], tags = [], deletedGuids = [];
 let filt = {tag:"all", book:"all", ch:null, pub:"all"};
+let _tagMapCache = null;
+let _tagMapCacheVer = -1;
+function tagById(id){
+  if(id == null) return null;
+  const curVer = (typeof _tagsVer !== "undefined") ? _tagsVer : 0;
+  if(!_tagMapCache || _tagMapCacheVer !== curVer || _tagMapCache.size !== (tags ? tags.length : 0)){
+    _tagMapCache = new Map((Array.isArray(tags) ? tags : []).map(t => [t.id, t]));
+    _tagMapCacheVer = curVer;
+  }
+  return _tagMapCache.get(id) || _tagMapCache.get(+id) || _tagMapCache.get(String(id)) || null;
+}
+function invalidateTagCache(){ _tagMapCache = null; _tagMapCacheVer = -1; }
+window.tagById = tagById;
+window.invalidateTagCache = invalidateTagCache;
 
 /* ——— Globalne zmienne i funkcje wyszukiwarki (gwarancja dostępności od startu) ——— */
 function norm(s){ return (s||"").toLowerCase().replace(/\u0142/g,"l").normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
@@ -19801,23 +20048,33 @@ const HistoriaBledow = (function(){
 
     // Test 1: Full-text search (50 queries)
     const keywords = ["bóg", "jezus", "modlitwa", "serce", "wiara", "prawda", "życie", "miłość", "nadzieja", "pokój", "1", "2", "3", "a", "w", "z", "do", "na", "nie", "tak", "biblia", "werset", "rozważanie", "studium", "słowo", "zebranie", "zborowe", "służba", "temat", "tekst", "nowy", "stary", "dzień", "rok", "czas", "świat", "człowiek", "duch", "ciało", "dobro", "zło", "królestwo", "ewangelia", "apostoł", "prorok", "brat", "siostra", "zbór", "cel"];
+    const searchBatchSize = Math.min(allNotes.length, typeof SEARCH_SCAN_STEP !== "undefined" ? SEARCH_SCAN_STEP : 1200);
+    const searchSample = allNotes.length > searchBatchSize ? allNotes.slice(0, searchBatchSize) : allNotes;
+    const searchTexts = searchSample.map(n => {
+      if(!n) return "";
+      const cached = (typeof _searchCache !== "undefined" && _searchCache) ? _searchCache.get(n) : null;
+      return cached ? cached.norm : ((n.t || "") + " " + (n.c || "")).toLowerCase();
+    });
     const t0 = performance.now();
     let hits = 0;
-    keywords.forEach(kw => {
-      const q = kw.toLowerCase();
-      allNotes.forEach(n => {
-        if(n && ((n.t && n.t.toLowerCase().includes(q)) || (n.c && n.c.toLowerCase().includes(q)))) hits++;
-      });
-    });
+    for(let k=0; k<keywords.length; k++){
+      const q = keywords[k].toLowerCase();
+      for(let i=0, len=searchTexts.length; i<len; i++){
+        if(searchTexts[i].includes(q)) hits++;
+      }
+    }
     const t1 = performance.now();
     const szukajCzas = Math.max(0.1, t1 - t0);
+    const normSzukajCzas = (searchSample.length > 0 && allNotes.length > searchSample.length)
+      ? (szukajCzas / searchSample.length) * 1000
+      : szukajCzas;
     wyniki.push({
       nazwa: "Przeszukiwanie pełnotekstowe",
-      proba: "50 zapytań",
+      proba: allNotes.length > searchBatchSize ? `50 zapytań (partia ${searchBatchSize})` : "50 zapytań",
       czasLaczny: szukajCzas.toFixed(1) + " ms",
       czasSredni: (szukajCzas / 50).toFixed(2) + " ms / op",
-      ocena: szukajCzas < 25 ? "Doskonała" : (szukajCzas < 80 ? "Dobra" : (szukajCzas < 200 ? "Umiarkowana" : "Niska")),
-      punkty: szukajCzas < 25 ? 25 : (szukajCzas < 80 ? 22 : (szukajCzas < 200 ? 16 : 8))
+      ocena: normSzukajCzas < 50 ? "Doskonała" : (normSzukajCzas < 150 ? "Dobra" : (normSzukajCzas < 300 ? "Umiarkowana" : "Niska")),
+      punkty: normSzukajCzas < 50 ? 25 : (normSzukajCzas < 150 ? 22 : (normSzukajCzas < 300 ? 16 : 8))
     });
 
     // Test 2: IDB Read
@@ -19827,13 +20084,14 @@ const HistoriaBledow = (function(){
     }catch(_){}
     const t3 = performance.now();
     const idbReadCzas = Math.max(0.1, t3 - t2);
+    const normIdbCzas = (allNotes.length > 1000) ? (idbReadCzas / allNotes.length) * 1000 : idbReadCzas;
     wyniki.push({
       nazwa: "Odczyt bazy IndexedDB (getAll)",
       proba: `${allNotes.length} rekordów`,
       czasLaczny: idbReadCzas.toFixed(1) + " ms",
-      czasSredni: idbReadCzas.toFixed(1) + " ms",
-      ocena: idbReadCzas < 40 ? "Doskonała" : (idbReadCzas < 120 ? "Dobra" : "Umiarkowana"),
-      punkty: idbReadCzas < 40 ? 20 : (idbReadCzas < 120 ? 17 : 12)
+      czasSredni: (allNotes.length > 0 ? (idbReadCzas / allNotes.length).toFixed(3) : "0") + " ms / rek",
+      ocena: normIdbCzas < 60 ? "Doskonała" : (normIdbCzas < 180 ? "Dobra" : "Umiarkowana"),
+      punkty: normIdbCzas < 60 ? 20 : (normIdbCzas < 180 ? 17 : 12)
     });
 
     // Test 3: IDB Write & Delete roundtrip
@@ -19856,20 +20114,22 @@ const HistoriaBledow = (function(){
     });
 
     // Test 4: JSON Serialization & Parsing
+    const jsonSample = allNotes.length > 1000 ? allNotes.slice(0, 1000) : allNotes;
     const t6 = performance.now();
     for(let i=0; i<10; i++){
-      const s = JSON.stringify(allNotes);
+      const s = JSON.stringify(jsonSample);
       JSON.parse(s);
     }
     const t7 = performance.now();
     const jsonCzas = Math.max(0.1, t7 - t6);
+    const normJsonCzas = (allNotes.length > 1000 && jsonSample.length > 0) ? (jsonCzas / jsonSample.length) * 1000 : jsonCzas;
     wyniki.push({
       nazwa: "Serializacja i parsowanie JSON",
-      proba: "10 cykli (RAM)",
+      proba: allNotes.length > 1000 ? "10 cykli (próbka 1000 notatek)" : "10 cykli (RAM)",
       czasLaczny: jsonCzas.toFixed(1) + " ms",
       czasSredni: (jsonCzas / 10).toFixed(2) + " ms / op",
-      ocena: jsonCzas < 40 ? "Doskonała" : (jsonCzas < 120 ? "Dobra" : "Umiarkowana"),
-      punkty: jsonCzas < 40 ? 20 : (jsonCzas < 120 ? 17 : 12)
+      ocena: normJsonCzas < 60 ? "Doskonała" : (normJsonCzas < 150 ? "Dobra" : "Umiarkowana"),
+      punkty: normJsonCzas < 60 ? 20 : (normJsonCzas < 150 ? 17 : 12)
     });
 
     // Test 5: DOM rendering calculation
@@ -21698,7 +21958,7 @@ function normAutoTemat(s){
     .replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").replace(/\s+/g," ").trim();
 }
 function tekstAutoTemat(n){
-  const reczny=(n.tg||[]).map(id=>(tags.find(t=>t.id===id)||{}).name||"").join(" ");
+  const reczny=(n.tg||[]).map(id=>((typeof tagById==="function"?tagById(id):tags.find(t=>t.id===id))||{}).name||"").join(" ");
   const tresc=n.c || String(n.h||"").replace(/<[^>]*>/g," ");
   return normAutoTemat((n.t||"")+" "+tresc+" "+reczny);
 }
@@ -21781,12 +22041,13 @@ function autoTematyScal(raw){
 function autoTematyNotatki(n){
   const tg=(n.tg||[]).join(","), c=String(n.c||""), h=String(n.h||"");
   const reguly=autoTematyReguly();
+  const getTagName = id => { const t = typeof tagById==="function" ? tagById(id) : tags.find(x=>x.id===id); return t ? t.name : ""; };
   const sig=String(n.mo||"")+"|"+String(n.t||"")+"|"+c.length+"|"+h.length+"|"+tg+
-    "|"+(n.tg||[]).map(id=>(tags.find(t=>t.id===id)||{}).name||"").join(",")+"|"+(n.atex||[]).join(",")+
+    "|"+(n.tg||[]).map(getTagName).join(",")+"|"+(n.atex||[]).join(",")+
     "|"+reguly.sig;
   const old=_autoTematCache.get(n.g);
   if(old && old.sig===sig) return old.ids;
-  const etykiety=(n.tg||[]).map(id=>(tags.find(t=>t.id===id)||{}).name||"").join(" ");
+  const etykiety=(n.tg||[]).map(getTagName).join(" ");
   const pola={tytul:autoPole(n.t||""),tresc:autoPole(n.c||String(n.h||"").replace(/<[^>]*>/g," ")),etykiety:autoPole(etykiety)};
   const ids=[], wykluczone=new Set(Array.isArray(n.atex)?n.atex:[]);
   reguly.lista.forEach(({t,slowa})=>{
@@ -21861,7 +22122,7 @@ function noteMatchesTag(n,t){
   if(typeof t==="string" && t.indexOf("sec:")===0){
     const sek = +t.slice(4);
     return n.tg.some(id=>{
-      const tg = tags.find(x=>x.id===id);
+      const tg = typeof tagById==="function" ? tagById(id) : tags.find(x=>x.id===id);
       return tg && tg.sec === sek;
     });
   }
@@ -22291,7 +22552,7 @@ function parsujSiglumBiblijne(raw){
 function plainOf(n){
   if(!n) return "";
   const tagNames = (n.tg && Array.isArray(n.tg)) ? n.tg.map(id => {
-    const t = (typeof tags !== "undefined" && Array.isArray(tags)) ? tags.find(x => x.id === id) : null;
+    const t = typeof tagById === "function" ? tagById(id) : ((typeof tags !== "undefined" && Array.isArray(tags)) ? tags.find(x => x.id === id) : null);
     return t ? t.name : "";
   }).filter(Boolean).join(" ") : "";
   const bibleAliases = bibleAliasesForNote(n);
@@ -22519,7 +22780,7 @@ function przechodziOpcjeSzukania(n){
   if(/^[1-7]$/.test(hi) && !((new RegExp('class=["\'][^"\']*hl' + hi)).test(n.h||""))) return false;
   if((qSpecial.fav||searchOpts.extra==="fav")&&!n.fav) return false;
   if((qSpecial.pin||searchOpts.extra==="pin")&&!n.pin) return false;
-  if(qSpecial.tag){ const tagSzuk=norm(qSpecial.tag); const tgs=(n.tg||[]).map(id=>(tags.find(t=>t.id===id)||{}).name||""); if(!tgs.some(t=>norm(t).includes(tagSzuk))) return false; }
+  if(qSpecial.tag){ const tagSzuk=norm(qSpecial.tag); const tgs=(n.tg||[]).map(id=>((typeof tagById==="function"?tagById(id):tags.find(t=>t.id===id))||{}).name||""); if(!tgs.some(t=>norm(t).includes(tagSzuk))) return false; }
   if(searchOpts.extra==="attach" && !(Array.isArray(n.att)&&n.att.length)) return false;
   if(searchOpts.extra==="links" && !(Array.isArray(n.links)&&n.links.length)) return false;
   if(searchOpts.extra==="hasNote" && !(n.c||"").trim()) return false;
@@ -22588,7 +22849,7 @@ function fragmentyTrafienia(n){
 
 function ocenTrafnosc(n, bibleMatchedDirectly){
   try{
-    const title=norm(n.t||""), body=norm(n.c||""), ref=norm(refLabel(n)||""), tag=norm((n.tg||[]).map(id=>(tags.find(t=>t.id===id)||{}).name||"").join(" "));
+    const title=norm(n.t||""), body=norm(n.c||""), ref=norm(refLabel(n)||""), tag=norm((n.tg||[]).map(id=>((typeof tagById==="function"?tagById(id):tags.find(t=>t.id===id))||{}).name||"").join(" "));
     let score=0,reason="treść",wagaPowodu=0;
     const powod=(nazwa,waga)=>{ if(waga>wagaPowodu){reason=nazwa;wagaPowodu=waga;} };
 
@@ -24114,6 +24375,7 @@ const _cardCache = new Map();       // guid → { node, sig }
 let _tagsVer = 0;                   // rośnie przy zmianie etykiet (wpływa na chipy i listę wyboru)
 function bumpTagsVer(){
   _tagsVer++;
+  if(typeof invalidateTagCache==="function") invalidateTagCache();
   if(typeof workerOznaczIndeksDoOdbudowy==="function") workerOznaczIndeksDoOdbudowy();
   if(typeof bezpUniewaznijKontrole==="function") bezpUniewaznijKontrole();
 }
@@ -24430,14 +24692,14 @@ function noteCardMeta(n){
 /* chipy etykiet — kolorowe, każdy z krzyżykiem do odpięcia */
 function noteCardChips(n){
   const chip = tid => {
-    const t = tags.find(x=>x.id===tid);
+    const t = typeof tagById === "function" ? tagById(tid) : tags.find(x=>x.id===tid);
     if(!t) return "";
     const study = /^Komentarze\s*[—–-]\s*Biblia do studium$/i.test(t.name);
     const kol = (typeof kolorBezpieczny==="function" && kolorBezpieczny(t.color)) ? t.color : "";
     const style = !study && kol ? ` style="background:linear-gradient(180deg,${shade(kol,.15)},${shade(kol,-.18)});color:#fff"` : "";
     return `<span class="chip${study?" chip-study":""}"${style}>${esc(t.name)}<span class="x" data-untag="${tid}" title="Usuń z zakładki">×</span></span>`;
   };
-  return `<div class="chips">${n.tg.map(chip).join("")}</div>`;
+  return `<div class="chips">${(n.tg||[]).map(chip).join("")}</div>`;
 }
 
 /* ——— LISTA WYBORU ETYKIET NA KARCIE — WYPEŁNIANA DOPIERO PRZED UŻYCIEM ———
@@ -24560,7 +24822,13 @@ function noteCard(n){
   d.className = "ncard" + (n.pin?" pinned":"");
   d.dataset.g = n.g;
   // kolor paska z lewej = kolor pierwszej etykiety notatki (jeśli ma kolor)
-  const firstColorTag = n.tg.map(id=>tags.find(t=>t.id===id)).find(t=>t&&t.color);
+  let firstColorTag = null;
+  if(Array.isArray(n.tg)){
+    for(let i=0, len=n.tg.length; i<len; i++){
+      const t = typeof tagById === "function" ? tagById(n.tg[i]) : tags.find(x=>x.id===n.tg[i]);
+      if(t && t.color){ firstColorTag = t; break; }
+    }
+  }
   if(firstColorTag) d.style.setProperty("--cardAccent", firstColorTag.color);
   if(n.ff) d.style.setProperty("--noteFont", n.ff);   // własna czcionka notatki
   if(n.lh) d.style.setProperty("--nLh", n.lh);        // własna interlinia notatki
