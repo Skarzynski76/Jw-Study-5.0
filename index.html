@@ -7392,7 +7392,9 @@ html[data-theme="dark"] #modalFs .fsmodal{ background:#151517; }
    28-keyboard.js), a tutaj po prostu robimy jej miejsce. */
 .overlay{ padding-bottom:calc(var(--sp-4) + var(--kb, 0px)); }
 .modal{ max-height:calc(min(88vh, 900px) - var(--kb, 0px)); }
-#modalFs .fsmodal{ padding-bottom:calc(14px + env(safe-area-inset-bottom,0px) + var(--kb, 0px)); }
+#modalFs .fsmodal{ padding-bottom:calc(14px + env(safe-area-inset-bottom,0px) + var(--kb, 0px)) !important; }
+html.kb-open #modalFs .fsmodal{ padding-bottom:calc(320px + var(--kb, 0px)) !important; scroll-padding-bottom:calc(140px + var(--kb, 0px)) !important; }
+html.kb-open #fsWrap .ncard.editing .ncontent{ padding-bottom:calc(280px + var(--kb, 0px)) !important; }
 /* Pasek edycji notatki przy otwartej klawiaturze zostaje nad nią. */
 .editbar{ scroll-margin-top:60px; }
 
@@ -9295,6 +9297,19 @@ body.fs-fullscreen #modalFs {
   max-height: 100dvh !important;
 }
 
+html:not(.kb-open) #modalFs.is-fullscreen .fsmodal,
+html:not(.kb-open) html:fullscreen #modalFs .fsmodal,
+html:not(.kb-open) body:fullscreen #modalFs .fsmodal,
+html:not(.kb-open) :fullscreen #modalFs .fsmodal,
+html:not(.kb-open) :-webkit-full-screen #modalFs .fsmodal,
+html:not(.kb-open) html:-webkit-full-screen #modalFs .fsmodal,
+html:not(.kb-open) body.fs-fullscreen #modalFs .fsmodal,
+html:not(.kb-open) body.ipad-standalone #modalFs.is-fullscreen .fsmodal,
+html:not(.kb-open) body.ipad-standalone.fs-fullscreen #modalFs .fsmodal,
+html:not(.kb-open) body.ipad-standalone #modalFs .fsmodal {
+  padding: 0 !important;
+}
+
 #modalFs.is-fullscreen .fsmodal,
 html:fullscreen #modalFs .fsmodal,
 body:fullscreen #modalFs .fsmodal,
@@ -9308,7 +9323,6 @@ body.fs-fullscreen #modalFs .fsmodal {
   height: 100vh !important;
   height: 100dvh !important;
   max-height: 100dvh !important;
-  padding: 0 !important;
   border-radius: 0 !important;
   border: none !important;
   box-shadow: none !important;
@@ -9323,10 +9337,20 @@ body.ipad-standalone #modalFs .fsmodal::before {
   height: 0 !important;
 }
 
-body.ipad-standalone #modalFs.is-fullscreen .fsmodal,
-body.ipad-standalone.fs-fullscreen #modalFs .fsmodal,
-body.ipad-standalone #modalFs .fsmodal {
-  padding: 0 !important;
+/* Gdy klawiatura ekranowa jest otwarta, pozwalamy czytnikowi na swobodne przewinięcie
+   treści wysoko ponad klawiaturę, aby kursor/aktywne pole nigdy nie było zasłonięte. */
+html.kb-open #modalFs .fsmodal,
+html.kb-open #modalFs.is-fullscreen .fsmodal,
+html.kb-open body.fs-fullscreen #modalFs .fsmodal,
+html.kb-open body.ipad-standalone #modalFs .fsmodal,
+html.kb-open body.ipad-standalone.fs-fullscreen #modalFs .fsmodal {
+  padding-bottom: calc(max(320px, var(--kb, 320px)) + 80px) !important;
+  scroll-padding-bottom: calc(max(160px, var(--kb, 160px)) + 40px) !important;
+}
+
+html.kb-open #modalFs #fsWrap .ncard,
+html.kb-open #fsWrap .ncard.editing .ncontent {
+  padding-bottom: calc(max(320px, var(--kb, 320px)) + 80px) !important;
 }
 
 /* Elementy treści w czytniku — wyśrodkowane z wygodnymi marginesami */
@@ -35274,22 +35298,28 @@ const KB_ZAPAS = 96;
 function kbWysokosc(){
   const vv = window.visualViewport;
   if(!vv) return 0;
-  const zajete = window.innerHeight - vv.height - vv.offsetTop;
+  const diff = window.innerHeight - vv.height;
+  const zajete = Math.max(diff - (vv.offsetTop || 0), diff);
   return zajete > 80 ? Math.round(zajete) : 0;    // poniżej 80 px to nie klawiatura, tylko pasek przeglądarki
 }
 let _kbOstatnia = -1;
 function kbOdswiez(){
   const h = kbWysokosc();
-  if(h === _kbOstatnia) return;
-  _kbOstatnia = h;
-  document.documentElement.style.setProperty("--kb", h + "px");
-  document.documentElement.classList.toggle("kb-open", h > 0);
-  if(h > 0){
-    const hb=document.getElementById("hlBar");
-    if(hb) hb.style.display="none";
-    document.body.classList.remove("ma-zaznaczenie");
+  if(h !== _kbOstatnia){
+    _kbOstatnia = h;
+    document.documentElement.style.setProperty("--kb", h + "px");
+    document.documentElement.classList.toggle("kb-open", h > 0);
+    if(h > 0){
+      const hb = document.getElementById("hlBar");
+      if(hb) hb.style.display = "none";
+      document.body.classList.remove("ma-zaznaczenie");
+    } else {
+      if(window.scrollY !== 0) window.scrollTo(0, 0);
+    }
   }
-  if(h > 0) kbPokazKursor();
+  if(h > 0){
+    kbPokazKursor();
+  }
 }
 if(window.visualViewport){
   window.visualViewport.addEventListener("resize", kbOdswiez);
@@ -35318,14 +35348,14 @@ function kursorProstokat(){
 /* Element, wewnątrz którego faktycznie przewijamy: czytnik, okno albo cała lista. */
 function kbPojemnik(el){
   if(!el) return null;
-  const spec = el.closest ? el.closest("#modalFs .fsmodal, .fsmodal, .modal, #colReader, #czytnik, #noteList, .nlist") : null;
-  if(spec && spec.scrollHeight > spec.clientHeight) return spec;
-  let p = el;
+  let p = el.parentElement;
   while(p && p !== document.body && p !== document.documentElement){
     const st = getComputedStyle(p);
-    if(/(auto|scroll)/.test(st.overflowY) && p.scrollHeight > p.clientHeight + 4) return p;
+    if(/(auto|scroll)/i.test(st.overflowY) && p.scrollHeight > p.clientHeight + 4) return p;
     p = p.parentElement;
   }
+  const spec = el.closest ? el.closest("#modalFs .fsmodal, .fsmodal, .modal, #colReader, #czytnik, #noteList, .nlist, .overlay") : null;
+  if(spec && spec.scrollHeight > spec.clientHeight + 4) return spec;
   return null;
 }
 
@@ -35340,17 +35370,25 @@ function kbPokazKursor(){
   if(!wPolu && !wTresci) return;
 
   const vv = window.visualViewport;
-  const dolnaGranica = (vv ? vv.height + vv.offsetTop : innerHeight) - 24;
-  const r = wTresci ? kursorProstokat() : akt.getBoundingClientRect();
+  const widocznaWys = vv ? (vv.height + (vv.offsetTop || 0)) : innerHeight;
+  const dolnaGranica = widocznaWys - KB_ZAPAS;
+  let r = wTresci ? (kursorProstokat() || akt.getBoundingClientRect()) : akt.getBoundingClientRect();
   if(!r) return;
 
   const nadmiar = r.bottom - dolnaGranica;
-  if(nadmiar <= 0) return;                       // kursor widoczny — nie ruszamy widoku
-
-  const poj = kbPojemnik(akt);
-  if(poj) poj.scrollTop += nadmiar + 8;
-  else if(!akt.closest("#modalFs, .modal, .fsmodal")){
-    scrollBy({top: nadmiar + 8, behavior: "auto"});
+  if(nadmiar > 0){
+    const poj = kbPojemnik(akt);
+    if(poj){
+      poj.scrollTop += nadmiar + 12;
+    } else if(!akt.closest("#modalFs, .modal, .fsmodal")){
+      scrollBy({top: nadmiar + 12, behavior: "auto"});
+    }
+  } else if(r.top < 64){
+    const niedomiar = 64 - r.top;
+    const poj = kbPojemnik(akt);
+    if(poj){
+      poj.scrollTop = Math.max(0, poj.scrollTop - niedomiar - 8);
+    }
   }
 }
 
@@ -35365,13 +35403,23 @@ document.addEventListener("keydown", e=>{
 }, true);
 document.addEventListener("input", e=>{
   const t = e.target;
-  if(t && (t.isContentEditable || t.tagName === "TEXTAREA") && kbWysokosc() > 0) kbWkrotce();
+  if(t && (t.isContentEditable || t.tagName === "TEXTAREA" || t.tagName === "INPUT") && kbWysokosc() > 0) kbWkrotce();
 }, true);
+document.addEventListener("selectionchange", ()=>{
+  if(kbWysokosc() > 0) kbWkrotce();
+});
 document.addEventListener("focusin", e=>{
   const t = e.target;
-  if(t && (t.isContentEditable || t.tagName === "TEXTAREA" || t.tagName === "INPUT") && kbWysokosc() > 0){
-    setTimeout(kbPokazKursor, 320);              // po wysunięciu się klawiatury
+  if(t && (t.isContentEditable || t.tagName === "TEXTAREA" || t.tagName === "INPUT")){
+    requestAnimationFrame(kbOdswiez);
+    setTimeout(kbOdswiez, 150);
+    setTimeout(kbOdswiez, 350);
+    setTimeout(kbOdswiez, 600);
   }
+});
+document.addEventListener("focusout", ()=>{
+  setTimeout(kbOdswiez, 150);
+  setTimeout(kbOdswiez, 400);
 });
 kbOdswiez();
 
