@@ -3686,6 +3686,130 @@ body.centrum-open .cenProjActiveBar {
   }
 }
 
+/* Podmenu zarządzania projektem w #dropdown */
+#dropdown .cenProjMenuHdr {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 8px 10px !important;
+  margin: 2px 2px 6px !important;
+  background: color-mix(in srgb, var(--proj-kol, var(--accent)) 9%, var(--sel)) !important;
+  border: 1px solid color-mix(in srgb, var(--proj-kol, var(--accent)) 22%, transparent) !important;
+  border-radius: 12px !important;
+  cursor: default !important;
+  box-sizing: border-box !important;
+}
+#dropdown .cenProjMenuHdr:hover,
+#dropdown .cenProjMenuHdr:active {
+  background: color-mix(in srgb, var(--proj-kol, var(--accent)) 9%, var(--sel)) !important;
+  transform: none !important;
+}
+#dropdown .cenProjMenuIko {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+#dropdown .cenProjMenuIko svg {
+  width: 17px;
+  height: 17px;
+  display: block;
+}
+#dropdown .cenProjMenuHdrInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+#dropdown .cenProjMenuHdrNad {
+  font-size: 10px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  line-height: 1.1;
+}
+#dropdown .cenProjMenuHdrTyt {
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+#dropdown .cenProjMenuHdrBadge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--panel);
+  padding: 3px 8px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+#dropdown .cenProjPalrow {
+  display: grid !important;
+  grid-template-columns: repeat(8, 1fr) !important;
+  gap: 6px !important;
+  padding: 5px 6px 8px !important;
+  margin: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  cursor: default !important;
+}
+#dropdown .cenProjPalrow:hover {
+  background: none !important;
+}
+#dropdown .cenProjPalrow .pal {
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+}
+#dropdown label.tloWlasny {
+  padding: 10px 12px !important;
+  cursor: pointer !important;
+  font-size: 13.5px !important;
+  font-weight: 450 !important;
+  border-radius: 11px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin: 1px 0 !important;
+  color: var(--text) !important;
+  transition: background 0.12s ease, color 0.12s ease !important;
+  box-sizing: border-box !important;
+}
+#dropdown label.tloWlasny:hover {
+  background: var(--sel) !important;
+}
+#dropdown label.tloWlasny .ic {
+  width: 18px !important;
+  height: 18px !important;
+  flex-shrink: 0 !important;
+  color: var(--muted) !important;
+  transition: color 0.12s ease !important;
+}
+#dropdown label.tloWlasny:hover .ic {
+  color: var(--accent) !important;
+}
+#dropdown label.tloWlasny input[type=color] {
+  width: 28px !important;
+  height: 24px !important;
+  padding: 0 !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  background: none !important;
+  cursor: pointer !important;
+  margin-left: auto !important;
+}
+
 /* ══════════════ RESPONSIVE BREAKPOINTS ══════════════ */
 @media (max-width: 1024px) {
   .cenCentrumShell {
@@ -46104,22 +46228,30 @@ function centrumKolorProjektu(t, kotwica){
   if(!t) return;
   const dd = $("dropdown");
   if(!dd) return;
+  const projKol = t.color || "var(--accent)";
   const projColors = [
-    "#0084ff", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6",
-    "#ec4899", "#06b6d4", "#f97316", "#14b8a6", "#6366f1",
+    "#3b82f6", "#06b6d4", "#10b981", "#84cc16", "#eab308",
+    "#f97316", "#ef4444", "#ec4899", "#8b5cf6", "#6366f1",
     "#4d8875", "#b78845", "#70799d", "#8d6f91", "#5e8392"
   ];
   const pal = (c)=>{
     const s = (c || "").toLowerCase() === (t.color || "").toLowerCase();
     return '<span class="pal ' + (c ? "" : "pal-none") + ' ' + (s ? "sel" : "") + '" data-pc="' + (c || "") + '" style="' + (c ? 'background:' + c : '') + '" title="' + (c || "Domyślny") + '">' + (c ? "" : "✕") + '</span>';
   };
-  dd.innerHTML = '<div class="dd-lbl">Kolor projektu „' + esc(t.name) + '”</div>'
-    + '<div class="palrow">' + pal("") + projColors.map(c=>pal(c)).join("") + '</div>'
+  dd.innerHTML = 
+    '<div class="cenProjMenuHdr" role="presentation" style="--proj-kol:' + esc(projKol) + '">'
+    + '<span class="cenProjMenuIko" style="color:' + esc(projKol) + ';background:color-mix(in srgb, ' + esc(projKol) + ' 16%, var(--panel));"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg></span>'
+    + '<span class="cenProjMenuHdrInfo">'
+    +   '<span class="cenProjMenuHdrNad">Wybierz kolor</span>'
+    +   '<span class="cenProjMenuHdrTyt">' + esc(t.name) + '</span>'
+    + '</span>'
+    + '</div>'
+    + '<div class="cenProjPalrow" role="presentation">' + pal("") + projColors.map(c=>pal(c)).join("") + '</div>'
     + '<div class="dd-sep"></div>'
-    + '<label class="tloWlasny">'
-    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg>'
-    + '<span>Własny kolor…</span>'
-    + '<input type="color" data-proj-wlasny-kolor value="' + esc(t.color || "#0084ff") + '">'
+    + '<label class="tloWlasny dd-it" style="margin:1px 0;">'
+    + '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg>'
+    + '<span>Inny kolor…</span>'
+    + '<input type="color" data-proj-wlasny-kolor value="' + esc(t.color || "#3b82f6") + '">'
     + '</label>';
   dd.style.display = "block";
   if(typeof oznaczPozycjeMenu === "function") oznaczPozycjeMenu(dd);
@@ -46137,6 +46269,7 @@ function centrumKolorProjektu(t, kotwica){
   };
 
   dd.onclick = ev => {
+    if(ev.target.closest("label.tloWlasny")) return;
     const it = ev.target.closest("[data-pc]");
     if(it){
       zastosuj(it.dataset.pc || null);
@@ -48336,20 +48469,92 @@ document.addEventListener("click", ev => {
     const anchor = t.closest("#btnProjZarzadzaj") || t.closest("#projBarIko") || t.closest("#projBarTyt");
     const dd = $("dropdown");
     if(!dd) return;
-    dd.innerHTML = '<div class="dd-lbl">Projekt „' + esc(p.name) + '”</div>'
-      + '<button type="button" class="dd-it" id="ddProjZmienNazwe"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg><span>Zmień nazwę projektu</span></button>'
-      + '<button type="button" class="dd-it" id="ddProjZmienKolor"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg><span>Zmień kolor projektu</span></button>'
+
+    if(dd.style.display === "block" && dd._lastAnchor === anchor){
+      dd.style.display = "none";
+      dd._lastAnchor = null;
+      return;
+    }
+    dd._lastAnchor = anchor;
+
+    const projKol = p.color || "var(--accent)";
+    const ile = Array.isArray(notes) ? notes.filter(n => !n.del && n.tg && (n.tg.includes(p.id) || n.tg.includes(+p.id) || n.tg.some(x => String(x) === String(p.id)))).length : 0;
+    const odm = typeof centrOdmiana === "function" ? centrOdmiana(ile, "notatka", "notatki", "notatek") : (ile === 1 ? "notatka" : "notatek");
+
+    const projColors = [
+      "#3b82f6", "#06b6d4", "#10b981", "#84cc16", "#eab308",
+      "#f97316", "#ef4444", "#ec4899", "#8b5cf6", "#6366f1",
+      "#4d8875", "#b78845", "#70799d", "#8d6f91", "#5e8392"
+    ];
+    const pal = (c)=>{
+      const s = (c || "").toLowerCase() === (p.color || "").toLowerCase();
+      return '<span class="pal ' + (c ? "" : "pal-none") + ' ' + (s ? "sel" : "") + '" data-pc="' + (c || "") + '" style="' + (c ? 'background:' + c : '') + '" title="' + (c || "Domyślny") + '">' + (c ? "" : "✕") + '</span>';
+    };
+
+    dd.innerHTML = 
+      '<div class="cenProjMenuHdr" role="presentation" style="--proj-kol:' + esc(projKol) + '">'
+      + '<span class="cenProjMenuIko" style="color:' + esc(projKol) + ';background:color-mix(in srgb, ' + esc(projKol) + ' 16%, var(--panel));"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>'
+      + '<span class="cenProjMenuHdrInfo">'
+      +   '<span class="cenProjMenuHdrNad">Projekt</span>'
+      +   '<span class="cenProjMenuHdrTyt">' + esc(p.name) + '</span>'
+      + '</span>'
+      + '<span class="cenProjMenuHdrBadge">' + ile + ' ' + odm + '</span>'
+      + '</div>'
       + '<div class="dd-sep"></div>'
-      + '<button type="button" class="dd-it danger" id="ddProjUsun"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg><span>Usuń projekt</span></button>';
+      + '<div data-pact="nowa"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg><span>Nowa notatka w projekcie</span></div>'
+      + '<div data-pact="wroc"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg><span>Wróć do Centrum Studium</span></div>'
+      + '<div class="dd-sep"></div>'
+      + '<div data-pact="nazwa"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg><span>Zmień nazwę projektu…</span></div>'
+      + '<div class="dd-lbl" style="padding:6px 10px 2px;">Kolor projektu</div>'
+      + '<div class="cenProjPalrow" role="presentation">' + pal("") + projColors.map(c=>pal(c)).join("") + '</div>'
+      + '<label class="tloWlasny dd-it" style="margin:1px 0;">'
+      + '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg>'
+      + '<span>Własny kolor…</span>'
+      + '<input type="color" data-proj-wlasny-kolor value="' + esc(p.color || "#3b82f6") + '">'
+      + '</label>'
+      + '<div class="dd-sep"></div>'
+      + '<div data-pact="usun" class="dd-danger"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg><span>Usuń projekt</span></div>';
+
     dd.style.display = "block";
     if(typeof oznaczPozycjeMenu === "function") oznaczPozycjeMenu(dd);
     if(typeof placeDropdown === "function") placeDropdown(dd, anchor);
-    const bNazwa = $("ddProjZmienNazwe");
-    if(bNazwa) bNazwa.onclick = ()=>{ dd.style.display="none"; if(typeof centrumEdytujProjekt === "function") centrumEdytujProjekt(p); };
-    const bKolor = $("ddProjZmienKolor");
-    if(bKolor) bKolor.onclick = ()=>{ dd.style.display="none"; if(typeof centrumKolorProjektu === "function") centrumKolorProjektu(p, anchor); };
-    const bUsun = $("ddProjUsun");
-    if(bUsun) bUsun.onclick = ()=>{ dd.style.display="none"; if(typeof centrumUsunProjekt === "function") centrumUsunProjekt(p); };
+
+    const zastosujKolor = (kol)=>{
+      pushUndo({type:"tags", label:"zmianę koloru projektu", tags:cloneTags()});
+      if(!kol) delete p.color;
+      else if(typeof kolorBezpieczny === "function" && kolorBezpieczny(kol)) p.color = kol;
+      else p.color = kol;
+      saveTags();
+      dd.style.display = "none";
+      renderAll();
+      toast("Zaktualizowano kolor projektu", "ok");
+    };
+
+    dd.onclick = ev => {
+      if(ev.target.closest("label.tloWlasny")) return;
+      const itPc = ev.target.closest("[data-pc]");
+      if(itPc){
+        zastosujKolor(itPc.dataset.pc || null);
+        return;
+      }
+
+      const it = ev.target.closest("[data-pact]");
+      if(!it) return;
+      dd.style.display = "none";
+      const act = it.dataset.pact;
+      if(act === "wroc") wrocDoCentrumProjektow();
+      else if(act === "nowa"){ const b = $("btnNew"); if(b) b.click(); }
+      else if(act === "nazwa") { if(typeof centrumEdytujProjekt === "function") centrumEdytujProjekt(p); }
+      else if(act === "kolor") { if(typeof centrumKolorProjektu === "function") centrumKolorProjektu(p, anchor); }
+      else if(act === "usun") { if(typeof centrumUsunProjekt === "function") centrumUsunProjekt(p); }
+    };
+
+    const inp = dd.querySelector("[data-proj-wlasny-kolor]");
+    if(inp){
+      inp.onchange = () => {
+        zastosujKolor(inp.value);
+      };
+    }
     return;
   }
 
