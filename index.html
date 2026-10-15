@@ -391,25 +391,48 @@ html[data-theme="sepia"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  max-width: 36px !important;
+  max-height: 36px !important;
   border-radius: 10px;
   background: var(--cen-btn-bg);
   border: 1px solid var(--cen-btn-border);
   color: var(--cen-btn-color);
   cursor: pointer;
   transition: all 0.16s ease;
+  flex-shrink: 0 !important;
+  overflow: hidden;
 }
 .cenNaglBtnIko svg {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  max-width: 18px !important;
+  max-height: 18px !important;
+  display: block;
+  flex-shrink: 0 !important;
 }
 
 .cenNaglBtnIko:hover {
   background: var(--cen-btn-hover-bg);
   color: var(--cen-btn-hover-color);
   border-color: var(--cen-card-border-hover);
+}
+
+.cenModernIco {
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  max-width: 18px !important;
+  max-height: 18px !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  flex-shrink: 0 !important;
 }
 
 /* 4 HERO CARDS (2x2 Grid) */
@@ -466,13 +489,18 @@ html[data-theme="sepia"] {
 }
 
 .cenHeroIkoBox {
-  width: 50px;
-  height: 50px;
+  width: 50px !important;
+  height: 50px !important;
+  min-width: 50px !important;
+  min-height: 50px !important;
+  max-width: 50px !important;
+  max-height: 50px !important;
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
+  overflow: hidden;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
 }
 .cenHeroCard.card-blue .cenHeroIkoBox {
@@ -496,8 +524,14 @@ html[data-theme="sepia"] {
   box-shadow: 0 6px 18px rgba(249, 115, 22, 0.35);
 }
 .cenHeroIkoBox svg {
-  width: 26px;
-  height: 26px;
+  width: 26px !important;
+  height: 26px !important;
+  min-width: 26px !important;
+  min-height: 26px !important;
+  max-width: 26px !important;
+  max-height: 26px !important;
+  display: block;
+  flex-shrink: 0 !important;
 }
 
 .cenHeroInfo {
@@ -1906,20 +1940,28 @@ html[data-theme="dark"] .cenHeroTag {
   justify-content: space-between;
 }
 .cenCeleStatIko {
-  width: 32px;
-  height: 32px;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
   border-radius: 9px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
+  overflow: hidden;
 }
 .cenCeleStatIko svg {
   width: 17px !important;
   height: 17px !important;
+  min-width: 17px !important;
+  min-height: 17px !important;
   max-width: 17px !important;
   max-height: 17px !important;
-  flex-shrink: 0;
+  display: block;
+  flex-shrink: 0 !important;
 }
 .cenCeleStatVal {
   font-size: 20px;
@@ -2802,6 +2844,7 @@ html[data-theme="dark"] .cenHeroTag {
     justify-content: flex-end;
     order: 1;
   }
+}
 
 /* ══════════════ SEKCJA PROJEKTY — NOWOCZESNY DESIGN (v3.56) ══════════════ */
 .cenProjHeroCard {
@@ -2837,20 +2880,31 @@ html[data-theme="dark"] .cenHeroTag {
   min-width: 0;
 }
 .cenProjHeroIko {
-  width: 52px;
-  height: 52px;
+  width: 52px !important;
+  height: 52px !important;
+  min-width: 52px !important;
+  min-height: 52px !important;
+  max-width: 52px !important;
+  max-height: 52px !important;
   border-radius: 15px;
   background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 75%, #000));
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
   box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 35%, transparent);
+  overflow: hidden;
 }
 .cenProjHeroIko svg {
-  width: 26px;
-  height: 26px;
+  width: 26px !important;
+  height: 26px !important;
+  min-width: 26px !important;
+  min-height: 26px !important;
+  max-width: 26px !important;
+  max-height: 26px !important;
+  display: block;
+  flex-shrink: 0 !important;
 }
 .cenProjHeroTyt {
   font-size: 17px;
@@ -2864,7 +2918,7 @@ html[data-theme="dark"] .cenHeroTag {
   line-height: 1.45;
 }
 .cenProjHeroPrawo {
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
 }
 .cenProjHeroBtn {
   display: inline-flex;
@@ -2880,6 +2934,8 @@ html[data-theme="dark"] .cenHeroTag {
   cursor: pointer;
   box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 35%, transparent);
   transition: transform 0.16s ease, filter 0.16s ease, box-shadow 0.16s ease;
+  white-space: nowrap;
+  flex-shrink: 0 !important;
 }
 .cenProjHeroBtn:hover {
   transform: translateY(-2px);
@@ -2887,8 +2943,14 @@ html[data-theme="dark"] .cenHeroTag {
   box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 45%, transparent);
 }
 .cenProjHeroBtn svg {
-  width: 16px;
-  height: 16px;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  display: block;
+  flex-shrink: 0 !important;
 }
 .cenProjektyWidok {
   max-width: 1440px;
@@ -2922,17 +2984,28 @@ html[data-theme="dark"] .cenHeroTag {
   justify-content: space-between;
 }
 .cenProjStatIko {
-  width: 32px;
-  height: 32px;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
   border-radius: 9px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
+  overflow: hidden;
 }
 .cenProjStatIko svg {
   width: 17px !important;
   height: 17px !important;
+  min-width: 17px !important;
+  min-height: 17px !important;
+  max-width: 17px !important;
+  max-height: 17px !important;
+  display: block;
+  flex-shrink: 0 !important;
 }
 .cenProjStatVal {
   font-size: 20px;
@@ -2998,20 +3071,31 @@ html[data-theme="dark"] .cenHeroTag {
   flex: 1;
 }
 .cenProjIko {
-  width: 40px;
-  height: 40px;
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+  max-width: 40px !important;
+  max-height: 40px !important;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: color-mix(in srgb, var(--proj-kol, var(--accent)) 14%, var(--panel));
   color: var(--proj-kol, var(--accent));
-  flex-shrink: 0;
+  flex-shrink: 0 !important;
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--proj-kol, var(--accent)) 25%, transparent);
+  overflow: hidden;
 }
 .cenProjIko svg {
-  width: 20px;
-  height: 20px;
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
+  max-width: 20px !important;
+  max-height: 20px !important;
+  display: block;
+  flex-shrink: 0 !important;
 }
 .cenProjTytBox {
   min-width: 0;
@@ -3039,8 +3123,12 @@ html[data-theme="dark"] .cenHeroTag {
   flex-shrink: 0;
 }
 .cenProjBtnAction {
-  width: 30px;
-  height: 30px;
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+  max-width: 30px !important;
+  max-height: 30px !important;
   border-radius: 8px;
   border: 1px solid transparent;
   background: transparent;
@@ -3051,6 +3139,8 @@ html[data-theme="dark"] .cenHeroTag {
   cursor: pointer;
   transition: all 0.15s ease;
   padding: 0;
+  flex-shrink: 0 !important;
+  overflow: hidden;
 }
 .cenProjBtnAction:hover {
   background: var(--sel);
@@ -3064,8 +3154,14 @@ html[data-theme="dark"] .cenHeroTag {
   border-color: rgba(239, 68, 68, 0.3);
 }
 .cenProjBtnAction svg {
-  width: 14px;
-  height: 14px;
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+  max-width: 14px !important;
+  max-height: 14px !important;
+  display: block;
+  flex-shrink: 0 !important;
 }
 .cenProjSnippets {
   display: flex;
@@ -3106,8 +3202,14 @@ html[data-theme="dark"] .cenHeroTag {
   gap: 5px;
 }
 .cenProjCardFooter svg {
-  width: 13px;
-  height: 13px;
+  width: 13px !important;
+  height: 13px !important;
+  min-width: 13px !important;
+  min-height: 13px !important;
+  max-width: 13px !important;
+  max-height: 13px !important;
+  display: block;
+  flex-shrink: 0 !important;
   transition: transform 0.18s ease;
 }
 .cenProjCard:hover .cenProjCardFooter svg {
@@ -42331,26 +42433,26 @@ const CENTR_WIDOK_KLUCZ = KP + "CentrumWidok308";
 const CENTR_WIDOKI = ["centrum","czytanie-chronologiczne","dzien","lista-dni","kalendarz","statystyki","drzewo","moje-plany","studium-osobiste","temat-szczegoly","duchowe-cele","cele","projekty","kolejka","inbox","ostatnie","bezpieczenstwo"];
 
 const CEN_MODERN_ICO = {
-  clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-  flame: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>',
-  trash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>',
-  edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
-  book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
-  note: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
-  clipboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14l2 2 4-4"/></svg>',
-  target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
-  calendar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-  list: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>',
-  chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
-  gear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
-  chevron: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>',
-  chevronLeft: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>',
-  plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
-  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><polyline points="20 6 9 17 4 12"/></svg>',
-  sync: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/></svg>',
-  jw: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>',
-  star: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
-  rotate: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>'
+  clock: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  flame: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>',
+  trash: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>',
+  edit: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
+  book: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+  note: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+  clipboard: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14l2 2 4-4"/></svg>',
+  target: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+  calendar: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+  list: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>',
+  chart: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
+  gear: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
+  chevron: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><polyline points="9 18 15 12 9 6"/></svg>',
+  chevronLeft: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><polyline points="15 18 9 12 15 6"/></svg>',
+  plus: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
+  check: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg>',
+  sync: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/></svg>',
+  jw: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>',
+  star: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
+  rotate: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>'
 };
 
 /* ═══ NOWE MODUŁY I BAZY DANYCH PLANÓW CZYTANIA BIBLII (v3.74) ═══ */
@@ -46472,12 +46574,12 @@ function centrNaglowekWidoku(){
   }
   let akcje='<button type="button" class="btn" data-cakcja="lista">Wszystkie notatki</button>';
   if(centrWidok === "projekty"){
-    akcje = '<button type="button" class="cenNaglBtnIko" data-cakcja="nowy-projekt" title="Dodaj nowy projekt">' + CEN_MODERN_ICO.plus + '</button>'
+    akcje = '<button type="button" class="cenNaglBtnIko" data-cakcja="nowy-projekt" title="Dodaj nowy projekt"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:18px;height:18px;min-width:18px;min-height:18px;max-width:18px;max-height:18px;display:block;flex-shrink:0;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>'
       + '<button type="button" class="btn" data-cakcja="lista">Wszystkie notatki</button>';
   }
   return '<div class="cenSubHeader">'
     +'<div class="cenSubHeaderLewo">'
-    +'<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
+    +'<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;min-width:16px;min-height:16px;max-width:16px;max-height:16px;display:block;flex-shrink:0;"><polyline points="15 18 9 12 15 6"/></svg> <span>Centrum</span></button>'
     +'<div class="cenSubTytulBox">'
     +'<div class="cenSubTytul">'+esc(o[0])+'</div>'
     +'<div class="cenSubPodtytul">'+esc(o[1])+'</div>'
@@ -46512,7 +46614,7 @@ function centrPodstronaProjektow(){
   const heroHtml = '<div class="cenProjHeroCard">'
     + '<div class="cenProjHeroLewo">'
     + '<div class="cenProjHeroIko">'
-    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>'
+    + '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:26px;height:26px;min-width:26px;min-height:26px;max-width:26px;max-height:26px;display:block;flex-shrink:0;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>'
     + '</div>'
     + '<div>'
     + '<div class="cenProjHeroTyt">Centrum Twoich Projektów</div>'
@@ -46521,7 +46623,7 @@ function centrPodstronaProjektow(){
     + '</div>'
     + '<div class="cenProjHeroPrawo">'
     + '<button type="button" class="cenProjHeroBtn" data-cakcja="nowy-projekt">'
-    + CEN_MODERN_ICO.plus + ' <span>Nowy projekt</span>'
+    + '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;min-width:16px;min-height:16px;max-width:16px;max-height:16px;display:block;flex-shrink:0;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> <span>Nowy projekt</span>'
     + '</button>'
     + '</div>'
     + '</div>';
@@ -46530,7 +46632,7 @@ function centrPodstronaProjektow(){
     + '<div class="cenProjStatTile">'
     + '<div class="cenProjStatTop">'
     + '<div class="cenProjStatIko" style="background:rgba(59,130,246,0.12);color:#3b82f6;">'
-    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>'
+    + '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:17px;height:17px;min-width:17px;min-height:17px;max-width:17px;max-height:17px;display:block;flex-shrink:0;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>'
     + '</div>'
     + '<div class="cenProjStatVal">' + totalCount + '</div>'
     + '</div>'
@@ -46539,7 +46641,7 @@ function centrPodstronaProjektow(){
     + '<div class="cenProjStatTile">'
     + '<div class="cenProjStatTop">'
     + '<div class="cenProjStatIko" style="background:rgba(16,185,129,0.12);color:#10b981;">'
-    + CEN_MODERN_ICO.target
+    + '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:17px;height:17px;min-width:17px;min-height:17px;max-width:17px;max-height:17px;display:block;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>'
     + '</div>'
     + '<div class="cenProjStatVal">' + activeCount + '</div>'
     + '</div>'
@@ -46548,7 +46650,7 @@ function centrPodstronaProjektow(){
     + '<div class="cenProjStatTile">'
     + '<div class="cenProjStatTop">'
     + '<div class="cenProjStatIko" style="background:rgba(245,158,11,0.12);color:#f59e0b;">'
-    + CEN_MODERN_ICO.note
+    + '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:17px;height:17px;min-width:17px;min-height:17px;max-width:17px;max-height:17px;display:block;flex-shrink:0;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>'
     + '</div>'
     + '<div class="cenProjStatVal">' + totalNotesCount + '</div>'
     + '</div>'
@@ -46563,7 +46665,7 @@ function centrPodstronaProjektow(){
       + '<div class="cenProjEmptyTyt">Nie masz jeszcze żadnego projektu</div>'
       + '<div class="cenProjEmptyOpis">Projekt to zbiór notatek skupionych wokół jednego tematu, przygotowania do zebrania lub studium osobistego.</div>'
       + '<button type="button" class="cenProjHeroBtn" data-cakcja="nowy-projekt">'
-      + CEN_MODERN_ICO.plus + ' <span>Utwórz swój pierwszy projekt</span>'
+      + '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;min-width:16px;min-height:16px;max-width:16px;max-height:16px;display:block;flex-shrink:0;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> <span>Utwórz swój pierwszy projekt</span>'
       + '</button>'
       + '</div>';
   } else {
@@ -46585,7 +46687,7 @@ function centrPodstronaProjektow(){
             + '<div class="cenProjCardTop">'
             + '<div class="cenProjCardLewo">'
             + '<div class="cenProjIko" style="background:color-mix(in srgb, ' + esc(kol) + ' 14%, var(--panel));color:' + esc(kol) + ';box-shadow:inset 0 0 0 1px color-mix(in srgb, ' + esc(kol) + ' 25%, transparent);">'
-            + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>'
+            + '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;min-width:20px;min-height:20px;max-width:20px;max-height:20px;display:block;flex-shrink:0;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>'
             + '</div>'
             + '<div class="cenProjTytBox">'
             + '<div class="cenProjNazwa" title="' + esc(x.tag.name) + '">' + esc(x.tag.name) + '</div>'
@@ -46593,16 +46695,16 @@ function centrPodstronaProjektow(){
             + '</div>'
             + '</div>'
             + '<div class="cenProjActions">'
-            + '<button type="button" class="cenProjBtnAction" data-cproj-akcja="kolor" data-cproj-id="' + x.tag.id + '" title="Zmień kolor projektu"' + (x.tag.color ? ' style="color:' + esc(x.tag.color) + ';"' : '') + '><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13.5px;height:13.5px;"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg></button>'
-            + '<button type="button" class="cenProjBtnAction" data-cproj-akcja="edytuj" data-cproj-id="' + x.tag.id + '" title="Zmień nazwę projektu">' + CEN_MODERN_ICO.edit + '</button>'
-            + '<button type="button" class="cenProjBtnAction danger" data-cproj-akcja="usun" data-cproj-id="' + x.tag.id + '" title="Usuń projekt">' + CEN_MODERN_ICO.trash + '</button>'
+            + '<button type="button" class="cenProjBtnAction" data-cproj-akcja="kolor" data-cproj-id="' + x.tag.id + '" title="Zmień kolor projektu"' + (x.tag.color ? ' style="color:' + esc(x.tag.color) + ';"' : '') + '><svg width="13.5" height="13.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13.5px;height:13.5px;min-width:13.5px;min-height:13.5px;max-width:13.5px;max-height:13.5px;display:block;flex-shrink:0;"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg></button>'
+            + '<button type="button" class="cenProjBtnAction" data-cproj-akcja="edytuj" data-cproj-id="' + x.tag.id + '" title="Zmień nazwę projektu"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;min-width:14px;min-height:14px;max-width:14px;max-height:14px;display:block;flex-shrink:0;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>'
+            + '<button type="button" class="cenProjBtnAction danger" data-cproj-akcja="usun" data-cproj-id="' + x.tag.id + '" title="Usuń projekt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;min-width:14px;min-height:14px;max-width:14px;max-height:14px;display:block;flex-shrink:0;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button>'
             + '</div>'
             + '</div>'
             + snippetsHtml
             + '</div>'
             + '<div class="cenProjCardFooter">'
             + '<span>Otwórz projekt</span>'
-            + CEN_MODERN_ICO.chevron
+            + '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px;min-width:13px;min-height:13px;max-width:13px;max-height:13px;display:block;flex-shrink:0;"><polyline points="9 18 15 12 9 6"/></svg>'
             + '</div>'
             + '</div>';
         }).join('')
