@@ -2802,6 +2802,369 @@ html[data-theme="dark"] .cenHeroTag {
     justify-content: flex-end;
     order: 1;
   }
+
+/* ══════════════ SEKCJA PROJEKTY — NOWOCZESNY DESIGN (v3.56) ══════════════ */
+.cenProjHeroCard {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 20px;
+  padding: clamp(16px, 2.2vw, 22px) clamp(18px, 2.5vw, 26px);
+  margin-bottom: 20px;
+  box-shadow: var(--cen-card-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  position: relative;
+  overflow: hidden;
+  border-left: 4px solid var(--accent);
+}
+.cenProjHeroCard::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 25%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.cenProjHeroLewo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+.cenProjHeroIko {
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 75%, #000));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.cenProjHeroIko svg {
+  width: 26px;
+  height: 26px;
+}
+.cenProjHeroTyt {
+  font-size: 17px;
+  font-weight: 750;
+  color: var(--cen-text);
+  margin-bottom: 4px;
+}
+.cenProjHeroOpis {
+  font-size: 13px;
+  color: var(--cen-text-muted);
+  line-height: 1.45;
+}
+.cenProjHeroPrawo {
+  flex-shrink: 0;
+}
+.cenProjHeroBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-size: 13.5px;
+  font-weight: 650;
+  cursor: pointer;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent) 35%, transparent);
+  transition: transform 0.16s ease, filter 0.16s ease, box-shadow 0.16s ease;
+}
+.cenProjHeroBtn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.cenProjHeroBtn svg {
+  width: 16px;
+  height: 16px;
+}
+.cenProjektyWidok {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.cenProjStatsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.cenProjStatTile {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 16px;
+  padding: 13px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--cen-card-shadow);
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+.cenProjStatTile:hover {
+  transform: translateY(-2px);
+  border-color: var(--cen-card-border-hover);
+  box-shadow: var(--cen-card-shadow-hover);
+}
+.cenProjStatTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cenProjStatIko {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cenProjStatIko svg {
+  width: 17px !important;
+  height: 17px !important;
+}
+.cenProjStatVal {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--cen-text);
+  line-height: 1;
+}
+.cenProjStatLbl {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--cen-text-muted);
+}
+.cenProjGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 14px;
+  margin-bottom: 26px;
+}
+.cenProjCard {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 18px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 148px;
+  box-shadow: var(--cen-card-shadow);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+}
+.cenProjCard:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--proj-kol, var(--accent)) 45%, var(--cen-card-border));
+  box-shadow: 0 10px 24px -4px color-mix(in srgb, var(--proj-kol, var(--accent)) 16%, transparent), var(--cen-card-shadow-hover);
+}
+.cenProjCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4.5px;
+  height: 100%;
+  background: var(--proj-kol, var(--accent));
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+}
+.cenProjCardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.cenProjCardLewo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+.cenProjIko {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--proj-kol, var(--accent)) 14%, var(--panel));
+  color: var(--proj-kol, var(--accent));
+  flex-shrink: 0;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--proj-kol, var(--accent)) 25%, transparent);
+}
+.cenProjIko svg {
+  width: 20px;
+  height: 20px;
+}
+.cenProjTytBox {
+  min-width: 0;
+  flex: 1;
+}
+.cenProjNazwa {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cen-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+.cenProjIle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cen-text-muted);
+  margin-top: 2px;
+}
+.cenProjActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.cenProjBtnAction {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0;
+}
+.cenProjBtnAction:hover {
+  background: var(--sel);
+  color: var(--text);
+  border-color: var(--border);
+  transform: scale(1.08);
+}
+.cenProjBtnAction.danger:hover {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+.cenProjBtnAction svg {
+  width: 14px;
+  height: 14px;
+}
+.cenProjSnippets {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+}
+.cenProjSnippetItem {
+  font-size: 11.5px;
+  color: var(--cen-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.cenProjSnippetItem::before {
+  content: '•';
+  color: var(--proj-kol, var(--accent));
+  font-weight: 900;
+  font-size: 13px;
+}
+.cenProjCardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  font-size: 11.5px;
+  font-weight: 650;
+  color: var(--proj-kol, var(--accent));
+}
+.cenProjCardFooter span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.cenProjCardFooter svg {
+  width: 13px;
+  height: 13px;
+  transition: transform 0.18s ease;
+}
+.cenProjCard:hover .cenProjCardFooter svg {
+  transform: translateX(3px);
+}
+.cenProjEmpty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px 24px;
+  background: var(--cen-card-bg);
+  border: 1px dashed var(--cen-card-border);
+  border-radius: 20px;
+}
+.cenProjEmptyIko {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+.cenProjEmptyTyt {
+  font-size: 16px;
+  font-weight: 750;
+  color: var(--cen-text);
+  margin-bottom: 6px;
+}
+.cenProjEmptyOpis {
+  font-size: 13px;
+  color: var(--cen-text-muted);
+  max-width: 440px;
+  margin: 0 auto 18px;
+  line-height: 1.5;
+}
+
+@media (max-width: 860px) {
+  .cenProjHeroCard {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px;
+    gap: 14px;
+  }
+  .cenProjHeroPrawo .btn,
+  .cenProjHeroBtn {
+    width: 100%;
+    justify-content: center;
+  }
+  .cenProjStatsRow {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .cenProjGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .cenProjStatsRow {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
 }
 
 /* ══════════════ RESPONSIVE BREAKPOINTS ══════════════ */
@@ -45106,11 +45469,114 @@ async function centrumNowyProjekt(n){
   }
   renderAll(); toast("Utworzono projekt „"+t.name+"”","ok"); return t;
 }
+async function centrumEdytujProjekt(t){
+  if(!t) return;
+  const name = await askText({title:"Zmień nazwę projektu", value:t.name, okLabel:"Zapisz", placeholder:"Nazwa projektu"});
+  if(!name || !name.trim() || name.trim() === t.name) return;
+  const nowaNazwa = name.trim();
+  if(tags.some(x => x.id !== t.id && x.name.toLowerCase() === nowaNazwa.toLowerCase())){
+    toast("Projekt lub etykieta o tej nazwie już istnieje.");
+    return;
+  }
+  pushUndo({type:"tags", label:"zmianę nazwy projektu", tags:cloneTags()});
+  if(!t.orig) t.orig = t.name;
+  t.name = nowaNazwa;
+  if(typeof deletedTagNames !== "undefined" && Array.isArray(deletedTagNames)){
+    deletedTagNames = deletedTagNames.filter(nm => nm !== t.name);
+    if(typeof saveDeletedTags === "function") saveDeletedTags();
+  }
+  if(typeof sortTags === "function") sortTags();
+  saveTags();
+  renderAll();
+  toast("Zmieniono nazwę projektu na „" + t.name + "”", "ok");
+}
+async function centrumUsunProjekt(t){
+  if(!t) return;
+  const cnt = notes.filter(n => !n.del && n.tg && n.tg.includes(t.id)).length;
+  if(!(await askConfirm("Usunąć projekt?", "Projekt „" + esc(t.name) + "”." + (cnt ? "<br><br>Notatki (" + cnt + ") NIE zostaną usunięte — zostaną jedynie odpięte z tego projektu." : ""), {okLabel:"Usuń projekt", danger:true}))) return;
+  pushUndo({type:"delTag", label:"usunięcie projektu „" + t.name + "”", name:t.name, orig:t.orig, tags:cloneTags(), notes:notes.filter(n => n.tg && n.tg.includes(t.id)).map(cloneNote)});
+  if(typeof deletedTagNames !== "undefined" && Array.isArray(deletedTagNames)){
+    if(t.name && !deletedTagNames.includes(t.name)) deletedTagNames.push(t.name);
+    if(t.orig && !deletedTagNames.includes(t.orig)) deletedTagNames.push(t.orig);
+    if(typeof saveDeletedTags === "function") saveDeletedTags();
+  }
+  tags = tags.filter(x => x.id !== t.id);
+  const affected = [];
+  notes.forEach(n => {
+    if(n.tg && n.tg.includes(t.id)){
+      n.tg = n.tg.filter(x => x !== t.id);
+      n.tgd = true;
+      affected.push(n);
+    }
+  });
+  if(typeof idb !== "undefined" && idb){
+    idbDelKey("tags", t.id).catch(()=>{});
+    if(affected.length && typeof idbBulkChunked === "function") idbBulkChunked("notes", affected).catch(e => reportSaveError(e, "notatki"));
+  }
+  bumpDirty();
+  if(filt.tag === t.id){ filt.tag = "all"; persistFilt(); }
+  renderAll();
+  toast("Usunięto projekt „" + t.name + "”", "ok");
+}
+function centrumKolorProjektu(t, kotwica){
+  if(!t) return;
+  const dd = $("dropdown");
+  if(!dd) return;
+  const projColors = [
+    "#0084ff", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6",
+    "#ec4899", "#06b6d4", "#f97316", "#14b8a6", "#6366f1",
+    "#4d8875", "#b78845", "#70799d", "#8d6f91", "#5e8392"
+  ];
+  const pal = (c)=>{
+    const s = (c || "").toLowerCase() === (t.color || "").toLowerCase();
+    return '<span class="pal ' + (c ? "" : "pal-none") + ' ' + (s ? "sel" : "") + '" data-pc="' + (c || "") + '" style="' + (c ? 'background:' + c : '') + '" title="' + (c || "Domyślny") + '">' + (c ? "" : "✕") + '</span>';
+  };
+  dd.innerHTML = '<div class="dd-lbl">Kolor projektu „' + esc(t.name) + '”</div>'
+    + '<div class="palrow">' + pal("") + projColors.map(c=>pal(c)).join("") + '</div>'
+    + '<div class="dd-sep"></div>'
+    + '<label class="tloWlasny">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg>'
+    + '<span>Własny kolor…</span>'
+    + '<input type="color" data-proj-wlasny-kolor value="' + esc(t.color || "#0084ff") + '">'
+    + '</label>';
+  dd.style.display = "block";
+  if(typeof oznaczPozycjeMenu === "function") oznaczPozycjeMenu(dd);
+  placeDropdown(dd, kotwica || document.body);
+
+  const zastosuj = (kol)=>{
+    pushUndo({type:"tags", label:"zmianę koloru projektu", tags:cloneTags()});
+    if(!kol) delete t.color;
+    else if(typeof kolorBezpieczny === "function" && kolorBezpieczny(kol)) t.color = kol;
+    else t.color = kol;
+    saveTags();
+    dd.style.display = "none";
+    renderAll();
+    toast("Zaktualizowano kolor projektu", "ok");
+  };
+
+  dd.onclick = ev => {
+    const it = ev.target.closest("[data-pc]");
+    if(it){
+      zastosuj(it.dataset.pc || null);
+    }
+  };
+
+  const inp = dd.querySelector("[data-proj-wlasny-kolor]");
+  if(inp){
+    inp.onchange = () => {
+      zastosuj(inp.value);
+    };
+  }
+}
 function centrumMenuProjektow(n,kotwica){
   const dd=$("dropdown"), projekty=centrProjekty();
   dd.innerHTML='<div class="dd-lbl">Projekty tej notatki</div>'
-    + projekty.map(x=>'<div data-cenproj="'+x.tag.id+'">'+ICO.tag+esc(x.tag.name)
-      +(n.tg.includes(x.tag.id)?' <span class="ddZnak">✓</span>':'')+'</div>').join('')
+    + projekty.map(x=>{
+        const kol = x.tag.color || 'var(--accent)';
+        const iko = '<svg viewBox="0 0 24 24" fill="none" stroke="' + esc(kol) + '" stroke-width="2" style="width:14px;height:14px;flex-shrink:0;margin-right:6px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>';
+        return '<div data-cenproj="'+x.tag.id+'" style="display:flex;align-items:center;">'+iko+'<span>'+esc(x.tag.name)+'</span>'
+          +(n.tg.includes(x.tag.id)?' <span class="ddZnak" style="margin-left:auto;">✓</span>':'')+'</div>';
+      }).join('')
     + (!projekty.length?'<div class="dd-info">Nie masz jeszcze projektu.</div>':'')
     + '<div class="dd-sep"></div><div data-cenproj="new">'+ICO.plus+'Nowy projekt…</div>';
   dd.style.display="block";
@@ -46004,7 +46470,11 @@ function centrNaglowekWidoku(){
     return '<div class="cenNagl"><div class="cenTyt"><b>'+esc(o[0])+'</b><span>'+esc(o[1])+'</span></div>'
       +'<div class="cenNaglAkcje">'+akcje+'</div></div>';
   }
-  const akcje='<button type="button" class="btn" data-cakcja="lista">Wszystkie notatki</button>';
+  let akcje='<button type="button" class="btn" data-cakcja="lista">Wszystkie notatki</button>';
+  if(centrWidok === "projekty"){
+    akcje = '<button type="button" class="cenNaglBtnIko" data-cakcja="nowy-projekt" title="Dodaj nowy projekt">' + CEN_MODERN_ICO.plus + '</button>'
+      + '<button type="button" class="btn" data-cakcja="lista">Wszystkie notatki</button>';
+  }
   return '<div class="cenSubHeader">'
     +'<div class="cenSubHeaderLewo">'
     +'<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
@@ -46032,15 +46502,118 @@ function centrOstatnieSekcje(kont){
 }
 
 function centrPodstronaProjektow(){
-  const projekty=centrProjekty();
-  const lista=projekty.length ? projekty.map(x=>
-    '<button type="button" class="cenProjekt" data-cprojekt="'+x.tag.id+'" style="--proj:'+(x.tag.color||'var(--accent)')+'">'
-    +'<i></i><span>'+esc(x.tag.name)+'</span><small>'+x.ile+'</small></button>').join('')
-    : '<div class="cenPodPusto">Nie masz jeszcze projektu. Projekt może łączyć dowolne notatki z różnych miejsc.</div>';
-  return '<section class="cenPodstrona"><div class="cenPodAkcje"><span>'+projekty.length+' '
-    +esc(centrOdmiana(projekty.length,"projekt","projekty","projektów"))+'</span>'
-    +'<button type="button" class="cenLink" data-cakcja="nowy-projekt">＋ Nowy projekt</button></div>'
-    +'<div class="cenProjektLista cenProjektListaPelna">'+lista+'</div></section>';
+  const projekty = centrProjekty();
+  const notesWszystkie = centrZywe();
+  
+  const totalCount = projekty.length;
+  const activeCount = projekty.filter(p => p.ile > 0).length;
+  const totalNotesCount = projekty.reduce((sum, p) => sum + p.ile, 0);
+
+  const heroHtml = '<div class="cenProjHeroCard">'
+    + '<div class="cenProjHeroLewo">'
+    + '<div class="cenProjHeroIko">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>'
+    + '</div>'
+    + '<div>'
+    + '<div class="cenProjHeroTyt">Centrum Twoich Projektów</div>'
+    + '<div class="cenProjHeroOpis">Łącz notatki, wersety i publikacje w spójne tematy studium osobistego i wystąpień.</div>'
+    + '</div>'
+    + '</div>'
+    + '<div class="cenProjHeroPrawo">'
+    + '<button type="button" class="cenProjHeroBtn" data-cakcja="nowy-projekt">'
+    + CEN_MODERN_ICO.plus + ' <span>Nowy projekt</span>'
+    + '</button>'
+    + '</div>'
+    + '</div>';
+
+  const statsHtml = '<div class="cenProjStatsRow">'
+    + '<div class="cenProjStatTile">'
+    + '<div class="cenProjStatTop">'
+    + '<div class="cenProjStatIko" style="background:rgba(59,130,246,0.12);color:#3b82f6;">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>'
+    + '</div>'
+    + '<div class="cenProjStatVal">' + totalCount + '</div>'
+    + '</div>'
+    + '<div class="cenProjStatLbl">Wszystkie projekty</div>'
+    + '</div>'
+    + '<div class="cenProjStatTile">'
+    + '<div class="cenProjStatTop">'
+    + '<div class="cenProjStatIko" style="background:rgba(16,185,129,0.12);color:#10b981;">'
+    + CEN_MODERN_ICO.target
+    + '</div>'
+    + '<div class="cenProjStatVal">' + activeCount + '</div>'
+    + '</div>'
+    + '<div class="cenProjStatLbl">Aktywne projekty</div>'
+    + '</div>'
+    + '<div class="cenProjStatTile">'
+    + '<div class="cenProjStatTop">'
+    + '<div class="cenProjStatIko" style="background:rgba(245,158,11,0.12);color:#f59e0b;">'
+    + CEN_MODERN_ICO.note
+    + '</div>'
+    + '<div class="cenProjStatVal">' + totalNotesCount + '</div>'
+    + '</div>'
+    + '<div class="cenProjStatLbl">Powiązane notatki</div>'
+    + '</div>'
+    + '</div>';
+
+  let gridHtml = '';
+  if(!projekty.length){
+    gridHtml = '<div class="cenProjEmpty">'
+      + '<div class="cenProjEmptyIko">📁</div>'
+      + '<div class="cenProjEmptyTyt">Nie masz jeszcze żadnego projektu</div>'
+      + '<div class="cenProjEmptyOpis">Projekt to zbiór notatek skupionych wokół jednego tematu, przygotowania do zebrania lub studium osobistego.</div>'
+      + '<button type="button" class="cenProjHeroBtn" data-cakcja="nowy-projekt">'
+      + CEN_MODERN_ICO.plus + ' <span>Utwórz swój pierwszy projekt</span>'
+      + '</button>'
+      + '</div>';
+  } else {
+    gridHtml = '<div class="cenProjGrid">'
+      + projekty.map(x => {
+          const kol = x.tag.color || 'var(--accent)';
+          const projNotes = notesWszystkie.filter(n => !n.del && n.tg && n.tg.includes(x.tag.id)).slice(0, 2);
+          const snippetsHtml = projNotes.length
+            ? '<div class="cenProjSnippets">'
+              + projNotes.map(n => {
+                  const tyt = centrTytulNotatki(n);
+                  return '<div class="cenProjSnippetItem" title="' + esc(tyt) + '">' + esc(tyt) + '</div>';
+                }).join('')
+              + '</div>'
+            : '<div class="cenProjSnippets"><span style="font-size:11.5px;color:var(--cen-text-muted);font-style:italic;">Brak powiązanych notatek</span></div>';
+
+          return '<div class="cenProjCard" data-cprojekt="' + x.tag.id + '" style="--proj-kol:' + esc(kol) + ';">'
+            + '<div>'
+            + '<div class="cenProjCardTop">'
+            + '<div class="cenProjCardLewo">'
+            + '<div class="cenProjIko" style="background:color-mix(in srgb, ' + esc(kol) + ' 14%, var(--panel));color:' + esc(kol) + ';box-shadow:inset 0 0 0 1px color-mix(in srgb, ' + esc(kol) + ' 25%, transparent);">'
+            + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>'
+            + '</div>'
+            + '<div class="cenProjTytBox">'
+            + '<div class="cenProjNazwa" title="' + esc(x.tag.name) + '">' + esc(x.tag.name) + '</div>'
+            + '<div class="cenProjIle">' + x.ile + ' ' + esc(centrOdmiana(x.ile, "notatka", "notatki", "notatek")) + '</div>'
+            + '</div>'
+            + '</div>'
+            + '<div class="cenProjActions">'
+            + '<button type="button" class="cenProjBtnAction" data-cproj-akcja="kolor" data-cproj-id="' + x.tag.id + '" title="Zmień kolor projektu"' + (x.tag.color ? ' style="color:' + esc(x.tag.color) + ';"' : '') + '><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13.5px;height:13.5px;"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg></button>'
+            + '<button type="button" class="cenProjBtnAction" data-cproj-akcja="edytuj" data-cproj-id="' + x.tag.id + '" title="Zmień nazwę projektu">' + CEN_MODERN_ICO.edit + '</button>'
+            + '<button type="button" class="cenProjBtnAction danger" data-cproj-akcja="usun" data-cproj-id="' + x.tag.id + '" title="Usuń projekt">' + CEN_MODERN_ICO.trash + '</button>'
+            + '</div>'
+            + '</div>'
+            + snippetsHtml
+            + '</div>'
+            + '<div class="cenProjCardFooter">'
+            + '<span>Otwórz projekt</span>'
+            + CEN_MODERN_ICO.chevron
+            + '</div>'
+            + '</div>';
+        }).join('')
+      + '</div>';
+  }
+
+  return '<div class="cenProjektyWidok">'
+    + heroHtml
+    + statsHtml
+    + gridHtml
+    + '</div>';
 }
 
 function centrPodstronaKolejki(pole){
@@ -46741,6 +47314,23 @@ if($("centrum")){
       // Szablony celów duchowych
       if(akcja.dataset.cakcja === "szablony-celow"){
         if(typeof _centrPokazModalSzablonow === "function") _centrPokazModalSzablonow();
+      }
+      return;
+    }
+
+    const projAkcja = ev.target.closest("[data-cproj-akcja]");
+    if(projAkcja){
+      ev.stopPropagation();
+      const akcja = projAkcja.dataset.cprojAkcja;
+      const id = +projAkcja.dataset.cprojId;
+      const t = tags.find(x => x.id === id && x.cproj) || tags.find(x => x.id === id);
+      if(!t){ toast("Tego projektu już nie ma"); rysujCentrum(); return; }
+      if(akcja === "kolor"){
+        centrumKolorProjektu(t, projAkcja);
+      } else if(akcja === "edytuj"){
+        centrumEdytujProjekt(t);
+      } else if(akcja === "usun"){
+        centrumUsunProjekt(t);
       }
       return;
     }
