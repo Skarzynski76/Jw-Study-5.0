@@ -4535,29 +4535,34 @@ mark { padding: 1px 3px; border-radius: 4px; }
   position: fixed;
   bottom: calc(28px + env(safe-area-inset-bottom, 0px));
   left: 50%;
-  background: color-mix(in srgb, var(--panel, #18201a) 86%, transparent);
-  color: var(--text, #fff);
-  padding: 10px 22px;
+  background: linear-gradient(135deg, rgba(24, 32, 42, 0.96) 0%, rgba(15, 23, 34, 0.98) 100%);
+  color: #ffffff !important;
+  padding: 11px 24px;
   border-radius: 9999px;
   font-size: 13.5px;
-  font-weight: 550;
+  font-weight: 600;
   letter-spacing: -0.01em;
   pointer-events: none;
-  z-index: 10099;
-  max-width: min(88%, 520px);
+  z-index: 100500 !important;
+  min-width: 240px;
+  max-width: min(88%, 560px);
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
+  gap: 10px;
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid color-mix(in srgb, var(--border, rgba(255,255,255,0.18)) 70%, transparent);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.22), 0 2px 8px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 14px 38px -6px rgba(0, 0, 0, 0.45), 0 4px 14px rgba(0, 0, 0, 0.2);
   opacity: 0;
   transform: translateX(-50%) translateY(20px) scale(0.92);
   transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1), transform 0.34s cubic-bezier(0.34, 1.38, 0.64, 1);
   will-change: transform, opacity;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+#toast span {
+  color: #ffffff !important;
 }
 #toast.show {
   opacity: 1;
@@ -6221,7 +6226,6 @@ html[data-theme="dark"] .chip{background:var(--sel);color:var(--text)}
   box-shadow:0 12px 40px rgba(0,0,0,.18);padding:6px}
 #dropdown div,#ebPop div[data-cmd],#ebPop div[data-ins],#searchSug .sug{border-radius:9px}
 #dropdown div:hover,#searchSug .sug:hover,#searchSug .sug.on{background:var(--sel)}
-#toast{border-radius:14px;background:rgba(28,28,30,.94);font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .editbar{border:.5px solid var(--border);border-radius:14px;box-shadow:none;background:var(--panel)}
 .editbar button{border-radius:9px}
 .nn-card{border:.5px solid var(--border);border-radius:14px;background:var(--bg)}
@@ -44286,7 +44290,7 @@ function centrWidokDzien(dNr){
         const checked = fragiDone.has(key) || jestDzienUkonczony;
         return '<div class="cenFragCard' + (checked ? ' done' : '') + '">'
           + '<div class="cenFragLewo">'
-          + '<div class="cenFragCheck' + (checked ? ' checked' : '') + '" data-cfrag-toggle="' + key + '">'
+          + '<div class="cenFragCheck' + (checked ? ' checked' : '') + '" data-cfrag-toggle="' + key + '" data-cdzien="' + dNr + '">'
           + (checked ? CEN_MODERN_ICO.check : '')
           + '</div>'
           + '<div>'
@@ -44294,7 +44298,7 @@ function centrWidokDzien(dNr){
           + '<div class="cenFragTemat">' + esc(frag.t) + '</div>'
           + '</div></div>'
           + '<div class="cenFragPrawo">'
-          + '<button type="button" class="cenFragBtnJW" data-copen-jw="' + esc(frag.r) + '" title="Otwórz fragment">' + CEN_MODERN_ICO.jw + ' Otwórz w JW Library</button>'
+          + '<button type="button" class="cenFragBtnJW" data-copen-jw="' + esc(frag.r) + '" data-cfrag-key="' + key + '" data-cdzien="' + dNr + '" title="Otwórz fragment w JW Library i oznacz jako przeczytany">' + CEN_MODERN_ICO.jw + ' Otwórz w JW Library</button>'
           + '<button type="button" class="cenNaglBtnIko" data-cnotatka-werset="' + esc(frag.r) + '" title="Dodaj notatkę do wersetu">' + CEN_MODERN_ICO.note + '</button>'
           + '</div>'
           + '</div>';
@@ -46308,9 +46312,32 @@ if($("centrum")){
     if(fragBtn){
       const key = fragBtn.dataset.cfragToggle;
       const fragi = _centrPobierzUkonczoneFragi();
-      if(fragi.has(key)) fragi.delete(key);
+      const nowChecked = !fragi.has(key);
+      if(!nowChecked) fragi.delete(key);
       else fragi.add(key);
       _centrZapiszUkonczoneFragi(fragi);
+
+      const d = parseInt(fragBtn.dataset.cdzien, 10);
+      if(d){
+        const planInfo = _centrPobierzPlanData(_centrAktywnyPlanId);
+        const planDay = (planInfo.plan || []).find(x => x.d === d);
+        if(planDay && planDay.f && planDay.f.length > 0){
+          const allDone = planDay.f.every((_, idx) => fragi.has(planInfo.id + "_" + d + "_" + idx));
+          const dni = _centrPobierzUkonczoneDni(_centrAktywnyPlanId);
+          if(allDone && !dni.has(d)){
+            dni.add(d);
+            _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
+            toast("🎉 Wspaniale! Ukończono wszystkie fragmenty na Dzień " + d + "!", "ok");
+            if(d < planInfo.days){
+              _centrWybranyDzien = d + 1;
+              lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
+            }
+          } else if(!allDone && dni.has(d)){
+            dni.delete(d);
+            _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
+          }
+        }
+      }
       rysujCentrum();
       return;
     }
@@ -46369,6 +46396,35 @@ if($("centrum")){
         } else {
           window.open(url, "_blank");
         }
+      }
+
+      // Gdy kliknięto w planie czytania Biblii, od razu oznacz fragment jako przeczytany
+      if(jwBtn.dataset.cfragKey){
+        const fKey = jwBtn.dataset.cfragKey;
+        const fragi = _centrPobierzUkonczoneFragi();
+        if(!fragi.has(fKey)){
+          fragi.add(fKey);
+          _centrZapiszUkonczoneFragi(fragi);
+        }
+        const d = parseInt(jwBtn.dataset.cdzien, 10);
+        if(d){
+          const planInfo = _centrPobierzPlanData(_centrAktywnyPlanId);
+          const planDay = (planInfo.plan || []).find(x => x.d === d);
+          if(planDay && planDay.f && planDay.f.length > 0){
+            const allDone = planDay.f.every((_, idx) => fragi.has(planInfo.id + "_" + d + "_" + idx));
+            const dni = _centrPobierzUkonczoneDni(_centrAktywnyPlanId);
+            if(allDone && !dni.has(d)){
+              dni.add(d);
+              _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
+              toast("🎉 Wspaniale! Ukończono wszystkie fragmenty na Dzień " + d + "!", "ok");
+              if(d < planInfo.days){
+                _centrWybranyDzien = d + 1;
+                lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
+              }
+            }
+          }
+        }
+        rysujCentrum();
       }
       return;
     }
