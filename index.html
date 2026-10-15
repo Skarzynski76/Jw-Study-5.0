@@ -3331,6 +3331,361 @@ html[data-theme="dark"] .cenHeroTag {
   }
 }
 
+/* ——— PASEK AKTYWNEGO PROJEKTU W LIŚCIE NOTATEK ——— */
+.cenProjActiveBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  flex: 1 1 100%;
+  padding: 9px 14px;
+  background: color-mix(in srgb, var(--proj-kol, var(--accent)) 9%, var(--panel));
+  border-bottom: 1px solid color-mix(in srgb, var(--proj-kol, var(--accent)) 22%, var(--border));
+  border-left: 4px solid var(--proj-kol, var(--accent));
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  position: relative;
+  z-index: 5;
+  box-sizing: border-box;
+  animation: fadeInProjBar 0.18s ease-out;
+}
+@keyframes fadeInProjBar {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.cenProjActiveBar[hidden] {
+  display: none !important;
+}
+body.centrum-open .cenProjActiveBar {
+  display: none !important;
+}
+
+/* Przycisk powrotu do Centrum w górnym pasku aplikacji */
+#btnHeaderCentrum:not([hidden]) {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+#btnHeaderCentrum.cenProjBtnActive {
+  background: color-mix(in srgb, var(--proj-kol, var(--accent)) 14%, var(--panel));
+  border-color: color-mix(in srgb, var(--proj-kol, var(--accent)) 38%, transparent);
+  color: var(--proj-kol, var(--accent));
+  font-weight: 650;
+}
+#btnHeaderCentrum:hover {
+  background: var(--sel);
+  color: var(--text);
+  border-color: var(--border);
+}
+#btnHeaderCentrum.cenProjBtnActive:hover {
+  background: color-mix(in srgb, var(--proj-kol, var(--accent)) 22%, var(--panel));
+  color: var(--proj-kol, var(--accent));
+}
+@media (max-width: 900px) {
+  header #btnHeaderCentrum:not([hidden]) {
+    order: 11 !important;
+    flex: 0 0 auto !important;
+    height: 30px !important;
+    min-height: 30px !important;
+    padding: 0 8px !important;
+    gap: 4px !important;
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+  }
+  header #btnHeaderCentrum .bwTxt {
+    font-size: 0 !important;
+    display: inline !important;
+  }
+  header #btnHeaderCentrum .bwTxt::after {
+    content: "Centrum" !important;
+    font-size: 11.5px !important;
+  }
+}
+@media (max-width: 1400px) {
+  #btnHeaderCentrum .bwTxt { font-size: 0; }
+  #btnHeaderCentrum .bwTxt::after { content: "Centrum"; font-size: calc(13px * var(--uiw, 1)); }
+}
+
+.cenProjActiveBarLewo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.cenProjWrocBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.cenProjWrocBtn:hover {
+  background: var(--sel);
+  border-color: var(--proj-kol, var(--accent));
+  color: var(--proj-kol, var(--accent));
+  transform: translateX(-2px);
+}
+.cenProjWrocBtn svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+.cenProjWrocBtn:hover svg {
+  transform: translateX(-2px);
+}
+
+.cenProjBarSep {
+  width: 1px;
+  height: 20px;
+  background: color-mix(in srgb, var(--border) 70%, transparent);
+  flex-shrink: 0;
+}
+
+.cenProjBarIko {
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  min-height: 26px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: color-mix(in srgb, var(--proj-kol, var(--accent)) 16%, var(--panel));
+  color: var(--proj-kol, var(--accent));
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.cenProjBarIko:hover {
+  transform: scale(1.08);
+  background: color-mix(in srgb, var(--proj-kol, var(--accent)) 25%, var(--panel));
+}
+.cenProjBarIko svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+}
+
+.cenProjBarInfo {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cenProjBarNad {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: var(--proj-kol, var(--accent));
+  flex-shrink: 0;
+}
+.cenProjBarTyt {
+  font-size: 13.5px;
+  font-weight: 750;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.cenProjBarTyt:hover {
+  color: var(--proj-kol, var(--accent));
+  text-decoration: underline;
+}
+
+.cenProjBarLicznik {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--proj-kol, var(--accent)) 14%, var(--panel));
+  color: var(--proj-kol, var(--accent));
+  border: 1px solid color-mix(in srgb, var(--proj-kol, var(--accent)) 25%, transparent);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cenProjActiveBarPrawo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.cenProjBarBtnNowa {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--proj-kol, var(--accent));
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 11px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.cenProjBarBtnNowa:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+.cenProjBarBtnNowa svg {
+  width: 12px;
+  height: 12px;
+}
+
+.cenProjBarBtnZarzadzaj {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 11px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.cenProjBarBtnZarzadzaj:hover {
+  background: var(--sel);
+  border-color: var(--proj-kol, var(--accent));
+  color: var(--proj-kol, var(--accent));
+}
+.cenProjBarBtnZarzadzaj svg {
+  width: 13px;
+  height: 13px;
+}
+
+.cenProjBarZamknij {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid transparent;
+  border-radius: 7px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cenProjBarZamknij:hover {
+  background: var(--sel);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.fsCentrumWrocInline,
+.fsProjWrocInline {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-right: 6px;
+  max-width: 220px;
+  transition: all 0.15s ease;
+}
+.fsProjWrocInline span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fsCentrumWrocInline:hover,
+.fsProjWrocInline:hover {
+  background: var(--sel);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+@media (max-width: 680px) {
+  .fsCentrumWrocInline span {
+    display: none;
+  }
+  .fsProjWrocInline {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 680px) {
+  .cenProjActiveBar {
+    padding: 7px 10px;
+    gap: 8px;
+  }
+  .cenProjBarNad {
+    display: none;
+  }
+  .cenProjBarBtnNowa span,
+  .cenProjBarBtnZarzadzaj span {
+    display: none;
+  }
+  .cenProjBarBtnNowa,
+  .cenProjBarBtnZarzadzaj {
+    padding: 6px 8px;
+  }
+}
+@media (max-width: 480px) {
+  .cenProjWrocBtn {
+    padding: 5px 9px;
+    font-size: 12px;
+  }
+  .cenProjWrocBtn span {
+    font-size: 0;
+  }
+  .cenProjWrocBtn span::after {
+    content: "Centrum";
+    font-size: 12px;
+  }
+  .cenProjBarSep {
+    display: none;
+  }
+  .cenProjBarIko {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    min-height: 22px;
+  }
+  .cenProjBarIko svg {
+    width: 13px;
+    height: 13px;
+  }
+  .cenProjBarTyt {
+    font-size: 12.5px;
+  }
+}
+
 /* ══════════════ RESPONSIVE BREAKPOINTS ══════════════ */
 @media (max-width: 1024px) {
   .cenCentrumShell {
@@ -18545,6 +18900,7 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
     <button id="btnSearchTools" type="button" aria-label="Inteligentne wyszukiwanie i instrukcja" title="Inteligentne wyszukiwanie">⌄</button>
   </div>
   <button class="btn" id="btnWszystkie" hidden title="Wróć do wszystkich notatek — czyści szukanie, etykietę, księgę i szybki filtr (0)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5L4 12l5 7"/><path d="M4 12h9a6 6 0 0 1 0 12"/></svg> <span class="bwTxt">Wszystkie notatki</span></button>
+  <button class="btn" id="btnHeaderCentrum" hidden title="Wróć do Centrum Studium"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right:5px;"><path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M10 20v-5.5h4V20"/></svg> <span class="bwTxt">Centrum</span></button>
   <select id="sortSel" aria-label="Kolejność notatek na liście" title="Kolejność notatek na liście">
     <optgroup label="Według zmiany">
       <option value="new">Ostatnio zmienione</option>
@@ -18629,6 +18985,35 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
          w jednym wierszu i zawijają się dopiero wtedy, gdy naprawdę brakuje
          miejsca. -->
     <div id="pasekListy">
+      <!-- Pasek aktywnego projektu z Centrum Studium -->
+      <div id="pasekProjektu" class="cenProjActiveBar" hidden>
+        <div class="cenProjActiveBarLewo">
+          <button type="button" class="cenProjWrocBtn" id="btnProjWrocCentrum" title="Wróć do Centrum Studium (widok projektów)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+            <span>Wróć do Centrum</span>
+          </button>
+          <div class="cenProjBarSep"></div>
+          <div class="cenProjBarIko" id="projBarIko">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="cenProjBarInfo">
+            <span class="cenProjBarNad">Projekt</span>
+            <span class="cenProjBarTyt" id="projBarTyt"></span>
+            <span class="cenProjBarLicznik" id="projBarLicznik"></span>
+          </div>
+        </div>
+        <div class="cenProjActiveBarPrawo">
+          <button type="button" class="cenProjBarBtnZarzadzaj" id="btnProjZarzadzaj" title="Zarządzaj projektem (zmień nazwę, kolor lub usuń)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>Zarządzaj</span>
+          </button>
+          <button type="button" class="cenProjBarBtnNowa" id="btnProjNowaNotatka" title="Dodaj nową notatkę do tego projektu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Nowa notatka</span>
+          </button>
+          <button type="button" class="cenProjBarZamknij" id="btnProjZamknijFiltr" title="Wyłącz filtr projektu i pokaż wszystkie notatki">✕</button>
+        </div>
+      </div>
       <div id="ukryteKolumny" hidden></div>
       <div id="viewBar">
         <span class="vb-lbl">Widok</span>
@@ -20387,6 +20772,13 @@ function tagById(id){
 function invalidateTagCache(){ _tagMapCache = null; _tagMapCacheVer = -1; }
 window.tagById = tagById;
 window.invalidateTagCache = invalidateTagCache;
+
+function aktywnyProjektTag(){
+  if(typeof filt === "undefined" || !filt || filt.tag == null || filt.tag === "all") return null;
+  const t = typeof tagById === "function" ? tagById(filt.tag) : (Array.isArray(tags) ? tags.find(x => x && (x.id === filt.tag || x.id === +filt.tag || String(x.id) === String(filt.tag))) : null);
+  return (t && t.cproj) ? t : null;
+}
+window.aktywnyProjektTag = aktywnyProjektTag;
 
 /* ——— Globalne zmienne i funkcje wyszukiwarki (gwarancja dostępności od startu) ——— */
 function norm(s){ return (s||"").toLowerCase().replace(/\u0142/g,"l").normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
@@ -25835,6 +26227,7 @@ function renderNotes(){
   let countsTxt = sortMode==="recent" ? (arr.length ? "Ostatnio otwierane ("+arr.length+")" : "Nie otwierałeś jeszcze żadnej notatki") : arr.length + (arr.length===1?" notatka":(arr.length%10>=2&&arr.length%10<=4&&(arr.length%100<12||arr.length%100>14))?" notatki":" notatek");
   renderQuickFilters(_base);
   if(typeof odswiezPrzyciskWszystkie==="function") odswiezPrzyciskWszystkie();
+  if(typeof odswiezPasekProjektu==="function") odswiezPasekProjektu();
   setText($("counts"), countsTxt);
   if(typeof renderSearchStatus==="function") renderSearchStatus(arr);
   let _alive=0; for(let i=0;i<notes.length;i++) if(!notes[i].del) _alive++;
@@ -26585,6 +26978,31 @@ function renderFs(){
     const x = document.createElement("button");
     x.className = "fsCloseInline"; x.type="button"; x.setAttribute("aria-label","Zamknij"); x.textContent = "✕"; x.title = "Zamknij";
     x.onclick = () => closeFs(false);
+    const curProj = typeof aktywnyProjektTag === "function" ? aktywnyProjektTag() : null;
+    if(curProj){
+      const cBtn = document.createElement("button");
+      cBtn.className = "fsCentrumWrocInline";
+      cBtn.type = "button";
+      cBtn.title = "Wróć do Centrum Studium (widok projektów)";
+      cBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;display:inline-block;vertical-align:-1px;margin-right:4px;"><path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M10 20v-5.5h4V20"/></svg><span>Centrum</span>';
+      cBtn.onclick = () => {
+        if(typeof wrocDoCentrumProjektow === "function"){
+          wrocDoCentrumProjektow();
+        } else {
+          closeFs(false);
+          if(typeof centrumPokaz === "function") centrumPokaz("projekty");
+        }
+      };
+      nh.appendChild(cBtn);
+
+      const pBtn = document.createElement("button");
+      pBtn.className = "fsProjWrocInline";
+      pBtn.type = "button";
+      pBtn.title = "Wróć do listy notatek projektu „" + curProj.name + "”";
+      pBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;display:inline-block;vertical-align:-1px;margin-right:4px;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg><span>' + esc(curProj.name) + '</span>';
+      pBtn.onclick = () => closeFs(false);
+      nh.appendChild(pBtn);
+    }
     nh.appendChild(x);
     /* Strzałka powrotu pokazuje się DOPIERO wtedy, gdy jest gdzie wracać.
        Wyjście zawsze widoczne, ale nieczynne, uczy go nie próbować. W podpowiedzi
@@ -46874,16 +47292,23 @@ function centrumOdswiez(){
     btn.classList.toggle("on", pokaz);
     btn.setAttribute("aria-pressed", pokaz ? "true" : "false");
   }
+  if(typeof odswiezPasekProjektu === "function") odswiezPasekProjektu();
   if(typeof updateSidebarActiveStates === "function") updateSidebarActiveStates();
 }
 
-function centrumPokaz(){
+function centrumPokaz(docelowyWidok){
   centrWlaczone = true;
   lsSet(CENTR_WLACZONE, "1");
   centrTryb = "centrum";
   lsSet(CENTR_KLUCZ, "centrum");
-  centrWidok = "centrum";
-  lsSet(CENTR_WIDOK_KLUCZ, "centrum");
+  if(docelowyWidok && typeof docelowyWidok === "string"){
+    centrWidok = docelowyWidok;
+  } else if(typeof aktywnyProjektTag === "function" && aktywnyProjektTag()){
+    centrWidok = "projekty";
+  } else {
+    centrWidok = "centrum";
+  }
+  lsSet(CENTR_WIDOK_KLUCZ, centrWidok);
   
   if(typeof filt !== "undefined" && filt){
     filt.tag = "all"; filt.book = "all"; filt.ch = null; filt.pub = "all";
@@ -47833,6 +48258,118 @@ if($("btnCentrum")){
     else centrumPokaz();
   };
 }
+
+/**
+ * Wraca do Centrum Studium na widok projektów.
+ * Zamyka czytnik/edytor pełnoekranowy (jeśli był otwarty) i przełącza widok na Projekty.
+ */
+function wrocDoCentrumProjektow(){
+  if(typeof closeFs === "function") closeFs(false);
+  if(typeof centrumPokaz === "function") centrumPokaz("projekty");
+}
+window.wrocDoCentrumProjektow = wrocDoCentrumProjektow;
+
+/**
+ * Aktualizuje stan paska aktywnego projektu (#pasekProjektu) oraz przycisku
+ * powrotu do Centrum (#btnHeaderCentrum) w nagłówku listy notatek.
+ */
+function odswiezPasekProjektu(){
+  const bar = $("pasekProjektu");
+  const btnH = $("btnHeaderCentrum");
+  const curProj = typeof aktywnyProjektTag === "function" ? aktywnyProjektTag() : null;
+  const cWidoczne = typeof centrumWidoczne === "function" ? centrumWidoczne() : false;
+
+  const pokaz = !cWidoczne && !!curProj;
+
+  if(bar){
+    bar.hidden = !pokaz;
+    if(pokaz){
+      const kol = curProj.color || "var(--accent)";
+      bar.style.setProperty("--proj-kol", kol);
+      const tytEl = $("projBarTyt");
+      if(tytEl) setText(tytEl, curProj.name || "Projekt");
+      const licznEl = $("projBarLicznik");
+      if(licznEl){
+        const ile = Array.isArray(notes) ? notes.filter(n => !n.del && n.tg && (n.tg.includes(curProj.id) || n.tg.includes(+curProj.id) || n.tg.some(x => String(x) === String(curProj.id)))).length : 0;
+        const odm = typeof centrOdmiana === "function" ? centrOdmiana(ile, "notatka", "notatki", "notatek") : (ile === 1 ? "notatka" : "notatek");
+        setText(licznEl, ile + " " + odm);
+      }
+      const ikoEl = $("projBarIko");
+      if(ikoEl){
+        ikoEl.style.color = kol;
+        ikoEl.style.background = "color-mix(in srgb, " + kol + " 16%, var(--panel))";
+      }
+    }
+  }
+
+  if(btnH){
+    btnH.hidden = !pokaz;
+    if(pokaz){
+      const kol = curProj.color || "var(--accent)";
+      btnH.style.setProperty("--proj-kol", kol);
+      btnH.classList.add("cenProjBtnActive");
+      btnH.title = "Wróć do Centrum Studium — Projekt „" + (curProj.name || "") + "”";
+    } else {
+      btnH.classList.remove("cenProjBtnActive");
+    }
+  }
+
+  if(typeof zmierzPaski === "function") zmierzPaski();
+}
+window.odswiezPasekProjektu = odswiezPasekProjektu;
+
+/* Obsługa kliknięć w pasek aktywnego projektu i przycisk Centrum w nagłówku */
+document.addEventListener("click", ev => {
+  const t = ev.target;
+  if(!t || !t.closest) return;
+
+  if(t.closest("#btnProjWrocCentrum") || t.closest("#btnHeaderCentrum")){
+    ev.preventDefault();
+    wrocDoCentrumProjektow();
+    return;
+  }
+
+  if(t.closest("#btnProjZarzadzaj") || t.closest("#projBarIko") || t.closest("#projBarTyt")){
+    ev.preventDefault();
+    const p = typeof aktywnyProjektTag === "function" ? aktywnyProjektTag() : null;
+    if(!p) return;
+    const anchor = t.closest("#btnProjZarzadzaj") || t.closest("#projBarIko") || t.closest("#projBarTyt");
+    const dd = $("dropdown");
+    if(!dd) return;
+    dd.innerHTML = '<div class="dd-lbl">Projekt „' + esc(p.name) + '”</div>'
+      + '<button type="button" class="dd-it" id="ddProjZmienNazwe"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg><span>Zmień nazwę projektu</span></button>'
+      + '<button type="button" class="dd-it" id="ddProjZmienKolor"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg><span>Zmień kolor projektu</span></button>'
+      + '<div class="dd-sep"></div>'
+      + '<button type="button" class="dd-it danger" id="ddProjUsun"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg><span>Usuń projekt</span></button>';
+    dd.style.display = "block";
+    if(typeof oznaczPozycjeMenu === "function") oznaczPozycjeMenu(dd);
+    if(typeof placeDropdown === "function") placeDropdown(dd, anchor);
+    const bNazwa = $("ddProjZmienNazwe");
+    if(bNazwa) bNazwa.onclick = ()=>{ dd.style.display="none"; if(typeof centrumEdytujProjekt === "function") centrumEdytujProjekt(p); };
+    const bKolor = $("ddProjZmienKolor");
+    if(bKolor) bKolor.onclick = ()=>{ dd.style.display="none"; if(typeof centrumKolorProjektu === "function") centrumKolorProjektu(p, anchor); };
+    const bUsun = $("ddProjUsun");
+    if(bUsun) bUsun.onclick = ()=>{ dd.style.display="none"; if(typeof centrumUsunProjekt === "function") centrumUsunProjekt(p); };
+    return;
+  }
+
+  if(t.closest("#btnProjNowaNotatka")){
+    ev.preventDefault();
+    const bNew = $("btnNew");
+    if(bNew) bNew.click();
+    return;
+  }
+
+  if(t.closest("#btnProjZamknijFiltr")){
+    ev.preventDefault();
+    if(typeof filt !== "undefined" && filt){
+      filt.tag = "all";
+      if(typeof persistFilt === "function") persistFilt();
+    }
+    renderAll();
+    return;
+  }
+});
 
 /* „Kontynuuj" ma wracać w to samo miejsce tekstu. Czytnik robi to sam przy
    otwieraniu (restoreReadPos w renderFs), więc tu nie ma nic do dopisania —
