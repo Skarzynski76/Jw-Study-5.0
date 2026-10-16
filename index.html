@@ -2904,6 +2904,190 @@ html[data-theme="dark"] .cenHeroTag {
   color: #ffffff !important;
 }
 
+.cenTimerBgBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--cen-btn-bg);
+  border: 1px solid var(--cen-card-border);
+  color: var(--cen-text-sub);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cenTimerBgBtn:hover {
+  background: var(--cen-btn-hover-bg);
+  color: var(--cel-color, var(--cen-accent, #3b82f6));
+  border-color: var(--cel-color, var(--cen-accent, #3b82f6));
+}
+
+/* PŁYWAJĄCY WIDGET STOPERA SKUPIENIA */
+.cenFloatingTimer {
+  position: fixed;
+  bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  right: calc(22px + env(safe-area-inset-right, 0px));
+  z-index: 10050;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px 8px 14px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid var(--cel-color, #3b82f6);
+  border-radius: 999px;
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.2);
+  color: var(--cen-text, #1e293b);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  touch-action: none;
+  cursor: grab;
+  animation: cenFloatSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cenFloatingTimer.dragging {
+  cursor: grabbing !important;
+  transition: none !important;
+  opacity: 0.96;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+}
+.cenFloatingTimer button {
+  cursor: pointer;
+}
+html[data-theme="dark"] .cenFloatingTimer {
+  background: rgba(26, 34, 46, 0.94);
+  border-color: var(--cel-color, #60a5fa);
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+.cenFloatingTimer.done {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3), 0 12px 32px -4px rgba(0, 0, 0, 0.3) !important;
+  animation: cenFloatDonePulse 1.2s infinite alternate !important;
+}
+@keyframes cenFloatDonePulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.04); }
+}
+@keyframes cenFloatSlideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.cenFloatTimerPulseDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: cenDotPulse 1.5s infinite;
+  flex-shrink: 0;
+}
+.cenFloatTimerPulseDot.paused {
+  background: #f59e0b;
+  animation: none;
+}
+@keyframes cenDotPulse {
+  0% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+.cenFloatTimerBadge {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cenFloatTimerInfo {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  min-width: 90px;
+  max-width: 170px;
+}
+.cenFloatTimerTime {
+  font-size: 16px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--cen-text, #1e293b);
+  line-height: 1.1;
+  letter-spacing: -0.3px;
+}
+.cenFloatTimerTitle {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--cen-text-muted, #64748b);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+.cenFloatTimerActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-left: 1px solid var(--cen-card-border, rgba(0,0,0,0.1));
+  padding-left: 8px;
+  margin-left: 2px;
+}
+.cenFloatTimerBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: var(--cen-btn-bg, rgba(0,0,0,0.06));
+  color: var(--cen-text, #1e293b);
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.14s ease;
+  padding: 0;
+}
+.cenFloatTimerBtn:hover {
+  background: var(--cen-btn-hover-bg, rgba(0,0,0,0.12));
+  transform: scale(1.08);
+}
+.cenFloatTimerDoneBtn {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  font-weight: 800;
+}
+.cenFloatTimerDoneBtn:hover {
+  background: #10b981;
+  color: #ffffff;
+}
+.cenFloatTimerCloseBtn {
+  color: var(--cen-text-muted, #94a3b8);
+  font-size: 11px;
+}
+.cenFloatTimerCloseBtn:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.12);
+}
+@media (max-width: 600px) {
+  .cenFloatingTimer {
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+    left: 12px !important;
+    right: 12px !important;
+    top: auto !important;
+    justify-content: space-between;
+  }
+  .cenFloatTimerInfo {
+    max-width: none;
+    flex: 1;
+  }
+}
+.cenCelTimerActive {
+  background: rgba(59, 130, 246, 0.14) !important;
+  color: #2563eb !important;
+  border-color: #3b82f6 !important;
+  font-weight: 700 !important;
+  animation: cenTimerPulse 1.8s ease-in-out infinite;
+}
+
 /* ==========================================================================
    NOWY / EDYTOWANY CEL DUCHOWY & SZABLONY (v5.0 DESIGN)
    ========================================================================== */
@@ -21253,7 +21437,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
   </div>
 </div>
 
-<div class="overlay" id="modalCelTimer" aria-hidden="true">
+<div class="overlay" id="modalCelTimer" data-lock-close="1" aria-hidden="true">
   <div class="modal cenGoalModal" role="dialog" aria-modal="true" style="max-width:440px !important; width:min(440px, 95vw) !important;">
     <div class="cenGoalHeader">
       <div class="cenGoalHeaderLeft">
@@ -21264,15 +21448,37 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
           <p class="cenGoalSubtext" id="modalCelTimerSub">Skup się na realizacji nawyku duchowego</p>
         </div>
       </div>
-      <button type="button" class="exp-close-btn" data-zamknij="modalCelTimer" title="Zamknij">✕</button>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <button type="button" class="exp-close-btn" id="modalCelTimerMinBtn" onclick="_centrMinimalizujStoper()" title="Zminimalizuj do widżetu (stoper działa w tle)" style="font-size:13px;width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;">🗕</button>
+        <button type="button" class="exp-close-btn" data-zamknij="modalCelTimer" title="Zamknij">✕</button>
+      </div>
     </div>
     <div class="cenGoalBody" style="padding:16px 20px;">
       <div id="modalCelTimerBody"></div>
     </div>
     <div class="cenGoalFooter" style="justify-content:space-between; align-items:center;">
-      <button type="button" class="btn" data-zamknij="modalCelTimer">Zamknij</button>
+      <div style="display:flex;gap:8px;">
+        <button type="button" class="btn" data-zamknij="modalCelTimer" id="modalCelTimerZamknijBtn">Zamknij</button>
+        <button type="button" class="btn" id="modalCelTimerMinFooterBtn" onclick="_centrMinimalizujStoper()" title="Pracuj w aplikacji ze stoperem w tle" style="display:none;">🗕 W tle</button>
+      </div>
       <button type="button" class="btn primary" id="modalCelTimerZaliczBtn">✓ Zalicz dzisiejszy dzień</button>
     </div>
+  </div>
+</div>
+
+<!-- Pływający widget aktywnego stopera (gdy stoper działa w tle) -->
+<div id="cenFloatingTimer" class="cenFloatingTimer" style="display:none;" role="region" aria-label="Pływający stoper skupienia" aria-live="polite">
+  <div class="cenFloatTimerPulseDot" id="cenFloatTimerDot" aria-hidden="true"></div>
+  <div class="cenFloatTimerBadge" id="cenFloatTimerIcon" aria-hidden="true">⏱️</div>
+  <div class="cenFloatTimerInfo" id="cenFloatTimerInfoBtn" role="button" tabindex="0" title="Kliknij, aby otworzyć stoper" aria-label="Rozwiń stoper skupienia">
+    <div class="cenFloatTimerTime" id="cenFloatTimerTime" aria-label="Czas stopera">00:00</div>
+    <div class="cenFloatTimerTitle" id="cenFloatTimerTitle">Stoper skupienia</div>
+  </div>
+  <div class="cenFloatTimerActions">
+    <button type="button" class="cenFloatTimerBtn" id="cenFloatTimerToggleBtn" title="Wstrzymaj / Wznów" aria-label="Wstrzymaj lub wznów stoper">⏸</button>
+    <button type="button" class="cenFloatTimerBtn cenFloatTimerDoneBtn" id="cenFloatTimerDoneBtn" title="Zalicz sesję" aria-label="Zalicz sesję">✓</button>
+    <button type="button" class="cenFloatTimerBtn" id="cenFloatTimerOpenBtn" title="Rozwiń stoper" aria-label="Rozwiń okno stopera">⤢</button>
+    <button type="button" class="cenFloatTimerBtn cenFloatTimerCloseBtn" id="cenFloatTimerCloseBtn" title="Zatrzymaj i zamknij" aria-label="Zatrzymaj i zamknij stoper">✕</button>
   </div>
 </div>
 
@@ -36466,8 +36672,18 @@ window.syncModalScrollLock = syncModalScrollLock;
 
 function initModalObserver(){
   try {
-    const observer = new MutationObserver(()=>{
+    const observer = new MutationObserver((mutations)=>{
       syncModalScrollLock();
+      if(Array.isArray(mutations)){
+        for(const m of mutations){
+          if(m && m.target && m.target.id === "modalCelTimer"){
+            const isShown = m.target.classList.contains("show");
+            if(!isShown && typeof _centrNaZamkniecieStopera === "function"){
+              _centrNaZamkniecieStopera();
+            }
+          }
+        }
+      }
     });
     document.querySelectorAll(".overlay").forEach(ov => {
       if(ov._modalObserved) return;
@@ -36511,8 +36727,12 @@ function closeModal(id){
     pudlo.style.transform = "";
     pudlo.style.transition = "";
   }
-  if((id === "modalCelTimer" || okno.id === "modalCelTimer") && typeof _centrZatrzymajStoper === "function"){
-    _centrZatrzymajStoper();
+  if(id === "modalCelTimer" || okno.id === "modalCelTimer"){
+    if(typeof _centrNaZamkniecieStopera === "function"){
+      _centrNaZamkniecieStopera();
+    } else if(typeof _centrZatrzymajStoper === "function"){
+      _centrZatrzymajStoper();
+    }
   }
   syncModalScrollLock();
   // ognisko wraca tam, skąd okno otwarto — inaczej ląduje na początku strony
@@ -45010,6 +45230,12 @@ function _centrDodajLubEdytujCel(dane){
 function _centrUsunCel(celId){
   const cele = _centrPobierzCele().filter(c => c.id !== celId);
   _centrZapiszCele(cele);
+  try {
+    if(typeof _centrStoperStan !== "undefined" && _centrStoperStan && _centrStoperStan.celId === celId){
+      if(typeof _centrZatrzymajIUkryjStoper === "function") _centrZatrzymajIUkryjStoper();
+      if(typeof closeModal === "function") closeModal("modalCelTimer");
+    }
+  } catch(e){}
 }
 
 function _centrPrzelaczCelUkonczony(celId){
@@ -45034,7 +45260,7 @@ function _centrZmienLicznikCelu(celId, delta){
   const c = cele.find(x => x.id === celId);
   if(c && c.type === "numeric"){
     const prevCompleted = !!c.completed;
-    c.current = Math.max(0, (Number(c.current) || 0) + delta);
+    c.current = Math.round(Math.max(0, (Number(c.current) || 0) + delta) * 10) / 10;
     if(c.target > 0 && c.current >= c.target){
       c.completed = true;
       c.completedAt = Date.now();
@@ -45592,6 +45818,10 @@ function _centrKartaCeluHtml(c){
   const cat = _centrKategorieMap[c.category] || { name: "Cel", icon: "🎯", color: "#3b82f6" };
   const color = c.color || cat.color;
   const isDone = !!c.completed;
+  const isTimerActive = !!(_centrStoperStan && _centrStoperStan.celId === c.id && (_centrStoperStan.dziala || _centrStoperStan.uplyneloSek > 0));
+  const activeTimerDisplay = isTimerActive 
+    ? _centrFormatujCzasStoper(_centrStoperStan.trybOdliczania ? _centrStoperStan.pozostaloSek : _centrStoperStan.uplyneloSek) 
+    : '';
 
   let bodyHtml = '';
   let footerBtnHtml = '';
@@ -45665,7 +45895,7 @@ function _centrKartaCeluHtml(c){
       + '🔥 Seria: ' + streakDisplay
       + '</span>'
       + '<div style="display:inline-flex;align-items:center;gap:6px;">'
-      + '<button type="button" class="cenCelKalBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Otwórz stoper / minutnik sesji skupienia">⏱️ ' + (habitTime > 0 ? (habitTime + ' min') : 'Stoper') + '</button>'
+      + '<button type="button" class="cenCelKalBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Otwórz stoper / minutnik sesji skupienia">' + (isTimerActive ? ('⏱️ ' + activeTimerDisplay + (_centrStoperStan.dziala ? ' ⏸' : ' ▶')) : ('⏱️ ' + (habitTime > 0 ? (habitTime + ' min') : 'Stoper'))) + '</button>'
       + '<button type="button" class="cenCelKalBtn" data-cel-kalendarz="' + c.id + '" title="Otwórz pełny interaktywny kalendarz nawyku">📅 Kalendarz</button>'
       + '</div>'
       + '</div>';
@@ -45674,13 +45904,13 @@ function _centrKartaCeluHtml(c){
       footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn done" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';" title="Kliknij, aby przywrócić cel do aktywnych">'
         + '↺ Przywróć do aktywnych'
         + '</button>'
-        + '<button type="button" class="cenCelIconBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik sesji skupienia" style="font-size:14px;">⏱️</button>'
+        + '<button type="button" class="cenCelIconBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik sesji skupienia" style="font-size:14px;">⏱️</button>'
         + '<button type="button" class="cenCelIconBtn" data-cel-kalendarz="' + c.id + '" title="Otwórz pełny kalendarz nawyku" style="font-size:14px;">📅</button>';
     } else {
       footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isTodayDone ? ' done' : '') + '" data-cel-habit-day="' + c.id + '" data-date="' + todayStr + '" style="--cel-color:' + color + ';" title="' + (isTodayDone ? 'Dzisiaj wykonano — kliknij, by cofnąć' : 'Kliknij, aby odznaczyć dzisiejszy dzień') + '">'
         + (isTodayDone ? '✓ Dzisiaj wykonano' : '○ Wykonaj dzisiaj')
         + '</button>'
-        + '<button type="button" class="cenCelIconBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik sesji skupienia" style="font-size:14px;">⏱️</button>'
+        + '<button type="button" class="cenCelIconBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik sesji skupienia" style="font-size:14px;">⏱️</button>'
         + '<button type="button" class="cenCelIconBtn" data-cel-kalendarz="' + c.id + '" title="Otwórz pełny kalendarz nawyku" style="font-size:14px;">📅</button>'
         + '<button type="button" class="cenCelIconBtn" data-cel-toggle-done="' + c.id + '" title="Zakończ cel i przenieś do archiwum" style="font-size:14px;">🏆</button>';
     }
@@ -45709,12 +45939,12 @@ function _centrKartaCeluHtml(c){
       footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn done" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
         + '↺ Przywróć do aktywnych'
         + '</button>'
-        + '<button type="button" class="cenCelIconBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
+        + '<button type="button" class="cenCelIconBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
     } else {
       footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (cur >= tgt ? ' done' : '') + '" data-cel-num-delta="' + c.id + '" data-delta="1" style="--cel-color:' + color + ';">'
         + (cur >= tgt ? '🎉 Osiągnięto cel (' + cur + '/' + tgt + ')' : '+1 ' + esc(unit))
         + '</button>'
-        + '<button type="button" class="cenCelIconBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>'
+        + '<button type="button" class="cenCelIconBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>'
         + '<button type="button" class="cenCelIconBtn" data-cel-toggle-done="' + c.id + '" title="Oznacz cel jako ukończony" style="font-size:14px;">✓</button>';
     }
   } else if(c.type === "steps"){
@@ -45740,12 +45970,12 @@ function _centrKartaCeluHtml(c){
       footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn done" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
         + '↺ Przywróć do aktywnych'
         + '</button>'
-        + '<button type="button" class="cenCelIconBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
+        + '<button type="button" class="cenCelIconBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
     } else {
       footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isDone ? ' done' : '') + '" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
         + (doneCount === totalSteps && totalSteps > 0 ? '🎉 Wszystkie etapy ukończone' : 'Oznacz całość jako ukończone')
         + '</button>'
-        + '<button type="button" class="cenCelIconBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
+        + '<button type="button" class="cenCelIconBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
     }
   } else {
     bodyHtml = '<div style="padding:10px 14px;background:var(--cen-btn-bg);border-radius:10px;margin-bottom:12px;display:flex;align-items:center;gap:10px;">'
@@ -45756,7 +45986,7 @@ function _centrKartaCeluHtml(c){
     footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isDone ? ' done' : '') + '" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
       + (isDone ? '↺ Przywróć do aktywnych' : '✓ Zrealizuj ten cel')
       + '</button>'
-      + '<button type="button" class="cenCelIconBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
+      + '<button type="button" class="cenCelIconBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
   }
 
   let topExtraHtml = '';
@@ -46325,8 +46555,10 @@ let _centrStoperStan = {
   uplyneloSek: 0,
   dziala: false,
   zakonczony: false,
-  timerId: null
+  timerId: null,
+  lastTick: 0
 };
+window._centrStoperStan = _centrStoperStan;
 
 function _centrFormatujCzasStoper(sek){
   sek = Math.max(0, Math.floor(sek || 0));
@@ -46340,13 +46572,464 @@ function _centrFormatujCzasStoper(sek){
   return pad(m) + ':' + pad(s);
 }
 
+function _centrObliczDelteDlaCeluNumerycznego(c, uplyneloSek){
+  if(!c || c.type !== "numeric") return 1;
+  const unit = String(c.unit || "").trim().toLowerCase();
+
+  let sek = parseInt(uplyneloSek, 10) || 0;
+  if(sek <= 0 && _centrStoperStan && _centrStoperStan.trybOdliczania && _centrStoperStan.calkowityCzasSek > 0){
+    sek = _centrStoperStan.calkowityCzasSek;
+  }
+  sek = Math.max(0, sek);
+
+  // Godziny (np. "godz", "godz.", "godziny", "godzin", "h", "godz/mies")
+  const isGodz = /^(h|godz\.?|godzin[ay]?)$/i.test(unit) || /\b(godz|godzin|hours?)\b/i.test(unit);
+
+  // Minuty (np. "min", "min.", "minuty", "minut", "m")
+  const isMin = /^(m|min\.?|minut[ay]?)$/i.test(unit) || /\b(min|minut|minutes?)\b/i.test(unit);
+
+  if(isGodz){
+    if(sek === 0) return 0.1;
+    const h = sek / 3600;
+    const rounded = Math.round(h * 10) / 10;
+    return Math.max(0.1, rounded);
+  }
+
+  if(isMin){
+    if(sek === 0) return 1;
+    const m = Math.round(sek / 60);
+    return Math.max(1, m);
+  }
+
+  return 1;
+}
+
+function _centrWyczyscStoperZLS(){
+  try {
+    if(typeof lsRem === "function") lsRem(KP + "CentrumStoperStan");
+    else if(typeof lsRemove === "function") lsRemove(KP + "CentrumStoperStan");
+    else if(typeof localStorage !== "undefined") localStorage.removeItem(KP + "CentrumStoperStan");
+    if(typeof localStorage !== "undefined") localStorage.removeItem("jw_cen_stoper_state");
+  } catch(e){}
+}
+
+function _centrZapiszStoperDoLS(){
+  try {
+    const stan = _centrStoperStan;
+    if(!stan || (!stan.celId && !stan.dziala && stan.uplyneloSek === 0 && !stan.zakonczony)){
+      _centrWyczyscStoperZLS();
+      return;
+    }
+    const data = {
+      celId: stan.celId,
+      trybOdliczania: stan.trybOdliczania,
+      calkowityCzasSek: stan.calkowityCzasSek,
+      pozostaloSek: stan.pozostaloSek,
+      uplyneloSek: stan.uplyneloSek,
+      dziala: stan.dziala,
+      zakonczony: stan.zakonczony,
+      lastTimestamp: Date.now()
+    };
+    const jsonStr = JSON.stringify(data);
+    if(typeof lsSet === "function") lsSet(KP + "CentrumStoperStan", jsonStr);
+    else if(typeof localStorage !== "undefined") localStorage.setItem(KP + "CentrumStoperStan", jsonStr);
+    if(typeof localStorage !== "undefined") localStorage.setItem("jw_cen_stoper_state", jsonStr);
+  } catch(e){}
+}
+
+function _centrPrzywrocPozycjeFloatingTimer(){
+  const floatEl = $("cenFloatingTimer");
+  if(!floatEl) return;
+  if(window.innerWidth <= 600){
+    floatEl.style.left = "";
+    floatEl.style.top = "";
+    floatEl.style.right = "";
+    floatEl.style.bottom = "";
+    return;
+  }
+  let pos = null;
+  try {
+    const raw = typeof localStorage !== "undefined" ? localStorage.getItem("jw_cen_stoper_pos") : null;
+    if(raw) pos = JSON.parse(raw);
+  } catch(e){}
+
+  if(pos && typeof pos.left === "number" && typeof pos.top === "number"){
+    const pad = 10;
+    const w = floatEl.offsetWidth || 260;
+    const h = floatEl.offsetHeight || 50;
+    const maxLeft = Math.max(pad, window.innerWidth - w - pad);
+    const maxTop = Math.max(pad, window.innerHeight - h - pad);
+    const left = Math.max(pad, Math.min(maxLeft, pos.left));
+    const top = Math.max(pad, Math.min(maxTop, pos.top));
+    floatEl.style.left = left + "px";
+    floatEl.style.top = top + "px";
+    floatEl.style.right = "auto";
+    floatEl.style.bottom = "auto";
+  } else {
+    floatEl.style.left = "";
+    floatEl.style.top = "";
+    floatEl.style.right = "";
+    floatEl.style.bottom = "";
+  }
+}
+
+let _cenFloatJustDragged = false;
+window._cenFloatJustDragged = false;
+
+function _centrInicjalizujDraggableFloatingTimer(){
+  const floatEl = $("cenFloatingTimer");
+  if(!floatEl || floatEl._dragInitialized) return;
+  floatEl._dragInitialized = true;
+
+  _centrPrzywrocPozycjeFloatingTimer();
+
+  let startX = 0, startY = 0;
+  let initLeft = 0, initTop = 0;
+  let isDragging = false;
+  let currentPointerId = null;
+
+  const onPointerDown = (e) => {
+    if(window.innerWidth <= 600) return;
+    if(e.button !== undefined && e.button !== 0) return;
+    if(e.target.closest("button, .cenFloatTimerBtn")) return;
+
+    const rect = floatEl.getBoundingClientRect();
+    startX = e.clientX;
+    startY = e.clientY;
+    initLeft = rect.left;
+    initTop = rect.top;
+    isDragging = false;
+    currentPointerId = e.pointerId;
+
+    try {
+      floatEl.setPointerCapture(e.pointerId);
+    } catch(_){}
+
+    document.addEventListener("pointermove", onPointerMove, { passive: false });
+    document.addEventListener("pointerup", onPointerUp, { passive: false });
+    document.addEventListener("pointercancel", onPointerUp, { passive: false });
+  };
+
+  const onPointerMove = (e) => {
+    if(currentPointerId !== null && e.pointerId !== currentPointerId) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    if(!isDragging){
+      if(Math.hypot(dx, dy) > 5){
+        isDragging = true;
+        floatEl.classList.add("dragging");
+      }
+    }
+
+    if(isDragging){
+      e.preventDefault();
+      const pad = 10;
+      const w = floatEl.offsetWidth || 260;
+      const h = floatEl.offsetHeight || 50;
+      const maxLeft = Math.max(pad, window.innerWidth - w - pad);
+      const maxTop = Math.max(pad, window.innerHeight - h - pad);
+
+      const targetLeft = Math.max(pad, Math.min(maxLeft, initLeft + dx));
+      const targetTop = Math.max(pad, Math.min(maxTop, initTop + dy));
+
+      floatEl.style.left = targetLeft + "px";
+      floatEl.style.top = targetTop + "px";
+      floatEl.style.right = "auto";
+      floatEl.style.bottom = "auto";
+    }
+  };
+
+  const onPointerUp = (e) => {
+    if(currentPointerId !== null && e.pointerId !== currentPointerId) return;
+
+    document.removeEventListener("pointermove", onPointerMove);
+    document.removeEventListener("pointerup", onPointerUp);
+    document.removeEventListener("pointercancel", onPointerUp);
+
+    try {
+      if(currentPointerId !== null) floatEl.releasePointerCapture(currentPointerId);
+    } catch(_){}
+    currentPointerId = null;
+
+    if(isDragging){
+      _cenFloatJustDragged = true;
+      window._cenFloatJustDragged = true;
+      setTimeout(() => {
+        _cenFloatJustDragged = false;
+        window._cenFloatJustDragged = false;
+      }, 200);
+      floatEl.classList.remove("dragging");
+
+      const rect = floatEl.getBoundingClientRect();
+      const pos = { left: Math.round(rect.left), top: Math.round(rect.top) };
+      try {
+        localStorage.setItem("jw_cen_stoper_pos", JSON.stringify(pos));
+      } catch(_) {}
+      isDragging = false;
+    }
+  };
+
+  floatEl.addEventListener("pointerdown", onPointerDown);
+
+  window.addEventListener("resize", () => {
+    _centrPrzywrocPozycjeFloatingTimer();
+  });
+}
+
+function _centrMinimalizujStoper(){
+  if(typeof closeModal === "function") closeModal("modalCelTimer");
+  _centrNaZamkniecieStopera();
+}
+
+function _centrResynchronizujStoperWTle(){
+  const stan = _centrStoperStan;
+  if(!stan.dziala || !stan.lastTick) return;
+  const now = Date.now();
+  const diff = Math.floor((now - stan.lastTick) / 1000);
+  if(diff >= 1){
+    stan.lastTick = now;
+    if(stan.trybOdliczania){
+      stan.pozostaloSek = Math.max(0, stan.pozostaloSek - diff);
+      stan.uplyneloSek += diff;
+      if(stan.pozostaloSek <= 0){
+        stan.pozostaloSek = 0;
+        if(stan.timerId){
+          clearInterval(stan.timerId);
+          stan.timerId = null;
+        }
+        stan.dziala = false;
+        stan.zakonczony = true;
+        _centrZapiszStoperDoLS();
+        _centrAktualizujWskazaniaStopera();
+        _centrAktualizujFloatingTimer();
+        _centrZakonczSesjeStopera();
+        return;
+      }
+    } else {
+      stan.uplyneloSek += diff;
+    }
+    _centrZapiszStoperDoLS();
+    _centrAktualizujWskazaniaStopera();
+    _centrAktualizujFloatingTimer();
+  }
+}
+
+if(typeof document !== "undefined"){
+  document.addEventListener("visibilitychange", () => {
+    if(!document.hidden) _centrResynchronizujStoperWTle();
+  });
+}
+if(typeof window !== "undefined"){
+  window.addEventListener("focus", _centrResynchronizujStoperWTle);
+}
+
+function _centrWczytajStoperZLS(){
+  try {
+    let raw = typeof lsGet === "function" ? lsGet(KP + "CentrumStoperStan", null) : null;
+    if(!raw && typeof localStorage !== "undefined"){
+      raw = localStorage.getItem("jw_cen_stoper_state") || localStorage.getItem(KP + "CentrumStoperStan");
+    }
+    if(!raw) return;
+    const data = JSON.parse(raw);
+    if(!data || (!data.celId && !data.dziala && !data.uplyneloSek && !data.zakonczony)) return;
+
+    _centrStoperStan.celId = data.celId || null;
+    _centrStoperStan.trybOdliczania = data.trybOdliczania !== false;
+    _centrStoperStan.calkowityCzasSek = Number(data.calkowityCzasSek) || 1500;
+    _centrStoperStan.zakonczony = !!data.zakonczony;
+
+    let pozostalo = Number(data.pozostaloSek) || 0;
+    let uplynelo = Number(data.uplyneloSek) || 0;
+
+    if(data.dziala && data.lastTimestamp){
+      const diff = Math.max(0, Math.floor((Date.now() - data.lastTimestamp) / 1000));
+      if(_centrStoperStan.trybOdliczania){
+        pozostalo = Math.max(0, pozostalo - diff);
+        uplynelo += diff;
+        if(pozostalo === 0){
+          _centrStoperStan.zakonczony = true;
+          data.dziala = false;
+        }
+      } else {
+        uplynelo += diff;
+      }
+    }
+
+    _centrStoperStan.pozostaloSek = pozostalo;
+    _centrStoperStan.uplyneloSek = uplynelo;
+    _centrStoperStan.dziala = false;
+    _centrStoperStan.lastTick = 0;
+
+    if(typeof _centrInicjalizujDraggableFloatingTimer === "function"){
+      _centrInicjalizujDraggableFloatingTimer();
+    }
+    _centrPrzywrocPozycjeFloatingTimer();
+
+    if(data.dziala && !_centrStoperStan.zakonczony){
+      _centrStartStopStoper();
+    } else {
+      _centrAktualizujWskazaniaStopera();
+    }
+
+    const modal = $("modalCelTimer");
+    const modalOtwarte = modal && modal.classList.contains("show");
+    if(!modalOtwarte && (_centrStoperStan.dziala || _centrStoperStan.uplyneloSek > 0 || _centrStoperStan.zakonczony)){
+      _centrPokazFloatingTimer();
+    }
+  } catch(e){}
+}
+
 function _centrZatrzymajStoper(){
   if(_centrStoperStan.timerId){
     clearInterval(_centrStoperStan.timerId);
     _centrStoperStan.timerId = null;
   }
   _centrStoperStan.dziala = false;
+  _centrStoperStan.lastTick = 0;
+  _centrZapiszStoperDoLS();
   _centrAktualizujWskazaniaStopera();
+  _centrAktualizujFloatingTimer();
+}
+
+function _centrZatrzymajIUkryjStoper(){
+  if(_centrStoperStan.timerId){
+    clearInterval(_centrStoperStan.timerId);
+    _centrStoperStan.timerId = null;
+  }
+  _centrStoperStan.dziala = false;
+  _centrStoperStan.zakonczony = false;
+  _centrStoperStan.uplyneloSek = 0;
+  _centrStoperStan.pozostaloSek = _centrStoperStan.calkowityCzasSek;
+  _centrStoperStan.celId = null;
+  _centrStoperStan.lastTick = 0;
+
+  _centrZapiszStoperDoLS();
+  _centrUkryjFloatingTimer();
+  _centrAktualizujWskazaniaStopera();
+  if(typeof rysujCentrum === "function") rysujCentrum();
+}
+
+function _centrPokazFloatingTimer(){
+  const floatEl = $("cenFloatingTimer");
+  if(!floatEl) return;
+  if(typeof _centrInicjalizujDraggableFloatingTimer === "function"){
+    _centrInicjalizujDraggableFloatingTimer();
+  }
+  floatEl.style.display = "flex";
+  if(typeof _centrPrzywrocPozycjeFloatingTimer === "function"){
+    _centrPrzywrocPozycjeFloatingTimer();
+  }
+  _centrAktualizujFloatingTimer();
+}
+
+function _centrUkryjFloatingTimer(){
+  const floatEl = $("cenFloatingTimer");
+  if(!floatEl) return;
+  floatEl.style.display = "none";
+  floatEl.classList.remove("done");
+}
+
+function _centrNaZamkniecieStopera(){
+  const stan = _centrStoperStan;
+  const modal = $("modalCelTimer");
+  const modalOtwarte = modal && modal.classList.contains("show");
+  const floatEl = $("cenFloatingTimer");
+  const alreadyShowing = floatEl && floatEl.style.display === "flex";
+  if(!modalOtwarte && (stan.dziala || (stan.uplyneloSek > 0 && !stan.zakonczony) || stan.zakonczony)){
+    _centrPokazFloatingTimer();
+    if(stan.dziala && !alreadyShowing){
+      toast("Stoper odlicza czas w tle ⏱️", "info", 2000);
+    }
+  } else {
+    _centrUkryjFloatingTimer();
+  }
+  if(typeof rysujCentrum === "function") rysujCentrum();
+}
+
+function _centrAktualizujFloatingTimer(){
+  const floatEl = $("cenFloatingTimer");
+  if(!floatEl) return;
+
+  const modal = $("modalCelTimer");
+  const modalOtwarte = modal && modal.classList.contains("show");
+  const stan = _centrStoperStan;
+  const maSesje = stan.dziala || stan.uplyneloSek > 0 || stan.zakonczony;
+
+  if(modalOtwarte || !maSesje){
+    floatEl.style.display = "none";
+    return;
+  }
+
+  floatEl.style.display = "flex";
+
+  const cele = _centrPobierzCele();
+  const c = cele.find(x => x.id === stan.celId) || { title: "Sesja skupienia", category: "inne", color: "#3b82f6" };
+  const cat = _centrKategorieMap[c.category] || { name: "Cel duchowy", icon: "🎯", color: "#3b82f6" };
+  const color = c.color || cat.color || "#3b82f6";
+
+  floatEl.style.setProperty("--cel-color", color);
+
+  const timeEl = $("cenFloatTimerTime");
+  const titleEl = $("cenFloatTimerTitle");
+  const iconEl = $("cenFloatTimerIcon");
+  const dotEl = $("cenFloatTimerDot");
+  const toggleBtn = $("cenFloatTimerToggleBtn");
+  const doneBtn = $("cenFloatTimerDoneBtn");
+
+  const displaySek = stan.trybOdliczania ? stan.pozostaloSek : stan.uplyneloSek;
+  if(timeEl) timeEl.textContent = _centrFormatujCzasStoper(displaySek);
+
+  if(titleEl){
+    titleEl.textContent = c.title || "Sesja skupienia";
+    titleEl.title = (c.title || "Sesja skupienia") + " • Kliknij, aby rozwinąć stoper";
+  }
+
+  if(iconEl) iconEl.textContent = cat.icon || "⏱️";
+
+  if(dotEl){
+    if(stan.dziala){
+      dotEl.classList.remove("paused");
+    } else {
+      dotEl.classList.add("paused");
+    }
+  }
+
+  if(toggleBtn){
+    if(stan.dziala){
+      toggleBtn.innerHTML = "⏸";
+      toggleBtn.title = "Wstrzymaj stoper";
+    } else {
+      toggleBtn.innerHTML = "▶";
+      toggleBtn.title = "Wznów stoper";
+    }
+  }
+
+  if(doneBtn){
+    if(c.type === "habit"){
+      const todayStr = _centrFormatujDateISO(new Date());
+      const isTodayDone = !!(c.history && c.history[todayStr]);
+      doneBtn.title = isTodayDone ? "Dzisiejszy dzień już zaliczony" : "Zalicz dzisiejszy dzień nawyku";
+    } else if(c.type === "numeric"){
+      const delta = _centrObliczDelteDlaCeluNumerycznego(c, stan.uplyneloSek);
+      const deltaStr = (delta % 1 === 0) ? String(delta) : delta.toFixed(1);
+      doneBtn.title = "Dodaj +" + deltaStr + (c.unit ? (' ' + c.unit) : '') + " do celu";
+    } else if(c.type === "steps"){
+      const steps = Array.isArray(c.steps) ? c.steps : [];
+      const nextStep = steps.find(s => !s.done);
+      doneBtn.title = nextStep ? ("Zalicz etap: „" + nextStep.t + "”") : "Wszystkie etapy ukończone";
+    } else {
+      doneBtn.title = c.completed ? "Sesja skupienia (cel już ukończony)" : "Zalicz i oznacz cel jako ukończony";
+    }
+  }
+
+  if(stan.zakonczony){
+    floatEl.classList.add("done");
+    if(doneBtn) doneBtn.style.animation = "cenTimerPulse 1.2s infinite";
+  } else {
+    floatEl.classList.remove("done");
+    if(doneBtn) doneBtn.style.animation = "";
+  }
 }
 
 function _centrOtworzStoper(celId){
@@ -46363,21 +47046,32 @@ function _centrOtworzStoper(celId){
     };
   }
 
-  if(_centrStoperStan.timerId){
-    clearInterval(_centrStoperStan.timerId);
-    _centrStoperStan.timerId = null;
+  const toTenSamCel = (_centrStoperStan.celId === c.id) && (_centrStoperStan.dziala || _centrStoperStan.uplyneloSek > 0 || _centrStoperStan.zakonczony);
+
+  if(!toTenSamCel){
+    if(_centrStoperStan.dziala || _centrStoperStan.uplyneloSek > 0){
+      if(!confirm("Trwa już sesja skupienia dla innego celu. Czy chcesz ją przerwać i rozpocząć nową?")){
+        return;
+      }
+    }
+    if(_centrStoperStan.timerId){
+      clearInterval(_centrStoperStan.timerId);
+      _centrStoperStan.timerId = null;
+    }
+
+    const habitMinutes = parseInt(c.habitTime, 10) || 0;
+    const defaultMinutes = habitMinutes > 0 ? habitMinutes : 25;
+
+    _centrStoperStan.celId = c.id;
+    _centrStoperStan.trybOdliczania = true;
+    _centrStoperStan.calkowityCzasSek = defaultMinutes * 60;
+    _centrStoperStan.pozostaloSek = _centrStoperStan.calkowityCzasSek;
+    _centrStoperStan.uplyneloSek = 0;
+    _centrStoperStan.dziala = false;
+    _centrStoperStan.zakonczony = false;
   }
 
-  const habitMinutes = parseInt(c.habitTime, 10) || 0;
-  const defaultMinutes = habitMinutes > 0 ? habitMinutes : 25;
-
-  _centrStoperStan.celId = c.id;
-  _centrStoperStan.trybOdliczania = true;
-  _centrStoperStan.calkowityCzasSek = defaultMinutes * 60;
-  _centrStoperStan.pozostaloSek = _centrStoperStan.calkowityCzasSek;
-  _centrStoperStan.uplyneloSek = 0;
-  _centrStoperStan.dziala = false;
-  _centrStoperStan.zakonczony = false;
+  _centrUkryjFloatingTimer();
 
   const cat = _centrKategorieMap[c.category] || { name: "Cel duchowy", icon: "🎯", color: "#3b82f6" };
   const color = c.color || cat.color || "#3b82f6";
@@ -46409,6 +47103,7 @@ function _centrOtworzStoper(celId){
   _centrRenderujCialoStopera(c, color);
   _centrOdswiezPrzyciskZaliczStopera(c);
   openModal("modalCelTimer");
+  _centrAktualizujWskazaniaStopera();
 }
 
 function _centrRenderujCialoStopera(c, color){
@@ -46451,7 +47146,11 @@ function _centrRenderujCialoStopera(c, color){
     + '<button type="button" class="cenTimerAdjBtn" data-stoper-akcja="plus5" title="Dodaj 5 minut">+5 min</button>'
     + '</div>'
 
-    + '<div id="cenTimerDoneBanner" class="cenTimerDoneBanner" style="display:none;">'
+    + '<div id="cenTimerBgHint" style="font-size:12px;color:var(--cen-text-muted);text-align:center;margin-top:8px;' + (_centrStoperStan.dziala || _centrStoperStan.uplyneloSek > 0 ? '' : 'display:none;') + '">'
+    + '💡 Możesz <button type="button" id="cenTimerBgMinLink" style="background:none;border:none;padding:0;color:var(--cel-color, #3b82f6);text-decoration:underline;cursor:pointer;font-size:12px;font-weight:600;">zminimalizować to okno do paska</button> — stoper będzie odliczał czas w tle.'
+    + '</div>'
+
+    + '<div id="cenTimerDoneBanner" class="cenTimerDoneBanner" style="display:' + (_centrStoperStan.zakonczony ? 'block' : 'none') + ';">'
     + '<div style="font-size:14px;font-weight:700;color:#10b981;margin-bottom:4px;display:flex;align-items:center;justify-content:center;gap:6px;">'
     + '<span>🎉</span><span>Świetna robota! Sesja ukończona!</span>'
     + '</div>'
@@ -46469,11 +47168,15 @@ function _centrAktualizujWskazaniaStopera(){
   const statusEl = $("cenTimerStatusLbl");
   const startBtn = $("cenTimerStartBtn");
   const ringEl = $("cenTimerSvgRing");
-  if(!digitsEl) return;
+  const minFooterBtn = $("modalCelTimerMinFooterBtn");
+  const hintEl = $("cenTimerBgHint");
 
   const stan = _centrStoperStan;
   const displaySek = stan.trybOdliczania ? stan.pozostaloSek : stan.uplyneloSek;
-  digitsEl.textContent = _centrFormatujCzasStoper(displaySek);
+
+  if(digitsEl){
+    digitsEl.textContent = _centrFormatujCzasStoper(displaySek);
+  }
 
   if(statusEl){
     if(stan.zakonczony){
@@ -46501,6 +47204,14 @@ function _centrAktualizujWskazaniaStopera(){
     }
   }
 
+  if(minFooterBtn){
+    minFooterBtn.style.display = (stan.dziala || stan.uplyneloSek > 0) ? "inline-flex" : "none";
+  }
+
+  if(hintEl){
+    hintEl.style.display = (stan.dziala || stan.uplyneloSek > 0) ? "block" : "none";
+  }
+
   if(ringEl){
     const circumference = 515.22;
     let offset = 0;
@@ -46514,6 +47225,13 @@ function _centrAktualizujWskazaniaStopera(){
     }
     ringEl.style.strokeDashoffset = String(offset);
   }
+
+  const modal = $("modalCelTimer");
+  if(modal && modal.classList.contains("show") && stan.celId){
+    const cele = _centrPobierzCele();
+    const c = cele.find(x => x.id === stan.celId);
+    if(c) _centrOdswiezPrzyciskZaliczStopera(c);
+  }
 }
 
 function _centrStartStopStoper(){
@@ -46524,7 +47242,9 @@ function _centrStartStopStoper(){
       stan.timerId = null;
     }
     stan.dziala = false;
+    _centrZapiszStoperDoLS();
     _centrAktualizujWskazaniaStopera();
+    _centrAktualizujFloatingTimer();
     return;
   }
 
@@ -46550,22 +47270,53 @@ function _centrStartStopStoper(){
         }
         stan.dziala = false;
         stan.zakonczony = true;
+        _centrZapiszStoperDoLS();
         _centrAktualizujWskazaniaStopera();
+        _centrAktualizujFloatingTimer();
         _centrZakonczSesjeStopera();
         return;
       }
     } else {
       stan.uplyneloSek++;
     }
+
+    if(stan.uplyneloSek % 5 === 0){
+      _centrZapiszStoperDoLS();
+    }
+
     _centrAktualizujWskazaniaStopera();
+    _centrAktualizujFloatingTimer();
+
+    // Na bieżąco odświeżaj etykietę na karcie celu w Centrum, jeśli jest widoczna
+    const activeBtns = document.querySelectorAll(".cenCelTimerActive");
+    if(activeBtns.length && stan.celId){
+      const dSek = stan.trybOdliczania ? stan.pozostaloSek : stan.uplyneloSek;
+      const dStr = _centrFormatujCzasStoper(dSek);
+      activeBtns.forEach(btn => {
+        if(btn.classList.contains("cenCelKalBtn")){
+          btn.textContent = '⏱️ ' + dStr + (stan.dziala ? ' ⏸' : ' ▶');
+        } else {
+          btn.title = 'Stoper aktywny: ' + dStr + (stan.dziala ? ' (w toku)' : ' (pauza)');
+        }
+      });
+    }
   }, 1000);
 
+  _centrZapiszStoperDoLS();
   _centrAktualizujWskazaniaStopera();
+  _centrAktualizujFloatingTimer();
 }
 
 function _centrZakonczSesjeStopera(){
   if(typeof cenPlaySound === "function") cenPlaySound("timer_done");
   if(typeof cenCelebration === "function") cenCelebration();
+
+  const modal = $("modalCelTimer");
+  const modalOtwarte = modal && modal.classList.contains("show");
+
+  if(!modalOtwarte){
+    toast("Czas sesji skupienia minął! 🎉 Gratulacje! Kliknij stoper, aby zaliczyć.", "ok", 6000);
+  }
 
   const banner = $("cenTimerDoneBanner");
   if(banner){
@@ -46575,8 +47326,10 @@ function _centrZakonczSesjeStopera(){
   const zaliczBtn = $("modalCelTimerZaliczBtn");
   if(zaliczBtn){
     zaliczBtn.classList.add("pulse");
-    setTimeout(() => zaliczBtn.classList.remove("pulse"), 2500);
+    setTimeout(() => zaliczBtn.classList.remove("pulse"), 5000);
   }
+
+  _centrAktualizujFloatingTimer();
 }
 
 function _centrResetStoper(){
@@ -46593,6 +47346,7 @@ function _centrResetStoper(){
   if(banner) banner.style.display = "none";
 
   _centrAktualizujWskazaniaStopera();
+  _centrAktualizujFloatingTimer();
 }
 
 function _centrZmienPresetStopera(min){
@@ -46617,6 +47371,7 @@ function _centrZmienPresetStopera(min){
   });
 
   _centrAktualizujWskazaniaStopera();
+  _centrAktualizujFloatingTimer();
 }
 
 function _centrZmienTrybStopera(mode){
@@ -46645,6 +47400,7 @@ function _centrZmienTrybStopera(mode){
   }
 
   _centrAktualizujWskazaniaStopera();
+  _centrAktualizujFloatingTimer();
 }
 
 function _centrDodajCzasStoper(sek){
@@ -46657,6 +47413,7 @@ function _centrDodajCzasStoper(sek){
   if(banner) banner.style.display = "none";
 
   _centrAktualizujWskazaniaStopera();
+  _centrAktualizujFloatingTimer();
 }
 
 function _centrOdswiezPrzyciskZaliczStopera(c){
@@ -46676,20 +47433,30 @@ function _centrOdswiezPrzyciskZaliczStopera(c){
       btn.innerHTML = '✓ Dzisiaj już zaliczone';
       btn.classList.add("done");
     } else {
-      btn.innerHTML = '✓ Zalicz dzisiejszy dzień';
+      btn.innerHTML = '✓ Zalicz dzisiejszy dzień nawyku';
       btn.classList.remove("done");
     }
   } else if(c.type === "numeric"){
     const cur = Number(c.current) || 0;
     const tgt = Number(c.target) || 10;
-    const unit = c.unit || "razy";
-    btn.innerHTML = '+1 do celu (' + cur + '/' + tgt + ' ' + esc(unit) + ')';
-    btn.classList.remove("done");
+    const delta = _centrObliczDelteDlaCeluNumerycznego(c, _centrStoperStan.uplyneloSek);
+    const deltaStr = (delta % 1 === 0) ? String(delta) : delta.toFixed(1);
+    const curStr = (cur % 1 === 0) ? String(cur) : cur.toFixed(1);
+    const tgtStr = (tgt % 1 === 0) ? String(tgt) : tgt.toFixed(1);
+    const isDone = c.completed || (tgt > 0 && cur >= tgt);
+    if(isDone){
+      btn.innerHTML = '🎉 Cel osiągnięty (' + curStr + '/' + tgtStr + (c.unit ? (' ' + esc(c.unit)) : '') + ') • Dodaj +' + deltaStr;
+      btn.classList.remove("done");
+    } else {
+      btn.innerHTML = '+ ' + deltaStr + (c.unit ? (' ' + esc(c.unit)) : '') + ' do celu (' + curStr + '/' + tgtStr + ')';
+      btn.classList.remove("done");
+    }
   } else if(c.type === "steps"){
     const steps = Array.isArray(c.steps) ? c.steps : [];
     const nextStep = steps.find(s => !s.done);
     if(nextStep){
-      btn.innerHTML = '✓ Zalicz kolejny etap: „' + esc(nextStep.t).substring(0, 22) + '…”';
+      const t = String(nextStep.t || "");
+      btn.innerHTML = '✓ Zalicz etap: „' + esc(t.length > 24 ? (t.substring(0, 24) + '…') : t) + '”';
       btn.classList.remove("done");
     } else {
       btn.innerHTML = '🎉 Wszystkie etapy ukończone';
@@ -46710,6 +47477,7 @@ function _centrZaliczZeStopera(){
   const celId = _centrStoperStan.celId;
   if(!celId){
     toast("Świetna sesja skupienia! Gratulacje! 🎉", "ok");
+    _centrZatrzymajIUkryjStoper();
     closeModal("modalCelTimer");
     return;
   }
@@ -46718,6 +47486,7 @@ function _centrZaliczZeStopera(){
   const c = cele.find(x => x.id === celId);
   if(!c){
     toast("Zakończono sesję skupienia! 🎉", "ok");
+    _centrZatrzymajIUkryjStoper();
     closeModal("modalCelTimer");
     return;
   }
@@ -46731,12 +47500,25 @@ function _centrZaliczZeStopera(){
       toast("Zaliczono dzisiejszy dzień nawyku! 🎉", "ok");
     }
   } else if(c.type === "numeric"){
-    _centrZmienLicznikCelu(celId, 1);
+    const delta = _centrObliczDelteDlaCeluNumerycznego(c, _centrStoperStan.uplyneloSek);
+    _centrZmienLicznikCelu(celId, delta);
+    const odswiezony = _centrPobierzCele().find(x => x.id === celId);
+    if(odswiezony && !odswiezony.completed){
+      const deltaStr = (delta % 1 === 0) ? String(delta) : delta.toFixed(1);
+      const curStr = (odswiezony.current % 1 === 0) ? String(odswiezony.current) : odswiezony.current.toFixed(1);
+      const tgtStr = (odswiezony.target % 1 === 0) ? String(odswiezony.target) : odswiezony.target.toFixed(1);
+      toast("Dodano +" + deltaStr + (c.unit ? (" " + c.unit) : "") + " do celu! 📈 (" + curStr + "/" + tgtStr + ")", "ok");
+    }
   } else if(c.type === "steps"){
     const steps = Array.isArray(c.steps) ? c.steps : [];
     const stepIdx = steps.findIndex(s => !s.done);
     if(stepIdx !== -1){
+      const nazwaKroku = steps[stepIdx].t || ("Etap " + (stepIdx + 1));
       _centrPrzelaczKrokCelu(celId, stepIdx);
+      const odswiezony = _centrPobierzCele().find(x => x.id === celId);
+      if(odswiezony && !odswiezony.completed){
+        toast("Zaliczono etap: „" + nazwaKroku + "”! ✓", "ok");
+      }
     } else {
       toast("Wszystkie etapy tego celu zostały już ukończone!", "info");
     }
@@ -46747,6 +47529,10 @@ function _centrZaliczZeStopera(){
       toast("Ten cel jest już oznaczony jako ukończony!", "info");
     }
   }
+
+  // Zakończ stoper i zamknij okno
+  _centrZatrzymajIUkryjStoper();
+  closeModal("modalCelTimer");
 
   // Odśwież stan przycisku oraz widok Centrum
   const odswiezoneCele = _centrPobierzCele();
@@ -46760,9 +47546,14 @@ function _centrZaliczZeStopera(){
 }
 
 window._centrZatrzymajStoper = _centrZatrzymajStoper;
+window._centrZatrzymajIUkryjStoper = _centrZatrzymajIUkryjStoper;
 window._centrOtworzStoper = _centrOtworzStoper;
 window.cenOpenTimerModal = _centrOtworzStoper;
 window._centrZaliczZeStopera = _centrZaliczZeStopera;
+window._centrNaZamkniecieStopera = _centrNaZamkniecieStopera;
+window._centrAktualizujFloatingTimer = _centrAktualizujFloatingTimer;
+window._centrPokazFloatingTimer = _centrPokazFloatingTimer;
+window._centrUkryjFloatingTimer = _centrUkryjFloatingTimer;
 
 /* 7b. Pełny eksport i import danych Centrum Studium i Planów czytania do kopii JSON */
 function _centrEksportDanych(){
@@ -51462,8 +52253,17 @@ if($("centrum")){
   const modalTimer = $("modalCelTimer");
   if(modalTimer){
     modalTimer.addEventListener("click", (ev) => {
+      // Minimalizacja do paska w tle
+      const minBtn = ev.target.closest("#modalCelTimerMinBtn, #modalCelTimerMinFooterBtn, #cenTimerBgMinLink");
+      if(minBtn){
+        ev.stopPropagation();
+        if(typeof closeModal === "function") closeModal("modalCelTimer");
+        return;
+      }
+
       const presetChip = ev.target.closest("[data-stoper-preset]");
       if(presetChip){
+        ev.stopPropagation();
         const min = parseInt(presetChip.dataset.stoperPreset, 10);
         if(typeof _centrZmienPresetStopera === "function") _centrZmienPresetStopera(min);
         return;
@@ -51471,6 +52271,7 @@ if($("centrum")){
 
       const modeBtn = ev.target.closest("[data-stoper-mode]");
       if(modeBtn){
+        ev.stopPropagation();
         const mode = modeBtn.dataset.stoperMode;
         if(typeof _centrZmienTrybStopera === "function") _centrZmienTrybStopera(mode);
         return;
@@ -51478,6 +52279,7 @@ if($("centrum")){
 
       const actionBtn = ev.target.closest("[data-stoper-akcja]");
       if(actionBtn){
+        ev.stopPropagation();
         const akcja = actionBtn.dataset.stoperAkcja;
         if(akcja === "startStop"){
           if(typeof _centrStartStopStoper === "function") _centrStartStopStoper();
@@ -51493,8 +52295,55 @@ if($("centrum")){
 
   const btnZaliczTimer = $("modalCelTimerZaliczBtn");
   if(btnZaliczTimer){
-    btnZaliczTimer.addEventListener("click", () => {
+    btnZaliczTimer.addEventListener("click", (ev) => {
+      ev.stopPropagation();
       if(typeof _centrZaliczZeStopera === "function") _centrZaliczZeStopera();
+    });
+  }
+
+  // Pływający widget aktywnego stopera skupienia (działanie w tle na dole ekranu)
+  const floatTimer = $("cenFloatingTimer");
+  if(floatTimer){
+    floatTimer.addEventListener("click", (ev) => {
+      if(_cenFloatJustDragged || window._cenFloatJustDragged){
+        ev.stopPropagation();
+        ev.preventDefault();
+        return;
+      }
+      // 1. Przycisk Pauza / Wznów (toggle)
+      const btnToggle = ev.target.closest("#cenFloatTimerToggleBtn");
+      if(btnToggle){
+        ev.stopPropagation();
+        if(typeof _centrStartStopStoper === "function") _centrStartStopStoper();
+        return;
+      }
+
+      // 2. Przycisk Zalicz sesję / dzisiejszy dzień
+      const btnDone = ev.target.closest("#cenFloatTimerDoneBtn");
+      if(btnDone){
+        ev.stopPropagation();
+        if(typeof _centrZaliczZeStopera === "function") _centrZaliczZeStopera();
+        return;
+      }
+
+      // 3. Przycisk Zatrzymaj i zamknij
+      const btnClose = ev.target.closest("#cenFloatTimerCloseBtn");
+      if(btnClose){
+        ev.stopPropagation();
+        if(_centrStoperStan.dziala || _centrStoperStan.uplyneloSek > 0){
+          if(confirm("Czy na pewno chcesz przerwać i zresetować trwającą sesję skupienia?")){
+            if(typeof _centrZatrzymajIUkryjStoper === "function") _centrZatrzymajIUkryjStoper();
+          }
+        } else {
+          if(typeof _centrZatrzymajIUkryjStoper === "function") _centrZatrzymajIUkryjStoper();
+        }
+        return;
+      }
+
+      // 4. Kliknięcie w przycisk rozwijania (⤢) lub w dowolną inną część paska — przywraca pełne okno stopera
+      if(typeof _centrOtworzStoper === "function"){
+        _centrOtworzStoper(_centrStoperStan.celId);
+      }
     });
   }
 })();
@@ -54467,7 +55316,10 @@ document.addEventListener("keydown", e=>{
   }
 });
 document.querySelectorAll(".overlay").forEach(o=>o.addEventListener("click",e=>{
-  if(e.target===o && o.dataset.lockClose!=="1") o.classList.remove("show");
+  if(e.target===o && o.dataset.lockClose!=="1"){
+    if(typeof closeModal === "function") closeModal(o);
+    else o.classList.remove("show");
+  }
 }));
 
 updateBackupBadge();   // stan przycisku kopii zapasowej (moduł akcji jest już wczytany)
