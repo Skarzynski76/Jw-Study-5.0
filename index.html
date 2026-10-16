@@ -2947,6 +2947,7 @@ html[data-theme="dark"] .cenHeroTag {
   touch-action: none;
   cursor: grab;
   animation: cenFloatSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
 }
 .cenFloatingTimer.dragging {
   cursor: grabbing !important;
@@ -2966,6 +2967,13 @@ html[data-theme="dark"] .cenFloatingTimer {
   border-color: #10b981 !important;
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3), 0 12px 32px -4px rgba(0, 0, 0, 0.3) !important;
   animation: cenFloatDonePulse 1.2s infinite alternate !important;
+}
+.cenFloatingTimer.done .cenFloatTimerPct {
+  background: rgba(16, 185, 129, 0.18) !important;
+  color: #10b981 !important;
+}
+.cenFloatingTimer.done .cenFloatTimerProgressFill {
+  background: #10b981 !important;
 }
 @keyframes cenFloatDonePulse {
   from { transform: scale(1); }
@@ -3013,6 +3021,34 @@ html[data-theme="dark"] .cenFloatingTimer {
   color: var(--cen-text, #1e293b);
   line-height: 1.1;
   letter-spacing: -0.3px;
+}
+.cenFloatTimerProgressFill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--cel-color, #3b82f6);
+  border-radius: 0 0 999px 999px;
+  transition: width 0.35s ease, background 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.cenFloatTimerPct {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--cel-color, #3b82f6);
+  background: rgba(59, 130, 246, 0.12);
+  padding: 1px 6px;
+  border-radius: 999px;
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+  display: inline-block;
+  white-space: nowrap;
+}
+html[data-theme="dark"] .cenFloatTimerPct {
+  background: rgba(96, 165, 250, 0.18);
+  color: var(--cel-color, #93c5fd);
 }
 .cenFloatTimerTitle {
   font-size: 11px;
@@ -3363,29 +3399,120 @@ html[data-theme="dark"] .cenFloatingTimer {
 .cenFieldCol {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
 }
 .cenFieldCol label {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--muted);
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  margin: 0 !important;
 }
-.cenFieldInpSmall {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 8px 10px;
-  border-radius: 9px;
-  border: 1.5px solid var(--border);
-  background: var(--panel);
-  color: var(--text);
-  font-size: 13.5px;
-  outline: none;
-  font-family: inherit;
+.cenGoalModal label {
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  margin: 0 !important;
 }
-.cenFieldInpSmall:focus {
-  border-color: var(--goal-color, #3b82f6);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--goal-color, #3b82f6) 18%, transparent);
+.cenGoalModal .cenGoalLabel {
+  font-size: 12.5px !important;
+  font-weight: 700 !important;
+  color: var(--text) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 6px !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
 }
+.cenGoalModal .cenCheckRow {
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+.cenGoalModal .cenCheckRow span {
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-size: 12px !important;
+}
+
+/* Pola wejściowe, selecty i inputy w oknie celu - jednakowa, komfortowa wysokość 44px */
+.cenGoalModal .cenGoalInput,
+.cenGoalModal .cenFieldInpSmall,
+.cenGoalModal input[type="text"],
+.cenGoalModal input[type="number"],
+.cenGoalModal input[type="date"],
+.cenGoalModal select {
+  width: 100% !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+  border-radius: 11px !important;
+  border: 1.5px solid var(--border) !important;
+  background-color: var(--panel) !important;
+  color: var(--text) !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+  font-family: inherit !important;
+  outline: none !important;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease !important;
+}
+
+.cenGoalModal textarea.cenGoalTextarea {
+  min-height: 64px !important;
+  box-sizing: border-box !important;
+  font-family: inherit !important;
+}
+
+.cenGoalModal input[type="text"]:focus,
+.cenGoalModal input[type="number"]:focus,
+.cenGoalModal input[type="date"]:focus,
+.cenGoalModal select:focus,
+.cenGoalModal .cenGoalInput:focus,
+.cenGoalModal .cenFieldInpSmall:focus,
+.cenGoalModal textarea.cenGoalTextarea:focus {
+  border-color: var(--goal-color, var(--cen-accent, #3b82f6)) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--goal-color, var(--cen-accent, #3b82f6)) 20%, transparent) !important;
+}
+
+/* Zwykłe pola tekstowe i liczbowe */
+.cenGoalModal .cenGoalInput,
+.cenGoalModal .cenFieldInpSmall {
+  padding: 8px 12px !important;
+}
+
+/* Dropdowny wyboru - pełna czytelność tekstu (brak obcinania w pionie), elegancka strzałka SVG */
+.cenGoalModal select,
+.cenGoalModal select.cenFieldInpSmall {
+  padding: 6px 36px 6px 14px !important;
+  cursor: pointer !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1.5 2L6 6.5L10.5 2' stroke='%2364748b' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 14px center !important;
+  background-size: 12px 8px !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+
+html[data-theme="dark"] .cenGoalModal select,
+html[data-theme="dark"] .cenGoalModal select.cenFieldInpSmall {
+  background-color: #161e26 !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1.5 2L6 6.5L10.5 2' stroke='%2394a3b8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") !important;
+}
+
+html[data-theme="dark"] .cenGoalModal select option {
+  background-color: #161e26 !important;
+  color: #f1f5f9 !important;
+}
+
+html[data-theme="dark"] .cenGoalModal input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.85);
+  cursor: pointer;
+}
+
 .cenUnitQuickChips {
   display: flex;
   align-items: center;
@@ -3420,27 +3547,42 @@ html[data-theme="dark"] .cenFloatingTimer {
   box-shadow: 0 1px 4px color-mix(in srgb, var(--goal-color, #3b82f6) 20%, transparent);
 }
 
-/* Werset & Kolor Row */
+/* Werset & Termin realizacji — responsywny układ dwóch kolumn */
 .cenGoalRowTwoCol {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 14px;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 12px;
   align-items: start;
 }
+@media (max-width: 520px) {
+  .cenGoalRowTwoCol {
+    grid-template-columns: 1fr;
+  }
+}
+
 .cenInpWithIco {
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 .cenInpPrefixIco {
   position: absolute;
   left: 12px;
-  font-size: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  line-height: 1;
   pointer-events: none;
-  opacity: 0.75;
+  opacity: 0.85;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.cenInpWithIco .cenGoalInput {
-  padding-left: 36px;
+.cenGoalModal .cenInpWithIco input,
+.cenGoalModal .cenInpWithIco .cenGoalInput {
+  padding-left: 42px !important;
 }
 
 /* Color Swatches Picker */
@@ -21227,7 +21369,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
           </div>
           <div class="cenFieldCol">
             <label for="celInpHabitTime">⏱️ Czas trwania nawyku (na sesję)</label>
-            <select id="celInpHabitTime" class="cenFieldInpSmall" style="cursor:pointer; height:36px;">
+            <select id="celInpHabitTime" class="cenFieldInpSmall">
               <option value="0">Dowolny czas (bez limitu)</option>
               <option value="5">⏱️ 5 minut</option>
               <option value="10">⏱️ 10 minut</option>
@@ -21266,7 +21408,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
         <div style="margin-top:10px;">
           <div class="cenFieldCol">
             <label for="celInpHabitDuration">Horyzont czasowy / wyzwanie</label>
-            <select id="celInpHabitDuration" class="cenFieldInpSmall" style="cursor:pointer; height:36px;">
+            <select id="celInpHabitDuration" class="cenFieldInpSmall">
               <option value="0">Ciągły (odnawiaj co tydzień na kolejne 7 dni)</option>
               <option value="7">Wyzwanie 7 dni (1 tydzień)</option>
               <option value="14">Wyzwanie 14 dni (2 tygodnie)</option>
@@ -46556,7 +46698,11 @@ let _centrStoperStan = {
   dziala: false,
   zakonczony: false,
   timerId: null,
-  lastTick: 0
+  lastTick: 0,
+  startTimestamp: null,
+  initialPozostaloSek: 1500,
+  initialUplyneloSek: 0,
+  notifiedDone: false
 };
 window._centrStoperStan = _centrStoperStan;
 
@@ -46628,6 +46774,10 @@ function _centrZapiszStoperDoLS(){
       uplyneloSek: stan.uplyneloSek,
       dziala: stan.dziala,
       zakonczony: stan.zakonczony,
+      startTimestamp: stan.startTimestamp,
+      initialPozostaloSek: stan.initialPozostaloSek,
+      initialUplyneloSek: stan.initialUplyneloSek,
+      notifiedDone: !!stan.notifiedDone,
       lastTimestamp: Date.now()
     };
     const jsonStr = JSON.stringify(data);
@@ -46636,6 +46786,7 @@ function _centrZapiszStoperDoLS(){
     if(typeof localStorage !== "undefined") localStorage.setItem("jw_cen_stoper_state", jsonStr);
   } catch(e){}
 }
+
 
 function _centrPrzywrocPozycjeFloatingTimer(){
   const floatEl = $("cenFloatingTimer");
@@ -46782,46 +46933,313 @@ function _centrMinimalizujStoper(){
   _centrNaZamkniecieStopera();
 }
 
+let _centrStoperWorker = null;
+
+function _centrPobierzLubStworzWorker(){
+  if(_centrStoperWorker) return _centrStoperWorker;
+  try {
+    if(typeof Worker !== "undefined" && typeof Blob !== "undefined" && typeof URL !== "undefined"){
+      const workerCode = "let t = null;\n"
+        + "self.onmessage = function(e){\n"
+        + "  if(e.data === 'start'){\n"
+        + "    if(t) clearInterval(t);\n"
+        + "    t = setInterval(function(){ self.postMessage('tick'); }, 1000);\n"
+        + "  } else if(e.data === 'stop'){\n"
+        + "    if(t) clearInterval(t);\n"
+        + "    t = null;\n"
+        + "  }\n"
+        + "};";
+      const blob = new Blob([workerCode], { type: "application/javascript" });
+      const workerUrl = URL.createObjectURL(blob);
+      _centrStoperWorker = new Worker(workerUrl);
+      _centrStoperWorker.onmessage = function(e){
+        if(e.data === "tick"){
+          _centrStoperTickKrok();
+        }
+      };
+      _centrStoperWorker.onerror = function(){
+        try { _centrStoperWorker.terminate(); }catch(err){}
+        _centrStoperWorker = null;
+      };
+    }
+  } catch(e){
+    _centrStoperWorker = null;
+  }
+  return _centrStoperWorker;
+}
+
+/* Ciche audio w tle zapobiega usypianiu wątku JS na urządzeniach mobilnych (iOS Safari, Android) podczas przełączania na aplikację JW Library */
+let _centrSilentAudio = null;
+
+function _centrUruchomSilentAudio(){
+  try {
+    if(!_centrSilentAudio){
+      const silentWav = "data:audio/wav;base64,UklGRjIAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YRAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      _centrSilentAudio = new Audio(silentWav);
+      _centrSilentAudio.loop = true;
+      _centrSilentAudio.volume = 0.001;
+    }
+    const p = _centrSilentAudio.play();
+    if(p && typeof p.catch === "function"){
+      p.catch(() => {});
+    }
+    if(typeof navigator !== "undefined" && "mediaSession" in navigator && typeof MediaMetadata !== "undefined"){
+      let nazwa = "Sesja skupienia";
+      try {
+        if(_centrStoperStan && _centrStoperStan.celId && typeof _centrPobierzCele === "function"){
+          const c = _centrPobierzCele().find(x => x.id === _centrStoperStan.celId);
+          if(c && c.title) nazwa = c.title;
+        }
+      } catch(_){}
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: "⏱️ " + nazwa,
+        artist: "JW Study",
+        album: "Cele duchowe"
+      });
+      navigator.mediaSession.playbackState = "playing";
+    }
+  } catch(e){}
+}
+
+function _centrZatrzymajSilentAudio(){
+  try {
+    if(_centrSilentAudio){
+      _centrSilentAudio.pause();
+      _centrSilentAudio.currentTime = 0;
+    }
+    if(typeof navigator !== "undefined" && "mediaSession" in navigator){
+      navigator.mediaSession.playbackState = "paused";
+    }
+  } catch(e){}
+}
+
+/* Aktualizacja tytułu zakładki/okna — użytkownik widzi odliczanie nawet czytając w innej aplikacji na podzielonym ekranie lub pasku */
+let _centrOryginalnyTytulStrony = "";
+
+function _centrAktualizujTytulStrony(displaySek){
+  try {
+    if(typeof document === "undefined") return;
+    if(!_centrOryginalnyTytulStrony){
+      _centrOryginalnyTytulStrony = document.title || "JW Study";
+    }
+    const stan = _centrStoperStan;
+    if(!stan || (!stan.dziala && !stan.zakonczony)){
+      document.title = _centrOryginalnyTytulStrony;
+      return;
+    }
+    if(stan.zakonczony){
+      document.title = "🎉 Czas minął! — " + _centrOryginalnyTytulStrony;
+      return;
+    }
+    const czasStr = _centrFormatujCzasStoper(displaySek);
+    document.title = "⏱️ " + czasStr + " — " + _centrOryginalnyTytulStrony;
+  } catch(e){}
+}
+
+function _centrPrzywrocTytulStrony(){
+  try {
+    if(typeof document !== "undefined" && _centrOryginalnyTytulStrony){
+      document.title = _centrOryginalnyTytulStrony;
+    }
+  } catch(e){}
+}
+
+function _centrUruchomTimerWatek(){
+  _centrZatrzymajTimerWatek();
+  const worker = _centrPobierzLubStworzWorker();
+  if(worker){
+    try {
+      worker.postMessage("start");
+    } catch(e){
+      _centrStoperWorker = null;
+    }
+  }
+  // Dodatkowy fallback na setInterval na wypadek gdyby worker nie działał
+  _centrStoperStan.timerId = setInterval(function(){
+    _centrStoperTickKrok();
+  }, 1000);
+}
+
+function _centrZatrzymajTimerWatek(){
+  if(_centrStoperWorker){
+    try {
+      _centrStoperWorker.postMessage("stop");
+    } catch(e){}
+  }
+  if(_centrStoperStan.timerId){
+    clearInterval(_centrStoperStan.timerId);
+    _centrStoperStan.timerId = null;
+  }
+}
+
+function _centrWyslijNotyfikacjeUkonczeniaStopera(nazwaCelu){
+  try {
+    if(typeof navigator !== "undefined" && typeof navigator.vibrate === "function"){
+      navigator.vibrate([300, 150, 300, 150, 400]);
+    }
+  } catch(e){}
+
+  try {
+    if(!("Notification" in window)) return;
+    if(Notification.permission !== "granted") return;
+    const tytul = "⏱️ Czas sesji skupienia minął! 🎉";
+    const tresc = nazwaCelu ? ("Ukończono czas dla: „" + nazwaCelu + "”. Dotknij, aby zaliczyć postęp!") : "Czas sesji skupienia dobiegł końca. Dotknij, aby zaliczyć postęp!";
+    const options = {
+      body: tresc,
+      icon: "icon-192.png",
+      badge: "favicon-32.png",
+      tag: "jw-study-timer-done",
+      renotify: true,
+      requireInteraction: true
+    };
+    if("serviceWorker" in navigator && navigator.serviceWorker.ready){
+      navigator.serviceWorker.ready.then(reg => {
+        if(reg && typeof reg.showNotification === "function"){
+          reg.showNotification(tytul, options);
+        } else {
+          _centrPokazLokalnaNotyfikacje(tytul, options);
+        }
+      }).catch(() => {
+        _centrPokazLokalnaNotyfikacje(tytul, options);
+      });
+    } else {
+      _centrPokazLokalnaNotyfikacje(tytul, options);
+    }
+  } catch(e){}
+}
+
+function _centrPokazLokalnaNotyfikacje(tytul, options){
+  try {
+    const notif = new Notification(tytul, options);
+    notif.onclick = function(){
+      window.focus();
+      try {
+        if(typeof _centrOtworzStoper === "function"){
+          _centrOtworzStoper(_centrStoperStan.celId);
+        }
+      } catch(e){}
+      notif.close();
+    };
+  } catch(e){}
+}
+
+function _centrOdswiezAktywnePrzyciskiKartyCelu(){
+  const stan = _centrStoperStan;
+  const activeBtns = document.querySelectorAll(".cenCelTimerActive");
+  if(activeBtns.length && stan.celId){
+    const dSek = stan.trybOdliczania ? stan.pozostaloSek : stan.uplyneloSek;
+    const dStr = _centrFormatujCzasStoper(dSek);
+    activeBtns.forEach(btn => {
+      if(btn.classList.contains("cenCelKalBtn")){
+        btn.textContent = '⏱️ ' + dStr + (stan.dziala ? ' ⏸' : ' ▶');
+      } else {
+        btn.title = 'Stoper aktywny: ' + dStr + (stan.dziala ? ' (w toku)' : ' (pauza)');
+      }
+    });
+  }
+}
+
+function _centrStoperTickKrok(){
+  const stan = _centrStoperStan;
+  if(!stan.dziala) return;
+
+  const now = Date.now();
+  if(!stan.startTimestamp){
+    stan.startTimestamp = now;
+    stan.initialPozostaloSek = stan.pozostaloSek;
+    stan.initialUplyneloSek = stan.uplyneloSek;
+  }
+
+  const elapsed = Math.max(0, Math.floor((now - stan.startTimestamp) / 1000));
+
+  if(stan.trybOdliczania){
+    const nowaPozostala = Math.max(0, stan.initialPozostaloSek - elapsed);
+    if(nowaPozostala === stan.pozostaloSek && !stan.zakonczony){
+      return;
+    }
+    stan.pozostaloSek = nowaPozostala;
+    stan.uplyneloSek = stan.initialUplyneloSek + (stan.initialPozostaloSek - nowaPozostala);
+
+    if(stan.pozostaloSek <= 0){
+      stan.pozostaloSek = 0;
+      stan.dziala = false;
+      stan.zakonczony = true;
+      _centrZatrzymajTimerWatek();
+      _centrZatrzymajSilentAudio();
+      _centrAktualizujTytulStrony(0);
+      _centrZapiszStoperDoLS();
+      _centrAktualizujWskazaniaStopera();
+      _centrAktualizujFloatingTimer();
+      _centrOdswiezAktywnePrzyciskiKartyCelu();
+      if(!stan.notifiedDone){
+        stan.notifiedDone = true;
+        let nazwaCelu = "";
+        try {
+          if(stan.celId && typeof _centrPobierzCele === "function"){
+            const c = _centrPobierzCele().find(x => x.id === stan.celId);
+            if(c) nazwaCelu = c.title || "";
+          }
+        } catch(e){}
+        _centrWyslijNotyfikacjeUkonczeniaStopera(nazwaCelu);
+      }
+      _centrZakonczSesjeStopera();
+      return;
+    }
+  } else {
+    const nowaUplynelo = stan.initialUplyneloSek + elapsed;
+    if(nowaUplynelo === stan.uplyneloSek) return;
+    stan.uplyneloSek = nowaUplynelo;
+  }
+
+  stan.lastTick = now;
+
+  _centrAktualizujTytulStrony(stan.trybOdliczania ? stan.pozostaloSek : stan.uplyneloSek);
+
+  if(stan.uplyneloSek % 5 === 0){
+    _centrZapiszStoperDoLS();
+  }
+
+  _centrAktualizujWskazaniaStopera();
+  _centrAktualizujFloatingTimer();
+  _centrOdswiezAktywnePrzyciskiKartyCelu();
+}
+
 function _centrResynchronizujStoperWTle(){
   const stan = _centrStoperStan;
-  if(!stan.dziala || !stan.lastTick) return;
-  const now = Date.now();
-  const diff = Math.floor((now - stan.lastTick) / 1000);
-  if(diff >= 1){
-    stan.lastTick = now;
-    if(stan.trybOdliczania){
-      stan.pozostaloSek = Math.max(0, stan.pozostaloSek - diff);
-      stan.uplyneloSek += diff;
-      if(stan.pozostaloSek <= 0){
-        stan.pozostaloSek = 0;
-        if(stan.timerId){
-          clearInterval(stan.timerId);
-          stan.timerId = null;
-        }
-        stan.dziala = false;
-        stan.zakonczony = true;
-        _centrZapiszStoperDoLS();
-        _centrAktualizujWskazaniaStopera();
-        _centrAktualizujFloatingTimer();
-        _centrZakonczSesjeStopera();
-        return;
-      }
-    } else {
-      stan.uplyneloSek += diff;
-    }
-    _centrZapiszStoperDoLS();
-    _centrAktualizujWskazaniaStopera();
-    _centrAktualizujFloatingTimer();
+  if(!stan.dziala) return;
+  _centrStoperTickKrok();
+  if(!stan.zakonczony && stan.dziala){
+    _centrUruchomTimerWatek();
   }
 }
 
 if(typeof document !== "undefined"){
   document.addEventListener("visibilitychange", () => {
-    if(!document.hidden) _centrResynchronizujStoperWTle();
+    if(document.hidden){
+      if(_centrStoperStan.dziala){
+        _centrStoperTickKrok();
+      }
+      _centrZapiszStoperDoLS();
+    } else {
+      _centrResynchronizujStoperWTle();
+    }
   });
+  document.addEventListener("resume", _centrResynchronizujStoperWTle, false);
 }
 if(typeof window !== "undefined"){
   window.addEventListener("focus", _centrResynchronizujStoperWTle);
+  window.addEventListener("pageshow", _centrResynchronizujStoperWTle);
+  window.addEventListener("blur", () => {
+    if(_centrStoperStan.dziala){
+      _centrStoperTickKrok();
+      _centrZapiszStoperDoLS();
+    }
+  });
+  window.addEventListener("touchstart", () => {
+    if(_centrStoperStan && _centrStoperStan.dziala){
+      _centrStoperTickKrok();
+    }
+  }, { passive: true });
 }
 
 function _centrWczytajStoperZLS(){
@@ -46838,28 +47256,36 @@ function _centrWczytajStoperZLS(){
     _centrStoperStan.trybOdliczania = data.trybOdliczania !== false;
     _centrStoperStan.calkowityCzasSek = Number(data.calkowityCzasSek) || 1500;
     _centrStoperStan.zakonczony = !!data.zakonczony;
+    _centrStoperStan.notifiedDone = !!data.notifiedDone;
 
     let pozostalo = Number(data.pozostaloSek) || 0;
     let uplynelo = Number(data.uplyneloSek) || 0;
+    let initialPozostalo = (data.initialPozostaloSek !== undefined) ? Number(data.initialPozostaloSek) : pozostalo;
+    let initialUplynelo = (data.initialUplyneloSek !== undefined) ? Number(data.initialUplyneloSek) : uplynelo;
+    let startTimestamp = data.startTimestamp || null;
 
-    if(data.dziala && data.lastTimestamp){
-      const diff = Math.max(0, Math.floor((Date.now() - data.lastTimestamp) / 1000));
+    if(data.dziala && (startTimestamp || data.lastTimestamp)){
+      const baseTime = startTimestamp || data.lastTimestamp;
+      const elapsed = Math.max(0, Math.floor((Date.now() - baseTime) / 1000));
       if(_centrStoperStan.trybOdliczania){
-        pozostalo = Math.max(0, pozostalo - diff);
-        uplynelo += diff;
+        pozostalo = Math.max(0, initialPozostalo - elapsed);
+        uplynelo = initialUplynelo + (initialPozostalo - pozostalo);
         if(pozostalo === 0){
           _centrStoperStan.zakonczony = true;
           data.dziala = false;
         }
       } else {
-        uplynelo += diff;
+        uplynelo = initialUplynelo + elapsed;
       }
     }
 
     _centrStoperStan.pozostaloSek = pozostalo;
     _centrStoperStan.uplyneloSek = uplynelo;
+    _centrStoperStan.initialPozostaloSek = pozostalo;
+    _centrStoperStan.initialUplyneloSek = uplynelo;
+    _centrStoperStan.startTimestamp = data.dziala ? Date.now() : null;
     _centrStoperStan.dziala = false;
-    _centrStoperStan.lastTick = 0;
+    _centrStoperStan.lastTick = Date.now();
 
     if(typeof _centrInicjalizujDraggableFloatingTimer === "function"){
       _centrInicjalizujDraggableFloatingTimer();
@@ -46867,7 +47293,11 @@ function _centrWczytajStoperZLS(){
     _centrPrzywrocPozycjeFloatingTimer();
 
     if(data.dziala && !_centrStoperStan.zakonczony){
-      _centrStartStopStoper();
+      _centrStoperStan.dziala = true;
+      _centrUruchomSilentAudio();
+      _centrUruchomTimerWatek();
+      _centrAktualizujWskazaniaStopera();
+      _centrAktualizujTytulStrony(_centrStoperStan.trybOdliczania ? _centrStoperStan.pozostaloSek : _centrStoperStan.uplyneloSek);
     } else {
       _centrAktualizujWskazaniaStopera();
     }
@@ -46877,36 +47307,64 @@ function _centrWczytajStoperZLS(){
     if(!modalOtwarte && (_centrStoperStan.dziala || _centrStoperStan.uplyneloSek > 0 || _centrStoperStan.zakonczony)){
       _centrPokazFloatingTimer();
     }
+
+    if(_centrStoperStan.zakonczony && !_centrStoperStan.notifiedDone){
+      _centrStoperStan.notifiedDone = true;
+      _centrZapiszStoperDoLS();
+      let nazwaCelu = "";
+      try {
+        if(_centrStoperStan.celId && typeof _centrPobierzCele === "function"){
+          const c = _centrPobierzCele().find(x => x.id === _centrStoperStan.celId);
+          if(c) nazwaCelu = c.title || "";
+        }
+      } catch(e){}
+      _centrWyslijNotyfikacjeUkonczeniaStopera(nazwaCelu);
+      _centrZakonczSesjeStopera();
+    }
   } catch(e){}
 }
 
-function _centrZatrzymajStoper(){
-  if(_centrStoperStan.timerId){
-    clearInterval(_centrStoperStan.timerId);
-    _centrStoperStan.timerId = null;
+// Inicjalizacja stopera z LocalStorage przy ładowaniu
+if(typeof document !== "undefined"){
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", _centrWczytajStoperZLS);
+  } else {
+    _centrWczytajStoperZLS();
   }
+}
+
+function _centrZatrzymajStoper(){
+  _centrZatrzymajTimerWatek();
+  _centrZatrzymajSilentAudio();
+  _centrPrzywrocTytulStrony();
   _centrStoperStan.dziala = false;
+  _centrStoperStan.startTimestamp = null;
   _centrStoperStan.lastTick = 0;
   _centrZapiszStoperDoLS();
   _centrAktualizujWskazaniaStopera();
   _centrAktualizujFloatingTimer();
+  _centrOdswiezAktywnePrzyciskiKartyCelu();
 }
 
 function _centrZatrzymajIUkryjStoper(){
-  if(_centrStoperStan.timerId){
-    clearInterval(_centrStoperStan.timerId);
-    _centrStoperStan.timerId = null;
-  }
+  _centrZatrzymajTimerWatek();
+  _centrZatrzymajSilentAudio();
+  _centrPrzywrocTytulStrony();
   _centrStoperStan.dziala = false;
   _centrStoperStan.zakonczony = false;
   _centrStoperStan.uplyneloSek = 0;
   _centrStoperStan.pozostaloSek = _centrStoperStan.calkowityCzasSek;
+  _centrStoperStan.initialPozostaloSek = _centrStoperStan.calkowityCzasSek;
+  _centrStoperStan.initialUplyneloSek = 0;
+  _centrStoperStan.startTimestamp = null;
+  _centrStoperStan.notifiedDone = false;
   _centrStoperStan.celId = null;
   _centrStoperStan.lastTick = 0;
 
   _centrZapiszStoperDoLS();
   _centrUkryjFloatingTimer();
   _centrAktualizujWskazaniaStopera();
+  _centrOdswiezAktywnePrzyciskiKartyCelu();
   if(typeof rysujCentrum === "function") rysujCentrum();
 }
 
@@ -46976,9 +47434,44 @@ function _centrAktualizujFloatingTimer(){
   const dotEl = $("cenFloatTimerDot");
   const toggleBtn = $("cenFloatTimerToggleBtn");
   const doneBtn = $("cenFloatTimerDoneBtn");
+  const pctEl = $("cenFloatTimerPct");
+  const progFill = $("cenFloatTimerProgressFill");
 
   const displaySek = stan.trybOdliczania ? stan.pozostaloSek : stan.uplyneloSek;
   if(timeEl) timeEl.textContent = _centrFormatujCzasStoper(displaySek);
+
+  // Obliczenie postępu procentowego do wyświetlenia na wskaźniku i pasku
+  let pct = 0;
+  let showPct = false;
+
+  if(stan.zakonczony){
+    pct = 100;
+    showPct = true;
+  } else if(stan.trybOdliczania && stan.calkowityCzasSek > 0){
+    const elapsed = Math.max(0, stan.calkowityCzasSek - stan.pozostaloSek);
+    pct = Math.min(100, Math.max(0, Math.round((elapsed / stan.calkowityCzasSek) * 100)));
+    showPct = true;
+  } else if(!stan.trybOdliczania){
+    const habitMin = parseInt(c.habitTime, 10) || 0;
+    const targetSek = habitMin > 0 ? (habitMin * 60) : (stan.calkowityCzasSek > 0 ? stan.calkowityCzasSek : 0);
+    if(targetSek > 0){
+      pct = Math.min(100, Math.max(0, Math.round((stan.uplyneloSek / targetSek) * 100)));
+      showPct = true;
+    }
+  }
+
+  if(pctEl){
+    if(showPct){
+      pctEl.style.display = "inline-block";
+      pctEl.textContent = pct + "%";
+    } else {
+      pctEl.style.display = "none";
+    }
+  }
+
+  if(progFill){
+    progFill.style.width = showPct ? (pct + "%") : "0%";
+  }
 
   if(titleEl){
     titleEl.textContent = c.title || "Sesja skupienia";
@@ -47054,10 +47547,7 @@ function _centrOtworzStoper(celId){
         return;
       }
     }
-    if(_centrStoperStan.timerId){
-      clearInterval(_centrStoperStan.timerId);
-      _centrStoperStan.timerId = null;
-    }
+    _centrZatrzymajTimerWatek();
 
     const habitMinutes = parseInt(c.habitTime, 10) || 0;
     const defaultMinutes = habitMinutes > 0 ? habitMinutes : 25;
@@ -47066,9 +47556,14 @@ function _centrOtworzStoper(celId){
     _centrStoperStan.trybOdliczania = true;
     _centrStoperStan.calkowityCzasSek = defaultMinutes * 60;
     _centrStoperStan.pozostaloSek = _centrStoperStan.calkowityCzasSek;
+    _centrStoperStan.initialPozostaloSek = _centrStoperStan.calkowityCzasSek;
+    _centrStoperStan.initialUplyneloSek = 0;
+    _centrStoperStan.startTimestamp = null;
     _centrStoperStan.uplyneloSek = 0;
     _centrStoperStan.dziala = false;
     _centrStoperStan.zakonczony = false;
+    _centrStoperStan.notifiedDone = false;
+    _centrStoperStan.lastTick = 0;
   }
 
   _centrUkryjFloatingTimer();
@@ -47236,75 +47731,57 @@ function _centrAktualizujWskazaniaStopera(){
 
 function _centrStartStopStoper(){
   const stan = _centrStoperStan;
+
+  // 1. Jeśli stoper już działa -> WSTRZYMAJ (PAUZA)
   if(stan.dziala){
-    if(stan.timerId){
-      clearInterval(stan.timerId);
-      stan.timerId = null;
-    }
+    _centrZatrzymajTimerWatek();
+    _centrZatrzymajSilentAudio();
     stan.dziala = false;
+    stan.startTimestamp = null;
+    _centrPrzywrocTytulStrony();
     _centrZapiszStoperDoLS();
     _centrAktualizujWskazaniaStopera();
     _centrAktualizujFloatingTimer();
+    _centrOdswiezAktywnePrzyciskiKartyCelu();
     return;
   }
 
+  // 2. Jeśli stoper był zakończony -> Zresetuj przed ponownym startem
   if(stan.zakonczony){
     _centrResetStoper();
   }
 
+  // 3. Prośba o uprawnienia do powiadomień przeglądarki (w reakcji na kliknięcie użytkownika)
+  try {
+    if("Notification" in window && Notification.permission === "default"){
+      Notification.requestPermission().catch(() => {});
+    }
+  } catch(e){}
+
+  // 4. Inicjalizacja czasu rzeczywistego dla idealnej synchronizacji w tle i między aplikacjami
+  const now = Date.now();
   stan.dziala = true;
   stan.zakonczony = false;
+  stan.notifiedDone = false;
+  stan.startTimestamp = now;
+  stan.initialPozostaloSek = stan.pozostaloSek;
+  stan.initialUplyneloSek = stan.uplyneloSek;
+  stan.lastTick = now;
+
   const banner = $("cenTimerDoneBanner");
   if(banner) banner.style.display = "none";
 
-  if(stan.timerId) clearInterval(stan.timerId);
-  stan.timerId = setInterval(() => {
-    if(stan.trybOdliczania){
-      stan.pozostaloSek--;
-      stan.uplyneloSek++;
-      if(stan.pozostaloSek <= 0){
-        stan.pozostaloSek = 0;
-        if(stan.timerId){
-          clearInterval(stan.timerId);
-          stan.timerId = null;
-        }
-        stan.dziala = false;
-        stan.zakonczony = true;
-        _centrZapiszStoperDoLS();
-        _centrAktualizujWskazaniaStopera();
-        _centrAktualizujFloatingTimer();
-        _centrZakonczSesjeStopera();
-        return;
-      }
-    } else {
-      stan.uplyneloSek++;
-    }
+  // 5. Uruchomienie pętli audio w tle (zapobiega usypianiu wątku JS na iOS / Android przy przejściu do JW Library)
+  _centrUruchomSilentAudio();
 
-    if(stan.uplyneloSek % 5 === 0){
-      _centrZapiszStoperDoLS();
-    }
+  // 6. Uruchomienie dedykowanego Web Workera z fallbackiem na setInterval
+  _centrUruchomTimerWatek();
 
-    _centrAktualizujWskazaniaStopera();
-    _centrAktualizujFloatingTimer();
-
-    // Na bieżąco odświeżaj etykietę na karcie celu w Centrum, jeśli jest widoczna
-    const activeBtns = document.querySelectorAll(".cenCelTimerActive");
-    if(activeBtns.length && stan.celId){
-      const dSek = stan.trybOdliczania ? stan.pozostaloSek : stan.uplyneloSek;
-      const dStr = _centrFormatujCzasStoper(dSek);
-      activeBtns.forEach(btn => {
-        if(btn.classList.contains("cenCelKalBtn")){
-          btn.textContent = '⏱️ ' + dStr + (stan.dziala ? ' ⏸' : ' ▶');
-        } else {
-          btn.title = 'Stoper aktywny: ' + dStr + (stan.dziala ? ' (w toku)' : ' (pauza)');
-        }
-      });
-    }
-  }, 1000);
-
+  _centrAktualizujTytulStrony(stan.trybOdliczania ? stan.pozostaloSek : stan.uplyneloSek);
   _centrZapiszStoperDoLS();
   _centrAktualizujWskazaniaStopera();
   _centrAktualizujFloatingTimer();
+  _centrOdswiezAktywnePrzyciskiKartyCelu();
 }
 
 function _centrZakonczSesjeStopera(){
@@ -47333,33 +47810,47 @@ function _centrZakonczSesjeStopera(){
 }
 
 function _centrResetStoper(){
-  if(_centrStoperStan.timerId){
-    clearInterval(_centrStoperStan.timerId);
-    _centrStoperStan.timerId = null;
-  }
-  _centrStoperStan.dziala = false;
-  _centrStoperStan.zakonczony = false;
-  _centrStoperStan.pozostaloSek = _centrStoperStan.calkowityCzasSek;
-  _centrStoperStan.uplyneloSek = 0;
+  _centrZatrzymajTimerWatek();
+  _centrZatrzymajSilentAudio();
+  _centrPrzywrocTytulStrony();
+
+  const stan = _centrStoperStan;
+  stan.dziala = false;
+  stan.zakonczony = false;
+  stan.pozostaloSek = stan.calkowityCzasSek;
+  stan.uplyneloSek = 0;
+  stan.initialPozostaloSek = stan.calkowityCzasSek;
+  stan.initialUplyneloSek = 0;
+  stan.startTimestamp = null;
+  stan.notifiedDone = false;
+  stan.lastTick = 0;
 
   const banner = $("cenTimerDoneBanner");
   if(banner) banner.style.display = "none";
 
+  _centrZapiszStoperDoLS();
   _centrAktualizujWskazaniaStopera();
   _centrAktualizujFloatingTimer();
+  _centrOdswiezAktywnePrzyciskiKartyCelu();
 }
 
 function _centrZmienPresetStopera(min){
   min = parseInt(min, 10) || 25;
-  if(_centrStoperStan.timerId){
-    clearInterval(_centrStoperStan.timerId);
-    _centrStoperStan.timerId = null;
-  }
-  _centrStoperStan.dziala = false;
-  _centrStoperStan.zakonczony = false;
-  _centrStoperStan.calkowityCzasSek = min * 60;
-  _centrStoperStan.pozostaloSek = _centrStoperStan.calkowityCzasSek;
-  _centrStoperStan.uplyneloSek = 0;
+  _centrZatrzymajTimerWatek();
+  _centrZatrzymajSilentAudio();
+  _centrPrzywrocTytulStrony();
+
+  const stan = _centrStoperStan;
+  stan.dziala = false;
+  stan.zakonczony = false;
+  stan.calkowityCzasSek = min * 60;
+  stan.pozostaloSek = stan.calkowityCzasSek;
+  stan.uplyneloSek = 0;
+  stan.initialPozostaloSek = stan.calkowityCzasSek;
+  stan.initialUplyneloSek = 0;
+  stan.startTimestamp = null;
+  stan.notifiedDone = false;
+  stan.lastTick = 0;
 
   const banner = $("cenTimerDoneBanner");
   if(banner) banner.style.display = "none";
@@ -47370,21 +47861,29 @@ function _centrZmienPresetStopera(min){
     chip.classList.toggle("active", val === min);
   });
 
+  _centrZapiszStoperDoLS();
   _centrAktualizujWskazaniaStopera();
   _centrAktualizujFloatingTimer();
+  _centrOdswiezAktywnePrzyciskiKartyCelu();
 }
 
 function _centrZmienTrybStopera(mode){
   const odliczanie = (mode === "odliczanie");
-  if(_centrStoperStan.timerId){
-    clearInterval(_centrStoperStan.timerId);
-    _centrStoperStan.timerId = null;
-  }
-  _centrStoperStan.dziala = false;
-  _centrStoperStan.zakonczony = false;
-  _centrStoperStan.trybOdliczania = odliczanie;
-  _centrStoperStan.uplyneloSek = 0;
-  _centrStoperStan.pozostaloSek = _centrStoperStan.calkowityCzasSek;
+  _centrZatrzymajTimerWatek();
+  _centrZatrzymajSilentAudio();
+  _centrPrzywrocTytulStrony();
+
+  const stan = _centrStoperStan;
+  stan.dziala = false;
+  stan.zakonczony = false;
+  stan.trybOdliczania = odliczanie;
+  stan.uplyneloSek = 0;
+  stan.pozostaloSek = stan.calkowityCzasSek;
+  stan.initialPozostaloSek = stan.calkowityCzasSek;
+  stan.initialUplyneloSek = 0;
+  stan.startTimestamp = null;
+  stan.notifiedDone = false;
+  stan.lastTick = 0;
 
   const banner = $("cenTimerDoneBanner");
   if(banner) banner.style.display = "none";
@@ -47399,21 +47898,39 @@ function _centrZmienTrybStopera(mode){
     presetsRow.style.display = odliczanie ? "flex" : "none";
   }
 
+  _centrZapiszStoperDoLS();
   _centrAktualizujWskazaniaStopera();
   _centrAktualizujFloatingTimer();
+  _centrOdswiezAktywnePrzyciskiKartyCelu();
 }
 
 function _centrDodajCzasStoper(sek){
   sek = parseInt(sek, 10) || 300;
-  _centrStoperStan.calkowityCzasSek += sek;
-  _centrStoperStan.pozostaloSek += sek;
-  _centrStoperStan.zakonczony = false;
+  const stan = _centrStoperStan;
+  if(stan.dziala){
+    _centrStoperTickKrok();
+    stan.calkowityCzasSek += sek;
+    stan.pozostaloSek += sek;
+    stan.initialPozostaloSek = stan.pozostaloSek;
+    stan.initialUplyneloSek = stan.uplyneloSek;
+    stan.startTimestamp = Date.now();
+    stan.zakonczony = false;
+    stan.notifiedDone = false;
+  } else {
+    stan.calkowityCzasSek += sek;
+    stan.pozostaloSek += sek;
+    stan.initialPozostaloSek = stan.pozostaloSek;
+    stan.zakonczony = false;
+    stan.notifiedDone = false;
+  }
 
   const banner = $("cenTimerDoneBanner");
   if(banner) banner.style.display = "none";
 
+  _centrZapiszStoperDoLS();
   _centrAktualizujWskazaniaStopera();
   _centrAktualizujFloatingTimer();
+  _centrOdswiezAktywnePrzyciskiKartyCelu();
 }
 
 function _centrOdswiezPrzyciskZaliczStopera(c){
