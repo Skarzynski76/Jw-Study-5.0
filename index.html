@@ -2142,6 +2142,12 @@ html[data-theme="dark"] .cenHeroTag {
   border: 1.5px solid var(--cel-color, #3b82f6);
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.18);
 }
+.cenCelDayBtn.future {
+  opacity: 0.72;
+}
+.cenCelDayBtn.future:hover {
+  opacity: 1;
+}
 .cenCelDayBtn.done {
   background: var(--cel-color, #3b82f6);
   border-color: var(--cel-color, #3b82f6);
@@ -2342,6 +2348,388 @@ html[data-theme="dark"] .cenHeroTag {
   color: var(--cen-text);
   transform: translateY(-1px);
 }
+
+/* PRZYCISK KALENDARZA NAWYKU ORAZ WIDOK CYKLU */
+.cenCelKalBtn {
+  background: var(--cen-btn-bg);
+  border: 1px solid var(--cen-card-border);
+  color: var(--cen-text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s ease;
+}
+.cenCelKalBtn:hover {
+  background: var(--cen-card-border-hover);
+  color: var(--cel-color, #3b82f6);
+  border-color: var(--cel-color, #3b82f6);
+  transform: translateY(-1px);
+}
+.cenCelKalBtn svg {
+  width: 12px !important;
+  height: 12px !important;
+  max-width: 12px !important;
+  max-height: 12px !important;
+  flex-shrink: 0;
+}
+.cenCelHabitCycleBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--cel-color, #3b82f6) 12%, transparent);
+  color: var(--cel-color, #3b82f6);
+}
+
+/* KALENDARZ NAWYKU W MODALU */
+.cenCelKalStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+@media (max-width: 500px) {
+  .cenCelKalStatsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.cenCelKalStatBox {
+  background: var(--cen-btn-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 12px;
+  padding: 8px 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cenCelKalStatVal {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--cen-text);
+}
+.cenCelKalStatLbl {
+  font-size: 10.5px;
+  color: var(--cen-text-muted);
+  font-weight: 600;
+}
+.cenCelKalMiesBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+.cenCelKalMiesTyt {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--cen-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cenCelKalGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  text-align: center;
+  background: var(--cen-btn-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+.cenCelKalHeadCell {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--cen-text-muted);
+  padding-bottom: 4px;
+}
+.cenKalCelCell {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  cursor: pointer;
+  transition: all 0.14s ease;
+  position: relative;
+  padding: 2px;
+}
+.cenKalCelCell:hover {
+  transform: scale(1.06);
+  border-color: var(--cel-color, #3b82f6);
+  z-index: 2;
+}
+.cenKalCelCell.today {
+  box-shadow: 0 0 0 2px var(--cel-color, #3b82f6);
+  font-weight: 800;
+}
+.cenKalCelCell.done {
+  background: var(--cel-color, #3b82f6) !important;
+  border-color: var(--cel-color, #3b82f6) !important;
+  color: #ffffff !important;
+}
+.cenKalCelCell.done .cenKalCelNum {
+  color: #ffffff !important;
+  font-weight: 700;
+}
+.cenKalCelCell.done .cenKalCelIko {
+  color: #ffffff !important;
+}
+.cenKalCelNum {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cen-text);
+  line-height: 1;
+}
+.cenKalCelIko {
+  font-size: 8.5px;
+  line-height: 1;
+  margin-top: 2px;
+  height: 9px;
+  color: var(--cel-color, #3b82f6);
+}
+.cenKalCelEmpty {
+  aspect-ratio: 1;
+  opacity: 0.15;
+}
+
+.cenKalCelTime {
+  font-size: 8px;
+  font-weight: 700;
+  line-height: 1;
+  margin-top: 1px;
+  opacity: 0.95;
+  letter-spacing: -0.2px;
+}
+.cenCelTimeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: color-mix(in srgb, var(--cel-color, #3b82f6) 14%, transparent);
+  color: var(--cel-color, #3b82f6);
+  border: 1px solid color-mix(in srgb, var(--cel-color, #3b82f6) 28%, transparent);
+  transition: all 0.15s ease;
+}
+.cenCelTimeBadge:hover {
+  background: color-mix(in srgb, var(--cel-color, #3b82f6) 24%, transparent);
+  transform: translateY(-1px);
+}
+.cenCelTimerPillBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  background: color-mix(in srgb, var(--cel-color, #3b82f6) 14%, transparent);
+  color: var(--cel-color, #3b82f6);
+  border: 1px solid color-mix(in srgb, var(--cel-color, #3b82f6) 28%, transparent);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cenCelTimerPillBtn:hover {
+  background: var(--cel-color, #3b82f6);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   FOCUS TIMER / STOPER SKUPIENIA NAWYKU (v5.0)
+   ========================================================================== */
+.cenTimerWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 8px;
+  text-align: center;
+}
+.cenTimerCircleBox {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto 18px;
+}
+.cenTimerSvg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+.cenTimerSvgBg {
+  fill: none;
+  stroke: var(--cen-btn-bg, rgba(0,0,0,0.08));
+  stroke-width: 8;
+}
+.cenTimerSvgProgress {
+  fill: none;
+  stroke: var(--cel-color, #3b82f6);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.3s linear;
+}
+.cenTimerTextWrap {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cenTimerDigits {
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--cen-text, #1e293b);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.cenTimerStatusLbl {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--cen-text-muted, #64748b);
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.cenTimerControlsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.cenTimerAdjBtn {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 7px 13px;
+  border-radius: 10px;
+  background: var(--cen-btn-bg);
+  border: 1px solid var(--cen-card-border);
+  color: var(--cen-text);
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+.cenTimerAdjBtn:hover {
+  border-color: var(--cel-color, #3b82f6);
+  color: var(--cel-color, #3b82f6);
+}
+.cenTimerMainBtn {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: 12px;
+  background: var(--cel-color, #3b82f6);
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.14s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.28);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.cenTimerMainBtn:hover {
+  opacity: 0.94;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.38);
+}
+.cenTimerDoneBanner {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(59, 130, 246, 0.12));
+  border: 1.5px solid #10b981;
+  border-radius: 16px;
+  padding: 14px;
+  margin-top: 6px;
+  animation: cenPop 0.25s ease-out;
+}
+.cenTimerPresetsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.cenTimerPresetChip {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--cen-btn-bg);
+  border: 1px solid var(--cen-card-border);
+  color: var(--cen-text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cenTimerPresetChip:hover {
+  border-color: var(--cel-color, #3b82f6);
+  color: var(--cel-color, #3b82f6);
+}
+.cenTimerPresetChip.active {
+  background: color-mix(in srgb, var(--cel-color, #3b82f6) 15%, transparent);
+  border-color: var(--cel-color, #3b82f6);
+  color: var(--cel-color, #3b82f6);
+  font-weight: 700;
+}
+.cenTimerModeToggle {
+  display: inline-flex;
+  align-items: center;
+  background: var(--cen-btn-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 10px;
+  padding: 3px;
+  margin-bottom: 14px;
+  gap: 3px;
+}
+.cenTimerModeBtn {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 7px;
+  border: none;
+  background: transparent;
+  color: var(--cen-text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cenTimerModeBtn.active {
+  background: var(--cen-card-bg);
+  color: var(--cen-text);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  font-weight: 700;
+}
+@keyframes cenTimerPulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  50% { transform: scale(1.03); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+#modalCelTimerZaliczBtn.pulse {
+  animation: cenTimerPulse 1.2s ease-in-out infinite;
+  background: #10b981 !important;
+  border-color: #10b981 !important;
+  color: #ffffff !important;
+}
+
 /* ==========================================================================
    NOWY / EDYTOWANY CEL DUCHOWY & SZABLONY (v5.0 DESIGN)
    ========================================================================== */
@@ -2666,6 +3054,13 @@ html[data-theme="dark"] .cenHeroTag {
   border-color: var(--accent);
   background: var(--sel);
 }
+.cenUnitChip.active {
+  color: var(--goal-color, #3b82f6);
+  border-color: var(--goal-color, #3b82f6);
+  background: color-mix(in srgb, var(--goal-color, #3b82f6) 14%, var(--panel));
+  font-weight: 700;
+  box-shadow: 0 1px 4px color-mix(in srgb, var(--goal-color, #3b82f6) 20%, transparent);
+}
 
 /* Werset & Kolor Row */
 .cenGoalRowTwoCol {
@@ -2844,6 +3239,245 @@ html[data-theme="dark"] .cenHeroTag {
     justify-content: flex-end;
     order: 1;
   }
+}
+
+/* ══════════════ KALENDARZ NAWYKU & WSKAŹNIKI NAWYKÓW (v5.0) ══════════════ */
+.cenCalNavRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 4px 2px;
+}
+.cenCalNavLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cenCalCurrentMonthTitle {
+  font-size: 16px;
+  font-weight: 750;
+  color: var(--text);
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cenCalNavBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 0.15s ease;
+  touch-action: manipulation;
+}
+.cenCalNavBtn:hover {
+  background: color-mix(in srgb, var(--cel-color, #3b82f6) 12%, var(--panel));
+  border-color: var(--cel-color, #3b82f6);
+  color: var(--cel-color, #3b82f6);
+  transform: scale(1.05);
+}
+.cenCalTodayBtn {
+  font-size: 11.5px;
+  font-weight: 650;
+  padding: 5px 11px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--cel-color, #3b82f6) 12%, var(--panel));
+  border: 1px solid color-mix(in srgb, var(--cel-color, #3b82f6) 30%, var(--border));
+  color: var(--cel-color, #3b82f6);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  touch-action: manipulation;
+}
+.cenCalTodayBtn:hover {
+  background: color-mix(in srgb, var(--cel-color, #3b82f6) 22%, var(--panel));
+  transform: translateY(-1px);
+}
+.cenCalWeekHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cenCalMonthGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+.cenCalDayCell {
+  position: relative;
+  aspect-ratio: 1;
+  min-height: 42px;
+  border-radius: 11px;
+  border: 1.5px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  font-size: 13px;
+  font-weight: 650;
+  transition: all 0.14s cubic-bezier(0.34, 1.56, 0.64, 1);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+.cenCalDayCell:hover:not(.faded) {
+  transform: scale(1.08);
+  border-color: var(--cel-color, #3b82f6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.09);
+  z-index: 2;
+}
+.cenCalDayCell.faded {
+  opacity: 0.22;
+  cursor: default;
+  background: transparent;
+  border-color: transparent;
+}
+.cenCalDayCell.is-today {
+  border-color: var(--cel-color, #3b82f6);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--cel-color, #3b82f6) 25%, transparent);
+  font-weight: 800;
+}
+.cenCalDayCell.is-today::after {
+  content: "";
+  position: absolute;
+  bottom: 3px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--cel-color, #3b82f6);
+}
+.cenCalDayCell.is-done {
+  background: var(--cel-color, #3b82f6) !important;
+  color: #ffffff !important;
+  border-color: var(--cel-color, #3b82f6) !important;
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--cel-color, #3b82f6) 38%, transparent);
+}
+.cenCalDayCell.is-done .cenCalDayCheck {
+  font-size: 10px;
+  margin-top: 1px;
+  line-height: 1;
+  font-weight: 800;
+}
+.cenCalDayCell.is-done.is-today::after {
+  background: #ffffff;
+}
+.cenCalQuickStats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.cenCalStatPill {
+  background: var(--sel);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 8px 10px;
+  text-align: center;
+}
+.cenCalStatPillVal {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.2;
+}
+.cenCalStatPillLbl {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+@media (max-width: 480px) {
+  .cenCalQuickStats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cenCalDayCell {
+    min-height: 38px;
+    font-size: 12px;
+  }
+}
+
+/* Wskaźniki passy i cykli nawyków na karcie celu */
+.cenStreakFlameBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 750;
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: color-mix(in srgb, #f59e0b 16%, transparent);
+  color: #d97706;
+  border: 1px solid color-mix(in srgb, #f59e0b 32%, transparent);
+}
+.cenStreakFlameBadge.active {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(239, 68, 68, 0.18));
+  color: #ea580c;
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.16);
+}
+.cenCelCycleWrap {
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--cen-btn-bg);
+  border: 1px solid var(--cen-card-border);
+}
+
+/* Wyszukiwarka celów duchowych */
+.cenCeleSearchWrap {
+  position: relative;
+  margin-bottom: 14px;
+}
+.cenCeleSearchInp {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 14px 9px 36px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 13.5px;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.15s ease;
+}
+.cenCeleSearchInp:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.cenCeleSearchIco {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--muted);
+  pointer-events: none;
 }
 
 /* ══════════════ SEKCJA PROJEKTY — NOWOCZESNY DESIGN (v3.56) ══════════════ */
@@ -19918,6 +20552,93 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
         </div>
       </div>
 
+      <!-- 4b. Pola dynamiczne: Nawyk powtarzalny (częstotliwość tygodniowa i czas trwania) -->
+      <div id="celHabitFields" class="cenGoalSubpanel">
+        <div class="cenSubpanelTitle">🔥 Częstotliwość, czas trwania i odnawianie nawyku</div>
+        <p class="cenSubpanelDesc">Wybierz, ile dni w tygodniu chcesz poświęcić na ten nawyk (1–7 dni) oraz zaplanuj czas trwania sesji (np. 15 min czytania). Po osiągnięciu 7 dni nawyk odświeża się na kolejne 7 dni, a cała historia pozostaje w kalendarzu!</p>
+        
+        <div class="cenNumInputsGrid" style="grid-template-columns: 1fr 1fr; gap:10px;">
+          <div class="cenFieldCol">
+            <label for="celInpHabitTarget">Częstotliwość tygodniowa <b style="color:#ef4444;">*</b></label>
+            <input type="number" id="celInpHabitTarget" value="7" min="1" max="7" class="cenFieldInpSmall" />
+          </div>
+          <div class="cenFieldCol">
+            <label for="celInpHabitTime">⏱️ Czas trwania nawyku (na sesję)</label>
+            <select id="celInpHabitTime" class="cenFieldInpSmall" style="cursor:pointer; height:36px;">
+              <option value="0">Dowolny czas (bez limitu)</option>
+              <option value="5">⏱️ 5 minut</option>
+              <option value="10">⏱️ 10 minut</option>
+              <option value="15">⏱️ 15 minut (zalecane)</option>
+              <option value="20">⏱️ 20 minut</option>
+              <option value="30">⏱️ 30 minut</option>
+              <option value="45">⏱️ 45 minut</option>
+              <option value="60">⏱️ 60 minut (1 godzina)</option>
+              <option value="90">⏱️ 90 minut (1.5 godz.)</option>
+              <option value="120">⏱️ 120 minut (2 godz.)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="cenUnitQuickChips" id="celHabitTimeChips" style="margin-top:8px;">
+          <span class="cenUnitQuickLbl">Czas sesji:</span>
+          <button type="button" class="cenUnitChip" data-habit-time="5">5 min</button>
+          <button type="button" class="cenUnitChip" data-habit-time="10">10 min</button>
+          <button type="button" class="cenUnitChip" data-habit-time="15">15 min</button>
+          <button type="button" class="cenUnitChip" data-habit-time="20">20 min</button>
+          <button type="button" class="cenUnitChip" data-habit-time="30">30 min</button>
+          <button type="button" class="cenUnitChip" data-habit-time="45">45 min</button>
+          <button type="button" class="cenUnitChip" data-habit-time="60">60 min</button>
+        </div>
+
+        <div class="cenUnitQuickChips" id="celHabitTargetChips" style="margin-top:8px;">
+          <span class="cenUnitQuickLbl">Popularne cele:</span>
+          <button type="button" class="cenUnitChip" data-habit-days="7">7 dni (codziennie)</button>
+          <button type="button" class="cenUnitChip" data-habit-days="5">5 dni / tydz.</button>
+          <button type="button" class="cenUnitChip" data-habit-days="4">4 dni / tydz.</button>
+          <button type="button" class="cenUnitChip" data-habit-days="3">3 dni / tydz.</button>
+          <button type="button" class="cenUnitChip" data-habit-days="2">2 dni / tydz.</button>
+          <button type="button" class="cenUnitChip" data-habit-days="1">1 dzień / tydz.</button>
+        </div>
+
+        <div style="margin-top:10px;">
+          <div class="cenFieldCol">
+            <label for="celInpHabitDuration">Horyzont czasowy / wyzwanie</label>
+            <select id="celInpHabitDuration" class="cenFieldInpSmall" style="cursor:pointer; height:36px;">
+              <option value="0">Ciągły (odnawiaj co tydzień na kolejne 7 dni)</option>
+              <option value="7">Wyzwanie 7 dni (1 tydzień)</option>
+              <option value="14">Wyzwanie 14 dni (2 tygodnie)</option>
+              <option value="21">Wyzwanie 21 dni (budowanie nawyku)</option>
+              <option value="30">Wyzwanie 30 dni (1 miesiąc)</option>
+              <option value="60">Wyzwanie 60 dni (2 miesiące)</option>
+              <option value="90">Wyzwanie 90 dni (kwartał)</option>
+              <option value="365">Wyzwanie 365 dni (cały rok)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="cenUnitQuickChips" id="celHabitDurationChips" style="margin-top:8px;">
+          <span class="cenUnitQuickLbl">Wybierz wyzwanie:</span>
+          <button type="button" class="cenUnitChip" data-habit-duration="0">🔄 Ciągły (co tydzień)</button>
+          <button type="button" class="cenUnitChip" data-habit-duration="7">7 dni</button>
+          <button type="button" class="cenUnitChip" data-habit-duration="14">14 dni</button>
+          <button type="button" class="cenUnitChip" data-habit-duration="21">21 dni</button>
+          <button type="button" class="cenUnitChip" data-habit-duration="30">30 dni</button>
+          <button type="button" class="cenUnitChip" data-habit-duration="60">60 dni</button>
+          <button type="button" class="cenUnitChip" data-habit-duration="90">90 dni</button>
+          <button type="button" class="cenUnitChip" data-habit-duration="365">365 dni</button>
+        </div>
+
+        <div style="margin-top:10px; display:flex; flex-direction:column; gap:6px;">
+          <label class="cenCheckRow" style="margin:0; padding:9px 12px; background:var(--cen-card-bg); border:1px solid var(--cen-card-border); border-radius:8px; cursor:pointer; font-size:12px; font-weight:600; display:flex; align-items:center; gap:8px;">
+            <input type="checkbox" id="celInpHabitAutoRenew" checked style="accent-color:var(--cen-accent, #3b82f6); width:16px; height:16px; cursor:pointer;" />
+            <span>Automatycznie odświeżaj na kolejny okres (kolejne 7 dni / cykl)</span>
+          </label>
+          <div style="font-size:11px; color:var(--cen-text-muted); line-height:1.4; padding:0 4px;">
+            💡 Po osiągnięciu 7 dni (lub z upływem tygodnia) nawyk rozpoczyna kolejny cykl. W widoku ogólnym masz szybki podgląd 7 dni, a w kalendarzu zachowujesz pełną historię i ciągłość serii!
+          </div>
+        </div>
+      </div>
+
       <!-- 5. Pola dynamiczne: Cel liczbowy -->
       <div id="celNumericFields" class="cenGoalSubpanel" style="display:none;">
         <div class="cenSubpanelTitle">🎯 Wartości licznika celu</div>
@@ -20014,6 +20735,52 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
     </div>
     <div class="cenGoalFooter" style="justify-content:flex-end;">
       <button type="button" class="btn primary" data-zamknij="modalCelSzablony">Zamknij</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="modalCelKalendarz" aria-hidden="true">
+  <div class="modal cenGoalModal" role="dialog" aria-modal="true" style="max-width:540px !important; width:min(540px, 95vw) !important;">
+    <div class="cenGoalHeader">
+      <div class="cenGoalHeaderLeft">
+        <div class="cenGoalIconBadge" id="modalCelKalIconBadge">📅</div>
+        <div class="cenGoalHeaderTitles">
+          <span class="cenGoalKicker" id="modalCelKalKicker" style="color:var(--cel-color, #3b82f6);">✦ KALENDARZ NAWYKU</span>
+          <h3 class="cenGoalTitle" id="modalCelKalTytul">Historia realizacji</h3>
+          <p class="cenGoalSubtext" id="modalCelKalSub">Kliknij dowolny dzień, aby zaznaczyć lub cofnąć wykonanie</p>
+        </div>
+      </div>
+      <button type="button" class="exp-close-btn" data-zamknij="modalCelKalendarz" title="Zamknij">✕</button>
+    </div>
+    <div class="cenGoalBody" style="padding-top:14px; padding-bottom:14px;">
+      <div id="modalCelKalBody"></div>
+    </div>
+    <div class="cenGoalFooter" style="justify-content:space-between; align-items:center;">
+      <div id="modalCelKalFooterStats" style="font-size:12px; color:var(--cen-text-muted); display:flex; gap:12px; align-items:center; flex-wrap:wrap;"></div>
+      <button type="button" class="btn primary" data-zamknij="modalCelKalendarz">Gotowe</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="modalCelTimer" aria-hidden="true">
+  <div class="modal cenGoalModal" role="dialog" aria-modal="true" style="max-width:440px !important; width:min(440px, 95vw) !important;">
+    <div class="cenGoalHeader">
+      <div class="cenGoalHeaderLeft">
+        <div class="cenGoalIconBadge" id="modalCelTimerIconBadge">⏱️</div>
+        <div class="cenGoalHeaderTitles">
+          <span class="cenGoalKicker" id="modalCelTimerKicker" style="color:var(--cel-color, #3b82f6);">✦ STOPER SKUPIENIA</span>
+          <h3 class="cenGoalTitle" id="modalCelTimerTytul">Sesja nawyku</h3>
+          <p class="cenGoalSubtext" id="modalCelTimerSub">Skup się na realizacji nawyku duchowego</p>
+        </div>
+      </div>
+      <button type="button" class="exp-close-btn" data-zamknij="modalCelTimer" title="Zamknij">✕</button>
+    </div>
+    <div class="cenGoalBody" style="padding:16px 20px;">
+      <div id="modalCelTimerBody"></div>
+    </div>
+    <div class="cenGoalFooter" style="justify-content:space-between; align-items:center;">
+      <button type="button" class="btn" data-zamknij="modalCelTimer">Zamknij</button>
+      <button type="button" class="btn primary" id="modalCelTimerZaliczBtn">✓ Zalicz dzisiejszy dzień</button>
     </div>
   </div>
 </div>
@@ -35227,6 +35994,9 @@ function closeModal(id){
     pudlo.style.transform = "";
     pudlo.style.transition = "";
   }
+  if((id === "modalCelTimer" || okno.id === "modalCelTimer") && typeof _centrZatrzymajStoper === "function"){
+    _centrZatrzymajStoper();
+  }
   syncModalScrollLock();
   // ognisko wraca tam, skąd okno otwarto — inaczej ląduje na początku strony
   if(_skadOkno && document.contains(_skadOkno)){ try{ _skadOkno.focus(); }catch(e){} }
@@ -42651,7 +43421,11 @@ const CEN_MODERN_ICO = {
   sync: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/></svg>',
   jw: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>',
   star: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
-  rotate: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>'
+  rotate: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>',
+  download: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 4v12M8 12l4 4 4-4M5 18h14"/></svg>',
+  upload: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 16V4M8 8l4-4 4 4M5 18h14"/></svg>',
+  trophy: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H7"/><path d="M14 14.66V17c0 .55.45 1 1 1h2"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>',
+  sparkles: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>'
 };
 
 /* ═══ NOWE MODUŁY I BAZY DANYCH PLANÓW CZYTANIA BIBLII (v3.74) ═══ */
@@ -42756,6 +43530,9 @@ let _centrCeleEdycjaId = null;
 const _cenNow = new Date();
 let _centrKalRok = _cenNow.getFullYear();
 let _centrKalMies = _cenNow.getMonth();
+let _centrHabitKalCelId = null;
+let _centrHabitKalRok = _cenNow.getFullYear();
+let _centrHabitKalMies = _cenNow.getMonth();
 
 /* Czyszczenie starych danych testowych / mocków */
 (function _centrAutoCleanMockData(){
@@ -43209,7 +43986,159 @@ function _centrPobierzPlany(){
   });
 }
 
-/* 7a. DUCHOWE CELE I NAWYKI — KATALOG SZABLONÓW, PERSYSTENCJA I LOGIKA */
+/* 7a. DUCHOWE CELE I NAWYKI — SILNIK AUDIO/CELEBRACJI, KATALOG SZABLONÓW, PERSYSTENCJA I LOGIKA */
+
+let _cenAudioCtx = null;
+function cenGetAudioContext(){
+  try {
+    if(!_cenAudioCtx){
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if(AudioCtx) _cenAudioCtx = new AudioCtx();
+    }
+    if(_cenAudioCtx && _cenAudioCtx.state === "suspended"){
+      _cenAudioCtx.resume().catch(()=>{});
+    }
+    return _cenAudioCtx;
+  } catch(e){
+    return null;
+  }
+}
+
+function cenPlaySound(type){
+  try {
+    if(lsGet("jw_centr_audio_muted", false)) return;
+    const ctx = cenGetAudioContext();
+    if(!ctx) return;
+    const now = ctx.currentTime;
+    if(type === "check"){
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(587.33, now);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+      gain.gain.setValueAtTime(0.14, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.12);
+    } else if(type === "uncheck"){
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(320, now);
+      osc.frequency.exponentialRampToValueAtTime(220, now + 0.06);
+      gain.gain.setValueAtTime(0.09, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.08);
+    } else if(type === "streak" || type === "fanfare" || type === "complete"){
+      const notes = [523.25, 659.25, 783.99, 1046.50];
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(freq, now + i * 0.08);
+        gain.gain.setValueAtTime(0.16, now + i * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.28);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + i * 0.08);
+        osc.stop(now + i * 0.08 + 0.3);
+      });
+    } else if(type === "timer" || type === "timer_done"){
+      const notes = [587.33, 739.99, 880.00, 1174.66]; // D5, F#5, A5, D6 harmonic chime
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, now + i * 0.12);
+        gain.gain.setValueAtTime(0.2, now + i * 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.6);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + i * 0.12);
+        osc.stop(now + i * 0.12 + 0.65);
+      });
+    }
+  } catch(e){}
+}
+
+function cenCelebration(opts){
+  try {
+    opts = opts || {};
+    const count = opts.count || 55;
+    const canvas = document.createElement("canvas");
+    canvas.id = "cenCelebrationCanvas";
+    canvas.style.position = "fixed";
+    canvas.style.top = "0";
+    canvas.style.left = "0";
+    canvas.style.width = "100vw";
+    canvas.style.height = "100vh";
+    canvas.style.pointerEvents = "none";
+    canvas.style.zIndex = "999999";
+    document.body.appendChild(canvas);
+
+    const w = canvas.width = window.innerWidth;
+    const h = canvas.height = window.innerHeight;
+    const ctx = canvas.getContext("2d");
+    if(!ctx){ canvas.remove(); return; }
+
+    const colors = ["#3b82f6", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6", "#06b6d4", "#eab308"];
+    const particles = [];
+    for(let i = 0; i < count; i++){
+      particles.push({
+        x: w * 0.5 + (Math.random() - 0.5) * (w * 0.4),
+        y: h * 0.45 + (Math.random() - 0.5) * 80,
+        vx: (Math.random() - 0.5) * 12,
+        vy: -Math.random() * 9 - 4,
+        size: Math.random() * 7 + 5,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * 360,
+        vRot: (Math.random() - 0.5) * 10,
+        opacity: 1
+      });
+    }
+
+    let start = null;
+    const duration = 2400;
+
+    function step(timestamp){
+      if(!start) start = timestamp;
+      const elapsed = timestamp - start;
+      const progress = elapsed / duration;
+      ctx.clearRect(0, 0, w, h);
+
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.28;
+        p.vx *= 0.985;
+        p.rotation += p.vRot;
+        if(progress > 0.6){
+          p.opacity = Math.max(0, 1 - (progress - 0.6) / 0.4);
+        }
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.opacity;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
+        ctx.restore();
+      });
+
+      if(elapsed < duration){
+        requestAnimationFrame(step);
+      } else {
+        canvas.remove();
+      }
+    }
+    requestAnimationFrame(step);
+  } catch(e){}
+}
+
 const BIBLE_SPIRITUAL_GOALS_TEMPLATES = [
   {
     title: "Codzienne czytanie Biblii",
@@ -43218,6 +44147,21 @@ const BIBLE_SPIRITUAL_GOALS_TEMPLATES = [
     type: "habit",
     color: "#3b82f6",
     verse: "Jozuego 1:8",
+    habitTarget: 7,
+    habitTime: 15,
+    habitAutoRenew: true,
+    history: {}
+  },
+  {
+    title: "Tekst dzienny i komentarz każdego poranka",
+    desc: "Codzienne rozważenie wersetu dnia i komentarza ze „Skorowidza” lub publikacji „Badajcie Pisma”.",
+    category: "czytanie",
+    type: "habit",
+    color: "#06b6d4",
+    verse: "Dzieje 17:11",
+    habitTarget: 7,
+    habitTime: 10,
+    habitAutoRenew: true,
     history: {}
   },
   {
@@ -43227,22 +44171,26 @@ const BIBLE_SPIRITUAL_GOALS_TEMPLATES = [
     type: "habit",
     color: "#a855f7",
     verse: "1 Tesaloniczan 5:17",
+    habitTarget: 7,
+    habitTime: 15,
+    habitAutoRenew: true,
     history: {}
   },
   {
-    title: "Pionier pomocniczy w wybranym miesiącu",
-    desc: "Poświęcenie 15 lub 30 godzin na głoszenie dobrej nowiny w wybranym miesiącu kampanii.",
-    category: "sluzba",
-    type: "numeric",
-    color: "#10b981",
-    current: 0,
-    target: 30,
-    unit: "godz.",
-    verse: "Rzymian 12:11"
+    title: "Przygotowanie do zebrań z wyprzedzeniem",
+    desc: "Zaznaczanie odpowiedzi i wyszukiwanie wersetów przed zebraniem w tygodniu i w weekend.",
+    category: "zebrania",
+    type: "habit",
+    color: "#ec4899",
+    verse: "Hebrajczyków 10:24-25",
+    habitTarget: 2,
+    habitTime: 30,
+    habitAutoRenew: true,
+    history: {}
   },
   {
-    title: "Wypowiedź na każdym zebraniu",
-    desc: "Zgłaszanie się i budowanie zboru przemyślanymi komentarzami.",
+    title: "Wypowiedź na każdym zebraniu w miesiącu",
+    desc: "Zgłaszanie się i budowanie zboru przemyślanymi, osobistymi komentarzami.",
     category: "zebrania",
     type: "numeric",
     color: "#f59e0b",
@@ -43252,24 +44200,72 @@ const BIBLE_SPIRITUAL_GOALS_TEMPLATES = [
     verse: "Psalm 35:18"
   },
   {
-    title: "Przygotowanie do zebrań z wyprzedzeniem",
-    desc: "Zaznaczanie odpowiedzi i wyszukiwanie wersetów przed zebraniem w tygodniu i w weekend.",
-    category: "zebrania",
+    title: "Pionier pomocniczy (15 godzin)",
+    desc: "Poświęcenie 15 godzin na głoszenie dobrej nowiny w wybranym miesiącu kampanii.",
+    category: "sluzba",
+    type: "numeric",
+    color: "#10b981",
+    current: 0,
+    target: 15,
+    unit: "godz.",
+    verse: "Rzymian 12:11"
+  },
+  {
+    title: "Pionier pomocniczy (30 godzin)",
+    desc: "Poświęcenie 30 godzin na służbę kaznodziejską i dzielenie się prawdą z bliźnimi.",
+    category: "sluzba",
+    type: "numeric",
+    color: "#059669",
+    current: 0,
+    target: 30,
+    unit: "godz.",
+    verse: "Kolosan 3:23"
+  },
+  {
+    title: "Służba kaznodziejska co tydzień",
+    desc: "Systematyczny udział w głoszeniu od domu do domu lub ze stojakiem w każdym tygodniu.",
+    category: "sluzba",
     type: "habit",
-    color: "#ec4899",
-    verse: "Hebrajczyków 10:24-25",
+    color: "#10b981",
+    verse: "2 Tymoteusza 4:5",
+    habitTarget: 1,
+    habitTime: 60,
+    habitAutoRenew: true,
     history: {}
   },
   {
-    title: "Przeczytanie całej Biblii w rok",
-    desc: "Systematyczne czytanie ~3-4 rozdziałów dziennie, by poznać całe Słowo Boże.",
+    title: "Przeczytanie Chrześcijańskich Pism Greckich (NT)",
+    desc: "Przeczytanie wszystkich 260 rozdziałów Ewangelii, Dziejów Apostolskich, Listów i Objawienia.",
     category: "czytanie",
     type: "numeric",
-    color: "#06b6d4",
+    color: "#3b82f6",
+    current: 0,
+    target: 260,
+    unit: "rozdziałów",
+    verse: "Jana 20:31"
+  },
+  {
+    title: "Przeczytanie całej Biblii w rok",
+    desc: "Systematyczne czytanie ~3-4 rozdziałów dziennie, by poznać całe Słowo Boże od Rodzaju do Objawienia.",
+    category: "czytanie",
+    type: "numeric",
+    color: "#6366f1",
     current: 0,
     target: 1189,
     unit: "rozdziałów",
-    verse: "Dzieje 17:11"
+    verse: "Psalm 119:105"
+  },
+  {
+    title: "Wieczór wielbienia Boga w gronie rodziny",
+    desc: "Cotygodniowe studium rodzinne z dziećmi lub współmałżonkiem w przyjaznej, ciepłej atmosferze.",
+    category: "studium",
+    type: "habit",
+    color: "#f59e0b",
+    verse: "Powtórzonego Prawa 6:6-7",
+    habitTarget: 1,
+    habitTime: 45,
+    habitAutoRenew: true,
+    history: {}
   },
   {
     title: "Studium o 9 cechach owocu ducha",
@@ -43281,10 +44277,10 @@ const BIBLE_SPIRITUAL_GOALS_TEMPLATES = [
     steps: [
       { t: "1. Miłość (agape) — niesamolubna troska o drugich", done: false },
       { t: "2. Radość — źródło wewnętrznej siły od Jehowy", done: false },
-      { t: "3. Pokój — spokój serca i umysłu", done: false },
-      { t: "4. Cierpliwość — wyrozumiałość wobec innych", done: false },
-      { t: "5. Życzliwość — aktywne wyświadczanie dobra", done: false },
-      { t: "6. Dobroć — prawe postępowanie i czyste intencje", done: false },
+      { t: "3. Pokój — spokój serca i umysłu w próbach", done: false },
+      { t: "4. Cierpliwość — wyrozumiałość i wielkoduszność wobec innych", done: false },
+      { t: "5. Życzliwość — aktywne wyświadczanie dobra w zborze", done: false },
+      { t: "6. Dobroć — prawe postępowanie i czyste intencje serca", done: false },
       { t: "7. Wiara — niezłomne zaufanie obietnicom Boga", done: false },
       { t: "8. Łagodność — panowanie nad emocjami i delikatność", done: false },
       { t: "9. Panowanie nad sobą — samokontrola w mowie i czynach", done: false }
@@ -43303,7 +44299,7 @@ const BIBLE_SPIRITUAL_GOALS_TEMPLATES = [
   },
   {
     title: "Rozpoczęcie studium biblijnego",
-    desc: "Kultywowanie zainteresowania u napotkanej osoby i rozpoczęcie regularnego studium z broszury.",
+    desc: "Kultywowanie zainteresowania u napotkanej osoby i rozpoczęcie regularnego studium z podręcznika.",
     category: "sluzba",
     type: "boolean",
     color: "#10b981",
@@ -43336,7 +44332,30 @@ function _centrPobierzCele(){
   if(raw){
     try {
       const arr = JSON.parse(raw);
-      if(Array.isArray(arr) && arr.length) return arr;
+      if(Array.isArray(arr) && arr.length){
+        let changed = false;
+        arr.forEach(c => {
+          if(c && c.type === "habit"){
+            if(!c.habitTarget){
+              c.habitTarget = (c.id === "cel_domyslny_3" ? 2 : 7);
+              changed = true;
+            } else {
+              const clamped = Math.min(7, Math.max(1, Number(c.habitTarget) || 7));
+              if(c.habitTarget !== clamped){
+                c.habitTarget = clamped;
+                changed = true;
+              }
+            }
+            if(c.id === "cel_domyslny_3" && c.habitTarget === 7 && (!c.history || Object.keys(c.history).length === 0)){
+              c.habitTarget = 2;
+              changed = true;
+            }
+            if(c.habitAutoRenew === undefined){ c.habitAutoRenew = true; changed = true; }
+          }
+        });
+        if(changed) _centrZapiszCele(arr, true);
+        return arr;
+      }
     } catch(e){}
   }
   const domyslne = [
@@ -43348,6 +44367,8 @@ function _centrPobierzCele(){
       type: "habit",
       color: "#3b82f6",
       verse: "Jozuego 1:8",
+      habitTarget: 7,
+      habitAutoRenew: true,
       history: {},
       created: Date.now(),
       completed: false
@@ -43360,6 +44381,8 @@ function _centrPobierzCele(){
       type: "habit",
       color: "#a855f7",
       verse: "1 Tesaloniczan 5:17",
+      habitTarget: 7,
+      habitAutoRenew: true,
       history: {},
       created: Date.now(),
       completed: false
@@ -43372,6 +44395,8 @@ function _centrPobierzCele(){
       type: "habit",
       color: "#f59e0b",
       verse: "Hebrajczyków 10:24-25",
+      habitTarget: 2,
+      habitAutoRenew: true,
       history: {},
       created: Date.now(),
       completed: false
@@ -43409,6 +44434,13 @@ function _centrDodajLubEdytujCel(dane){
     const idx = cele.findIndex(c => c.id === dane.id);
     if(idx >= 0){
       cele[idx] = { ...cele[idx], ...dane, modified: Date.now() };
+      if(cele[idx].type === "habit"){
+        if(!cele[idx].history || typeof cele[idx].history !== "object") cele[idx].history = {};
+        cele[idx].habitTarget = Math.min(7, Math.max(1, Number(dane.habitTarget || cele[idx].habitTarget) || 7));
+        cele[idx].habitDuration = Math.max(0, Number(dane.habitDuration !== undefined ? dane.habitDuration : (cele[idx].habitDuration || 0)) || 0);
+        cele[idx].habitTime = Math.max(0, Number(dane.habitTime !== undefined ? dane.habitTime : (cele[idx].habitTime || 0)) || 0);
+        cele[idx].habitAutoRenew = dane.habitAutoRenew !== undefined ? !!dane.habitAutoRenew : (cele[idx].habitAutoRenew !== undefined ? !!cele[idx].habitAutoRenew : true);
+      }
     }
   } else {
     const newId = "cel_" + Date.now() + "_" + Math.random().toString(36).substr(2, 5);
@@ -43424,11 +44456,17 @@ function _centrDodajLubEdytujCel(dane){
       ...dane,
       id: newId
     };
-    if(newCel.type === "habit" && !newCel.history) newCel.history = {};
+    if(newCel.type === "habit"){
+      if(!newCel.history) newCel.history = {};
+      newCel.habitTarget = Math.min(7, Math.max(1, Number(dane.habitTarget) || 7));
+      newCel.habitDuration = Math.max(0, Number(dane.habitDuration) || 0);
+      newCel.habitTime = Math.max(0, Number(dane.habitTime) || 0);
+      newCel.habitAutoRenew = dane.habitAutoRenew !== undefined ? !!dane.habitAutoRenew : true;
+    }
     if(newCel.type === "numeric"){
       newCel.current = Number(dane.current) || 0;
       newCel.target = Number(dane.target) || 10;
-      newCel.unit = dane.unit || "razy";
+      newCel.unit = dane.unit || "godz.";
     }
     if(newCel.type === "steps" && (!newCel.steps || !Array.isArray(newCel.steps))){
       newCel.steps = [];
@@ -43450,6 +44488,13 @@ function _centrPrzelaczCelUkonczony(celId){
     c.completed = !c.completed;
     c.completedAt = c.completed ? Date.now() : null;
     _centrZapiszCele(cele);
+    if(c.completed){
+      cenCelebration();
+      cenPlaySound("complete");
+      toast("🎉 Gratulacje! Ukończono cel duchowy: „" + c.title + "”", "ok");
+    } else {
+      cenPlaySound("uncheck");
+    }
   }
 }
 
@@ -43457,6 +44502,7 @@ function _centrZmienLicznikCelu(celId, delta){
   const cele = _centrPobierzCele();
   const c = cele.find(x => x.id === celId);
   if(c && c.type === "numeric"){
+    const prevCompleted = !!c.completed;
     c.current = Math.max(0, (Number(c.current) || 0) + delta);
     if(c.target > 0 && c.current >= c.target){
       c.completed = true;
@@ -43466,6 +44512,15 @@ function _centrZmienLicznikCelu(celId, delta){
       c.completedAt = null;
     }
     _centrZapiszCele(cele);
+    if(!prevCompleted && c.completed){
+      cenCelebration();
+      cenPlaySound("complete");
+      toast("🎉 Wspaniale! Osiągnięto cel: „" + c.title + "” (" + c.current + "/" + c.target + " " + (c.unit || "") + ")", "ok");
+    } else if(delta > 0){
+      cenPlaySound("check");
+    } else {
+      cenPlaySound("uncheck");
+    }
   }
 }
 
@@ -43473,11 +44528,21 @@ function _centrPrzelaczKrokCelu(celId, stepIdx){
   const cele = _centrPobierzCele();
   const c = cele.find(x => x.id === celId);
   if(c && c.type === "steps" && Array.isArray(c.steps) && c.steps[stepIdx]){
+    const prevCompleted = !!c.completed;
     c.steps[stepIdx].done = !c.steps[stepIdx].done;
     const allDone = c.steps.length > 0 && c.steps.every(s => s.done);
     c.completed = allDone;
     c.completedAt = allDone ? Date.now() : null;
     _centrZapiszCele(cele);
+    if(!prevCompleted && allDone){
+      cenCelebration();
+      cenPlaySound("complete");
+      toast("🎉 Wspaniale! Wszystkie etapy celu „" + c.title + "” ukończone!", "ok");
+    } else if(c.steps[stepIdx].done){
+      cenPlaySound("check");
+    } else {
+      cenPlaySound("uncheck");
+    }
   }
 }
 
@@ -43486,30 +44551,163 @@ function _centrPrzelaczDzienNawyku(celId, dateStr){
   const c = cele.find(x => x.id === celId);
   if(c && c.type === "habit"){
     if(!c.history || typeof c.history !== "object") c.history = {};
-    if(c.history[dateStr]) delete c.history[dateStr];
+    const willBeDone = !c.history[dateStr];
+    if(!willBeDone) delete c.history[dateStr];
     else c.history[dateStr] = true;
     _centrZapiszCele(cele);
+
+    if(willBeDone){
+      cenPlaySound("check");
+      const weekProgress = _centrObliczPostepTygodniowyNawyku(c);
+      const weekStreak = _centrObliczSerieTygodniowa(c);
+      const streak = _centrObliczSerieNawyku(c.history);
+      const habitTarget = weekProgress.target;
+
+      if(weekProgress.doneThisWeek === habitTarget){
+        cenCelebration();
+        cenPlaySound("complete");
+        toast("🎉 Gratulacje! Cel na ten tydzień osiągnięty (" + habitTarget + " " + (habitTarget === 1 ? "dzień" : "dni") + ")! Wspaniała konsekwencja!", "ok");
+      } else if(habitTarget === 7 && streak.current > 0 && (streak.current % 7 === 0 || streak.current === 21 || streak.current === 30 || (streak.current === streak.best && streak.current >= 5))){
+        cenCelebration();
+        cenPlaySound("streak");
+        toast("🔥 Wspaniała seria! Już " + streak.current + " " + (streak.current === 1 ? "dzień" : "dni") + " z rzędu!", "ok");
+      } else if(habitTarget < 7 && weekStreak.current > 0 && (weekStreak.current % 4 === 0 || (weekStreak.current === weekStreak.best && weekStreak.current >= 2))){
+        cenCelebration();
+        cenPlaySound("streak");
+        toast("🔥 Wspaniała seria! Już " + weekStreak.current + " " + (weekStreak.current === 1 ? "tydzień" : (weekStreak.current < 5 ? "tygodnie" : "tygodni")) + " z rzędu z osiągniętym celem!", "ok");
+      }
+    } else {
+      cenPlaySound("uncheck");
+    }
   }
 }
 
-function _centrPobierzOstatnie7Dni(){
-  const res = [];
-  const dniNazwy = ["Nd", "Pn", "Wt", "Śr", "Cz", "Pt", "Sb"];
+function _centrFormatujDateISO(d){
+  d = d || new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return y + "-" + m + "-" + day;
+}
+
+function _centrPobierzPoniedzialekTygodnia(d){
+  const date = (typeof d === "string") ? new Date(d + "T12:00:00") : (d ? new Date(d.getTime ? d.getTime() : d) : new Date());
+  const day = (date.getDay() + 6) % 7; // 0 = Pon, ..., 6 = Nd
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate() - day);
+}
+
+function _centrGetWeekKey(d){
+  const mon = _centrPobierzPoniedzialekTygodnia(d);
+  return _centrFormatujDateISO(mon);
+}
+
+function _centrPobierzDniBiezacegoTygodnia(refDate){
+  const mon = _centrPobierzPoniedzialekTygodnia(refDate || new Date());
+  const dniNazwy = ["Pn", "Wt", "Śr", "Cz", "Pt", "Sb", "Nd"];
   const now = new Date();
-  for(let i = 6; i >= 0; i--){
-    const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
-    const dateStr = y + "-" + m + "-" + day;
+  const todayStr = _centrFormatujDateISO(now);
+  const res = [];
+  for(let i = 0; i < 7; i++){
+    const d = new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + i);
+    const dateStr = _centrFormatujDateISO(d);
     res.push({
       dateStr: dateStr,
-      dayName: dniNazwy[d.getDay()],
+      dayName: dniNazwy[i],
       dayNum: d.getDate(),
-      isToday: (i === 0)
+      isToday: (dateStr === todayStr),
+      isFuture: (dateStr > todayStr)
     });
   }
   return res;
+}
+
+function _centrPobierzOstatnie7Dni(){
+  return _centrPobierzDniBiezacegoTygodnia();
+}
+
+function _centrObliczPostepTygodniowyNawyku(c, refDate){
+  const days = _centrPobierzDniBiezacegoTygodnia(refDate);
+  let doneThisWeek = 0;
+  days.forEach(d => {
+    d.isDone = !!(c && c.history && c.history[d.dateStr]);
+    if(d.isDone) doneThisWeek++;
+  });
+  const target = Math.min(7, Math.max(1, parseInt(c && c.habitTarget, 10) || 7));
+  const isTargetMet = doneThisWeek >= target;
+  const pct = Math.min(100, Math.round((doneThisWeek / target) * 100));
+  return {
+    days: days,
+    doneThisWeek: doneThisWeek,
+    target: target,
+    isTargetMet: isTargetMet,
+    pct: pct
+  };
+}
+
+function _centrObliczSerieTygodniowa(c){
+  if(!c || !c.history || typeof c.history !== "object") return { current: 0, best: 0, totalWeeksMet: 0 };
+  const target = Math.min(7, Math.max(1, parseInt(c.habitTarget, 10) || 7));
+  
+  const weekCounts = {};
+  Object.keys(c.history).forEach(dStr => {
+    if(c.history[dStr]){
+      const wKey = _centrGetWeekKey(dStr);
+      weekCounts[wKey] = (weekCounts[wKey] || 0) + 1;
+    }
+  });
+
+  const curMon = _centrPobierzPoniedzialekTygodnia(new Date());
+  const curWeekKey = _centrFormatujDateISO(curMon);
+  const curWeekDone = weekCounts[curWeekKey] || 0;
+  const curWeekMet = curWeekDone >= target;
+
+  let totalWeeksMet = 0;
+  Object.keys(weekCounts).forEach(wKey => {
+    if(weekCounts[wKey] >= target) totalWeeksMet++;
+  });
+
+  let curStreak = 0;
+  let checkMon = new Date(curMon.getTime());
+  if(curWeekMet){
+    curStreak++;
+    checkMon.setDate(checkMon.getDate() - 7);
+  } else {
+    checkMon.setDate(checkMon.getDate() - 7);
+  }
+
+  while(true){
+    const wKey = _centrFormatujDateISO(checkMon);
+    if(weekCounts[wKey] && weekCounts[wKey] >= target){
+      curStreak++;
+      checkMon.setDate(checkMon.getDate() - 7);
+    } else {
+      break;
+    }
+  }
+
+  const metWeeks = Object.keys(weekCounts).filter(k => weekCounts[k] >= target).sort();
+  let bestStreak = 0;
+  let tempStreak = 0;
+  let prevTime = null;
+
+  for(const wKey of metWeeks){
+    const dTime = new Date(wKey + "T12:00:00").getTime();
+    if(prevTime === null){
+      tempStreak = 1;
+    } else {
+      const diffWeeks = Math.round((dTime - prevTime) / 604800000);
+      if(diffWeeks === 1){
+        tempStreak++;
+      } else if(diffWeeks > 1){
+        tempStreak = 1;
+      }
+    }
+    prevTime = dTime;
+    if(tempStreak > bestStreak) bestStreak = tempStreak;
+  }
+  bestStreak = Math.max(bestStreak, curStreak);
+
+  return { current: curStreak, best: bestStreak, totalWeeksMet: totalWeeksMet };
 }
 
 function _centrObliczSerieNawyku(history){
@@ -43561,6 +44759,275 @@ function _centrObliczSerieNawyku(history){
   return { current: curStreak, best: Math.max(bestStreak, curStreak), total: total };
 }
 
+function _centrOdmianaTygodni(n){
+  if(n === 1) return "tydzień";
+  const rem10 = n % 10;
+  const rem100 = n % 100;
+  if(rem10 >= 2 && rem10 <= 4 && (rem100 < 10 || rem100 >= 20)) return "tygodnie";
+  return "tygodni";
+}
+
+function _centrOdmianaDni(n){
+  return n === 1 ? "dzień" : "dni";
+}
+
+/* Kalendarz miesięczny nawyku w modalCelKalendarz */
+function _centrPokazKalendarzNawyku(celId, year, month){
+  const cele = _centrPobierzCele();
+  const c = cele.find(x => x.id === celId);
+  if(!c) return;
+
+  const now = new Date();
+  if(year === undefined || year === null) year = (_centrHabitKalRok !== undefined && _centrHabitKalRok !== null) ? _centrHabitKalRok : now.getFullYear();
+  if(month === undefined || month === null) month = (_centrHabitKalMies !== undefined && _centrHabitKalMies !== null) ? _centrHabitKalMies : now.getMonth();
+
+  _centrHabitKalCelId = c.id;
+  _centrHabitKalRok = year;
+  _centrHabitKalMies = month;
+
+  const cat = _centrKategorieMap[c.category] || { name: "Nawyk", icon: "🔥", color: "#3b82f6" };
+  const color = c.color || cat.color || "#3b82f6";
+
+  const modal = $("modalCelKalendarz");
+  if(!modal) return;
+  modal.style.setProperty("--cel-color", color);
+
+  const iconBadge = $("modalCelKalIconBadge");
+  if(iconBadge){
+    iconBadge.textContent = cat.icon || "📅";
+    iconBadge.style.setProperty("--goal-color", color);
+  }
+  const kicker = $("modalCelKalKicker");
+  if(kicker){
+    kicker.textContent = "✦ KALENDARZ NAWYKU • " + cat.name.toUpperCase();
+    kicker.style.color = color;
+  }
+  const habitTime = parseInt(c.habitTime, 10) || 0;
+  const habitDuration = parseInt(c.habitDuration, 10) || 0;
+
+  const tytul = $("modalCelKalTytul");
+  if(tytul) tytul.textContent = c.title || "Historia nawyku";
+  const sub = $("modalCelKalSub");
+  if(sub){
+    const timeTxt = (habitTime > 0) ? " • ⏱️ Sesja: " + habitTime + " min" : "";
+    const durTxt = (habitDuration > 0) ? " • 🏆 Wyzwanie: " + habitDuration + " dni" : " • 🔄 Cykl: 7 dni";
+    sub.textContent = (c.verse ? "📖 " + c.verse + (c.desc ? " — " + c.desc : "") : (c.desc || "Kliknij dowolny dzień, aby zaznaczyć lub cofnąć wykonanie nawyku")) + timeTxt + durTxt;
+  }
+
+  const nazwyMiesiecy = [
+    "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
+    "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"
+  ];
+  const nazwaMiesiaca = nazwyMiesiecy[month] || "";
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstDow = (new Date(year, month, 1).getDay() + 6) % 7; // 0 = Poniedziałek, 6 = Niedziela
+
+  const isCurrentMonth = (now.getFullYear() === year && now.getMonth() === month);
+  const todayDayNum = now.getDate();
+
+  let doneThisMonth = 0;
+  for(let d = 1; d <= daysInMonth; d++){
+    const dStr = year + "-" + String(month + 1).padStart(2, "0") + "-" + String(d).padStart(2, "0");
+    if(c.history && c.history[dStr]) doneThisMonth++;
+  }
+  const monthPct = daysInMonth > 0 ? Math.round((doneThisMonth / daysInMonth) * 100) : 0;
+
+  const streakInfo = _centrObliczSerieNawyku(c.history);
+  const habitTarget = Math.min(7, Math.max(1, parseInt(c.habitTarget, 10) || 7));
+  const isDaily = (habitTarget === 7);
+  const weekProgress = _centrObliczPostepTygodniowyNawyku(c);
+  const weekStreak = _centrObliczSerieTygodniowa(c);
+
+  const streakCurrent = isDaily ? streakInfo.current : weekStreak.current;
+  const streakBest = isDaily ? streakInfo.best : weekStreak.best;
+  const streakUnitCurrent = isDaily ? _centrOdmianaDni(streakCurrent) : _centrOdmianaTygodni(streakCurrent);
+  const streakUnitBest = isDaily ? "dni" : _centrOdmianaTygodni(streakBest);
+
+  const dniNaglowki = ["Pn", "Wt", "Śr", "Cz", "Pt", "Sb", "Nd"];
+  const headCellsHtml = dniNaglowki.map(dn => '<div class="cenCelKalHeadCell">' + dn + '</div>').join('');
+
+  let emptyCellsHtml = '';
+  for(let i = 0; i < firstDow; i++){
+    emptyCellsHtml += '<div class="cenKalCelEmpty"></div>';
+  }
+
+  let dayCellsHtml = '';
+  for(let d = 1; d <= daysInMonth; d++){
+    const dStr = year + "-" + String(month + 1).padStart(2, "0") + "-" + String(d).padStart(2, "0");
+    const isDone = !!(c.history && c.history[dStr]);
+    const isToday = (isCurrentMonth && d === todayDayNum);
+
+    dayCellsHtml += '<button type="button" class="cenKalCelCell' + (isToday ? ' today' : '') + (isDone ? ' done' : '') + '" data-cel-kal-toggle="' + dStr + '" title="' + dStr + (isToday ? ' (Dzisiaj)' : '') + (isDone ? ' — Kliknij, aby odznaczyć' : ' — Kliknij, aby zaznaczyć') + '">'
+      + '<span class="cenKalCelNum">' + d + '</span>'
+      + '<span class="cenKalCelIko">' + (isDone ? '✓' : (isToday ? '•' : '')) + '</span>'
+      + '</button>';
+  }
+
+  const bodyEl = $("modalCelKalBody");
+  if(bodyEl){
+    bodyEl.innerHTML = '<div class="cenCelKalStatsGrid">'
+      + '<div class="cenCelKalStatBox">'
+      + '<span class="cenCelKalStatVal" style="color:' + color + ';">' + doneThisMonth + ' <small style="font-size:11px;font-weight:600;opacity:0.75;">/ ' + daysInMonth + '</small></span>'
+      + '<span class="cenCelKalStatLbl">W tym miesiącu (' + monthPct + '%)</span>'
+      + '</div>'
+      + '<div class="cenCelKalStatBox">'
+      + '<span class="cenCelKalStatVal" style="color:#f59e0b;">🔥 ' + streakCurrent + ' <small style="font-size:11px;font-weight:600;opacity:0.75;">' + streakUnitCurrent + '</small></span>'
+      + '<span class="cenCelKalStatLbl">Bieżąca seria (' + (isDaily ? 'dni' : 'tyg.') + ')</span>'
+      + '</div>'
+      + '<div class="cenCelKalStatBox">'
+      + '<span class="cenCelKalStatVal" style="color:#10b981;">🏆 ' + streakBest + ' <small style="font-size:11px;font-weight:600;opacity:0.75;">' + streakUnitBest + '</small></span>'
+      + '<span class="cenCelKalStatLbl">Najdłuższa seria</span>'
+      + '</div>'
+      + '<div class="cenCelKalStatBox">'
+      + '<span class="cenCelKalStatVal" style="color:#8b5cf6;">✨ ' + (isDaily ? streakInfo.total : weekStreak.totalWeeksMet) + ' <small style="font-size:11px;font-weight:600;opacity:0.75;">' + (isDaily ? 'dni' : _centrOdmianaTygodni(weekStreak.totalWeeksMet)) + '</small></span>'
+      + '<span class="cenCelKalStatLbl">' + (isDaily ? 'Łącznie wykonano' : 'Zrealizowane tyg. (' + streakInfo.total + ' dni)') + '</span>'
+      + '</div>'
+      + '</div>'
+
+      + '<div class="cenCelKalMiesBar">'
+      + '<button type="button" class="btn" data-cel-kal-prev="1" style="font-size:12px;padding:5px 10px;border-radius:8px;">◀ Poprzedni</button>'
+      + '<div class="cenCelKalMiesTyt">'
+      + '<span>' + nazwaMiesiaca + ' ' + year + '</span>'
+      + '</div>'
+      + '<div style="display:flex;gap:6px;align-items:center;">'
+      + '<button type="button" class="btn' + (isCurrentMonth ? ' primary' : '') + '" data-cel-kal-today="1" style="font-size:12px;padding:5px 10px;border-radius:8px;">Bieżący</button>'
+      + '<button type="button" class="btn" data-cel-kal-next="1" style="font-size:12px;padding:5px 10px;border-radius:8px;">Następny ▶</button>'
+      + '<button type="button" class="btn" data-cel-timer="' + c.id + '" style="font-size:12px;padding:5px 10px;border-radius:8px;border-color:color-mix(in srgb, ' + color + ' 35%, var(--border-soft));color:' + color + ';font-weight:700;" title="Uruchom stoper / minutnik sesji">⏱️ Stoper</button>'
+      + '</div>'
+      + '</div>'
+
+      + '<div class="cenCelKalGrid" style="--cel-color:' + color + ';">'
+      + headCellsHtml
+      + emptyCellsHtml
+      + dayCellsHtml
+      + '</div>'
+
+      + '<div style="background:var(--cen-btn-bg);border:1px solid var(--cen-card-border);border-radius:14px;padding:12px 14px;margin-top:12px;">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:6px;gap:8px;flex-wrap:wrap;">'
+      + '<span style="font-weight:700;color:var(--cen-text);display:inline-flex;align-items:center;gap:6px;">'
+      + '<span>🎯 Cel w bieżącym tygodniu:</span>'
+      + '<b style="color:' + color + ';">' + weekProgress.doneThisWeek + ' / ' + habitTarget + ' ' + (habitTarget === 1 ? 'dzień' : 'dni') + '</b>'
+      + '</span>'
+      + '<span style="font-size:11.5px;color:var(--cen-text-muted);font-weight:600;">'
+      + (weekProgress.isTargetMet ? '<span style="color:#10b981;font-weight:700;">🎉 Cel osiągnięty!</span> • ' : '')
+      + (!isDaily && weekStreak.totalWeeksMet > 0 ? '🏆 Zrealizowano: <b>' + weekStreak.totalWeeksMet + ' ' + _centrOdmianaTygodni(weekStreak.totalWeeksMet) + '</b> • ' : '')
+      + weekProgress.pct + '%'
+      + '</span>'
+      + '</div>'
+      + '<div class="cenProgressBar" style="height:8px;border-radius:6px;"><div class="cenProgressFill" style="width:' + weekProgress.pct + '%;background:' + (weekProgress.isTargetMet ? '#10b981' : color) + ';border-radius:6px;"></div></div>'
+      + '</div>'
+
+      + (habitDuration > 0 ? (
+        '<div style="background:var(--cen-btn-bg);border:1px solid var(--cen-card-border);border-radius:14px;padding:12px 14px;margin-top:10px;">'
+        + '<div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:6px;gap:8px;flex-wrap:wrap;">'
+        + '<span style="font-weight:700;color:var(--cen-text);display:inline-flex;align-items:center;gap:6px;">'
+        + '<span>🏆 Wyzwanie nawyku (' + habitDuration + ' dni):</span>'
+        + '<b style="color:' + (streakInfo.total >= habitDuration ? '#10b981' : color) + ';">' + streakInfo.total + ' / ' + habitDuration + ' dni</b>'
+        + '</span>'
+        + '<span style="font-size:11.5px;color:var(--cen-text-muted);font-weight:600;">'
+        + (streakInfo.total >= habitDuration ? '<span style="color:#10b981;font-weight:700;">🎉 Wyzwanie zrealizowane!</span> • ' : '')
+        + Math.min(100, Math.round((streakInfo.total / habitDuration) * 100)) + '%'
+        + '</span>'
+        + '</div>'
+        + '<div class="cenProgressBar" style="height:8px;border-radius:6px;"><div class="cenProgressFill" style="width:' + Math.min(100, Math.round((streakInfo.total / habitDuration) * 100)) + '%;background:' + (streakInfo.total >= habitDuration ? '#10b981' : color) + ';border-radius:6px;"></div></div>'
+        + '</div>'
+      ) : '')
+
+      + '<div style="display:flex;align-items:center;justify-content:center;gap:14px;font-size:11.5px;color:var(--cen-text-muted);margin-top:10px;padding:8px 12px;background:var(--cen-btn-bg);border:1px solid var(--cen-card-border);border-radius:10px;flex-wrap:wrap;">'
+      + '<span style="display:inline-flex;align-items:center;gap:5px;"><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:' + color + ';"></span> Wykonano (✓)</span>'
+      + '<span style="display:inline-flex;align-items:center;gap:5px;"><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--cen-card-bg);border:1px solid var(--cen-card-border);"></span> Brak</span>'
+      + '<span style="display:inline-flex;align-items:center;gap:5px;"><span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:var(--cen-card-bg);box-shadow:0 0 0 2px ' + color + ';"></span> Dzisiaj (•)</span>'
+      + '<button type="button" class="cenCelKalBtn" data-cel-timer="' + c.id + '" style="font-weight:700;color:' + color + ';cursor:pointer;" title="Uruchom sesję skupienia">⏱️ ' + (habitTime > 0 ? ('Sesja: ' + habitTime + ' min') : 'Stoper skupienia') + '</button>'
+      + (habitDuration > 0 ? '<span style="display:inline-flex;align-items:center;gap:4px;color:var(--cen-text);font-weight:600;">🏆 Wyzwanie: <b>' + streakInfo.total + '/' + habitDuration + ' dni</b></span>' : '<span style="display:inline-flex;align-items:center;gap:4px;color:var(--cen-text-muted);font-weight:600;">🔄 Cykl: 7 dni</span>')
+      + '</div>';
+  }
+
+  const footerStats = $("modalCelKalFooterStats");
+  if(footerStats){
+    const timeBadge = '<button type="button" class="cenCelKalBtn" data-cel-timer="' + c.id + '" style="cursor:pointer;" title="Uruchom stoper skupienia dla tego celu">⏱️ ' + (habitTime > 0 ? ('Sesja: ' + habitTime + ' min') : 'Stoper') + '</button>';
+    const chalBadge = habitDuration > 0
+      ? '<span>🏆 Wyzwanie: <b>' + streakInfo.total + ' / ' + habitDuration + ' dni</b></span>'
+      : '<span>🔄 Odnawia się co tydzień</span>';
+    if(isDaily){
+      footerStats.innerHTML = '<span style="display:inline-flex;align-items:center;gap:4px;color:#f59e0b;font-weight:700;">🔥 ' + streakInfo.current + ' ' + _centrOdmianaDni(streakInfo.current) + ' z rzędu</span>'
+        + '<span>🏆 Rekord: <b>' + streakInfo.best + ' dni</b></span>'
+        + '<span>🎯 W tym tygodniu: <b>' + weekProgress.doneThisWeek + ' / 7 dni</b>' + (weekProgress.isTargetMet ? ' (🎉 Osiągnięty)' : '') + '</span>'
+        + chalBadge
+        + timeBadge;
+    } else {
+      footerStats.innerHTML = '<span style="display:inline-flex;align-items:center;gap:4px;color:#f59e0b;font-weight:700;">🔥 ' + weekStreak.current + ' ' + _centrOdmianaTygodni(weekStreak.current) + ' z rzędu</span>'
+        + '<span>🏆 Rekord: <b>' + weekStreak.best + ' ' + _centrOdmianaTygodni(weekStreak.best) + '</b></span>'
+        + '<span>🎯 W tym tygodniu: <b>' + weekProgress.doneThisWeek + ' / ' + habitTarget + ' dni</b>' + (weekProgress.isTargetMet ? ' (🎉 Osiągnięty)' : '') + '</span>'
+        + chalBadge
+        + timeBadge;
+    }
+  }
+
+  openModal("modalCelKalendarz");
+}
+
+function _centrPrzelaczDzienWKalendarzu(celId, dateStr, ev){
+  const cele = _centrPobierzCele();
+  const c = cele.find(x => x.id === celId);
+  if(!c || c.type !== "habit") return;
+
+  if(!c.history || typeof c.history !== "object") c.history = {};
+  const willBeDone = !c.history[dateStr];
+  if(!willBeDone) delete c.history[dateStr];
+  else c.history[dateStr] = true;
+
+  _centrZapiszCele(cele);
+
+  if(willBeDone){
+    cenPlaySound("check");
+    const habitTarget = Math.min(7, Math.max(1, parseInt(c.habitTarget, 10) || 7));
+    const isDaily = (habitTarget === 7);
+    const weekProgress = _centrObliczPostepTygodniowyNawyku(c);
+    const weekStreak = _centrObliczSerieTygodniowa(c);
+    const dayStreak = _centrObliczSerieNawyku(c.history);
+
+    if(weekProgress.doneThisWeek === habitTarget){
+      cenCelebration();
+      cenPlaySound("complete");
+      toast(isDaily ? "🎉 Brawo! Wszystkie 7 dni w tym tygodniu zrealizowane!" : "🎉 Wspaniale! Cel na ten tydzień osiągnięty (" + habitTarget + "/" + habitTarget + " dni)! Gratulacje!", "ok");
+    } else if(isDaily && dayStreak.current > 0 && (dayStreak.current % 7 === 0 || dayStreak.current === 21 || dayStreak.current === 30 || (dayStreak.current === dayStreak.best && dayStreak.current >= 5))){
+      cenCelebration();
+      cenPlaySound("streak");
+      toast("🔥 Wspaniała seria! Już " + dayStreak.current + " " + _centrOdmianaDni(dayStreak.current) + " z rzędu!", "ok");
+    } else if(!isDaily && weekStreak.current > 0 && (weekStreak.current % 4 === 0 || (weekStreak.current === weekStreak.best && weekStreak.current >= 2))){
+      cenCelebration();
+      cenPlaySound("streak");
+      toast("🔥 Wspaniała seria! Już " + weekStreak.current + " " + _centrOdmianaTygodni(weekStreak.current) + " z rzędu z osiągniętym celem!", "ok");
+    }
+  } else {
+    cenPlaySound("uncheck");
+  }
+
+  _centrPokazKalendarzNawyku(celId, _centrHabitKalRok, _centrHabitKalMies);
+  if(typeof rysujCentrum === "function") rysujCentrum();
+}
+
+function _centrZmienMiesiacKalendarza(delta){
+  if(delta === 0){
+    const now = new Date();
+    _centrHabitKalRok = now.getFullYear();
+    _centrHabitKalMies = now.getMonth();
+  } else {
+    _centrHabitKalMies += delta;
+    if(_centrHabitKalMies < 0){
+      _centrHabitKalMies = 11;
+      _centrHabitKalRok--;
+    } else if(_centrHabitKalMies > 11){
+      _centrHabitKalMies = 0;
+      _centrHabitKalRok++;
+    }
+  }
+  if(_centrHabitKalCelId){
+    _centrPokazKalendarzNawyku(_centrHabitKalCelId, _centrHabitKalRok, _centrHabitKalMies);
+  }
+}
+
 function _centrKartaCeluHtml(c){
   const cat = _centrKategorieMap[c.category] || { name: "Cel", icon: "🎯", color: "#3b82f6" };
   const color = c.color || cat.color;
@@ -43571,28 +45038,92 @@ function _centrKartaCeluHtml(c){
 
   if(c.type === "habit"){
     const streakInfo = _centrObliczSerieNawyku(c.history);
-    const last7Days = _centrPobierzOstatnie7Dni();
+    const habitTarget = Math.min(7, Math.max(1, parseInt(c.habitTarget, 10) || 7));
+    const isDaily = (habitTarget === 7);
+    const habitDuration = Math.max(0, parseInt(c.habitDuration, 10) || 0);
+    const habitTime = parseInt(c.habitTime, 10) || 0;
 
-    const weekButtonsHtml = last7Days.map(d => {
-      const isDayDone = !!(c.history && c.history[d.dateStr]);
-      return '<button type="button" class="cenCelDayBtn' + (d.isToday ? ' today' : '') + (isDayDone ? ' done' : '') + '" data-cel-habit-day="' + c.id + '" data-date="' + d.dateStr + '" title="' + d.dateStr + (d.isToday ? ' (Dzisiaj)' : '') + '">'
+    const weekProgress = _centrObliczPostepTygodniowyNawyku(c);
+    const weekStreak = _centrObliczSerieTygodniowa(c);
+
+    const todayStr = _centrFormatujDateISO(new Date());
+    const isTodayDone = !!(c.history && c.history[todayStr]);
+
+    const weekButtonsHtml = weekProgress.days.map(d => {
+      return '<button type="button" class="cenCelDayBtn' + (d.isToday ? ' today' : '') + (d.isDone ? ' done' : '') + (d.isFuture ? ' future' : '') + '" data-cel-habit-day="' + c.id + '" data-date="' + d.dateStr + '" title="' + d.dateStr + (d.isToday ? ' (Dzisiaj)' : '') + (d.isDone ? ' — Wykonano' : '') + '">'
         + '<span class="cenCelDayLbl">' + d.dayName + '</span>'
         + '<span class="cenCelDayNum">' + d.dayNum + '</span>'
-        + '<span class="cenCelDayIko">' + (isDayDone ? '✓' : '○') + '</span>'
+        + '<span class="cenCelDayIko">' + (d.isDone ? '✓' : (d.isToday ? '•' : '○')) + '</span>'
         + '</button>';
     }).join('');
 
-    bodyHtml = '<div class="cenCelWeekRow" style="--cel-color:' + color + ';">' + weekButtonsHtml + '</div>'
-      + '<div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--cen-text-muted);margin-bottom:12px;">'
-      + '<span style="display:inline-flex;align-items:center;gap:4px;font-weight:700;color:' + (streakInfo.current > 0 ? '#f59e0b' : 'var(--cen-text-muted)') + ';">'
-      + '🔥 Bieżąca seria: ' + streakInfo.current + ' ' + (streakInfo.current === 1 ? 'dzień' : 'dni')
+    const weekTargetMet = weekProgress.isTargetMet;
+    const weekTargetLabel = isDaily ? 'Bieżący tydzień:' : 'Cel tygodniowy:';
+    const weekTargetValue = weekProgress.doneThisWeek + ' / ' + habitTarget + ' ' + (habitTarget === 1 ? 'dzień' : 'dni');
+
+    bodyHtml = '<div style="margin-bottom:10px;">'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;margin-bottom:6px;">'
+      + '<span style="font-weight:700;color:var(--cen-text);display:inline-flex;align-items:center;gap:5px;">'
+      + '<span>🎯 ' + weekTargetLabel + '</span>'
+      + '<b style="color:' + (weekTargetMet ? '#10b981' : color) + ';">' + weekTargetValue + '</b>'
       + '</span>'
-      + '<span>Najdłuższa: <b>' + streakInfo.best + ' dni</b> • Razem: <b>' + streakInfo.total + '</b></span>'
+      + '<span style="font-size:11.5px;color:var(--cen-text-muted);font-weight:600;">'
+      + (weekTargetMet ? '<span style="color:#10b981;font-weight:700;">🎉 Cel osiągnięty!</span> • ' : '')
+      + (!isDaily && weekStreak.totalWeeksMet > 0 ? '🏆 Zrealizowano: <b>' + weekStreak.totalWeeksMet + ' ' + _centrOdmianaTygodni(weekStreak.totalWeeksMet) + '</b> • ' : '')
+      + weekProgress.pct + '%'
+      + '</span>'
+      + '</div>'
+      + '<div class="cenProgressBar" style="height:6px;border-radius:4px;"><div class="cenProgressFill" style="width:' + weekProgress.pct + '%;background:' + (weekTargetMet ? '#10b981' : color) + ';border-radius:4px;"></div></div>'
       + '</div>';
 
-    footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isDone ? ' done' : '') + '" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
-      + (isDone ? '✓ Oznaczony jako ukończony' : '✓ Oznacz jako ukończony')
-      + '</button>';
+    if(habitDuration > 0){
+      const chalPct = Math.min(100, Math.round((streakInfo.total / habitDuration) * 100));
+      const chalMet = streakInfo.total >= habitDuration;
+      bodyHtml += '<div style="margin-bottom:10px;padding:7px 10px;background:var(--cen-btn-bg);border:1px solid var(--cen-card-border);border-radius:8px;">'
+        + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11.5px;margin-bottom:4px;">'
+        + '<span style="font-weight:700;color:var(--cen-text);display:inline-flex;align-items:center;gap:4px;">'
+        + '<span>🏆 Wyzwanie nawyku:</span>'
+        + '<b style="color:' + (chalMet ? '#10b981' : color) + ';">' + streakInfo.total + ' / ' + habitDuration + ' dni</b>'
+        + '</span>'
+        + '<span style="font-size:11px;color:var(--cen-text-muted);font-weight:600;">'
+        + (chalMet ? '<span style="color:#10b981;font-weight:700;">✓ Zrobione!</span> • ' : '')
+        + chalPct + '%'
+        + '</span>'
+        + '</div>'
+        + '<div class="cenProgressBar" style="height:5px;border-radius:3px;"><div class="cenProgressFill" style="width:' + chalPct + '%;background:' + (chalMet ? '#10b981' : color) + ';border-radius:3px;"></div></div>'
+        + '</div>';
+    }
+
+    bodyHtml += '<div class="cenCelWeekRow" style="--cel-color:' + color + ';">' + weekButtonsHtml + '</div>';
+
+    const streakDisplay = isDaily
+      ? (streakInfo.current + ' ' + _centrOdmianaDni(streakInfo.current))
+      : (weekStreak.current + ' ' + _centrOdmianaTygodni(weekStreak.current) + (streakInfo.current > 0 ? (' • ' + streakInfo.current + 'd') : ''));
+
+    bodyHtml += '<div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--cen-text-muted);margin-bottom:12px;gap:8px;flex-wrap:wrap;">'
+      + '<span style="display:inline-flex;align-items:center;gap:4px;font-weight:700;color:' + (streakInfo.current > 0 || weekStreak.current > 0 ? '#f59e0b' : 'var(--cen-text-muted)') + ';" title="Bieżąca nieprzerwana seria">'
+      + '🔥 Seria: ' + streakDisplay
+      + '</span>'
+      + '<div style="display:inline-flex;align-items:center;gap:6px;">'
+      + '<button type="button" class="cenCelKalBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Otwórz stoper / minutnik sesji skupienia">⏱️ ' + (habitTime > 0 ? (habitTime + ' min') : 'Stoper') + '</button>'
+      + '<button type="button" class="cenCelKalBtn" data-cel-kalendarz="' + c.id + '" title="Otwórz pełny interaktywny kalendarz nawyku">📅 Kalendarz</button>'
+      + '</div>'
+      + '</div>';
+
+    if(isDone){
+      footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn done" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';" title="Kliknij, aby przywrócić cel do aktywnych">'
+        + '↺ Przywróć do aktywnych'
+        + '</button>'
+        + '<button type="button" class="cenCelIconBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik sesji skupienia" style="font-size:14px;">⏱️</button>'
+        + '<button type="button" class="cenCelIconBtn" data-cel-kalendarz="' + c.id + '" title="Otwórz pełny kalendarz nawyku" style="font-size:14px;">📅</button>';
+    } else {
+      footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isTodayDone ? ' done' : '') + '" data-cel-habit-day="' + c.id + '" data-date="' + todayStr + '" style="--cel-color:' + color + ';" title="' + (isTodayDone ? 'Dzisiaj wykonano — kliknij, by cofnąć' : 'Kliknij, aby odznaczyć dzisiejszy dzień') + '">'
+        + (isTodayDone ? '✓ Dzisiaj wykonano' : '○ Wykonaj dzisiaj')
+        + '</button>'
+        + '<button type="button" class="cenCelIconBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik sesji skupienia" style="font-size:14px;">⏱️</button>'
+        + '<button type="button" class="cenCelIconBtn" data-cel-kalendarz="' + c.id + '" title="Otwórz pełny kalendarz nawyku" style="font-size:14px;">📅</button>'
+        + '<button type="button" class="cenCelIconBtn" data-cel-toggle-done="' + c.id + '" title="Zakończ cel i przenieś do archiwum" style="font-size:14px;">🏆</button>';
+    }
   } else if(c.type === "numeric"){
     const cur = Number(c.current) || 0;
     const tgt = Number(c.target) || 10;
@@ -43614,9 +45145,18 @@ function _centrKartaCeluHtml(c){
       + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + pctNum + '%;background:' + color + ';"></div></div>'
       + '</div>';
 
-    footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isDone ? ' done' : '') + '" data-cel-num-delta="' + c.id + '" data-delta="1" style="--cel-color:' + color + ';">'
-      + (isDone ? '🎉 Osiągnięto cel (' + cur + '/' + tgt + ')' : '+1 ' + esc(unit))
-      + '</button>';
+    if(isDone){
+      footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn done" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
+        + '↺ Przywróć do aktywnych'
+        + '</button>'
+        + '<button type="button" class="cenCelIconBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
+    } else {
+      footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (cur >= tgt ? ' done' : '') + '" data-cel-num-delta="' + c.id + '" data-delta="1" style="--cel-color:' + color + ';">'
+        + (cur >= tgt ? '🎉 Osiągnięto cel (' + cur + '/' + tgt + ')' : '+1 ' + esc(unit))
+        + '</button>'
+        + '<button type="button" class="cenCelIconBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>'
+        + '<button type="button" class="cenCelIconBtn" data-cel-toggle-done="' + c.id + '" title="Oznacz cel jako ukończony" style="font-size:14px;">✓</button>';
+    }
   } else if(c.type === "steps"){
     const steps = Array.isArray(c.steps) ? c.steps : [];
     const doneCount = steps.filter(s => s.done).length;
@@ -43636,9 +45176,17 @@ function _centrKartaCeluHtml(c){
       + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + pctNum + '%;background:' + color + ';"></div></div>'
       + '</div>';
 
-    footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isDone ? ' done' : '') + '" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
-      + (isDone ? '🎉 Wszystkie etapy ukończone' : 'Oznacz całość jako ukończone')
-      + '</button>';
+    if(isDone){
+      footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn done" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
+        + '↺ Przywróć do aktywnych'
+        + '</button>'
+        + '<button type="button" class="cenCelIconBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
+    } else {
+      footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isDone ? ' done' : '') + '" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
+        + (doneCount === totalSteps && totalSteps > 0 ? '🎉 Wszystkie etapy ukończone' : 'Oznacz całość jako ukończone')
+        + '</button>'
+        + '<button type="button" class="cenCelIconBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
+    }
   } else {
     bodyHtml = '<div style="padding:10px 14px;background:var(--cen-btn-bg);border-radius:10px;margin-bottom:12px;display:flex;align-items:center;gap:10px;">'
       + '<span style="font-size:22px;">' + (isDone ? '🎉' : '🎯') + '</span>'
@@ -43646,15 +45194,36 @@ function _centrKartaCeluHtml(c){
       + '</div>';
 
     footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isDone ? ' done' : '') + '" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
-      + (isDone ? '✓ Cel zrealizowany' : '✓ Zrealizuj ten cel')
-      + '</button>';
+      + (isDone ? '↺ Przywróć do aktywnych' : '✓ Zrealizuj ten cel')
+      + '</button>'
+      + '<button type="button" class="cenCelIconBtn" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
+  }
+
+  let topExtraHtml = '';
+  if(c.type === "habit"){
+    const habitTarget = Math.min(7, Math.max(1, parseInt(c.habitTarget, 10) || 7));
+    const habitDuration = Math.max(0, parseInt(c.habitDuration, 10) || 0);
+    const habitTime = parseInt(c.habitTime, 10) || 0;
+
+    const targetLabel = (habitTarget === 7 ? 'Codziennie' : (habitTarget + 'd/tydz.'));
+    topExtraHtml += '<span class="cenCelHabitCycleBadge" title="Cel nawyku: ' + (habitTarget === 7 ? 'Codziennie (7 dni w tyg.)' : (habitTarget + ' dni w każdym tygodniu')) + '">🎯 ' + targetLabel + '</span>';
+
+    if(habitDuration > 0){
+      topExtraHtml += '<span class="cenCelHabitCycleBadge" style="color:#10b981;background:rgba(16,185,129,0.12);" title="Wyzwanie nawyku: ' + habitDuration + ' dni">🏆 ' + habitDuration + 'd</span>';
+    }
+    if(habitTime > 0){
+      topExtraHtml += '<span class="cenCelHabitCycleBadge" style="color:#8b5cf6;background:rgba(139,92,246,0.12);" title="Sesja skupienia: ' + habitTime + ' min">⏱️ ' + habitTime + 'm</span>';
+    }
   }
 
   return '<div class="cenCelCard cenGoalCard' + (isDone ? ' completed done' : '') + '" style="--cel-color:' + color + ';">'
     + '<div class="cenCelTop">'
+    + '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">'
     + '<span class="cenCelCatBadge" style="background:color-mix(in srgb, ' + color + ' 16%, transparent);color:' + color + ';">'
     + cat.icon + ' ' + cat.name
     + '</span>'
+    + topExtraHtml
+    + '</div>'
     + '<span class="cenCelStatusBadge' + (isDone ? ' done' : '') + '">'
     + (isDone ? '✓ Ukończony' : 'Aktywny')
     + '</span>'
@@ -43700,6 +45269,7 @@ function centrWidokCele(tab, cat, q){
 
   const filtered = cele.filter(c => {
     if(tab === "aktywne" && c.completed) return false;
+    if(tab === "nawyki" && (c.type !== "habit" || c.completed)) return false;
     if(tab === "ukonczone" && !c.completed) return false;
     if(cat !== "wszystkie" && c.category !== cat) return false;
     if(q){
@@ -43720,6 +45290,8 @@ function centrWidokCele(tab, cat, q){
     { id: "inne", name: "Inne", icon: "🎯" }
   ];
 
+  const isAudioMuted = !!lsGet("jw_centr_audio_muted", false);
+
   return '<div class="cenSubHeader">'
     + '<div class="cenSubHeaderLewo">'
     + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
@@ -43728,9 +45300,13 @@ function centrWidokCele(tab, cat, q){
     + '<div class="cenSubPodtytul">Wyznaczaj cele, buduj nawyki i śledź swój wzrost duchowy</div>'
     + '</div></div>'
     + '<div class="cenNaglAkcje">'
+    + '<button type="button" class="cenNaglBtnIko" id="cenBtnPrzelaczDzwiek" title="' + (isAudioMuted ? 'Dźwięki wyłączone — kliknij, aby włączyć' : 'Dźwięki włączone — kliknij, aby wyciszyć') + '" style="font-size:15px;">' + (isAudioMuted ? '🔇' : '🔔') + '</button>'
+    + '<button type="button" class="cenNaglBtnIko" data-cakcja="eksport-cele" title="Eksportuj kopię zapasową celów i nawyków (JSON)" style="font-size:14px;">' + CEN_MODERN_ICO.download + '</button>'
+    + '<button type="button" class="cenNaglBtnIko" data-cakcja="import-cele" title="Importuj cele i nawyki z pliku JSON" style="font-size:14px;">' + CEN_MODERN_ICO.upload + '</button>'
     + '<button type="button" class="cenFragBtnJW" data-cakcja="szablony-celow" title="Wybierz z katalogu gotowych celów">✨ Szablony celów</button>'
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="nowy-cel" title="Dodaj nowy cel">' + CEN_MODERN_ICO.plus + '</button>'
     + '</div></div>'
+
     + '<div class="cenCeleStatsRow">'
     + '<div class="cenCeleStatTile">'
     + '<div class="cenCeleStatTop">'
@@ -43738,14 +45314,6 @@ function centrWidokCele(tab, cat, q){
     + '<div class="cenCeleStatVal">' + activeCount + '</div>'
     + '</div>'
     + '<div class="cenCeleStatLbl">Aktywne cele</div>'
-    + '</div>'
-
-    + '<div class="cenCeleStatTile">'
-    + '<div class="cenCeleStatTop">'
-    + '<div class="cenCeleStatIko" style="background:rgba(16,185,129,0.12);color:#10b981;">' + CEN_MODERN_ICO.check + '</div>'
-    + '<div class="cenCeleStatVal">' + doneCount + '</div>'
-    + '</div>'
-    + '<div class="cenCeleStatLbl">Ukończone</div>'
     + '</div>'
 
     + '<div class="cenCeleStatTile">'
@@ -43758,16 +45326,34 @@ function centrWidokCele(tab, cat, q){
 
     + '<div class="cenCeleStatTile">'
     + '<div class="cenCeleStatTop">'
+    + '<div class="cenCeleStatIko" style="background:rgba(160,185,129,0.12);color:#10b981;">' + CEN_MODERN_ICO.check + '</div>'
+    + '<div class="cenCeleStatVal">' + doneCount + '</div>'
+    + '</div>'
+    + '<div class="cenCeleStatLbl">Ukończone</div>'
+    + '</div>'
+
+    + '<div class="cenCeleStatTile">'
+    + '<div class="cenCeleStatTop">'
     + '<div class="cenCeleStatIko" style="background:rgba(245,158,11,0.12);color:#f59e0b;">' + CEN_MODERN_ICO.flame + '</div>'
     + '<div class="cenCeleStatVal">' + maxStreak + ' <small style="font-size:12px;font-weight:600;opacity:0.8;">dni</small></div>'
     + '</div>'
     + '<div class="cenCeleStatLbl">Bieżąca seria</div>'
     + '</div>'
     + '</div>'
-    + '<div class="cenTabsRow" style="overflow-x:auto;">'
+
+    + '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;">'
+    + '<div class="cenTabsRow" style="overflow-x:auto;margin-bottom:0;">'
     + '<button type="button" class="cenTabBtn' + (tab==="aktywne"?' active':'') + '" data-cel-tab="aktywne">Aktywne (' + activeCount + ')</button>'
+    + '<button type="button" class="cenTabBtn' + (tab==="nawyki"?' active':'') + '" data-cel-tab="nawyki">🔥 Nawyki (' + habitsCount + ')</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="ukonczone"?' active':'') + '" data-cel-tab="ukonczone">Ukończone (' + doneCount + ')</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="wszystkie"?' active':'') + '" data-cel-tab="wszystkie">Wszystkie (' + totalCount + ')</button>'
+    + '</div>'
+
+    + '<div style="position:relative;min-width:200px;flex:1;max-width:320px;">'
+    + '<input type="search" id="cenCeleSzukajInp" class="cenSzukajInp" placeholder="Szukaj celów, wersetów..." value="' + esc(_centrCeleSzukaj || "") + '" style="width:100%;padding:7px 12px 7px 32px;font-size:12.5px;border-radius:20px;border:1px solid var(--border-soft);background:var(--cen-card-bg);color:var(--cen-text);box-sizing:border-box;">'
+    + '<span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;opacity:0.5;pointer-events:none;">🔍</span>'
+    + '<button type="button" id="cenCeleWyczyscSzukaj" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--cen-text-muted);font-size:14px;cursor:pointer;padding:2px 6px;display:' + (_centrCeleSzukaj ? 'block' : 'none') + ';" title="Wyczyść szukanie">✕</button>'
+    + '</div>'
     + '</div>'
 
     + '<div style="display:flex;align-items:center;gap:6px;overflow-x:auto;padding-bottom:10px;margin-bottom:16px;">'
@@ -43779,18 +45365,21 @@ function centrWidokCele(tab, cat, q){
       }).join('')
     + '</div>'
 
+    + '<div id="cenCeleGridWrap">'
     + (!filtered.length
         ? '<div class="cenPusto" style="padding:40px 20px;text-align:center;">'
           + '<div style="font-size:36px;margin-bottom:10px;">🎯</div>'
-          + '<div style="font-size:16px;font-weight:700;color:var(--cen-text);margin-bottom:6px;">Brak celów w tej kategorii</div>'
-          + '<div style="font-size:13px;color:var(--cen-text-muted);margin-bottom:18px;">Dodaj swój pierwszy cel lub skorzystaj z gotowych inspirujących szablonów.</div>'
-          + '<div style="display:flex;justify-content:center;gap:10px;">'
+          + '<div style="font-size:16px;font-weight:700;color:var(--cen-text);margin-bottom:6px;">' + (_centrCeleSzukaj ? 'Brak pasujących celów' : 'Brak celów w tej kategorii') + '</div>'
+          + '<div style="font-size:13px;color:var(--cen-text-muted);margin-bottom:18px;">' + (_centrCeleSzukaj ? 'Spróbuj wpisać inną frazę lub wyczyść wyszukiwanie.' : 'Dodaj swój pierwszy cel lub skorzystaj z gotowych inspirujących szablonów.') + '</div>'
+          + '<div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">'
           + '<button type="button" class="btn primary" data-cakcja="szablony-celow">✨ Wybierz z katalogu szablonów</button>'
           + '<button type="button" class="btn" data-cakcja="nowy-cel">+ Własny cel</button>'
+          + (cele.length === 0 ? '<button type="button" class="btn" data-cakcja="import-cele">' + CEN_MODERN_ICO.upload + ' Przywróć z kopii JSON</button>' : '')
           + '</div></div>'
         : '<div class="cenPlanGrid" style="grid-template-columns:repeat(auto-fill, minmax(310px, 1fr));gap:16px;">'
           + filtered.map(c => _centrKartaCeluHtml(c)).join('')
-          + '</div>');
+          + '</div>')
+    + '</div>';
 }
 
 function _centrSyncModalCeluVisuals(catVal, typeVal, colorVal){
@@ -43834,8 +45423,10 @@ function _centrSyncModalCeluVisuals(catVal, typeVal, colorVal){
 
   const numFields = $("celNumericFields");
   const stepsFields = $("celStepsFields");
+  const habitFields = $("celHabitFields");
   if(numFields) numFields.style.display = (typeVal === "numeric") ? "block" : "none";
   if(stepsFields) stepsFields.style.display = (typeVal === "steps") ? "block" : "none";
+  if(habitFields) habitFields.style.display = (typeVal === "habit") ? "block" : "none";
 
   const iconBadge = $("modalCelIconBadge");
   const catInfo = _centrKategorieMap[catVal] || { name: "Cel", icon: "🎯", color: colorVal };
@@ -43859,6 +45450,10 @@ function _centrPokazModalCelu(celIdOrData){
   const inpUnit = $("celInpUnit");
   const inpStepsText = $("celInpStepsText");
   const inpVerse = $("celInpVerse");
+  const inpHabitTarget = $("celInpHabitTarget");
+  const inpHabitDuration = $("celInpHabitDuration");
+  const inpHabitAutoRenew = $("celInpHabitAutoRenew");
+  const inpHabitTime = $("celInpHabitTime");
 
   if(typeof celIdOrData === "string"){
     const cele = _centrPobierzCele();
@@ -43875,6 +45470,10 @@ function _centrPokazModalCelu(celIdOrData){
       if(inpUnit) inpUnit.value = c.unit || "godz.";
       if(inpStepsText) inpStepsText.value = (c.steps || []).map(s => (typeof s === "string" ? s : s.t)).join("\n");
       if(inpVerse) inpVerse.value = c.verse || "";
+      if(inpHabitTarget) inpHabitTarget.value = c.habitTarget || 7;
+      if(inpHabitDuration) inpHabitDuration.value = c.habitDuration !== undefined ? c.habitDuration : "0";
+      if(inpHabitAutoRenew) inpHabitAutoRenew.checked = c.habitAutoRenew !== false;
+      if(inpHabitTime) inpHabitTime.value = c.habitTime !== undefined ? c.habitTime : "15";
       _centrSyncModalCeluVisuals(c.category || "czytanie", c.type || "habit", c.color || "#3b82f6");
       openModal("modalCelEdycja");
       setTimeout(() => { if(inpTitle) inpTitle.focus(); }, 80);
@@ -43893,6 +45492,10 @@ function _centrPokazModalCelu(celIdOrData){
     if(inpUnit) inpUnit.value = celIdOrData.unit || "godz.";
     if(inpStepsText) inpStepsText.value = (celIdOrData.steps || []).map(s => (typeof s === "string" ? s : s.t)).join("\n");
     if(inpVerse) inpVerse.value = celIdOrData.verse || "";
+    if(inpHabitTarget) inpHabitTarget.value = celIdOrData.habitTarget || 7;
+    if(inpHabitDuration) inpHabitDuration.value = celIdOrData.habitDuration !== undefined ? celIdOrData.habitDuration : "0";
+    if(inpHabitAutoRenew) inpHabitAutoRenew.checked = celIdOrData.habitAutoRenew !== false;
+    if(inpHabitTime) inpHabitTime.value = celIdOrData.habitTime !== undefined ? celIdOrData.habitTime : "15";
     _centrSyncModalCeluVisuals(celIdOrData.category || "czytanie", celIdOrData.type || "habit", celIdOrData.color || "#3b82f6");
     openModal("modalCelEdycja");
     setTimeout(() => { if(inpTitle) inpTitle.focus(); }, 80);
@@ -43910,6 +45513,10 @@ function _centrPokazModalCelu(celIdOrData){
   if(inpUnit) inpUnit.value = "godz.";
   if(inpStepsText) inpStepsText.value = "";
   if(inpVerse) inpVerse.value = "";
+  if(inpHabitTarget) inpHabitTarget.value = 7;
+  if(inpHabitDuration) inpHabitDuration.value = "0";
+  if(inpHabitAutoRenew) inpHabitAutoRenew.checked = true;
+  if(inpHabitTime) inpHabitTime.value = "15";
   _centrSyncModalCeluVisuals("czytanie", "habit", "#3b82f6");
   openModal("modalCelEdycja");
   setTimeout(() => { if(inpTitle) inpTitle.focus(); }, 80);
@@ -43927,6 +45534,10 @@ function _centrZapiszFormularzCelu(){
   const inpStepsText = $("celInpStepsText");
   const inpVerse = $("celInpVerse");
   const inpColor = $("celInpColor");
+  const inpHabitTarget = $("celInpHabitTarget");
+  const inpHabitDuration = $("celInpHabitDuration");
+  const inpHabitAutoRenew = $("celInpHabitAutoRenew");
+  const inpHabitTime = $("celInpHabitTime");
 
   const titleVal = (inpTitle ? inpTitle.value : "").trim();
   if(!titleVal){
@@ -43950,7 +45561,12 @@ function _centrZapiszFormularzCelu(){
     color: inpColor ? inpColor.value : "#3b82f6"
   };
 
-  if(typeVal === "numeric"){
+  if(typeVal === "habit"){
+    dane.habitTarget = Math.min(7, Math.max(1, Number(inpHabitTarget ? inpHabitTarget.value : 7) || 7));
+    dane.habitDuration = Math.max(0, Number(inpHabitDuration ? inpHabitDuration.value : 0) || 0);
+    dane.habitAutoRenew = inpHabitAutoRenew ? inpHabitAutoRenew.checked : true;
+    dane.habitTime = Math.max(0, Number(inpHabitTime ? inpHabitTime.value : 0) || 0);
+  } else if(typeVal === "numeric"){
     dane.current = Number(inpCurrent ? inpCurrent.value : 0) || 0;
     dane.target = Math.max(1, Number(inpTarget ? inpTarget.value : 10) || 10);
     dane.unit = (inpUnit ? inpUnit.value : "").trim() || "godz.";
@@ -44007,6 +45623,573 @@ function _centrPokazModalSzablonow(){
   }
   openModal("modalCelSzablony");
 }
+
+/* Eksport i import celów duchowych i nawyków do pliku JSON */
+function _centrEksportujCele(){
+  try {
+    const cele = _centrPobierzCele();
+    const backup = {
+      version: 1,
+      app: "JW-Study",
+      type: "jw_centr_cele_duchowe",
+      exportDate: new Date().toISOString(),
+      cele: cele
+    };
+    const jsonStr = JSON.stringify(backup, null, 2);
+    const blob = new Blob([jsonStr], { type: "application/json" });
+    const dStr = new Date().toISOString().slice(0, 10);
+    download(blob, "jw_cele_i_nawyki_" + dStr + ".json");
+    toast("Wyeksportowano " + cele.length + " celów i nawyków do pliku JSON", "ok");
+  } catch(e) {
+    toast("Błąd podczas eksportu: " + (e.message || e), "err");
+  }
+}
+
+function _centrImportujCele(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = async function(e){
+    try {
+      const data = JSON.parse(e.target.result);
+      let incoming = [];
+      if(Array.isArray(data)){
+        incoming = data;
+      } else if(data && Array.isArray(data.cele)){
+        incoming = data.cele;
+      } else if(data && typeof data === "object" && Array.isArray(data.goals)){
+        incoming = data.goals;
+      } else {
+        throw new Error("Plik nie zawiera listy celów duchowych.");
+      }
+
+      if(!incoming.length){
+        toast("Plik nie zawiera żadnych celów duchowych", "warn");
+        return;
+      }
+
+      const curCele = _centrPobierzCele();
+      let scalic = true;
+      if(curCele.length > 0){
+        const promptMsg = "Znaleziono " + incoming.length + " celów w pliku kopii zapasowej.\nCzy chcesz połączyć je z obecnymi celami (" + curCele.length + "), czy zastąpić wszystkie obecne cele?";
+        if(typeof askConfirm === "function"){
+          scalic = await askConfirm("Import celów duchowych", promptMsg, {
+            okLabel: "Połącz (dodaj nowe)",
+            cancelLabel: "Zastąp wszystkie"
+          });
+        } else {
+          scalic = confirm(promptMsg + "\n\nKliknij OK, aby połączyć (zalecane), lub Anuluj, aby zastąpić.");
+        }
+      }
+
+      let wynikowe = [];
+      if(scalic && curCele.length > 0){
+        const map = new Map();
+        curCele.forEach(c => { if(c && c.id) map.set(c.id, c); });
+        let dodanoLicznik = 0;
+        incoming.forEach(c => {
+          if(!c || !c.title) return;
+          if(!c.id || map.has(c.id)){
+            if(c.id && map.has(c.id)){
+              const istn = map.get(c.id);
+              if(istn.type === "habit" && c.history && typeof c.history === "object"){
+                if(!istn.history || typeof istn.history !== "object") istn.history = {};
+                Object.keys(c.history).forEach(d => { if(c.history[d]) istn.history[d] = true; });
+              }
+              return;
+            }
+            c.id = "cel_" + Date.now() + "_" + Math.random().toString(36).substr(2, 6);
+          }
+          map.set(c.id, c);
+          dodanoLicznik++;
+        });
+        wynikowe = Array.from(map.values());
+      } else {
+        wynikowe = incoming.map(c => {
+          if(!c.id) c.id = "cel_" + Date.now() + "_" + Math.random().toString(36).substr(2, 6);
+          return c;
+        });
+      }
+
+      _centrZapiszCele(wynikowe);
+      if(typeof cenCelebration === "function") cenCelebration();
+      if(typeof cenPlaySound === "function") cenPlaySound("complete");
+      toast("Pomyślnie zaimportowano cele duchowe (" + incoming.length + ")!", "ok");
+      if(typeof rysujCentrum === "function") rysujCentrum();
+    } catch(err){
+      toast("Błąd importu celów: " + (err.message || "Niepoprawny format pliku JSON"), "err");
+    }
+  };
+  reader.readAsText(file, "UTF-8");
+}
+
+function _centrOtworzDialogImportu(){
+  let inp = $("cenInputImportCele");
+  if(!inp){
+    inp = document.createElement("input");
+    inp.type = "file";
+    inp.id = "cenInputImportCele";
+    inp.accept = ".json,application/json";
+    inp.style.display = "none";
+    document.body.appendChild(inp);
+    inp.addEventListener("change", function(e){
+      const file = e.target.files && e.target.files[0];
+      if(file) _centrImportujCele(file);
+      inp.value = "";
+    });
+  }
+  inp.click();
+}
+
+/* ==========================================================================
+   7a-2. STOPER I MINUTNIK SKUPIENIA DLA CELÓW I NAWYKÓW (v5.0)
+   ========================================================================== */
+
+let _centrStoperStan = {
+  celId: null,
+  trybOdliczania: true, // true = Minutnik (odliczanie w dół), false = Stoper (naliczanie w górę)
+  calkowityCzasSek: 1500, // domyślnie 25 min (lub pobrane z c.habitTime * 60)
+  pozostaloSek: 1500,
+  uplyneloSek: 0,
+  dziala: false,
+  zakonczony: false,
+  timerId: null
+};
+
+function _centrFormatujCzasStoper(sek){
+  sek = Math.max(0, Math.floor(sek || 0));
+  const h = Math.floor(sek / 3600);
+  const m = Math.floor((sek % 3600) / 60);
+  const s = sek % 60;
+  const pad = (n) => String(n).padStart(2, '0');
+  if(h > 0){
+    return h + ':' + pad(m) + ':' + pad(s);
+  }
+  return pad(m) + ':' + pad(s);
+}
+
+function _centrZatrzymajStoper(){
+  if(_centrStoperStan.timerId){
+    clearInterval(_centrStoperStan.timerId);
+    _centrStoperStan.timerId = null;
+  }
+  _centrStoperStan.dziala = false;
+  _centrAktualizujWskazaniaStopera();
+}
+
+function _centrOtworzStoper(celId){
+  const cele = _centrPobierzCele();
+  let c = cele.find(x => x.id === celId);
+  if(!c){
+    c = {
+      id: null,
+      title: "Sesja skupienia",
+      category: "inne",
+      type: "focus",
+      habitTime: 25,
+      color: "#3b82f6"
+    };
+  }
+
+  if(_centrStoperStan.timerId){
+    clearInterval(_centrStoperStan.timerId);
+    _centrStoperStan.timerId = null;
+  }
+
+  const habitMinutes = parseInt(c.habitTime, 10) || 0;
+  const defaultMinutes = habitMinutes > 0 ? habitMinutes : 25;
+
+  _centrStoperStan.celId = c.id;
+  _centrStoperStan.trybOdliczania = true;
+  _centrStoperStan.calkowityCzasSek = defaultMinutes * 60;
+  _centrStoperStan.pozostaloSek = _centrStoperStan.calkowityCzasSek;
+  _centrStoperStan.uplyneloSek = 0;
+  _centrStoperStan.dziala = false;
+  _centrStoperStan.zakonczony = false;
+
+  const cat = _centrKategorieMap[c.category] || { name: "Cel duchowy", icon: "🎯", color: "#3b82f6" };
+  const color = c.color || cat.color || "#3b82f6";
+
+  const modal = $("modalCelTimer");
+  if(modal){
+    modal.style.setProperty("--cel-color", color);
+  }
+
+  const badge = $("modalCelTimerIconBadge");
+  if(badge) badge.textContent = cat.icon || "⏱️";
+
+  const kicker = $("modalCelTimerKicker");
+  if(kicker){
+    kicker.style.color = color;
+    kicker.textContent = c.type === "habit" ? "✦ SESJA NAWYKU" : "✦ STOPER SKUPIENIA";
+  }
+
+  const tytul = $("modalCelTimerTytul");
+  if(tytul) tytul.textContent = c.title || "Sesja skupienia";
+
+  const sub = $("modalCelTimerSub");
+  if(sub){
+    sub.textContent = c.type === "habit" 
+      ? "Skup się na realizacji tego nawyku duchowego"
+      : "Czas skupienia na realizacji celu";
+  }
+
+  _centrRenderujCialoStopera(c, color);
+  _centrOdswiezPrzyciskZaliczStopera(c);
+  openModal("modalCelTimer");
+}
+
+function _centrRenderujCialoStopera(c, color){
+  const body = $("modalCelTimerBody");
+  if(!body) return;
+
+  const curMinutes = Math.round(_centrStoperStan.calkowityCzasSek / 60);
+  const presets = [5, 10, 15, 20, 25, 30, 45, 60];
+
+  const presetsHtml = presets.map(p => {
+    const isActive = _centrStoperStan.trybOdliczania && (p === curMinutes);
+    const label = p === 25 ? "25 min 🍅" : (p + " min");
+    return '<button type="button" class="cenTimerPresetChip' + (isActive ? ' active' : '') + '" data-stoper-preset="' + p + '">' + label + '</button>';
+  }).join('');
+
+  body.innerHTML = '<div class="cenTimerWrap" style="--cel-color:' + color + ';">'
+    + '<div class="cenTimerModeToggle">'
+    + '<button type="button" class="cenTimerModeBtn' + (_centrStoperStan.trybOdliczania ? ' active' : '') + '" data-stoper-mode="odliczanie">Minutnik</button>'
+    + '<button type="button" class="cenTimerModeBtn' + (!_centrStoperStan.trybOdliczania ? ' active' : '') + '" data-stoper-mode="stoper">Stoper</button>'
+    + '</div>'
+
+    + '<div class="cenTimerPresetsRow" id="cenTimerPresetsRow" style="' + (_centrStoperStan.trybOdliczania ? '' : 'display:none;') + '">'
+    + presetsHtml
+    + '</div>'
+
+    + '<div class="cenTimerCircleBox">'
+    + '<svg class="cenTimerSvg" viewBox="0 0 190 190">'
+    + '<circle class="cenTimerSvgBg" cx="95" cy="95" r="82" />'
+    + '<circle class="cenTimerSvgProgress" id="cenTimerSvgRing" cx="95" cy="95" r="82" stroke-dasharray="515.22" stroke-dashoffset="0" />'
+    + '</svg>'
+    + '<div class="cenTimerTextWrap">'
+    + '<div class="cenTimerDigits" id="cenTimerDigits">00:00</div>'
+    + '<div class="cenTimerStatusLbl" id="cenTimerStatusLbl">Gotowy</div>'
+    + '</div>'
+    + '</div>'
+
+    + '<div class="cenTimerControlsRow">'
+    + '<button type="button" class="cenTimerAdjBtn" data-stoper-akcja="reset" title="Zresetuj stoper">↺ Reset</button>'
+    + '<button type="button" class="cenTimerMainBtn" data-stoper-akcja="startStop" id="cenTimerStartBtn">▶ Start</button>'
+    + '<button type="button" class="cenTimerAdjBtn" data-stoper-akcja="plus5" title="Dodaj 5 minut">+5 min</button>'
+    + '</div>'
+
+    + '<div id="cenTimerDoneBanner" class="cenTimerDoneBanner" style="display:none;">'
+    + '<div style="font-size:14px;font-weight:700;color:#10b981;margin-bottom:4px;display:flex;align-items:center;justify-content:center;gap:6px;">'
+    + '<span>🎉</span><span>Świetna robota! Sesja ukończona!</span>'
+    + '</div>'
+    + '<div style="font-size:12.5px;color:var(--cen-text-sub);line-height:1.4;">'
+    + 'Zaplanowany czas skupienia minął pomyślnie. Kliknij poniżej, aby zapisać postęp w swoim celu.'
+    + '</div>'
+    + '</div>'
+    + '</div>';
+
+  _centrAktualizujWskazaniaStopera();
+}
+
+function _centrAktualizujWskazaniaStopera(){
+  const digitsEl = $("cenTimerDigits");
+  const statusEl = $("cenTimerStatusLbl");
+  const startBtn = $("cenTimerStartBtn");
+  const ringEl = $("cenTimerSvgRing");
+  if(!digitsEl) return;
+
+  const stan = _centrStoperStan;
+  const displaySek = stan.trybOdliczania ? stan.pozostaloSek : stan.uplyneloSek;
+  digitsEl.textContent = _centrFormatujCzasStoper(displaySek);
+
+  if(statusEl){
+    if(stan.zakonczony){
+      statusEl.textContent = "Ukończono! 🎉";
+      statusEl.style.color = "#10b981";
+    } else if(stan.dziala){
+      statusEl.textContent = stan.trybOdliczania ? "Skupienie w toku..." : "Czas płynie...";
+      statusEl.style.color = "var(--cel-color, #3b82f6)";
+    } else if(stan.uplyneloSek > 0 || (stan.trybOdliczania && stan.pozostaloSek < stan.calkowityCzasSek)){
+      statusEl.textContent = "Wstrzymany (Pauza)";
+      statusEl.style.color = "#f59e0b";
+    } else {
+      statusEl.textContent = "Gotowy";
+      statusEl.style.color = "var(--cen-text-muted, #64748b)";
+    }
+  }
+
+  if(startBtn){
+    if(stan.dziala){
+      startBtn.innerHTML = '⏸ Pauza';
+      startBtn.style.background = '#f59e0b';
+    } else {
+      startBtn.innerHTML = '▶ Start';
+      startBtn.style.background = 'var(--cel-color, #3b82f6)';
+    }
+  }
+
+  if(ringEl){
+    const circumference = 515.22;
+    let offset = 0;
+    if(stan.trybOdliczania){
+      const progress = stan.calkowityCzasSek > 0 ? (stan.pozostaloSek / stan.calkowityCzasSek) : 0;
+      offset = circumference * (1 - Math.max(0, Math.min(1, progress)));
+    } else {
+      const targetSek = stan.calkowityCzasSek > 0 ? stan.calkowityCzasSek : 1500;
+      const progress = Math.min(1, stan.uplyneloSek / targetSek);
+      offset = circumference * (1 - progress);
+    }
+    ringEl.style.strokeDashoffset = String(offset);
+  }
+}
+
+function _centrStartStopStoper(){
+  const stan = _centrStoperStan;
+  if(stan.dziala){
+    if(stan.timerId){
+      clearInterval(stan.timerId);
+      stan.timerId = null;
+    }
+    stan.dziala = false;
+    _centrAktualizujWskazaniaStopera();
+    return;
+  }
+
+  if(stan.zakonczony){
+    _centrResetStoper();
+  }
+
+  stan.dziala = true;
+  stan.zakonczony = false;
+  const banner = $("cenTimerDoneBanner");
+  if(banner) banner.style.display = "none";
+
+  if(stan.timerId) clearInterval(stan.timerId);
+  stan.timerId = setInterval(() => {
+    if(stan.trybOdliczania){
+      stan.pozostaloSek--;
+      stan.uplyneloSek++;
+      if(stan.pozostaloSek <= 0){
+        stan.pozostaloSek = 0;
+        if(stan.timerId){
+          clearInterval(stan.timerId);
+          stan.timerId = null;
+        }
+        stan.dziala = false;
+        stan.zakonczony = true;
+        _centrAktualizujWskazaniaStopera();
+        _centrZakonczSesjeStopera();
+        return;
+      }
+    } else {
+      stan.uplyneloSek++;
+    }
+    _centrAktualizujWskazaniaStopera();
+  }, 1000);
+
+  _centrAktualizujWskazaniaStopera();
+}
+
+function _centrZakonczSesjeStopera(){
+  if(typeof cenPlaySound === "function") cenPlaySound("timer_done");
+  if(typeof cenCelebration === "function") cenCelebration();
+
+  const banner = $("cenTimerDoneBanner");
+  if(banner){
+    banner.style.display = "block";
+  }
+
+  const zaliczBtn = $("modalCelTimerZaliczBtn");
+  if(zaliczBtn){
+    zaliczBtn.classList.add("pulse");
+    setTimeout(() => zaliczBtn.classList.remove("pulse"), 2500);
+  }
+}
+
+function _centrResetStoper(){
+  if(_centrStoperStan.timerId){
+    clearInterval(_centrStoperStan.timerId);
+    _centrStoperStan.timerId = null;
+  }
+  _centrStoperStan.dziala = false;
+  _centrStoperStan.zakonczony = false;
+  _centrStoperStan.pozostaloSek = _centrStoperStan.calkowityCzasSek;
+  _centrStoperStan.uplyneloSek = 0;
+
+  const banner = $("cenTimerDoneBanner");
+  if(banner) banner.style.display = "none";
+
+  _centrAktualizujWskazaniaStopera();
+}
+
+function _centrZmienPresetStopera(min){
+  min = parseInt(min, 10) || 25;
+  if(_centrStoperStan.timerId){
+    clearInterval(_centrStoperStan.timerId);
+    _centrStoperStan.timerId = null;
+  }
+  _centrStoperStan.dziala = false;
+  _centrStoperStan.zakonczony = false;
+  _centrStoperStan.calkowityCzasSek = min * 60;
+  _centrStoperStan.pozostaloSek = _centrStoperStan.calkowityCzasSek;
+  _centrStoperStan.uplyneloSek = 0;
+
+  const banner = $("cenTimerDoneBanner");
+  if(banner) banner.style.display = "none";
+
+  const chips = document.querySelectorAll(".cenTimerPresetChip");
+  chips.forEach(chip => {
+    const val = parseInt(chip.dataset.stoperPreset, 10);
+    chip.classList.toggle("active", val === min);
+  });
+
+  _centrAktualizujWskazaniaStopera();
+}
+
+function _centrZmienTrybStopera(mode){
+  const odliczanie = (mode === "odliczanie");
+  if(_centrStoperStan.timerId){
+    clearInterval(_centrStoperStan.timerId);
+    _centrStoperStan.timerId = null;
+  }
+  _centrStoperStan.dziala = false;
+  _centrStoperStan.zakonczony = false;
+  _centrStoperStan.trybOdliczania = odliczanie;
+  _centrStoperStan.uplyneloSek = 0;
+  _centrStoperStan.pozostaloSek = _centrStoperStan.calkowityCzasSek;
+
+  const banner = $("cenTimerDoneBanner");
+  if(banner) banner.style.display = "none";
+
+  const modeBtns = document.querySelectorAll(".cenTimerModeBtn");
+  modeBtns.forEach(b => {
+    b.classList.toggle("active", b.dataset.stoperMode === mode);
+  });
+
+  const presetsRow = $("cenTimerPresetsRow");
+  if(presetsRow){
+    presetsRow.style.display = odliczanie ? "flex" : "none";
+  }
+
+  _centrAktualizujWskazaniaStopera();
+}
+
+function _centrDodajCzasStoper(sek){
+  sek = parseInt(sek, 10) || 300;
+  _centrStoperStan.calkowityCzasSek += sek;
+  _centrStoperStan.pozostaloSek += sek;
+  _centrStoperStan.zakonczony = false;
+
+  const banner = $("cenTimerDoneBanner");
+  if(banner) banner.style.display = "none";
+
+  _centrAktualizujWskazaniaStopera();
+}
+
+function _centrOdswiezPrzyciskZaliczStopera(c){
+  const btn = $("modalCelTimerZaliczBtn");
+  if(!btn || !c) return;
+
+  if(!c.id){
+    btn.innerHTML = '✓ Zakończ sesję skupienia';
+    btn.classList.remove("done");
+    return;
+  }
+
+  if(c.type === "habit"){
+    const todayStr = _centrFormatujDateISO(new Date());
+    const isTodayDone = !!(c.history && c.history[todayStr]);
+    if(isTodayDone){
+      btn.innerHTML = '✓ Dzisiaj już zaliczone';
+      btn.classList.add("done");
+    } else {
+      btn.innerHTML = '✓ Zalicz dzisiejszy dzień';
+      btn.classList.remove("done");
+    }
+  } else if(c.type === "numeric"){
+    const cur = Number(c.current) || 0;
+    const tgt = Number(c.target) || 10;
+    const unit = c.unit || "razy";
+    btn.innerHTML = '+1 do celu (' + cur + '/' + tgt + ' ' + esc(unit) + ')';
+    btn.classList.remove("done");
+  } else if(c.type === "steps"){
+    const steps = Array.isArray(c.steps) ? c.steps : [];
+    const nextStep = steps.find(s => !s.done);
+    if(nextStep){
+      btn.innerHTML = '✓ Zalicz kolejny etap: „' + esc(nextStep.t).substring(0, 22) + '…”';
+      btn.classList.remove("done");
+    } else {
+      btn.innerHTML = '🎉 Wszystkie etapy ukończone';
+      btn.classList.add("done");
+    }
+  } else {
+    if(c.completed){
+      btn.innerHTML = '🎉 Cel już ukończony';
+      btn.classList.add("done");
+    } else {
+      btn.innerHTML = '✓ Zrealizuj ten cel';
+      btn.classList.remove("done");
+    }
+  }
+}
+
+function _centrZaliczZeStopera(){
+  const celId = _centrStoperStan.celId;
+  if(!celId){
+    toast("Świetna sesja skupienia! Gratulacje! 🎉", "ok");
+    closeModal("modalCelTimer");
+    return;
+  }
+
+  const cele = _centrPobierzCele();
+  const c = cele.find(x => x.id === celId);
+  if(!c){
+    toast("Zakończono sesję skupienia! 🎉", "ok");
+    closeModal("modalCelTimer");
+    return;
+  }
+
+  if(c.type === "habit"){
+    const todayStr = _centrFormatujDateISO(new Date());
+    if(c.history && c.history[todayStr]){
+      toast("Dzisiejszy dzień tego nawyku był już wcześniej zaliczony! ✓", "info");
+    } else {
+      _centrPrzelaczDzienNawyku(celId, todayStr);
+      toast("Zaliczono dzisiejszy dzień nawyku! 🎉", "ok");
+    }
+  } else if(c.type === "numeric"){
+    _centrZmienLicznikCelu(celId, 1);
+  } else if(c.type === "steps"){
+    const steps = Array.isArray(c.steps) ? c.steps : [];
+    const stepIdx = steps.findIndex(s => !s.done);
+    if(stepIdx !== -1){
+      _centrPrzelaczKrokCelu(celId, stepIdx);
+    } else {
+      toast("Wszystkie etapy tego celu zostały już ukończone!", "info");
+    }
+  } else {
+    if(!c.completed){
+      _centrPrzelaczCelUkonczony(celId);
+    } else {
+      toast("Ten cel jest już oznaczony jako ukończony!", "info");
+    }
+  }
+
+  // Odśwież stan przycisku oraz widok Centrum
+  const odswiezoneCele = _centrPobierzCele();
+  const odswiezonyCel = odswiezoneCele.find(x => x.id === celId);
+  if(odswiezonyCel) _centrOdswiezPrzyciskZaliczStopera(odswiezonyCel);
+
+  if(typeof rysujCentrum === "function") rysujCentrum();
+  if(_centrHabitKalCelId && _centrHabitKalCelId === celId && typeof _centrPokazKalendarzNawyku === "function"){
+    _centrPokazKalendarzNawyku(celId, _centrHabitKalRok, _centrHabitKalMies);
+  }
+}
+
+window._centrZatrzymajStoper = _centrZatrzymajStoper;
+window._centrOtworzStoper = _centrOtworzStoper;
+window.cenOpenTimerModal = _centrOtworzStoper;
+window._centrZaliczZeStopera = _centrZaliczZeStopera;
 
 /* 7b. Pełny eksport i import danych Centrum Studium i Planów czytania do kopii JSON */
 function _centrEksportDanych(){
@@ -47158,6 +49341,37 @@ if($("centrum")){
             }).join('');
       }
     }
+
+    if(ev.target && ev.target.id === "cenCeleSzukajInp"){
+      _centrCeleSzukaj = ev.target.value;
+      const wrap = $("cenCeleGridWrap");
+      if(wrap){
+        const cele = (typeof _centrPobierzCele === "function") ? _centrPobierzCele() : [];
+        const tab = _centrCeleTab || "aktywne";
+        const cat = _centrCeleKategoria || "wszystkie";
+        const q = (_centrCeleSzukaj || "").toLowerCase().trim();
+        const filtered = cele.filter(c => {
+          if(tab === "aktywne" && c.completed) return false;
+          if(tab === "nawyki" && (c.type !== "habit" || c.completed)) return false;
+          if(tab === "ukonczone" && !c.completed) return false;
+          if(cat !== "wszystkie" && c.category !== cat) return false;
+          if(q){
+            const str = (c.title + " " + (c.desc || "") + " " + (c.verse || "")).toLowerCase();
+            if(!str.includes(q)) return false;
+          }
+          return true;
+        });
+        wrap.innerHTML = (!filtered.length
+          ? '<div class="cenPusto" style="padding:40px 20px;text-align:center;">'
+            + '<div style="font-size:36px;margin-bottom:10px;">🎯</div>'
+            + '<div style="font-size:16px;font-weight:700;color:var(--cen-text);margin-bottom:6px;">Brak pasujących celów</div>'
+            + '<div style="font-size:13px;color:var(--cen-text-muted);margin-bottom:18px;">Spróbuj wpisać inną frazę lub wyczyść wyszukiwanie.</div>'
+            + '</div>'
+          : '<div class="cenPlanGrid" style="grid-template-columns:repeat(auto-fill, minmax(310px, 1fr));gap:16px;">'
+            + filtered.map(c => _centrKartaCeluHtml(c)).join('')
+            + '</div>');
+      }
+    }
   });
 
   $("centrum").addEventListener("click", async ev=>{
@@ -47625,6 +49839,14 @@ if($("centrum")){
       if(akcja.dataset.cakcja === "szablony-celow"){
         if(typeof _centrPokazModalSzablonow === "function") _centrPokazModalSzablonow();
       }
+      // Eksport celów duchowych i nawyków
+      if(akcja.dataset.cakcja === "eksport-cele"){
+        if(typeof _centrEksportujCele === "function") _centrEksportujCele();
+      }
+      // Import celów duchowych i nawyków
+      if(akcja.dataset.cakcja === "import-cele"){
+        if(typeof _centrOtworzDialogImportu === "function") _centrOtworzDialogImportu();
+      }
       return;
     }
 
@@ -47842,6 +50064,43 @@ if($("centrum")){
       return;
     }
 
+    const celKalBtn = ev.target.closest("[data-cel-kalendarz]");
+    if(celKalBtn){
+      const celId = celKalBtn.dataset.celKalendarz;
+      if(typeof _centrPokazKalendarzNawyku === "function") _centrPokazKalendarzNawyku(celId);
+      return;
+    }
+
+    const celTimerBtn = ev.target.closest("[data-cel-timer], [data-cel-stoper]");
+    if(celTimerBtn){
+      const celId = celTimerBtn.dataset.celTimer || celTimerBtn.dataset.celStoper;
+      if(typeof _centrOtworzStoper === "function") _centrOtworzStoper(celId);
+      return;
+    }
+
+    const btnDzwiek = ev.target.closest("#cenBtnPrzelaczDzwiek");
+    if(btnDzwiek){
+      const curMuted = !!lsGet("jw_centr_audio_muted", false);
+      lsSet("jw_centr_audio_muted", !curMuted);
+      if(!curMuted){
+        toast("Wyciszono dźwięki celów i nawyków", "info");
+      } else {
+        toast("Włączono dźwięki celów i nawyków", "info");
+        if(typeof cenPlaySound === "function") cenPlaySound("check");
+      }
+      rysujCentrum();
+      return;
+    }
+
+    const btnWyczyscSzukaj = ev.target.closest("#cenCeleWyczyscSzukaj");
+    if(btnWyczyscSzukaj){
+      _centrCeleSzukaj = "";
+      const inp = $("cenCeleSzukajInp");
+      if(inp) inp.value = "";
+      rysujCentrum();
+      return;
+    }
+
     const szuk = ev.target.closest("[data-cszuk]");
     if(szuk){
       const inp = $("search");
@@ -47973,6 +50232,130 @@ if($("centrum")){
         }
         return;
       }
+    });
+  }
+
+  // Szybkie kafelki wyboru długości trwania / cyklu nawyku (7, 14, 21, 30, 60 dni)
+  const habitTargetChips = $("celHabitTargetChips");
+  if(habitTargetChips){
+    habitTargetChips.addEventListener("click", (e) => {
+      const chip = e.target.closest("[data-habit-days]");
+      if(!chip) return;
+      const days = chip.dataset.habitDays;
+      const inp = $("celInpHabitTarget");
+      if(inp && days){
+        inp.value = days;
+        inp.focus();
+      }
+    });
+  }
+
+  // Szybkie kafelki czasu trwania sesji nawyku (5, 10, 15, 20, 30, 45, 60 min)
+  const habitTimeChips = $("celHabitTimeChips");
+  if(habitTimeChips){
+    habitTimeChips.addEventListener("click", (e) => {
+      const chip = e.target.closest("[data-habit-time]");
+      if(!chip) return;
+      const t = chip.dataset.habitTime;
+      const inp = $("celInpHabitTime");
+      if(inp && t !== undefined){
+        inp.value = t;
+        inp.focus();
+      }
+    });
+  }
+
+  // Szybkie kafelki horyzontu czasowego / wyzwania nawyku (7, 14, 21, 30, 60, 90, 365 dni)
+  const habitDurationChips = $("celHabitDurationChips");
+  if(habitDurationChips){
+    habitDurationChips.addEventListener("click", (e) => {
+      const chip = e.target.closest("[data-habit-duration]");
+      if(!chip) return;
+      const dur = chip.dataset.habitDuration;
+      const inp = $("celInpHabitDuration");
+      if(inp && dur !== undefined){
+        inp.value = dur;
+        inp.focus();
+      }
+    });
+  }
+
+  // Interaktywny kalendarz nawyku (przełączanie dni, nawigacja miesiącami, stoper)
+  const modalKalendarz = $("modalCelKalendarz");
+  if(modalKalendarz){
+    modalKalendarz.addEventListener("click", (ev) => {
+      const btnToggle = ev.target.closest("[data-cel-kal-toggle]");
+      if(btnToggle){
+        const dStr = btnToggle.dataset.celKalToggle;
+        if(_centrHabitKalCelId && dStr){
+          if(typeof _centrPrzelaczDzienWKalendarzu === "function"){
+            _centrPrzelaczDzienWKalendarzu(_centrHabitKalCelId, dStr, ev);
+          }
+        }
+        return;
+      }
+      const btnPrev = ev.target.closest("[data-cel-kal-prev]");
+      if(btnPrev){
+        if(typeof _centrZmienMiesiacKalendarza === "function") _centrZmienMiesiacKalendarza(-1);
+        return;
+      }
+      const btnNext = ev.target.closest("[data-cel-kal-next]");
+      if(btnNext){
+        if(typeof _centrZmienMiesiacKalendarza === "function") _centrZmienMiesiacKalendarza(1);
+        return;
+      }
+      const btnToday = ev.target.closest("[data-cel-kal-today]");
+      if(btnToday){
+        if(typeof _centrZmienMiesiacKalendarza === "function") _centrZmienMiesiacKalendarza(0);
+        return;
+      }
+      const btnTimer = ev.target.closest("[data-cel-timer]");
+      if(btnTimer){
+        const celId = btnTimer.dataset.celTimer || _centrHabitKalCelId;
+        if(typeof closeModal === "function") closeModal("modalCelKalendarz");
+        if(typeof _centrOtworzStoper === "function") _centrOtworzStoper(celId);
+        return;
+      }
+    });
+  }
+
+  // Interaktywny stoper / minutnik skupienia (modalCelTimer)
+  const modalTimer = $("modalCelTimer");
+  if(modalTimer){
+    modalTimer.addEventListener("click", (ev) => {
+      const presetChip = ev.target.closest("[data-stoper-preset]");
+      if(presetChip){
+        const min = parseInt(presetChip.dataset.stoperPreset, 10);
+        if(typeof _centrZmienPresetStopera === "function") _centrZmienPresetStopera(min);
+        return;
+      }
+
+      const modeBtn = ev.target.closest("[data-stoper-mode]");
+      if(modeBtn){
+        const mode = modeBtn.dataset.stoperMode;
+        if(typeof _centrZmienTrybStopera === "function") _centrZmienTrybStopera(mode);
+        return;
+      }
+
+      const actionBtn = ev.target.closest("[data-stoper-akcja]");
+      if(actionBtn){
+        const akcja = actionBtn.dataset.stoperAkcja;
+        if(akcja === "startStop"){
+          if(typeof _centrStartStopStoper === "function") _centrStartStopStoper();
+        } else if(akcja === "reset"){
+          if(typeof _centrResetStoper === "function") _centrResetStoper();
+        } else if(akcja === "plus5"){
+          if(typeof _centrDodajCzasStoper === "function") _centrDodajCzasStoper(300);
+        }
+        return;
+      }
+    });
+  }
+
+  const btnZaliczTimer = $("modalCelTimerZaliczBtn");
+  if(btnZaliczTimer){
+    btnZaliczTimer.addEventListener("click", () => {
+      if(typeof _centrZaliczZeStopera === "function") _centrZaliczZeStopera();
     });
   }
 })();
