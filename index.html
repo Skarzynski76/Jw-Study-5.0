@@ -415,12 +415,21 @@ html[data-theme="sepia"] {
   max-height: 18px !important;
   display: block;
   flex-shrink: 0 !important;
+  pointer-events: none;
 }
 
 .cenNaglBtnIko:hover {
   background: var(--cen-btn-hover-bg);
   color: var(--cen-btn-hover-color);
   border-color: var(--cen-card-border-hover);
+}
+.cenNaglBtnIko.cenMuted {
+  opacity: 0.75;
+  color: var(--cen-text-muted, #94a3b8);
+}
+.cenNaglBtnIko.cenMuted:hover {
+  opacity: 1;
+  color: var(--cen-btn-hover-color);
 }
 
 .cenModernIco {
@@ -1363,6 +1372,171 @@ html[data-theme="dark"] .cenMiniDrzewoBadge {
   transform: translateY(-1px);
   filter: brightness(1.08);
 }
+.cenPlanReminderBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563eb;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+html[data-theme="dark"] .cenPlanReminderBadge {
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.18);
+  border-color: rgba(59, 130, 246, 0.35);
+}
+.cenPlanReminderBadge:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+.cenHeroStreakPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(249, 115, 22, 0.12);
+  color: #ea580c;
+  border: 1px solid rgba(249, 115, 22, 0.25);
+  font-size: 11.5px;
+  font-weight: 700;
+  user-select: none;
+}
+html[data-theme="dark"] .cenHeroStreakPill {
+  color: #fb923c;
+  background: rgba(249, 115, 22, 0.2);
+  border-color: rgba(249, 115, 22, 0.4);
+}
+.cenHeroProjBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.12);
+  color: #4f46e5;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  font-size: 11.5px;
+  font-weight: 600;
+  user-select: none;
+}
+html[data-theme="dark"] .cenHeroProjBadge {
+  color: #818cf8;
+  background: rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.4);
+}
+.cenRemPresetGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+  gap: 8px;
+  margin-top: 6px;
+}
+.cenRemPresetBtn {
+  background: var(--cen-row-bg, rgba(0,0,0,0.03));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.14s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.cenRemPresetBtn.active, .cenRemPresetBtn:hover {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: #3b82f6;
+  color: #2563eb;
+}
+html[data-theme="dark"] .cenRemPresetBtn.active, html[data-theme="dark"] .cenRemPresetBtn:hover {
+  color: #60a5fa;
+}
+.cenRemPermAlert {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+.cenRemPermAlert.granted {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #065f46;
+}
+html[data-theme="dark"] .cenRemPermAlert.granted {
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.18);
+}
+.cenRemPermAlert.denied {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #92400e;
+}
+html[data-theme="dark"] .cenRemPermAlert.denied {
+  color: #fcd34d;
+  background: rgba(245, 158, 11, 0.18);
+}
+.cenRemPermAlert.default {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.28);
+  color: #1e40af;
+}
+html[data-theme="dark"] .cenRemPermAlert.default {
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.18);
+}
+.cenStatProjHero {
+  background: var(--cen-row-bg, rgba(0,0,0,0.03));
+  border: 1px solid var(--cen-card-border);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.cenStatProjLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.cenStatProjIko {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(99, 102, 241, 0.15);
+  color: #6366f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.cenStatProjTyt {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cen-text);
+  margin-bottom: 2px;
+}
+.cenStatProjSub {
+  font-size: 12.5px;
+  color: var(--cen-text-muted);
+}
+
 .cenFruitGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -19186,6 +19360,311 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
   }
 }
 
+/* ══════════════════════════════════════════════════════════════════════
+   PRZYPOMNIENIA O CZYTANIU BIBLII (PlanPrzypomnienia)
+   ══════════════════════════════════════════════════════════════════════ */
+.plan-rem-active-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ef4444;
+  border: 1.5px solid var(--panel, #ffffff);
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.4);
+}
+.plan-rem-card {
+  background: var(--cen-card-bg, #ffffff);
+  border: 1px solid var(--cen-card-border, #e2e8f0);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+.plan-rem-toggle-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.plan-rem-toggle-label {
+  font-weight: 650;
+  font-size: 14.5px;
+  color: var(--text, #1e293b);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.plan-rem-toggle-sub {
+  font-size: 12px;
+  font-weight: normal;
+  color: var(--cen-text-muted, #64748b);
+}
+/* Przełącznik Switch */
+.plan-rem-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.plan-rem-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+.plan-rem-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #cbd5e1;
+  transition: .22s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 24px;
+}
+.plan-rem-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .22s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.plan-rem-switch input:checked + .plan-rem-slider {
+  background-color: #3b82f6;
+}
+.plan-rem-switch input:checked + .plan-rem-slider:before {
+  transform: translateX(20px);
+}
+.plan-rem-sec-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cen-text-muted, #64748b);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.plan-rem-time-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.plan-rem-time-input {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: inherit;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border, #cbd5e1);
+  background: var(--input-bg, #ffffff);
+  color: var(--text, #1e293b);
+  width: 125px;
+  text-align: center;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.plan-rem-time-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+}
+.plan-rem-presets-grid {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.plan-rem-preset-btn {
+  font-size: 12px;
+  padding: 5px 9px;
+  border-radius: 7px;
+  background: var(--panel, #f1f5f9);
+  border: 1px solid var(--border, #e2e8f0);
+  color: var(--text, #334155);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-weight: 500;
+}
+.plan-rem-preset-btn:hover {
+  background: var(--sel, #e2e8f0);
+  border-color: #cbd5e1;
+}
+.plan-rem-days-wrap {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.plan-rem-day-btn {
+  flex: 1;
+  min-width: 32px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 650;
+  border-radius: 8px;
+  background: var(--panel, #f8fafc);
+  border: 1px solid var(--border, #e2e8f0);
+  color: var(--text, #475569);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.plan-rem-day-btn:hover {
+  border-color: #94a3b8;
+}
+.plan-rem-day-btn.active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.25);
+}
+.plan-rem-channel-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border, #f1f5f9);
+}
+.plan-rem-channel-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.plan-rem-channel-info {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 13px;
+  color: var(--text, #1e293b);
+  cursor: pointer;
+}
+.plan-rem-channel-info span.icon {
+  font-size: 16px;
+}
+.plan-rem-badge-perm {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+}
+.plan-rem-badge-perm.granted {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+.plan-rem-badge-perm.denied {
+  background: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+.plan-rem-perm-btn {
+  font-size: 11.5px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #3b82f6;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+.plan-rem-perm-btn:hover {
+  background: #2563eb;
+}
+.plan-rem-msg-input {
+  width: 100%;
+  font-size: 13px;
+  font-family: inherit;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border, #cbd5e1);
+  background: var(--input-bg, #ffffff);
+  color: var(--text, #1e293b);
+  box-sizing: border-box;
+}
+.plan-rem-msg-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+.plan-rem-quote-chip {
+  font-size: 11.5px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--panel, #f1f5f9);
+  border: 1px solid var(--border, #e2e8f0);
+  color: var(--cen-text-muted, #475569);
+  cursor: pointer;
+  margin-top: 4px;
+  display: inline-block;
+  transition: all 0.15s ease;
+}
+.plan-rem-quote-chip:hover {
+  background: var(--sel, #e2e8f0);
+  color: var(--text, #1e293b);
+}
+.plan-rem-active-plan-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  color: #1d4ed8;
+  margin-top: 8px;
+}
+html[data-theme="dark"] .plan-rem-card,
+html[data-theme="oled"] .plan-rem-card {
+  background: var(--panel, #1e293b);
+  border-color: var(--border, #334155);
+}
+html[data-theme="dark"] .plan-rem-slider,
+html[data-theme="oled"] .plan-rem-slider {
+  background-color: #475569;
+}
+html[data-theme="dark"] .plan-rem-day-btn,
+html[data-theme="oled"] .plan-rem-day-btn {
+  background: var(--panel, #0f172a);
+  border-color: var(--border, #334155);
+  color: var(--text, #cbd5e1);
+}
+html[data-theme="dark"] .plan-rem-day-btn.active,
+html[data-theme="oled"] .plan-rem-day-btn.active {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+html[data-theme="dark"] .plan-rem-time-input,
+html[data-theme="oled"] .plan-rem-time-input,
+html[data-theme="dark"] .plan-rem-msg-input,
+html[data-theme="oled"] .plan-rem-msg-input {
+  background: var(--input-bg, #0f172a);
+  border-color: var(--border, #334155);
+  color: var(--text, #f1f5f9);
+}
+html[data-theme="dark"] .plan-rem-active-plan-badge,
+html[data-theme="oled"] .plan-rem-active-plan-badge {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.3);
+  color: #93c5fd;
+}
+
 </style>
 <script>
 (function(){
@@ -20674,7 +21153,7 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
         <textarea id="celInpStepsText" rows="3" class="cenGoalTextarea" placeholder="1. Przeczytanie materiału do zebrania&#10;2. Wyszukanie wersetów biblijnych&#10;3. Przygotowanie wypowiedzi"></textarea>
       </div>
 
-      <!-- 7. Werset & Kolor akcentu -->
+      <!-- 7. Werset & Termin realizacji -->
       <div class="cenGoalRowTwoCol">
         <div class="cenGoalFieldGroup">
           <label class="cenGoalLabel" for="celInpVerse">
@@ -20687,18 +21166,30 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
           </div>
         </div>
         <div class="cenGoalFieldGroup">
-          <label class="cenGoalLabel">
-            <span>Kolor akcentu</span>
+          <label class="cenGoalLabel" for="celInpDeadline">
+            <span>Termin realizacji</span>
+            <span class="cenGoalLabelHint">Opcjonalnie</span>
           </label>
-          <div class="cenGoalColorsWrap" id="celColorSwatches">
-            <button type="button" class="cenColorDot active" data-color="#3b82f6" style="--c:#3b82f6;" title="Niebieski"></button>
-            <button type="button" class="cenColorDot" data-color="#10b981" style="--c:#10b981;" title="Zielony"></button>
-            <button type="button" class="cenColorDot" data-color="#a855f7" style="--c:#a855f7;" title="Fioletowy"></button>
-            <button type="button" class="cenColorDot" data-color="#f59e0b" style="--c:#f59e0b;" title="Bursztynowy"></button>
-            <button type="button" class="cenColorDot" data-color="#ec4899" style="--c:#ec4899;" title="Różowy"></button>
-            <button type="button" class="cenColorDot" data-color="#06b6d4" style="--c:#06b6d4;" title="Morski"></button>
-            <button type="button" class="cenColorDot" data-color="#ea580c" style="--c:#ea580c;" title="Pomarańczowy"></button>
+          <div class="cenInpWithIco">
+            <span class="cenInpPrefixIco">📅</span>
+            <input type="date" id="celInpDeadline" class="cenGoalInput" />
           </div>
+        </div>
+      </div>
+
+      <!-- 8. Kolor akcentu -->
+      <div class="cenGoalFieldGroup" style="margin-top:10px;">
+        <label class="cenGoalLabel">
+          <span>Kolor akcentu</span>
+        </label>
+        <div class="cenGoalColorsWrap" id="celColorSwatches">
+          <button type="button" class="cenColorDot active" data-color="#3b82f6" style="--c:#3b82f6;" title="Niebieski"></button>
+          <button type="button" class="cenColorDot" data-color="#10b981" style="--c:#10b981;" title="Zielony"></button>
+          <button type="button" class="cenColorDot" data-color="#a855f7" style="--c:#a855f7;" title="Fioletowy"></button>
+          <button type="button" class="cenColorDot" data-color="#f59e0b" style="--c:#f59e0b;" title="Bursztynowy"></button>
+          <button type="button" class="cenColorDot" data-color="#ec4899" style="--c:#ec4899;" title="Różowy"></button>
+          <button type="button" class="cenColorDot" data-color="#06b6d4" style="--c:#06b6d4;" title="Morski"></button>
+          <button type="button" class="cenColorDot" data-color="#ea580c" style="--c:#ea580c;" title="Pomarańczowy"></button>
         </div>
       </div>
     </form>
@@ -20781,6 +21272,32 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
     <div class="cenGoalFooter" style="justify-content:space-between; align-items:center;">
       <button type="button" class="btn" data-zamknij="modalCelTimer">Zamknij</button>
       <button type="button" class="btn primary" id="modalCelTimerZaliczBtn">✓ Zalicz dzisiejszy dzień</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="modalPlanPrzypomnienie" aria-hidden="true">
+  <div class="modal cenGoalModal" role="dialog" aria-modal="true" style="max-width:490px !important; width:min(490px, 95vw) !important;">
+    <div class="cenGoalHeader">
+      <div class="cenGoalHeaderLeft">
+        <div class="cenGoalIconBadge" id="modalPlanRemIconBadge" style="background:rgba(59,130,246,0.12);color:#3b82f6;">🔔</div>
+        <div class="cenGoalHeaderTitles">
+          <span class="cenGoalKicker" style="color:var(--cen-accent, #3b82f6);">✦ PRZYPOMNIENIE O CZYTANIU BIBLII</span>
+          <h3 class="cenGoalTitle">Codzienny nawyk czytania</h3>
+          <p class="cenGoalSubtext">Ustaw godzinę i powiadomienie, aby nie zapomnieć o Słowie Bożym</p>
+        </div>
+      </div>
+      <button type="button" class="exp-close-btn" data-zamknij="modalPlanPrzypomnienie" title="Zamknij">✕</button>
+    </div>
+    <div class="cenGoalBody" style="padding:18px 22px;">
+      <div id="modalPlanRemBody"></div>
+    </div>
+    <div class="cenGoalFooter" style="justify-content:space-between; align-items:center;">
+      <button type="button" class="btn" id="modalPlanRemTestBtn">🔔 Wyślij testowe</button>
+      <div style="display:flex;gap:8px;">
+        <button type="button" class="btn" data-zamknij="modalPlanPrzypomnienie">Anuluj</button>
+        <button type="button" class="btn primary" id="modalPlanRemZapiszBtn">Zapisz ustawienia</button>
+      </div>
     </div>
   </div>
 </div>
@@ -43425,7 +43942,9 @@ const CEN_MODERN_ICO = {
   download: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 4v12M8 12l4 4 4-4M5 18h14"/></svg>',
   upload: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M12 16V4M8 8l4-4 4 4M5 18h14"/></svg>',
   trophy: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H7"/><path d="M14 14.66V17c0 .55.45 1 1 1h2"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>',
-  sparkles: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>'
+  sparkles: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>',
+  bell: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+  bellOff: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M18.63 13A17.89 17.89 0 0 1 18 8"/><path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"/><path d="M18 8a6 6 0 0 0-9.33-5"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'
 };
 
 /* ═══ NOWE MODUŁY I BAZY DANYCH PLANÓW CZYTANIA BIBLII (v3.74) ═══ */
@@ -43897,6 +44416,9 @@ function _centrPobierzUkonczoneDni(planId){
 function _centrZapiszUkonczoneDni(set, planId){
   planId = planId || _centrAktywnyPlanId || "chrono";
   lsSet(KP + "CentrumDniDone_" + planId, JSON.stringify(Array.from(set)));
+  if(set && set.size > 0 && typeof _centrOznaczDzisCzytanieUkonczone === "function"){
+    _centrOznaczDzisCzytanieUkonczone();
+  }
   if(typeof bumpDirty === "function") bumpDirty();
 }
 
@@ -44004,9 +44526,18 @@ function cenGetAudioContext(){
   }
 }
 
+function _centrCzyDzwiekWyciszony(){
+  const val = lsGet("jw_centr_audio_muted", "0");
+  return val === "1" || val === "true" || val === true;
+}
+
+function _centrUstawDzwiekWyciszony(wyciszony){
+  lsSet("jw_centr_audio_muted", wyciszony ? "1" : "0");
+}
+
 function cenPlaySound(type){
   try {
-    if(lsGet("jw_centr_audio_muted", false)) return;
+    if(_centrCzyDzwiekWyciszony()) return;
     const ctx = cenGetAudioContext();
     if(!ctx) return;
     const now = ctx.currentTime;
@@ -45028,6 +45559,35 @@ function _centrZmienMiesiacKalendarza(delta){
   }
 }
 
+function _centrObliczStatusTerminu(deadlineStr, isDone){
+  if(!deadlineStr) return null;
+  const parts = deadlineStr.split("-");
+  if(parts.length !== 3) return null;
+  const target = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+  if(isNaN(target.getTime())) return null;
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const diffMs = target.getTime() - today.getTime();
+  const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
+
+  const displayDate = target.toLocaleDateString("pl-PL", { day: "numeric", month: "short" });
+  if(isDone){
+    return { text: "📅 " + displayDate, color: "#10b981", bg: "rgba(16,185,129,0.12)" };
+  }
+  if(diffDays < 0){
+    const daysLate = Math.abs(diffDays);
+    return { text: "⚠️ " + daysLate + " " + _centrOdmianaDni(daysLate) + " po terminie", color: "#ef4444", bg: "rgba(239,68,68,0.15)" };
+  } else if(diffDays === 0){
+    return { text: "⏰ Dziś termin", color: "#f59e0b", bg: "rgba(245,158,11,0.18)" };
+  } else if(diffDays === 1){
+    return { text: "⏳ Jutro (" + displayDate + ")", color: "#3b82f6", bg: "rgba(59,130,246,0.15)" };
+  } else if(diffDays <= 7){
+    return { text: "⏳ " + diffDays + " " + _centrOdmianaDni(diffDays) + " (" + displayDate + ")", color: "#06b6d4", bg: "rgba(6,182,212,0.12)" };
+  } else {
+    return { text: "📅 " + displayDate, color: "var(--cen-text-muted, #94a3b8)", bg: "rgba(148,163,184,0.12)" };
+  }
+}
+
 function _centrKartaCeluHtml(c){
   const cat = _centrKategorieMap[c.category] || { name: "Cel", icon: "🎯", color: "#3b82f6" };
   const color = c.color || cat.color;
@@ -45216,6 +45776,13 @@ function _centrKartaCeluHtml(c){
     }
   }
 
+  if(c.deadline){
+    const termInfo = _centrObliczStatusTerminu(c.deadline, isDone);
+    if(termInfo){
+      topExtraHtml += '<span class="cenCelHabitCycleBadge" style="color:' + termInfo.color + ';background:' + termInfo.bg + ';font-weight:600;" title="Termin realizacji: ' + esc(c.deadline) + '">' + termInfo.text + '</span>';
+    }
+  }
+
   return '<div class="cenCelCard cenGoalCard' + (isDone ? ' completed done' : '') + '" style="--cel-color:' + color + ';">'
     + '<div class="cenCelTop">'
     + '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">'
@@ -45290,7 +45857,7 @@ function centrWidokCele(tab, cat, q){
     { id: "inne", name: "Inne", icon: "🎯" }
   ];
 
-  const isAudioMuted = !!lsGet("jw_centr_audio_muted", false);
+  const isAudioMuted = _centrCzyDzwiekWyciszony();
 
   return '<div class="cenSubHeader">'
     + '<div class="cenSubHeaderLewo">'
@@ -45300,7 +45867,7 @@ function centrWidokCele(tab, cat, q){
     + '<div class="cenSubPodtytul">Wyznaczaj cele, buduj nawyki i śledź swój wzrost duchowy</div>'
     + '</div></div>'
     + '<div class="cenNaglAkcje">'
-    + '<button type="button" class="cenNaglBtnIko" id="cenBtnPrzelaczDzwiek" title="' + (isAudioMuted ? 'Dźwięki wyłączone — kliknij, aby włączyć' : 'Dźwięki włączone — kliknij, aby wyciszyć') + '" style="font-size:15px;">' + (isAudioMuted ? '🔇' : '🔔') + '</button>'
+    + '<button type="button" class="cenNaglBtnIko' + (isAudioMuted ? ' cenMuted' : '') + '" id="cenBtnPrzelaczDzwiek" title="' + (isAudioMuted ? 'Dźwięki wyciszone — kliknij, aby włączyć' : 'Dźwięki włączone — kliknij, aby wyciszyć') + '">' + (isAudioMuted ? (CEN_MODERN_ICO.bellOff || '🔇') : (CEN_MODERN_ICO.bell || '🔔')) + '</button>'
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="eksport-cele" title="Eksportuj kopię zapasową celów i nawyków (JSON)" style="font-size:14px;">' + CEN_MODERN_ICO.download + '</button>'
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="import-cele" title="Importuj cele i nawyki z pliku JSON" style="font-size:14px;">' + CEN_MODERN_ICO.upload + '</button>'
     + '<button type="button" class="cenFragBtnJW" data-cakcja="szablony-celow" title="Wybierz z katalogu gotowych celów">✨ Szablony celów</button>'
@@ -45450,6 +46017,7 @@ function _centrPokazModalCelu(celIdOrData){
   const inpUnit = $("celInpUnit");
   const inpStepsText = $("celInpStepsText");
   const inpVerse = $("celInpVerse");
+  const inpDeadline = $("celInpDeadline");
   const inpHabitTarget = $("celInpHabitTarget");
   const inpHabitDuration = $("celInpHabitDuration");
   const inpHabitAutoRenew = $("celInpHabitAutoRenew");
@@ -45470,6 +46038,7 @@ function _centrPokazModalCelu(celIdOrData){
       if(inpUnit) inpUnit.value = c.unit || "godz.";
       if(inpStepsText) inpStepsText.value = (c.steps || []).map(s => (typeof s === "string" ? s : s.t)).join("\n");
       if(inpVerse) inpVerse.value = c.verse || "";
+      if(inpDeadline) inpDeadline.value = c.deadline || "";
       if(inpHabitTarget) inpHabitTarget.value = c.habitTarget || 7;
       if(inpHabitDuration) inpHabitDuration.value = c.habitDuration !== undefined ? c.habitDuration : "0";
       if(inpHabitAutoRenew) inpHabitAutoRenew.checked = c.habitAutoRenew !== false;
@@ -45492,6 +46061,7 @@ function _centrPokazModalCelu(celIdOrData){
     if(inpUnit) inpUnit.value = celIdOrData.unit || "godz.";
     if(inpStepsText) inpStepsText.value = (celIdOrData.steps || []).map(s => (typeof s === "string" ? s : s.t)).join("\n");
     if(inpVerse) inpVerse.value = celIdOrData.verse || "";
+    if(inpDeadline) inpDeadline.value = celIdOrData.deadline || "";
     if(inpHabitTarget) inpHabitTarget.value = celIdOrData.habitTarget || 7;
     if(inpHabitDuration) inpHabitDuration.value = celIdOrData.habitDuration !== undefined ? celIdOrData.habitDuration : "0";
     if(inpHabitAutoRenew) inpHabitAutoRenew.checked = celIdOrData.habitAutoRenew !== false;
@@ -45513,6 +46083,7 @@ function _centrPokazModalCelu(celIdOrData){
   if(inpUnit) inpUnit.value = "godz.";
   if(inpStepsText) inpStepsText.value = "";
   if(inpVerse) inpVerse.value = "";
+  if(inpDeadline) inpDeadline.value = "";
   if(inpHabitTarget) inpHabitTarget.value = 7;
   if(inpHabitDuration) inpHabitDuration.value = "0";
   if(inpHabitAutoRenew) inpHabitAutoRenew.checked = true;
@@ -45533,6 +46104,7 @@ function _centrZapiszFormularzCelu(){
   const inpUnit = $("celInpUnit");
   const inpStepsText = $("celInpStepsText");
   const inpVerse = $("celInpVerse");
+  const inpDeadline = $("celInpDeadline");
   const inpColor = $("celInpColor");
   const inpHabitTarget = $("celInpHabitTarget");
   const inpHabitDuration = $("celInpHabitDuration");
@@ -45558,6 +46130,7 @@ function _centrZapiszFormularzCelu(){
     category: inpCat ? inpCat.value : "inne",
     type: typeVal,
     verse: (inpVerse ? inpVerse.value : "").trim(),
+    deadline: (inpDeadline ? inpDeadline.value : "").trim(),
     color: inpColor ? inpColor.value : "#3b82f6"
   };
 
@@ -46433,6 +47006,556 @@ function _centrImportDanych(centrumData, tryb){
   return st;
 }
 
+/* 7b. SYSTEM PRZYPOMNIEŃ O CZYTANIU BIBLII (PlanPrzypomnieniaManager) */
+const JW_PLAN_REM_KEY = "jw_biblia_przypomnienie_cfg";
+const JW_PLAN_REM_LAST_RUN = "jw_biblia_przypomnienie_last_run";
+const JW_PLAN_DZIS_UKONCZONO = "jw_biblia_dzis_ukonczono_data";
+
+const DEFAULT_PLAN_REM_CFG = {
+  enabled: false,
+  time: "20:00",
+  planId: "auto",
+  days: [1, 2, 3, 4, 5, 6, 0], // 1=Pn, 2=Wt, 3=Śr, 4=Cz, 5=Pt, 6=So, 0=Nd
+  browserNotify: true,
+  sound: true,
+  toastNotify: true,
+  smartSkipIfCompleted: true,
+  customMessage: "Czas na codzienne czytanie Biblii! Odkryj duchowe skarby na dzisiejszy dzień 📖✨"
+};
+
+const BIBLE_REMINDER_QUOTES = [
+  { quote: "Rozmyślaj nad nią dniem i nocą, aby pilnie stosować się do wszystkiego", ref: "Jozuego 1:8" },
+  { quote: "Jego upodobaniem jest prawo Jehowy i czyta je półgłosem dniem i nocą", ref: "Psalm 1:2" },
+  { quote: "Twoje słowo jest lampą dla moich stóp i światłem na mojej ścieżce", ref: "Psalm 119:105" },
+  { quote: "Człowiek ma żyć nie samym chlebem, ale każdym słowem pochodzącym z ust Jehowy", ref: "Mateusza 4:4" },
+  { quote: "Całe Pismo jest natchnione przez Boga i pożyteczne do nauczania", ref: "2 Tymoteusza 3:16" },
+  { quote: "Codziennie starannie badali Pisma, czy tak się rzeczy mają", ref: "Dzieje 17:11" }
+];
+
+function _centrPobierzCfgPrzypomnienia(){
+  try {
+    const raw = lsGet(JW_PLAN_REM_KEY, null) || lsGet(KP + "PlanPrzypomnienie", null);
+    if(raw){
+      const parsed = typeof raw === "string" ? JSON.parse(raw) : raw;
+      return Object.assign({}, DEFAULT_PLAN_REM_CFG, parsed);
+    }
+  } catch(e){}
+  return Object.assign({}, DEFAULT_PLAN_REM_CFG);
+}
+
+function _centrZapiszCfgPrzypomnienia(cfg){
+  try {
+    const cleanCfg = Object.assign({}, DEFAULT_PLAN_REM_CFG, cfg);
+    const json = JSON.stringify(cleanCfg);
+    lsSet(JW_PLAN_REM_KEY, json);
+    lsSet(KP + "PlanPrzypomnienie", json);
+    return cleanCfg;
+  } catch(e){
+    return cfg;
+  }
+}
+
+function _centrCzyPrzypomnienieWlaczone(){
+  const cfg = _centrPobierzCfgPrzypomnienia();
+  return !!cfg.enabled;
+}
+
+function _centrOznaczDzisCzytanieUkonczone(){
+  try {
+    const dzis = _centrFormatujDateISO(new Date());
+    lsSet(JW_PLAN_DZIS_UKONCZONO, dzis);
+  } catch(e){}
+}
+
+function _centrCzyDzisUkonczonoCzytanie(planId){
+  try {
+    const dzis = _centrFormatujDateISO(new Date());
+    const oznaczono = lsGet(JW_PLAN_DZIS_UKONCZONO, "");
+    if(oznaczono === dzis) return true;
+
+    planId = planId || _centrAktywnyPlanId || "chrono";
+    const planInfo = _centrPobierzPlanData(planId);
+    if(planInfo){
+      const doneSet = _centrPobierzUkonczoneDni(planInfo.id);
+      if(doneSet && planInfo.days > 0 && doneSet.size >= planInfo.days) return true;
+    }
+    return false;
+  } catch(e){
+    return false;
+  }
+}
+
+function _centrZagrajDzwiekPrzypomnienia(){
+  try {
+    if(_centrCzyDzwiekWyciszony()) return;
+    const ctx = cenGetAudioContext();
+    if(!ctx) return;
+    if(ctx.state === "suspended"){
+      ctx.resume().catch(()=>{});
+    }
+    const now = ctx.currentTime;
+    const tones = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+    tones.forEach((freq, idx) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, now + (idx * 0.08));
+      gain.gain.setValueAtTime(0.0001, now + (idx * 0.08));
+      gain.gain.exponentialRampToValueAtTime(0.12 / (idx + 1), now + (idx * 0.08) + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + (idx * 0.08) + 0.55);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now + (idx * 0.08));
+      osc.stop(now + (idx * 0.08) + 0.6);
+    });
+  } catch(e){}
+}
+
+function _centrWyslijNotyfikacjePrzegladarki(tytul, tresc, planId, curDzien){
+  try {
+    if(!("Notification" in window)) return;
+    if(Notification.permission !== "granted") return;
+    const notif = new Notification(tytul, {
+      body: tresc,
+      icon: "icons/icon-192.png",
+      tag: "jw-study-plan-reminder",
+      renotify: true
+    });
+    notif.onclick = function(){
+      window.focus();
+      try {
+        if(typeof centrumPokaz === "function"){
+          if(planId && planId !== _centrAktywnyPlanId){
+            _centrAktywnyPlanId = planId;
+            lsSet(KP + "CentrumAktywnyPlan", planId);
+          }
+          if(curDzien){
+            _centrWybranyDzien = curDzien;
+            lsSet(KP + "CentrumCurDay", String(curDzien));
+          }
+          centrWidok = "czytanie-chronologiczne";
+          centrumPokaz("czytanie-chronologiczne");
+          if(typeof rysujCentrum === "function") rysujCentrum();
+        }
+      } catch(e){}
+      notif.close();
+    };
+  } catch(e){}
+}
+
+function _centrWyslijPrzypomnienie(opcje){
+  opcje = opcje || {};
+  const isTest = !!opcje.isTest;
+  const cfg = _centrPobierzCfgPrzypomnienia();
+
+  if(!isTest && !cfg.enabled) return;
+
+  const targetPlanId = (cfg.planId && cfg.planId !== "auto") ? cfg.planId : (_centrAktywnyPlanId || "chrono");
+  const planInfo = _centrPobierzPlanData(targetPlanId);
+  const curDzien = _centrWybranyDzien || _centrZnajdzBiezacyDzienPlanu(planInfo.id);
+
+  // Inteligentne pomijanie, jeśli dzisiejsze czytanie jest już ukończone
+  if(!isTest && cfg.smartSkipIfCompleted && _centrCzyDzisUkonczonoCzytanie(targetPlanId)){
+    console.log("[JW-Study Reminder] Pominięto przypomnienie — dzisiejsze czytanie zostało już ukończone.");
+    return;
+  }
+
+  const planDzis = (planInfo.plan || []).find(x => x.d === curDzien) || { d: curDzien, t: "Czytanie biblijne" };
+  const tytul = isTest ? "🔔 Test przypomnienia o czytaniu Biblii" : "📖 Czas na czytanie Biblii (Dzień " + curDzien + ")";
+  const domyslnaTresc = (cfg.customMessage || "Czas na codzienne czytanie Biblii!").trim();
+  const szczegoly = (planInfo.name || "Plan") + " • " + (planDzis.t || ("Dzień " + curDzien));
+  const pelnaTresc = domyslnaTresc + "\n" + szczegoly;
+
+  // 1. Dźwięk
+  if(cfg.sound){
+    _centrZagrajDzwiekPrzypomnienia();
+  }
+
+  // 2. Wewnętrzny Toast w aplikacji
+  if(cfg.toastNotify || isTest){
+    toast(tytul + ": " + szczegoly, "ok");
+  }
+
+  // 3. Web Notification
+  if(cfg.browserNotify){
+    _centrWyslijNotyfikacjePrzegladarki(tytul, pelnaTresc, targetPlanId, curDzien);
+  }
+}
+
+let _centrPlanRemInterval = null;
+
+function _centrSprawdzPrzypomnienieLoop(){
+  try {
+    const cfg = _centrPobierzCfgPrzypomnienia();
+    if(!cfg.enabled) return;
+
+    const now = new Date();
+    const curDay = now.getDay(); // 0 = Nd, 1 = Pn, ..., 6 = So
+    if(!Array.isArray(cfg.days) || !cfg.days.includes(curDay)) return;
+
+    const godz = String(now.getHours()).padStart(2, "0");
+    const min = String(now.getMinutes()).padStart(2, "0");
+    const curTime = godz + ":" + min;
+
+    if(cfg.time !== curTime) return;
+
+    const dzisStr = _centrFormatujDateISO(now);
+    const lastRun = lsGet(JW_PLAN_REM_LAST_RUN, "");
+    if(lastRun === dzisStr) return; // Już wysłano dzisiaj
+
+    lsSet(JW_PLAN_REM_LAST_RUN, dzisStr);
+    _centrWyslijPrzypomnienie({ isTest: false });
+  } catch(e){
+    console.error("[JW-Study Reminder Loop Error]", e);
+  }
+}
+
+function _centrZainicjujPetlePrzypomnien(){
+  if(_centrPlanRemInterval) clearInterval(_centrPlanRemInterval);
+  _centrPlanRemInterval = setInterval(_centrSprawdzPrzypomnienieLoop, 30000); // co 30 sekund
+  _centrSprawdzPrzypomnienieLoop();
+}
+
+function _centrPokazModalPrzypomnienia(){
+  const cfg = _centrPobierzCfgPrzypomnienia();
+  const plany = _centrPobierzPlany();
+  const wybranyPlanId = cfg.planId || "auto";
+  const planInfo = _centrPobierzPlanData(wybranyPlanId !== "auto" ? wybranyPlanId : (_centrAktywnyPlanId || "chrono"));
+  const curDzien = _centrWybranyDzien || _centrZnajdzBiezacyDzienPlanu(planInfo.id);
+
+  const container = $("modalPlanRemBody");
+  if(!container) return;
+
+  const dniTyg = [
+    { d: 1, label: "Pn", title: "Poniedziałek" },
+    { d: 2, label: "Wt", title: "Wtorek" },
+    { d: 3, label: "Śr", title: "Środa" },
+    { d: 4, label: "Cz", title: "Czwartek" },
+    { d: 5, label: "Pt", title: "Piątek" },
+    { d: 6, label: "So", title: "Sobota" },
+    { d: 0, label: "Nd", title: "Niedziela" }
+  ];
+
+  let permBadge = "";
+  if("Notification" in window){
+    if(Notification.permission === "granted"){
+      permBadge = '<span class="plan-rem-badge-perm granted">Udzielono uprawnień ✓</span>';
+    } else if(Notification.permission === "denied"){
+      permBadge = '<span class="plan-rem-badge-perm denied">Zablokowane w przeglądarce ✕</span>';
+    } else {
+      permBadge = '<span class="plan-rem-badge-perm">Wymaga zgody</span> <button type="button" class="plan-rem-perm-btn" id="planRemReqPermBtn">Zezwól</button>';
+    }
+  } else {
+    permBadge = '<span class="plan-rem-badge-perm denied">Brak obsługi w przeglądarce</span>';
+  }
+
+  const html = '<div class="plan-rem-card" style="margin-top:2px;">'
+    + '<div class="plan-rem-toggle-wrap">'
+    + '<div class="plan-rem-toggle-label">'
+    + '<span>Włącz codzienne przypomnienie</span>'
+    + '<span class="plan-rem-toggle-sub">Aktywuj system powiadomień dla planów czytania Biblii</span>'
+    + '</div>'
+    + '<label class="plan-rem-switch">'
+    + '<input type="checkbox" id="planRemToggleInp"' + (cfg.enabled ? ' checked' : '') + '>'
+    + '<span class="plan-rem-slider"></span>'
+    + '</label>'
+    + '</div>'
+    + '</div>'
+
+    + '<div class="plan-rem-card">'
+    + '<div class="plan-rem-sec-title">'
+    + '<span>Wybór planu czytania</span>'
+    + '<span style="font-size:11px;font-weight:normal;text-transform:none;color:var(--cen-text-muted);">Który plan przypominać</span>'
+    + '</div>'
+    + '<select class="plan-rem-time-input" id="planRemPlanInp" style="width:100%;font-size:13px;font-weight:600;padding:8px 10px;text-align:left;">'
+    + '<option value="auto"' + (wybranyPlanId === "auto" ? ' selected' : '') + '>★ Bieżący aktywny plan (' + esc(planInfo.name) + ')</option>'
+    + plany.map(p => '<option value="' + p.id + '"' + (wybranyPlanId === p.id ? ' selected' : '') + '>' + esc(p.name) + ' (' + esc(p.duration || (p.days + ' dni')) + ')' + '</option>').join("")
+    + '</select>'
+    + '<div class="plan-rem-active-plan-badge" style="margin-top:8px;">'
+    + '<span>📖 Powiązany plan: <b>' + esc(planInfo.name) + '</b></span>'
+    + '<span>Bieżący Dzień ' + curDzien + '</span>'
+    + '</div>'
+    + '</div>'
+
+    + '<div class="plan-rem-card">'
+    + '<div class="plan-rem-sec-title">'
+    + '<span>Godzina przypomnienia</span>'
+    + '<span style="font-size:11px;font-weight:normal;text-transform:none;color:var(--cen-text-muted);">Format 24h</span>'
+    + '</div>'
+    + '<div class="plan-rem-time-row">'
+    + '<input type="time" class="plan-rem-time-input" id="planRemTimeInp" value="' + esc(cfg.time || "20:00") + '">'
+    + '<div class="plan-rem-presets-grid">'
+    + '<button type="button" class="plan-rem-preset-btn" data-rem-preset-time="07:00">07:00 🌅 Rano</button>'
+    + '<button type="button" class="plan-rem-preset-btn" data-rem-preset-time="13:00">13:00 ☀️ Południe</button>'
+    + '<button type="button" class="plan-rem-preset-btn" data-rem-preset-time="20:00">20:00 🌙 Wieczór</button>'
+    + '<button type="button" class="plan-rem-preset-btn" data-rem-preset-time="21:30">21:30 🛌 Przed snem</button>'
+    + '</div>'
+    + '</div>'
+    + '</div>'
+
+    + '<div class="plan-rem-card">'
+    + '<div class="plan-rem-sec-title">'
+    + '<span>Dni tygodnia</span>'
+    + '<div style="display:flex;gap:4px;">'
+    + '<button type="button" class="plan-rem-preset-btn" style="padding:2px 6px;font-size:11px;" data-rem-days-quick="all">Codziennie</button>'
+    + '<button type="button" class="plan-rem-preset-btn" style="padding:2px 6px;font-size:11px;" data-rem-days-quick="weekdays">Pn – Pt</button>'
+    + '<button type="button" class="plan-rem-preset-btn" style="padding:2px 6px;font-size:11px;" data-rem-days-quick="weekend">Weekend</button>'
+    + '</div>'
+    + '</div>'
+    + '<div class="plan-rem-days-wrap" id="planRemDaysWrap">'
+    + dniTyg.map(dt => {
+        const sel = Array.isArray(cfg.days) && cfg.days.includes(dt.d);
+        return '<button type="button" class="plan-rem-day-btn' + (sel ? ' active' : '') + '" data-rem-day="' + dt.d + '" title="' + dt.title + '">' + dt.label + '</button>';
+      }).join("")
+    + '</div>'
+    + '</div>'
+
+    + '<div class="plan-rem-card">'
+    + '<div class="plan-rem-sec-title">Kanały powiadomień</div>'
+    + '<div class="plan-rem-channel-item">'
+    + '<div class="plan-rem-channel-info" onclick="const i=$(\'planRemBrowserInp\');if(i)i.click();">'
+    + '<span class="icon">🌐</span>'
+    + '<div>'
+    + '<div>Powiadomienia przeglądarki (Web Push)</div>'
+    + '<div style="margin-top:2px;">' + permBadge + '</div>'
+    + '</div>'
+    + '</div>'
+    + '<label class="plan-rem-switch">'
+    + '<input type="checkbox" id="planRemBrowserInp"' + (cfg.browserNotify ? ' checked' : '') + '>'
+    + '<span class="plan-rem-slider"></span>'
+    + '</label>'
+    + '</div>'
+
+    + '<div class="plan-rem-channel-item">'
+    + '<label class="plan-rem-channel-info" for="planRemSoundInp">'
+    + '<span class="icon">🔔</span>'
+    + '<div>'
+    + '<div>Dźwięk powiadomienia</div>'
+    + '<div style="font-size:11.5px;color:var(--cen-text-muted);">Ciepły, harmoniczny akord harfy</div>'
+    + '</div>'
+    + '</label>'
+    + '<label class="plan-rem-switch">'
+    + '<input type="checkbox" id="planRemSoundInp"' + (cfg.sound ? ' checked' : '') + '>'
+    + '<span class="plan-rem-slider"></span>'
+    + '</label>'
+    + '</div>'
+
+    + '<div class="plan-rem-channel-item">'
+    + '<label class="plan-rem-channel-info" for="planRemToastInp">'
+    + '<span class="icon">💬</span>'
+    + '<div>'
+    + '<div>Baner w aplikacji (Toast)</div>'
+    + '<div style="font-size:11.5px;color:var(--cen-text-muted);">Widoczny komunikat podczas korzystania z programu</div>'
+    + '</div>'
+    + '</label>'
+    + '<label class="plan-rem-switch">'
+    + '<input type="checkbox" id="planRemToastInp"' + (cfg.toastNotify ? ' checked' : '') + '>'
+    + '<span class="plan-rem-slider"></span>'
+    + '</label>'
+    + '</div>'
+
+    + '<div class="plan-rem-channel-item">'
+    + '<label class="plan-rem-channel-info" for="planRemSmartSkipInp">'
+    + '<span class="icon">✨</span>'
+    + '<div>'
+    + '<div>Inteligentne wyciszanie</div>'
+    + '<div style="font-size:11.5px;color:var(--cen-text-muted);">Pomiń przypomnienie, gdy dzisiejsze czytanie jest już przeczytane</div>'
+    + '</div>'
+    + '</label>'
+    + '<label class="plan-rem-switch">'
+    + '<input type="checkbox" id="planRemSmartSkipInp"' + (cfg.smartSkipIfCompleted ? ' checked' : '') + '>'
+    + '<span class="plan-rem-slider"></span>'
+    + '</label>'
+    + '</div>'
+    + '</div>'
+
+    + '<div class="plan-rem-card" style="margin-bottom:0;">'
+    + '<div class="plan-rem-sec-title">Treść przypomnienia</div>'
+    + '<textarea class="plan-rem-msg-input" id="planRemMsgInp" rows="2" placeholder="Wpisz treść motywacyjną...">' + esc(cfg.customMessage || "") + '</textarea>'
+    + '<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:4px;">'
+    + '<span style="font-size:11px;color:var(--cen-text-muted);display:block;width:100%;margin-bottom:2px;">Wstaw werset motywacyjny:</span>'
+    + BIBLE_REMINDER_QUOTES.map(bq => '<button type="button" class="plan-rem-quote-chip" data-rem-quote="' + esc(bq.quote + ' (' + bq.ref + ')') + '">📜 ' + esc(bq.ref) + '</button>').join("")
+    + '</div>'
+    + '</div>';
+
+  container.innerHTML = html;
+  _centrInicjujZdarzeniaModalaPrzypomnienia();
+  openModal("modalPlanPrzypomnienie");
+}
+
+function _centrInicjujZdarzeniaModalaPrzypomnienia(){
+  const modal = $("modalPlanPrzypomnienie");
+  if(!modal || modal.dataset.remBound === "true") return;
+  modal.dataset.remBound = "true";
+
+  modal.addEventListener("click", function(ev){
+    // Zapisz ustawienia
+    if(ev.target.closest("#modalPlanRemZapiszBtn")){
+      _centrZapiszModalPrzypomnienia();
+      return;
+    }
+    // Wyślij testowe
+    if(ev.target.closest("#modalPlanRemTestBtn")){
+      _centrPrzetestujPrzypomnienie();
+      return;
+    }
+    // Szybkie presety godziny
+    const presetBtn = ev.target.closest("[data-rem-preset-time]");
+    if(presetBtn){
+      const timeInp = $("planRemTimeInp");
+      if(timeInp) timeInp.value = presetBtn.dataset.remPresetTime;
+      return;
+    }
+    // Szybkie presety dni tygodnia
+    const quickDaysBtn = ev.target.closest("[data-rem-days-quick]");
+    if(quickDaysBtn){
+      const mode = quickDaysBtn.dataset.remDaysQuick;
+      const dayBtns = modal.querySelectorAll(".plan-rem-day-btn");
+      dayBtns.forEach(b => {
+        const d = parseInt(b.dataset.remDay, 10);
+        if(mode === "all") b.classList.add("active");
+        else if(mode === "weekdays") b.classList.toggle("active", d >= 1 && d <= 5);
+        else if(mode === "weekend") b.classList.toggle("active", d === 0 || d === 6);
+      });
+      return;
+    }
+    // Przełączanie poszczególnych dni tygodnia
+    const dayBtn = ev.target.closest(".plan-rem-day-btn");
+    if(dayBtn){
+      dayBtn.classList.toggle("active");
+      const activeBtns = modal.querySelectorAll(".plan-rem-day-btn.active");
+      if(activeBtns.length === 0){
+        dayBtn.classList.add("active"); // zapobiegaj odznaczeniu wszystkich
+      }
+      return;
+    }
+    // Wstawianie cytatu motywacyjnego do pola tekstowego
+    const quoteBtn = ev.target.closest("[data-rem-quote]");
+    if(quoteBtn){
+      const msgInp = $("planRemMsgInp");
+      if(msgInp){
+        msgInp.value = quoteBtn.dataset.remQuote;
+        msgInp.focus();
+      }
+      return;
+    }
+    // Prośba o uprawnienia Web Push
+    const permBtn = ev.target.closest("#planRemReqPermBtn, .plan-rem-perm-btn");
+    if(permBtn){
+      if("Notification" in window){
+        Notification.requestPermission().then(() => {
+          if(typeof _centrPokazModalPrzypomnienia === "function") _centrPokazModalPrzypomnienia();
+        });
+      }
+      return;
+    }
+  });
+
+  modal.addEventListener("change", function(ev){
+    if(ev.target && ev.target.id === "planRemPlanInp"){
+      const targetPlanId = (ev.target.value && ev.target.value !== "auto") ? ev.target.value : (_centrAktywnyPlanId || "chrono");
+      const pInfo = _centrPobierzPlanData(targetPlanId);
+      const dCur = _centrWybranyDzien || _centrZnajdzBiezacyDzienPlanu(pInfo.id);
+      const badge = modal.querySelector(".plan-rem-active-plan-badge");
+      if(badge){
+        badge.innerHTML = "<span>📖 Powiązany plan: <b>" + esc(pInfo.name) + "</b></span><span>Bieżący Dzień " + dCur + "</span>";
+      }
+    }
+  });
+}
+
+function _centrPobierzWartosciZModalaPrzypomnienia(){
+  const enabledInp = $("planRemToggleInp");
+  const timeInp = $("planRemTimeInp");
+  const planInp = $("planRemPlanInp");
+  const browserInp = $("planRemBrowserInp");
+  const soundInp = $("planRemSoundInp");
+  const toastInp = $("planRemToastInp");
+  const smartSkipInp = $("planRemSmartSkipInp");
+  const msgInp = $("planRemMsgInp");
+
+  const dayBtns = document.querySelectorAll("#planRemDaysWrap .plan-rem-day-btn.active");
+  const days = Array.from(dayBtns).map(b => parseInt(b.dataset.remDay, 10));
+
+  return {
+    enabled: enabledInp ? !!enabledInp.checked : false,
+    time: timeInp && timeInp.value ? timeInp.value : "20:00",
+    planId: planInp && planInp.value ? planInp.value : "auto",
+    days: days.length > 0 ? days : [1, 2, 3, 4, 5, 6, 0],
+    browserNotify: browserInp ? !!browserInp.checked : true,
+    sound: soundInp ? !!soundInp.checked : true,
+    toastNotify: toastInp ? !!toastInp.checked : true,
+    smartSkipIfCompleted: smartSkipInp ? !!smartSkipInp.checked : true,
+    customMessage: msgInp ? msgInp.value.trim() : ""
+  };
+}
+
+function _centrZapiszModalPrzypomnienia(){
+  const cfg = _centrPobierzWartosciZModalaPrzypomnienia();
+  _centrZapiszCfgPrzypomnienia(cfg);
+  if(typeof _centrZainicjujPetlePrzypomnien === "function"){
+    _centrZainicjujPetlePrzypomnien();
+  }
+  closeModal("modalPlanPrzypomnienie");
+  toast(cfg.enabled ? ("✓ Zapisano przypomnienia o czytaniu (" + cfg.time + ")") : "Zapisano ustawienia (przypomnienie wyłączone)", "ok");
+  if(typeof rysujCentrum === "function") rysujCentrum();
+}
+
+function _centrOtworzModalPrzypomnienia(){
+  _centrPokazModalPrzypomnienia();
+}
+
+function _centrZamknijModalPrzypomnienia(){
+  closeModal("modalPlanPrzypomnienie");
+}
+
+function _centrPrzetestujPrzypomnienie(){
+  const cfg = _centrPobierzWartosciZModalaPrzypomnienia();
+  _centrZapiszCfgPrzypomnienia(cfg);
+  if(cfg.browserNotify && "Notification" in window && Notification.permission === "default"){
+    Notification.requestPermission().then(() => {
+      _centrWyslijPrzypomnienie({ isTest: true });
+      if(typeof _centrPokazModalPrzypomnienia === "function") _centrPokazModalPrzypomnienia();
+    });
+  } else {
+    _centrWyslijPrzypomnienie({ isTest: true });
+  }
+}
+
+const PlanPrzypomnieniaManager = {
+  pobierz: _centrPobierzCfgPrzypomnienia,
+  zapisz: _centrZapiszCfgPrzypomnienia,
+  czyWlaczone: _centrCzyPrzypomnienieWlaczone,
+  otworzModal: _centrPokazModalPrzypomnienia,
+  pokazModal: _centrPokazModalPrzypomnienia,
+  zamknijModal: _centrZamknijModalPrzypomnienia,
+  zapiszModal: _centrZapiszModalPrzypomnienia,
+  wyslijTest: _centrPrzetestujPrzypomnienie,
+  wyslij: _centrWyslijPrzypomnienie,
+  grajDzwiek: _centrZagrajDzwiekPrzypomnienia,
+  inicjalizuj: _centrZainicjujPetlePrzypomnien,
+  sprawdzPrzypomnienie: _centrSprawdzPrzypomnienieLoop,
+  poprosOPozwolenie: async function(){
+    if(!("Notification" in window)) return "unsupported";
+    try {
+      const p = await Notification.requestPermission();
+      return p;
+    } catch(e){
+      return Notification.permission;
+    }
+  }
+};
+window.PlanPrzypomnieniaManager = PlanPrzypomnieniaManager;
+window._centrOtworzModalPrzypomnienia = _centrPokazModalPrzypomnienia;
+window._centrPokazModalPrzypomnienia = _centrPokazModalPrzypomnienia;
+window._centrZamknijModalPrzypomnienia = _centrZamknijModalPrzypomnienia;
+window._centrZapiszModalPrzypomnienia = _centrZapiszModalPrzypomnienia;
+window._centrPrzetestujPrzypomnienie = _centrPrzetestujPrzypomnienie;
+try {
+  _centrInicjujZdarzeniaModalaPrzypomnienia();
+  _centrZainicjujPetlePrzypomnien();
+} catch(e){}
+
 /* 8. Drzewo Wzrostu Duchowego / Czytania (Psalm 1:3) */
 function _centrPobierzEtapDrzewa(doneCount, totalDni){
   doneCount = doneCount || 0;
@@ -47045,6 +48168,7 @@ function centrWidokCzytanieChrono(){
     + '</div></div>'
     + '<div style="display:flex;align-items:center;gap:8px;">'
     + '<button type="button" class="cenHeroChangePlanBtn" data-cwidok="moje-plany" title="Przełącz plan czytania">Zmień plan (' + esc(planInfo.duration || (planInfo.days + ' dni')) + ') ▾</button>'
+    + '<button type="button" class="cenNaglBtnIko" data-cakcja="przypomnienie-planu" title="Przypomnienia o czytaniu Biblii" style="position:relative;">' + (CEN_MODERN_ICO.bell || '🔔') + (_centrCzyPrzypomnienieWlaczone() ? '<span class="plan-rem-active-dot" title="Przypomnienie aktywne"></span>' : '') + '</button>'
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="ustawienia-planu" title="Wybór i ustawienia planów">' + CEN_MODERN_ICO.gear + '</button>'
     + '</div></div>'
 
@@ -47077,6 +48201,7 @@ function centrWidokCzytanieChrono(){
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="lista-dni">' + CEN_MODERN_ICO.list + '<span>Lista dni</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki">' + CEN_MODERN_ICO.chart + '<span>Statystyki</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki" data-cstat-tab="drzewo">🌱 <span>Drzewo</span></button>'
+    + '<button type="button" class="cenChronoAkcjaBtn" data-cakcja="przypomnienie-planu" title="Przypomnienia o czytaniu Biblii" style="position:relative;">' + (CEN_MODERN_ICO.bell || '🔔') + '<span>Przypomnij' + (_centrCzyPrzypomnienieWlaczone() ? ' •' : '') + '</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="moje-plany">' + CEN_MODERN_ICO.clipboard + '<span>Zmień plan</span></button>'
     + '</div>'
 
@@ -47123,6 +48248,7 @@ function centrWidokDzien(dNr){
     + '<div class="cenSubPodtytul">' + (plan.f ? plan.f.length : 0) + ' fragmenty • ' + esc(plan.t) + '</div>'
     + '</div></div>'
     + '<div class="cenNaglAkcje">'
+    + '<button type="button" class="cenNaglBtnIko" data-cakcja="przypomnienie-planu" title="Przypomnienia o czytaniu Biblii" style="position:relative;">' + (CEN_MODERN_ICO.bell || '🔔') + (_centrCzyPrzypomnienieWlaczone() ? '<span class="plan-rem-active-dot" title="Przypomnienie aktywne"></span>' : '') + '</button>'
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="notatka-dnia" title="Dodaj notatkę">' + CEN_MODERN_ICO.note + '</button>'
     + '</div></div>'
 
@@ -47186,10 +48312,12 @@ function centrWidokListaDni(filtr, szukaj){
     + '<div class="cenSubTytul">Lista dni czytania</div>'
     + '<div class="cenSubPodtytul">' + esc(planInfo.name) + ' • ' + planList.length + ' dni</div>'
     + '</div></div>'
+    + '<div class="cenNaglAkcje" style="display:flex;align-items:center;gap:8px;">'
     + '<div style="position:relative;">'
     + '<input type="text" id="cenSzukajDniInp" class="cenSearchInp" placeholder="Szukaj dnia, wersetu..." value="' + esc(_centrListaSzukaj||'') + '">'
     + '</div>'
-    + '</div>'
+    + '<button type="button" class="cenNaglBtnIko" data-cakcja="przypomnienie-planu" title="Przypomnienia o czytaniu Biblii" style="position:relative;">' + (CEN_MODERN_ICO.bell || '🔔') + (_centrCzyPrzypomnienieWlaczone() ? '<span class="plan-rem-active-dot" title="Przypomnienie aktywne"></span>' : '') + '</button>'
+    + '</div></div>'
 
     + '<div class="cenTabsRow">'
     + '<button type="button" class="cenTabBtn' + (filtr==="wszystkie"?' active':'') + '" data-clista-tab="wszystkie">Wszystkie (' + planList.length + ')</button>'
@@ -47253,7 +48381,9 @@ function centrWidokStatystyki(tab){
     + '<div class="cenSubTytul">Statystyki i postęp</div>'
     + '<div class="cenSubPodtytul">' + esc(planInfo.name) + ' • ' + doneCount + ' z ' + totalDni + ' dni (' + pctStr + '%)</div>'
     + '</div></div>'
-    + '</div>'
+    + '<div class="cenNaglAkcje">'
+    + '<button type="button" class="cenNaglBtnIko" data-cakcja="przypomnienie-planu" title="Przypomnienia o czytaniu Biblii" style="position:relative;">' + (CEN_MODERN_ICO.bell || '🔔') + (_centrCzyPrzypomnienieWlaczone() ? '<span class="plan-rem-active-dot" title="Przypomnienie aktywne"></span>' : '') + '</button>'
+    + '</div></div>'
     + '<div class="cenTabsRow">'
     + '<button type="button" class="cenTabBtn' + (tab==="ogolny"?' active':'') + '" data-cstat-tab="ogolny">Ogólny</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="drzewo"?' active':'') + '" data-cstat-tab="drzewo">🌳 Drzewo wzrostu</button>'
@@ -47404,6 +48534,7 @@ function centrWidokMojePlany(tab){
     + '<div class="cenSubPodtytul">Wybierz lub skonfiguruj plan czytania</div>'
     + '</div></div>'
     + '<div class="cenNaglAkcje">'
+    + '<button type="button" class="cenNaglBtnIko" data-cakcja="przypomnienie-planu" title="Przypomnienia o czytaniu Biblii" style="position:relative;">' + (CEN_MODERN_ICO.bell || '🔔') + (_centrCzyPrzypomnienieWlaczone() ? '<span class="plan-rem-active-dot" title="Przypomnienie aktywne"></span>' : '') + '</button>'
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="nowy-plan" title="Dodaj własny plan czytania">' + CEN_MODERN_ICO.plus + '</button>'
     + '</div></div>'
 
@@ -49424,6 +50555,7 @@ if($("centrum")){
           if(allDone && !dni.has(d)){
             dni.add(d);
             _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
+            if(typeof _centrOznaczDzisCzytanieUkonczone === "function") _centrOznaczDzisCzytanieUkonczone();
             toast("🎉 Wspaniale! Ukończono wszystkie fragmenty na Dzień " + d + "!", "ok");
             if(d < planInfo.days){
               _centrWybranyDzien = d + 1;
@@ -49459,6 +50591,7 @@ if($("centrum")){
       } else {
         dni.add(d);
         _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
+        if(typeof _centrOznaczDzisCzytanieUkonczone === "function") _centrOznaczDzisCzytanieUkonczone();
         if(planDay){
           const fragi = _centrPobierzUkonczoneFragi();
           planDay.f.forEach((_, idx) => fragi.add(_centrAktywnyPlanId + "_" + d + "_" + idx));
@@ -49513,6 +50646,7 @@ if($("centrum")){
             if(allDone && !dni.has(d)){
               dni.add(d);
               _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
+              if(typeof _centrOznaczDzisCzytanieUkonczone === "function") _centrOznaczDzisCzytanieUkonczone();
               toast("🎉 Wspaniale! Ukończono wszystkie fragmenty na Dzień " + d + "!", "ok");
               if(d < planInfo.days){
                 _centrWybranyDzien = d + 1;
@@ -49831,6 +50965,10 @@ if($("centrum")){
         rysujCentrum();
         const _cu = $("centrum"); if(_cu) _cu.scrollTop = 0;
       }
+      // Przypomnienia o planie czytania
+      if(akcja.dataset.cakcja === "przypomnienie-planu"){
+        if(typeof _centrPokazModalPrzypomnienia === "function") _centrPokazModalPrzypomnienia();
+      }
       // Nowy cel duchowy
       if(akcja.dataset.cakcja === "nowy-cel"){
         if(typeof _centrPokazModalCelu === "function") _centrPokazModalCelu();
@@ -50080,9 +51218,10 @@ if($("centrum")){
 
     const btnDzwiek = ev.target.closest("#cenBtnPrzelaczDzwiek");
     if(btnDzwiek){
-      const curMuted = !!lsGet("jw_centr_audio_muted", false);
-      lsSet("jw_centr_audio_muted", !curMuted);
-      if(!curMuted){
+      const curMuted = _centrCzyDzwiekWyciszony();
+      const nowyStan = !curMuted;
+      _centrUstawDzwiekWyciszony(nowyStan);
+      if(nowyStan){
         toast("Wyciszono dźwięki celów i nawyków", "info");
       } else {
         toast("Włączono dźwięki celów i nawyków", "info");
