@@ -13339,135 +13339,6 @@ label.roz-opcja .roz-data:empty{ display:none; }
   color:var(--muted); margin-bottom:4px;
 }
 
-/* ══════════════ MAPA TEMATÓW (v2.62) ══════════════
-
-   Okno na cały ekran, dwie kolumny: drzewo i notatki wybranego miejsca.
-   Wzoruje się na oknie czytnika, bo to ten sam rodzaj ekranu — coś, w czym
-   się przebywa, a nie coś, co się odklika. Stąd przyklejony nagłówek
-   i przewijanie osobno w każdej kolumnie: przewijanie całości znaczyłoby,
-   że drzewo ucieka w górę, gdy szukasz notatki na dole listy. */
-#modalMapa .mapamodal{
-  width:min(100vw - 32px, 1280px); max-width:none;
-  height:min(100vh - 32px, 900px); max-height:100%;
-  display:flex; flex-direction:column; padding:0; overflow:hidden;
-}
-#modalMapa .mapaHead{
-  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-  padding:12px 14px; border-bottom:1px solid var(--border);
-  background:var(--panel); position:sticky; top:0; z-index:2; margin:0;
-}
-#modalMapa .mapaHead h3{ margin:0; flex:0 0 auto; }
-#modalMapa #mapaSzukaj{
-  flex:1 1 160px; min-width:120px;
-  padding:8px 12px; border:1px solid var(--border); border-radius:20px;
-  background:var(--bg); color:var(--text); font-size:calc(13.5px * var(--ui,1));
-}
-#modalMapa .mapaHead .btn{ flex:0 0 auto; }
-
-#modalMapa .mapaCialo{
-  flex:1 1 auto; min-height:0;
-  display:grid; grid-template-columns:minmax(240px, 320px) 1fr;
-}
-#modalMapa .mapaLewa{
-  display:flex; flex-direction:column; min-height:0;
-  border-right:1px solid var(--border); background:var(--bg);
-}
-#modalMapa #mapaDrzewo{ flex:1 1 auto; min-height:0; overflow:auto; padding:8px; }
-/* (stopka mapy odeszła w 2.72 — podsumowanie stoi teraz w nagłówku strony) */
-#modalMapa .mapaPrawa{ min-height:0; overflow:auto; padding:14px 16px; }
-
-/* ——— drzewo ——— */
-#modalMapa .mapaGrupa{ margin-bottom:10px; }
-#modalMapa .mapaTemat,
-#modalMapa .mapaPod{
-  display:flex; align-items:center; gap:7px;
-  padding:7px 9px; border-radius:9px; cursor:pointer;
-  border:1.5px solid transparent;
-}
-/* Temat główny wielkimi literami — tak jak w Twoim przykładzie WIARA.
-   Nie chodzi o krzyk, a o to, żeby poziom był widoczny bez czytania wcięcia. */
-#modalMapa .mapaTemat{
-  font-weight:700; font-size:calc(13px * var(--ui,1));
-  letter-spacing:.04em; text-transform:uppercase;
-}
-#modalMapa .mapaPod{
-  margin-left:14px; font-size:calc(13.5px * var(--ui,1));
-}
-#modalMapa .mapaTemat:hover,
-#modalMapa .mapaPod:hover{ background:var(--sel); }
-#modalMapa .mapaTemat.wybrany,
-#modalMapa .mapaPod.wybrany{ background:var(--sel); border-color:var(--accent2); }
-#modalMapa .mapaTemat:focus-visible,
-#modalMapa .mapaPod:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
-#modalMapa .mapaNazwa{ flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-#modalMapa .mapaStrzalka{ flex:0 0 auto; color:var(--muted); }
-#modalMapa .mapaKropka{ flex:0 0 auto; width:9px; height:9px; border-radius:50%; }
-#modalMapa .mapaPasek{ flex:0 0 auto; width:4px; height:15px; border-radius:2px; }
-#modalMapa .mapaIle{
-  flex:0 0 auto; font-weight:600; font-size:11.5px; color:var(--muted);
-  text-transform:none; letter-spacing:0; font-variant-numeric:tabular-nums;
-}
-#modalMapa .mapaTemat.wybrany .mapaIle,
-#modalMapa .mapaPod.wybrany .mapaIle{ color:var(--accent); }
-#modalMapa .mapaMenu{
-  flex:0 0 auto; background:none; border:none; padding:2px; cursor:pointer;
-  color:var(--muted); border-radius:6px; opacity:0; transition:opacity .12s;
-}
-#modalMapa .mapaTemat:hover .mapaMenu,
-#modalMapa .mapaPod:hover .mapaMenu,
-#modalMapa .mapaMenu:focus-visible{ opacity:1; }
-/* Na dotyku nie ma zdarzenia „myszka nad" — menu musi być widoczne od razu,
-   inaczej na iPadzie nie da się go w ogóle otworzyć. */
-@media (hover: none){ #modalMapa .mapaMenu{ opacity:.7; } }
-#modalMapa .mapaBez{ text-transform:none; letter-spacing:0; font-weight:600; color:var(--muted); }
-
-/* ——— prawa strona ——— */
-#modalMapa .mapaNagl{ display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
-#modalMapa .mapaNagl h3{ margin:0; }
-#modalMapa .mapaNaglIle{ color:var(--muted); font-size:12.5px; flex:1 1 auto; }
-#modalMapa .mapaChipy{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
-#modalMapa .mapaChip{
-  display:inline-flex; align-items:center; gap:6px;
-  padding:5px 11px; border:1px solid var(--border); border-radius:20px;
-  background:var(--panel); color:var(--text); cursor:pointer; font-size:12.5px;
-}
-#modalMapa .mapaChip:hover{ background:var(--sel); border-color:var(--accent2); }
-#modalMapa .mapaLista{ display:flex; flex-direction:column; gap:2px; }
-#modalMapa .mapaWiersz{
-  display:grid; grid-template-columns:1fr auto; gap:1px 10px;
-  text-align:left; width:100%; cursor:pointer;
-  padding:9px 11px; border:1px solid transparent; border-radius:10px;
-  background:none; color:var(--text); font:inherit;
-}
-#modalMapa .mapaWiersz:hover{ background:var(--sel); border-color:var(--border); }
-#modalMapa .mapaTyt{ grid-column:1; font-weight:600; font-size:calc(14px * var(--ui,1)); }
-#modalMapa .mapaGdzie{ grid-column:2; grid-row:1; font-size:11.5px; color:var(--accent); white-space:nowrap; }
-#modalMapa .mapaSkrot{
-  grid-column:1 / -1; font-size:12.5px; color:var(--muted); line-height:1.45;
-  overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
-}
-#modalMapa .mapaWiecej{ text-align:center; padding:14px 0 4px; }
-#modalMapa .mapaPusto{ color:var(--muted); font-size:13px; line-height:1.6; padding:12px 10px; }
-#modalMapa .mapaZacheta{ max-width:46ch; }
-
-/* Telefon: jedna kolumna. Drzewo na górze, z ograniczoną wysokością, notatki
-   pod nim — bo przy 320 px na dwie kolumny nie ma czego dzielić. */
-@media (max-width:760px){
-  #modalMapa .mapamodal{ width:100vw; height:100vh; border-radius:0; }
-  #modalMapa .mapaCialo{ grid-template-columns:1fr; grid-template-rows:auto 1fr; }
-  #modalMapa .mapaLewa{ border-right:none; border-bottom:1px solid var(--border); max-height:42vh; }
-  #modalMapa .mapaPrawa{ padding:12px; }
-}
-/* Nagłówek mapy na telefonie: tytuł i ✕ w pierwszym rzędzie, szukanie na całą
-   szerokość w drugim. Bez tego ✕ lądowało obok „+ Nowy temat" w drugim rzędzie,
-   czyli najdalej od miejsca, w którym oko szuka wyjścia. */
-@media (max-width:760px){
-  #modalMapa .mapaHead h3{ order:1; }
-  #modalMapa .mapaHead [data-zamknij]{ order:2; margin-left:auto; }
-  #modalMapa #mapaSzukaj{ order:3; flex:1 1 100%; }
-  #modalMapa #mapaNowyTemat{ order:4; }
-}
-
 /* ══════════════ CENTRUM STUDIUM — WYGLĄD (v2.63) ══════════════
 
    CO BYŁO NIE TAK
@@ -14007,15 +13878,16 @@ html[data-theme="dark"] .cenHeroBtn{ color:#0f1a16; }
 }
 html[data-theme="dark"]{
   --kaf-notatki:#5fd0a0; --kaf-wersety:#6bb2ff;
-  --kaf-tematy:#e8a33d;  --kaf-ulubione:#b18cf0;
+  --kaf-tematy:#e8a33d;  --kaf-etykiety:#e8a33d; --kaf-ulubione:#b18cf0;
 }
 html[data-theme="sepia"]{
   --kaf-notatki:#0a5233; --kaf-wersety:#0d4c78;
-  --kaf-tematy:#9c5a00;  --kaf-ulubione:#4c1f86;
+  --kaf-tematy:#9c5a00;  --kaf-etykiety:#9c5a00; --kaf-ulubione:#4c1f86;
 }
 .cenKafel[data-cstat="notatki"]{  --kafK:var(--kaf-notatki); }
 .cenKafel[data-cstat="wersety"]{  --kafK:var(--kaf-wersety); }
-.cenKafel[data-cstat="tematy"]{   --kafK:var(--kaf-tematy); }
+.cenKafel[data-cstat="tematy"],
+.cenKafel[data-cstat="etykiety"]{ --kafK:var(--kaf-etykiety, var(--kaf-tematy)); }
 .cenKafel[data-cstat="ulubione"]{ --kafK:var(--kaf-ulubione); }
 .cenStat .cenKafel{
   background:color-mix(in srgb, var(--kafK, var(--accent)) var(--tintTlo), var(--panel));
@@ -14248,205 +14120,6 @@ html[data-theme="sepia"]{ --cenSerce:#a83232; }
    — sam `#noteList` by go nie przebił. */
 #noteList,
 #noteList.v-tablica{ padding-bottom:40px; }
-
-
-/* ══════════════ MAPA TEMATÓW JAKO STRONA (v2.72) ══════════════
-
-   Mapa była OKNEM DIALOGOWYM: pływająca karta 1280×900 na przyciemnionym tle,
-   z krzyżykiem w rogu. Okno dialogowe mówi „zrób jedną rzecz i wróć" — a mapa
-   jest miejscem, w którym się siedzi i chodzi po tematach. Teraz jest stroną:
-   pełne okno, własny nagłówek, przycisk powrotu zamiast krzyżyka, bez ramki
-   i bez przyciemnienia pod spodem.
-
-   Zostaje w tym samym mechanizmie okien (openModal/closeModal), bo to on
-   trzyma Escape, ognisko klawiatury i powrót do miejsca, z którego się przyszło.
-   Zmienia się wygląd, nie sposób otwierania. */
-#modalMapa{
-  /* iOS w trybie „z ekranu początkowego” rysuje stronę także pod paskiem
-     statusu. Sama pozycja fixed nie wystarcza — bez tych odstępów nagłówek
-     mapy zaczynał się pod godziną i ikonami systemowymi.  Padding należy do
-     nakładki (a nie do nagłówka), dzięki czemu bezpieczne są też boki i dół
-     w poziomie, na iPhonie oraz iPadzie. */
-  background:var(--bg); backdrop-filter:none;
-  padding:env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
-          env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
-}
-#modalMapa .mapamodal{
-  width:100%; max-width:none; height:100%; max-height:100dvh;
-  border:0; border-radius:0; box-shadow:none; background:transparent;
-}
-/* ——— nagłówek strony ——— */
-#modalMapa .mapaHead{
-  gap:12px; padding:12px 18px;
-  background:var(--panel);
-  border-bottom:1px solid var(--border);
-}
-#modalMapa .mapaWroc{
-  display:inline-flex; align-items:center; gap:5px; flex:0 0 auto;
-  padding:7px 13px 7px 9px;
-}
-#modalMapa .mapaWroc .ic{ width:16px; height:16px; }
-#modalMapa .mapaTytul{ display:flex; flex-direction:column; gap:1px; flex:0 0 auto; margin-right:4px; }
-#modalMapa .mapaTytul b{ font-size:calc(19px * var(--uiw, 1)); letter-spacing:-.015em; }
-#modalMapa .mapaTytul span{ font-size:calc(12px * var(--uiw, 1)); color:var(--muted); }
-#modalMapa .mapaCialo{ background:var(--bg); }
-#modalMapa .mapaLewa{ background:var(--panel); }
-/* Mapa jest pełną stroną: w trybie nocnym przestrzeń między kartami ma być
-   prawdziwie ciemna, niezależnie od aktywnej pastelowej kompozycji. */
-html[data-theme="dark"] #modalMapa,
-html[data-theme="dark"] #modalMapa .mapaCialo{ background:#111114; }
-
-/* ══════════════ SIATKA KART TEMATÓW ══════════════ */
-#modalMapa .mapaWstep{ padding:18px 20px 4px; max-width:70ch; }
-#modalMapa .mapaWstep h3{ margin:0 0 6px; font-size:calc(16px * var(--uiw, 1)); }
-#modalMapa .mapaWstep p{ margin:0; font-size:calc(13px * var(--uiw, 1)); line-height:1.55; color:var(--muted); }
-#modalMapa .mapaKarty{
-  display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
-  /* `stretch`, nie `start`: karty w jednym wierszu mają równą wysokość,
-     a plakietki podtematów są dosunięte do dołu (`margin-top:auto` niżej).
-     Dzięki temu dolne krawędzie kart i ostatnie wiersze plakietek układają
-     się w jedną linię, zamiast kończyć się w siedmiu różnych miejscach. */
-  gap:12px; padding:16px 20px 40px; align-items:stretch;
-}
-#modalMapa .mapaKarta{
-  position:relative; overflow:hidden;
-  display:flex; flex-direction:column; gap:5px; align-items:flex-start;
-  text-align:left; cursor:pointer;
-  padding:16px 14px 13px; border-radius:16px;
-  border:1px solid var(--border); background:var(--panel); color:var(--text);
-  box-shadow:0 1px 2px rgba(0,0,0,.05);
-  /* Przejście dotyczy TYLKO ruchu i cienia. Kolorów nie animujemy —
-     przy zmianie motywu dawałoby to falę przebarwień przez całą stronę. */
-  transition:transform .22s cubic-bezier(.22,.8,.28,1),
-             box-shadow .22s cubic-bezier(.22,.8,.28,1);
-}
-#modalMapa .mapaKartaGora{
-  position:absolute; left:0; right:0; top:0; height:3px; background:var(--kolT, var(--accent));
-}
-#modalMapa .mapaKartaTyt{
-  font-size:calc(15px * var(--uiw, 1)); font-weight:700; line-height:1.25;
-  overflow-wrap:anywhere;
-}
-#modalMapa .mapaKartaIle{ display:flex; align-items:baseline; gap:6px; }
-#modalMapa .mapaKartaIle b{
-  font-size:calc(26px * var(--uiw, 1)); font-weight:800; line-height:1.05;
-  letter-spacing:-.02em; color:var(--kolT, var(--accent)); font-variant-numeric:tabular-nums;
-}
-#modalMapa .mapaKartaIle{ font-size:calc(12px * var(--uiw, 1)); color:var(--muted); }
-/* Udział tematu w całości. „75" i „14" to dwie liczby; pasek mówi, że jedno
-   jest połową wszystkiego, a drugie marginesem. */
-#modalMapa .mapaKartaPasek{
-  display:block; width:100%; height:5px; margin:3px 0 1px;
-  border-radius:9px; background:var(--border); overflow:hidden;
-}
-#modalMapa .mapaKartaPasek i{ display:block; height:100%; border-radius:9px; background:var(--kolT, var(--accent)); }
-#modalMapa .mapaKartaUdzial,
-#modalMapa .mapaKartaBrak{ font-size:calc(10.5px * var(--uiw, 1)); color:var(--muted); }
-#modalMapa .mapaKartaChipy{ display:flex; flex-wrap:wrap; gap:4px; margin-top:auto; padding-top:6px; }
-#modalMapa .mapaKartaChip{
-  display:inline-flex; align-items:center; gap:5px;
-  padding:2px 8px; border-radius:20px;
-  background:var(--sel); font-size:calc(10.5px * var(--uiw, 1));
-}
-#modalMapa .mapaKartaChip i{ font-style:normal; color:var(--muted); font-variant-numeric:tabular-nums; }
-#modalMapa .mapaKartaWiecej{ color:var(--muted); }
-
-/* Droga powrotna z tematu do siatki kart. Osobny wiersz nad tytułem — tam,
-   gdzie w każdej aplikacji siedzi „wstecz", czyli w lewym górnym rogu tego,
-   co się właśnie ogląda. */
-#modalMapa .mapaDoKart{
-  flex:1 1 100%; align-self:flex-start;
-  display:inline-flex; align-items:center; gap:4px;
-  margin:0 0 2px; padding:2px 0;
-  background:none; border:0; cursor:pointer;
-  color:var(--muted); font-weight:600;
-  font-size:calc(12.5px * var(--uiw, 1));
-}
-#modalMapa .mapaDoKart:hover{ color:var(--accent); }
-#modalMapa .mapaDoKart:focus-visible{
-  outline:2px solid var(--accent); outline-offset:3px; border-radius:6px;
-}
-
-/* ══════════════ ANIMACJE — BARDZO DELIKATNE ══════════════
-
-   Dwie i tylko dwie.
-
-   1. WEJŚCIE. Karty pojawiają się po kolei: pierwsza od razu, każda następna
-      45 ms później. Ruch to 8 px w górę i przejście z przezroczystości —
-      tyle, żeby oko zauważyło porządek, za mało, żeby na to czekać.
-      Opóźnienie ma GÓRNĄ GRANICĘ (`min`): przy dwudziestu tematach ostatnia
-      karta czekałaby prawie sekundę, a to już nie jest delikatność.
-
-   2. NACIŚNIĘCIE. Karta unosi się o 1,5 % i dostaje mocniejszy cień. Skala
-      celowo mała: przy 1,05 karta zaczyna zasłaniać sąsiadki i widać, że coś
-      „skacze". Cień robi tu więcej niż sama skala — to on daje wrażenie
-      podniesienia.
-
-   Obie ustępują przy `prefers-reduced-motion` — całkowicie, nie „szybciej". */
-@keyframes mapaWejscie{
-  from{ opacity:0; transform:translateY(8px) scale(.985); }
-  to{   opacity:1; transform:none; }
-}
-#modalMapa .mapaKarta{
-  /* `backwards`, nie `both`. Przy `both` animacja TRZYMA swoją ostatnią klatkę
-     (`transform:none`) także po zakończeniu, a klatka animacji wygrywa w kaskadzie
-     ze zwykłą regułą — przez co `.klik{ transform:scale(1.015) }` w ogóle się nie
-     pokazywało. `backwards` daje stan początkowy na czas opóźnienia i oddaje
-     `transform` z powrotem kaskadzie, gdy wejście się skończy. */
-  animation:mapaWejscie .34s cubic-bezier(.22,.8,.28,1) backwards;
-  animation-delay:min(calc(var(--i, 0) * 45ms), 400ms);
-}
-#modalMapa .mapaKarta:hover{
-  box-shadow:0 6px 18px rgba(0,0,0,.10);
-  transform:translateY(-1px);
-}
-#modalMapa .mapaKarta:focus-visible{ outline:2px solid var(--kolT, var(--accent)); outline-offset:2px; }
-#modalMapa .mapaKarta.klik{
-  transform:scale(1.015);
-  box-shadow:0 14px 34px rgba(0,0,0,.18);
-}
-/* Wstęp nad kartami wchodzi jako pierwszy — to on jest „kartą główną”,
-   od której zaczyna się porządek pojawiania. */
-#modalMapa .mapaWstep{ animation:mapaWejscie .3s cubic-bezier(.22,.8,.28,1) backwards; }
-
-@media (prefers-reduced-motion:reduce){
-  #modalMapa .mapaKarta,
-  #modalMapa .mapaWstep{ animation:none; }
-  #modalMapa .mapaKarta{ transition:none; }
-  #modalMapa .mapaKarta.klik{ transform:none; }
-}
-
-@media (max-width:768px){
-  #modalMapa .mapaHead{ padding:10px 12px; }
-  #modalMapa .mapaTytul b{ font-size:calc(17px * var(--uiw, 1)); }
-  #modalMapa .mapaKarty{ grid-template-columns:1fr; padding:12px 12px 40px; gap:10px; }
-  #modalMapa .mapaWstep{ padding:14px 14px 2px; }
-
-  /* „Wróć" wraca na swoje miejsce — pierwszy element od lewej. Stara reguła
-     z czasów okna modalnego (`[data-zamknij]{ order:2; margin-left:auto }`)
-     wypychała je na prawy skraj, obok tytułu; w oknie z ✕ to było poprawne,
-     na stronie z przyciskiem powrotu — nie. Selektor musi być mocniejszy
-     od tamtego, stąd nazwa klasy i atrybut razem. */
-  #modalMapa .mapaHead .mapaWroc[data-zamknij]{ order:0; margin-left:0; }
-  #modalMapa .mapaTytul{ order:1; }
-}
-
-/* Ten sam próg co stary układ telefonu (760 px) — inaczej między 761 a 768 px
-   siatka dostałaby wiersze bez kolumn. */
-@media (max-width:760px){
-  /* Na telefonie karty tematów idą PRZED drzewem. Drzewo ma tu kilkanaście
-     wierszy — gdyby zostało na górze, karty (czyli to, po co się wchodzi na
-     mapę) zaczynałyby się poniżej pierwszego ekranu. */
-  #modalMapa .mapaCialo{ grid-template-rows:1fr auto; }
-  #modalMapa .mapaPrawa{ order:1; }
-  #modalMapa .mapaLewa{
-    order:2; border-bottom:none; border-top:1px solid var(--border);
-    max-height:32vh;   /* drzewo jest tu dodatkiem, nie głównym widokiem */
-  }
-  /* Szukanie i „+ Nowy temat" w jednym rzędzie zamiast w dwóch — nagłówek
-     schodzi ze 147 px do jednego rzędu mniej, a to na telefonie cały akapit. */
-  #modalMapa #mapaSzukaj{ flex:1 1 140px; }
-}
 
 /* ══════════════ POZYCJA MENU BEZ TREŚCI (v2.77) ══════════════
 
@@ -14936,39 +14609,6 @@ body.centrum-open #centrum{ padding-top:10px; }
   .cenHeroStud .cenHeroTresc{ padding-right:0; }
   .cenHeroStud .cenHeroObraz{ display:none; }
   .cenHeroPas{ padding-right:86px; }
-}
-
-/* Telefon: jeden przewijany obszar zamiast dwóch okien przewijanych w sobie.
-   Nagłówek ma trzy stabilne rzędy, więc pole szukania i przyciski się nie mieszają. */
-@media (max-width:760px){
-  #modalMapa .mapamodal{ height:100dvh; overflow:hidden; }
-  #modalMapa .mapaHead{
-    display:grid; grid-template-columns:auto minmax(0,1fr);
-    grid-template-rows:auto auto auto; gap:8px; align-items:center;
-    flex:0 0 auto; padding:9px 10px;
-  }
-  #modalMapa .mapaHead .mapaWroc[data-zamknij]{ grid-column:1; grid-row:1; order:0; margin:0; }
-  #modalMapa .mapaTytul{ grid-column:2; grid-row:1; order:0; min-width:0; margin:0; }
-  #modalMapa .mapaTytul b,#modalMapa .mapaTytul span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  #modalMapa #mapaSzukaj{ grid-column:1 / -1; grid-row:2; order:0; width:100%; min-width:0; }
-  #modalMapa #mapaNowyTemat{ grid-column:1 / -1; grid-row:3; order:0; width:100%; justify-content:center; }
-  #modalMapa .mapaCialo{
-    display:flex; flex-direction:column; min-height:0;
-    overflow-y:auto; overflow-x:hidden;
-  }
-  #modalMapa .mapaPrawa{ order:1; flex:0 0 auto; min-height:auto; overflow:visible; padding:10px; }
-  #modalMapa .mapaLewa{
-    order:2; flex:0 0 auto; min-height:auto; max-height:none;
-    overflow:visible; border-right:0; border-bottom:0; border-top:1px solid var(--border);
-  }
-  #modalMapa #mapaDrzewo{ min-height:auto; max-height:none; overflow:visible; padding:8px; }
-  #modalMapa .mapaKarty{ grid-template-columns:minmax(0,1fr); padding:10px 2px 22px; }
-  #modalMapa .mapaWstep{ padding:10px 2px 4px; }
-  #modalMapa .mapaNagl{ align-items:flex-start; }
-  #modalMapa .mapaWiersz{ grid-template-columns:minmax(0,1fr); gap:3px; }
-  #modalMapa .mapaTyt,#modalMapa .mapaGdzie,#modalMapa .mapaSkrot{ grid-column:1; }
-  #modalMapa .mapaGdzie{ grid-row:2; white-space:normal; }
-  #modalMapa .mapaSkrot{ grid-row:3; }
 }
 
 /* ══════════════ DOPRACOWANIE CZYTNIKA I EDYTORA (v2.92) ══════════════ */
@@ -15787,7 +15427,7 @@ html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
     display: block !important;
   }
 
-  .modal:not(.mapamodal):not(.fsmodal) {
+  .modal:not(.fsmodal) {
     width: 100vw !important;
     max-width: 100vw !important;
     border-radius: 24px 24px 0 0 !important;
@@ -15858,7 +15498,6 @@ body.modal-open {
 .modal,
 .askbox,
 .import-box,
-.mapamodal,
 .trashmodal,
 .cenGoalModal,
 .hb-modal,
@@ -15873,9 +15512,7 @@ body.modal-open {
 .smart-modal,
 .cenLista,
 #centrumLista,
-.modern-sidebar-body,
-#modalMapa .mapaPrawa,
-#modalMapa .mapaLewa {
+.modern-sidebar-body {
   -webkit-overflow-scrolling: touch !important;
   overscroll-behavior-y: contain;
 }
@@ -18883,7 +18520,7 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
 }
 
 /* 5. Okna dialogowe i modale */
-.modal, .smart-modal, .exp-modal, .gran-modal, .bezp-modal, .search-modal, .export-search-modal, .mapamodal, .nn-modal {
+.modal, .smart-modal, .exp-modal, .gran-modal, .bezp-modal, .search-modal, .export-search-modal, .nn-modal {
   max-width: min(100vw - 16px, 94vw) !important;
   box-sizing: border-box !important;
 }
@@ -18966,10 +18603,6 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
       <button class="sidebar-nav-item" id="navItemCentrum" title="Centrum Studium (H)">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M10 20v-5.5h4V20"/></svg>
         <span>Centrum Studium</span>
-      </button>
-      <button class="sidebar-nav-item" id="navItemMapa" title="Mapa tematów (M)">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 5.5h5"/><path d="M4.5 5.5v13h5"/><path d="M13 5.5h6.5"/><path d="M13 12h6.5"/><path d="M13 18.5h6.5"/></svg>
-        <span>Mapa tematów</span>
       </button>
       <button class="sidebar-nav-item" id="navItemTags" data-col="colTags" title="Kategorie i etykiety">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
@@ -19057,7 +18690,6 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
   <!-- Niewidoczne elementy proxy podtrzymujące zgodność skryptów -->
   <div style="display:none;" aria-hidden="true">
     <button id="btnCentrum"></button>
-    <button id="btnMapa"></button>
     <button id="btnSettings"></button>
     <button id="btnTheme"></button>
     <button id="btnCols"></button>
@@ -19300,26 +18932,6 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
   </div>
 </div>
 <button id="readExit"><svg class="ic mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 19.5h3.6L19 8.6a1.9 1.9 0 0 0-2.7-2.7L5.2 17z"/><path d="M14.8 7.4l2.7 2.7"/></svg> Pokaż narzędzia</button>
-
-<!-- MAPA TEMATÓW. Stoi PRZED oknem czytnika, żeby czytnik otwarty z mapy
-     rysował się NAD nią: po zamknięciu notatki wracasz do tego samego tematu.
-     Wyjaśnienie całości w js/56-mapa.js. -->
-<div class="overlay" id="modalMapa">
-  <div class="modal mapamodal" role="dialog" aria-label="Mapa tematów">
-    <div class="nn-head mapaHead">
-      <button class="btn mapaWroc" type="button" data-zamknij="modalMapa" aria-label="Wróć do notatek"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg><span>Wróć</span></button>
-      <div class="mapaTytul"><b>Mapa tematów</b><span id="mapaPodsum"></span></div>
-      <input id="mapaSzukaj" type="search" autocomplete="off" placeholder="Szukaj tematu…" aria-label="Szukaj tematu">
-      <button class="btn" type="button" id="mapaNowyTemat">+ Nowy temat</button>
-    </div>
-    <div class="mapaCialo">
-      <div class="mapaLewa">
-        <div id="mapaDrzewo" role="tree" aria-label="Drzewo tematów"></div>
-      </div>
-      <div class="mapaPrawa" id="mapaTresc"></div>
-    </div>
-  </div>
-</div>
 
 <div class="overlay" id="modalFs">
   <div class="fsmodal">
@@ -20120,15 +19732,6 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
       <div class="help-row"><span class="help-ic">✚</span><div><b>Nowa notatka</b> — dodaj notatkę i (opcjonalnie) przypnij do konkretnego wersetu.</div></div>
       <div class="help-row"><span class="help-ic">📄</span><div><b>Inteligentny import dokumentów</b> — wybierz <b>Plik → Inteligentny import</b>, aby dodać PDF, pliki Word <code>.docx</code>, zdjęcia lub zrzuty ekranu. PDF-y z tekstem są czytane bez OCR, a skany i obrazy rozpoznawane po polsku lokalnie na urządzeniu. Możesz utworzyć jedną notatkę z pliku albo podzielić dokument według nagłówków i stron. Przed zapisem zawsze zobaczysz podgląd i możesz odznaczyć wybrane części.</div></div>
       <div class="help-row"><span class="help-ic">📌</span><div><b>Przypnij</b> ważne notatki — zawsze będą na górze listy.</div></div>
-      <div class="help-row"><span class="help-ic">🗺️</span><div><b>Mapa tematów</b> — przycisk w pasku górnym albo klawisz <kbd>M</kbd>.<br>
-        Osobista encyklopedia: po lewej drzewo tematów, po prawej notatki wybranego miejsca.
-        <div class="help-steps">
-          <div class="help-step"><span class="hs-n">1</span><div><b>Temat główny to sekcja</b>, <b>podtemat to etykieta</b> — mapa nie ma własnych danych, więc działa od pierwszego otwarcia na etykietach, które już masz. Nic nie trzeba przepisywać.</div></div>
-          <div class="help-step"><span class="hs-n">2</span><div>Kliknięcie tematu (np. <b>WIARA</b>) pokazuje notatki ze <b>wszystkich jego podtematów naraz</b>. Kliknięcie podtematu zawęża do niego.</div></div>
-          <div class="help-step"><span class="hs-n">3</span><div>Porządkujesz na miejscu: <b>+ Nowy temat</b>, a przy podtemacie <b>⋯ → Przenieś do tematu</b>. To ten sam ruch co <b>⋯ → Sekcja</b> przy etykiecie, tylko tu widać, gdzie co wyląduje.</div></div>
-        </div>
-        <div class="help-tip">Licznik przy temacie to <b>liczba notatek</b>, nie suma podtematów — notatka z etykietami „Ufność" i „Modlitwa" liczy się w WIERZE raz.</div>
-      </div></div>
       <div class="help-row"><span class="help-ic">📁</span><div><b>Sekcje etykiet</b> — gdy masz dużo etykiet, pogrupuj je: <b>📁 Nowa sekcja</b> (np. „Kongresy”), potem przy etykiecie <b>⋯ → Sekcja</b>. Sekcje zwijasz kliknięciem w nagłówek.</div></div>
       <div class="help-row"><span class="help-ic">📖</span><div><b>Czytnik</b> (notatka na pełnym ekranie): pokazuje postęp i zapamiętuje miejsce. <b>Spis</b> prowadzi do nagłówków, <b>Znajdź</b> szuka w bieżącej notatce, a <b>Zakładki</b> zapisują dowolne miejsca w długim tekście. W <b>Aa</b> ustawisz osobne tło czytnika (dzień, sepia lub noc), tryb skupienia, opcjonalny gest między notatkami i niewygaszanie ekranu.</div></div>
       <div class="help-row"><span class="help-ic">✍️</span><div><b>W edycji</b>: przycisk <b>＋</b> wstawia odnośnik do wersetu, <b>przypis</b>, cytat, listę zadań, <b>tabelę</b> i <b>szablon notatki</b>; ikona <b>🎨</b> to zakreślacz (7 kolorów) i kolor czcionki; w menu <b>⋯</b> jest <b>Znajdź i zamień</b> oraz <b>Historia wersji</b> (do 50 wersji).</div></div>
@@ -24004,9 +23607,8 @@ function noteMatchesTag(n,t){
      oraz te noszące którąkolwiek z etykiet przypisanych do tej zakładki. */
   if(typeof t==="string" && t.indexOf("stb:")===0)
     return typeof notatkaWZakladce==="function" && notatkaWZakladce(n, +t.slice(4));
-  /* „sec:<id>" — CAŁY TEMAT z mapy tematów (56-mapa.js): notatki noszące
-     którąkolwiek etykietę należącą do tej sekcji. Bez tego z mapy dałoby się
-     pokazać na liście tylko jeden podtemat, a nie temat jako całość. */
+  /* „sec:<id>" — CAŁY TEMAT: notatki noszące którąkolwiek etykietę
+     należącą do tej sekcji. */
   if(typeof t==="string" && t.indexOf("sec:")===0){
     const sek = +t.slice(4);
     return n.tg.some(id=>{
@@ -36965,7 +36567,6 @@ function openSettings(){
          <div><kbd>0</kbd><span>wszystkie notatki — zdejmuje szukanie i filtry</span></div>
          <div><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd><span>chowanie kolumn: Biblia / Etykiety / Publikacje</span></div>
          <div><kbd>H</kbd><span>Centrum studium / lista notatek</span></div>
-         <div><kbd>M</kbd><span>Mapa tematów</span></div>
          <div><kbd>,</kbd><span>ustawienia</span></div>
          <div><kbd>?</kbd><span>ta lista</span></div>
          <div><kbd>←</kbd> <kbd>→</kbd><span>poprzednia / następna notatka w czytniku</span></div>
@@ -39745,12 +39346,6 @@ function szukajWszedzie(){
     const sel = $("sortSel");
     if(sel && [...sel.options].some(o=>o.value === "mod")){ sel.value = "mod"; lsSet(KP + "Sort", "mod"); }
     zdjete = true;
-  }
-  /* Mapa tematów jest osobną stroną na całe okno — z ⌘F można ją wywołać
-     także stamtąd. Skoro szukamy po wszystkim, wracamy do listy notatek. */
-  if(typeof zamknijMape === "function"){
-    const m = $("modalMapa");
-    if(m && m.classList.contains("show")) zamknijMape();
   }
   const bylCentrum = (typeof centrumWidoczne === "function") && centrumWidoczne();
   if(bylCentrum && typeof centrumSchowaj === "function") centrumSchowaj();
@@ -45940,13 +45535,6 @@ function centrPoDacie(pole){
 }
 /**
  * Odmiana liczebnika: 1 notatka, 2 notatki, 5 notatek.
- *
- * Ta sama reguła siedzi w mapie tematów (mapaOdmiana), ale Centrum ma własną
- * kopię z powodu KOLEJNOŚCI WCZYTYWANIA: mapa jedzie w module 56, Centrum
- * w 52, a rysowanie Centrum rusza z `setTimeout(…, 0)` zaraz po module 52.
- * Przeglądarka może wykonać taki licznik pomiędzy dwoma znacznikami <script>,
- * więc funkcja z 56 bywa jeszcze nieznana — i naprawdę bywała: pierwsze
- * rysowanie panelu leciało wtedy na „mapaOdmiana is not defined".
  */
 function centrOdmiana(n, jeden, dwa, wiele){
   const x = Math.abs(n) % 100, y = Math.abs(n) % 10;
@@ -46915,8 +46503,8 @@ function centrTwojeStudium(){
        wersety", zeby dwie rozne rzeczy nie mialy tego samego rysunku. */
     + centrStatKafel("wersety", CEN_IKO.czyt, s.wersetow,
         centrOdmiana(s.wersetow, "werset", "wersety", "wersetów"), s.wersDelta)
-    + centrStatKafel("tematy", CEN_IKO.etyk, s.tematow,
-        centrOdmiana(s.tematow, "temat", "tematy", "tematów"), s.tagDelta)
+    + centrStatKafel("etykiety", CEN_IKO.etyk, s.tematow,
+        centrOdmiana(s.tematow, "etykieta", "etykiety", "etykiet"), s.tagDelta)
     + centrStatKafel("ulubione", CEN_IKO.gwiazd, s.ulubione,
         centrOdmiana(s.ulubione, "ulubiona", "ulubione", "ulubionych"), s.ulubioneNowe)
     + '</div>'
@@ -48138,7 +47726,12 @@ if($("centrum")){
       else if(co === "wersety") ustawSort("bible");
       else if(co === "publikacje") ustawSort("pub");
       else if(co === "ulubione" && typeof quickFilter !== "undefined") quickFilter = "fav";
-      else if(co === "tematy" && typeof otworzMape === "function"){ otworzMape(); return; }
+      else if(co === "etykiety" || co === "tematy"){
+        centrumSchowaj();
+        if(typeof setCollapsed === "function") setCollapsed("colTags", false);
+        if(innerWidth <= 900 && typeof mobileShow === "function") mobileShow("colTags");
+        return;
+      }
       centrumSchowaj();
       if(innerWidth <= 900 && typeof mobileShow === "function") mobileShow("colNotes");
       return;
@@ -51341,14 +50934,6 @@ document.addEventListener("keydown", e=>{
     if(centrumWidoczne()) centrumSchowaj(); else centrumPokaz();
     return;
   }
-  /* M jak „mapa" — mapa tematów (56-mapa.js). Litera wolna: N nowa notatka,
-     E edycja, F ulubione, P przypięcie, H Centrum. */
-  if(k==="m" && typeof otworzMape==="function"){
-    e.preventDefault();
-    const okno = $("modalMapa");
-    if(okno && okno.classList.contains("show")) zamknijMape(); else otworzMape();
-    return;
-  }
   if(k==="n"){ e.preventDefault(); $("btnNew").click(); return; }
   if(k==="f"){ const n=currentNote(); if(n){ e.preventDefault(); toggleFav(n); } return; }
   if(k==="p"){ const n=currentNote(); if(n){ e.preventDefault(); togglePin(n); } return; }
@@ -51617,7 +51202,6 @@ document.querySelector(".searchHelp").appendChild(helpMore);
   const btnNewNote = document.getElementById("sidebarBtnNew");
   const navNotes = document.getElementById("navItemNotes");
   const navCentrum = document.getElementById("navItemCentrum");
-  const navMapa = document.getElementById("navItemMapa");
   const navTags = document.getElementById("navItemTags");
   const navBooks = document.getElementById("navItemBooks");
   const navPubs = document.getElementById("navItemPubs");
@@ -51783,16 +51367,6 @@ document.querySelector(".searchHelp").appendChild(helpMore);
       if (typeof centrumPokaz === "function") {
         centrumPokaz();
       }
-    });
-  }
-
-  if (navMapa) {
-    navMapa.addEventListener("click", () => {
-      closeCentrumIfOpen();
-      const btnM = document.getElementById("btnMapa");
-      if (btnM) btnM.click();
-      else if (typeof otworzMape === "function") otworzMape();
-      updateSidebarActiveStates();
     });
   }
 
