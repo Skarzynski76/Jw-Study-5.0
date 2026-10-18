@@ -11723,20 +11723,32 @@ header #btnWszystkie{ flex:0 1 auto; max-width:230px; overflow:hidden; }
      to pierwszy rząd karteczek chował się pod paskiem zaraz po otwarciu. */
   padding:calc(10px + var(--wysPaska, 0px)) 14px 40px;
 }
+#noteList.v-tablica[data-kol="2"],
+#noteList.v-tablica[style*="--kolTablicy: 2"],
+#noteList.v-tablica[style*="--kolTablicy:2"]{
+  grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+}
+#noteList.v-tablica[data-kol="3"],
+#noteList.v-tablica[style*="--kolTablicy: 3"],
+#noteList.v-tablica[style*="--kolTablicy:3"]{
+  grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
+}
+#noteList.v-tablica[data-kol="4"],
+#noteList.v-tablica[style*="--kolTablicy: 4"],
+#noteList.v-tablica[style*="--kolTablicy:4"]{
+  grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
+}
+#noteList.v-tablica[data-kol="5"],
+#noteList.v-tablica[style*="--kolTablicy: 5"],
+#noteList.v-tablica[style*="--kolTablicy:5"]{
+  grid-template-columns:repeat(5, minmax(0, 1fr)) !important;
+}
+#noteList.v-tablica[data-kol="auto"],
 #noteList.v-tablica[style*="--kolTablicy: 0"],
-#noteList.v-tablica:not([style*="--kolTablicy"]){
-  /* Przy dopasowaniu automatycznym szerokość karteczki idzie za jej wielkością:
-     bardzo małe mieszczą się gęściej, bardzo duże dostają więcej miejsca.
-
-     GÓRNA GRANICA JEST NA KOLUMNIE, NIE NA KARCIE (v2.67). Do 2.66 kolumna
-     rosła do `1fr`, a karta w środku miała `max-width` i `justify-items:center`
-     — czyli kolumna zostawała szeroka, karta wąska, a różnica robiła się PRZERWĄ
-     między kolumnami. Zamknięcie zakresu w samej ścieżce siatki daje ten sam
-     efekt (karteczki nie skaczą przy zmianie szerokości okna), ale nadmiar
-     zostaje na zewnątrz rzędu, nie w środku. `justify-content:center` rozkłada
-     ten nadmiar po równo na oba marginesy. */
+#noteList.v-tablica[style*="--kolTablicy:0"],
+#noteList.v-tablica:not([data-kol]):not([style*="--kolTablicy"]){
   grid-template-columns:repeat(auto-fill,
-    minmax(var(--kartaMin, 190px), calc(var(--kartaMin, 190px) * 1.45)));
+    minmax(var(--kartaMin, 190px), 1fr));
   justify-content:center;
 }
 #noteList.v-tablica .ncard{
@@ -19559,11 +19571,52 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
   min-width: 0 !important;
   box-sizing: border-box !important;
   display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--kartaMin, 220px)), 1fr)) !important;
   gap: 12px !important;
 }
 
-@container notatki (max-width: 500px) {
+body:not(.centrum-open) #noteList.v-tablica[data-kol="auto"]:not([hidden]),
+body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy: 0"]:not([hidden]),
+body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy:0"]:not([hidden]),
+body:not(.centrum-open) #noteList.v-tablica:not([data-kol]):not([style*="--kolTablicy"]):not([hidden]) {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--kartaMin, 190px)), 1fr)) !important;
+}
+
+body:not(.centrum-open) #noteList.v-tablica[data-kol="2"]:not([hidden]),
+body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy: 2"]:not([hidden]),
+body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy:2"]:not([hidden]) {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+body:not(.centrum-open) #noteList.v-tablica[data-kol="3"]:not([hidden]),
+body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy: 3"]:not([hidden]),
+body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy:3"]:not([hidden]) {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+body:not(.centrum-open) #noteList.v-tablica[data-kol="4"]:not([hidden]),
+body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy: 4"]:not([hidden]),
+body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy:4"]:not([hidden]) {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+body:not(.centrum-open) #noteList.v-tablica[data-kol="5"]:not([hidden]),
+body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy: 5"]:not([hidden]),
+body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy:5"]:not([hidden]) {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+}
+
+@container notatki (max-width: 480px) {
+  body:not(.centrum-open) #noteList.v-tablica[data-kol="3"]:not([hidden]),
+  body:not(.centrum-open) #noteList.v-tablica[data-kol="4"]:not([hidden]),
+  body:not(.centrum-open) #noteList.v-tablica[data-kol="5"]:not([hidden]),
+  body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy: 3"]:not([hidden]),
+  body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy: 4"]:not([hidden]),
+  body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy: 5"]:not([hidden]),
+  body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy:3"]:not([hidden]),
+  body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy:4"]:not([hidden]),
+  body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy:5"]:not([hidden]) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+}
+@container notatki (max-width: 340px) {
   body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
     grid-template-columns: 1fr !important;
     gap: 8px !important;
@@ -19576,6 +19629,14 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
   box-sizing: border-box !important;
   word-break: break-word !important;
   overflow-wrap: break-word !important;
+}
+#noteList.v-tablica .ncard:not(.wydobyta) {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+#noteList.v-tablica .ncard.wydobyta {
+  max-width: none !important;
+  max-height: none !important;
 }
 
 .ncard .ntitle,
@@ -26332,7 +26393,11 @@ function applyNoteView(){
   const el=$("noteList"); if(!el) return;
   el.classList.remove("v-list","v-medium","v-compact","v-tablica");
   el.classList.add("v-"+noteView);
-  if(typeof zastosujKolumnyTablicy==="function") zastosujKolumnyTablicy();
+  if(noteView === "tablica"){
+    if(typeof zastosujKolumnyTablicy==="function") zastosujKolumnyTablicy();
+  } else {
+    el.removeAttribute("data-kol");
+  }
   if(typeof odswiezWyborKolumn==="function") odswiezWyborKolumn();
   document.querySelectorAll("#viewBar .vb").forEach(b=>{
     const wlaczony = b.dataset.view===noteView;
@@ -42046,34 +42111,25 @@ function zastosujKolumnyTablicy(){
   const n = Number(tablicaKol);
   /* Zero oznacza „dopasuj sam" — wtedy siatka sama liczy, ile kart się zmieści. */
   el.style.setProperty("--kolTablicy", isFinite(n) && n ? String(n) : "0");
+  el.setAttribute("data-kol", String(tablicaKol));
   const r = TABLICA_ROZMIARY[tablicaRozmiar] || TABLICA_ROZMIARY.m;
   el.style.setProperty("--kartaWys", r.wys + "px");
   el.style.setProperty("--kartaMin", r.min + "px");
 }
 function ustawRozmiarTablicy(v){
   if(!TABLICA_ROZMIARY[v]) return;
+  if(typeof schowajKarteczke === "function") schowajKarteczke(true);
   tablicaRozmiar = v;
   lsSet(KP+"Rozmiar", v);
-  if($("rozmiarTablicy")){
-  $("rozmiarTablicy").addEventListener("change", e=>{
-    ustawRozmiarTablicy(e.target.value);
-    const r = TABLICA_ROZMIARY[e.target.value];
-    toastOk("Karteczki: " + (r ? r.nazwa.toLowerCase() : e.target.value));
-  });
-}
-zastosujKolumnyTablicy();
+  zastosujKolumnyTablicy();
+  if(typeof odswiezWyborKolumn === "function") odswiezWyborKolumn();
 }
 function ustawKolumnyTablicy(v){
+  if(typeof schowajKarteczke === "function") schowajKarteczke(true);
   tablicaKol = v;
   lsSet(KP+"Kolumny", String(v));
-  if($("rozmiarTablicy")){
-  $("rozmiarTablicy").addEventListener("change", e=>{
-    ustawRozmiarTablicy(e.target.value);
-    const r = TABLICA_ROZMIARY[e.target.value];
-    toastOk("Karteczki: " + (r ? r.nazwa.toLowerCase() : e.target.value));
-  });
-}
-zastosujKolumnyTablicy();
+  zastosujKolumnyTablicy();
+  if(typeof odswiezWyborKolumn === "function") odswiezWyborKolumn();
 }
 
 /* ===== WŁASNE TŁO NOTATKI =====
@@ -42294,7 +42350,8 @@ if($("kolTablicy")){
   $("kolTablicy").addEventListener("change", e=>{
     ustawKolumnyTablicy(e.target.value);
     toastOk(e.target.value==="auto" ? "Liczba karteczek dopasowana do ekranu"
-                                    : e.target.value+" karteczki w rzędzie");
+            : e.target.value==="5" ? "5 karteczek w rzędzie"
+            : e.target.value+" karteczki w rzędzie");
   });
 }
 if($("rozmiarTablicy")){
@@ -42305,6 +42362,7 @@ if($("rozmiarTablicy")){
   });
 }
 zastosujKolumnyTablicy();
+odswiezWyborKolumn();
 
 </script>
 <script>
