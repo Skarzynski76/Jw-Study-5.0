@@ -1,6 +1,6 @@
 /* JW Study — Service Worker (Obsługa trybu offline) */
 const CACHE_PREFIX = 'jwstudy-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + 'v531';
+const CACHE = CACHE_PREFIX + 'v534';
 
 const CORE = [
   './index.html',
@@ -29,7 +29,7 @@ self.addEventListener('message', e=>{
 });
 
 self.addEventListener('install', e=>{
-  self.skipWaiting();
+  // Usunięto bezwarunkowe self.skipWaiting() — nowa wersja czeka na zatwierdzenie przez użytkownika w pasku #nowaWersja
   e.waitUntil(caches.open(CACHE).then(async c=>{
     // Główny dokument index.html
     try{
@@ -67,7 +67,7 @@ self.addEventListener('fetch', e=>{
   const req = e.request, url = new URL(req.url), scope = new URL(self.registration.scope);
   if(req.method !== 'GET' || url.origin !== scope.origin || !url.pathname.startsWith(scope.pathname)) return;
 
-  // Dokumenty HTML — najpierw sieć, a w razie braku sieci natychmiast cache
+  // 1. Dokumenty HTML — najpierw sieć (Network First), a w razie braku sieci natychmiast cache
   if(req.mode === 'navigate' || req.destination === 'document'){
     const index = new URL('./index.html', scope).href;
     const glowna = url.pathname === scope.pathname || url.pathname === new URL(index).pathname;
@@ -105,36 +105,100 @@ self.addEventListener('fetch', e=>{
     return;
   }
 
-  // Pozostałe zasoby (skrypty, ikony, wasm) — cache lub sieć
-  const cachePromise = caches.open(CACHE);
-  const netPromise = pobierzSwieze(req).then(async res=>{
-    if(res && res.ok && res.type === 'basic'){
-      const copy = res.clone();
-      try{ const c = await cachePromise; await c.put(req, copy); }catch(_){}
+  // 2. Pliki dynamiczne (search-worker.js, manifest.webmanifest) — Stale-While-Revalidate z odpytywaniem sieci
+  const isDynamicNetworkFile = url.pathname.endsWith('/search-worker.js') || 
+                               url.pathname.endsWith('/manifest.webmanifest');
+
+  if(isDynamicNetworkFile){
+    const cachePromise = caches.open(CACHE);
+    const netPromise = pobierzSwieze(req).then(async res=>{
+      if(res && res.ok && res.type === 'basic'){
+        const copy = res.clone();
+        try{ const c = await cachePromise; await c.put(req, copy); }catch(_){}
+      }
+      return res;
+    });
+
+    e.waitUntil(netPromise.then(()=>{}, ()=>{}));
+
+    e.respondWith(cachePromise.then(async c=>{
+      const cached = await c.match(req);
+      return cached || netPromise.catch(()=>Response.error());
+    }));
+    return;
+  }
+
+  // 3. Ścisłe Cache First: zasoby statyczne (katalog ./lib/ np. sql-wasm.wasm, sql-wasm.js, jszip.min.js, supabase.js oraz ikony i grafiki)
+  // Jeśli plik znajduje się w bieżącym CACHE, zwracamy go natychmiast bez odpytywania sieci w tle.
+  e.respondWith((async ()=>{
+    const c = await caches.open(CACHE);
+    let cached = await c.match(req);
+    if(!cached){
+      cached = await c.match(url.pathname);
     }
-    return res;
-  });
+    if(!cached){
+      const rel = url.pathname.slice(scope.pathname.length).replace(/^\.\//, '');
+      if(rel) cached = await c.match('./' + rel);
+    }
+    if(cached) return cached;
 
-  e.waitUntil(netPromise.then(()=>{}, ()=>{}));
-
-  e.respondWith(cachePromise.then(async c=>{
-    const cached = await c.match(req);
-    return cached || netPromise.catch(()=>Response.error());
-  }));
+    // Brak w cache — pobierz z sieci (cache miss) i zachowaj na przyszłość
+    try{
+      const res = await pobierzSwieze(req);
+      if(res && res.ok && res.type === 'basic'){
+        c.put(req, res.clone());
+      }
+      return res;
+    }catch(_){
+      return Response.error();
+    }
+  })());
 });
 
 self.addEventListener('notificationclick', e => {
   e.notification.close();
-  e.waitUntil(
-    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(clientList => {
-      for (const client of clientList) {
-        if (client.url && 'focus' in client) {
-          return client.focus();
-        }
+  const notifData = e.notification ? e.notification.data : null;
+
+  e.waitUntil((async () => {
+    const clientList = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    let targetClient = null;
+
+    for (const client of clientList) {
+      if (client.url && 'focus' in client) {
+        try {
+          targetClient = await client.focus();
+          break;
+        } catch (_) {}
       }
-      if (self.clients.openWindow) {
-        return self.clients.openWindow('./index.html');
+    }
+
+    if (targetClient) {
+      if (notifData) {
+        try {
+          targetClient.postMessage({ type: 'NOTIFICATION_ACTION', data: notifData });
+          targetClient.postMessage({ type: 'JW_NOTIF_CLICK', data: notifData });
+        } catch (_) {}
       }
-    })
-  );
+      return targetClient;
+    }
+
+    if (self.clients.openWindow) {
+      let openUrl = './index.html';
+      if (notifData) {
+        try {
+          openUrl = './index.html#notif=' + encodeURIComponent(JSON.stringify(notifData));
+        } catch (_) {}
+      }
+      const newClient = await self.clients.openWindow(openUrl);
+      if (newClient && notifData) {
+        setTimeout(() => {
+          try {
+            newClient.postMessage({ type: 'NOTIFICATION_ACTION', data: notifData });
+            newClient.postMessage({ type: 'JW_NOTIF_CLICK', data: notifData });
+          } catch (_) {}
+        }, 1200);
+      }
+      return newClient;
+    }
+  })());
 });

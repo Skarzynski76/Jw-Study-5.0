@@ -4822,21 +4822,21 @@ body.centrum-open .cenProjActiveBar {
 
 /* Podmenu zarządzania projektem w #dropdown */
 #dropdown .cenProjMenuHdr {
-  display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-  padding: 8px 10px !important;
-  margin: 2px 2px 6px !important;
-  background: color-mix(in srgb, var(--proj-kol, var(--accent)) 9%, var(--sel)) !important;
-  border: 1px solid color-mix(in srgb, var(--proj-kol, var(--accent)) 22%, transparent) !important;
-  border-radius: 12px !important;
-  cursor: default !important;
-  box-sizing: border-box !important;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  margin: 2px 2px 6px;
+  background: color-mix(in srgb, var(--proj-kol, var(--accent)) 9%, var(--sel));
+  border: 1px solid color-mix(in srgb, var(--proj-kol, var(--accent)) 22%, transparent);
+  border-radius: 12px;
+  cursor: default;
+  box-sizing: border-box;
 }
 #dropdown .cenProjMenuHdr:hover,
 #dropdown .cenProjMenuHdr:active {
-  background: color-mix(in srgb, var(--proj-kol, var(--accent)) 9%, var(--sel)) !important;
-  transform: none !important;
+  background: color-mix(in srgb, var(--proj-kol, var(--accent)) 9%, var(--sel));
+  transform: none;
 }
 #dropdown .cenProjMenuIko {
   width: 32px;
@@ -4889,17 +4889,17 @@ body.centrum-open .cenProjActiveBar {
   white-space: nowrap;
 }
 #dropdown .cenProjPalrow {
-  display: grid !important;
-  grid-template-columns: repeat(8, 1fr) !important;
-  gap: 6px !important;
-  padding: 5px 6px 8px !important;
-  margin: 0 !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-  cursor: default !important;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+  padding: 5px 6px 8px;
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: default;
 }
 #dropdown .cenProjPalrow:hover {
-  background: none !important;
+  background: none;
 }
 #dropdown .cenProjPalrow .pal {
   width: 24px;
@@ -4907,41 +4907,41 @@ body.centrum-open .cenProjActiveBar {
   margin: 0 auto;
 }
 #dropdown label.tloWlasny {
-  padding: 10px 12px !important;
-  cursor: pointer !important;
-  font-size: 13.5px !important;
-  font-weight: 450 !important;
-  border-radius: 11px !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 10px !important;
-  margin: 1px 0 !important;
-  color: var(--text) !important;
-  transition: background 0.12s ease, color 0.12s ease !important;
-  box-sizing: border-box !important;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 450;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 1px 0;
+  color: var(--text);
+  transition: background 0.12s ease, color 0.12s ease;
+  box-sizing: border-box;
 }
 #dropdown label.tloWlasny:hover {
-  background: var(--sel) !important;
+  background: var(--sel);
 }
 #dropdown label.tloWlasny .ic {
-  width: 18px !important;
-  height: 18px !important;
-  flex-shrink: 0 !important;
-  color: var(--muted) !important;
-  transition: color 0.12s ease !important;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--muted);
+  transition: color 0.12s ease;
 }
 #dropdown label.tloWlasny:hover .ic {
-  color: var(--accent) !important;
+  color: var(--accent);
 }
 #dropdown label.tloWlasny input[type=color] {
-  width: 28px !important;
-  height: 24px !important;
-  padding: 0 !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 6px !important;
-  background: none !important;
-  cursor: pointer !important;
-  margin-left: auto !important;
+  width: 28px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+  margin-left: auto;
 }
 
 /* ══════════════ RESPONSIVE BREAKPOINTS ══════════════ */
@@ -5330,13 +5330,11 @@ html[data-theme="dark"] #pubPanel{border-color:var(--border)}
    JW Study — notes.css
    Karty notatek: nagłówek, pigułki, chipy, pasek narzędzi
    ========================================================================== */
-.ncard{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:12px;position:relative;
-  box-shadow:0 1px 3px rgba(0,0,0,.04), 0 2px 8px rgba(0,0,0,.02);
-  transition:box-shadow .2s cubic-bezier(.2,.8,.2,1), transform .18s cubic-bezier(.2,.8,.2,1), border-color .18s ease;
-  overflow:hidden}
-.ncard:hover{transform:translateY(-1.5px);border-color:rgba(37,107,82,.28);
-  box-shadow:0 6px 20px -4px rgba(0,0,0,.08), 0 2px 6px -1px rgba(0,0,0,.04)}
+.ncard{position:relative;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:0;margin-bottom:10px;overflow:hidden;outline:none;box-sizing:border-box;min-width:0;max-width:100%;word-break:break-word;overflow-wrap:break-word;box-shadow:0 2px 6px rgba(0,0,0,.03), 0 1px 2px rgba(0,0,0,.02);transition:transform var(--dur,.2s) var(--spring-soft,cubic-bezier(.16,1,.3,1)), box-shadow var(--dur,.2s) var(--ease,ease), border-color var(--dur,.18s) ease, background .15s ease}
+.ncard:hover{transform:translateY(-1.5px);border-color:color-mix(in srgb,var(--accent,#256b52) 32%,transparent);box-shadow:0 6px 20px rgba(18,48,36,.08), 0 2px 4px rgba(0,0,0,.03)}
 .ncard.pinned{border-color:var(--accent2);box-shadow:0 0 0 1.5px var(--accent2), 0 4px 16px rgba(37,107,82,.08)}
+.ncard.selected, .ncard.active, .ncard.otwarta{border-left:4px solid var(--accent);background:color-mix(in srgb,var(--accent) 4%,var(--panel))}
+.ncard>*:not(.nhead):not(.ntools){margin-left:16px;margin-right:16px}
 /* Izolacja układu bez wirtualizacji content-visibility (zapobiega skakaniu i zacinaniu przewijania) */
 #noteList .ncard{contain:layout style}
 #noteList .ncard.editing{contain:none}
@@ -5346,14 +5344,11 @@ html[data-theme="dark"] #pubPanel{border-color:var(--border)}
 html[data-theme="dark"] .sbtn.ico.pinon{background:rgba(251,191,36,.18)!important;border-color:rgba(251,191,36,.38)!important;color:#fbbf24!important;box-shadow:0 1px 8px rgba(251,191,36,.22)}
 .drag{position:absolute;top:8px;right:10px;cursor:grab;color:var(--muted);opacity:.5;font-size:15px;padding:3px 6px;border-radius:6px;z-index:2;transition:opacity .15s ease, background .15s ease}
 .drag:hover{background:var(--sel);color:var(--text);opacity:1}
-/* metalicznie zielony pasek tytułu notatki */
-.nhead{position:relative;margin:-14px -16px 8px;padding:9px 40px 8px 14px;border-radius:13px 13px 0 0;
-  background:var(--accent);
-  border-bottom:1px solid rgba(0,0,0,.06);
-  box-shadow:none}
+/* nagłówek karty notatki */
+.nhead{position:relative;display:flex;align-items:center;margin:0;padding:var(--sp-3, 12px) 38px 0 var(--sp-4, 16px);border-radius:0;background:transparent;border-bottom:0;box-shadow:none;color:var(--text);min-height:auto}
 .nhead::after{display:none}
-.ntitle{font-weight:600;font-size:calc(var(--noteFs,14px) + .5px);margin:0;word-wrap:break-word;line-height:1.35;letter-spacing:-.01em;color:#fff;text-shadow:none;position:relative;z-index:1}
-.nmeta2{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;align-items:center}
+.ntitle{font-weight:650;font-size:15.5px;margin:0;word-wrap:break-word;line-height:1.34;letter-spacing:-.015em;color:var(--text);text-shadow:none;position:relative;z-index:1}
+.nmeta2{display:flex;flex-wrap:wrap;gap:6px;margin:7px 0 6px;align-items:center}
 .pill{display:inline-flex;align-items:center;gap:4.5px;border-radius:999px;padding:2.5px 9.5px;font-size:calc(var(--noteFs,14px) - 3px);font-weight:500;transition:background .15s ease, color .15s ease}
 .pill.ref{background:var(--sel);color:var(--accent);border:1px solid rgba(37,107,82,.14)}
 .pill.ks{background:var(--sel);color:var(--muted);font-weight:500;border:1px solid var(--border)}
@@ -5362,12 +5357,12 @@ html[data-theme="dark"] .sbtn.ico.pinon{background:rgba(251,191,36,.18)!importan
 .pill.par{background:var(--sel);color:var(--accent);font-weight:600;border:1px solid rgba(37,107,82,.14)}
 html[data-theme="dark"] .pill.issue{background:rgba(255,255,255,.06);color:var(--muted);border-color:var(--border)}
 html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--accent2);border-color:rgba(72,192,141,.24)}
-.chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 8px}
 .chip{background:var(--sel);color:var(--text);padding:2px 9px;border-radius:999px;font-size:calc(var(--noteFs,14px) - 3px);display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border);transition:all .15s ease}
 .chip .x{cursor:pointer;font-weight:bold;color:var(--muted);opacity:0;transition:opacity .15s ease, color .15s ease}
 .chip:hover .x{opacity:1;color:#d9534f}
 /* sekcja narzędzi — nowoczesna, dopasowana, z zaokrąglonym dołem i mikro-interakcjami */
-.ntools{margin:8px -16px -14px;padding:5px 10px;background:color-mix(in srgb, var(--panel) 92%, var(--bg));border-top:1px solid var(--border);border-radius:0 0 13px 13px;transition:opacity .2s ease, background .2s ease}
+.ntools{margin:var(--sp-2, 8px) 0 0;padding:5px var(--sp-2, 10px);background:color-mix(in srgb, var(--bg) 60%, var(--panel));border-top:1px solid color-mix(in srgb, var(--border) 70%, transparent);border-radius:0 0 14px 14px;display:flex;align-items:center;gap:3px;min-width:0;max-width:100%;box-sizing:border-box;transition:opacity .2s ease, background .2s ease}
 .btnrow{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:0;align-items:center}
 .sbtn.ico{min-width:34px;height:34px;padding:0 7px;font-size:13px;line-height:1;gap:4px;border:1px solid transparent;background:transparent;color:var(--muted);border-radius:10px;display:inline-flex;align-items:center;justify-content:center;transition:all .14s cubic-bezier(.34,1.56,.64,1)}
 .sbtn.ico .ic{width:17px;height:17px;transition:transform .14s ease}
@@ -5407,18 +5402,13 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
    Czytnik pełnoekranowy: typografia, spis treści, nawigacja
    ========================================================================== */
 /* notatka na pełnym ekranie */
-#modalFs{padding:0}
-#modalFs .fsmodal{background:var(--bg);border-radius:0;width:100vw;height:100vh;height:100dvh;max-height:100dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) calc(14px + env(safe-area-inset-bottom,0px)) env(safe-area-inset-left,0px);position:relative;box-shadow:none}
-#fsClose{display:none}
-/* przycisk zamknięcia wewnątrz zielonej belki nagłówka (pełny ekran) */
-.fsCloseInline{position:absolute;top:50%;right:9px;transform:translateY(-50%);width:27px;height:27px;border-radius:50%;border:none;background:#fff;color:#1e5b46;font-size:16px;font-weight:700;line-height:1;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.3);z-index:4;display:flex;align-items:center;justify-content:center}
-.fsCloseInline:hover{background:#eef2ef}
-.fsCloseInline:active{transform:translateY(-50%) scale(.93)}
+#modalFs{position:fixed;inset:0;z-index:10000;width:100vw;width:100dvw;height:100vh;height:100dvh;max-width:100vw;max-height:100dvh;padding:0;margin:0;border:none;border-radius:0;box-shadow:none;background:var(--bg);isolation:isolate}
+#modalFs .fsmodal{position:fixed;inset:0;width:100vw;width:100dvw;max-width:100vw;height:100vh;height:100dvh;max-height:100dvh;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) calc(14px + env(safe-area-inset-bottom,0px)) env(safe-area-inset-left,0px);margin:0;box-sizing:border-box;border-radius:0;border:none;box-shadow:none;background:var(--bg);color:var(--text);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.fsCloseInline{display:none}
 #fsWrap .drag{display:none}
-#fsWrap .ncard{border:none}
-#fsWrap .nhead{padding-right:56px;border-radius:0}
+#fsWrap .ncard{margin:0;min-height:calc(100dvh - 84px);overflow:visible;border:none;border-radius:0;box-shadow:none;background:transparent;color:var(--text);display:flex;flex-direction:column}
+#fsWrap .nhead{position:static;padding-right:clamp(4px, 2vw, 20px);border-radius:0;background:transparent;border-bottom:0}
 #fsWrap{min-height:0}
-#fsWrap .ncard{margin:0;min-height:calc(100dvh - 84px);overflow:visible;border-radius:0;display:flex;flex-direction:column}
 #fsWrap .ncontent{font-size:var(--fsNoteFs, calc(var(--noteFs,14px) + 3px));line-height:1.7;flex:1 0 auto}
 #fsWrap .ntools{margin-top:auto}
 #fsWrap .ntitle{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 3px)) + 3px)}
@@ -5940,24 +5930,24 @@ body.fs-open,
 body.fs-open #modalFs,
 #modalFs,
 #modalFs[data-reader-theme] {
-  background: var(--bg) !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
+  background: var(--bg);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 #modalFs .fsmodal,
 #modalFs[data-reader-theme] .fsmodal {
-  background: var(--bg) !important;
-  color: var(--text) !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 #modalFs #fsWrap .ncard,
 #modalFs[data-reader-theme] #fsWrap .ncard {
-  background: transparent !important;
-  color: var(--text) !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
+  background: transparent;
+  color: var(--text);
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
 }
 
 /* Dolny pasek czytnika i jego elementy — idealne zgranie z wybranym tłem */
@@ -5965,37 +5955,37 @@ body.fs-open #modalFs,
 #modalFs #fsWrap .ncard:not(.editing) .ntools,
 #modalFs #fsWrap .ncard.wlasneTlo .ntools,
 #modalFs #fsWrap .ntools {
-  background: var(--bg) !important;
-  border: 0 !important;
-  border-top: 1px solid var(--border) !important;
-  color: var(--text) !important;
-  box-shadow: none !important;
-  transition: background .15s ease, border-color .15s ease, opacity .18s ease, transform .2s ease !important;
+  background: var(--bg);
+  border: 0;
+  border-top: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: none;
+  transition: background .15s ease, border-color .15s ease, opacity .18s ease, transform .2s ease;
 }
 #modalFs #fsWrap .ntools .sbtn.ico {
-  color: var(--text) !important;
-  background: transparent !important;
-  border: 1px solid transparent !important;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid transparent;
 }
 #modalFs #fsWrap .ntools .sbtn.ico:hover,
 #modalFs #fsWrap .ntools .sbtn.ico:active {
-  background: var(--sel) !important;
-  color: var(--accent) !important;
+  background: var(--sel);
+  color: var(--accent);
 }
 #modalFs #fsWrap .ntools .more-btn {
-  background: var(--sel) !important;
-  color: var(--text) !important;
-  border: 1px solid var(--border) !important;
+  background: var(--sel);
+  color: var(--text);
+  border: 1px solid var(--border);
 }
 #modalFs #fsWrap .ntools .more-btn:hover {
-  background: color-mix(in srgb, var(--sel) 80%, var(--accent)) !important;
-  color: var(--accent) !important;
+  background: color-mix(in srgb, var(--sel) 80%, var(--accent));
+  color: var(--accent);
 }
 #modalFs #fsWrap .ncard.editing .ntools {
-  background: var(--panel) !important;
-  border: 1px solid var(--border) !important;
-  color: var(--text) !important;
-  box-shadow: 0 7px 22px rgba(0,0,0,.2) !important;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: 0 7px 22px rgba(0,0,0,.2);
 }
 
 #modalFs #fsWrap .ncontent,
@@ -6005,55 +5995,55 @@ body.fs-open #modalFs,
 #modalFs #fsWrap .ncontent :is(h1,h2,h3,h4,h5,h6),
 #modalFs #fsWrap .ncontent :is(strong,b,em,i,u,s),
 #modalFs #fsWrap .ncontent span:not(.qhl):not(.chip):not(.x):not([class*="badge"]):not([class*="tag"]):not([class*="jwl-ref"]) {
-  color: var(--text) !important;
+  color: var(--text);
 }
-#modalFs #fsWrap .ntitle { color: var(--text) !important; }
+#modalFs #fsWrap .ntitle { color: var(--text); }
 #modalFs #fsWrap .nmeta2,
 #modalFs #fsWrap .nmeta2 .pill,
-#modalFs #fsWrap .nmeta2 a { color: var(--muted) !important; }
+#modalFs #fsWrap .nmeta2 a { color: var(--muted); }
 
-#modalFs .fsBar { color: var(--muted) !important; }
-#modalFs .fsStat { color: var(--muted) !important; border-radius: 999px !important; border: 1px solid color-mix(in srgb, var(--border) 50%, transparent) !important; }
-#modalFs .fsPct { background: color-mix(in srgb, var(--accent) 12%, transparent) !important; color: var(--accent) !important; border-color: color-mix(in srgb, var(--accent) 26%, transparent) !important; border-radius: 999px !important; }
-#modalFs .fsBarBtn { background: color-mix(in srgb, var(--panel) 82%, transparent) !important; color: var(--text) !important; border: 1px solid color-mix(in srgb, var(--border) 60%, rgba(255,255,255,.12)) !important; border-radius: 999px !important; }
-#modalFs .fsBarBtn:hover { background: color-mix(in srgb, var(--sel) 85%, var(--accent)) !important; border-color: color-mix(in srgb, var(--accent) 35%, transparent) !important; color: var(--accent) !important; }
-#modalFs .fsBarBtn.active { background: color-mix(in srgb, var(--accent) 15%, transparent) !important; border-color: var(--accent) !important; color: var(--accent) !important; }
+#modalFs .fsBar { color: var(--muted); }
+#modalFs .fsStat { color: var(--muted); border-radius: 999px; border: 1px solid color-mix(in srgb, var(--border) 50%, transparent); }
+#modalFs .fsPct { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); border-color: color-mix(in srgb, var(--accent) 26%, transparent); border-radius: 999px; }
+#modalFs .fsBarBtn { background: color-mix(in srgb, var(--panel) 82%, transparent); color: var(--text); border: 1px solid color-mix(in srgb, var(--border) 60%, rgba(255,255,255,.12)); border-radius: 999px; }
+#modalFs .fsBarBtn:hover { background: color-mix(in srgb, var(--sel) 85%, var(--accent)); border-color: color-mix(in srgb, var(--accent) 35%, transparent); color: var(--accent); }
+#modalFs .fsBarBtn.active { background: color-mix(in srgb, var(--accent) 15%, transparent); border-color: var(--accent); color: var(--accent); }
 #modalFs .fsFind,
 #modalFs .fsToc,
-#modalFs .fsMarks { background: color-mix(in srgb, var(--panel) 90%, transparent) !important; border-color: color-mix(in srgb, var(--border) 70%, rgba(255,255,255,.18)) !important; color: var(--text) !important; }
-#modalFs .fsFindInp { background: transparent !important; border-color: transparent !important; color: var(--text) !important; }
+#modalFs .fsMarks { background: color-mix(in srgb, var(--panel) 90%, transparent); border-color: color-mix(in srgb, var(--border) 70%, rgba(255,255,255,.18)); color: var(--text); }
+#modalFs .fsFindInp { background: transparent; border-color: transparent; color: var(--text); }
 #modalFs .fsTocItem,
 #modalFs .fsToc a,
-#modalFs .toc-item { color: var(--text) !important; }
-#modalFs .fsTocItem:hover { background: color-mix(in srgb, var(--sel) 90%, transparent) !important; color: var(--accent) !important; }
-#modalFs .fsTocItem.active { background: color-mix(in srgb, var(--accent) 12%, transparent) !important; color: var(--accent) !important; }
+#modalFs .toc-item { color: var(--text); }
+#modalFs .fsTocItem:hover { background: color-mix(in srgb, var(--sel) 90%, transparent); color: var(--accent); }
+#modalFs .fsTocItem.active { background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
 
 #modalFs[data-reader-theme="dark"] #fsWrap .nhead{filter:brightness(.72) saturate(.8)}
 #modalFs[data-reader-theme="oled"] #fsWrap .nhead{filter:brightness(.65) saturate(.75)}
-#modalFs[data-reader-theme="dark"] #fsWrap .chip-study{background:rgba(255,255,255,.08)!important;color:var(--accent)!important}
-#modalFs[data-reader-theme="oled"] #fsWrap .chip-study{background:rgba(255,255,255,.08)!important;color:var(--accent)!important}
-#modalFs[data-reader-theme="sepia"] #fsWrap .chip-study{background:rgba(0,0,0,.06)!important;color:var(--accent)!important}
-#modalFs[data-reader-theme="sage"] #fsWrap .chip-study{background:rgba(0,0,0,.06)!important;color:var(--accent)!important}
+#modalFs[data-reader-theme="dark"] #fsWrap .chip-study,
+#modalFs[data-reader-theme="oled"] #fsWrap .chip-study { background: rgba(255,255,255,.08); color: var(--accent); }
+#modalFs[data-reader-theme="sepia"] #fsWrap .chip-study,
+#modalFs[data-reader-theme="sage"] #fsWrap .chip-study { background: rgba(0,0,0,.06); color: var(--accent); }
 
 #modalFs[data-reader-theme="dark"] .ncontent a.jwl-ref,
-#modalFs[data-reader-theme="dark"] .ncontent a.jwl-ref.auto{color:#79c7a5!important}
+#modalFs[data-reader-theme="dark"] .ncontent a.jwl-ref.auto { color: #79c7a5; }
 #modalFs[data-reader-theme="dark"] .ncontent a.jwl-ref:hover,
-#modalFs[data-reader-theme="dark"] .ncontent a.jwl-ref.auto:hover{color:#a3e0c6!important}
+#modalFs[data-reader-theme="dark"] .ncontent a.jwl-ref.auto:hover { color: #a3e0c6; }
 
 #modalFs[data-reader-theme="oled"] .ncontent a.jwl-ref,
-#modalFs[data-reader-theme="oled"] .ncontent a.jwl-ref.auto{color:#60a5fa!important}
+#modalFs[data-reader-theme="oled"] .ncontent a.jwl-ref.auto { color: #60a5fa; }
 #modalFs[data-reader-theme="oled"] .ncontent a.jwl-ref:hover,
-#modalFs[data-reader-theme="oled"] .ncontent a.jwl-ref.auto:hover{color:#93c5fd!important}
+#modalFs[data-reader-theme="oled"] .ncontent a.jwl-ref.auto:hover { color: #93c5fd; }
 
 #modalFs[data-reader-theme="sage"] .ncontent a.jwl-ref,
-#modalFs[data-reader-theme="sage"] .ncontent a.jwl-ref.auto{color:#1d4ed8!important}
+#modalFs[data-reader-theme="sage"] .ncontent a.jwl-ref.auto { color: #1d4ed8; }
 #modalFs[data-reader-theme="sage"] .ncontent a.jwl-ref:hover,
-#modalFs[data-reader-theme="sage"] .ncontent a.jwl-ref.auto:hover{color:#1e40af!important}
+#modalFs[data-reader-theme="sage"] .ncontent a.jwl-ref.auto:hover { color: #1e40af; }
 
 #modalFs[data-reader-theme="sepia"] .ncontent a.jwl-ref,
-#modalFs[data-reader-theme="sepia"] .ncontent a.jwl-ref.auto{color:#8d4f13!important}
+#modalFs[data-reader-theme="sepia"] .ncontent a.jwl-ref.auto { color: #8d4f13; }
 #modalFs[data-reader-theme="sepia"] .ncontent a.jwl-ref:hover,
-#modalFs[data-reader-theme="sepia"] .ncontent a.jwl-ref.auto:hover{color:#a96219!important}
+#modalFs[data-reader-theme="sepia"] .ncontent a.jwl-ref.auto:hover { color: #a96219; }
 
 /* Czysty wydruk z czytnika */
 @media print {
@@ -6192,7 +6182,6 @@ html[data-theme="sepia"] #msgModal .msgBody{color:#5c4d37!important}
 .exp-file{font-size:11.5px;color:var(--muted);word-break:break-all}
 .exp-warn{background:rgba(217,139,43,.1);border:1px solid rgba(217,139,43,.3);border-radius:12px;padding:12px 14px;font-size:12.5px;line-height:1.55;color:#925d10}
 html[data-theme="dark"] .exp-base.warn,html[data-theme="dark"] .exp-warn{background:rgba(217,139,43,.15);border-color:rgba(217,139,43,.35);color:#f0cb59}
-#fsWrap .nhead{position:sticky;top:0;z-index:6}
 /* odnośnik jako przycisk */
 .refbtn{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--border);background:var(--sel);color:var(--accent);border-radius:999px;padding:4px 11px;font-size:calc(var(--noteFs,14px) - 1.5px);font-weight:500;cursor:pointer;transition:all .15s ease;text-decoration:none}
 .refbtn:hover{background:var(--sel);border-color:var(--accent2)}
@@ -7937,59 +7926,37 @@ html[data-theme="dark"] .ncontent mark.fsHit.cur {
   box-shadow: 0 0 0 2px rgba(201, 138, 30, 0.45);
 }
 
-/* ——— Karty notatek i narzędzia ——— */
+/* ——— Karty notatek i narzędzia (dark theme) ——— */
 html[data-theme="dark"] .ncard {
-  background: #161e26 !important;
-  border: 1px solid rgba(255, 255, 255, 0.07) !important;
-  border-radius: 14px !important;
-  padding: 14px 16px !important;
-  margin-bottom: 12px !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
-  transition: all 0.16s ease !important;
+  background: #161e26;
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 html[data-theme="dark"] .ncard:hover {
-  border-color: rgba(255, 255, 255, 0.16) !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
-  transform: translateY(-1.5px);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 html[data-theme="dark"] .ncard.pinned,
 html[data-theme="dark"] .ncard.active,
-html[data-theme="dark"] .ncard.opened {
-  border: 1.5px solid #10b981 !important;
-  box-shadow: 0 0 16px rgba(16, 185, 129, 0.22), 0 6px 24px rgba(0, 0, 0, 0.45) !important;
+html[data-theme="dark"] .ncard.opened,
+html[data-theme="dark"] .ncard.selected,
+html[data-theme="dark"] .ncard.otwarta {
+  border: 1.5px solid #10b981;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.22), 0 6px 24px rgba(0, 0, 0, 0.45);
 }
 html[data-theme="dark"] .nhead {
-  background: transparent !important;
-  border-bottom: none !important;
-  margin: 0 0 4px 0 !important;
-  padding: 0 !important;
-  display: flex !important;
-  align-items: flex-start !important;
-  justify-content: space-between !important;
+  background: transparent;
+  border-bottom: none;
 }
 html[data-theme="dark"] .ntitle {
-  font-size: 15px !important;
-  font-weight: 700 !important;
-  color: #ffffff !important;
-  line-height: 1.35 !important;
-}
-html[data-theme="dark"] .nmeta2 {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 6px !important;
-  align-items: center !important;
-  margin: 4px 0 8px !important;
+  color: #ffffff;
 }
 html[data-theme="dark"] .ncontent {
-  color: #94a3b8 !important;
-  font-size: 12.5px !important;
-  line-height: 1.45 !important;
+  color: #94a3b8;
 }
 html[data-theme="dark"] .ntools {
-  background: transparent !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
-  margin: 8px -16px -14px !important;
-  padding: 4px 10px !important;
+  background: rgba(255, 255, 255, 0.04);
+  border-top-color: rgba(255, 255, 255, 0.06);
 }
 html[data-theme="dark"] .ncontent[contenteditable="true"] {
   background: #11171e;
@@ -8088,7 +8055,8 @@ html[data-theme="dark"] #hlBar button.tb:hover {
   background: rgba(255, 255, 255, 0.08);
   color: #ffffff;
 }
-html[data-theme="dark"] .fsmodal {
+html[data-theme="dark"] #modalFs:not([data-reader-theme]) .fsmodal,
+html[data-theme="dark"] #modalFs[data-reader-theme="app"] .fsmodal {
   background: var(--bg);
 }
 html[data-theme="dark"] .fsBarBtn {
@@ -8334,7 +8302,7 @@ html[data-theme="dark"] .chip{background:var(--sel);color:var(--text)}
 
 /* ——— okna dialogowe w stylu iOS ——— */
 .overlay{background:rgba(0,0,0,.32);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.modal,#askModal .askbox,.fsmodal{border:0;border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.28)}
+.modal:not(.fsmodal),#askModal .askbox{border:0;border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.28)}
 .modal{padding:22px 24px}
 #askModal .askbox{padding:0;width:min(340px,86vw);overflow:hidden;text-align:center}
 #askModal .askTitle{font-size:16px;font-weight:600;padding:20px 20px 4px;margin:0;letter-spacing:-.015em}
@@ -8611,7 +8579,7 @@ main{ gap:var(--sp-3); padding:var(--sp-3); }
   backdrop-filter:blur(24px) saturate(180%);
   -webkit-backdrop-filter:blur(24px) saturate(180%);
 }
-.modal,#askModal .askbox,#msgModal .askbox,.fsmodal{ box-shadow:var(--cien-3); }
+.modal:not(.fsmodal),#askModal .askbox,#msgModal .askbox{ box-shadow:var(--cien-3); }
 #toast{ box-shadow:var(--cien-2); }
 .editbar{ box-shadow:var(--cien-1); }
 
@@ -8681,7 +8649,7 @@ main{ gap:var(--sp-3); padding:var(--sp-3); }
              color var(--dur-szybko) var(--ease),
              transform var(--dur-szybko) var(--ease);
 }
-.ncard{ transition:box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--spring-soft) !important; }
+.ncard{ transition:box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease), transform var(--dur) var(--spring-soft); }
 @keyframes wejscieOkna{ from{opacity:0; transform:scale(.95) translateY(8px)} to{opacity:1; transform:none} }
 @keyframes wejscieMenu{ from{opacity:0; transform:scale(.96) translateY(-4px)} to{opacity:1; transform:none} }
 @keyframes fsModalIn{ from{opacity:0; transform:scale(.985)} to{opacity:1; transform:none} }
@@ -9207,9 +9175,12 @@ html[data-theme="dark"] .secHead{ box-shadow:0 1px 2px rgba(0,0,0,.4); }
    Tło czytnika jest teraz białe (tło kart), a nie szare tło aplikacji. Szarość obniżała
    kontrast z tekstem i przy dłuższym czytaniu litery robiły się mniej wyraźne.
    Tryb nocny i sepia mają własne, dobrane tła. */
-#modalFs .fsmodal{ background:var(--panel); }
-html[data-theme="sepia"] #modalFs .fsmodal{ background:#faf3e3; }
-html[data-theme="dark"] #modalFs .fsmodal{ background:#151517; }
+#modalFs:not([data-reader-theme]) .fsmodal,
+#modalFs[data-reader-theme="app"] .fsmodal{ background:var(--panel); }
+html[data-theme="sepia"] #modalFs:not([data-reader-theme]) .fsmodal,
+html[data-theme="sepia"] #modalFs[data-reader-theme="app"] .fsmodal{ background:#faf3e3; }
+html[data-theme="dark"] #modalFs:not([data-reader-theme]) .fsmodal,
+html[data-theme="dark"] #modalFs[data-reader-theme="app"] .fsmodal{ background:#151517; }
 #fsWrap .ncard{
   background:transparent;
   border:0;
@@ -9221,8 +9192,8 @@ html[data-theme="dark"] #modalFs .fsmodal{ background:#151517; }
 /* ——— nagłówek ——— */
 /* Zamiast kolorowej belki: sam tytuł na tle strony, z porządnym oddechem pod spodem. */
 #fsWrap .nhead{
-  background:transparent!important;
-  border-bottom:0!important;
+  background:transparent;
+  border-bottom:0;
   min-height:0;
   display:block;
   max-width:var(--fsMax,760px);
@@ -9230,7 +9201,7 @@ html[data-theme="dark"] #modalFs .fsmodal{ background:#151517; }
   padding:clamp(18px,4vw,34px) 56px clamp(6px,1.5vw,12px) 0;
 }
 #fsWrap .ntitle{
-  color:var(--text)!important;
+  color:var(--text);
   /* Tytuł rósł razem z szerokością okna i na pełnym ekranie wyglądał ciężko.
      Teraz zależy tylko od ustawionej wielkości pisma i ma wąski zakres. */
   font-size:clamp(19px, calc(var(--fsNoteFs, 17px) + 4px), 25px);
@@ -9249,15 +9220,15 @@ html[data-theme="dark"] #modalFs .fsmodal{ background:#151517; }
 }
 #fsWrap .nmeta2 .pill,
 #fsWrap .nmeta2 .refbtn{
-  background:transparent!important;
-  border:0!important;
-  padding:0!important;
-  color:var(--muted)!important;
+  background:transparent;
+  border:0;
+  padding:0;
+  color:var(--muted);
   font-weight:400;
   font-size:13px;
 }
-#fsWrap .nmeta2 .refbtn{ color:var(--accent)!important; font-weight:500; }
-#fsWrap .nmeta2 .pill.par{ color:var(--muted)!important; }
+#fsWrap .nmeta2 .refbtn{ color:var(--accent); font-weight:500; }
+#fsWrap .nmeta2 .pill.par{ color:var(--muted); }
 #fsWrap .chips{ max-width:var(--fsMax,760px); margin:0 auto clamp(10px,2vw,16px); }
 #fsWrap .chips .chip{ background:var(--sel); font-size:12px; }
 
@@ -9690,8 +9661,8 @@ html[data-fsband="duze"] #sortSel{ max-width:150px; }
    Na białym tle tekst może być odrobinę ciemniejszy niż na liście, gdzie karty i tak
    odcinają się od tła. To ta sama barwa, tylko pełne krycie zamiast przygaszenia. */
 #fsWrap .ncontent{ color:var(--text); }
-#fsWrap .ntitle{ color:var(--text)!important; }
-#fsWrap .nmeta2 .pill{ color:var(--muted)!important; }
+#fsWrap .ntitle{ color:var(--text); }
+#fsWrap .nmeta2 .pill{ color:var(--muted); }
 #fsWrap .nmeta2{ border-bottom-color:color-mix(in srgb, var(--border) 60%, transparent); }
 
 /* ══════════════ UCHWYT DO PRZENOSZENIA POZYCJI ══════════════
@@ -11619,7 +11590,6 @@ html[data-theme="sepia"] .hb-badge-pill.hb-badge-err{
    Uchwyt siedzi na dolnej krawędzi karty. Normalnie ledwo
    widoczny — pokazuje się pod kursorem i przy dotyku.
    ============================================================ */
-.ncard{ position:relative; }
 .ncard .wysUchwyt{
   height:12px; margin:2px -4px -6px;
   cursor:ns-resize; touch-action:none;
@@ -11965,38 +11935,42 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
 
 /* ===== PRAWDZIWY TRYB CZYTNIKA / PEŁNY EKRAN (E-READER ZEN MODE) ===== */
 #modalFs {
-  padding: 0 !important;
-  margin: 0 !important;
-  inset: 0 !important;
-  width: 100vw !important;
-  width: 100dvw !important;
-  height: 100vh !important;
-  height: 100dvh !important;
-  max-width: 100vw !important;
-  max-height: 100dvh !important;
-  border-radius: 0 !important;
-  border: none !important;
-  box-shadow: none !important;
-  background: var(--bg) !important;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  width: 100vw;
+  width: 100dvw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 100vw;
+  max-height: 100dvh;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  background: var(--bg);
+  isolation: isolate;
 }
 
 #modalFs .fsmodal {
-  position: fixed !important;
-  inset: 0 !important;
-  width: 100vw !important;
-  width: 100dvw !important;
-  max-width: 100vw !important;
-  height: 100vh !important;
-  height: 100dvh !important;
-  max-height: 100dvh !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  box-sizing: border-box !important;
-  border-radius: 0 !important;
-  border: none !important;
-  box-shadow: none !important;
-  background: var(--bg) !important;
-  overflow-y: auto !important;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  width: 100dvw;
+  max-width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  background: var(--bg);
+  color: var(--text);
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -12115,8 +12089,7 @@ html.kb-open #fsWrap .ncard.editing .ncontent {
 #modalFs .fsToc,
 #modalFs .fsMarks,
 #modalFs #fsWrap .ncontent,
-#modalFs #fsWrap .powiazane,
-#modalFs #fsWrap .ntools {
+#modalFs #fsWrap .powiazane {
   max-width: var(--fsMax, 860px) !important;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -15302,29 +15275,8 @@ body.focus-mode #colNotes{
 }
 
 /* Czytnik ma być prawdziwą stroną ponad aplikacją: bez widocznych boków,
-   bez niższych przycisków nad nim i bez ramy ograniczającej go na komputerze. */
-#modalFs{
-  position:fixed;
-  inset:0;
-  z-index:10000!important;
-  width:100vw;
-  width:100dvw;
-  height:100vh;
-  height:100dvh;
-  padding:0!important;
-  background:var(--panel);
-  isolation:isolate;
-}
-#modalFs .fsmodal{
-  position:absolute!important;
-  inset:0!important;
-  width:100%!important;
-  min-width:100%!important;
-  height:auto!important;
-  min-height:100%!important;
-  max-height:100%!important;
-  border-radius:0!important;
-}
+   bez niższych przycisków nad nim i bez ramy ograniczającej go na komputerze
+   (właściwości #modalFs i #modalFs .fsmodal skonsolidowane w sekcji E-READER ZEN MODE). */
 
 /* Menu „⋯” jest elementem wspólnym dla całej aplikacji i leży poza #modalFs.
    Sam czytnik ma warstwę 10000, dlatego zwykłe z-index:70 chowało menu POD
@@ -15335,7 +15287,7 @@ body.focus-mode #colNotes{
 #imgBar{ z-index:122; }
 #dropdown{ z-index:100020 !important; }
 #colorMenu, #motywMenu{ z-index:100020 !important; }
-.overlay{ z-index:100100 !important; }
+.overlay:not(#modalFs){ z-index:100100 !important; }
 #replacePanel, #tableSizePanel, #fragmentPanel{ z-index:100150 !important; }
 #askModal, #msgModal{ z-index:100200 !important; }
 #toast, .toast, .gran-toast{ z-index:100300 !important; }
@@ -16541,7 +16493,7 @@ html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
 }
 
 /* Dostosowanie mobilne: modale jako Bottom Sheet z obsługą gestów */
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   .overlay {
     align-items: flex-end !important;
     justify-content: center !important;
@@ -16559,6 +16511,12 @@ html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
 
   .modal-drag-handle {
     display: block !important;
+    width: 44px;
+    height: 5px;
+    background: var(--border, rgba(128, 128, 128, 0.4));
+    border-radius: 999px;
+    margin: 4px auto 14px;
+    flex-shrink: 0;
   }
 
   .modal:not(.fsmodal) {
@@ -16567,6 +16525,7 @@ html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
     border-radius: 24px 24px 0 0 !important;
     border-bottom: none !important;
     max-height: calc(100dvh - max(20px, var(--safe-top))) !important;
+    padding-top: 8px !important;
     padding-left: calc(18px + var(--safe-left)) !important;
     padding-right: calc(18px + var(--safe-right)) !important;
     padding-bottom: calc(22px + var(--safe-bottom)) !important;
@@ -16966,31 +16925,31 @@ header #search,
 
 /* Karty notatek — nowoczesny wygląd z delikatnym cieniem i zaokrągleniami */
 .ncard {
-  border-radius: 14px !important;
-  border: 1px solid var(--border, rgba(0, 0, 0, 0.07)) !important;
-  background: var(--panel) !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02) !important;
-  margin-bottom: 10px !important;
+  border-radius: 14px;
+  border: 1px solid var(--border, rgba(0, 0, 0, 0.07));
+  background: var(--panel);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02);
+  margin-bottom: 10px;
   transition: transform var(--dur, 0.2s) var(--spring-soft, cubic-bezier(0.16, 1, 0.3, 1)),
               box-shadow var(--dur, 0.2s) var(--ease, ease),
-              border-color var(--dur, 0.18s) ease !important;
+              border-color var(--dur, 0.18s) ease;
 }
 .ncard:hover {
-  transform: translateY(-1.5px) !important;
-  box-shadow: 0 6px 20px rgba(18, 48, 36, 0.08), 0 2px 4px rgba(0, 0, 0, 0.03) !important;
-  border-color: color-mix(in srgb, var(--accent, #256b52) 32%, transparent) !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 20px rgba(18, 48, 36, 0.08), 0 2px 4px rgba(0, 0, 0, 0.03);
+  border-color: color-mix(in srgb, var(--accent, #256b52) 32%, transparent);
 }
 .ncard.selected, .ncard.active, .ncard.otwarta {
-  border-left: 4px solid var(--accent) !important;
-  background: color-mix(in srgb, var(--accent) 4%, var(--panel)) !important;
+  border-left: 4px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 4%, var(--panel));
 }
 
 /* Tytuł notatki */
 .ntitle {
-  font-size: 15.5px !important;
-  font-weight: 650 !important;
-  line-height: 1.34 !important;
-  letter-spacing: -0.01em !important;
+  font-size: 15.5px;
+  font-weight: 650;
+  line-height: 1.34;
+  letter-spacing: -0.01em;
 }
 
 /* Etykiety i wersetowe badge */
@@ -17151,18 +17110,18 @@ html[data-theme="sepia"] header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.15) !important;
 }
 html[data-theme="dark"] .ncard {
-  border: 1px solid rgba(255, 255, 255, 0.07) !important;
-  background: #161e26 !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #161e26;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 html[data-theme="dark"] .ncard:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
-  border-color: rgba(255, 255, 255, 0.16) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.16);
 }
 html[data-theme="dark"] .ncard.selected, html[data-theme="dark"] .ncard.active, html[data-theme="dark"] .ncard.otwarta {
-  border: 1.5px solid #10b981 !important;
-  background: #161e26 !important;
-  box-shadow: 0 0 16px rgba(16, 185, 129, 0.22), 0 6px 24px rgba(0, 0, 0, 0.45) !important;
+  border: 1.5px solid #10b981;
+  background: #161e26;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.22), 0 6px 24px rgba(0, 0, 0, 0.45);
 }
 html[data-theme="dark"] .pill.ks {
   background: rgba(245, 158, 11, 0.14) !important;
@@ -17223,18 +17182,18 @@ html[data-theme="oled"] .sidebar-footer {
   border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 html[data-theme="oled"] .ncard {
-  background: #0c0c0f !important;
-  border: 1px solid rgba(255, 255, 255, 0.09) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6) !important;
+  background: #0c0c0f;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
 }
 html[data-theme="oled"] .ncard:hover {
-  border-color: rgba(255, 255, 255, 0.22) !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
 }
 html[data-theme="oled"] .ncard.selected, html[data-theme="oled"] .ncard.active, html[data-theme="oled"] .ncard.otwarta {
-  border: 1.5px solid #10b981 !important;
-  background: #0e0e12 !important;
-  box-shadow: 0 0 16px rgba(16, 185, 129, 0.28), 0 6px 24px rgba(0, 0, 0, 0.8) !important;
+  border: 1.5px solid #10b981;
+  background: #0e0e12;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.28), 0 6px 24px rgba(0, 0, 0, 0.8);
 }
 html[data-theme="oled"] #colBooks,
 html[data-theme="oled"] #colTags,
@@ -17306,18 +17265,18 @@ html[data-theme="sage"] .sidebar-footer {
   border-top: 1px solid #c8d8cb !important;
 }
 html[data-theme="sage"] .ncard {
-  background: #f5f8f5 !important;
-  border: 1px solid #c8d8cb !important;
-  box-shadow: 0 2px 8px rgba(25, 44, 30, 0.06) !important;
+  background: #f5f8f5;
+  border: 1px solid #c8d8cb;
+  box-shadow: 0 2px 8px rgba(25, 44, 30, 0.06);
 }
 html[data-theme="sage"] .ncard:hover {
-  border-color: #9ab49e !important;
-  box-shadow: 0 6px 18px rgba(25, 44, 30, 0.12) !important;
+  border-color: #9ab49e;
+  box-shadow: 0 6px 18px rgba(25, 44, 30, 0.12);
 }
 html[data-theme="sage"] .ncard.selected, html[data-theme="sage"] .ncard.active, html[data-theme="sage"] .ncard.otwarta {
-  border: 1.5px solid #235c36 !important;
-  background: #eef4f0 !important;
-  box-shadow: 0 0 14px rgba(35, 92, 54, 0.2), 0 4px 16px rgba(25, 44, 30, 0.14) !important;
+  border: 1.5px solid #235c36;
+  background: #eef4f0;
+  box-shadow: 0 0 14px rgba(35, 92, 54, 0.2), 0 4px 16px rgba(25, 44, 30, 0.14);
 }
 html[data-theme="sage"] #colBooks,
 html[data-theme="sage"] #colTags,
@@ -18601,14 +18560,14 @@ html.iphone-standalone #modernSidebar, body.iphone-standalone #modernSidebar {
 }
 
 /* ══════════════ OCHRONA OKIEN FUNKCJI I MENU PRZED ROZMYCIEM I DOPASOWANIE DO EKRANÓW MOBILNYCH ══════════════ */
-.overlay {
+.overlay:not(#modalFs) {
   padding-top: max(8px, calc(4px + env(safe-area-inset-top, 0px))) !important;
   padding-bottom: max(8px, calc(4px + env(safe-area-inset-bottom, 0px))) !important;
   padding-left: max(8px, env(safe-area-inset-left, 0px)) !important;
   padding-right: max(8px, env(safe-area-inset-right, 0px)) !important;
   box-sizing: border-box !important;
 }
-.modal, .fsmodal {
+.modal:not(.fsmodal) {
   width: min(540px, calc(100vw - 16px)) !important;
   max-width: calc(100vw - 16px) !important;
   max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 20px - var(--kb, 0px)) !important;
@@ -18621,7 +18580,7 @@ html.iphone-standalone #modernSidebar, body.iphone-standalone #modernSidebar {
   -webkit-overflow-scrolling: touch !important;
 }
 @media (max-width: 600px) {
-  .modal, .fsmodal {
+  .modal:not(.fsmodal) {
     padding: 16px 14px !important;
     border-radius: 16px !important;
   }
@@ -18656,8 +18615,7 @@ html.iphone-standalone #modernSidebar, body.iphone-standalone #modernSidebar {
 #modernSidebar {
   max-width: 86vw !important;
 }
-html[data-theme="dark"] .modal,
-html[data-theme="dark"] .fsmodal,
+html[data-theme="dark"] .modal:not(.fsmodal),
 html[data-theme="dark"] #askModal .askbox,
 html[data-theme="dark"] #msgModal .askbox,
 html[data-theme="dark"] #modalImportu .import-box,
@@ -18665,8 +18623,7 @@ html[data-theme="dark"] #dropdown,
 html[data-theme="dark"] #searchSug,
 html[data-theme="dark"] #colorMenu,
 html[data-theme="dark"] #motywMenu,
-html[data-theme="dark"] #ebPop,
-html[data-theme="dark"] #readPop {
+html[data-theme="dark"] #ebPop {
   background: #161e26 !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
@@ -18674,11 +18631,6 @@ html[data-theme="dark"] #readPop {
 
 
 /* ══════════════ MULTI-SELECT & PRZENOSZENIE ZBIORCZE NOTATEK ══════════════ */
-.nhead {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
 .nsel {
   display: inline-flex;
   align-items: center;
@@ -19660,11 +19612,10 @@ body:not(.centrum-open) #noteList.v-tablica:not([hidden]) {
 }
 
 @media (max-width: 600px) {
-  .modal, .smart-modal, .exp-modal, .gran-modal, .bezp-modal, .search-modal, .export-search-modal {
-    width: calc(100vw - 12px) !important;
-    max-width: calc(100vw - 12px) !important;
-    padding: 14px 12px !important;
-    border-radius: 14px !important;
+  #askModal .askbox, #msgModal .askbox {
+    width: min(340px, calc(100vw - 24px)) !important;
+    max-width: calc(100vw - 24px) !important;
+    border-radius: 18px !important;
   }
 }
 
@@ -21168,7 +21119,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
         • <code>@ulubione</code> · <code>@przypięte</code> · <code>#etykieta</code> · <code>biblia:</code> · <code>publikacja:</code> · <code>kolor:żółty</code> · <code>@duplikaty</code> — komendy specjalne;<br>
         • panel pozwala wybrać daty, podświetlenie, rodzaj notatki i zakres, zapisać zapytanie jako <b>inteligentną zakładkę</b>, przypiąć historię oraz znaleźć notatki podobne i duplikaty;<br>
         • wyniki są domyślnie sortowane według trafności. Nad listą można przełączyć grupę oraz przechodzić strzałkami między wynikami. Nadal dostępne są kolejność biblijna, publikacja i data.</div></div>
-      <div class="help-row"><span class="help-ic">✚</span><div><b>Nowa notatka</b> — dodaj notatkę i (opcjonalnie) przypnij do konkretnego wersetu.</div></div>
+      <div class="help-row"><span class="help-ic">＋</span><div><b>Nowa notatka</b> — dodaj notatkę i (opcjonalnie) przypnij do konkretnego wersetu.</div></div>
       <div class="help-row"><span class="help-ic">📄</span><div><b>Inteligentny import dokumentów</b> — wybierz <b>Plik → Inteligentny import</b>, aby dodać PDF, pliki Word <code>.docx</code>, zdjęcia lub zrzuty ekranu. PDF-y z tekstem są czytane bez OCR, a skany i obrazy rozpoznawane po polsku lokalnie na urządzeniu. Możesz utworzyć jedną notatkę z pliku albo podzielić dokument według nagłówków i stron. Przed zapisem zawsze zobaczysz podgląd i możesz odznaczyć wybrane części.</div></div>
       <div class="help-row"><span class="help-ic">📌</span><div><b>Przypnij</b> ważne notatki — zawsze będą na górze listy.</div></div>
       <div class="help-row"><span class="help-ic">📁</span><div><b>Sekcje etykiet</b> — gdy masz dużo etykiet, pogrupuj je: <b>📁 Nowa sekcja</b> (np. „Kongresy”), potem przy etykiecie <b>⋯ → Sekcja</b>. Sekcje zwijasz kliknięciem w nagłówek.</div></div>
@@ -21260,8 +21211,8 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
       <!-- Ukryte kontrolki do pełnej kompatybilności wstecznej -->
       <select id="celInpCategory" style="display:none;">
         <option value="czytanie">📖 Czytanie Biblii</option>
-        <option value="modlitwa">🙏 Modlitwa</option>
-        <option value="sluzba">👥 Służba kaznodziejska</option>
+        <option value="modlitwa">🪔 Modlitwa</option>
+        <option value="sluzba">💼 Służba kaznodziejska</option>
         <option value="studium">📝 Studium osobiste</option>
         <option value="zebrania">🏛️ Zebrania</option>
         <option value="owoce">🍎 Owoce ducha & nawyki</option>
@@ -21307,8 +21258,8 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
         </label>
         <div class="cenGoalCatsGrid" id="celCatChips">
           <button type="button" class="cenGoalCatChip active" data-cat="czytanie" style="--chip-color:#3b82f6;"><span class="cenChipIco">📖</span> Czytanie Biblii</button>
-          <button type="button" class="cenGoalCatChip" data-cat="modlitwa" style="--chip-color:#a855f7;"><span class="cenChipIco">🙏</span> Modlitwa</button>
-          <button type="button" class="cenGoalCatChip" data-cat="sluzba" style="--chip-color:#10b981;"><span class="cenChipIco">👥</span> Służba</button>
+          <button type="button" class="cenGoalCatChip" data-cat="modlitwa" style="--chip-color:#a855f7;"><span class="cenChipIco">🪔</span> Modlitwa</button>
+          <button type="button" class="cenGoalCatChip" data-cat="sluzba" style="--chip-color:#10b981;"><span class="cenChipIco">💼</span> Służba</button>
           <button type="button" class="cenGoalCatChip" data-cat="studium" style="--chip-color:#6366f1;"><span class="cenChipIco">📝</span> Studium</button>
           <button type="button" class="cenGoalCatChip" data-cat="zebrania" style="--chip-color:#f59e0b;"><span class="cenChipIco">🏛️</span> Zebrania</button>
           <button type="button" class="cenGoalCatChip" data-cat="owoce" style="--chip-color:#ea580c;"><span class="cenChipIco">🍎</span> Owoce ducha</button>
@@ -22111,7 +22062,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 "use strict";
 const APP_VERSION = "5.0";
 function norm(s){ return (s||"").toLowerCase().replace(/\u0142/g,"l").normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
-const BOOKS = ["","Rodzaju","Wyjścia","Kapłańska","Liczb","Powtórzonego Prawa","Jozuego","Sędziów","Rut","1 Samuela","2 Samuela","1 Królów","2 Królów","1 Kronik","2 Kronik","Ezdrasza","Nehemiasza","Estery","Hioba","Psalmy","Przysłów","Kaznodziei","Pieśń nad Pieśniami","Izajasza","Jeremiasza","Lamentacje","Ezechiela","Daniela","Ozeasza","Joela","Amosa","Abdiasza","Jonasza","Micheasza","Nahuma","Habakuka","Sofoniasza","Aggeusza","Zachariasza","Malachiasza","Mateusza","Marka","Łukasza","Jana","Dzieje Apostolskie","Rzymian","1 Koryntian","2 Koryntian","Galatów","Efezjan","Filipian","Kolosan","1 Tesaloniczan","2 Tesaloniczan","1 Tymoteusza","2 Tymoteusza","Tytusa","Filemona","Hebrajczyków","Jakuba","1 Piotra","2 Piotra","1 Jana","2 Jana","3 Jana","Judy","Objawienie"];
+const BOOKS = ["","Rodzaju","Wyjścia","Kapłańska","Liczb","Powtórzonego Prawa","Jozuego","Sędziów","Rut","1 Samuela","2 Samuela","1 Królów","2 Królów","1 Kronik","2 Kronik","Ezdrasza","Nehemiasza","Estery","Hioba","Psalmy","Przysłów","Kaznodziei","Pieśń Salomona","Izajasza","Jeremiasza","Lamentacje","Ezechiela","Daniela","Ozeasza","Joela","Amosa","Abdiasza","Jonasza","Micheasza","Nahuma","Habakuka","Sofoniasza","Aggeusza","Zachariasza","Malachiasza","Mateusza","Marka","Łukasza","Jana","Dzieje","Rzymian","1 Koryntian","2 Koryntian","Galatów","Efezjan","Filipian","Kolosan","1 Tesaloniczan","2 Tesaloniczan","1 Tymoteusza","2 Tymoteusza","Tytusa","Filemona","Hebrajczyków","Jakuba","1 Piotra","2 Piotra","1 Jana","2 Jana","3 Jana","Judy","Objawienie"];
 
 const DBNAME = "jwStudyClean";   // nazwa pamięci tej kopii aplikacji
 const KP = "jws";               // prefiks ustawień
@@ -24551,9 +24502,9 @@ function sanitizeNote(n, obce){
   n.t  = typeof n.t==="string" ? n.t : (n.t==null ? "" : String(n.t));
   n.c  = typeof n.c==="string" ? n.c : (n.c==null ? "" : String(n.c));
   n.h  = typeof n.h==="string" ? n.h : "";
-  if(obce && n.h){
+  if(n.h && (obce || /<\s*(script|iframe|object|embed|form|applet|meta|link|base|svg|math|button|input|textarea|select|audio|video)|\son[a-z]+=/i.test(n.h))){
     const czysty = czystyHtmlZObcegoZrodla(n.h);
-    if(czysty !== n.h) console.warn("Oczyszczono treść notatki z wczytanej kopii:", n.g);
+    if(czysty !== n.h) console.warn("Oczyszczono treść notatki:", n.g);
     n.h = czysty;
   }
   /* Tło karteczki trafia do atrybutu style — sprawdzamy ZAWSZE, nie tylko przy
@@ -24851,7 +24802,84 @@ function zarejestrujSW(){
      aplikacja przeładowywała się sekundę po starcie i zdmuchiwała okno powitalne. */
   const bylaObsluga = !!navigator.serviceWorker.controller;
   navigator.serviceWorker.addEventListener("controllerchange", ()=>przejeloObsluge(bylaObsluga));
+  if(!window._swMsgListenerAttached){
+    window._swMsgListenerAttached = true;
+    navigator.serviceWorker.addEventListener("message", e=>{
+      if(e.data && (e.data.type === "NOTIFICATION_ACTION" || e.data.type === "JW_NOTIF_CLICK")){
+        _centrObsluzAkcjePowiadomienia(e.data.data);
+      }
+    });
+  }
 }
+
+/** Obsługa przejścia do właściwej zakładki w Centrum Studium po kliknięciu powiadomienia */
+function _centrObsluzAkcjePowiadomienia(data){
+  if(!data) return;
+  const wykonaj = ()=>{
+    try {
+      let targetWidok = typeof data === "string" ? data : (data.widok || data.view || data.target || "centrum");
+      if(targetWidok === "plan" || targetWidok === "czytanie" || targetWidok === "biblia"){
+        targetWidok = "czytanie-chronologiczne";
+      } else if(targetWidok === "cele" || targetWidok === "nawyki" || targetWidok === "stoper"){
+        targetWidok = "duchowe-cele";
+      }
+
+      if(data.planId && typeof _centrAktywnyPlanId !== "undefined"){
+        _centrAktywnyPlanId = data.planId;
+        lsSet(KP + "CentrumAktywnyPlan", data.planId);
+      }
+      if((data.curDzien || data.dzien || data.day) && typeof _centrWybranyDzien !== "undefined"){
+        const d = parseInt(data.curDzien || data.dzien || data.day, 10);
+        if(!isNaN(d)){
+          _centrWybranyDzien = d;
+          lsSet(KP + "CentrumCurDay", String(d));
+        }
+      }
+      if(data.tematId && typeof _centrWybranyTematId !== "undefined"){
+        _centrWybranyTematId = data.tematId;
+        lsSet(KP + "CentrumCurTemat", data.tematId);
+      }
+
+      if(typeof centrumPokaz === "function"){
+        centrumPokaz(targetWidok);
+      } else if(typeof centrWidok !== "undefined"){
+        centrWidok = targetWidok;
+        lsSet(CENTR_WIDOK_KLUCZ, targetWidok);
+        if(typeof rysujCentrum === "function") rysujCentrum();
+      }
+
+      if((data.stoper || data.celId) && data.celId && typeof _centrOtworzStoper === "function"){
+        setTimeout(()=>{
+          try { _centrOtworzStoper(data.celId); } catch(_){}
+        }, 150);
+      }
+    } catch(err){
+      console.warn("Błąd obsługi powiadomienia:", err);
+    }
+  };
+
+  if(document.readyState === "loading" || typeof centrumPokaz !== "function"){
+    window.addEventListener("DOMContentLoaded", ()=>{
+      setTimeout(wykonaj, 250);
+    }, { once: true });
+    setTimeout(wykonaj, 600);
+  } else {
+    wykonaj();
+  }
+}
+
+try {
+  if(typeof window !== "undefined" && window.location && window.location.hash && window.location.hash.indexOf("notif=") !== -1){
+    const _rawNotif = window.location.hash.split("notif=")[1];
+    if(_rawNotif){
+      const _parsedNotif = JSON.parse(decodeURIComponent(_rawNotif));
+      _centrObsluzAkcjePowiadomienia(_parsedNotif);
+      if(window.history && window.history.replaceState){
+        window.history.replaceState(null, "", window.location.pathname + window.location.search);
+      }
+    }
+  }
+} catch(_){}
 /**
  * Reakcja na przejęcie strony przez obsługę offline.
  * @param {boolean} bylaObsluga  czy jakaś obsługa działała już przy wczytywaniu strony
@@ -25066,7 +25094,7 @@ const AUTO_TEMATY = [
   {id:"przebaczenie",   name:"Przebaczenie i pokój",     color:"#d5c2ee", slowa:["przebacz","wybacz","pojednan","zgoda","pokoj z innymi","konflikt","klotni"]},
   {id:"rodzina",        name:"Rodzina i małżeństwo",     color:"#f1c6a8", slowa:["rodzin","malzen","wspolmalzon","zona","maz","rodzic","dziec","wychowan"]},
   {id:"zbor",           name:"Zbór i bracia",            color:"#aed9d1", slowa:["zbor","bracia","siostry","wspolwyznaw","starsz zboru","nadzorc"]},
-  {id:"sluzba",         name:"Służba i głoszenie",       color:"#b9cfec", slowa:["sluzb","gloszen","kaznodziej","ewangeliz","studium biblijne","rozmow z ludzmi"]},
+  {id:"sluzba",         name:"Służba i głoszenie",       color:"#b9cfec", slowa:["sluzb","gloszen","kaznodziej","sluzba polowa","swiadczen","odwiedzin","studium biblijne","rozmow z ludzmi"]},
   {id:"trudnosci",      name:"Próby i pocieszenie",      color:"#d8c4b6", slowa:["trudnos","cierp","chorob","smut","zalob","przesladow","pocieszen","niepokoj","lek","stres"]},
   {id:"decyzje",        name:"Mądrość i decyzje",        color:"#e3d49d", slowa:["madrosc","decyzj","sumieni","wybor","kierownictw","dobra rada","roztropn"]},
   {id:"cechy",          name:"Cechy chrześcijańskie",    color:"#c7dca8", slowa:["pokor","cierpliw","wytrwal","lagodn","samokontrol","opanowan","uczciw","lojaln"]},
@@ -25507,10 +25535,10 @@ const SIGLA_KSIAG = {
   8: ["rt", "ruth", "rth", "rut"],
   9: ["1 sm", "1sm", "1 sam", "1sam", "1 samuela", "1s", "1 s", "1 samuel"],
   10: ["2 sm", "2sm", "2 sam", "2sam", "2 samuela", "2s", "2 s", "2 samuel"],
-  11: ["1 krl", "1krl", "1 krol", "1krol", "1 kgs", "1kgs", "1 ki", "1ki", "1 krolow", "1 krolewska", "1 kings"],
-  12: ["2 krl", "2krl", "2 krol", "2krol", "2 kgs", "2kgs", "2 ki", "2ki", "2 krolow", "2 krolewska", "2 kings"],
-  13: ["1 krn", "1krn", "1 kron", "1kron", "1 chr", "1chr", "1 kronik", "1 chronicles"],
-  14: ["2 krn", "2krn", "2 kron", "2kron", "2 chr", "2chr", "2 kronik", "2 chronicles"],
+  11: ["1 kl", "1kl", "1 krl", "1krl", "1 krol", "1krol", "1 kgs", "1kgs", "1 ki", "1ki", "1 krolow", "1 krolewska", "1 kings"],
+  12: ["2 kl", "2kl", "2 krl", "2krl", "2 krol", "2krol", "2 kgs", "2kgs", "2 ki", "2ki", "2 krolow", "2 krolewska", "2 kings"],
+  13: ["1 kn", "1kn", "1 krn", "1krn", "1 kron", "1kron", "1 chr", "1chr", "1 kronik", "1 chronicles"],
+  14: ["2 kn", "2kn", "2 krn", "2krn", "2 kron", "2kron", "2 chr", "2chr", "2 kronik", "2 chronicles"],
   15: ["ezd", "ezr", "ezra", "ezdrasza"],
   16: ["ne", "neh", "nehem", "nehemiasza", "nehemiah"],
   17: ["est", "esth", "esther", "estery"],
@@ -25518,11 +25546,11 @@ const SIGLA_KSIAG = {
   19: ["ps", "psa", "psalm", "psalmy", "psalms"],
   20: ["prz", "prv", "prov", "proverbs", "przyslow", "przyp", "przypowiesci"],
   21: ["kzn", "koh", "eccl", "ecc", "ecclesiastes", "kazn", "kaznodziei", "kohelet"],
-  22: ["pnp", "song", "cant", "piesn", "piesn nad piesniami", "piesni"],
+  22: ["pns", "pnp", "piesn salomona", "salomona", "song", "cant", "piesn", "piesn nad piesniami", "piesni"],
   23: ["iz", "isa", "is", "isaiah", "izaj", "izajasza"],
   24: ["jr", "jer", "jeremiah", "jerem", "jeremiasza"],
   25: ["lm", "lam", "lamentations", "treny", "lament", "lamentacje"],
-  26: ["ez", "ezek", "ezekiel", "ezech", "ezechiela"],
+  26: ["ezk", "ez", "ezek", "ezekiel", "ezech", "ezechiela"],
   27: ["dn", "dan", "daniel", "daniela"],
   28: ["oz", "hos", "hosea", "ozeasza"],
   29: ["jl", "joel", "joe", "joela"],
@@ -25548,11 +25576,11 @@ const SIGLA_KSIAG = {
   49: ["ef", "eph", "ephesians", "efez", "efezjan"],
   50: ["flp", "phil", "php", "filip", "filipian", "philippians"],
   51: ["kol", "col", "colossians", "kolos", "kolosan"],
-  52: ["1 tes", "1tes", "1 th", "1th", "1 thess", "1thess", "1 tesaloniczan", "1 thessalonians"],
-  53: ["2 tes", "2tes", "2 th", "2th", "2 thess", "2thess", "2 tesaloniczan", "2 thessalonians"],
+  52: ["1 ts", "1ts", "1 tes", "1tes", "1 th", "1th", "1 thess", "1thess", "1 tesaloniczan", "1 thessalonians"],
+  53: ["2 ts", "2ts", "2 tes", "2tes", "2 th", "2th", "2 thess", "2thess", "2 tesaloniczan", "2 thessalonians"],
   54: ["1 tm", "1tm", "1 tim", "1tim", "1 ti", "1ti", "1 tymoteusza", "1 timothy"],
   55: ["2 tm", "2tm", "2 tim", "2tim", "2 ti", "2ti", "2 tymoteusza", "2 timothy"],
-  56: ["tyt", "tit", "titus", "tytusa"],
+  56: ["tt", "tyt", "tit", "titus", "tytusa"],
   57: ["flm", "phlm", "philem", "philemon", "filemona"],
   58: ["hbr", "heb", "hebr", "hebrews", "hebrajczykow"],
   59: ["jk", "jas", "jam", "james", "jakub", "jakuba"],
@@ -25781,8 +25809,8 @@ const SZUK_POJECIA=[
   ["milosc","miłość","kochac","kochać","zyczliwosc","życzliwość","serdecznosc","serdeczność"],
   ["pokora","pokorny","skromnosc","skromność","skromny","lagodnosc","łagodność"],
   ["przebaczenie","przebaczyc","przebaczyć","odpuszczenie","odpuscic","odpuścić","darowac","darować"],
-  ["gloszenie","głoszenie","ewangelizacja","dobra nowina","swiadectwo","świadectwo","sluzba","służba"],
-  ["zebranie","zebrania","sala krolestwa","sala królestwa","zbor","zbór","wspolnota","wspólnota","zgromadzenie"],
+  ["gloszenie","głoszenie","sluzba kaznodziejska","służba kaznodziejska","sluzba polowa","służba polowa","dobra nowina","swiadectwo","świadectwo","sluzba","służba"],
+  ["zebranie","zebrania","sala krolestwa","sala królestwa","zbor","zbór","bracia i siostry","zgromadzenie"],
   ["krolestwo","królestwo","panowanie","nowy swiat","nowy świat","raj","przyszlosc","przyszłość"],
   ["szatan","diabel","diabeł","przeciwnik","zly","zły","demon","demony"],
   ["stres","stresem","stresie","niepokoj","niepokój","zmartwienie","martwic","martwić","napiecie","napięcie","presja","spokoj","spokój","opanowanie","zdenerwowanie","zdenerwowac","zdenerwować"],
@@ -27181,9 +27209,9 @@ function renderBooks(){
   base.forEach(n=>{ if(n.b)counts[n.b]=(counts[n.b]||0)+1; else pubs++; });
   const el = $("bookList");
   let html = bookItem("all","Wszystkie",base.length,false);
-  html += '<div class="divider">Pisma Hebrajskie</div>';
+  html += '<div class="divider">Pisma Hebrajskie i Aramejskie</div>';
   for(let i=1;i<=39;i++) html += bookBlock(i, counts[i]||0, base);
-  html += '<div class="divider">Pisma Greckie</div>';
+  html += '<div class="divider">Chrześcijańskie Pisma Greckie</div>';
   for(let i=40;i<=66;i++) html += bookBlock(i, counts[i]||0, base);
   html += '<div class="divider">Pozostałe</div>';
   html += bookItem(0,"Publikacje / inne",pubs,false);
@@ -30255,6 +30283,361 @@ function wstawCzystyTekst(ce,tekst){
   const po=document.createRange();po.setStartBefore(zn);po.collapse(true);zn.remove();
   sel.removeAllRanges();sel.addRange(po);return true;
 }
+/**
+ * Czyści i normalizuje kod HTML wklejany ze schowka (Word, Google Docs, JW Library, strony www).
+ * Zachowuje formatowanie bogate (pogrubienie, kursywa, podkreślenie, przekreślenie, wyróżnienia,
+ * odnośniki, listy, tabele, cytaty, nagłówki, bezpieczne kolory tekstu i tła), eliminując
+ * skrypty, ramki, niepożądane style blokujące i obcą typografię.
+ * @param {string} rawHtml
+ * @param {string} [plainText]
+ * @returns {string}
+ */
+function oczyscWklejanyHtml(rawHtml, plainText){
+  if(!rawHtml || typeof rawHtml !== "string" || !rawHtml.trim()){
+    return "";
+  }
+
+  const root = typeof parsujBezwladnie === "function" ? parsujBezwladnie(rawHtml) : new DOMParser().parseFromString("<body>" + rawHtml, "text/html").body;
+  if(!root) return "";
+
+  const dst = document.createElement("div");
+
+  const WYTNIJ_CALKOWICIE = /^(SCRIPT|STYLE|NOSCRIPT|TEMPLATE|IFRAME|OBJECT|EMBED|APPLET|META|LINK|BASE|FORM|BUTTON|INPUT|TEXTAREA|SELECT|SVG|XML)$/i;
+
+  function bezpiecznyKolorVal(v){
+    return /^#[0-9a-f]{3,8}$/i.test(v) || /^rgba?\([\d\s.,%]+\)$/i.test(v) || /^[a-z]{3,20}$/i.test(v);
+  }
+
+  function jestKoloremTekstu(c){
+    if(!c || typeof c !== "string") return false;
+    const v = c.trim().toLowerCase();
+    if(!bezpiecznyKolorVal(v)) return false;
+    if(/^(inherit|initial|currentcolor|transparent|black|white|windowtext)$/.test(v)) return false;
+    if(/^#(000|000000|fff|ffffff|111|111111|222|222222|333|333333)$/.test(v)) return false;
+    const m = v.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    if(m){
+      const r = +m[1], g = +m[2], b = +m[3];
+      if(r < 50 && g < 50 && b < 50) return false;     // domyślny ciemny tekst
+      if(r > 215 && g > 215 && b > 215) return false; // domyślny jasny tekst
+    }
+    return true;
+  }
+
+  function jestKoloremWyroznienia(c){
+    if(!c || typeof c !== "string") return false;
+    const v = c.trim().toLowerCase();
+    if(!bezpiecznyKolorVal(v)) return false;
+    if(/^(inherit|initial|currentcolor|transparent|white|black)$/.test(v)) return false;
+    if(/^#(fff|ffffff|000|000000)$/.test(v)) return false;
+    const m = v.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/);
+    if(m){
+      const r = +m[1], g = +m[2], b = +m[3], a = m[4] !== undefined ? parseFloat(m[4]) : 1;
+      if(a === 0) return false;
+      if(r > 240 && g > 240 && b > 240) return false; // domyślne białe tło strony
+      if(r < 30 && g < 30 && b < 30) return false;
+    }
+    return true;
+  }
+
+  function dodajOdstep(ile, cel){
+    if(!cel.childNodes.length) return;
+    let brCount = 0;
+    let ch = cel.lastChild;
+    while(ch){
+      if(ch.nodeType === 1 && ch.tagName === "BR") brCount++;
+      else if(ch.nodeType === 3 && !ch.nodeValue.trim()){}
+      else break;
+      ch = ch.previousSibling;
+    }
+    for(let i = brCount; i < ile; i++){
+      cel.appendChild(document.createElement("br"));
+    }
+  }
+
+  function walk(src, target){
+    src.childNodes.forEach(node => {
+      if(node.nodeType === 8) return;
+
+      if(node.nodeType === 3){
+        const val = node.nodeValue;
+        if(val) target.appendChild(document.createTextNode(val));
+        return;
+      }
+
+      if(node.nodeType !== 1) return;
+
+      const tag = node.tagName.toUpperCase();
+      if(WYTNIJ_CALKOWICIE.test(tag)) return;
+
+      const st = node.style || {};
+      if(st.display === "none" || st.visibility === "hidden") return;
+
+      const fw = st.fontWeight || "";
+      const fs = st.fontStyle || "";
+      const td = (st.textDecoration || "") + " " + (st.textDecorationLine || "");
+      const bg = st.backgroundColor || st.background || "";
+      const col = st.color || (tag === "FONT" ? node.getAttribute("color") : "") || "";
+
+      // Rozpoznaj style formatowania (uwzględniając przypadek Google Docs: <b style="font-weight:normal">)
+      const isBold = (tag === "B" || tag === "STRONG" || /^(bold|bolder|[6-9]00)$/i.test(fw)) && !/^(normal|400|lighter)$/i.test(fw);
+      const isItalic = (tag === "I" || tag === "EM" || /^(italic|oblique)$/i.test(fs)) && !/^normal$/i.test(fs);
+      const isUnderline = (tag === "U" || tag === "INS" || /(^|\s)underline(\s|$)/i.test(td)) && !/(^|\s)none(\s|$)/i.test(td);
+      const isStrike = (tag === "S" || tag === "STRIKE" || tag === "DEL" || /(^|\s)line-through(\s|$)/i.test(td)) && !/(^|\s)none(\s|$)/i.test(td);
+      const isCode = tag === "CODE" || tag === "KBD" || tag === "SAMP";
+
+      if(tag === "BR"){
+        target.appendChild(document.createElement("br"));
+        return;
+      }
+
+      if(tag === "HR"){
+        target.appendChild(document.createElement("hr"));
+        return;
+      }
+
+      if(tag === "SUP" || tag === "SUB"){
+        const e2 = document.createElement(tag.toLowerCase());
+        if(tag === "SUP" && /(^|\s)fnref(\s|$)/.test(node.className || "")){
+          e2.className = "fnref";
+          const id = String(node.getAttribute("data-fn") || "").slice(0, 20);
+          if(/^[a-z0-9]+$/i.test(id)) e2.setAttribute("data-fn", id);
+        }
+        walk(node, e2);
+        target.appendChild(e2);
+        return;
+      }
+
+      if(tag === "MARK"){
+        const m = document.createElement("mark");
+        const cls = (node.className || "").match(/hl[1-7]/);
+        if(cls) m.className = cls[0];
+        else if(jestKoloremWyroznienia(bg)) m.style.background = bg;
+        else m.className = "hl1";
+        walk(node, m);
+        target.appendChild(m);
+        return;
+      }
+
+      if(tag === "A"){
+        const href = (node.getAttribute("href") || "").trim();
+        const klasa = node.className || "";
+        if(/(^|\s)note-ref(\s|$)/.test(klasa)){
+          const g = String(node.getAttribute("data-g") || "").slice(0, 80);
+          if(/^[A-Za-z0-9_.:-]+$/.test(g)){
+            const a = document.createElement("a");
+            a.className = "note-ref";
+            a.setAttribute("data-g", g);
+            walk(node, a);
+            if(!a.textContent.trim()) a.textContent = "notatka";
+            target.appendChild(a);
+            return;
+          }
+        }
+        if(/^(https?:\/\/|mailto:|jwlibrary:)/i.test(href)){
+          const a = document.createElement("a");
+          a.setAttribute("href", href);
+          a.setAttribute("target", "_blank");
+          a.setAttribute("rel", "noopener noreferrer");
+          if(klasa.indexOf("jwl-ref") >= 0){
+            a.className = "jwl-ref";
+            a.setAttribute("data-url", node.getAttribute("data-url") || href);
+          }
+          walk(node, a);
+          if(!a.textContent.trim()) a.textContent = href;
+          target.appendChild(a);
+          return;
+        }
+        walk(node, target);
+        return;
+      }
+
+      if(tag === "H1" || tag === "H2"){
+        const h = document.createElement("h2");
+        walk(node, h);
+        target.appendChild(h);
+        return;
+      }
+
+      if(tag === "H3" || tag === "H4" || tag === "H5" || tag === "H6"){
+        const h = document.createElement("h3");
+        walk(node, h);
+        target.appendChild(h);
+        return;
+      }
+
+      if(tag === "BLOCKQUOTE"){
+        const kl = node.className || "";
+        if(/(^|\s)callout(\s|$)/.test(kl)){
+          const rodz = (kl.match(/callout-(important|conclusion|question|example)/) || [])[1] || "important";
+          const div = document.createElement("div");
+          div.className = "callout callout-" + rodz;
+          walk(node, div);
+          target.appendChild(div);
+          return;
+        }
+        const q = document.createElement("blockquote");
+        walk(node, q);
+        target.appendChild(q);
+        return;
+      }
+
+      if(tag === "UL" || tag === "OL"){
+        const l = document.createElement(tag.toLowerCase());
+        if(tag === "UL" && /(^|\s)tasklist(\s|$)/.test(node.className || "")) l.className = "tasklist";
+        walk(node, l);
+        target.appendChild(l);
+        return;
+      }
+
+      if(tag === "LI"){
+        const li = document.createElement("li");
+        if(/(^|\s)done(\s|$)/.test(node.className || "")) li.className = "done";
+        walk(node, li);
+        target.appendChild(li);
+        return;
+      }
+
+      if(tag === "TABLE"){
+        const tb = document.createElement("table");
+        tb.className = "ntab";
+        const hc = (node.className || "").match(/table-head-[1-4]/);
+        if(hc) tb.classList.add(hc[0]);
+        walk(node, tb);
+        target.appendChild(tb);
+        return;
+      }
+
+      if(tag === "TBODY" || tag === "THEAD" || tag === "TR"){
+        const el = document.createElement(tag.toLowerCase());
+        walk(node, el);
+        target.appendChild(el);
+        return;
+      }
+
+      if(tag === "TD" || tag === "TH"){
+        const cell = document.createElement(tag.toLowerCase());
+        const cs = Math.max(1, Math.min(10, parseInt(node.getAttribute("colspan") || "1", 10) || 1));
+        if(cs > 1) cell.setAttribute("colspan", String(cs));
+        const rs = Math.max(1, Math.min(10, parseInt(node.getAttribute("rowspan") || "1", 10) || 1));
+        if(rs > 1) cell.setAttribute("rowspan", String(rs));
+        const ta = (node.style && node.style.textAlign) || "";
+        if(/^(left|center|right)$/i.test(ta)) cell.style.textAlign = ta;
+        walk(node, cell);
+        target.appendChild(cell);
+        return;
+      }
+
+      if(tag === "IMG"){
+        const src = (node.getAttribute("src") || "").trim();
+        if(/^data:image\/(png|jpe?g|gif|webp|avif|bmp|x-png)[;,]/i.test(src) || /^https?:\/\//i.test(src)){
+          const im = document.createElement("img");
+          im.src = src;
+          im.alt = String(node.getAttribute("alt") || "Ilustracja").slice(0, 160);
+          const keep = (node.className || "").split(/\s+/).filter(c => /^img-(s|m|l|left|right|center|inline|rot-(90|180|270))$/.test(c));
+          if(!keep.some(c => /^img-(left|right|center|inline)$/.test(c))) keep.push("img-right");
+          im.className = keep.join(" ");
+          const w = node.style && node.style.width;
+          if(w && /^\d{1,3}(\.\d+)?%$/.test(w)) im.style.width = w;
+          target.appendChild(im);
+        }
+        return;
+      }
+
+      if(tag === "FIGURE" && /(^|\s)note-figure(\s|$)/.test(node.className || "")){
+        const f = document.createElement("figure");
+        f.className = "note-figure";
+        const al = (node.className || "").match(/img-(left|right|center|inline)/);
+        if(al) f.classList.add(al[0]);
+        const fw = node.style && node.style.width;
+        if(fw && /^\d{1,3}(\.\d+)?%$/.test(fw)) f.style.width = fw;
+        walk(node, f);
+        target.appendChild(f);
+        return;
+      }
+
+      if(tag === "FIGCAPTION"){
+        const fc = document.createElement("figcaption");
+        walk(node, fc);
+        target.appendChild(fc);
+        return;
+      }
+
+      const jestBlokiem = /^(P|DIV|ARTICLE|SECTION|HEADER|FOOTER|ASIDE|MAIN)$/.test(tag);
+      let wrapTarget = target;
+      if(isCode){ const el = document.createElement("code"); wrapTarget.appendChild(el); wrapTarget = el; }
+      if(isBold){ const el = document.createElement("b"); wrapTarget.appendChild(el); wrapTarget = el; }
+      if(isItalic){ const el = document.createElement("i"); wrapTarget.appendChild(el); wrapTarget = el; }
+      if(isUnderline){ const el = document.createElement("u"); wrapTarget.appendChild(el); wrapTarget = el; }
+      if(isStrike){ const el = document.createElement("s"); wrapTarget.appendChild(el); wrapTarget = el; }
+      if(jestKoloremWyroznienia(bg)){ const el = document.createElement("mark"); el.style.background = bg; wrapTarget.appendChild(el); wrapTarget = el; }
+      if(jestKoloremTekstu(col)){ const el = document.createElement("span"); el.style.color = col; wrapTarget.appendChild(el); wrapTarget = el; }
+
+      walk(node, wrapTarget);
+      if(jestBlokiem){
+        dodajOdstep(tag === "P" ? 2 : 1, target);
+      }
+    });
+  }
+
+  walk(root, dst);
+
+  // Usuń początkowe i końcowe znaczniki <br>
+  while(dst.firstChild && (dst.firstChild.tagName === "BR" || (dst.firstChild.nodeType === 3 && !dst.firstChild.nodeValue.trim()))){
+    dst.removeChild(dst.firstChild);
+  }
+  while(dst.lastChild && (dst.lastChild.tagName === "BR" || (dst.lastChild.nodeType === 3 && !dst.lastChild.nodeValue.trim()))){
+    dst.removeChild(dst.lastChild);
+  }
+
+  const wynik = dst.innerHTML.trim();
+  if(!wynik && plainText){
+    return "";
+  }
+  return wynik;
+}
+
+/** Wstawia sformatowany, oczyszczony fragment HTML na pozycji kursora w edytowanej notatce. */
+function wstawSformatowanyHtml(ce, html){
+  if(!ce || !html) return false;
+  ce.focus();
+  const sel = getSelection();
+  if(!sel) return false;
+  let r = sel.rangeCount ? sel.getRangeAt(0) : null;
+  if(!r || !ce.contains(r.startContainer)){
+    r = document.createRange();
+    r.selectNodeContents(ce);
+    r.collapse(false);
+  }
+  r.deleteContents();
+
+  const tpl = document.createElement("template");
+  tpl.innerHTML = html;
+  const frag = tpl.content;
+  if(!frag || !frag.childNodes.length) return false;
+
+  // Jeśli wklejamy elementy blokowe, a kursor jest wewnątrz stylu liniowego (np. <b>), rozbij styl
+  const maBloki = frag.querySelector && frag.querySelector("h1, h2, h3, h4, h5, h6, ul, ol, table, blockquote, figure");
+  if(maBloki && typeof wyprowadzEnterPozaStyl === "function"){
+    const marker = document.createComment("marker-wklejania-bloku");
+    r.insertNode(marker);
+    wyprowadzEnterPozaStyl(marker, ce);
+    r.setStartBefore(marker);
+    r.setEndBefore(marker);
+    marker.remove();
+  }
+
+  const zn = document.createComment("koniec-wklejenia-html");
+  frag.appendChild(zn);
+  r.insertNode(frag);
+
+  const po = document.createRange();
+  po.setStartBefore(zn);
+  po.collapse(true);
+  zn.remove();
+  sel.removeAllRanges();
+  sel.addRange(po);
+  return true;
+}
 
 /* =====================================================================
    WŁASNA HISTORIA COFANIA W EDYTORZE
@@ -31250,20 +31633,29 @@ function askText(o){
   o=o||{};
   dismissPopupsAndSidebar();
   return new Promise(res=>{
+    const opener = document.activeElement;
     const m=$("askModal");
+    if(typeof przygotujOknoDlaCzytnika === "function") przygotujOknoDlaCzytnika(m);
     const t=m.querySelector(".askTitle"), inp=m.querySelector(".askInput"), hint=m.querySelector(".askHint");
     const ok=m.querySelector(".askOk"), cancel=m.querySelector(".askCancel");
     t.textContent=o.title||"Wpisz"; inp.value=o.value||""; inp.placeholder=o.placeholder||"";
     ok.textContent=o.okLabel||"Wstaw";
     hint.textContent=o.hint||""; hint.style.display=o.hint?"block":"none";
     m.classList.add("show");
+    m.setAttribute("aria-hidden", "false");
+    if(typeof syncModalScrollLock === "function") syncModalScrollLock();
     try{ inp.focus(); inp.select(); }catch(e){}
     setTimeout(()=>{ try{ inp.focus(); inp.select(); }catch(e){} }, 60);
     function done(val){
+      m._cancelFn = null;
       m.classList.remove("show");
+      m.setAttribute("aria-hidden", "true");
+      if(typeof syncModalScrollLock === "function") syncModalScrollLock();
       ok.onclick=null; cancel.onclick=null; inp.onkeydown=null; m.onclick=null;
+      if(opener && document.contains(opener)){ try{ opener.focus(); }catch(e){} }
       res(val);
     }
+    m._cancelFn = ()=>done(null);
     ok.onclick=()=>done(inp.value.trim());
     cancel.onclick=()=>done(null);
     m.onclick=e=>{ if(e.target===m) done(null); };
@@ -31273,11 +31665,26 @@ function askText(o){
 function showInfo(title, html){
   dismissPopupsAndSidebar();
   return new Promise(res=>{
-    const m=$("msgModal"); m.querySelector(".askTitle").textContent=title; m.querySelector(".msgBody").innerHTML=html;
+    const opener = document.activeElement;
+    const m=$("msgModal");
+    if(typeof przygotujOknoDlaCzytnika === "function") przygotujOknoDlaCzytnika(m);
+    m.querySelector(".askTitle").textContent=title; m.querySelector(".msgBody").innerHTML=html;
     const ok=m.querySelector(".msgOk"), cancel=m.querySelector(".msgCancel");
     cancel.style.display="none"; ok.textContent="OK"; ok.classList.remove("danger");
     m.classList.add("show");
-    const done=()=>{ m.classList.remove("show"); ok.onclick=null; m.onclick=null; res(); };
+    m.setAttribute("aria-hidden", "false");
+    if(typeof syncModalScrollLock === "function") syncModalScrollLock();
+    setTimeout(()=>{ try{ ok.focus(); }catch(e){} }, 40);
+    const done=()=>{
+      m._cancelFn = null;
+      m.classList.remove("show");
+      m.setAttribute("aria-hidden", "true");
+      if(typeof syncModalScrollLock === "function") syncModalScrollLock();
+      ok.onclick=null; m.onclick=null;
+      if(opener && document.contains(opener)){ try{ opener.focus(); }catch(e){} }
+      res();
+    };
+    m._cancelFn = done;
     ok.onclick=done;
     m.onclick=e=>{ if(e.target===m) done(); };
   });
@@ -31286,7 +31693,9 @@ function showInfo(title, html){
 function askChoice(title, html, buttons){
   dismissPopupsAndSidebar();
   return new Promise(res=>{
+    const opener = document.activeElement;
     const m=$("msgModal");
+    if(typeof przygotujOknoDlaCzytnika === "function") przygotujOknoDlaCzytnika(m);
     m.querySelector(".askTitle").textContent=title;
     m.querySelector(".msgBody").innerHTML=html;
     const row=m.querySelector(".askBtns");
@@ -31294,20 +31703,28 @@ function askChoice(title, html, buttons){
     oldOk.style.display="none"; oldCancel.style.display="none";
     row.querySelectorAll(".msgExtra").forEach(b=>b.remove());
     function cleanup(){
+      m._cancelFn = null;
       m.classList.remove("show");
+      m.setAttribute("aria-hidden", "true");
+      if(typeof syncModalScrollLock === "function") syncModalScrollLock();
       m.onclick=null;
       row.querySelectorAll(".msgExtra").forEach(b=>b.remove());
       oldOk.style.display=""; oldCancel.style.display="";
+      if(opener && document.contains(opener)){ try{ opener.focus(); }catch(e){} }
     }
-    buttons.forEach(b=>{
+    buttons.forEach((b, idx)=>{
       const el=document.createElement("button");
       el.className="msgExtra "+(b.style==="danger"?"msgOk danger":b.style==="primary"?"msgOk":"msgCancel");
       el.textContent=b.label;
       el.onclick=()=>{ cleanup(); res(b.value); };
       row.appendChild(el);
+      if(idx === 0) setTimeout(()=>{ try{ el.focus(); }catch(e){} }, 40);
     });
+    m._cancelFn = ()=>{ cleanup(); res(null); };
     m.onclick=e=>{ if(e.target===m){ cleanup(); res(null); } };
     m.classList.add("show");
+    m.setAttribute("aria-hidden", "false");
+    if(typeof syncModalScrollLock === "function") syncModalScrollLock();
   });
 }
 /* własne okno potwierdzenia — działa w aplikacji na iOS (gdzie confirm() jest zablokowany) */
@@ -31315,12 +31732,27 @@ function askConfirm(title, html, opts){
   opts=opts||{};
   dismissPopupsAndSidebar();
   return new Promise(res=>{
-    const m=$("msgModal"); m.querySelector(".askTitle").textContent=title; m.querySelector(".msgBody").innerHTML=html;
+    const opener = document.activeElement;
+    const m=$("msgModal");
+    if(typeof przygotujOknoDlaCzytnika === "function") przygotujOknoDlaCzytnika(m);
+    m.querySelector(".askTitle").textContent=title; m.querySelector(".msgBody").innerHTML=html;
     const ok=m.querySelector(".msgOk"), cancel=m.querySelector(".msgCancel");
     cancel.style.display=""; cancel.textContent=opts.cancelLabel||"Anuluj";
     ok.textContent=opts.okLabel||"OK"; ok.classList.toggle("danger", !!opts.danger);
     m.classList.add("show");
-    const done=v=>{ m.classList.remove("show"); ok.onclick=null; cancel.onclick=null; m.onclick=null; ok.classList.remove("danger"); res(v); };
+    m.setAttribute("aria-hidden", "false");
+    if(typeof syncModalScrollLock === "function") syncModalScrollLock();
+    setTimeout(()=>{ try{ (opts.danger ? cancel : ok).focus(); }catch(e){} }, 40);
+    const done=v=>{
+      m._cancelFn = null;
+      m.classList.remove("show");
+      m.setAttribute("aria-hidden", "true");
+      if(typeof syncModalScrollLock === "function") syncModalScrollLock();
+      ok.onclick=null; cancel.onclick=null; m.onclick=null; ok.classList.remove("danger");
+      if(opener && document.contains(opener)){ try{ opener.focus(); }catch(e){} }
+      res(v);
+    };
+    m._cancelFn = ()=>done(false);
     ok.onclick=()=>done(true); cancel.onclick=()=>done(false);
     m.onclick=e=>{ if(e.target===m) done(false); };
   });
@@ -31931,7 +32363,7 @@ function placeImgAt(e){
 document.addEventListener("click", placeImgAt);
 /* nie pozwól iOS uruchomić natywnego przeciągania obrazka w edytowanej notatce */
 document.addEventListener("dragstart", e=>{ if(e.target && e.target.closest && e.target.closest('.ncontent[contenteditable="true"] img')) e.preventDefault(); });
-/* WKLEJANIE obrazu (Ctrl/Cmd+V lub „Wklej") do edytowanej notatki */
+/* WKLEJANIE obrazu lub tekstu (Ctrl/Cmd+V lub „Wklej") do edytowanej notatki */
 document.addEventListener("paste", async e=>{
   const ce = e.target && e.target.closest && e.target.closest('.ncontent[contenteditable="true"]');
   if(!ce) return;
@@ -31946,18 +32378,49 @@ document.addEventListener("paste", async e=>{
       return;
     }
   } }
-  // 2) tekst — wklej jako CZYSTY tekst (bez obcej czcionki/kolorów), żeby pasował do notatki
-  const txt = cd.getData("text/plain");
-  if(txt!==""){
+  // 2) tekst lub sformatowany HTML
+  const txt = cd.getData("text/plain") || "";
+  const rawHtml = cd.getData("text/html") || "";
+
+  if(!txt && !rawHtml) return;
+
+  // Shift+Paste (lub brak HTML w schowku) -> wklej jako czysty tekst
+  const wymusCzystyTekst = e.shiftKey || !rawHtml.trim();
+
+  let wstawionoHtml = false;
+  if(!wymusCzystyTekst && typeof oczyscWklejanyHtml === "function" && typeof wstawSformatowanyHtml === "function"){
+    const cleanHtml = oczyscWklejanyHtml(rawHtml, txt);
+    if(cleanHtml && cleanHtml.trim()){
+      e.preventDefault();
+      if(typeof histZapisz === "function") histZapisz(ce);
+      wstawionoHtml = wstawSformatowanyHtml(ce, cleanHtml);
+      if(wstawionoHtml){
+        if(typeof histZapisz === "function") histZapisz(ce);
+        commitLiveEdit(ce);
+        if(ce.id === "nnContent"){
+          if(typeof updateNnContentEmptyState === "function") updateNnContentEmptyState();
+          if(typeof updateNnMetrics === "function") updateNnMetrics();
+          if(typeof triggerNnAutosave === "function") triggerNnAutosave();
+        }
+        try{ ce.dispatchEvent(new Event("input", {bubbles: true})); }catch(_){}
+        return;
+      }
+    }
+  }
+
+  // Wklejanie czystego tekstu (jako domyślne lub niezawodny fallback)
+  if(txt !== ""){
     e.preventDefault();
-    if(typeof histZapisz==="function")histZapisz(ce);
-    if(!wstawCzystyTekst(ce,txt)) document.execCommand("insertText", false, txt);
-    if(typeof histZapisz==="function")histZapisz(ce);
+    if(typeof histZapisz === "function") histZapisz(ce);
+    if(!wstawCzystyTekst(ce, txt)) document.execCommand("insertText", false, txt);
+    if(typeof histZapisz === "function") histZapisz(ce);
     commitLiveEdit(ce);
     if(ce.id === "nnContent"){
       if(typeof updateNnContentEmptyState === "function") updateNnContentEmptyState();
+      if(typeof updateNnMetrics === "function") updateNnMetrics();
       if(typeof triggerNnAutosave === "function") triggerNnAutosave();
     }
+    try{ ce.dispatchEvent(new Event("input", {bubbles: true})); }catch(_){}
   }
 });
 /* PRZECIĄGNIJ plik obrazu z pulpitu na edytowaną notatkę (komputer) */
@@ -36802,12 +37265,25 @@ let _skadOkno = null;
 function syncModalScrollLock(){
   const hasOpen = !!document.querySelector(".overlay.show");
   const isLocked = document.documentElement.classList.contains("modal-open");
-  if(hasOpen && !isLocked){
-    document.documentElement.classList.add("modal-open");
-    document.body.classList.add("modal-open");
-  } else if(!hasOpen && isLocked){
-    document.documentElement.classList.remove("modal-open");
-    document.body.classList.remove("modal-open");
+  const app = document.getElementById("appContainer");
+  if(hasOpen){
+    if(!isLocked){
+      document.documentElement.classList.add("modal-open");
+      document.body.classList.add("modal-open");
+    }
+    if(app && !app.hasAttribute("data-modal-inert")){
+      app.setAttribute("aria-hidden", "true");
+      app.setAttribute("data-modal-inert", "1");
+    }
+  } else {
+    if(isLocked){
+      document.documentElement.classList.remove("modal-open");
+      document.body.classList.remove("modal-open");
+    }
+    if(app && app.hasAttribute("data-modal-inert")){
+      app.removeAttribute("aria-hidden");
+      app.removeAttribute("data-modal-inert");
+    }
   }
 }
 window.syncModalScrollLock = syncModalScrollLock;
@@ -36831,6 +37307,13 @@ function initModalObserver(){
       if(ov._modalObserved) return;
       ov._modalObserved = true;
       observer.observe(ov, { attributes: true, attributeFilter: ["class"] });
+      const pudlo = ov.querySelector(".modal, .import-box");
+      if(pudlo && !pudlo.classList.contains("fsmodal") && !pudlo.classList.contains("askbox") && !pudlo.querySelector(".modal-drag-handle")){
+        const handle = document.createElement("div");
+        handle.className = "modal-drag-handle";
+        handle.setAttribute("aria-hidden", "true");
+        pudlo.insertBefore(handle, pudlo.firstChild);
+      }
     });
   } catch(e){}
 }
@@ -36850,15 +37333,20 @@ function openModal(id){
     handle.setAttribute("aria-hidden", "true");
     pudlo.insertBefore(handle, pudlo.firstChild);
   }
-  _skadOkno = document.activeElement;
+  const opener = document.activeElement;
+  okno._openerElement = opener;
+  _skadOkno = opener;
   okno.classList.add("show");
   okno.setAttribute("aria-hidden","false");
   syncModalScrollLock();
-  const cel = okno.querySelector("input:not([type=hidden]), textarea, select, button, [tabindex]");
-  if(cel){ try{ cel.focus(); }catch(e){} }
+  const cel = okno.querySelector("[autofocus], input:not([type=hidden]):not([disabled]), textarea:not([disabled]), select:not([disabled]), button:not([disabled]):not([data-zamknij]):not(.exp-close-btn), button:not([disabled]), [tabindex]:not([tabindex='-1'])");
+  if(cel){
+    try{ cel.focus(); }catch(e){}
+    setTimeout(()=>{ try{ cel.focus(); }catch(e){} }, 40);
+  }
 }
 
-function closeModal(id){
+function closeModal(id, fromPopstate){
   const okno = typeof id === "string" ? $(id) : id; if(!okno) return;
   okno.classList.remove("show");
   okno.setAttribute("aria-hidden","true");
@@ -36876,43 +37364,96 @@ function closeModal(id){
       _centrZatrzymajStoper();
     }
   }
+  if(typeof okno._cancelFn === "function"){
+    const fn = okno._cancelFn;
+    okno._cancelFn = null;
+    try { fn(); } catch(e){}
+  }
   syncModalScrollLock();
   // ognisko wraca tam, skąd okno otwarto — inaczej ląduje na początku strony
-  if(_skadOkno && document.contains(_skadOkno)){ try{ _skadOkno.focus(); }catch(e){} }
-  _skadOkno = null;
+  const celPowrotu = okno._openerElement || _skadOkno;
+  if(celPowrotu && document.contains(celPowrotu)){
+    try{ celPowrotu.focus(); }catch(e){}
+  }
+  okno._openerElement = null;
+  if(_skadOkno === celPowrotu) _skadOkno = null;
 }
 
 /** Rola, powiązanie z nagłówkiem i odcięcie tła — nadawane raz, przy pierwszym otwarciu. */
 function przygotujOknoDlaCzytnika(okno){
-  const pudlo = okno.querySelector(".modal") || okno;
-  if(pudlo.getAttribute("role")==="dialog") return;
-  pudlo.setAttribute("role","dialog");
+  const pudlo = okno.querySelector(".modal, .askbox, .fsmodal, .import-box") || okno;
+  if(!pudlo.getAttribute("role")){
+    pudlo.setAttribute("role","dialog");
+  }
   pudlo.setAttribute("aria-modal","true");
-  const naglowek = pudlo.querySelector("h2, h3");
-  if(naglowek){
+  const naglowek = pudlo.querySelector("h2, h3, .askTitle, .import-title, .cenGoalTitle, [class*='title']");
+  if(naglowek && !pudlo.getAttribute("aria-labelledby")){
     if(!naglowek.id) naglowek.id = (okno.id || "okno") + "-tytul";
     pudlo.setAttribute("aria-labelledby", naglowek.id);
   }
 }
 
-/* Tab nie może wyprowadzić poza otwarte okno. */
+/* Tab nie może wyprowadzić poza otwarte okno (focus trap). */
 document.addEventListener("keydown", e=>{
   if(e.key!=="Tab") return;
-  const okno = document.querySelector(".overlay.show");
-  if(!okno) return;
-  const pudlo = okno.querySelector(".modal") || okno;
+  const otwarte = [...document.querySelectorAll(".overlay.show")];
+  if(!otwarte.length) return;
+  const okno = otwarte[otwarte.length - 1];
+  const pudlo = okno.querySelector(".modal, .askbox, .fsmodal, .import-box") || okno;
   const doOgniska = [...pudlo.querySelectorAll('a[href], button:not([disabled]), input:not([type=hidden]):not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
-    .filter(el=>el.offsetParent!==null || el.getClientRects().length || true);
-  if(!doOgniska.length) return;
+    .filter(el => {
+      if(el.disabled || el.getAttribute("aria-hidden") === "true") return false;
+      const r = el.getBoundingClientRect();
+      return (r.width > 0 || r.height > 0) && window.getComputedStyle(el).visibility !== "hidden";
+    });
+  if(!doOgniska.length){
+    e.preventDefault();
+    return;
+  }
   const pierwszy = doOgniska[0], ostatni = doOgniska[doOgniska.length-1];
-  if(e.shiftKey && document.activeElement===pierwszy){ e.preventDefault(); ostatni.focus(); }
-  else if(!e.shiftKey && document.activeElement===ostatni){ e.preventDefault(); pierwszy.focus(); }
+  if(!pudlo.contains(document.activeElement)){
+    e.preventDefault();
+    if(e.shiftKey) ostatni.focus();
+    else pierwszy.focus();
+    return;
+  }
+  if(e.shiftKey && (document.activeElement===pierwszy || doOgniska.length===1)){
+    e.preventDefault(); ostatni.focus();
+  } else if(!e.shiftKey && (document.activeElement===ostatni || doOgniska.length===1)){
+    e.preventDefault(); pierwszy.focus();
+  }
 });
+
+/* Klawisz Escape zamyka najwyższe otwarte okno modalne (faza przechwytywania) */
+document.addEventListener("keydown", e => {
+  if(e.key !== "Escape") return;
+  const otwarte = [...document.querySelectorAll(".overlay.show")];
+  if(!otwarte.length) return;
+  const topOkno = otwarte[otwarte.length - 1];
+  if(topOkno.dataset.lockClose === "1") return;
+  e.preventDefault();
+  e.stopPropagation();
+  if(topOkno.id === "modalFs" && typeof closeFs === "function"){
+    closeFs();
+  } else if(typeof topOkno._cancelFn === "function"){
+    const cancel = topOkno._cancelFn;
+    topOkno._cancelFn = null;
+    cancel();
+  } else if(typeof closeModal === "function"){
+    closeModal(topOkno);
+  } else {
+    topOkno.classList.remove("show");
+  }
+  if(typeof syncModalScrollLock === "function") syncModalScrollLock();
+}, true);
 
 /* ==========================================================================
    MOBILNE GESTY PRZECIĄGANIA I ZAMYKANIA MODALI (Pull-to-Dismiss)
    ========================================================================== */
 (function initModalGestures(){
+  if(window._modalGesturesInit) return;
+  window._modalGesturesInit = true;
+
   let activeOverlay = null;
   let activeModal = null;
   let startY = 0;
@@ -36922,6 +37463,7 @@ document.addEventListener("keydown", e=>{
   let canPullDismiss = false;
   let lastDragEndTime = 0;
   let moveBound = false;
+  let backdropPointerDownTarget = null;
 
   function bindTouchMove(){
     if(!moveBound){
@@ -36937,20 +37479,35 @@ document.addEventListener("keydown", e=>{
     }
   }
 
+  // Śledzenie elementu pointerdown dla bezpiecznego zamykania tłem
+  document.addEventListener("pointerdown", (e)=>{
+    backdropPointerDownTarget = e.target;
+  }, true);
+
   document.addEventListener("touchstart", (e)=>{
+    backdropPointerDownTarget = e.target;
     if(e.touches.length !== 1){
       unbindTouchMove();
       canPullDismiss = false;
       return;
     }
-    const ov = e.target.closest ? e.target.closest(".overlay.show") : null;
-    if(!ov || ov.dataset.lockClose === "1"){
+
+    const otwarte = [...document.querySelectorAll(".overlay.show")];
+    if(!otwarte.length){
       unbindTouchMove();
       canPullDismiss = false;
       return;
     }
 
-    const modal = ov.querySelector(".modal, .askbox, .fsmodal, .import-box, [class*='modal']");
+    // Gest może dotyczyć WYŁĄCZNIE najwyższego aktualnie otwartego okna modalnego
+    const topOv = otwarte[otwarte.length - 1];
+    if(!topOv || topOv.dataset.lockClose === "1" || topOv.id === "modalFs"){
+      unbindTouchMove();
+      canPullDismiss = false;
+      return;
+    }
+
+    const modal = topOv.querySelector(".modal, .askbox, .fsmodal, .import-box, [class*='modal']");
     if(!modal || modal.classList.contains("fsmodal")){
       unbindTouchMove();
       canPullDismiss = false;
@@ -36966,14 +37523,14 @@ document.addEventListener("keydown", e=>{
     }
 
     // Dotknięcie tła poza oknem modalnym — nie rozpoczynaj gestu ciągnięcia okna
-    if(target === ov || !modal.contains(target)){
+    if(target === topOv || !modal.contains(target)){
       unbindTouchMove();
       canPullDismiss = false;
       return;
     }
 
     // Mini-okna dialogowe (askModal, msgModal) nie podlegają gestowi pull-to-dismiss
-    if(modal.classList.contains("askbox") || ov.id === "askModal" || ov.id === "msgModal"){
+    if(modal.classList.contains("askbox") || topOv.id === "askModal" || topOv.id === "msgModal"){
       unbindTouchMove();
       canPullDismiss = false;
       return;
@@ -36985,7 +37542,7 @@ document.addEventListener("keydown", e=>{
     );
 
     const isHandle = !!target.closest(".modal-drag-handle");
-    const isHeader = !!target.closest(".nn-head, .smart-head, .modal-head, .import-title, h2, h3");
+    const isHeader = !!target.closest(".nn-head, .smart-head, .modal-head, .import-title, .cenGoalHeader, .bezp-head, .gran-header, .hb-head, h1, h2, h3, h4");
 
     // Jeśli dotknięto elementu interaktywnego, a nie jest to dedykowany uchwyt — zablokuj pull-to-dismiss
     if(isInteractive && !isHandle){
@@ -36995,9 +37552,9 @@ document.addEventListener("keydown", e=>{
     }
 
     // Gest zamykania dozwolony wyłącznie z uchwytu (.modal-drag-handle) LUB nagłówka na telefonach/tabletach, gdy treść jest na samej górze
-    const isSmallScreen = window.innerWidth <= 680;
+    const isSmallScreen = window.innerWidth <= 768;
     if(isHandle || (isSmallScreen && isHeader && modal.scrollTop <= 0)){
-      activeOverlay = ov;
+      activeOverlay = topOv;
       activeModal = modal;
       startY = touch.clientY;
       startX = touch.clientX;
@@ -37020,29 +37577,37 @@ document.addEventListener("keydown", e=>{
     const diffY = touch.clientY - startY;
     const diffX = touch.clientX - startX;
 
-    // Tylko ruch w dół i wyraźnie w pionie
-    if(diffY > 6 && diffY > Math.abs(diffX) * 1.2){
-      if(activeModal.scrollTop > 0){
+    if(!isDragging){
+      // Przed aktywacją: sprawdzamy czy intencją jest ruch w dół i wyraźnie pionowy
+      if(diffY > 6 && diffY > Math.abs(diffX) * 1.2){
+        if(activeModal.scrollTop > 0){
+          canPullDismiss = false;
+          unbindTouchMove();
+          return;
+        }
+        isDragging = true;
+      } else if(diffY < -6 || Math.abs(diffX) > Math.abs(diffY)){
+        // Przewijanie w górę lub w bok — gest to naturalne przewijanie, nie pull-to-dismiss
         canPullDismiss = false;
         unbindTouchMove();
         return;
+      } else {
+        // Zbyt małe przesunięcie, oczekujemy na zdecydowany kierunek
+        return;
       }
-      isDragging = true;
-      if(e.cancelable) e.preventDefault();
-
-      const translateY = Math.max(0, diffY);
-      activeModal.style.transform = `translateY(${translateY}px)`;
-      activeModal.style.transition = "none";
-      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-      const baseAlpha = isDark ? 0.75 : 0.46;
-      const rgb = isDark ? "8, 12, 16" : "15, 23, 19";
-      const opacityFactor = Math.max(0.1, 1 - translateY / 400);
-      activeOverlay.style.backgroundColor = `rgba(${rgb}, ${baseAlpha * opacityFactor})`;
-    } else if(diffY < -6 || Math.abs(diffX) > Math.abs(diffY)){
-      // Przewijanie w górę lub w bok anuluje gest ciągnięcia okna
-      canPullDismiss = false;
-      unbindTouchMove();
     }
+
+    // Gdy przeciąganie w dół jest aktywne:
+    if(e.cancelable) e.preventDefault();
+
+    const translateY = Math.max(0, diffY);
+    activeModal.style.transform = `translateY(${translateY}px)`;
+    activeModal.style.transition = "none";
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    const baseAlpha = isDark ? 0.75 : 0.46;
+    const rgb = isDark ? "8, 12, 16" : "15, 23, 19";
+    const opacityFactor = Math.max(0.1, 1 - translateY / 400);
+    activeOverlay.style.backgroundColor = `rgba(${rgb}, ${baseAlpha * opacityFactor})`;
   }
 
   function finishGesture(e){
@@ -37085,12 +37650,17 @@ document.addEventListener("keydown", e=>{
           if(typeof syncModalScrollLock === "function") syncModalScrollLock();
         }, 220);
       } else {
-        // Snap back do pozycji wyjściowej
+        // Płynny powrót (snap back) do pozycji wyjściowej
         activeModal.style.transition = "transform 0.24s cubic-bezier(0.22, 1, 0.36, 1)";
         activeModal.style.transform = "";
+        activeOverlay.style.transition = "background-color 0.24s ease";
         activeOverlay.style.backgroundColor = "";
         const m = activeModal;
-        setTimeout(()=>{ if(m) m.style.transition = ""; }, 240);
+        const o = activeOverlay;
+        setTimeout(()=>{
+          if(m) m.style.transition = "";
+          if(o) o.style.transition = "";
+        }, 240);
       }
     }
 
@@ -37102,17 +37672,34 @@ document.addEventListener("keydown", e=>{
 
   document.addEventListener("touchend", finishGesture, { passive: true });
   document.addEventListener("touchcancel", finishGesture, { passive: true });
+  window.addEventListener("touchend", finishGesture, { passive: true });
+  window.addEventListener("touchcancel", finishGesture, { passive: true });
+  window.addEventListener("pointercancel", finishGesture);
+  window.addEventListener("blur", finishGesture);
 
   // Obsługa kliknięcia/tapnięcia w tło (backdrop tap)
   document.addEventListener("click", (e)=>{
     if(Date.now() - lastDragEndTime < 350) return;
-    const ov = e.target.closest ? e.target.closest(".overlay.show") : null;
-    if(!ov || ov.dataset.lockClose === "1") return;
-    if(e.target === ov || (ov.contains(e.target) && !e.target.closest(".modal, .askbox, .fsmodal, .import-box, [class*='modal']"))){
-      if(typeof closeModal === "function"){
-        closeModal(ov);
+    const otwarte = [...document.querySelectorAll(".overlay.show")];
+    if(!otwarte.length) return;
+    const topOv = otwarte[otwarte.length - 1];
+    if(!topOv || topOv.dataset.lockClose === "1" || topOv.id === "modalFs") return;
+
+    // Kliknięcie musi nastąpić bezpośrednio w tło (overlay) najwyższego okna,
+    // a pointerdown również musiał nastąpić w tło, aby uniknąć przypadkowego
+    // zamknięcia podczas zaznaczania tekstu lub przeciągania suwaka wewnątrz okna.
+    const klikWTlo = e.target === topOv || (topOv.contains(e.target) && !e.target.closest(".modal, .askbox, .fsmodal, .import-box, [class*='modal']"));
+    const startWTle = backdropPointerDownTarget === topOv || (backdropPointerDownTarget && topOv.contains(backdropPointerDownTarget) && !backdropPointerDownTarget.closest(".modal, .askbox, .fsmodal, .import-box, [class*='modal']"));
+
+    if(klikWTlo && (startWTle || backdropPointerDownTarget === null)){
+      if(typeof topOv._cancelFn === "function"){
+        const cancel = topOv._cancelFn;
+        topOv._cancelFn = null;
+        cancel();
+      } else if(typeof closeModal === "function"){
+        closeModal(topOv);
       } else {
-        ov.classList.remove("show");
+        topOv.classList.remove("show");
       }
       if(typeof syncModalScrollLock === "function") syncModalScrollLock();
     }
@@ -38854,6 +39441,7 @@ function kbWysokosc(){
   return zajete > 80 ? Math.round(zajete) : 0;    // poniżej 80 px to nie klawiatura, tylko pasek przeglądarki
 }
 let _kbOstatnia = -1;
+let _kbVvRaf = 0;
 function kbOdswiez(){
   const h = kbWysokosc();
   if(h !== _kbOstatnia){
@@ -38872,11 +39460,18 @@ function kbOdswiez(){
     kbPokazKursor();
   }
 }
-if(window.visualViewport){
-  window.visualViewport.addEventListener("resize", kbOdswiez);
-  window.visualViewport.addEventListener("scroll", kbOdswiez);
+function kbOdswiezViewportRaf(){
+  if(_kbVvRaf) return;
+  _kbVvRaf = requestAnimationFrame(()=>{
+    _kbVvRaf = 0;
+    kbOdswiez();
+  });
 }
-addEventListener("orientationchange", ()=>setTimeout(kbOdswiez, 250));
+if(window.visualViewport){
+  window.visualViewport.addEventListener("resize", kbOdswiezViewportRaf);
+  window.visualViewport.addEventListener("scroll", kbOdswiezViewportRaf);
+}
+addEventListener("orientationchange", ()=>setTimeout(kbOdswiezViewportRaf, 250));
 
 /* ——— gdzie stoi kursor ——— */
 /* Mierzymy prostokąt zaznaczenia bez modyfikowania DOM i bez wywoływania normalize(). */
@@ -39995,6 +40590,9 @@ async function usunZaznaczoneDoKosza(){
    INICJALIZACJA ZDARZEŃ AKCJI ZBIORCZYCH
    ========================================================================== */
 function initAkcjeZbiorcze(){
+  if(window._akcjeZbiorczeInit) return;
+  window._akcjeZbiorczeInit = true;
+
   // Nasłuch checkboxów kart
   document.addEventListener("change", e => {
     const cb = e.target.closest(".nsel-cb");
@@ -40444,13 +41042,14 @@ function pozycjeDoUpuszczenia(rodzaj){
 
 function zakonczChwyt(zapisz){
   if(typeof wlaczChwytTouch === "function") wlaczChwytTouch(false);
+  document.body.classList.remove("wTrakcieChwytu", "przenoszenieNotatki");
+  document.querySelectorAll(".chwytDuszek, .chwytWskaznik").forEach(x=>x.remove());
   if(!_chwyt) return;
   const {el, duszek, wskaznik, cel, przed, rodzaj, id, celObcy} = _chwyt;
   if(_chwyt.klatka) cancelAnimationFrame(_chwyt.klatka);
   if(duszek) duszek.remove();
   if(wskaznik) wskaznik.remove();
   el.classList.remove("chwytany");
-  document.body.classList.remove("wTrakcieChwytu");
   document.querySelectorAll(".strefaPoczatku.gotowa").forEach(x=>x.classList.remove("gotowa"));
   /* Po ZAKOŃCZONYM przeniesieniu przeglądarka wyśle jeszcze kliknięcie — nie
      chcemy, żeby przy okazji zmieniło filtr. Połykamy tylko je i tylko przez
@@ -40713,6 +41312,7 @@ document.addEventListener("pointerdown", ev=>{
     if(typeof wlaczChwytTouch === "function") wlaczChwytTouch(true);
     el.classList.add("chwytany");
     document.body.classList.add("wTrakcieChwytu");
+    if(notatka) document.body.classList.add("przenoszenieNotatki");
     _chwyt = {el, rodzaj:info.rodzaj, id:info.id,
               duszek: zrobDuszka(el, startX, startY), wskaznik: zrobWskaznik(),
               cel:null, przed:false, sekcjaCel:undefined, celObcy:null,
@@ -40810,6 +41410,12 @@ document.addEventListener("pointerdown", ev=>{
     document.removeEventListener("pointermove", ruch, true);
     document.removeEventListener("pointerup", koniec, true);
     document.removeEventListener("pointercancel", przerwij, true);
+    window.removeEventListener("touchend", koniec, true);
+    window.removeEventListener("touchcancel", przerwij, true);
+    window.removeEventListener("blur", przerwij, true);
+    document.body.classList.remove("wTrakcieChwytu", "przenoszenieNotatki");
+    document.querySelectorAll(".chwytDuszek").forEach(x=>x.remove());
+    try{ if(el && ev.pointerId !== undefined) el.releasePointerCapture(ev.pointerId); }catch(_){}
     if(odklejone){ e.preventDefault(); e.stopPropagation(); zakonczChwyt(true); }
   };
   const przerwij = ()=>{
@@ -40817,11 +41423,20 @@ document.addEventListener("pointerdown", ev=>{
     document.removeEventListener("pointermove", ruch, true);
     document.removeEventListener("pointerup", koniec, true);
     document.removeEventListener("pointercancel", przerwij, true);
+    window.removeEventListener("touchend", koniec, true);
+    window.removeEventListener("touchcancel", przerwij, true);
+    window.removeEventListener("blur", przerwij, true);
+    document.body.classList.remove("wTrakcieChwytu", "przenoszenieNotatki");
+    document.querySelectorAll(".chwytDuszek").forEach(x=>x.remove());
+    try{ if(el && ev.pointerId !== undefined) el.releasePointerCapture(ev.pointerId); }catch(_){}
     zakonczChwyt(false);
   };
   document.addEventListener("pointermove", ruch, true);
   document.addEventListener("pointerup", koniec, true);
   document.addEventListener("pointercancel", przerwij, true);
+  window.addEventListener("touchend", koniec, true);
+  window.addEventListener("touchcancel", przerwij, true);
+  window.addEventListener("blur", przerwij, true);
 }, true);
 
 /* iPadOS/Safari potrafi rozpocząć własne przewijanie strony mimo
@@ -40874,12 +41489,14 @@ function posprzatajChwyt(){
   if(_chwyt) zakonczChwyt(false);
   if(typeof wlaczChwytTouch === "function") wlaczChwytTouch(false);
   _polkniecieDo = 0;                       // kasujemy PO zakończeniu gestu
-  document.body.classList.remove("wTrakcieChwytu");
+  document.body.classList.remove("wTrakcieChwytu", "przenoszenieNotatki");
   document.querySelectorAll(".chwytDuszek, .chwytWskaznik").forEach(x=>x.remove());
   document.querySelectorAll(".chwytany").forEach(x=>x.classList.remove("chwytany"));
 }
 window.addEventListener("blur", posprzatajChwyt);
 window.addEventListener("pointercancel", posprzatajChwyt);
+window.addEventListener("touchcancel", posprzatajChwyt);
+document.addEventListener("touchcancel", posprzatajChwyt);
 document.addEventListener("visibilitychange", ()=>{ if(document.hidden) posprzatajChwyt(); });
 /* Ostatnia linia obrony: gdy przez 5 s nie przyszło nic od wskaźnika, a my wciąż
    „trzymamy" element, znaczy że puszczenie przepadło. Odpuszczamy. */
@@ -41338,6 +41955,12 @@ document.addEventListener("pointerdown", e=>{
     uchwyt.removeEventListener("pointermove", ruch);
     uchwyt.removeEventListener("pointerup", koniec);
     uchwyt.removeEventListener("pointercancel", przerwij);
+    window.removeEventListener("touchend", koniec);
+    window.removeEventListener("touchcancel", przerwij);
+    window.removeEventListener("blur", przerwij);
+    document.body.classList.remove("wTrakcieChwytu", "przenoszenieNotatki");
+    document.querySelectorAll(".chwytDuszek").forEach(x=>x.remove());
+    try{ uchwyt.releasePointerCapture(e.pointerId); }catch(_){}
     if(!_zmianaWys) return;
     const {n:nota, karta:k, biezaca} = _zmianaWys;
     k.classList.remove("zmienianaWys");
@@ -41352,11 +41975,20 @@ document.addEventListener("pointerdown", e=>{
     uchwyt.removeEventListener("pointermove", ruch);
     uchwyt.removeEventListener("pointerup", koniec);
     uchwyt.removeEventListener("pointercancel", przerwij);
+    window.removeEventListener("touchend", koniec);
+    window.removeEventListener("touchcancel", przerwij);
+    window.removeEventListener("blur", przerwij);
+    document.body.classList.remove("wTrakcieChwytu", "przenoszenieNotatki");
+    document.querySelectorAll(".chwytDuszek").forEach(x=>x.remove());
+    try{ uchwyt.releasePointerCapture(e.pointerId); }catch(_){}
     if(_zmianaWys){ _zmianaWys.karta.classList.remove("zmienianaWys"); _zmianaWys = null; }
   };
   uchwyt.addEventListener("pointermove", ruch);
   uchwyt.addEventListener("pointerup", koniec);
   uchwyt.addEventListener("pointercancel", przerwij);
+  window.addEventListener("touchend", koniec);
+  window.addEventListener("touchcancel", przerwij);
+  window.addEventListener("blur", przerwij);
 }, true);
 
 /* Dwukrotne dotknięcie uchwytu przywraca ustawienie widoku — szybkie cofnięcie
@@ -44317,11 +44949,11 @@ const BIBLE_CANON_CHAPS = [
   { n: "Jozuego", ch: 24 }, { n: "Sędziów", ch: 21 }, { n: "Rut", ch: 4 }, { n: "1 Samuela", ch: 31 }, { n: "2 Samuela", ch: 24 },
   { n: "1 Królów", ch: 22 }, { n: "2 Królów", ch: 25 }, { n: "1 Kronik", ch: 29 }, { n: "2 Kronik", ch: 36 }, { n: "Ezdrasza", ch: 10 },
   { n: "Nehemiasza", ch: 13 }, { n: "Estery", ch: 10 }, { n: "Hioba", ch: 42 }, { n: "Psalmy", ch: 150 }, { n: "Przysłów", ch: 31 },
-  { n: "Kaznodziei", ch: 12 }, { n: "Pieśń nad Pieśniami", ch: 8 }, { n: "Izajasza", ch: 66 }, { n: "Jeremiasza", ch: 52 }, { n: "Lamentacje", ch: 5 },
+  { n: "Kaznodziei", ch: 12 }, { n: "Pieśń Salomona", ch: 8 }, { n: "Izajasza", ch: 66 }, { n: "Jeremiasza", ch: 52 }, { n: "Lamentacje", ch: 5 },
   { n: "Ezechiela", ch: 48 }, { n: "Daniela", ch: 12 }, { n: "Ozeasza", ch: 14 }, { n: "Joela", ch: 3 }, { n: "Amosa", ch: 9 },
   { n: "Abdiasza", ch: 1 }, { n: "Jonasza", ch: 4 }, { n: "Micheasza", ch: 7 }, { n: "Nahuma", ch: 3 }, { n: "Habakuka", ch: 3 },
   { n: "Sofoniasza", ch: 3 }, { n: "Aggeusza", ch: 2 }, { n: "Zachariasza", ch: 14 }, { n: "Malachiasza", ch: 4 },
-  { n: "Mateusza", ch: 28 }, { n: "Marka", ch: 16 }, { n: "Łukasza", ch: 24 }, { n: "Jana", ch: 21 }, { n: "Dzieje Apostolskie", ch: 28 },
+  { n: "Mateusza", ch: 28 }, { n: "Marka", ch: 16 }, { n: "Łukasza", ch: 24 }, { n: "Jana", ch: 21 }, { n: "Dzieje", ch: 28 },
   { n: "Rzymian", ch: 16 }, { n: "1 Koryntian", ch: 16 }, { n: "2 Koryntian", ch: 13 }, { n: "Galatów", ch: 6 }, { n: "Efezjan", ch: 6 },
   { n: "Filipian", ch: 4 }, { n: "Kolosan", ch: 4 }, { n: "1 Tesaloniczan", ch: 5 }, { n: "2 Tesaloniczan", ch: 3 }, { n: "1 Tymoteusza", ch: 6 },
   { n: "2 Tymoteusza", ch: 4 }, { n: "Tytusa", ch: 3 }, { n: "Filemona", ch: 1 }, { n: "Hebrajczyków", ch: 13 }, { n: "Jakuba", ch: 5 },
@@ -44336,7 +44968,7 @@ const BIBLE_CHRONO_BLOCKS = [
   ["Jozuego", 1, 24], ["Sędziów", 1, 21], ["Rut", 1, 4],
   ["1 Samuela", 1, 31], ["2 Samuela", 1, 24], ["1 Kronik", 1, 29],
   ["Psalmy", 1, 150], ["1 Królów", 1, 11], ["2 Kronik", 1, 9],
-  ["Przysłów", 1, 31], ["Kaznodziei", 1, 12], ["Pieśń nad Pieśniami", 1, 8],
+  ["Przysłów", 1, 31], ["Kaznodziei", 1, 12], ["Pieśń Salomona", 1, 8],
   ["1 Królów", 12, 22], ["2 Kronik", 10, 28],
   ["Abdiasza", 1, 1], ["Joela", 1, 3], ["Jonasza", 1, 4], ["Amosa", 1, 9], ["Ozeasza", 1, 14], ["Micheasza", 1, 7], ["Izajasza", 1, 39],
   ["2 Królów", 1, 20], ["2 Kronik", 29, 32], ["Izajasza", 40, 66],
@@ -44345,10 +44977,10 @@ const BIBLE_CHRONO_BLOCKS = [
   ["Ezechiela", 1, 48], ["Daniela", 1, 12],
   ["Ezdrasza", 1, 6], ["Aggeusza", 1, 2], ["Zachariasza", 1, 14], ["Estery", 1, 10], ["Ezdrasza", 7, 10], ["Nehemiasza", 1, 13], ["Malachiasza", 1, 4],
   ["Mateusza", 1, 28], ["Marka", 1, 16], ["Łukasza", 1, 24], ["Jana", 1, 21],
-  ["Dzieje Apostolskie", 1, 14], ["Jakuba", 1, 5], ["Galatów", 1, 6],
-  ["Dzieje Apostolskie", 15, 18], ["1 Tesaloniczan", 1, 5], ["2 Tesaloniczan", 1, 3],
-  ["Dzieje Apostolskie", 19, 20], ["1 Koryntian", 1, 16], ["2 Koryntian", 1, 13], ["Rzymian", 1, 16],
-  ["Dzieje Apostolskie", 21, 28], ["Efezjan", 1, 6], ["Filipian", 1, 4], ["Kolosan", 1, 4], ["Filemona", 1, 1], ["Hebrajczyków", 1, 13],
+  ["Dzieje", 1, 14], ["Jakuba", 1, 5], ["Galatów", 1, 6],
+  ["Dzieje", 15, 18], ["1 Tesaloniczan", 1, 5], ["2 Tesaloniczan", 1, 3],
+  ["Dzieje", 19, 20], ["1 Koryntian", 1, 16], ["2 Koryntian", 1, 13], ["Rzymian", 1, 16],
+  ["Dzieje", 21, 28], ["Efezjan", 1, 6], ["Filipian", 1, 4], ["Kolosan", 1, 4], ["Filemona", 1, 1], ["Hebrajczyków", 1, 13],
   ["1 Tymoteusza", 1, 6], ["Tytusa", 1, 3], ["1 Piotra", 1, 5], ["2 Piotra", 1, 3], ["2 Tymoteusza", 1, 4], ["Judy", 1, 1],
   ["1 Jana", 1, 5], ["2 Jana", 1, 1], ["3 Jana", 1, 1], ["Objawienie", 1, 22]
 ];
@@ -44681,29 +45313,29 @@ function _centrPobierzWszystkiePlanyDane(){
       desc: "Pisma Hebrajskie i Greckie równolegle w bardzo spokojnym 3-letnim tempie (1095 dni). Niezwykle przystępna codzienna lektura."
     },
 
-    // === TEMATYCZNE I PISMA GRECKIE ===
+    // === TEMATYCZNE I CHRZEŚCIJAŃSKIE PISMA GRECKIE ===
     "nt": {
       id: "nt",
-      name: "Pisma Greckie (90 dni)",
+      name: "Chrześcijańskie Pisma Greckie (90 dni)",
       days: 90,
       cat: "temat",
-      catName: "Pisma Greckie",
+      catName: "Chrześcijańskie Pisma Greckie",
       duration: "90 dni",
       pace: "~2,8 rozdz./dzień",
       timeEst: "⏱ 10–15 min",
-      plan: _centrGenerujPlanNT(90, "Pisma Greckie"),
+      plan: _centrGenerujPlanNT(90, "Chrześcijańskie Pisma Greckie"),
       desc: "Wszystkie 27 ksiąg Chrześcijańskich Pism Greckich w 3 miesiące (od Ewangelii Mateusza do Objawienia)."
     },
     "nt-1rok": {
       id: "nt-1rok",
-      name: "Pisma Greckie (1 rok)",
+      name: "Chrześcijańskie Pisma Greckie (1 rok)",
       days: 365,
       cat: "temat",
-      catName: "Pisma Greckie",
+      catName: "Chrześcijańskie Pisma Greckie",
       duration: "1 rok",
       pace: "~0,7 rozdz./dzień",
       timeEst: "⏱ 3–5 min",
-      plan: _centrGenerujPlanNT(365, "Pisma Greckie"),
+      plan: _centrGenerujPlanNT(365, "Chrześcijańskie Pisma Greckie"),
       desc: "Wszystkie Chrześcijańskie Pisma Greckie rozłożone na pełny rok – krótkie, inspirujące fragmenty każdego dnia."
     },
     "jan": {
@@ -45047,7 +45679,7 @@ const BIBLE_SPIRITUAL_GOALS_TEMPLATES = [
   },
   {
     title: "Tekst dzienny i komentarz każdego poranka",
-    desc: "Codzienne rozważenie wersetu dnia i komentarza ze „Skorowidza” lub publikacji „Badajcie Pisma”.",
+    desc: "Codzienne rozważenie wersetu dnia i komentarza z broszury „Codzienne badanie Pism”.",
     category: "czytanie",
     type: "habit",
     color: "#06b6d4",
@@ -45071,7 +45703,7 @@ const BIBLE_SPIRITUAL_GOALS_TEMPLATES = [
   },
   {
     title: "Przygotowanie do zebrań z wyprzedzeniem",
-    desc: "Zaznaczanie odpowiedzi i wyszukiwanie wersetów przed zebraniem w tygodniu i w weekend.",
+    desc: "Zaznaczanie odpowiedzi i wyszukiwanie wersetów przed zebraniem w tygodniu („Chrześcijańskie życie i służba”) oraz w weekend („Studium Strażnicy”).",
     category: "zebrania",
     type: "habit",
     color: "#ec4899",
@@ -45127,8 +45759,8 @@ const BIBLE_SPIRITUAL_GOALS_TEMPLATES = [
     history: {}
   },
   {
-    title: "Przeczytanie Chrześcijańskich Pism Greckich (NT)",
-    desc: "Przeczytanie wszystkich 260 rozdziałów Ewangelii, Dziejów Apostolskich, Listów i Objawienia.",
+    title: "Przeczytanie Chrześcijańskich Pism Greckich",
+    desc: "Przeczytanie wszystkich 260 rozdziałów Ewangelii, Dziejów, Listów i Objawienia.",
     category: "czytanie",
     type: "numeric",
     color: "#3b82f6",
@@ -46856,9 +47488,20 @@ function _centrInicjalizujDraggableFloatingTimer(){
       floatEl.setPointerCapture(e.pointerId);
     } catch(_){}
 
+    // Upewnij się, że nie zostały żadne wiszące nasłuchiwacze z poprzedniego gestu
+    document.removeEventListener("pointermove", onPointerMove);
+    document.removeEventListener("pointerup", onPointerUp);
+    document.removeEventListener("pointercancel", onPointerUp);
+    window.removeEventListener("touchend", onPointerUp);
+    window.removeEventListener("touchcancel", onPointerUp);
+    window.removeEventListener("blur", onPointerUp);
+
     document.addEventListener("pointermove", onPointerMove, { passive: false });
     document.addEventListener("pointerup", onPointerUp, { passive: false });
     document.addEventListener("pointercancel", onPointerUp, { passive: false });
+    window.addEventListener("touchend", onPointerUp, { passive: false });
+    window.addEventListener("touchcancel", onPointerUp, { passive: false });
+    window.addEventListener("blur", onPointerUp);
   };
 
   const onPointerMove = (e) => {
@@ -46892,17 +47535,24 @@ function _centrInicjalizujDraggableFloatingTimer(){
   };
 
   const onPointerUp = (e) => {
-    if(currentPointerId !== null && e.pointerId !== currentPointerId) return;
+    if(e && e.type !== "blur" && e.type !== "touchcancel" && currentPointerId !== null && e.pointerId !== undefined && e.pointerId !== currentPointerId) return;
 
     document.removeEventListener("pointermove", onPointerMove);
     document.removeEventListener("pointerup", onPointerUp);
     document.removeEventListener("pointercancel", onPointerUp);
+    window.removeEventListener("touchend", onPointerUp);
+    window.removeEventListener("touchcancel", onPointerUp);
+    window.removeEventListener("blur", onPointerUp);
+
+    document.body.classList.remove("wTrakcieChwytu", "przenoszenieNotatki");
+    document.querySelectorAll(".chwytDuszek").forEach(x=>x.remove());
 
     try {
       if(currentPointerId !== null) floatEl.releasePointerCapture(currentPointerId);
     } catch(_){}
     currentPointerId = null;
 
+    floatEl.classList.remove("dragging");
     if(isDragging){
       _cenFloatJustDragged = true;
       window._cenFloatJustDragged = true;
@@ -46910,7 +47560,6 @@ function _centrInicjalizujDraggableFloatingTimer(){
         _cenFloatJustDragged = false;
         window._cenFloatJustDragged = false;
       }, 200);
-      floatEl.classList.remove("dragging");
 
       const rect = floatEl.getBoundingClientRect();
       const pos = { left: Math.round(rect.left), top: Math.round(rect.top) };
@@ -46960,6 +47609,9 @@ function _centrPobierzLubStworzWorker(){
       _centrStoperWorker.onerror = function(){
         try { _centrStoperWorker.terminate(); }catch(err){}
         _centrStoperWorker = null;
+        if (!_centrStoperStan.timerId && _centrStoperStan.dziala) {
+          _centrStoperStan.timerId = setInterval(function(){ _centrStoperTickKrok(); }, 1000);
+        }
       };
     }
   } catch(e){
@@ -47047,17 +47699,22 @@ function _centrPrzywrocTytulStrony(){
 function _centrUruchomTimerWatek(){
   _centrZatrzymajTimerWatek();
   const worker = _centrPobierzLubStworzWorker();
+  let workerAktywny = false;
   if(worker){
     try {
       worker.postMessage("start");
+      workerAktywny = true;
     } catch(e){
       _centrStoperWorker = null;
+      workerAktywny = false;
     }
   }
-  // Dodatkowy fallback na setInterval na wypadek gdyby worker nie działał
-  _centrStoperStan.timerId = setInterval(function(){
-    _centrStoperTickKrok();
-  }, 1000);
+  // Fallback na setInterval tylko wtedy, gdy Worker nie jest aktywny
+  if(!workerAktywny){
+    _centrStoperStan.timerId = setInterval(function(){
+      _centrStoperTickKrok();
+    }, 1000);
+  }
 }
 
 function _centrZatrzymajTimerWatek(){
@@ -47090,7 +47747,8 @@ function _centrWyslijNotyfikacjeUkonczeniaStopera(nazwaCelu){
       badge: "favicon-32.png",
       tag: "jw-study-timer-done",
       renotify: true,
-      requireInteraction: true
+      requireInteraction: true,
+      data: { widok: "cele", celId: (_centrStoperStan && _centrStoperStan.celId) || null, stoper: true }
     };
     if("serviceWorker" in navigator && navigator.serviceWorker.ready){
       navigator.serviceWorker.ready.then(reg => {
@@ -47114,7 +47772,9 @@ function _centrPokazLokalnaNotyfikacje(tytul, options){
     notif.onclick = function(){
       window.focus();
       try {
-        if(typeof _centrOtworzStoper === "function"){
+        if(options && options.data && typeof _centrObsluzAkcjePowiadomienia === "function"){
+          _centrObsluzAkcjePowiadomienia(options.data);
+        } else if(typeof _centrOtworzStoper === "function"){
           _centrOtworzStoper(_centrStoperStan.celId);
         }
       } catch(e){}
@@ -48423,16 +49083,45 @@ function _centrWyslijNotyfikacjePrzegladarki(tytul, tresc, planId, curDzien){
   try {
     if(!("Notification" in window)) return;
     if(Notification.permission !== "granted") return;
-    const notif = new Notification(tytul, {
+    const notifData = {
+      widok: "czytanie-chronologiczne",
+      planId: planId || _centrAktywnyPlanId || "chrono",
+      curDzien: curDzien || null
+    };
+    const options = {
       body: tresc,
-      icon: "icons/icon-192.png",
+      icon: "icon-192.png",
+      badge: "favicon-32.png",
       tag: "jw-study-plan-reminder",
-      renotify: true
-    });
+      renotify: true,
+      requireInteraction: true,
+      data: notifData
+    };
+    if("serviceWorker" in navigator && navigator.serviceWorker.ready){
+      navigator.serviceWorker.ready.then(reg => {
+        if(reg && typeof reg.showNotification === "function"){
+          reg.showNotification(tytul, options);
+        } else {
+          _centrPokazLokalnaNotyfikacjePlanu(tytul, options, planId, curDzien);
+        }
+      }).catch(() => {
+        _centrPokazLokalnaNotyfikacjePlanu(tytul, options, planId, curDzien);
+      });
+    } else {
+      _centrPokazLokalnaNotyfikacjePlanu(tytul, options, planId, curDzien);
+    }
+  } catch(e){}
+}
+
+function _centrPokazLokalnaNotyfikacjePlanu(tytul, options, planId, curDzien){
+  try {
+    const notif = new Notification(tytul, options);
     notif.onclick = function(){
       window.focus();
       try {
-        if(typeof centrumPokaz === "function"){
+        if(options && options.data && typeof _centrObsluzAkcjePowiadomienia === "function"){
+          _centrObsluzAkcjePowiadomienia(options.data);
+        } else if(typeof centrumPokaz === "function"){
           if(planId && planId !== _centrAktywnyPlanId){
             _centrAktywnyPlanId = planId;
             lsSet(KP + "CentrumAktywnyPlan", planId);
@@ -49191,7 +49880,7 @@ function _centrGenerujDrzewoGrowthSvg(totalDni, doneCount, curSer, bestSer, anim
       { day: totalDni, x: 240, y: 52, hY: 66, icon: "👑", name: "Drzewo Życia", color: "#eab308" }
     ];
 
-    let fruitsSvg = '<!-- Owoce Ducha (Gal 5:22) z Wahadlowym Kolysaniem i Aureola -->';
+    let fruitsSvg = '<!-- Owoce ducha (Gal 5:22) z wahadłowym kołysaniem -->';
     fruitMilestones.forEach(fm => {
       if (doneCount >= fm.day && (fm.day <= totalDni || fm.day <= 365)) {
         fruitsSvg += '<g transform="translate(' + fm.x + ',' + fm.y + ')" title="' + fm.name + ' (' + fm.icon + ')">'
@@ -49263,7 +49952,7 @@ function _centrWidokDrzewoWzrostu(planInfo, dniDone, curSer, bestSer){
     { day: 120, name: "Dobroć", icon: "🍯", desc: "4 miesiące w Piśmie Świętym — prawe postępowanie na co dzień" },
     { day: 180, name: "Wiara", icon: "⭐", desc: "Pół roku regularnego czytania — niezłomne zaufanie do Jehowy" },
     { day: 270, name: "Łagodność", icon: "🌿", desc: "9 miesięcy studium — mądrość, wyrozumiałość i pokora" },
-    { day: totalDni, name: "Drzewo Życia / Opanowanie", icon: "👑", desc: "Ukończony cały plan biblijny — wspaniały duchowy triumf!" }
+    { day: totalDni, name: "Drzewo Życia / Panowanie nad sobą", icon: "👑", desc: "Ukończony cały plan biblijny — wspaniały duchowy triumf!" }
   ];
 
   const unlockedFruitsCount = spiritualFruits.filter(f => doneCount >= f.day).length;
@@ -49321,7 +50010,7 @@ function _centrWidokDrzewoWzrostu(planInfo, dniDone, curSer, bestSer){
     + '<div class="cenDrzewoStatsBar">'
     + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Ukończone dni</div><div class="cenDrzewoStatBoxVal" style="color:#10b981;">' + doneCount + ' / ' + totalDni + '</div></div>'
     + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Zielone liście</div><div class="cenDrzewoStatBoxVal" style="color:#34d399;">' + activeLeavesCount + ' liści 🌿</div></div>'
-    + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Owoce Ducha</div><div class="cenDrzewoStatBoxVal" style="color:#f59e0b;">' + unlockedFruitsCount + ' / ' + spiritualFruits.length + ' 🍎</div></div>'
+    + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Owoce ducha</div><div class="cenDrzewoStatBoxVal" style="color:#f59e0b;">' + unlockedFruitsCount + ' / ' + spiritualFruits.length + ' 🍎</div></div>'
     + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Obecna seria</div><div class="cenDrzewoStatBoxVal" style="color:#fb923c;">' + (curSer > 0 ? (curSer + ' dni 🔥') : 'Dziś') + '</div></div>'
     + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Najdłuższa seria</div><div class="cenDrzewoStatBoxVal" style="color:#6366f1;">' + (bestSer > 0 ? (bestSer + ' dni 🏆') : '—') + '</div></div>'
     + '</div>'
@@ -49329,7 +50018,7 @@ function _centrWidokDrzewoWzrostu(planInfo, dniDone, curSer, bestSer){
 
     + '<div style="margin-top:24px;">'
     + '<div class="cenSecHeadTyt" style="display:flex;align-items:center;justify-content:space-between;">'
-    + '<span>🍎 Owoce Ducha & Kamienie Milowe</span>'
+    + '<span>🍎 Owoce ducha & Kamienie Milowe</span>'
     + '<span style="font-size:12px;font-weight:500;color:var(--cen-text-muted);">Galatów 5:22-23</span>'
     + '</div>'
     + '<div class="cenFruitGrid">'
