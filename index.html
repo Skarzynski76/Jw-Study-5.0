@@ -6858,21 +6858,22 @@ mark { padding: 1px 3px; border-radius: 4px; }
 .nn-modal,
 #modalNew .modal.nn-modal,
 #modalNew .modal {
-  width: min(1240px, 95vw);
-  max-width: 95vw;
+  width: min(1120px, 95vw) !important;
+  max-width: 95vw !important;
   height: min(92vh, 880px);
   /* --kb = wysokość klawiatury ekranowej (ustawiany przez keyboard.js) */
-  max-height: calc(min(92vh, 880px) - var(--kb, 0px));
+  max-height: calc(min(92vh, 880px) - var(--kb, 0px)) !important;
   padding: 0 !important;
   border-radius: 22px;
   overflow: hidden;
   background: var(--panel);
   box-shadow: 0 32px 84px rgba(0, 0, 0, 0.28), 0 4px 16px rgba(0, 0, 0, 0.1);
   transition: max-height 0.2s ease, width 0.2s ease;
+  flex: 0 0 auto !important;
 }
 .nn-studio-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(360px, 1fr);
+  grid-template-columns: minmax(0, 1fr) 290px;
   height: 100%;
   max-height: 100%;
   min-height: 380px;
@@ -7171,14 +7172,14 @@ mark { padding: 1px 3px; border-radius: 4px; }
   gap: 10px;
   z-index: 5;
 }
-@media (max-width: 960px), (max-width: 1024px) and (orientation: portrait) {
-  /* iPad w orientacji pionowej oraz mniejsze tablety — siatka pionowa, całe okno przewijalne */
+@media (max-width: 768px) {
+  /* Mniejsze tablety i telefony — siatka pionowa, całe okno przewijalne */
   .nn-modal,
   #modalNew .modal.nn-modal,
   #modalNew .modal {
-    width: min(740px, 96vw);
-    max-height: calc(min(94vh, 920px) - var(--kb, 0px));
-    overflow-y: auto;
+    width: min(740px, 96vw) !important;
+    max-height: calc(min(94vh, 920px) - var(--kb, 0px)) !important;
+    overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
   }
   .nn-studio-grid {
@@ -16806,7 +16807,7 @@ html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
     flex-shrink: 0;
   }
 
-  .modal:not(.fsmodal) {
+  .modal:not(.fsmodal):not(.nn-modal) {
     width: 100vw !important;
     max-width: 100vw !important;
     border-radius: 24px 24px 0 0 !important;
@@ -19057,7 +19058,7 @@ html.iphone-standalone #modernSidebar, body.iphone-standalone #modernSidebar {
   padding-right: max(8px, env(safe-area-inset-right, 0px)) !important;
   box-sizing: border-box !important;
 }
-.modal:not(.fsmodal) {
+.modal:not(.fsmodal):not(.nn-modal) {
   width: min(540px, calc(100vw - 16px)) !important;
   max-width: calc(100vw - 16px) !important;
   max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 20px - var(--kb, 0px)) !important;
@@ -19070,7 +19071,7 @@ html.iphone-standalone #modernSidebar, body.iphone-standalone #modernSidebar {
   -webkit-overflow-scrolling: touch !important;
 }
 @media (max-width: 600px) {
-  .modal:not(.fsmodal) {
+  .modal:not(.fsmodal):not(.nn-modal) {
     padding: 16px 14px !important;
     border-radius: 16px !important;
   }
@@ -19105,7 +19106,7 @@ html.iphone-standalone #modernSidebar, body.iphone-standalone #modernSidebar {
 #modernSidebar {
   max-width: 86vw !important;
 }
-html[data-theme="dark"] .modal:not(.fsmodal),
+html[data-theme="dark"] .modal:not(.fsmodal):not(.nn-modal),
 html[data-theme="dark"] #askModal .askbox,
 html[data-theme="dark"] #msgModal .askbox,
 html[data-theme="dark"] #modalImportu .import-box,
