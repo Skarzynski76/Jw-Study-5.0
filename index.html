@@ -4773,6 +4773,85 @@ body.centrum-open .cenProjActiveBar {
   }
 }
 
+/* Pasek powrotu do wcześniejszej notatki w kolumnie głównej */
+.cenReturnBar[hidden] {
+  display: none !important;
+}
+.cenReturnBar {
+  margin: 6px 12px 10px 12px;
+  background: var(--panel);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+  border-left: 4px solid var(--accent);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  z-index: 10;
+  gap: 8px;
+}
+.cenReturnBtn {
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+  transition: background 0.15s ease;
+}
+.cenReturnBtn:hover {
+  background: var(--sel);
+}
+.cenReturnLabel {
+  font-weight: 600;
+  color: var(--muted);
+  flex-shrink: 0;
+  font-size: 12px;
+}
+.cenReturnTyt {
+  font-weight: 700;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cenReturnZamknij {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+.cenReturnZamknij:hover {
+  background: var(--sel);
+  color: var(--text);
+}
+@media (max-width: 620px) {
+  .cenReturnBar {
+    margin: 4px 8px 8px 8px;
+    padding: 5px 8px;
+  }
+  .cenReturnBtn {
+    font-size: 12px;
+    gap: 6px;
+  }
+  .cenReturnLabel {
+    display: none;
+  }
+}
+
 @media (max-width: 680px) {
   .cenProjActiveBar {
     padding: 7px 10px;
@@ -11945,6 +12024,59 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
 #modalFs #fsFull.active{ background:var(--accent); color:#ffffff; border-color:var(--accent); }
 #modalFs #fsFull.active:hover{ opacity:.9; }
 
+#modalFs #fsBackFixed,
+#modalFs .fsmodal > #fsBackFixed{
+  display:none; position:fixed!important;
+  top:calc(12px + env(safe-area-inset-top, 0px))!important;
+  left:calc(14px + env(safe-area-inset-left, 0px))!important;
+  z-index:10025!important;
+  height:36px;
+  padding:0 12px 0 8px;
+  border-radius:18px;
+  align-items:center;
+  gap:6px;
+  border:1px solid var(--border);
+  background:color-mix(in srgb, var(--panel) 94%, transparent);
+  color:var(--text);
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+  max-width:clamp(140px, 42vw, 320px);
+  transition:opacity .25s ease, transform .2s ease, background .15s ease;
+}
+#modalFs #fsBackFixed.show,
+#modalFs .fsmodal > #fsBackFixed.show{
+  display:inline-flex!important;
+}
+#modalFs #fsBackFixed.show ~ #fsWrap .fsBackInline,
+#modalFs.ma-back #fsWrap .fsBackInline{
+  display:none!important;
+}
+#modalFs:has(#fsBackFixed.show) #fsWrap .nhead .ntitle,
+#modalFs.ma-back #fsWrap .nhead .ntitle{
+  padding-left:clamp(90px, 25vw, 275px);
+}
+#modalFs #fsBackFixed:hover,
+#modalFs .fsmodal > #fsBackFixed:hover{ background:var(--sel); color:var(--accent); }
+#modalFs #fsBackFixed:active,
+#modalFs .fsmodal > #fsBackFixed:active{ transform:scale(.95); }
+#modalFs #fsBackFixed .ic{ width:16px; height:16px; flex-shrink:0; }
+#modalFs #fsBackFixed .fsBackFixedTxt,
+#modalFs #fsBackFixedTxt{ font-weight:700; color:var(--accent); flex-shrink:0; }
+#modalFs #fsBackFixed .fsBackFixedTxt::after{ content:":"; margin-right:2px; }
+#modalFs #fsBackFixed .fsBackFixedTyt,
+#modalFs #fsBackFixedTyt{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+@media (max-width:620px){
+  #modalFs #fsBackFixed, #modalFs .fsmodal > #fsBackFixed{ max-width:130px; }
+  #modalFs #fsBackFixed .fsBackFixedTxt::after{ content:""; margin-right:0; }
+  #modalFs #fsBackFixed .fsBackFixedTyt, #modalFs #fsBackFixedTyt{ display:none; }
+  #modalFs:has(#fsBackFixed.show) #fsWrap .nhead .ntitle,
+  #modalFs.ma-back #fsWrap .nhead .ntitle{ padding-left:72px; }
+}
+
 /* ===== PRAWDZIWY TRYB CZYTNIKA / PEŁNY EKRAN (E-READER ZEN MODE) ===== */
 #modalFs {
   position: fixed;
@@ -12180,6 +12312,8 @@ body.fs-fullscreen #modalFs .fsNav.next {
 #modalFs.dok-schowany .fsmodal > #fsClose,
 #modalFs.dok-schowany #fsFull,
 #modalFs.dok-schowany .fsmodal > #fsFull,
+#modalFs.dok-schowany #fsBackFixed,
+#modalFs.dok-schowany .fsmodal > #fsBackFixed,
 #modalFs.dok-schowany .fsNav {
   opacity: 0 !important;
   pointer-events: none !important;
@@ -12195,6 +12329,7 @@ body.fs-fullscreen #modalFs .fsNav.next {
 /* Najazd myszą lub dotknięcie górnej części ekranu natychmiast odkrywa przyciski */
 #modalFs:hover #fsClose,
 #modalFs:hover #fsFull,
+#modalFs:hover #fsBackFixed,
 #modalFs:hover .fsNav {
   opacity: 1 !important;
   pointer-events: auto !important;
@@ -13248,26 +13383,48 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
    się dopiero wtedy, gdy jest gdzie wracać. */
 #fsWrap .fsBackInline{
   position:absolute;
-  top:clamp(14px, 3vw, 26px);
-  left:clamp(2px, 1.5vw, 12px);
-  width:32px; height:32px; padding:0;
-  border:none; border-radius:50%;
-  background:#fff; color:#1e5b46;
-  box-shadow:0 2px 6px rgba(0,0,0,.3);
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; z-index:4;
+  top:clamp(10px, 2.5vw, 22px);
+  left:clamp(4px, 1.5vw, 14px);
+  height:32px;
+  padding:0 12px 0 8px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:var(--panel, #fff);
+  color:var(--text, #1e5b46);
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+  z-index:12;
+  font-size:12.5px;
+  font-weight:650;
+  max-width:260px;
+  transition:all .15s ease;
 }
-#fsWrap .fsBackInline .ic{ width:18px; height:18px; }
-#fsWrap .fsBackInline:hover{ background:#eef2ef; }
-#fsWrap .fsBackInline:active{ transform:scale(.92); }
-/* Tytuł ustępuje strzałce tyle miejsca, ile ona zajmuje — inaczej wchodziłby
-   pod nią. Miejsce robi WYPEŁNIENIE, nie przesunięcie pudełka: od 2.74 belka
-   tytułu idzie przez całą szerokość okna, więc jej lewa krawędź jest tuż przy
-   strzałce, a odsunięte są dopiero litery. */
-#fsWrap .nhead:has(.fsBackInline) .ntitle{ padding-left:34px; }
+#fsWrap .fsBackInline .ic{ width:16px; height:16px; flex-shrink:0; }
+#fsWrap .fsBackInlineTxt{ font-weight:700; flex-shrink:0; color:var(--accent); }
+#fsWrap .fsBackInlineTxt::after{ content:":"; margin-right:2px; }
+#fsWrap .fsBackInlineTyt{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:var(--text);
+  font-weight:550;
+  opacity:0.9;
+}
+#fsWrap .fsBackInline:hover{
+  background:var(--sel, #eef2ef);
+  color:var(--accent, #1e5b46);
+  border-color:var(--accent, #1e5b46);
+}
+#fsWrap .fsBackInline:active{ transform:scale(.95); }
+#fsWrap .nhead:has(.fsBackInline) .ntitle{ padding-left:clamp(90px, 25vw, 275px); }
 @media (max-width:620px){
-  #fsWrap .fsBackInline{ top:12px; left:2px; width:30px; height:30px; }
-  #fsWrap .nhead:has(.fsBackInline) .ntitle{ padding-left:30px; }
+  #fsWrap .fsBackInline{ top:10px; left:2px; height:28px; padding:0 8px 0 6px; font-size:11.5px; max-width:140px; }
+  #fsWrap .fsBackInlineTxt::after{ content:""; margin-right:0; }
+  #fsWrap .fsBackInlineTyt{ display:none; }
+  #fsWrap .nhead:has(.fsBackInline) .ntitle{ padding-left:72px; }
 }
 
 /* ============================================================
@@ -17042,6 +17199,68 @@ header #search,
   box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 30%, transparent) !important;
 }
 
+/* Pigułka projektu w szybkich filtrach */
+#quickFilters .qf.qf-proj[hidden],
+#quickFilters .qf.qf-proj.is-hidden {
+  display: none !important;
+}
+#quickFilters .qf.qf-proj:not([hidden]):not(.is-hidden) {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  cursor: pointer !important;
+  border-color: color-mix(in srgb, #8b5cf6 36%, var(--border)) !important;
+  background: color-mix(in srgb, #8b5cf6 5%, var(--panel)) !important;
+}
+#quickFilters .qf.qf-proj:not([hidden]):not(.is-hidden):hover {
+  background: color-mix(in srgb, #8b5cf6 12%, var(--panel)) !important;
+  border-color: #8b5cf6 !important;
+}
+#quickFilters .qf.qf-proj:not(.on):not(.qf-proj-active) .qf-n {
+  background: color-mix(in srgb, #8b5cf6 18%, transparent) !important;
+  color: #7c3aed !important;
+}
+html[data-theme="dark"] #quickFilters .qf.qf-proj:not(.on):not(.qf-proj-active) .qf-n,
+html[data-theme="oled"] #quickFilters .qf.qf-proj:not(.on):not(.qf-proj-active) .qf-n {
+  background: color-mix(in srgb, #a78bfa 25%, transparent) !important;
+  color: #c4b5fd !important;
+}
+#quickFilters .qf.qf-proj.qf-proj-active,
+#quickFilters .qf.qf-proj.on {
+  background: var(--proj-kol, var(--accent)) !important;
+  color: #ffffff !important;
+  border-color: var(--proj-kol, var(--accent)) !important;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--proj-kol, var(--accent)) 35%, transparent) !important;
+}
+#quickFilters .qf.qf-proj.qf-proj-active .qf-n,
+#quickFilters .qf.qf-proj.on .qf-n {
+  background: rgba(255, 255, 255, 0.28) !important;
+  color: #ffffff !important;
+}
+#quickFilters .qf.qf-proj.qf-proj-active svg,
+#quickFilters .qf.qf-proj.on svg {
+  color: #ffffff !important;
+}
+#quickFilters .qf.qf-proj .qf-proj-arr {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1px 4px !important;
+  margin-left: 2px !important;
+  border-radius: 4px !important;
+  opacity: 0.8 !important;
+  font-size: 10px !important;
+  transition: opacity 0.15s, background-color 0.15s !important;
+}
+#quickFilters .qf.qf-proj .qf-proj-arr:hover {
+  opacity: 1 !important;
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+#quickFilters .qf.qf-proj.qf-proj-active .qf-proj-arr:hover,
+#quickFilters .qf.qf-proj.on .qf-proj-arr:hover {
+  background: rgba(255, 255, 255, 0.22) !important;
+}
+
 /* Cytaty biblijne i odnośniki w treści studium */
 .ncontent blockquote {
   border-left: 4px solid var(--gold-accent) !important;
@@ -17767,6 +17986,40 @@ html[data-theme="sepia"] .sidebar-float-trigger {
 }
 .col.collapsed + .colResizer {
   display: none !important;
+}
+
+/* Na widoku mobilnym (.mshow) kolumna musi być w pełni widoczna, nawet jeśli na desktopie była zwinięta */
+main .col.mshow,
+main .col.mshow.collapsed {
+  display: flex !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  padding: initial !important;
+  margin: 0 !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--cien-panelu, 0 4px 16px rgba(0, 0, 0, 0.035)) !important;
+  opacity: 1 !important;
+  overflow: auto !important;
+  pointer-events: auto !important;
+}
+main .col.mshow.collapsed .list,
+main .col.mshow.collapsed #pubList,
+main .col.mshow.collapsed .pubActs,
+main .col.mshow.collapsed .tagBtns,
+main .col.mshow.collapsed #btnNewTag {
+  display: block !important;
+}
+main .col.mshow.collapsed #tagPanel,
+main .col.mshow.collapsed #pubPanel {
+  display: flex !important;
+}
+main .col.mshow.collapsed h2,
+main .col.mshow.collapsed .pubTitle {
+  writing-mode: horizontal-tb !important;
+  transform: none !important;
+  display: flex !important;
+  opacity: 1 !important;
 }
 
 /* Nagłówki kolumn — elastyczne skalowanie */
@@ -20247,6 +20500,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
       </div>
       <div id="quickFilters">
       <button class="qf" data-qf="all">Wszystkie</button>
+      <button type="button" class="qf qf-proj is-hidden" id="qfProjekty" data-qf="proj" data-lbl="Projekty" hidden>Projekty</button>
       <button class="qf" data-qf="pin">Przypięte</button>
       <button class="qf" data-qf="fav">Ulubione</button>
       <button class="qf" data-qf="untagged">Bez etykiety</button>
@@ -20261,6 +20515,15 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
       </div>
       <div id="searchStatus" hidden></div>
       <div id="counts"></div>
+    </div>
+    <!-- Pasek powrotu do wcześniejszej notatki w kolumnie głównej -->
+    <div id="cenReturnBar" class="cenReturnBar" hidden>
+      <button type="button" class="cenReturnBtn" id="cenReturnBtn" title="Wróć do wcześniejszej notatki">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0;"><path d="M15 18l-6-6 6-6"/></svg>
+        <span class="cenReturnLabel">Poprzednia notatka:</span>
+        <span class="cenReturnTyt" id="cenReturnTyt"></span>
+      </button>
+      <button type="button" class="cenReturnZamknij" id="cenReturnZamknij" title="Zamknij powiadomienie powrotu" aria-label="Zamknij">✕</button>
     </div>
     <!-- Centrum studium. Rodzeństwo listy, nie jej zawartość: lista ma własne
          przewijanie i pamięć położenia, których nie wolno zgubić przy każdym
@@ -20387,6 +20650,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div class="overlay" id="modalFs">
   <div class="fsmodal">
     <div id="fsProg" role="progressbar" aria-label="Postęp czytania" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+    <button id="fsBackFixed" class="fsBackFixed" title="Wróć do poprzedniej notatki" aria-label="Wróć do poprzedniej notatki" hidden><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fsBackFixedTxt">Wróć</span><span class="fsBackFixedTyt" id="fsBackFixedTyt"></span></button>
     <button id="fsFull" title="Pełny ekran" aria-label="Pełny ekran"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
     <button id="fsClose" title="Zamknij" aria-label="Zamknij">✕</button>
     <div id="fsWrap"></div>
@@ -21625,7 +21889,10 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
   <div class="cenFloatTimerPulseDot" id="cenFloatTimerDot" aria-hidden="true"></div>
   <div class="cenFloatTimerBadge" id="cenFloatTimerIcon" aria-hidden="true">⏱️</div>
   <div class="cenFloatTimerInfo" id="cenFloatTimerInfoBtn" role="button" tabindex="0" title="Kliknij, aby otworzyć stoper" aria-label="Rozwiń stoper skupienia">
-    <div class="cenFloatTimerTime" id="cenFloatTimerTime" aria-label="Czas stopera">00:00</div>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <div class="cenFloatTimerTime" id="cenFloatTimerTime" aria-label="Czas stopera">00:00</div>
+      <span class="cenFloatTimerPct" id="cenFloatTimerPct" style="display:none;">0%</span>
+    </div>
     <div class="cenFloatTimerTitle" id="cenFloatTimerTitle">Stoper skupienia</div>
   </div>
   <div class="cenFloatTimerActions">
@@ -21634,6 +21901,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
     <button type="button" class="cenFloatTimerBtn" id="cenFloatTimerOpenBtn" title="Rozwiń stoper" aria-label="Rozwiń okno stopera">⤢</button>
     <button type="button" class="cenFloatTimerBtn cenFloatTimerCloseBtn" id="cenFloatTimerCloseBtn" title="Zatrzymaj i zamknij" aria-label="Zatrzymaj i zamknij stoper">✕</button>
   </div>
+  <div class="cenFloatTimerProgressFill" id="cenFloatTimerProgressFill"></div>
 </div>
 
 <div class="overlay" id="modalPlanPrzypomnienie" aria-hidden="true">
@@ -23486,7 +23754,7 @@ const HistoriaBledow = (function(){
         filt.ch = null;
         filt.pub = "all";
       }
-      const qInput = document.getElementById("q");
+      const qInput = document.getElementById("search");
       if(qInput) qInput.value = "";
       if(typeof resetQueryCache === "function") resetQueryCache();
       if(typeof odslonPaski === "function") odslonPaski();
@@ -24364,6 +24632,38 @@ function reportSaveError(e, what){
     toastErr("Nie udało się zapisać"+(what?" ("+what+")":"")+". Zrób kopię danych przez Plik → Zapisz kopię (JSON) i odśwież stronę.");
   }
 }
+/**
+ * Tworzy nowy obiekt notatki i dodaje go na początek tablicy notes.
+ * @param {Object} props Opcjonalne początkowe pola notatki
+ * @returns {Note}
+ */
+function createNote(props, skipUnshift){
+  const now = new Date().toISOString();
+  const n = {
+    g: (typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID().toUpperCase() : "N" + Date.now()),
+    t: "",
+    c: "",
+    h: null,
+    b: 0,
+    ch: null,
+    v: null,
+    pub: "",
+    ks: "",
+    doc: 0,
+    itn: 0,
+    col: 0,
+    cr: now,
+    mo: now,
+    tg: [],
+    nw: true,
+    tgd: true,
+    ...(props || {})
+  };
+  if(!skipUnshift && typeof notes !== "undefined" && Array.isArray(notes)) notes.unshift(n);
+  return n;
+}
+window.createNote = createNote;
+
 /**
  * Zapisuje pojedynczą notatkę. Błędy trafiają do reportSaveError, żeby użytkownik
  * dowiedział się o nieudanym zapisie zamiast stracić dane po cichu.
@@ -25337,7 +25637,7 @@ function noteMatchesTag(n,t){
       return tg && tg.sec === sek;
     });
   }
-  return n.tg.includes(t);
+  return n.tg.includes(t) || (!isNaN(+t) && n.tg.includes(+t)) || n.tg.includes(String(t));
 }
 /* Filtry Biblii i publikacji są niezależne. Dzięki temu ciąg
    słowo → księga → rozdział → etykieta → publikacja jest przecięciem (AND),
@@ -26429,14 +26729,164 @@ function initViewBar(){
 }
 /* szybkie filtry nad listą notatek */
 let quickFilter = "all";
+
+function getProjectTagIdsSet(){
+  const s = new Set();
+  if(Array.isArray(tags)){
+    for(let i=0; i<tags.length; i++){
+      const t = tags[i];
+      if(t && t.cproj){
+        s.add(t.id);
+        s.add(+t.id);
+        s.add(String(t.id));
+      }
+    }
+  }
+  return s;
+}
+
+function listujProjekty(){
+  return Array.isArray(tags) ? tags.filter(t => t && t.cproj) : [];
+}
+window.listujProjekty = listujProjekty;
+
+function noteIsProject(n, projTagSet){
+  if(!n || !n.tg || !Array.isArray(n.tg) || !n.tg.length) return false;
+  if(projTagSet){
+    for(let i=0; i<n.tg.length; i++){
+      if(projTagSet.has(n.tg[i])) return true;
+    }
+    return false;
+  }
+  const s = getProjectTagIdsSet();
+  if(!s.size) return false;
+  for(let i=0; i<n.tg.length; i++){
+    if(s.has(n.tg[i])) return true;
+  }
+  return false;
+}
+window.noteIsProject = noteIsProject;
+
+function pokazMenuSzybkichProjektow(anchor){
+  const dd = $("dropdown");
+  if(!dd) return;
+
+  if(dd.style.display === "block" && dd._lastAnchor === anchor){
+    dd.style.display = "none";
+    dd._lastAnchor = null;
+    return;
+  }
+  dd._lastAnchor = anchor;
+
+  const projekty = typeof listujProjekty === "function" ? listujProjekty() : [];
+  if(!projekty.length){
+    toast("Brak utworzonych projektów", "info");
+    return;
+  }
+
+  const curP = typeof aktywnyProjektTag === "function" ? aktywnyProjektTag() : null;
+  const curProjId = curP ? curP.id : null;
+  const isWszystkieProjekty = (quickFilter === "proj" && !curP);
+
+  const noteCounts = {};
+  if(Array.isArray(notes)){
+    for(let i=0; i<notes.length; i++){
+      const n = notes[i];
+      if(!n || n.del || !Array.isArray(n.tg)) continue;
+      for(let j=0; j<n.tg.length; j++){
+        const tid = n.tg[j];
+        noteCounts[tid] = (noteCounts[tid] || 0) + 1;
+      }
+    }
+  }
+
+  let html = '';
+  html += '<div class="cenProjMenuHdr" role="presentation" style="padding:8px 12px 6px;">'
+       +  '  <span style="display:flex;align-items:center;gap:6px;font-weight:600;font-size:13px;">'
+       +  '    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:var(--accent);"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>'
+       +  '    <span>Projekty studium</span>'
+       +  '  </span>'
+       +  '  <span class="cenProjMenuHdrBadge" style="margin-left:auto;font-size:11px;opacity:0.8;">' + projekty.length + '</span>'
+       +  '</div>'
+       +  '<div class="dd-sep"></div>'
+       +  '<div class="dd-it' + (isWszystkieProjekty ? ' sel' : '') + '" data-qf-pact="all-proj" style="display:flex;align-items:center;gap:8px;padding:8px 12px;cursor:pointer;">'
+       +  '  <span style="width:14px;text-align:center;font-size:13px;color:var(--accent);font-weight:700;">' + (isWszystkieProjekty ? '✓' : '•') + '</span>'
+       +  '  <span style="flex:1;font-weight:' + (isWszystkieProjekty ? '600' : '500') + ';">Wszystkie notatki projektowe</span>'
+       +  '</div>'
+       +  '<div class="dd-sep"></div>';
+
+  for(let i=0; i<projekty.length; i++){
+    const p = projekty[i];
+    const isSel = curProjId && (curProjId === p.id || curProjId === +p.id || String(curProjId) === String(p.id));
+    const kol = p.color || "var(--accent)";
+    const count = noteCounts[p.id] || 0;
+
+    html += '<div class="dd-it' + (isSel ? ' sel' : '') + '" data-qf-pid="' + esc(p.id) + '" style="display:flex;align-items:center;gap:8px;padding:8px 12px;cursor:pointer;">'
+         +  '  <span style="width:10px;height:10px;border-radius:50%;background:' + esc(kol) + ';flex-shrink:0;"></span>'
+         +  '  <span style="flex:1;font-weight:' + (isSel ? '600' : '400') + ';overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + esc(p.name || "Projekt") + '</span>';
+    if(count > 0){
+      html += '  <span style="font-size:11px;opacity:0.65;margin-left:4px;">' + count + '</span>';
+    }
+    if(isSel){
+      html += '  <span style="color:var(--accent);font-size:13px;font-weight:700;margin-left:4px;">✓</span>';
+    }
+    html += '</div>';
+  }
+
+  html += '<div class="dd-sep"></div>'
+       +  '<div class="dd-it" data-qf-pact="centrum" style="display:flex;align-items:center;gap:8px;padding:8px 12px;cursor:pointer;font-size:12.5px;opacity:0.85;">'
+       +  '  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M12 5v14M5 12h14"/></svg>'
+       +  '  <span>Centrum Studium (zarządzaj)</span>'
+       +  '</div>';
+
+  dd.innerHTML = html;
+  dd.style.display = "block";
+  if(typeof oznaczPozycjeMenu === "function") oznaczPozycjeMenu(dd);
+  if(typeof placeDropdown === "function") placeDropdown(dd, anchor);
+
+  dd.onclick = (e) => {
+    const item = e.target.closest("[data-qf-pact], [data-qf-pid]");
+    if(!item) return;
+    e.stopPropagation();
+    dd.style.display = "none";
+    dd._lastAnchor = null;
+
+    const pact = item.dataset.qfPact;
+    const pid = item.dataset.qfPid;
+
+    if(pact === "all-proj"){
+      if(typeof filt !== "undefined"){
+        filt.tag = "all";
+        if(typeof persistFilt === "function") persistFilt();
+        if(typeof odswiezPasekProjektu === "function") odswiezPasekProjektu();
+      }
+      quickFilter = "proj";
+      renderNotes();
+    } else if(pact === "centrum"){
+      if(typeof wrocDoCentrumProjektow === "function") wrocDoCentrumProjektow();
+    } else if(pid){
+      const parsedPid = (!isNaN(+pid) && pid !== "") ? +pid : pid;
+      if(typeof filt !== "undefined"){
+        filt.tag = parsedPid;
+        quickFilter = "all";
+        if(typeof persistFilt === "function") persistFilt();
+        if(typeof odswiezPasekProjektu === "function") odswiezPasekProjektu();
+      }
+      renderNotes();
+    }
+  };
+}
+window.pokazMenuSzybkichProjektow = pokazMenuSzybkichProjektow;
+
 /**
- * Szybki filtr nad listą notatek: wszystkie / przypięte / ulubione / bez etykiety /
- * ze zdjęciem / z ostatniego tygodnia.
+ * Szybki filtr nad listą notatek: wszystkie / projekty / przypięte / ulubione / bez etykiety /
+ * ze zdjęciem / z ostatniego tygodnia / na dziś / do przeczytania / do opracowania.
  * @param {Note} n
  * @returns {boolean}
  */
 function matchesQuick(n){
   if(quickFilter==="all") return true;
+  if(quickFilter==="proj") return noteIsProject(n);
   if(quickFilter==="pin") return !!n.pin;
   if(quickFilter==="fav") return !!n.fav;
   if(quickFilter==="untagged") return !n.tg || n.tg.length===0;
@@ -26503,9 +26953,13 @@ function renderQuickFilters(base){
   base = base || baseNotes();
   // pojedyncza pętla liczy wszystkie liczniki naraz (wcześniej: cztery osobne przebiegi)
   const now = Date.now();
-  const cnt={ all: base.length, pin:0, fav:0, untagged:0, img:0, week:0, powtorka:0, cenq:0, ceni:0 };
+  const projTagSet = typeof getProjectTagIdsSet === "function" ? getProjectTagIdsSet() : new Set();
+  const maProjekty = projTagSet && projTagSet.size > 0;
+  const curProj = typeof aktywnyProjektTag === "function" ? aktywnyProjektTag() : null;
+  const cnt={ all: base.length, proj:0, pin:0, fav:0, untagged:0, img:0, week:0, powtorka:0, cenq:0, ceni:0 };
   for(let i=0;i<base.length;i++){
     const n=base[i];
+    if(maProjekty && noteIsProject(n, projTagSet)) cnt.proj++;
     if(n.pin) cnt.pin++;
     if(n.fav) cnt.fav++;
     if(!n.tg || !n.tg.length) cnt.untagged++;
@@ -26518,6 +26972,53 @@ function renderQuickFilters(base){
   }
   box.querySelectorAll(".qf[data-qf]").forEach(b=>{
     const k=b.dataset.qf, c=cnt[k]||0;
+    if(k==="proj"){
+      if(!maProjekty){
+        b.hidden = true;
+        b.classList.add("is-hidden");
+        return;
+      }
+      b.hidden = false;
+      b.classList.remove("is-hidden");
+
+      const isAkt = (quickFilter === "proj") || !!curProj;
+      b.classList.toggle("on", isAkt);
+      b.classList.toggle("qf-proj-active", !!curProj);
+      b.classList.toggle("empty", !c);
+
+      if(curProj && curProj.color){
+        b.style.setProperty("--proj-kol", curProj.color);
+      } else {
+        b.style.removeProperty("--proj-kol");
+      }
+
+      const nazwa = curProj ? curProj.name : "Projekty";
+      const ikona = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;vertical-align:-1.5px;margin-right:3px;flex-shrink:0;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>';
+      const strzalka = '<span class="qf-proj-arr" title="Wybierz projekt…" aria-label="Wybierz projekt">▾</span>';
+      const licznikHtml = (c ? ` <span class="qf-n">${c}</span>` : "");
+
+      setHtml(b, ikona + esc(nazwa) + licznikHtml + strzalka);
+
+      b.onclick = (e)=>{
+        if(e.target.closest(".qf-proj-arr")){
+          e.stopPropagation();
+          if(typeof pokazMenuSzybkichProjektow === "function") pokazMenuSzybkichProjektow(b);
+          return;
+        }
+        if(curProj){
+          if(typeof filt !== "undefined"){
+            filt.tag = "all";
+            if(typeof persistFilt === "function") persistFilt();
+            if(typeof odswiezPasekProjektu === "function") odswiezPasekProjektu();
+          }
+          quickFilter = "all";
+        } else {
+          quickFilter = (quickFilter === "proj") ? "all" : "proj";
+        }
+        renderNotes();
+      };
+      return;
+    }
     b.classList.toggle("on", quickFilter===k);
     b.classList.toggle("empty", k!=="all" && !c);
     /* „Na dziś" chowamy zupełnie, gdy nic nie czeka. Pozostałe filtry opisują
@@ -28085,6 +28586,13 @@ function noteCard(n){
       touchAccess(n); if(!fsGuid) openFs(n); return;
     }
     if(e.target.closest(".ncontent") && !e.target.isContentEditable) touchAccess(n);
+    const untagEl = e.target.closest && e.target.closest("[data-untag]");
+    if(untagEl){
+      e.stopPropagation();
+      const tid = +untagEl.dataset.untag;
+      untag(n, tid);
+      return;
+    }
     /* Dotknięcie zwykle trafia w <svg>, <path> albo napis wewnątrz przycisku.
        Odczyt data-act bezpośrednio z e.target działał tylko na pustym fragmencie
        przycisku — dlatego „Zapisz” na iPadzie wymagało kilku prób. */
@@ -28267,7 +28775,7 @@ window.addEventListener("popstate", (e) => {
   const fsModal = $("modalFs");
   const fsIsOpen = !!fsGuid || (fsModal && fsModal.classList.contains("show"));
   if(fsIsOpen){
-    if(typeof fsSlad !== "undefined" && fsSlad.length > 0 && typeof _fsHistoryPushed !== "undefined" && _fsHistoryPushed > 1){
+    if(typeof fsSlad !== "undefined" && fsSlad.length > 0){
       if(typeof fsWroc === "function"){
         fsWroc(true);
         return;
@@ -28356,6 +28864,7 @@ function openFs(n, fromPopstate){
     saveReadPos();                       // wracając, ma wrócić w to samo miejsce tekstu
     fsSlad.push(fsGuid);
     if(fsSlad.length > FS_SLAD_MAX) fsSlad.shift();
+    if(typeof ustawPoprzedniaNotatke === "function") ustawPoprzedniaNotatke(fsGuid);
     if(fromPopstate !== true && window.history && history.pushState){
       try{
         history.pushState({jwModal:"modalFs", fsSlad:true, guid:n.g}, "");
@@ -28363,17 +28872,25 @@ function openFs(n, fromPopstate){
       }catch(_){}
     }
   } else if(!juzOtwarty){
-    fsSlad.length = 0;
+    if(window._skadOtwartoGuid && window._skadOtwartoGuid !== n.g){
+      fsSlad.length = 0;
+      fsSlad.push(window._skadOtwartoGuid);
+      if(typeof ustawPoprzedniaNotatke === "function") ustawPoprzedniaNotatke(window._skadOtwartoGuid);
+    } else {
+      fsSlad.length = 0;
+      if(typeof schowajPoprzedniaNotatke === "function") schowajPoprzedniaNotatke();
+    }
     _fsHistoryPushed = 0;
     if(fromPopstate !== true && window.history && history.pushState){
       try{
-        history.pushState({jwModal:"modalFs", fsSlad:false, guid:n.g}, "");
+        history.pushState({jwModal:"modalFs", fsSlad:(fsSlad.length > 0), guid:n.g}, "");
         _fsHistoryPushed = 1;
       }catch(_){}
     } else if(fromPopstate === true){
       _fsHistoryPushed = 1;
     }
   }
+  delete window._skadOtwartoGuid;
   fsGuid = n.g;
   $("modalFs").classList.remove("dok-schowany","pow-open");
   document.body.classList.add("fs-open");
@@ -28381,6 +28898,7 @@ function openFs(n, fromPopstate){
   renderFs(); openModal("modalFs", fromPopstate);
   acquireWake(); updateFsNav();
   if(typeof updateFsFullBtn==="function") updateFsFullBtn();
+  if(typeof updateFsBackFixed==="function") updateFsBackFixed();
   const fm=$("modalFs").querySelector(".fsmodal"); if(fm) fm.scrollTop=0;
   updateFsProgress();
 }
@@ -28461,12 +28979,15 @@ function renderFs(){
        aby się dowiedzieć. */
     if(fsSlad.length){
       const skad = notes.find(y=>y.g===fsSlad[fsSlad.length-1]);
-      const opis = "Wróć do: " + ((skad && (skad.t||"").trim()) ||
+      const tytulPoprz = ((skad && (skad.t||"").trim()) ||
         (skad && typeof refLabel==="function" ? refLabel(skad) : "") || "poprzedniej notatki");
+      const opis = "Wróć do: " + tytulPoprz;
       const b = document.createElement("button");
       b.className = "fsBackInline"; b.type = "button";
       b.setAttribute("aria-label", opis); b.title = opis;
-      b.innerHTML = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
+      b.innerHTML = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fsBackInlineTxt">Wróć</span><span class="fsBackInlineTyt"></span>';
+      const tytEl = b.querySelector(".fsBackInlineTyt");
+      if(tytEl) tytEl.textContent = tytulPoprz;
       b.onclick = () => fsWroc(false);
       nh.insertBefore(b, nh.firstChild);
     }
@@ -28578,6 +29099,7 @@ function renderFs(){
   $("modalFs")?.classList.toggle("pow-open",!!card.querySelector("details.powiazane[open]"));
   _progLast=-1;
   updateFsProgress(); updateFsNav();
+  if(typeof updateFsBackFixed === "function") updateFsBackFixed();
   restoreReadPos(n.g);
   zmierzNhead();
 }
@@ -28818,6 +29340,110 @@ function restoreReadPos(g){
     toast("Wrócono do miejsca, gdzie skończyłeś");
   }, 80);
 }
+
+/**
+ * Aktualizuje stan przyklejonego przycisku powrotu w czytniku (#fsBackFixed).
+ */
+function updateFsBackFixed(){
+  const btn = $("fsBackFixed");
+  const modal = $("modalFs");
+  if(!btn || !modal) return;
+  if(typeof fsSlad !== "undefined" && Array.isArray(fsSlad) && fsSlad.length > 0){
+    const prevGuid = fsSlad[fsSlad.length - 1];
+    const skad = (typeof notes !== "undefined" && Array.isArray(notes))
+      ? notes.find(y => y.g === prevGuid && !y.del)
+      : null;
+    const tytulPoprz = ((skad && (skad.t || "").trim()) ||
+      (skad && typeof refLabel === "function" ? refLabel(skad) : "") || "poprzedniej notatki");
+    const opis = "Wróć do: " + tytulPoprz;
+    btn.hidden = false;
+    btn.classList.add("show");
+    btn.setAttribute("aria-label", opis);
+    btn.title = opis;
+    const tytEl = $("fsBackFixedTyt") || btn.querySelector(".fsBackFixedTyt");
+    if(tytEl) tytEl.textContent = tytulPoprz;
+    modal.classList.add("ma-back");
+    btn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      fsWroc(false);
+    };
+  } else {
+    btn.hidden = true;
+    btn.classList.remove("show");
+    modal.classList.remove("ma-back");
+  }
+}
+
+let _poprzedniaNotatkaGuid = null;
+
+/**
+ * Ustawia pasek powrotu do wcześniejszej notatki w oknie głównym (#cenReturnBar).
+ */
+function ustawPoprzedniaNotatke(guid){
+  _poprzedniaNotatkaGuid = guid;
+  const bar = $("cenReturnBar");
+  const tyt = $("cenReturnTyt");
+  const btn = $("cenReturnBtn");
+  const closeBtn = $("cenReturnZamknij");
+  if(!bar || !guid) {
+    if(bar) bar.hidden = true;
+    return;
+  }
+  const n = (typeof notes !== "undefined" && Array.isArray(notes))
+    ? notes.find(x => x.g === guid && !x.del) : null;
+  if(!n){
+    bar.hidden = true;
+    return;
+  }
+  const tytul = (n.t || "").trim() || (typeof refLabel === "function" ? refLabel(n) : "") || "Bez tytułu";
+  if(tyt) tyt.textContent = tytul;
+  bar.hidden = false;
+
+  if(btn){
+    btn.onclick = () => {
+      wrocDoPoprzedniejNotatki();
+    };
+  }
+  if(closeBtn){
+    closeBtn.onclick = (e) => {
+      e.stopPropagation();
+      schowajPoprzedniaNotatke();
+    };
+  }
+}
+
+function schowajPoprzedniaNotatke(){
+  _poprzedniaNotatkaGuid = null;
+  const bar = $("cenReturnBar");
+  if(bar) bar.hidden = true;
+}
+
+function wrocDoPoprzedniejNotatki(){
+  const g = _poprzedniaNotatkaGuid;
+  if(!g) return;
+  schowajPoprzedniaNotatke();
+  const n = (typeof notes !== "undefined" && Array.isArray(notes))
+    ? notes.find(x => x.g === g && !x.del) : null;
+  if(!n){
+    toast("Tej notatki już nie ma");
+    return;
+  }
+  if(document.body.classList.contains("fs-open") || (typeof fsGuid !== "undefined" && fsGuid)){
+    if(typeof fsWroc === "function" && fsSlad && fsSlad.includes(g)){
+      fsWroc(false);
+    } else {
+      openFs(n);
+    }
+  } else {
+    if(typeof centrumWidoczne === "function" && centrumWidoczne()){
+      if(typeof centrumSchowaj === "function") centrumSchowaj();
+    }
+    if(typeof wskazNaLiscie === "function") wskazNaLiscie(g);
+    if(typeof selectNote === "function") selectNote(g);
+  }
+}
+
 /**
  * Krok wstecz po śladzie. Gdy śladu nie ma — zamyka czytnik, czyli robi to,
  * czego użytkownik oczekuje od jedynego wyjścia.
@@ -28834,6 +29460,7 @@ function fsWroc(fromPopstate){
   const n = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes.find(x=>x.g===g && !x.del) : null;
   if(!n){ fsWroc(fromPopstate); return; }
   fsGuid = g; renderFs(); updateFsNav(); updateFsProgress();
+  if(typeof updateFsBackFixed === "function") updateFsBackFixed();
   if(fromPopstate !== true){
     if(typeof _fsHistoryPushed !== "undefined" && _fsHistoryPushed > 1) _fsHistoryPushed--;
     if(history.state && history.state.jwModal === "modalFs"){
@@ -28893,11 +29520,15 @@ function closeFs(fromPopstate){
   /* Notatkę do wskazania trzeba wziąć PRZED skasowaniem śladu i fsGuid. */
   const wrocDo = fsSlad.length ? fsSlad[0] : fsGuid;
   fsSlad.length = 0; fsGuid = null;
+  delete window._skadOtwartoGuid;
+  if(typeof schowajPoprzedniaNotatke === "function") schowajPoprzedniaNotatke();
   pilnujNhead(null);
   if(typeof _zmierzNheadRaf !== "undefined" && _zmierzNheadRaf){ cancelAnimationFrame(_zmierzNheadRaf); _zmierzNheadRaf = 0; }
   $("modalFs").classList.remove("dok-schowany","pow-open","is-fullscreen");
   $("modalFs")?.querySelector(".fsmodal")?.classList.remove("is-fullscreen");
   if(typeof updateFsFullBtn==="function") updateFsFullBtn(false);
+  if(typeof updateFsBackFixed === "function") updateFsBackFixed();
+  if(typeof rysujCentrum === "function" && document.body.classList.contains("centrum-open")) rysujCentrum();
   if(document.fullscreenElement || document.webkitFullscreenElement){
     try{
       if(document.exitFullscreen) document.exitFullscreen().catch(()=>{});
@@ -33978,6 +34609,7 @@ async function zapiszNowaNotatke(otworzEdytor){
   pushUndo({type:"newNote", g:n.g, label:"dodanie notatki"});
   closeModal("modalNew");
   renderAll();
+  if(typeof rysujCentrum === "function") rysujCentrum();
 
   if(otworzEdytor){
     openFs(n);
@@ -37871,34 +38503,74 @@ function mobileShow(id){
     return;
   }
   if (id === "centrum") {
-    if (typeof centrumWidoczne === "function" && centrumWidoczne()) {
-      if (typeof centrumSchowaj === "function") centrumSchowaj();
-    } else {
-      if (typeof centrumPokaz === "function") centrumPokaz();
+    // Kliknięcie w zakładkę Centrum: zwija kolumny i otwiera Centrum
+    const cols = ["colBooks", "colTags", "colPubs", "colNotes"];
+    cols.forEach(c => {
+      const el = $(c);
+      if(el){
+        el.classList.toggle("mshow", c === "colNotes");
+      }
+    });
+    if (typeof setCollapsed === "function") {
+      setCollapsed("colBooks", true);
+      setCollapsed("colTags", true);
+      setCollapsed("colPubs", true);
     }
+    if (typeof centrumPokaz === "function") {
+      centrumPokaz();
+    }
+    if (typeof odswiezUkryteKolumny === "function") odswiezUkryteKolumny();
+    if (typeof updateSidebarActiveStates === "function") updateSidebarActiveStates();
+
+    document.querySelectorAll("#mobileTabs button").forEach(b => {
+      if (b.dataset.p === "centrum") {
+        b.classList.add("on");
+      } else if (b.dataset.p !== "menu") {
+        b.classList.remove("on");
+      }
+    });
     return;
+  }
+
+  // Kliknięcie w zakładkę kolumny: zwija Centrum i otwiera kolumnę
+  if (typeof centrumSchowaj === "function") {
+    const isCentrum = (typeof centrumWidoczne === "function" && centrumWidoczne()) ||
+                      document.body.classList.contains("centrum-open");
+    if (isCentrum) {
+      centrumSchowaj();
+    }
   }
 
   const cols = ["colBooks", "colTags", "colPubs", "colNotes"];
   cols.forEach(c => {
     const el = $(c);
-    if(el) el.classList.toggle("mshow", c === id);
+    if(el){
+      const isTarget = (c === id);
+      el.classList.toggle("mshow", isTarget);
+      if(isTarget && c !== "colNotes"){
+        el.classList.remove("collapsed");
+      }
+    }
   });
+
+  if(id === "colBooks" && typeof renderBooks === "function") renderBooks();
+  if(id === "colTags" && typeof renderTags === "function") renderTags();
+  if(id === "colPubs" && typeof renderPubPanel === "function") renderPubPanel();
+  if(typeof odswiezUkryteKolumny === "function") odswiezUkryteKolumny();
+  if(typeof opiszStrzalkeKolumny === "function") opiszStrzalkeKolumny(id);
+  if(typeof updateSidebarActiveStates === "function") updateSidebarActiveStates();
 
   document.querySelectorAll("#mobileTabs button").forEach(b=>{
     if (b.dataset.p !== "menu" && b.dataset.p !== "centrum") {
       b.classList.toggle("on", b.dataset.p === id);
+    } else if (b.dataset.p === "centrum") {
+      b.classList.remove("on");
     }
   });
 }
 document.querySelectorAll("#mobileTabs button").forEach(b => {
   b.onclick = () => {
     const p = b.dataset.p;
-    if (p !== "centrum" && p !== "menu") {
-      if (document.body.classList.contains("centrum-open") && typeof centrumSchowaj === "function") {
-        centrumSchowaj();
-      }
-    }
     mobileShow(p);
   };
 });
@@ -43475,6 +44147,12 @@ document.addEventListener("click", e=>{
     if(d) d.open=false;
     zapamietajPowiazane(false);
     $("modalFs")?.classList.remove("pow-open");
+    const sourceCard = b.closest(".ncard");
+    const sourceGuid = (typeof fsGuid !== "undefined" && fsGuid) ? fsGuid : (sourceCard ? sourceCard.dataset.g : null);
+    if(sourceGuid && sourceGuid !== inna.g){
+      window._skadOtwartoGuid = sourceGuid;
+      if(typeof ustawPoprzedniaNotatke === "function") ustawPoprzedniaNotatke(sourceGuid);
+    }
     openFs(inna);
   }
 });
@@ -43514,7 +44192,7 @@ document.addEventListener("click", e=>{
    Wyjątkiem jest zawsze przycisk otwierający — inaczej dotknięcie go przy
    otwartym okienku zamknęłoby je i natychmiast otworzyło z powrotem. */
 const OKIENKA = [
-  {id:"dropdown",  wyjatki:["#btnMenu", "#btnCols", "#navItemMenu", "#navItemCols", '[data-act="more"]', '[data-act="exp"]', ".more", ".secMore", ".more-btn"]},
+  {id:"dropdown",  wyjatki:["#btnMenu", "#btnCols", "#navItemMenu", "#navItemCols", '[data-act="more"]', '[data-act="exp"]', ".more", ".secMore", ".more-btn", ".qf-proj-arr", "#qfProjekty"]},
   {id:"colorMenu", wyjatki:["#btnColors", "#btnSettings", "#navItemColors", "#navItemSettings"]},
   {id:"motywMenu", wyjatki:["#btnTheme", "#navItemTheme"]},
   {id:"readPop",   wyjatki:["[data-readbtn]"]},
@@ -45531,9 +46209,7 @@ function _centrPobierzNotatkiTematu(temat){
   return notes.filter(n=>{
     if(n.del) return false;
     if(tagMatching && Array.isArray(n.tg) && n.tg.includes(tagMatching.id)) return true;
-    if(n.t && norm(n.t).includes(tNorm)) return true;
-    const txt = n.c || (n.h ? String(n.h).replace(/<[^>]*>/g," ") : "");
-    if(txt && norm(txt).includes(tNorm)) return true;
+    if(n.t && (typeof norm === "function" ? norm(n.t) : n.t.toLowerCase()).includes(tNorm)) return true;
     return false;
   });
 }
@@ -47659,6 +48335,7 @@ function _centrPobierzLubStworzWorker(){
       const blob = new Blob([workerCode], { type: "application/javascript" });
       const workerUrl = URL.createObjectURL(blob);
       _centrStoperWorker = new Worker(workerUrl);
+      try { URL.revokeObjectURL(workerUrl); } catch(_e){}
       _centrStoperWorker.onmessage = function(e){
         if(e.data === "tick"){
           _centrStoperTickKrok();
@@ -48049,6 +48726,17 @@ if(typeof document !== "undefined"){
   } else {
     _centrWczytajStoperZLS();
   }
+}
+
+// Ochrona aktywnego stopera przed przypadkowym odświeżeniem lub zamknięciem karty
+if(typeof window !== "undefined"){
+  window.addEventListener("beforeunload", function(e){
+    if(typeof _centrStoperStan !== "undefined" && _centrStoperStan && _centrStoperStan.dziala){
+      e.preventDefault();
+      e.returnValue = "";
+      return "";
+    }
+  });
 }
 
 function _centrZatrzymajStoper(){
@@ -48469,10 +49157,18 @@ function _centrStartStopStoper(){
     _centrResetStoper();
   }
 
-  // 3. Prośba o uprawnienia do powiadomień przeglądarki (w reakcji na kliknięcie użytkownika)
+  // 3. Prośba o uprawnienia do powiadomień przeglądarki i odblokowanie AudioContext (w reakcji na kliknięcie użytkownika)
   try {
     if("Notification" in window && Notification.permission === "default"){
       Notification.requestPermission().catch(() => {});
+    }
+  } catch(e){}
+  try {
+    if(typeof cenGetAudioContext === "function"){
+      const ctx = cenGetAudioContext();
+      if(ctx && ctx.state === "suspended"){
+        ctx.resume().catch(() => {});
+      }
     }
   } catch(e){}
 
