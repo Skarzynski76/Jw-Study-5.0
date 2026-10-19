@@ -6855,41 +6855,49 @@ mark { padding: 1px 3px; border-radius: 4px; }
    JW Study — forms.css
    Formularze: okno nowej notatki, wybór etykiet, pomoc (Modern UI)
    ========================================================================== */
-.nn-modal {
-  width: min(920px, 95vw);
+.nn-modal,
+#modalNew .modal.nn-modal,
+#modalNew .modal {
+  width: min(1240px, 95vw);
+  max-width: 95vw;
+  height: min(92vh, 880px);
   /* --kb = wysokość klawiatury ekranowej (ustawiany przez keyboard.js) */
-  max-height: calc(min(90vh, 880px) - var(--kb, 0px));
+  max-height: calc(min(92vh, 880px) - var(--kb, 0px));
   padding: 0 !important;
-  border-radius: 20px;
+  border-radius: 22px;
   overflow: hidden;
   background: var(--panel);
-  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.22);
-  transition: max-height 0.2s ease;
+  box-shadow: 0 32px 84px rgba(0, 0, 0, 0.28), 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: max-height 0.2s ease, width 0.2s ease;
 }
 .nn-studio-grid {
   display: grid;
-  grid-template-columns: 1.35fr 1fr;
-  /* Wysokość dopasowuje się do modala; min-height niższe żeby klawiatura mogła go skurczyć */
-  height: calc(min(90vh, 880px) - var(--kb, 0px));
-  max-height: calc(min(90vh, 880px) - var(--kb, 0px));
-  min-height: 340px;
+  grid-template-columns: minmax(0, 1.65fr) minmax(360px, 1fr);
+  height: 100%;
+  max-height: 100%;
+  min-height: 380px;
 }
 .nn-studio-main {
-  padding: 24px 28px;
+  padding: 24px 30px;
   display: flex;
   flex-direction: column;
   gap: 16px;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   border-right: 1px solid var(--border);
   background: var(--panel);
+  min-width: 0;
 }
 .nn-studio-side {
   background: color-mix(in srgb, var(--bg) 65%, var(--panel));
-  padding: 22px 20px 24px;
+  padding: 22px 22px 0;
   display: flex;
   flex-direction: column;
   gap: 14px;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  min-width: 0;
+  position: relative;
 }
 .nn-side-title {
   font-size: 12px;
@@ -6934,20 +6942,22 @@ mark { padding: 1px 3px; border-radius: 4px; }
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 #nnContent {
-  flex: 1;
+  flex: 1 1 280px;
   min-height: 260px;
-  max-height: 520px;
-  font-size: 15px;
-  line-height: 1.62;
+  max-height: none;
+  font-size: 15.5px;
+  line-height: 1.65;
   font-family: inherit;
-  padding: 14px 16px;
+  padding: 16px 18px;
   border-radius: 14px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   outline: none;
   word-break: break-word;
   white-space: pre-wrap;
@@ -7086,23 +7096,26 @@ mark { padding: 1px 3px; border-radius: 4px; }
 .nn-flags-row {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
   padding-top: 4px;
 }
 .nn-check-label {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12.5px;
+  gap: 7px;
+  font-size: 13px;
   font-weight: 550;
   color: var(--text);
   cursor: pointer;
   user-select: none;
+  white-space: nowrap;
 }
 .nn-check-label input {
   cursor: pointer;
   accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
 }
 .nn-ref-tools {
   display: flex;
@@ -7145,19 +7158,28 @@ mark { padding: 1px 3px; border-radius: 4px; }
 }
 .nn-studio-actions {
   margin-top: auto;
-  padding-top: 10px;
+  position: sticky;
+  bottom: 0;
+  background: color-mix(in srgb, var(--bg) 85%, var(--panel));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 14px 0 18px;
+  border-top: 1px solid var(--border);
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 10px;
+  z-index: 5;
 }
-@media (max-width: 1024px) {
-  /* iPad i mniejsze — siatka pionowa, całe okno przewijalne */
-  .nn-modal {
-    width: 96vw;
-    max-height: calc(min(92vh, 900px) - var(--kb, 0px));
-    /* Pozwól modalowi się przewijać gdy klawiatura zasłoni dolną część */
+@media (max-width: 960px), (max-width: 1024px) and (orientation: portrait) {
+  /* iPad w orientacji pionowej oraz mniejsze tablety — siatka pionowa, całe okno przewijalne */
+  .nn-modal,
+  #modalNew .modal.nn-modal,
+  #modalNew .modal {
+    width: min(740px, 96vw);
+    max-height: calc(min(94vh, 920px) - var(--kb, 0px));
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .nn-studio-grid {
     grid-template-columns: 1fr;
@@ -7168,18 +7190,53 @@ mark { padding: 1px 3px; border-radius: 4px; }
   .nn-studio-main {
     border-right: none;
     border-bottom: 1px solid var(--border);
-    padding: 18px 16px;
-    /* Na tablecie w kolumnie siatka nie przewija — przewija cały modal */
+    padding: 20px 18px;
     overflow-y: visible;
   }
   .nn-studio-side {
-    padding: 16px;
+    padding: 18px 18px 0;
     overflow-y: visible;
   }
-  #nnContent { min-height: 180px; }
+  #nnContent { min-height: 220px; }
+  .nn-studio-actions {
+    position: sticky;
+    bottom: 0;
+    padding: 12px 0 16px;
+  }
 }
-@media (max-width: 768px) {
-  #nnContent { min-height: 140px; }
+@media (max-width: 600px) {
+  /* Smartfony — pełne wykorzystanie ekranu i wygoda dotyku */
+  .nn-modal,
+  #modalNew .modal.nn-modal,
+  #modalNew .modal {
+    width: 98vw;
+    border-radius: 16px;
+    max-height: calc(100dvh - 12px - var(--kb, 0px));
+  }
+  .nn-studio-main {
+    padding: 14px 12px;
+    gap: 12px;
+  }
+  .nn-studio-side {
+    padding: 14px 12px 0;
+    gap: 12px;
+  }
+  .nn-card {
+    padding: 11px 12px;
+  }
+  #nnContent {
+    min-height: 170px;
+    font-size: 14.5px;
+  }
+  .nn-studio-actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+  .nn-studio-actions .btn {
+    width: 100%;
+    min-height: 40px;
+    justify-content: center;
+  }
 }
 
 
