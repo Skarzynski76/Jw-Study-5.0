@@ -19,7 +19,7 @@
      SQLite z kopii JW Library — biblioteka leży w katalogu lib/ obok aplikacji,
      nie na obcym serwerze. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' blob: 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; manifest-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -132,8 +132,8 @@ html[data-reader-theme="sage"] {
   background-color: #eaf1ec;
   color-scheme: light;
 }
-html,body{height:100%;height:100dvh;margin:0}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+html,body{height:100%;height:var(--appWysokosc, 100dvh);margin:0;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;touch-action:manipulation}
 header{width:100%;flex-shrink:0;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:9px 16px;padding-left:max(16px, calc(16px + env(safe-area-inset-left, 0px)));padding-right:max(16px, calc(16px + env(safe-area-inset-right, 0px)));padding-top:max(9px, calc(9px + env(safe-area-inset-top, 0px)));padding-bottom:9px;background:linear-gradient(135deg,#134e38 0%,#1a5c43 55%,#206d50 100%);border-bottom:1px solid rgba(0,0,0,.15);box-shadow:0 4px 18px -2px rgba(10,35,25,.22);flex-wrap:wrap;position:relative;z-index:20;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;isolation:isolate}
 .brand-name{color:#fff!important}
 .brand-name .ver{color:rgba(255,255,255,.6)!important}
@@ -3699,7 +3699,8 @@ html[data-theme="dark"] .cenGoalModal input[type="date"]::-webkit-calendar-picke
   .cenGoalModal {
     width: 100vw !important;
     max-width: none !important;
-    height: 100dvh !important;
+    height: 100% !important;
+    height: var(--appWysokosc, 100%) !important;
     max-height: none !important;
     border-radius: 0 !important;
   }
@@ -5334,16 +5335,13 @@ html[data-theme="dark"] .vb.on{background:var(--accent)}
 #noteList.v-compact .chips{margin-bottom:4px}
 #noteList.v-compact .nmeta2{margin-bottom:5px}
 #noteList.v-compact .ncard:hover .ntools{display:block}
-/* przyklejone nagłówki grup na liście notatek */
-/* ——— PANEL PUBLIKACJI (dolna 1/3 kolumny Etykiety) ——— */
-/* dwie zaokrąglone „kolumny" jedna nad drugą: etykiety u góry, publikacje na dole */
-#tagPanel{flex:2 1 0;min-height:120px;display:flex;flex-direction:column;overflow:hidden;
-  margin:8px 8px 0;border:1px solid var(--border);border-radius:12px;background:transparent}
+/* ——— PANELE KOLUMN: Etykiety i Publikacje ——— */
+#tagPanel{flex:1 1 100%;height:100%;min-height:0;display:flex;flex-direction:column;overflow:hidden;
+  margin:0;border:none;border-radius:0;background:transparent}
 #tagPanel > h2{padding:10px 12px 4px}
-#colTags .list#tagList{flex:1 1 0;min-height:60px;padding:0 5px 8px}
-/* wyraźna przerwa między kolumną etykiet a kolumną publikacji */
-#pubPanel{flex:1 1 0;min-height:120px;display:flex;flex-direction:column;position:relative;overflow:hidden;
-  margin:22px 8px 8px;border:1px solid var(--border);border-radius:12px;background:transparent}
+#colTags .list#tagList{flex:1 1 auto;min-height:0;padding:0 5px 8px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#pubPanel{flex:1 1 100%;height:100%;min-height:0;display:flex;flex-direction:column;position:relative;overflow:hidden;
+  margin:0;border:none;border-radius:0;background:transparent}
 html[data-theme="dark"] #pubPanel{border-color:var(--border)}
 .pubTitle{display:flex;align-items:center;gap:8px;font-size:11.5px!important;text-transform:uppercase;letter-spacing:.07em;
   color:var(--muted);margin:0;padding:9px 12px 7px;font-weight:700}
@@ -5353,7 +5351,7 @@ html[data-theme="dark"] #pubPanel{border-color:var(--border)}
 .pubBack:hover{filter:brightness(.96)}
 .pubReset{font-size:12px;color:var(--muted);cursor:pointer;padding:1px 6px;border-radius:8px;background:var(--sel);line-height:1.5}
 .pubReset:hover{color:var(--accent)}
-#pubList{flex:1;overflow-y:auto;padding:4px 5px 8px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+#pubList{flex:1 1 auto;min-height:0;overflow-y:auto;padding:4px 5px 8px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 #pubList::-webkit-scrollbar{width:6px}
 #pubList::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
 #pubList .item{margin:3px 0}
@@ -5481,11 +5479,11 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
    Czytnik pełnoekranowy: typografia, spis treści, nawigacja
    ========================================================================== */
 /* notatka na pełnym ekranie */
-#modalFs{position:fixed;inset:0;z-index:10000;width:100vw;width:100dvw;height:100vh;height:100dvh;max-width:100vw;max-height:100dvh;padding:0;margin:0;border:none;border-radius:0;box-shadow:none;background:var(--bg);isolation:isolate}
-#modalFs .fsmodal{position:fixed;inset:0;width:100vw;width:100dvw;max-width:100vw;height:100vh;height:100dvh;max-height:100dvh;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) calc(14px + env(safe-area-inset-bottom,0px)) env(safe-area-inset-left,0px);margin:0;box-sizing:border-box;border-radius:0;border:none;box-shadow:none;background:var(--bg);color:var(--text);overflow-y:auto;-webkit-overflow-scrolling:touch}
+#modalFs{position:fixed;inset:0;z-index:10000;width:100vw;width:100dvw;height:100%;height:100vh;height:var(--appWysokosc, 100%);max-width:100vw;max-height:100%;max-height:var(--appWysokosc, 100%);padding:0;margin:0;border:none;border-radius:0;box-shadow:none;background:var(--bg);isolation:isolate}
+#modalFs .fsmodal{position:fixed;inset:0;width:100vw;width:100dvw;max-width:100vw;height:100%;height:100vh;height:var(--appWysokosc, 100%);max-height:100%;max-height:var(--appWysokosc, 100%);padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) calc(14px + env(safe-area-inset-bottom,0px)) env(safe-area-inset-left,0px);margin:0;box-sizing:border-box;border-radius:0;border:none;box-shadow:none;background:var(--bg);color:var(--text);overflow-y:auto;-webkit-overflow-scrolling:touch}
 .fsCloseInline{display:none}
 #fsWrap .drag{display:none}
-#fsWrap .ncard{margin:0;min-height:calc(100dvh - 84px);overflow:visible;border:none;border-radius:0;box-shadow:none;background:transparent;color:var(--text);display:flex;flex-direction:column}
+#fsWrap .ncard{margin:0;min-height:calc(var(--appWysokosc, 100%) - 84px);overflow:visible;border:none;border-radius:0;box-shadow:none;background:transparent;color:var(--text);display:flex;flex-direction:column}
 #fsWrap .nhead{position:static;padding-right:clamp(4px, 2vw, 20px);border-radius:0;background:transparent;border-bottom:0}
 #fsWrap{min-height:0}
 #fsWrap .ncontent{font-size:var(--fsNoteFs, calc(var(--noteFs,14px) + 3px));line-height:1.7;flex:1 0 auto}
@@ -6614,6 +6612,7 @@ body.img-dragging .ncontent { user-select: none !important; -webkit-user-select:
 .editbar .ic { width: 19px; height: 19px; }
 
 #imgHandles { position: fixed; display: none; pointer-events: none; z-index: 10019; }
+body.fs-open #imgHandles { z-index: 100138 !important; }
 #imgHandles .h {
   position: absolute;
   width: 14px;
@@ -6624,6 +6623,14 @@ body.img-dragging .ncontent { user-select: none !important; -webkit-user-select:
   pointer-events: auto;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   touch-action: none;
+}
+#imgHandles .h::after {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
 }
 #imgHandles .tl { left: -7px; top: -7px; cursor: nwse-resize; }
 #imgHandles .tr { right: -7px; top: -7px; cursor: nesw-resize; }
@@ -7793,19 +7800,43 @@ html[data-theme="dark"] .colResizer::before {
     display: flex;
     gap: 6px;
     padding: 8px 10px;
+    padding-left: max(10px, calc(10px + env(safe-area-inset-left, 0px)));
+    padding-right: max(10px, calc(10px + env(safe-area-inset-right, 0px)));
     background: var(--panel);
     border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  #mobileTabs::-webkit-scrollbar {
+    display: none;
   }
   #mobileTabs button {
-    flex: 1;
-    padding: 9px 4px;
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 4px;
     border: 1px solid var(--border);
     border-radius: 10px;
     background: var(--bg);
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
     transition: all 0.14s ease;
+  }
+  #mobileTabs button:active {
+    transform: scale(0.96);
   }
   #mobileTabs button.on {
     background: var(--accent);
@@ -7813,16 +7844,41 @@ html[data-theme="dark"] .colResizer::before {
     border-color: var(--accent);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   }
+  @media (max-width: 480px) {
+    #mobileTabs {
+      gap: 4px;
+      padding: 6px 6px;
+      padding-left: max(6px, calc(6px + env(safe-area-inset-left, 0px)));
+      padding-right: max(6px, calc(6px + env(safe-area-inset-right, 0px)));
+    }
+    #mobileTabs button {
+      font-size: 11.5px;
+      padding: 6px 2px;
+      min-height: 36px;
+    }
+  }
+  @media (max-width: 360px) {
+    #mobileTabs button {
+      font-size: 10.5px;
+      padding: 5px 1px;
+    }
+  }
   main .col {
-    display: none;
+    display: none !important;
     width: 100% !important;
     min-width: 0 !important;
   }
   main .col.mshow {
-    display: flex;
+    display: flex !important;
+    flex: 1 1 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
   }
   .colResizer {
-    display: none;
+    display: none !important;
   }
   header h1 small, .brand-sub {
     display: none;
@@ -7832,7 +7888,10 @@ html[data-theme="dark"] .colResizer::before {
     height: 30px;
   }
   header {
-    padding: 8px 10px;
+    padding-top: max(8px, calc(8px + env(safe-area-inset-top, 0px)));
+    padding-left: max(10px, calc(10px + env(safe-area-inset-left, 0px)));
+    padding-right: max(10px, calc(10px + env(safe-area-inset-right, 0px)));
+    padding-bottom: 8px;
     gap: 6px;
   }
   .sbtn {
@@ -12536,17 +12595,19 @@ main{
   will-change:transform;
 }
 
-html.paskiSchowane #mobileTabs{
-  transform:translateY(calc(-1 * var(--wysTabs, 0px)));
-  opacity:0; pointer-events:none;
-}
-html.paskiSchowane main{
-  transform:translateY(calc(-1 * var(--wysTabs, 0px)));
-  margin-bottom:calc(-1 * var(--wysTabs, 0px));
-}
-html.paskiSchowane #pasekListy{
-  transform:translateY(calc(-1 * (var(--wysPaska, 0px) + 4px)));
-  opacity:0; pointer-events:none;
+@media (max-width: 600px) and (orientation: portrait) {
+  html:not(.is-ipad).paskiSchowane #mobileTabs{
+    transform:translateY(calc(-1 * var(--wysTabs, 0px)));
+    opacity:0; pointer-events:none;
+  }
+  html:not(.is-ipad).paskiSchowane main{
+    transform:translateY(calc(-1 * var(--wysTabs, 0px)));
+    margin-bottom:calc(-1 * var(--wysTabs, 0px));
+  }
+  html:not(.is-ipad).paskiSchowane #pasekListy{
+    transform:translateY(calc(-1 * (var(--wysPaska, 0px) + 4px)));
+    opacity:0; pointer-events:none;
+  }
 }
 /* Odstęp u góry listy zostaje STAŁY, także wtedy, gdy pasek jest schowany.
 
@@ -17574,7 +17635,7 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   width: 100%;
   max-width: 100%;
   height: 100%;
-  height: 100dvh;
+  height: var(--appWysokosc, 100dvh);
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
@@ -17596,8 +17657,8 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   box-sizing: border-box;
 }
 
-/* Automatyczny Icon Rail na ekranach średnich (iPad Split View 2/3, 1/2, tablety: 769px - 1180px) */
-@media (min-width: 769px) and (max-width: 1180px) {
+/* Automatyczny Icon Rail na ekranach średnich (iPad w poziomie, tablety: 901px - 1180px) */
+@media (min-width: 901px) and (max-width: 1180px) {
   #modernSidebar {
     width: 58px !important;
     min-width: 58px !important;
@@ -17856,7 +17917,7 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   display: flex;
   flex-direction: column;
   height: 100%;
-  height: 100dvh;
+  height: var(--appWysokosc, 100dvh);
   overflow: hidden;
   min-width: 0;
   width: 100%;
@@ -17989,37 +18050,143 @@ html[data-theme="sepia"] .sidebar-float-trigger {
 }
 
 /* Na widoku mobilnym (.mshow) kolumna musi być w pełni widoczna, nawet jeśli na desktopie była zwinięta */
-main .col.mshow,
-main .col.mshow.collapsed {
-  display: flex !important;
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: none !important;
-  padding: initial !important;
-  margin: 0 !important;
-  border: 1px solid var(--border) !important;
-  box-shadow: var(--cien-panelu, 0 4px 16px rgba(0, 0, 0, 0.035)) !important;
-  opacity: 1 !important;
-  overflow: auto !important;
-  pointer-events: auto !important;
+@media (max-width: 900px) {
+  main .col.mshow,
+  main .col.mshow.collapsed,
+  #glowna .col.mshow,
+  #glowna .col.mshow.collapsed {
+    display: flex !important;
+    flex: 1 1 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    flex-direction: column !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 14px !important;
+    box-shadow: var(--cien-panelu, 0 4px 16px rgba(0, 0, 0, 0.035)) !important;
+    opacity: 1 !important;
+    overflow: hidden !important;
+    pointer-events: auto !important;
+  }
+  main .col.mshow .list,
+  main .col.mshow #bookList,
+  main .col.mshow #tagList,
+  main .col.mshow #pubList,
+  main .col.mshow.collapsed .list,
+  main .col.mshow.collapsed #bookList,
+  main .col.mshow.collapsed #tagList,
+  main .col.mshow.collapsed #pubList {
+    /* display:flex zamiast block — na Safari/iOS display:block na flex-child
+       w overflow:hidden rodzicu może dawać height:0. flex:1 1 0 zapewnia
+       że lista zajmuje CAŁĄ dostępną przestrzeń kolumny. */
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    box-sizing: border-box !important;
+  }
+  main .col.mshow #noteList,
+  main .col.mshow.collapsed #noteList {
+    flex: 1 1 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    box-sizing: border-box !important;
+  }
+  main .col.mshow .pubActs,
+  main .col.mshow .tagBtns,
+  main .col.mshow #btnNewTag,
+  main .col.mshow.collapsed .pubActs,
+  main .col.mshow.collapsed .tagBtns,
+  main .col.mshow.collapsed #btnNewTag {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  main .col.mshow #tagPanel,
+  main .col.mshow #pubPanel,
+  main .col.mshow.collapsed #tagPanel,
+  main .col.mshow.collapsed #pubPanel {
+    display: flex !important;
+    flex: 1 1 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-sizing: border-box !important;
+  }
+  main .col.mshow h2,
+  main .col.mshow .pubTitle,
+  main .col.mshow.collapsed h2,
+  main .col.mshow.collapsed .pubTitle {
+    writing-mode: horizontal-tb !important;
+    transform: none !important;
+    display: flex !important;
+    align-items: center !important;
+    opacity: 1 !important;
+    flex: 0 0 auto !important;
+    padding: 10px 12px 6px !important;
+  }
+  main .col.mshow h2::after,
+  main .col.mshow .pubTitle::after,
+  main .col.mshow.collapsed h2::after,
+  main .col.mshow.collapsed .pubTitle::after {
+    display: none !important;
+  }
+  .colToggle {
+    display: none !important;
+  }
+  #pubList, #tagList, #bookList, #noteList {
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  #pubList .item, #tagList .item, #bookList .item {
+    min-height: 38px !important;
+    box-sizing: border-box !important;
+  }
+  #tagList > *, #pubList > *, #bookList > * {
+    flex-shrink: 0 !important;
+  }
+  #pubList .pubGlobal {
+    display: block !important;
+  }
+  #pubPanel .pubSciezka button {
+    min-height: 30px !important;
+    padding: 4px 8px !important;
+    font-size: 12.5px !important;
+  }
 }
-main .col.mshow.collapsed .list,
-main .col.mshow.collapsed #pubList,
-main .col.mshow.collapsed .pubActs,
-main .col.mshow.collapsed .tagBtns,
-main .col.mshow.collapsed #btnNewTag {
-  display: block !important;
+
+.ncontent img,
+.ncontent figure.note-figure {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  height: auto;
 }
-main .col.mshow.collapsed #tagPanel,
-main .col.mshow.collapsed #pubPanel {
-  display: flex !important;
-}
-main .col.mshow.collapsed h2,
-main .col.mshow.collapsed .pubTitle {
-  writing-mode: horizontal-tb !important;
-  transform: none !important;
-  display: flex !important;
-  opacity: 1 !important;
+@media (max-width: 600px) {
+  .ncontent img,
+  .ncontent figure.note-figure {
+    float: none !important;
+    margin: 10px auto !important;
+    display: block !important;
+  }
 }
 
 /* Nagłówki kolumn — elastyczne skalowanie */
@@ -18234,7 +18401,8 @@ main .col.mshow.collapsed .pubTitle {
     top: 0 !important;
     left: 0 !important;
     bottom: 0 !important;
-    height: 100dvh !important;
+    height: 100% !important;
+    height: var(--appWysokosc, 100%) !important;
     width: 280px !important;
     min-width: 280px !important;
     max-width: 86vw !important;
@@ -18700,7 +18868,7 @@ html.is-ipad #modernSidebar, body.is-ipad #modernSidebar {
     height: 30px !important;
     min-height: 30px !important;
     padding: 0 6px !important;
-    font-size: 11.5px !important;
+    font-size: 16px !important;
     border-radius: 8px !important;
     box-sizing: border-box !important;
     margin: 0 !important;
@@ -19939,17 +20107,38 @@ body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy:5"]:not([hidden
     flex-direction: column !important;
     padding: 6px !important;
     gap: 0 !important;
-    overflow-y: auto !important;
+    overflow: hidden !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    flex: 1 1 0 !important;
   }
   #glowna .col {
+    display: none !important;
     width: 100% !important;
     min-width: 0 !important;
     max-width: 100% !important;
+  }
+  #glowna .col.mshow {
+    display: flex !important;
+    flex: 1 1 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
   }
   .colResizer {
     display: none !important;
   }
 }
+
+/* Zapobieganie niepożądanemu zoomowi i zniekształceniu obrazu na iOS/iPad Safari przy polach tekstowych */
+@media (max-width: 1024px) {
+  #search, #sortSel, input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
 
 /* ══════════════════════════════════════════════════════════════════════
    PRZYPOMNIENIA O CZYTANIU BIBLII (PlanPrzypomnienia)
@@ -20274,6 +20463,19 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
       if(isIPad) document.documentElement.classList.add('ipad-standalone');
       if(isIPhone) document.documentElement.classList.add('iphone-standalone');
     }
+    var syncH = function(){
+      document.documentElement.style.setProperty('--appWysokosc', window.innerHeight + 'px');
+      if(window.scrollY !== 0) window.scrollTo(0, 0);
+    };
+    syncH();
+    window.addEventListener('resize', syncH, {passive: true});
+    window.addEventListener('orientationchange', function(){
+      syncH();
+      setTimeout(syncH, 50);
+      setTimeout(syncH, 150);
+      setTimeout(syncH, 300);
+      setTimeout(syncH, 500);
+    }, {passive: true});
   } catch(e){}
 })();
 </script>
@@ -28651,6 +28853,7 @@ function renderAll(){
   if(typeof resetLicznikowZakladek==="function") resetLicznikowZakladek();
   visibleCount=query?50:36;
   renderTags(); renderBooks(); renderNotes();
+  if(typeof renderPubPanel === "function") renderPubPanel();
   if(typeof updateUnifiedTabsBadges === "function") updateUnifiedTabsBadges();
   /* Centrum studium albo lista — nigdy oba i nigdy żadne. Decyzja zapada TU,
      po każdej zmianie filtrów, bo tylko wtedy jest pewne, że stan filtrów
@@ -32873,7 +33076,21 @@ function _onImgBarScroll(){
   if(selImg && $("imgBar") && $("imgBar").style.display === "flex") showImgBar(selImg);
 }
 function _onImgBarHideEvent(){
-  if(selImg) hideImgBar();
+  if(selImg && selImg.isConnected){
+    const update = ()=>{
+      if(selImg && selImg.isConnected){
+        repositionImgBar(selImg);
+        positionHandles(selImg);
+      } else {
+        hideImgBar();
+      }
+    };
+    requestAnimationFrame(update);
+    setTimeout(update, 100);
+    setTimeout(update, 350);
+  } else {
+    hideImgBar();
+  }
 }
 function _bindImgBarListeners(wlacz){
   if(wlacz && !_imgBarScrollBound){
@@ -32888,19 +33105,24 @@ function _bindImgBarListeners(wlacz){
     _imgBarScrollBound = false;
   }
 }
-function showImgBar(img){
-  selImg = img;
-  document.querySelectorAll(".ncontent img.imgsel").forEach(i=>{ if(i!==img) i.classList.remove("imgsel"); });
-  img.classList.add("imgsel");
-  const bar = $("imgBar"); bar.style.display = "flex";
-  _bindImgBarListeners(true);
-  const r = img.getBoundingClientRect();
+function repositionImgBar(img){
+  const bar = $("imgBar"); if(!bar || bar.style.display !== "flex") return;
+  const targetImg = img || selImg; if(!targetImg || !targetImg.isConnected) return;
+  const r = targetImg.getBoundingClientRect();
   const bw = bar.offsetWidth || 320, bh = bar.offsetHeight || 44;
   const _ob = (typeof widocznyObszar==="function") ? widocznyObszar()
             : {lewo:0, gora:0, prawo:innerWidth, dol:innerHeight, szer:innerWidth};
   bar.style.left = Math.max(_ob.lewo + 8, Math.min(r.left, _ob.prawo - bw - 8)) + "px";
   let top = r.top - bh - 8; if(top < 8) top = r.bottom + 8;
   bar.style.top = Math.max(_ob.gora + 8, Math.min(top, _ob.dol - bh - 8)) + "px";
+}
+function showImgBar(img){
+  selImg = img;
+  document.querySelectorAll(".ncontent img.imgsel").forEach(i=>{ if(i!==img) i.classList.remove("imgsel"); });
+  img.classList.add("imgsel");
+  const bar = $("imgBar"); bar.style.display = "flex";
+  _bindImgBarListeners(true);
+  repositionImgBar(img);
   const si = document.getElementById("imgSize");
   if(si){
     const cel=imgLayoutTarget(img);let wv = parseInt(cel.style.width);
@@ -32911,7 +33133,9 @@ function showImgBar(img){
 }
 function positionHandles(img){
   const h = document.getElementById("imgHandles"); if(!h) return;
-  const r = img.getBoundingClientRect();
+  const targetImg = img || selImg;
+  if(!targetImg || !targetImg.isConnected){ h.style.display = "none"; return; }
+  const r = targetImg.getBoundingClientRect();
   h.style.display = "block";
   h.style.left = r.left + "px"; h.style.top = r.top + "px";
   h.style.width = r.width + "px"; h.style.height = r.height + "px";
@@ -32940,6 +33164,7 @@ document.querySelectorAll("#imgHandles .h").forEach(handle=>{
       cel.classList.remove("img-s","img-m","img-l");
       cel.style.width = pct + "%";
       positionHandles(selImg);
+      repositionImgBar(selImg);
       const si = document.getElementById("imgSize"); if(si) si.value = pct;
     };
     const up = ()=>{
@@ -32969,6 +33194,8 @@ document.getElementById("imgSize").addEventListener("input", e=>{
   if(!selImg) return;
   const cel=imgLayoutTarget(selImg);cel.classList.remove("img-s","img-m","img-l");
   cel.style.width = e.target.value + "%";
+  positionHandles(selImg);
+  repositionImgBar(selImg);
 });
 document.getElementById("imgSize").addEventListener("change", e=>{
   if(selImg) commitLiveEdit(selImg.closest(".ncontent"));
@@ -43558,7 +43785,19 @@ if(typeof ResizeObserver!=="undefined"){
   const obs = new ResizeObserver(()=>zmierzPaski());
   ["mobileTabs","pasekListy"].forEach(id=>{ const el = $(id); if(el) obs.observe(el); });
 }
-addEventListener("resize", zmierzPaski);
+function _onWindowGeometryChange(){
+  pokazPaski(true);
+  zmierzPaski();
+  if(window.innerWidth > 900 && typeof toggleMobileSidebar === "function"){
+    toggleMobileSidebar(false);
+  }
+}
+addEventListener("resize", _onWindowGeometryChange);
+addEventListener("orientationchange", ()=>{
+  _onWindowGeometryChange();
+  setTimeout(_onWindowGeometryChange, 120);
+  setTimeout(_onWindowGeometryChange, 350);
+});
 zmierzPaski();
 
 function pokazPaski(pokaz){
@@ -43573,6 +43812,8 @@ function obsluzPrzewijanieListy(el){
   if(y <= CHOW_STREFA_GORY){ _nazbierane = 0; pokazPaski(true); return; }
   /* Lista krótsza od okna nie ma czego chować. */
   if(el.scrollHeight - el.clientHeight < 120){ pokazPaski(true); return; }
+  /* Na tabletach/iPadach lub ekranach szerszych niż 600px paski nie powinny się chować */
+  if(window.innerWidth > 600 || document.documentElement.classList.contains("is-ipad")){ pokazPaski(true); return; }
 
   /* Zbieramy ruch w jedną stronę, żeby drgnięcie palca niczego nie przełączało. */
   if((roznica > 0) !== (_nazbierane > 0)) _nazbierane = 0;
