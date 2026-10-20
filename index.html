@@ -15601,16 +15601,19 @@ body.fs-open #msgModal{ z-index:100200 !important; }
   left:0!important;
   right:0!important;
   bottom:0!important;
-  transform:none;
+  top:auto!important;
+  transform:translateY(0);
   z-index:10020;
   width:100%!important;
   max-width:none!important;
   margin:0!important;
-  border-radius:0;
-  border:0;
-  border-top:1px solid var(--border);
-  background:var(--panel);
-  box-shadow:none;
+  padding:6px 12px calc(8px + env(safe-area-inset-bottom,0px))!important;
+  box-sizing:border-box!important;
+  border-radius:0!important;
+  border:0!important;
+  border-top:1px solid var(--border)!important;
+  background:var(--bg, var(--panel))!important;
+  box-shadow:0 -2px 10px rgba(0,0,0,.04);
   opacity:1;
 }
 #fsWrap .ntools .btnrow{ justify-content:center; gap:4px; }
@@ -15709,10 +15712,8 @@ body.ma-zaznaczenie #fsWrap .ntools{ opacity:.12; pointer-events:none; }
   .cenHeroBtn:hover{ transform:translateY(-1px); }
 }
 
-/* Czytnik: narzędzia tworzą jeden czytelny dok. Wcześniej same ikony były
-   zbyt podobne, a kluczowe menu z kolorem tła i wysyłaniem wyglądało jak
-   kolejna anonimowa kropka. */
-#fsWrap .ntools{
+/* Dok w edycji: zaokrąglona kapsułka */
+#fsWrap .ncard.editing .ntools{
   padding:7px 9px;
   border-radius:18px;
   background:color-mix(in srgb, var(--panel) 94%, transparent);
@@ -15770,7 +15771,7 @@ body.fs-open #colorMenu{
   .cenHero{ min-height:0; }
   .cenHeroObraz{ opacity:.62; }
   .cenKarta{ padding:13px 12px 9px; }
-  #fsWrap .ntools{
+  #fsWrap .ncard.editing .ntools{
     margin-left:4px;
     margin-right:4px;
     width:calc(100% - 8px);
@@ -15788,24 +15789,27 @@ body.fs-open #colorMenu{
    Pasek przypisania należy do ramy aplikacji, a nie do tekstu. Zajmuje całą
    dolną krawędź czytnika jak pasek nawigacji w aplikacji mobilnej; dokument
    kończy się nad nim i nigdy nie przewija pod przyciskami. */
-#fsWrap .ncard:not(.editing) .ntools{
+#fsWrap .ncard:not(.editing) .ntools,
+#modalFs #fsWrap .ncard:not(.editing) .ntools{
   position:fixed!important;
-  left:0;
-  right:0;
-  bottom:0;
-  transform:none;
-  z-index:10020;
-  width:100%;
-  max-width:none;
+  left:0!important;
+  right:0!important;
+  bottom:0!important;
+  top:auto!important;
+  transform:translateY(0)!important;
+  z-index:10020!important;
+  width:100%!important;
+  max-width:none!important;
   margin:0!important;
-  padding:6px 12px calc(6px + env(safe-area-inset-bottom,0px))!important;
-  border:0;
-  border-top:1px solid var(--border);
-  border-radius:0;
-  background:var(--panel);
-  -webkit-backdrop-filter:none;
-  backdrop-filter:none;
-  box-shadow:none;
+  padding:6px 12px calc(8px + env(safe-area-inset-bottom,0px))!important;
+  border:0!important;
+  border-top:1px solid var(--border)!important;
+  border-radius:0!important;
+  background:var(--bg, var(--panel))!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  box-shadow:0 -2px 10px rgba(0,0,0,.04)!important;
+  box-sizing:border-box!important;
 }
 
 /* W EDYCJI ten sam dok zostaje przypisany do dolnej krawędzi okna. Nie pływa
@@ -16045,11 +16049,12 @@ body.centrum-open #centrum{ padding-top:10px; }
 @media (max-width:420px){ .editSaveState{ max-width:78px; overflow:hidden; text-overflow:ellipsis; } }
 
 /* Dok ma zawsze własną rezerwę w dokumencie, również bez sekcji powiązań. */
-#fsWrap .ncard:not(.editing){ padding-bottom:calc(var(--readerDockH) + 34px + env(safe-area-inset-bottom,0px))!important; }
-#fsWrap .ncard.editing .ncontent{ padding-bottom:calc(var(--readerDockH) + 34px + env(safe-area-inset-bottom,0px))!important; }
+#fsWrap .ncard:not(.editing){ padding-bottom:calc(var(--readerDockH, 58px) + 40px + env(safe-area-inset-bottom,0px))!important; }
+#fsWrap .ncard.editing .ncontent{ padding-bottom:calc(var(--readerDockH, 58px) + 40px + env(safe-area-inset-bottom,0px))!important; }
 #fsWrap .ncard .ntools{ transition:opacity .18s ease,transform .2s ease; }
-#modalFs.dok-schowany #fsWrap .ncard:not(.editing) .ntools{
-  opacity:0; pointer-events:none;
+#modalFs.dok-schowany #fsWrap .ncard:not(.editing) .ntools,
+#modalFs.dok-schowany #fsWrap .ntools{
+  opacity:0!important; pointer-events:none!important;
   transform:translateY(100%)!important;
 }
 
@@ -16853,12 +16858,19 @@ html[data-theme="dark"] .ncard{box-shadow:0 4px 16px rgba(0,0,0,.17)}
 
 .overlay > .modal,
 .overlay > .askbox,
-.overlay > .fsmodal,
 .overlay > .import-box,
-.overlay > [class*="modal"] {
+.overlay > [class*="modal"]:not(.fsmodal) {
   touch-action: pan-y;
   transform: translateZ(0);
   isolation: isolate;
+}
+
+#modalFs,
+#modalFs .fsmodal,
+.overlay > .fsmodal {
+  touch-action: pan-y;
+  transform: none !important;
+  isolation: auto !important;
 }
 
 body.modal-open {
