@@ -1,6 +1,6 @@
 /* JW Study — Service Worker (Obsługa trybu offline) */
 const CACHE_PREFIX = 'jwstudy-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + 'v537';
+const CACHE = CACHE_PREFIX + 'v538';
 
 const CORE = [
   './index.html',
@@ -17,7 +17,13 @@ const CORE = [
   './lib/jszip.min.js',
   './lib/sql-wasm.js',
   './lib/sql-wasm.wasm',
-  './lib/supabase.js'
+  './lib/smart-import/mammoth.browser.min.js',
+  './lib/smart-import/pdf.min.js',
+  './lib/smart-import/pdf.worker.min.js',
+  './lib/smart-import/tesseract.min.js',
+  './lib/smart-import/tesseract.worker.min.js',
+  './lib/smart-import/tesseract-core-lstm.wasm.js',
+  './lib/smart-import/lang/pol.traineddata.gz'
 ];
 
 function pobierzSwieze(req){
@@ -128,7 +134,7 @@ self.addEventListener('fetch', e=>{
     return;
   }
 
-  // 3. Ścisłe Cache First: zasoby statyczne (katalog ./lib/ np. sql-wasm.wasm, sql-wasm.js, jszip.min.js, supabase.js oraz ikony i grafiki)
+  // 3. Ścisłe Cache First: zasoby statyczne (katalog ./lib/ np. sql-wasm.wasm, sql-wasm.js, jszip.min.js oraz ikony i grafiki)
   // Jeśli plik znajduje się w bieżącym CACHE, zwracamy go natychmiast bez odpytywania sieci w tle.
   e.respondWith((async ()=>{
     const c = await caches.open(CACHE);
