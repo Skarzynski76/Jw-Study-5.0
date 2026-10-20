@@ -3,5 +3,6 @@
 JW-Study-3.*/
 testy/
 index-*.html
+index.*backup*.html
 *.backup.html
 
