@@ -22643,6 +22643,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 "use strict";
 const APP_VERSION = "5.0";
 function norm(s){ return (s||"").toLowerCase().replace(/\u0142/g,"l").normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
+window.norm = norm;
 const BOOKS = ["","Rodzaju","Wyjścia","Kapłańska","Liczb","Powtórzonego Prawa","Jozuego","Sędziów","Rut","1 Samuela","2 Samuela","1 Królów","2 Królów","1 Kronik","2 Kronik","Ezdrasza","Nehemiasza","Estery","Hioba","Psalmy","Przysłów","Kaznodziei","Pieśń Salomona","Izajasza","Jeremiasza","Lamentacje","Ezechiela","Daniela","Ozeasza","Joela","Amosa","Abdiasza","Jonasza","Micheasza","Nahuma","Habakuka","Sofoniasza","Aggeusza","Zachariasza","Malachiasza","Mateusza","Marka","Łukasza","Jana","Dzieje","Rzymian","1 Koryntian","2 Koryntian","Galatów","Efezjan","Filipian","Kolosan","1 Tesaloniczan","2 Tesaloniczan","1 Tymoteusza","2 Tymoteusza","Tytusa","Filemona","Hebrajczyków","Jakuba","1 Piotra","2 Piotra","1 Jana","2 Jana","3 Jana","Judy","Objawienie"];
 
 const DBNAME = "jwStudyClean";   // nazwa pamięci tej kopii aplikacji
@@ -22672,8 +22673,6 @@ function aktywnyProjektTag(){
 window.aktywnyProjektTag = aktywnyProjektTag;
 
 /* ——— Globalne zmienne i funkcje wyszukiwarki (gwarancja dostępności od startu) ——— */
-function norm(s){ return (s||"").toLowerCase().replace(/\u0142/g,"l").normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
-window.norm = norm;
 
 var searchOpts = {scope:"current",group:"all",dateFrom:"",dateTo:"",highlight:"all",extra:"all"};
 var searchScores = new Map();
@@ -25092,7 +25091,7 @@ function kolorBezpieczny(v){
  *
  * Pole h to gotowy HTML wstawiany przez innerHTML. Własny edytor przepuszcza je
  * przez sanitize() przy każdym zapisie, ale plik kopii może pochodzić skądkolwiek —
- * wystarczyło podłożyć <img src=x onerror=…> albo <script>, żeby przy otwarciu
+ * wystarczyło podłożyć &lt;img src=x onerror=…&gt; albo &lt;script&gt;, żeby przy otwarciu
  * aplikacji wykonał się obcy kod. Dlatego wszystko z zewnątrz przechodzi przez
  * ten sam filtr co treść pisana ręcznie.
  */
@@ -25161,6 +25160,7 @@ function sanitizeNote(n, obce){
   }else delete n.rb;
   if(typeof n.ord!=="number" || !isFinite(n.ord)) delete n.ord;
   if(n.ptb!=null){ const p=Number(n.ptb); if(isFinite(p) && p>0) n.ptb=p; else delete n.ptb; }
+  if(n.delAt!=null && (typeof n.delAt!=="string" || !/^\d{4}-\d{2}-\d{2}/.test(n.delAt))) delete n.delAt;
   if(typeof n.mo!=="string") n.mo = typeof n.cr==="string" ? n.cr : new Date().toISOString();
   if(n.cr!=null && typeof n.cr!=="string") n.cr = String(n.cr);
   if(n.ks!=null && typeof n.ks!=="string") n.ks = String(n.ks);
@@ -26743,14 +26743,6 @@ function noteFieldText(n, f){
 }
 
 function squash(s){ return norm(s).replace(/[^\p{L}\p{N}]+/gu,""); }
-
-var _qCache = null;
-function resetQueryCache(){
-  _qCache = null;
-  if(searchScores) searchScores.clear();
-  if(searchDetails) searchDetails.clear();
-  searchDuplicateSet=null;
-}
 
 function noteMatchesQuery(n){
   if(!query && !aktywneOpcjeSzukania()) return true;
@@ -28529,8 +28521,6 @@ function odswiezPodswietlenie(lista){
     });
   });
 }
-/* normalizacja: ma\u0142e litery + usuni\u0119cie ogonk\u00f3w (\u0142/\u0141 nie rozk\u0142ada si\u0119 przez NFD, wi\u0119c osobno) */
-function norm(s){ return (s||"").toLowerCase().replace(/\u0142/g,"l").normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
 const _svg = p => `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 const ICO = {
   target:_svg('<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>'),
