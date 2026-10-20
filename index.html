@@ -15597,16 +15597,20 @@ body.fs-open #msgModal{ z-index:100200 !important; }
    Pasek nie znika na końcu długiej notatki, a półprzezroczyste tło nie odcina
    go ciężką belką od tekstu. */
 #fsWrap .ntools{
-  position:sticky;
-  bottom:max(8px, env(safe-area-inset-bottom,0px));
-  z-index:10;
-  margin-bottom:8px;
-  border:1px solid var(--border);
-  border-radius:16px;
-  background:color-mix(in srgb, var(--panel) 90%, transparent);
-  -webkit-backdrop-filter:blur(16px) saturate(1.15);
-  backdrop-filter:blur(16px) saturate(1.15);
-  box-shadow:0 8px 26px rgba(22,32,27,.14);
+  position:fixed!important;
+  left:0!important;
+  right:0!important;
+  bottom:0!important;
+  transform:none;
+  z-index:10020;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  border-radius:0;
+  border:0;
+  border-top:1px solid var(--border);
+  background:var(--panel);
+  box-shadow:none;
   opacity:1;
 }
 #fsWrap .ntools .btnrow{ justify-content:center; gap:4px; }
@@ -16046,7 +16050,7 @@ body.centrum-open #centrum{ padding-top:10px; }
 #fsWrap .ncard .ntools{ transition:opacity .18s ease,transform .2s ease; }
 #modalFs.dok-schowany #fsWrap .ncard:not(.editing) .ntools{
   opacity:0; pointer-events:none;
-  transform:translate(-50%,calc(100% + 36px))!important;
+  transform:translateY(100%)!important;
 }
 
 /* Powiązane notatki otwierają się jako dolny panel. Nie wydłużają dokumentu
