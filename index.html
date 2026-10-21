@@ -5479,8 +5479,8 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
    Czytnik pełnoekranowy: typografia, spis treści, nawigacja
    ========================================================================== */
 /* notatka na pełnym ekranie */
-#modalFs{position:fixed;inset:0;z-index:10000;width:100vw;width:100dvw;height:100%;height:100vh;height:var(--appWysokosc, 100%);max-width:100vw;max-height:100%;max-height:var(--appWysokosc, 100%);padding:0;margin:0;border:none;border-radius:0;box-shadow:none;background:var(--bg);isolation:isolate}
-#modalFs .fsmodal{position:fixed;inset:0;width:100vw;width:100dvw;max-width:100vw;height:100%;height:100vh;height:var(--appWysokosc, 100%);max-height:100%;max-height:var(--appWysokosc, 100%);padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) calc(14px + env(safe-area-inset-bottom,0px)) env(safe-area-inset-left,0px);margin:0;box-sizing:border-box;border-radius:0;border:none;box-shadow:none;background:var(--bg);color:var(--text);overflow-y:auto;-webkit-overflow-scrolling:touch}
+#modalFs{position:fixed;inset:0;z-index:10000;width:100%;max-width:100%;height:100%;height:100vh;height:var(--appWysokosc, 100%);max-height:100%;max-height:var(--appWysokosc, 100%);padding:0;margin:0;border:none;border-radius:0;box-shadow:none;background:var(--bg);isolation:isolate;overflow:hidden}
+#modalFs .fsmodal{position:fixed;inset:0;width:100%;max-width:100%;height:100%;height:100vh;height:var(--appWysokosc, 100%);max-height:100%;max-height:var(--appWysokosc, 100%);padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) calc(14px + env(safe-area-inset-bottom,0px)) env(safe-area-inset-left,0px);margin:0;box-sizing:border-box;border-radius:0;border:none;box-shadow:none;background:var(--bg);color:var(--text);overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .fsCloseInline{display:none}
 #fsWrap .drag{display:none}
 #fsWrap .ncard{margin:0;min-height:calc(var(--appWysokosc, 100%) - 84px);overflow:visible;border:none;border-radius:0;box-shadow:none;background:transparent;color:var(--text);display:flex;flex-direction:column}
@@ -5499,7 +5499,7 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
 #fsWrap .ncontent{line-height:var(--noteLh,1.7);font-family:var(--noteFont,var(--readFont,inherit));text-align:var(--readAlign,left);hyphens:var(--readHyphens,manual);-webkit-hyphens:var(--readHyphens,manual);text-justify:inter-word}
 #fsWrap .ntitle{font-family:var(--readFont,inherit)}
 /* pasek postępu czytania */
-#fsProg{position:sticky;top:0;left:0;height:3px;background:var(--accent);width:100%;z-index:20;border-radius:0 2px 2px 0;
+#fsProg{position:fixed;top:0;left:0;height:3px;background:var(--accent);width:100%;z-index:10040;border-radius:0 2px 2px 0;
   transform:scaleX(0);transform-origin:left center;will-change:transform;transition:transform .1s linear}
 /* pasek czytnika: licznik + spis + znajdź + akcje — szklany pasek Apple */
 .fsBar{
@@ -8851,7 +8851,7 @@ main{ gap:var(--sp-3); padding:var(--sp-3); }
 @keyframes fsModalIn{ from{opacity:0; transform:scale(.985)} to{opacity:1; transform:none} }
 .modal,#askModal .askbox,#msgModal .askbox{ animation:wejscieOkna .28s var(--spring-soft); }
 #dropdown,#ebPop,#readPop,#colorMenu,#searchSug{ animation:wejscieMenu .2s var(--spring-soft); }
-#modalFs.show .fsmodal{ animation:fsModalIn .28s var(--spring-soft) both; }
+#modalFs.show .fsmodal{ animation:ovIn var(--dur-szybko) ease-out; }
 .overlay.show{ animation:ovIn var(--dur-szybko) ease-out; }
 /* Ustawienie „Animacje: ograniczone" zostawia samo wygaszanie okien. */
 html[data-anim="ograniczone"] .modal,
@@ -12100,10 +12100,11 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
 #fsWrap .nhead{ position:static!important; }
 /* Krzyżyk trzyma się rogu okna (position:fixed), niezależnie od przewinięcia czy edycji. */
 #modalFs #fsClose,
+#modalFs > #fsClose,
 #modalFs .fsmodal > #fsClose{
   display:flex!important; position:fixed!important;
-  top:calc(12px + env(safe-area-inset-top, 0px))!important;
-  right:calc(14px + env(safe-area-inset-right, 0px))!important;
+  top:max(12px, calc(10px + env(safe-area-inset-top, 0px)))!important;
+  right:max(14px, calc(12px + env(safe-area-inset-right, 0px)))!important;
   z-index:10035!important;
   width:38px!important; height:38px!important; border-radius:50%!important;
   align-items:center!important; justify-content:center!important;
@@ -12112,53 +12113,62 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
   box-shadow:0 4px 14px rgba(0,0,0,.18)!important;
   opacity:1!important; pointer-events:auto!important; visibility:visible!important;
   transform:none!important;
+  box-sizing:border-box!important;
   transition:background .15s ease, color .15s ease, transform .14s ease!important;
 }
 #modalFs #fsClose:hover,
+#modalFs > #fsClose:hover,
 #modalFs .fsmodal > #fsClose:hover{ background:var(--sel)!important; color:var(--accent)!important; }
 #modalFs #fsClose:active,
+#modalFs > #fsClose:active,
 #modalFs .fsmodal > #fsClose:active{ transform:scale(.92)!important; }
 #modalFs #fsFull,
+#modalFs > #fsFull,
 #modalFs .fsmodal > #fsFull{
   display:flex!important; position:fixed!important;
-  top:calc(12px + env(safe-area-inset-top, 0px))!important;
-  right:calc(56px + env(safe-area-inset-right, 0px))!important;
-  z-index:10025!important;
-  width:36px; height:36px; border-radius:50%;
-  align-items:center; justify-content:center;
-  border:1px solid var(--border); background:color-mix(in srgb, var(--panel) 92%, transparent); color:var(--text);
-  font-size:15px; line-height:1; cursor:pointer;
-  box-shadow:0 4px 14px rgba(0,0,0,.18);
-  -webkit-backdrop-filter:blur(12px);
-  backdrop-filter:blur(12px);
-  transition:opacity .25s ease, transform .2s ease, background .15s ease, color .15s ease, border-color .15s ease;
+  top:max(12px, calc(10px + env(safe-area-inset-top, 0px)))!important;
+  right:max(60px, calc(58px + env(safe-area-inset-right, 0px)))!important;
+  z-index:10035!important;
+  width:38px!important; height:38px!important; border-radius:50%!important;
+  align-items:center!important; justify-content:center!important;
+  border:1px solid var(--border)!important; background:var(--panel)!important; color:var(--text)!important;
+  font-size:15px!important; line-height:1!important; cursor:pointer!important;
+  box-shadow:0 4px 14px rgba(0,0,0,.18)!important;
+  box-sizing:border-box!important;
+  opacity:1!important; pointer-events:auto!important; visibility:visible!important;
+  transform:none!important;
+  transition:opacity .25s ease, transform .2s ease, background .15s ease, color .15s ease, border-color .15s ease!important;
 }
 #modalFs #fsFull:hover,
-#modalFs .fsmodal > #fsFull:hover{ background:var(--sel); color:var(--accent); }
+#modalFs > #fsFull:hover,
+#modalFs .fsmodal > #fsFull:hover{ background:var(--sel)!important; color:var(--accent)!important; }
 #modalFs #fsFull:active,
-#modalFs .fsmodal > #fsFull:active{ transform:scale(.92); }
+#modalFs > #fsFull:active,
+#modalFs .fsmodal > #fsFull:active{ transform:scale(.92)!important; }
 #modalFs #fsFull .ic{ width:18px; height:18px; }
-#modalFs #fsFull.active{ background:var(--accent); color:#ffffff; border-color:var(--accent); }
-#modalFs #fsFull.active:hover{ opacity:.9; }
+#modalFs #fsFull.active{ background:var(--accent)!important; color:#ffffff!important; border-color:var(--accent)!important; }
+#modalFs #fsFull.active:hover{ opacity:.9!important; }
 
 #modalFs #fsBackFixed,
+#modalFs > #fsBackFixed,
 #modalFs .fsmodal > #fsBackFixed{
   display:none; position:fixed!important;
-  top:calc(12px + env(safe-area-inset-top, 0px))!important;
-  left:calc(14px + env(safe-area-inset-left, 0px))!important;
-  z-index:10025!important;
-  height:36px;
-  padding:0 12px 0 8px;
-  border-radius:18px;
-  align-items:center;
-  gap:6px;
-  border:1px solid var(--border);
-  background:color-mix(in srgb, var(--panel) 94%, transparent);
-  color:var(--text);
-  font-size:13px;
-  font-weight:600;
-  cursor:pointer;
-  box-shadow:0 4px 14px rgba(0,0,0,.18);
+  top:max(12px, calc(10px + env(safe-area-inset-top, 0px)))!important;
+  left:max(14px, calc(12px + env(safe-area-inset-left, 0px)))!important;
+  z-index:10035!important;
+  height:38px!important;
+  padding:0 12px 0 8px!important;
+  border-radius:19px!important;
+  align-items:center!important;
+  gap:6px!important;
+  border:1px solid var(--border)!important;
+  background:var(--panel)!important;
+  color:var(--text)!important;
+  font-size:13px!important;
+  font-weight:600!important;
+  cursor:pointer!important;
+  box-shadow:0 4px 14px rgba(0,0,0,.18)!important;
+  box-sizing:border-box!important;
   -webkit-backdrop-filter:blur(12px);
   backdrop-filter:blur(12px);
   max-width:clamp(140px, 42vw, 320px);
@@ -12273,16 +12283,19 @@ body:fullscreen #modalFs,
 :-webkit-full-screen #modalFs,
 html:-webkit-full-screen #modalFs,
 body.fs-fullscreen #modalFs {
+  position: fixed !important;
+  inset: 0 !important;
   padding: 0 !important;
   margin: 0 !important;
   border-radius: 0 !important;
   border: none !important;
-  width: 100vw !important;
-  max-width: 100vw !important;
+  width: 100% !important;
+  max-width: 100% !important;
   height: 100% !important;
   height: 100vh !important;
   height: 100dvh !important;
   max-height: 100dvh !important;
+  overflow: hidden !important;
 }
 
 html:not(.kb-open) #modalFs.is-fullscreen .fsmodal,
@@ -12305,8 +12318,10 @@ body:fullscreen #modalFs .fsmodal,
 :-webkit-full-screen #modalFs .fsmodal,
 html:-webkit-full-screen #modalFs .fsmodal,
 body.fs-fullscreen #modalFs .fsmodal {
-  width: 100vw !important;
-  max-width: 100vw !important;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
   height: 100% !important;
   height: 100vh !important;
   height: 100dvh !important;
@@ -12314,6 +12329,9 @@ body.fs-fullscreen #modalFs .fsmodal {
   border-radius: 0 !important;
   border: none !important;
   box-shadow: none !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
 }
 
 /* Wyłączenie sztucznych pasów w iPad standalone w czytniku */
@@ -15823,7 +15841,11 @@ body.fs-open #colorMenu{
   transform:translateX(-50%)!important;
   z-index:10020!important;
   width:max-content!important;
-  max-width:calc(100vw - 24px)!important;
+  max-width:calc(100% - 24px)!important;
+  max-width:min(calc(100% - 24px), calc(100vw - 24px))!important;
+  overflow-x:auto!important;
+  -webkit-overflow-scrolling:touch!important;
+  scrollbar-width:none!important;
   margin:0!important;
   padding:6px 14px!important;
   border:1px solid var(--border)!important;
@@ -16064,8 +16086,7 @@ body.centrum-open #centrum{ padding-top:10px; }
 #fsWrap .ncard:not(.editing){ padding-bottom:calc(var(--readerDockH, 58px) + 40px + env(safe-area-inset-bottom,0px))!important; }
 #fsWrap .ncard.editing .ncontent{ padding-bottom:calc(var(--readerDockH, 58px) + 40px + env(safe-area-inset-bottom,0px))!important; }
 #fsWrap .ncard .ntools{ transition:opacity .18s ease,transform .2s ease; }
-#modalFs.dok-schowany #fsWrap .ncard:not(.editing) .ntools,
-#modalFs.dok-schowany #fsWrap .ntools{
+#modalFs.dok-schowany #fsWrap .ncard:not(.editing) .ntools{
   opacity:0!important; pointer-events:none!important;
   transform:translateY(100%)!important;
 }
@@ -20936,11 +20957,11 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <button id="readExit"><svg class="ic mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 19.5h3.6L19 8.6a1.9 1.9 0 0 0-2.7-2.7L5.2 17z"/><path d="M14.8 7.4l2.7 2.7"/></svg> Pokaż narzędzia</button>
 
 <div class="overlay" id="modalFs">
+  <div id="fsProg" role="progressbar" aria-label="Postęp czytania" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+  <button id="fsBackFixed" class="fsBackFixed" title="Wróć do poprzedniej notatki" aria-label="Wróć do poprzedniej notatki" hidden><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fsBackFixedTxt">Wróć</span><span class="fsBackFixedTyt" id="fsBackFixedTyt"></span></button>
+  <button id="fsFull" title="Pełny ekran" aria-label="Pełny ekran"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
+  <button id="fsClose" title="Zamknij" aria-label="Zamknij">✕</button>
   <div class="fsmodal">
-    <div id="fsProg" role="progressbar" aria-label="Postęp czytania" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
-    <button id="fsBackFixed" class="fsBackFixed" title="Wróć do poprzedniej notatki" aria-label="Wróć do poprzedniej notatki" hidden><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fsBackFixedTxt">Wróć</span><span class="fsBackFixedTyt" id="fsBackFixedTyt"></span></button>
-    <button id="fsFull" title="Pełny ekran" aria-label="Pełny ekran"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
-    <button id="fsClose" title="Zamknij" aria-label="Zamknij">✕</button>
     <div id="fsWrap"></div>
   </div>
   <button id="fsPrev" class="fsNav prev" title="Poprzednia notatka" aria-label="Poprzednia">‹</button>
@@ -29806,7 +29827,7 @@ function closeFs(fromPopstate){
       else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
     }catch(e){}
   }
-  document.body.classList.remove("fs-open", "ma-zaznaczenie");
+  document.body.classList.remove("fs-open", "ma-zaznaczenie", "fs-fullscreen");
   delete document.body.dataset.readerTheme;
   delete document.documentElement.dataset.readerTheme;
   if(typeof applyColors === "function") applyColors();
@@ -29974,13 +29995,16 @@ function enterFsFullscreen(){
   }
   document.body.classList.add("fs-fullscreen");
 
-  const docEl = document.documentElement;
-  const req = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.mozRequestFullScreen || docEl.msRequestFullscreen;
-  if(req){
-    try{
-      const p = req.call(docEl);
-      if(p && p.catch) p.catch(()=>{});
-    }catch(e){}
+  const isIPadOrIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if(!isIPadOrIOS){
+    const docEl = document.documentElement;
+    const req = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.mozRequestFullScreen || docEl.msRequestFullscreen;
+    if(req){
+      try{
+        const p = req.call(docEl);
+        if(p && p.catch) p.catch(()=>{});
+      }catch(e){}
+    }
   }
   updateFsFullBtn(true);
 }
@@ -29993,7 +30017,8 @@ function exitFsFullscreen(){
   }
   document.body.classList.remove("fs-fullscreen");
 
-  if(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement){
+  const isIPadOrIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if(!isIPadOrIOS && (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement)){
     try{
       const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
       if(exit){
