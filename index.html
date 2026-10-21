@@ -20252,14 +20252,21 @@ body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy:5"]:not([hidden
    ══════════════════════════════════════════════════════════════════════ */
 .plan-rem-active-dot {
   position: absolute;
-  top: -2px;
-  right: -2px;
-  width: 8px;
-  height: 8px;
+  top: 4px;
+  right: 4px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background-color: #ef4444;
   border: 1.5px solid var(--panel, #ffffff);
-  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.4);
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.45);
+  pointer-events: none;
+  z-index: 2;
+}
+.cenNaglBtnIko[data-cakcja="przypomnienie-planu"],
+.cenNaglBtnIko:has(.plan-rem-active-dot) {
+  overflow: visible !important;
+  position: relative !important;
 }
 .plan-rem-card {
   background: var(--cen-card-bg, #ffffff);
@@ -50281,15 +50288,26 @@ function _centrSprawdzPrzypomnienieLoop(){
     const curDay = now.getDay(); // 0 = Nd, 1 = Pn, ..., 6 = So
     if(!Array.isArray(cfg.days) || !cfg.days.includes(curDay)) return;
 
-    const godz = String(now.getHours()).padStart(2, "0");
-    const min = String(now.getMinutes()).padStart(2, "0");
-    const curTime = godz + ":" + min;
+    const curMinutes = now.getHours() * 60 + now.getMinutes();
+    const parts = (cfg.time || "20:00").split(":");
+    const tH = parseInt(parts[0], 10);
+    const tM = parseInt(parts[1], 10);
+    const targetMinutes = (isNaN(tH) ? 20 : tH) * 60 + (isNaN(tM) ? 0 : tM);
 
-    if(cfg.time !== curTime) return;
+    // Przypomnienie nie nadeszło jeszcze dzisiaj
+    if(curMinutes < targetMinutes) return;
 
     const dzisStr = _centrFormatujDateISO(now);
     const lastRun = lsGet(JW_PLAN_REM_LAST_RUN, "");
     if(lastRun === dzisStr) return; // Już wysłano dzisiaj
+
+    const targetPlanId = (cfg.planId && cfg.planId !== "auto") ? cfg.planId : (_centrAktywnyPlanId || "chrono");
+
+    // Jeśli dzisiejsze czytanie jest już ukończone, oznaczamy jako obsłużone bez niepotrzebnego przeszkadzania
+    if(cfg.smartSkipIfCompleted && _centrCzyDzisUkonczonoCzytanie(targetPlanId)){
+      lsSet(JW_PLAN_REM_LAST_RUN, dzisStr);
+      return;
+    }
 
     lsSet(JW_PLAN_REM_LAST_RUN, dzisStr);
     _centrWyslijPrzypomnienie({ isTest: false });
@@ -50302,6 +50320,16 @@ function _centrZainicjujPetlePrzypomnien(){
   if(_centrPlanRemInterval) clearInterval(_centrPlanRemInterval);
   _centrPlanRemInterval = setInterval(_centrSprawdzPrzypomnienieLoop, 30000); // co 30 sekund
   _centrSprawdzPrzypomnienieLoop();
+}
+
+if(typeof document !== "undefined"){
+  document.addEventListener("visibilitychange", () => {
+    if(document.visibilityState === "visible"){
+      _centrSprawdzPrzypomnienieLoop();
+    }
+  });
+  window.addEventListener("pageshow", _centrSprawdzPrzypomnienieLoop);
+  window.addEventListener("focus", _centrSprawdzPrzypomnienieLoop);
 }
 
 function _centrPokazModalPrzypomnienia(){
@@ -50324,17 +50352,22 @@ function _centrPokazModalPrzypomnienia(){
     { d: 0, label: "Nd", title: "Niedziela" }
   ];
 
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const isStandalone = (window.navigator.standalone === true) || (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches);
+
   let permBadge = "";
   if("Notification" in window){
     if(Notification.permission === "granted"){
       permBadge = '<span class="plan-rem-badge-perm granted">Udzielono uprawnień ✓</span>';
     } else if(Notification.permission === "denied"){
-      permBadge = '<span class="plan-rem-badge-perm denied">Zablokowane w przeglądarce ✕</span>';
+      permBadge = '<span class="plan-rem-badge-perm denied">Zablokowane w ustawieniach ✕</span>';
     } else {
       permBadge = '<span class="plan-rem-badge-perm">Wymaga zgody</span> <button type="button" class="plan-rem-perm-btn" id="planRemReqPermBtn">Zezwól</button>';
     }
+  } else if(isIOS && !isStandalone) {
+    permBadge = '<span class="plan-rem-badge-perm" style="background:rgba(234,179,8,0.15);color:#b45309;border-color:rgba(234,179,8,0.3);">Wymaga dodania do ekranu początkowego</span>';
   } else {
-    permBadge = '<span class="plan-rem-badge-perm denied">Brak obsługi w przeglądarce</span>';
+    permBadge = '<span class="plan-rem-badge-perm denied">Brak obsługi w tej przeglądarce</span>';
   }
 
   const html = '<div class="plan-rem-card" style="margin-top:2px;">'
@@ -50580,6 +50613,10 @@ function _centrPobierzWartosciZModalaPrzypomnienia(){
 
 function _centrZapiszModalPrzypomnienia(){
   const cfg = _centrPobierzWartosciZModalaPrzypomnienia();
+  const oldCfg = _centrPobierzCfgPrzypomnienia();
+  if(oldCfg.time !== cfg.time || (!oldCfg.enabled && cfg.enabled)){
+    lsSet(JW_PLAN_REM_LAST_RUN, "");
+  }
   _centrZapiszCfgPrzypomnienia(cfg);
   if(typeof _centrZainicjujPetlePrzypomnien === "function"){
     _centrZainicjujPetlePrzypomnien();
