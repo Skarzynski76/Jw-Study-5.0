@@ -1043,6 +1043,347 @@ html[data-theme="dark"] .cenDzienUkonczBtn.done {
   background: rgba(16, 185, 129, 0.22);
 }
 
+/* ==========================================================================
+   NOWY MODUŁ: ŻYCIE I SŁUŻBA JEZUSA (HARMONIA EWANGELII DODATEK A7)
+   ========================================================================== */
+.cenJesusHeader {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 18px;
+  padding: 16px 20px;
+  margin-bottom: 18px;
+  box-shadow: var(--cen-card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cenJesusBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.cenJesusBadge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: var(--sel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.cenJesusBadge.badge-etap {
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+  border-color: rgba(37, 99, 235, 0.25);
+}
+html[data-theme="dark"] .cenJesusBadge.badge-etap {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+.cenJesusBadge.badge-time {
+  background: rgba(217, 119, 6, 0.1);
+  color: #d97706;
+  border-color: rgba(217, 119, 6, 0.25);
+}
+html[data-theme="dark"] .cenJesusBadge.badge-time {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+.cenJesusBadge.badge-verses {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  border-color: rgba(16, 185, 129, 0.25);
+}
+html[data-theme="dark"] .cenJesusBadge.badge-verses {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+/* Interaktywne chipy z wersetami */
+.cenChipsBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 16px;
+}
+.cenVerseChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  border-radius: 11px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.14s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.cenVerseChip:hover {
+  background: var(--sel);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+.cenVerseChip.done {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #059669;
+}
+html[data-theme="dark"] .cenVerseChip.done {
+  color: #34d399;
+  border-color: rgba(16, 185, 129, 0.5);
+}
+.cenVerseChip .chip-ico {
+  font-size: 13px;
+}
+.cenVerseChip .chip-check {
+  font-weight: 700;
+  color: #10b981;
+}
+
+/* Synopsa — Porównanie relacji ewangelistów */
+.cenSynopsaCard {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 18px;
+  margin: 18px 0;
+  overflow: hidden;
+  box-shadow: var(--cen-card-shadow);
+  transition: all 0.16s ease;
+}
+.cenSynopsaHeader {
+  padding: 13px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--accent) 5%, var(--panel));
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  user-select: none;
+}
+.cenSynopsaHeader:hover {
+  background: color-mix(in srgb, var(--accent) 9%, var(--panel));
+}
+.cenSynopsaBody {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cenSynopsaGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+.cenSynopsaCol {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cenSynopsaCol.col-Mt { border-left: 4px solid #3b82f6; }
+.cenSynopsaCol.col-Mk { border-left: 4px solid #ef4444; }
+.cenSynopsaCol.col-Łk { border-left: 4px solid #10b981; }
+.cenSynopsaCol.col-Jn { border-left: 4px solid #8b5cf6; }
+
+.cenSynopsaColHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cenSynopsaWriterTag {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.writer-Mt { background: rgba(59, 130, 246, 0.12); color: #2563eb; }
+.writer-Mk { background: rgba(239, 68, 68, 0.12); color: #dc2626; }
+.writer-Łk { background: rgba(16, 185, 129, 0.12); color: #059669; }
+.writer-Jn { background: rgba(139, 92, 246, 0.12); color: #7c3aed; }
+html[data-theme="dark"] .writer-Mt { color: #60a5fa; }
+html[data-theme="dark"] .writer-Mk { color: #f87171; }
+html[data-theme="dark"] .writer-Łk { color: #34d399; }
+html[data-theme="dark"] .writer-Jn { color: #a78bfa; }
+
+.cenSynopsaRefBtn {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 4px;
+}
+.cenSynopsaRefBtn:hover {
+  text-decoration: underline;
+}
+.cenSynopsaNote {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--cen-text-muted);
+}
+
+/* Kontekst geograficzny */
+.cenMapCard {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 16px;
+  padding: 14px 18px;
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--cen-card-shadow);
+  flex-wrap: wrap;
+}
+.cenMapIconBox {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(217, 119, 6, 0.12);
+  color: #d97706;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.cenMapInfo {
+  flex: 1;
+  min-width: 220px;
+}
+.cenMapTyt {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cen-text);
+  margin-bottom: 2px;
+}
+.cenMapLoc {
+  font-size: 12.5px;
+  color: var(--cen-text-muted);
+}
+.cenMapLinkBtn {
+  background: var(--sel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 7px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.14s ease;
+  white-space: nowrap;
+}
+.cenMapLinkBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Notatnik Klejnoty duchowe */
+.cenGemsCard {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 18px;
+  padding: 16px 20px;
+  margin: 18px 0;
+  box-shadow: var(--cen-card-shadow);
+}
+.cenGemsHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cen-text);
+}
+.cenGemsPrompts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--sel);
+  border: 1px dashed var(--border);
+  font-size: 12.5px;
+  color: var(--cen-text-muted);
+}
+.cenGemsTextarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 85px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 13.5px;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.14s ease, box-shadow 0.14s ease;
+}
+.cenGemsTextarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.cenGemsFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.cenGemsSaveStatus {
+  font-size: 12px;
+  color: var(--cen-text-muted);
+}
+.cenGemsExportNoteBtn {
+  background: var(--accent);
+  color: #ffffff;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.14s ease, transform 0.14s ease;
+}
+.cenGemsExportNoteBtn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
 /* STATS RADIAL PROGRESS & METRICS */
 .cenStatsShell {
   display: flex;
@@ -22760,6 +23101,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
   </div>
 </div>
 
+<script src="./jesus-plan-data.js"></script>
 <script>
 /* ==========================================================================
    JW Study — core.js
@@ -46522,6 +46864,18 @@ function _centrPobierzWszystkiePlanyDane(){
       timeEst: "⏱ 10 min",
       plan: _centrGenerujPlanMadrosciowe(60, "Mądrościowe"),
       desc: "Codzienna porcja modlitw, uwielbienia i mądrości życiowej z Psalmów oraz Księgi Przysłów."
+    },
+    "zycie-jezusa-90dni": {
+      id: "zycie-jezusa-90dni",
+      name: "Życie i służba Jezusa (90 dni)",
+      days: 90,
+      cat: "temat",
+      catName: "Życie Jezusa (A7)",
+      duration: "90 dni",
+      pace: "Harmonia 4 Ewangelii",
+      timeEst: "⏱ 10–12 min",
+      plan: (typeof JWS_PLAN_ZYCIE_JEZUSA !== "undefined" ? JWS_PLAN_ZYCIE_JEZUSA : []),
+      desc: "Kompletna chronologiczna harmonia czterech Ewangelii (Dodatek A7). Dzień po dniu śledź życie, nauki, cuda i ofiarę Jezusa Chrystusa z synopsą relacji i kontekstem miejsc."
     }
   };
   return _centrCachePlanow;
@@ -49925,7 +50279,7 @@ function _centrEksportDanych(){
     "chrono", "chrono-2lata", "chrono-3lata",
     "pokolei-1rok", "pokolei-2lata", "pokolei-3lata",
     "zbalansowany-1rok", "zbalansowany-2lata", "zbalansowany-3lata",
-    "nt", "nt-1rok", "jan", "przypowiesci", "madrosciowe-60dni",
+    "nt", "nt-1rok", "jan", "przypowiesci", "madrosciowe-60dni", "zycie-jezusa-90dni",
     "temat", "canon", "chronoblocks"
   ];
   znanePlany.forEach(pId => {
@@ -51434,6 +51788,95 @@ function centrWidokDzien(dNr){
   const dniDone = _centrPobierzUkonczoneDni(planInfo.id);
   const jestDzienUkonczony = dniDone.has(dNr);
 
+  const isJesusPlan = (planInfo.id === "zycie-jezusa-90dni" || !!plan.etap);
+  const savedGems = lsGet(KP + "CentrumGems_" + planInfo.id + "_" + dNr, "");
+
+  // 1. Specjalny nagłówek z kartą etapu, czasu, miejsca i wersetów
+  let jesusHeaderHtml = "";
+  if(isJesusPlan){
+    jesusHeaderHtml = '<div class="cenJesusHeader">'
+      + '<div class="cenJesusBadges">'
+      + '<span class="cenJesusBadge badge-etap">' + esc(plan.etap || ("Etap " + planInfo.name)) + '</span>'
+      + (plan.timeLoc ? '<span class="cenJesusBadge badge-time">📍 ' + esc(plan.timeLoc) + '</span>' : '')
+      + (plan.w ? '<span class="cenJesusBadge badge-verses">📜 ' + plan.w + ' wersetów</span>' : '')
+      + '</div>'
+      + '<div style="font-size:16px;font-weight:700;color:var(--cen-text);">' + esc(plan.t) + '</div>'
+      + '</div>';
+  }
+
+  // 2. Interaktywne chipy z wersetami
+  let chipsHtml = "";
+  if(plan.f && plan.f.length > 0){
+    chipsHtml = '<div class="cenChipsBar">'
+      + plan.f.map((frag, idx) => {
+          const key = planInfo.id + "_" + dNr + "_" + idx;
+          const checked = fragiDone.has(key) || jestDzienUkonczony;
+          const label = frag.chip || frag.r;
+          return '<button type="button" class="cenVerseChip' + (checked ? ' done' : '') + '" data-copen-jw="' + esc(frag.r) + '" data-cfrag-key="' + key + '" data-cdzien="' + dNr + '" title="Otwórz ' + esc(frag.r) + ' w JW Library">'
+            + '<span class="chip-ico">📖</span>'
+            + '<span class="chip-text">[' + esc(label) + ']</span>'
+            + (checked ? '<span class="chip-check">✓</span>' : '')
+            + '</button>';
+        }).join('')
+      + '</div>';
+  }
+
+  // 3. Widok „Synopsy” (Porównaj relacje)
+  let synopsaHtml = "";
+  if(plan.synopsa && plan.synopsa.length > 1){
+    synopsaHtml = '<details class="cenSynopsaCard" open>'
+      + '<summary class="cenSynopsaHeader">'
+      + '<span>⚖️ <b>Porównaj relacje ewangelistów (Synopsa)</b> — ' + plan.synopsa.length + ' relacje</span>'
+      + '<span class="cenSynopsaArrow">▾</span>'
+      + '</summary>'
+      + '<div class="cenSynopsaBody">'
+      + '<div class="cenSynopsaGrid">'
+      + plan.synopsa.map(s => {
+          return '<div class="cenSynopsaCol col-' + esc(s.b) + '">'
+            + '<div class="cenSynopsaColHead">'
+            + '<span class="cenSynopsaWriterTag writer-' + esc(s.b) + '">' + esc(s.writer) + '</span>'
+            + '<button type="button" class="cenSynopsaRefBtn" data-copen-jw="' + esc(s.ref) + '" title="Otwórz w JW Library">' + esc(s.chip || s.ref) + ' ↗</button>'
+            + '</div>'
+            + '<div class="cenSynopsaNote">' + esc(s.note) + '</div>'
+            + '</div>';
+        }).join('')
+      + '</div></div>'
+      + '</details>';
+  }
+
+  // 4. Kontekst geograficzny (Mini-mapa)
+  let mapHtml = "";
+  if(plan.mapa){
+    mapHtml = '<div class="cenMapCard">'
+      + '<div class="cenMapIconBox">🗺️</div>'
+      + '<div class="cenMapInfo">'
+      + '<div class="cenMapTyt">Kontekst geograficzny: ' + esc(plan.mapa) + '</div>'
+      + '<div class="cenMapLoc">Miejsca wydarzeń: <b>' + esc(plan.timeLoc || "Tereny działalności Jezusa") + '</b></div>'
+      + '</div>'
+      + '<a href="https://www.jw.org/finder?srcid=jwlshare&wtlocale=P&prefer=lang&pub=nwtsty&manual=%2Fp%2Fbi12%2Fpol%2FDodatek%2FA7%2F" target="_blank" rel="noopener noreferrer" class="cenMapLinkBtn">Zobacz mapy Dodatku A7 ↗</a>'
+      + '</div>';
+  }
+
+  // 5. Notatnik „Klejnoty duchowe”
+  let gemsHtml = "";
+  if(isJesusPlan){
+    gemsHtml = '<div class="cenGemsCard">'
+      + '<div class="cenGemsHead">'
+      + '<span>💎 <b>Klejnoty duchowe i osobiste zastosowanie</b></span>'
+      + '<span style="font-size:12px;color:var(--cen-text-muted);font-weight:400;">Dzień ' + dNr + ' z ' + planInfo.days + '</span>'
+      + '</div>'
+      + '<div class="cenGemsPrompts">'
+      + '<div>💡 <b>Czego ten fragment uczy o Jehowie i Jezusie?</b></div>'
+      + '<div>🎯 <b>Jak mogę to zastosować w służbie lub życiu osobistym?</b></div>'
+      + '</div>'
+      + '<textarea class="cenGemsTextarea" data-cgems-day="' + dNr + '" placeholder="Zapisz swoje przemyślenia, klejnoty duchowe i wnioski z dzisiejszego czytania…">' + esc(savedGems) + '</textarea>'
+      + '<div class="cenGemsFooter">'
+      + '<span class="cenGemsSaveStatus" id="gemsStatus_' + dNr + '">' + (savedGems ? '✓ Zapisano automatycznie' : 'Zapisuje się na bieżąco') + '</span>'
+      + '<button type="button" class="cenGemsExportNoteBtn" data-cgems-export="' + dNr + '" title="Utwórz trwałą notatkę z tymi wnioskami w aplikacji">💾 Zapisz jako notatkę studium</button>'
+      + '</div>'
+      + '</div>';
+  }
+
   return '<div class="cenSubHeader">'
     + '<div class="cenSubHeaderLewo">'
     + '<button type="button" class="cenSubWsteczBtn" data-cwidok="czytanie-chronologiczne">' + CEN_MODERN_ICO.chevronLeft + ' <span>Plan czytania</span></button>'
@@ -51446,9 +51889,11 @@ function centrWidokDzien(dNr){
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="notatka-dnia" title="Dodaj notatkę">' + CEN_MODERN_ICO.note + '</button>'
     + '</div></div>'
 
-    + '<div style="margin-bottom:18px;">'
+    + jesusHeaderHtml
+
+    + '<div style="margin-bottom:12px;">'
     + '<div class="cenSecHeadTyt" style="margin-bottom:4px;">Fragmenty do przeczytania</div>'
-    + '<div style="font-size:13px;color:var(--cen-text-muted);">' + (plan.f ? plan.f.length : 0) + ' fragmenty • ' + esc(plan.t) + '</div>'
+    + chipsHtml
     + '</div>'
 
     + '<div class="cenFragiLista">'
@@ -51471,6 +51916,10 @@ function centrWidokDzien(dNr){
           + '</div>';
       }).join('')
     + '</div>'
+
+    + synopsaHtml
+    + mapHtml
+    + gemsHtml
 
     + '<div class="cenDzienUkonczWrap">'
     + '<button type="button" class="cenDzienUkonczBtn' + (jestDzienUkonczony ? ' done' : '') + '" data-cdzien-ukoncz="' + dNr + '">'
@@ -53697,6 +54146,15 @@ if($("centrum")){
             + '</div>');
       }
     }
+
+    // Obsługa autozapisu notatnika „Klejnoty duchowe”
+    if(ev.target && ev.target.dataset && ev.target.dataset.cgemsDay){
+      const dNr = ev.target.dataset.cgemsDay;
+      const planInfo = _centrPobierzPlanData(_centrAktywnyPlanId);
+      lsSet(KP + "CentrumGems_" + planInfo.id + "_" + dNr, ev.target.value);
+      const st = $("gemsStatus_" + dNr);
+      if(st) st.textContent = "✓ Zapisano automatycznie";
+    }
   });
 
   $("centrum").addEventListener("click", async ev=>{
@@ -53867,6 +54325,46 @@ if($("centrum")){
         newN.t = "Rozważania: " + ref;
         saveNote(newN);
         toast("Utworzono notatkę dla " + ref, "ok");
+        if(typeof selectNote === "function") selectNote(newN.g);
+      }
+      return;
+    }
+
+    // Obsługa eksportu klejnotów duchowych do nowej notatki studium
+    const gemsExpBtn = ev.target.closest("[data-cgems-export]");
+    if(gemsExpBtn){
+      const dNr = parseInt(gemsExpBtn.dataset.cgemsExport, 10);
+      const planInfo = _centrPobierzPlanData(_centrAktywnyPlanId);
+      const plan = (planInfo.plan || []).find(x => x.d === dNr);
+      const savedGems = lsGet(KP + "CentrumGems_" + planInfo.id + "_" + dNr, "");
+      const newN = typeof createNote === "function" ? createNote() : null;
+      if(newN){
+        newN.t = (plan ? ("Życie Jezusa (Dzień " + dNr + "): " + plan.t) : ("Klejnoty duchowe: Dzień " + dNr));
+        let cHtml = "<h3>" + esc(newN.t) + "</h3>";
+        if(plan){
+          if(plan.etap) cHtml += "<p><b>Etap:</b> " + esc(plan.etap) + "</p>";
+          if(plan.timeLoc) cHtml += "<p><b>Czas i Miejsce:</b> " + esc(plan.timeLoc) + "</p>";
+          if(plan.f && plan.f.length) cHtml += "<p><b>Fragmenty:</b> " + plan.f.map(f => esc(f.r)).join(", ") + "</p>";
+        }
+        cHtml += "<hr><h4>💎 Moje przemyślenia i klejnoty:</h4>";
+        if(savedGems && savedGems.trim()){
+          cHtml += "<blockquote>" + esc(savedGems.trim()).replace(/\n/g, "<br>") + "</blockquote>";
+        } else {
+          cHtml += "<p><i>(Brak wpisanych wniosków)</i></p>";
+        }
+        newN.c = cHtml;
+
+        if(typeof createTag === "function"){
+          const tag1 = createTag("Ewangelie");
+          const tag2 = createTag("ŻycieJezusa");
+          const tgs = [];
+          if(tag1) tgs.push(tag1.id);
+          if(tag2) tgs.push(tag2.id);
+          if(tgs.length) newN.tg = tgs;
+        }
+
+        if(typeof saveNote === "function") saveNote(newN);
+        toast("Utworzono notatkę studium dla Dnia " + dNr + "! 💎", "ok");
         if(typeof selectNote === "function") selectNote(newN.g);
       }
       return;

@@ -1,9 +1,10 @@
 /* JW Study — Service Worker (Obsługa trybu offline) */
 const CACHE_PREFIX = 'jwstudy-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + 'v550';
+const CACHE = CACHE_PREFIX + 'v551';
 
 const CORE = [
   './index.html',
+  './jesus-plan-data.js',
   './search-worker.js',
   './manifest.webmanifest',
   './onenote.html',
