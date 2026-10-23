@@ -12103,7 +12103,7 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
 #modalFs > #fsClose,
 #modalFs .fsmodal > #fsClose{
   display:flex!important; position:fixed!important;
-  top:max(12px, calc(10px + env(safe-area-inset-top, 0px)))!important;
+  top:max(16px, calc(12px + env(safe-area-inset-top, 0px)))!important;
   right:max(14px, calc(12px + env(safe-area-inset-right, 0px)))!important;
   z-index:10035!important;
   width:38px!important; height:38px!important; border-radius:50%!important;
@@ -12126,7 +12126,7 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
 #modalFs > #fsFull,
 #modalFs .fsmodal > #fsFull{
   display:flex!important; position:fixed!important;
-  top:max(12px, calc(10px + env(safe-area-inset-top, 0px)))!important;
+  top:max(16px, calc(12px + env(safe-area-inset-top, 0px)))!important;
   right:max(60px, calc(58px + env(safe-area-inset-right, 0px)))!important;
   z-index:10035!important;
   width:38px!important; height:38px!important; border-radius:50%!important;
@@ -12153,7 +12153,7 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
 #modalFs > #fsBackFixed,
 #modalFs .fsmodal > #fsBackFixed{
   display:none; position:fixed!important;
-  top:max(12px, calc(10px + env(safe-area-inset-top, 0px)))!important;
+  top:max(16px, calc(12px + env(safe-area-inset-top, 0px)))!important;
   left:max(14px, calc(12px + env(safe-area-inset-left, 0px)))!important;
   z-index:10035!important;
   height:38px!important;
@@ -12378,10 +12378,10 @@ html.kb-open #fsWrap .ncard.editing .ncontent {
   padding-right: clamp(16px, 4.5vw, 42px) !important;
 }
 
-/* Nagłówek notatki w trybie czytania — czysty, książkowy, bez wielkich przerw */
+/* Nagłówek notatki w trybie czytania — czysty, książkowy, bezpieczny odstęp od paska Apple */
 #modalFs #fsWrap .ncard:not(.editing) .nhead {
-  padding-top: max(22px, calc(14px + env(safe-area-inset-top, 0px))) !important;
-  padding-bottom: clamp(4px, 1vh, 10px) !important;
+  padding-top: max(60px, calc(52px + env(safe-area-inset-top, 0px))) !important;
+  padding-bottom: clamp(6px, 1.2vh, 12px) !important;
   padding-right: clamp(70px, 9vw, 110px) !important;
   border-bottom: 0 !important;
   background: transparent !important;
@@ -13598,11 +13598,14 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
 #fsWrap .ncard.editing .wysUchwyt,
 #fsWrap .ncard.editing .powiazane{ display:none!important; }
 
-/* ——— Tytuł w trybie edycji: rozciągnięty na pełną szerokość okna edytora ——— */
+/* ——— Tytuł w trybie edycji: rozciągnięty na pełną szerokość okna edytora, odsunięty od rozmycia Apple ——— */
 #fsWrap .ncard.editing .nhead,
 #modalFs #fsWrap .ncard.editing .nhead,
 .ncard.editing .nhead {
-  padding: 10px 0 6px 0 !important;
+  padding-top: max(60px, calc(52px + env(safe-area-inset-top, 0px))) !important;
+  padding-bottom: 8px !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
   max-width: var(--fsMax, 760px) !important;
   width: 100% !important;
   margin: 0 auto !important;
@@ -13692,7 +13695,12 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
    Przy 390 px zawijał się na dwa wiersze i zabierał 91 px — na telefonie, gdzie
    miejsca jest najmniej. Zamiast zawijać, przewija się w poziomie. */
 @media (max-width:620px){
-  #fsWrap .ncard.editing .nhead{ padding:6px 0 4px 0 !important; }
+  #fsWrap .ncard.editing .nhead{
+    padding-top: max(54px, calc(46px + env(safe-area-inset-top, 0px))) !important;
+    padding-bottom: 6px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
   #fsWrap .ncard.editing .ncontent{ padding:8px 12px 12px; }
   #fsWrap .ncard.editing .ntools{
     flex-wrap:nowrap;
