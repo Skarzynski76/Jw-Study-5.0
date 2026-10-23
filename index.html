@@ -1283,6 +1283,12 @@ html[data-theme="dark"] .writer-Jn { color: #a78bfa; }
   font-size: 12.5px;
   color: var(--cen-text-muted);
 }
+.cenMapBtns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
 .cenMapLinkBtn {
   background: var(--sel);
   border: 1px solid var(--border);
@@ -1301,6 +1307,24 @@ html[data-theme="dark"] .writer-Jn { color: #a78bfa; }
 .cenMapLinkBtn:hover {
   border-color: var(--accent);
   color: var(--accent);
+}
+.cenMapLinkBtn.primary {
+  background: rgba(37, 99, 235, 0.1);
+  border-color: rgba(37, 99, 235, 0.35);
+  color: #2563eb;
+}
+html[data-theme="dark"] .cenMapLinkBtn.primary {
+  background: rgba(59, 130, 246, 0.16);
+  border-color: rgba(59, 130, 246, 0.45);
+  color: #60a5fa;
+}
+.cenMapLinkBtn.primary:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+html[data-theme="dark"] .cenMapLinkBtn.primary:hover {
+  background: #3b82f6;
+  color: #ffffff;
 }
 
 /* Notatnik Klejnoty duchowe */
@@ -51847,13 +51871,24 @@ function centrWidokDzien(dNr){
   // 4. Kontekst geograficzny (Mini-mapa)
   let mapHtml = "";
   if(plan.mapa){
+    const mMatch = (plan.etap || "").match(/A7-([A-H])/i);
+    const codeLetter = mMatch ? mMatch[1].toLowerCase() : "a";
+    const a7Code = "A7-" + codeLetter.toUpperCase();
+    const a7Url = "https://www.jw.org/pl/biblioteka/biblia/nwt/dodatki/dodatek-a7-" + codeLetter + "/";
+    const bMapCode = dNr >= 58 ? "b12" : "b10";
+    const bMapLabel = dNr >= 58 ? "Plan Jerozolimy (Dodatek B12)" : "Mapa krain (Dodatek B10)";
+    const bMapUrl = "https://www.jw.org/pl/biblioteka/biblia/nwt/dodatki/dodatek-" + bMapCode + "/";
+
     mapHtml = '<div class="cenMapCard">'
       + '<div class="cenMapIconBox">🗺️</div>'
       + '<div class="cenMapInfo">'
-      + '<div class="cenMapTyt">Kontekst geograficzny: ' + esc(plan.mapa) + '</div>'
+      + '<div class="cenMapTyt">' + esc(plan.mapa) + ' <span style="opacity:0.75;font-weight:400;font-size:12px;">(Dodatek ' + a7Code + ')</span></div>'
       + '<div class="cenMapLoc">Miejsca wydarzeń: <b>' + esc(plan.timeLoc || "Tereny działalności Jezusa") + '</b></div>'
       + '</div>'
-      + '<a href="https://www.jw.org/finder?srcid=jwlshare&wtlocale=P&prefer=lang&pub=nwtsty&manual=%2Fp%2Fbi12%2Fpol%2FDodatek%2FA7%2F" target="_blank" rel="noopener noreferrer" class="cenMapLinkBtn">Zobacz mapy Dodatku A7 ↗</a>'
+      + '<div class="cenMapBtns">'
+      + '<a href="' + a7Url + '" target="_blank" rel="noopener noreferrer" class="cenMapLinkBtn primary" title="Otwórz oficjalną mapę z chronologią tego etapu w jw.org">🗺️ Otwórz mapę etapu (' + a7Code + ') ↗</a>'
+      + '<a href="' + bMapUrl + '" target="_blank" rel="noopener noreferrer" class="cenMapLinkBtn" title="Zobacz ogólną mapę krain lub plan Jerozolimy">📍 ' + esc(bMapLabel) + ' ↗</a>'
+      + '</div>'
       + '</div>';
   }
 
