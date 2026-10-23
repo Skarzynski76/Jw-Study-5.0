@@ -51872,12 +51872,21 @@ function centrWidokDzien(dNr){
   let mapHtml = "";
   if(plan.mapa){
     const mMatch = (plan.etap || "").match(/A7-([A-H])/i);
-    const codeLetter = mMatch ? mMatch[1].toLowerCase() : "a";
-    const a7Code = "A7-" + codeLetter.toUpperCase();
-    const a7Url = "https://www.jw.org/pl/biblioteka/biblia/nwt/dodatki/dodatek-a7-" + codeLetter + "/";
-    const bMapCode = dNr >= 58 ? "b12" : "b10";
-    const bMapLabel = dNr >= 58 ? "Plan Jerozolimy (Dodatek B12)" : "Mapa krain (Dodatek B10)";
-    const bMapUrl = "https://www.jw.org/pl/biblioteka/biblia/nwt/dodatki/dodatek-" + bMapCode + "/";
+    const codeLetter = mMatch ? mMatch[1].toUpperCase() : "A";
+    const a7Code = "A7-" + codeLetter;
+    const a7Docids = {
+      "A": 1001070207,
+      "B": 1001070208,
+      "C": 1001070209,
+      "D": 1001070210,
+      "E": 1001070211,
+      "F": 1001070212,
+      "G": 1001070213,
+      "H": 1001070214
+    };
+    const docid = a7Docids[codeLetter] || 1001070207;
+    const jwlMapUrl = "https://www.jw.org/finder?srcid=jwlshare&wtlocale=P&prefer=lang&docid=" + docid;
+    const webMapUrl = "https://www.jw.org/pl/biblioteka/biblia/nwt/dodatki/dodatek-a7-" + codeLetter.toLowerCase() + "/";
 
     mapHtml = '<div class="cenMapCard">'
       + '<div class="cenMapIconBox">🗺️</div>'
@@ -51886,8 +51895,8 @@ function centrWidokDzien(dNr){
       + '<div class="cenMapLoc">Miejsca wydarzeń: <b>' + esc(plan.timeLoc || "Tereny działalności Jezusa") + '</b></div>'
       + '</div>'
       + '<div class="cenMapBtns">'
-      + '<a href="' + a7Url + '" target="_blank" rel="noopener noreferrer" class="cenMapLinkBtn primary" title="Otwórz oficjalną mapę z chronologią tego etapu w jw.org">🗺️ Otwórz mapę etapu (' + a7Code + ') ↗</a>'
-      + '<a href="' + bMapUrl + '" target="_blank" rel="noopener noreferrer" class="cenMapLinkBtn" title="Zobacz ogólną mapę krain lub plan Jerozolimy">📍 ' + esc(bMapLabel) + ' ↗</a>'
+      + '<a href="' + jwlMapUrl + '" target="_blank" rel="noopener noreferrer" class="cenMapLinkBtn primary" data-copen-map-docid="' + docid + '" title="Otwórz mapę tego etapu w aplikacji JW Library">' + (CEN_MODERN_ICO.jw || '📱') + ' Otwórz mapę w JW Library (' + a7Code + ') ↗</a>'
+      + '<a href="' + webMapUrl + '" target="_blank" rel="noopener noreferrer" class="cenMapLinkBtn" title="Otwórz wersję online na stronie JW.ORG">🌐 Otwórz na JW.ORG ↗</a>'
       + '</div>'
       + '</div>';
   }
@@ -54343,6 +54352,21 @@ if($("centrum")){
           }
         }
         rysujCentrum();
+      }
+      return;
+    }
+
+    // Obsługa otwierania mapy w JW Library (docid)
+    const mapDocBtn = ev.target.closest("[data-copen-map-docid]");
+    if(mapDocBtn){
+      ev.preventDefault();
+      const docid = mapDocBtn.dataset.copenMapDocid;
+      const u = "https://www.jw.org/finder?srcid=jwlshare&wtlocale=P&prefer=lang&docid=" + docid;
+      toast("Otwieranie mapy w JW Library…");
+      if(typeof openUrlJWL === "function"){
+        openUrlJWL(u);
+      } else {
+        window.open(u, "_blank");
       }
       return;
     }
