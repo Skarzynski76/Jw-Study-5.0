@@ -8450,7 +8450,7 @@ html[data-theme="dark"] #colBooks,html[data-theme="dark"] #colTags,html[data-the
 #noteList.v-compact .nhead{margin:0;padding:10px 34px 2px 14px}
 #noteList.v-compact .ncard>*:not(.nhead):not(.ntools){margin-left:14px;margin-right:14px}
 .ntitle{color:var(--text);font-weight:600;letter-spacing:-.015em;line-height:1.3;text-shadow:none}
-.ntitle[contenteditable="true"]{color:var(--text);background:var(--sel);border:0;box-shadow:none;border-radius:10px;padding:7px 9px}
+.ntitle[contenteditable="true"]{color:var(--text);background:var(--sel);border:1.5px solid var(--border);box-shadow:none;border-radius:12px;padding:10px 14px;width:100%;box-sizing:border-box}
 .drag{color:var(--muted);opacity:.5;top:11px}
 .drag:hover{background:var(--sel);color:var(--text);opacity:1}
 .ncontent{margin-top:5px;line-height:1.62;color:var(--text)}
@@ -12378,8 +12378,8 @@ html.kb-open #fsWrap .ncard.editing .ncontent {
   padding-right: clamp(16px, 4.5vw, 42px) !important;
 }
 
-/* Nagłówek notatki — czysty, książkowy, bez wielkich przerw */
-#modalFs #fsWrap .nhead {
+/* Nagłówek notatki w trybie czytania — czysty, książkowy, bez wielkich przerw */
+#modalFs #fsWrap .ncard:not(.editing) .nhead {
   padding-top: max(22px, calc(14px + env(safe-area-inset-top, 0px))) !important;
   padding-bottom: clamp(4px, 1vh, 10px) !important;
   padding-right: clamp(70px, 9vw, 110px) !important;
@@ -12387,7 +12387,7 @@ html.kb-open #fsWrap .ncard.editing .ncontent {
   background: transparent !important;
 }
 
-#modalFs #fsWrap .ntitle {
+#modalFs #fsWrap .ncard:not(.editing) .ntitle {
   font-size: clamp(21px, calc(var(--fsNoteFs, 17px) + 5px), 30px) !important;
   font-weight: 700 !important;
   line-height: 1.25 !important;
@@ -13598,20 +13598,68 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
 #fsWrap .ncard.editing .wysUchwyt,
 #fsWrap .ncard.editing .powiazane{ display:none!important; }
 
-/* ——— belka tytułu bez podwójnego wypełnienia ———
-   Tytuł zostaje (jest edytowalny), ale przestaje mieć własne wypełnienie
-   dodane do wypełnienia pasma. */
-#fsWrap .ncard.editing .nhead{
-  padding:10px 44px 8px 12px;          /* z prawej miejsce na ✕, z lewej na ← */
-  min-height:0;
+/* ——— Tytuł w trybie edycji: rozciągnięty na pełną szerokość okna edytora ——— */
+#fsWrap .ncard.editing .nhead,
+#modalFs #fsWrap .ncard.editing .nhead,
+.ncard.editing .nhead {
+  padding: 10px 0 6px 0 !important;
+  max-width: var(--fsMax, 760px) !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: stretch !important;
+  min-height: 0 !important;
 }
-#fsWrap .ncard.editing .ntitle{
-  padding:0;
-  font-size:calc(var(--noteFs, 16px) + 2px);
-  line-height:1.3;
-  -webkit-line-clamp:unset;            /* przy pisaniu tytuł ma być widoczny cały */
-  display:block;
+
+#fsWrap .ncard.editing .nhead .nsel,
+#modalFs #fsWrap .ncard.editing .nhead .nsel,
+.ncard.editing .nsel {
+  display: none !important;
 }
+
+#fsWrap .ncard.editing .ntitle,
+#modalFs #fsWrap .ncard.editing .ntitle,
+.ncard.editing .ntitle,
+.ntitle[contenteditable="true"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  flex: 1 1 100% !important;
+  display: block !important;
+  padding: 10px 14px !important;
+  border-radius: 12px !important;
+  border: 1.5px solid var(--border) !important;
+  background: var(--sel) !important;
+  color: var(--text) !important;
+  font-size: clamp(18px, calc(var(--fsNoteFs, 16px) + 4px), 25px) !important;
+  font-weight: 700 !important;
+  line-height: 1.34 !important;
+  min-height: 44px !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  white-space: pre-wrap !important;
+  -webkit-line-clamp: unset !important;
+  transition: border-color .15s ease, background .15s ease, box-shadow .15s ease !important;
+}
+
+.ntitle[contenteditable="true"]:empty::before {
+  content: "Tytuł notatki…";
+  color: var(--muted);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.ntitle[contenteditable="true"]:focus,
+#fsWrap .ncard.editing .ntitle:focus,
+#modalFs #fsWrap .ncard.editing .ntitle:focus,
+.ncard.editing .ntitle:focus {
+  border-color: var(--accent) !important;
+  background: var(--panel) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent) !important;
+  outline: none !important;
+}
+
 #fsWrap .ncard.editing .fsBackInline,
 #fsWrap .ncard.editing .fsCloseInline{ top:6px; }
 
@@ -13644,7 +13692,7 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
    Przy 390 px zawijał się na dwa wiersze i zabierał 91 px — na telefonie, gdzie
    miejsca jest najmniej. Zamiast zawijać, przewija się w poziomie. */
 @media (max-width:620px){
-  #fsWrap .ncard.editing .nhead{ padding:8px 38px 6px 38px; }
+  #fsWrap .ncard.editing .nhead{ padding:6px 0 4px 0 !important; }
   #fsWrap .ncard.editing .ncontent{ padding:8px 12px 12px; }
   #fsWrap .ncard.editing .ntools{
     flex-wrap:nowrap;
@@ -16046,7 +16094,7 @@ body.centrum-open #centrum{ padding-top:10px; }
   #fsWrap .fsBackInline,#fsWrap .fsCloseInline{
     top:10px!important;
   }
-  #fsWrap .ncard.editing .ntitle{ -webkit-line-clamp:2; display:-webkit-box; }
+  #fsWrap .ncard.editing .ntitle{ -webkit-line-clamp:unset; display:block; max-height:none; }
 
   /* Na telefonie widoczny jest tylko rdzeń edytora. Pozostałe polecenia są
      dostępne w menu „Więcej", zamiast tworzyć długi pasek przewijany poziomo. */
