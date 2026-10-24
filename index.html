@@ -1904,8 +1904,8 @@ html[data-theme="dark"] .cenRemPermAlert.default {
 
 .cenFruitGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
   margin-top: 14px;
 }
 .cenFruitItem {
@@ -1914,33 +1914,32 @@ html[data-theme="dark"] .cenRemPermAlert.default {
   border-radius: 16px;
   padding: 14px 16px;
   display: flex;
-  align-items: center;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 14px;
   transition: all 0.2s ease;
   box-shadow: var(--cen-card-shadow);
 }
 .cenFruitItem.unlocked {
   border-color: rgba(16, 185, 129, 0.4);
-  background: linear-gradient(135deg, var(--cen-card-bg) 0%, rgba(16, 185, 129, 0.06) 100%);
+  background: linear-gradient(135deg, var(--cen-card-bg) 0%, rgba(16, 185, 129, 0.08) 100%);
 }
 .cenFruitItem.locked {
-  opacity: 0.65;
+  opacity: 0.55;
   filter: grayscale(0.5);
 }
 .cenFruitIko {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
   flex-shrink: 0;
   background: rgba(0, 0, 0, 0.04);
 }
 .cenFruitItem.unlocked .cenFruitIko {
   background: rgba(16, 185, 129, 0.15);
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
 }
 .cenFruitInfo {
   flex: 1;
@@ -1950,18 +1949,20 @@ html[data-theme="dark"] .cenRemPermAlert.default {
   font-size: 14px;
   font-weight: 700;
   color: var(--cen-text);
-  margin-bottom: 2px;
+  margin-bottom: 3px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 .cenFruitDesc {
   font-size: 12px;
   color: var(--cen-text-muted);
-  line-height: 1.35;
+  line-height: 1.4;
 }
 .cenFruitBadge {
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 700;
   padding: 2px 8px;
   border-radius: 999px;
@@ -1975,6 +1976,79 @@ html[data-theme="dark"] .cenRemPermAlert.default {
 .cenFruitBadge.locked {
   background: var(--cen-row-bg, rgba(0,0,0,0.06));
   color: var(--cen-text-muted);
+}
+
+/* Baner owoców w planie czytania */
+.cenFruitPlanBanner {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 16px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--cen-card-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+.cenFruitPlanBanner:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.cenFruitPlanBannerLewo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cenFruitPlanBannerIko {
+  font-size: 26px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(16, 185, 129, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.cenFruitPlanBannerTyt {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cen-text);
+  margin-bottom: 2px;
+}
+.cenFruitPlanBannerSub {
+  font-size: 12px;
+  color: var(--cen-text-muted);
+}
+.cenFruitMiniRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.cenFruitMiniDot {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sel);
+  border: 1px solid var(--border);
+  transition: all 0.14s ease;
+}
+.cenFruitMiniDot.active {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.25);
+}
+.cenFruitMiniDot.inactive {
+  opacity: 0.35;
+  filter: grayscale(1);
 }
 
 /* KALENDARZ SIATKA */
@@ -51128,17 +51202,223 @@ try {
   _centrZainicjujPetlePrzypomnien();
 } catch(e){}
 
-/* 8. Drzewo Wzrostu Duchowego / Czytania (Psalm 1:3) */
+/* 8. Drzewo Wzrostu Duchowego / Czytania (Psalm 1:3; Galatów 5:22, 23) */
+function _centrPobierzOwoceDucha(totalDni){
+  totalDni = totalDni || 365;
+  const owoce = [
+    {
+      id: "apple",
+      num: 1,
+      name: "Miłość",
+      fruit: "Jabłko",
+      icon: "🍎",
+      color: "#ef4444",
+      x: 240, y: 138, hX: 240, hY: 110,
+      desc: "Symbol troski, ciepła i tego, co daje życie innym. Centralny owoc z sercem w środku, fundament chrześcijańskiej osobowości."
+    },
+    {
+      id: "orange",
+      num: 2,
+      name: "Radość",
+      fruit: "Pomarańcza",
+      icon: "🍊",
+      color: "#f97316",
+      x: 175, y: 155, hX: 175, hY: 135,
+      desc: "Żywy, słoneczny kolor kojarzący się z pogodą ducha, energią i wdzięcznością za prawdę ze Słowa Bożego."
+    },
+    {
+      id: "plum",
+      num: 3,
+      name: "Pokój",
+      fruit: "Śliwka",
+      icon: "🫐",
+      color: "#8b5cf6",
+      x: 305, y: 155, hX: 305, hY: 135,
+      desc: "Łagodna, chłodna barwa fioletu z woskowym nalotem; symbolizuje wewnętrzną harmonię i pokój Boży, który strzeże serca."
+    },
+    {
+      id: "pear",
+      num: 4,
+      name: "Cierpliwość",
+      fruit: "Gruszka",
+      icon: "🍐",
+      color: "#84cc16",
+      x: 128, y: 125, hX: 128, hY: 105,
+      desc: "Owoc, który potrzebuje czasu, by w pełni dojrzeć na słońcu. Pięknie obrazuje cierpliwe czekanie na właściwy moment."
+    },
+    {
+      id: "peach",
+      num: 5,
+      name: "Życzliwość",
+      fruit: "Brzoskwinia",
+      icon: "🍑",
+      color: "#fb923c",
+      x: 352, y: 125, hX: 352, hY: 105,
+      desc: "Aksamitna miękka skórka i delikatne barwy kojarzą się z ciepłem, serdecznością i delikatnym traktowaniem innych."
+    },
+    {
+      id: "lemon",
+      num: 6,
+      name: "Dobroć",
+      fruit: "Cytryna",
+      icon: "🍋",
+      color: "#eab308",
+      x: 200, y: 95, hX: 200, hY: 78,
+      desc: "Symbol dobra, które może przynieść korzyść innym, nawet jeśli wymaga wysiłku. Jasny kolor wnosi świeżość i kontrast."
+    },
+    {
+      id: "fig",
+      num: 7,
+      name: "Wiara",
+      fruit: "Figa",
+      icon: "🫒",
+      color: "#a855f7",
+      x: 280, y: 95, hX: 280, hY: 78,
+      desc: "Owoc z bogatym wnętrzem, które kryje się pod skórką. Symbolizuje głębokie przekonania i niezłomne zaufanie Bogu."
+    },
+    {
+      id: "apricot",
+      num: 8,
+      name: "Łagodność",
+      fruit: "Morela",
+      icon: "🍑",
+      color: "#f59e0b",
+      x: 155, y: 76, hX: 155, hY: 62,
+      desc: "Subtelny kolor i delikatny wygląd pasują do łagodnego usposobienia, spokojnych słów, taktu i pokory."
+    },
+    {
+      id: "pomegranate",
+      num: 9,
+      name: "Panowanie nad sobą",
+      fruit: "Granat",
+      icon: "👑",
+      color: "#e11d48",
+      x: 240, y: 52, hX: 240, hY: 38,
+      desc: "Owoc z mocną skórką chroniącą rubinowe wnętrze. Symbolizuje siłę charakteru, opanowanie i umiejętność kontrolowania swoich reakcji."
+    }
+  ];
+
+  let milestones = [];
+  if (totalDni >= 300) {
+    milestones = [7, 21, 45, 90, 140, 190, 245, 305, totalDni];
+  } else if (totalDni >= 180) {
+    milestones = [7, 18, 35, 60, 90, 120, 145, 165, totalDni];
+  } else {
+    milestones = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => Math.max(1, Math.round((i / 9) * totalDni)));
+  }
+
+  return owoce.map((o, idx) => ({
+    ...o,
+    day: milestones[idx] || (idx + 1)
+  }));
+}
+
+function _centrRysujOwocSvg(type, size){
+  size = size || 36;
+  const s = size;
+  if (type === "apple") {
+    // 1. Miłość — Jabłko z serduszkiem w środku
+    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<path d="M 18 8 Q 19 4, 23 2" stroke="#4d2c11" stroke-width="2" stroke-linecap="round"/>'
+      + '<path d="M 20 4 C 25 3, 27 6, 26 8 C 21 8, 20 5, 20 4 Z" fill="#22c55e" stroke="#15803d" stroke-width="0.8"/>'
+      + '<path d="M 18 10 C 13 5, 3 8, 4 19 C 5 28, 14 33, 18 34 C 22 33, 31 28, 32 19 C 33 8, 23 5, 18 10 Z" fill="url(#fruitGradApple)" stroke="#991b1b" stroke-width="1.2"/>'
+      + '<path d="M 18 17 C 16 14, 11 15, 12 20 C 13 24, 18 27, 18 27 C 18 27, 23 24, 24 20 C 25 15, 20 14, 18 17 Z" fill="#fef08a" stroke="#f59e0b" stroke-width="0.9" opacity="0.95"/>'
+      + '<circle cx="11" cy="14" r="2.5" fill="#ffffff" opacity="0.45"/>'
+      + '</svg>';
+  }
+  if (type === "orange") {
+    // 2. Radość — Pomarańcza ze szypułką
+    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<circle cx="18" cy="20" r="14" fill="url(#fruitGradOrange)" stroke="#c2410c" stroke-width="1.2"/>'
+      + '<path d="M 18 6 Q 18 3, 19 1" stroke="#3f230d" stroke-width="1.8" stroke-linecap="round"/>'
+      + '<polygon points="18,6 15,9 18,8 21,9" fill="#15803d"/>'
+      + '<polygon points="18,6 18,10 20,7 16,7" fill="#22c55e"/>'
+      + '<circle cx="12" cy="14" r="3" fill="#ffffff" opacity="0.35"/>'
+      + '</svg>';
+  }
+  if (type === "plum") {
+    // 3. Pokój — Śliwka z woskowym nalotem i listkiem
+    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<path d="M 18 7 Q 20 3, 23 1" stroke="#4d2c11" stroke-width="1.8" stroke-linecap="round"/>'
+      + '<path d="M 20 4 C 25 3, 27 6, 25 8 C 21 8, 20 5, 20 4 Z" fill="#16a34a"/>'
+      + '<path d="M 18 8 C 9 9, 7 19, 10 27 C 13 33, 23 34, 26 27 C 29 19, 27 9, 18 8 Z" fill="url(#fruitGradPlum)" stroke="#4c1d95" stroke-width="1.2"/>'
+      + '<path d="M 18 9 Q 19 21, 18 32" stroke="#6d28d9" stroke-width="1" stroke-dasharray="2,2" opacity="0.6"/>'
+      + '<path d="M 12 12 Q 10 20, 13 25" stroke="#c4b5fd" stroke-width="1.8" stroke-linecap="round" opacity="0.45"/>'
+      + '</svg>';
+  }
+  if (type === "pear") {
+    // 4. Cierpliwość — Gruszka złocisto-zielona
+    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<path d="M 18 5 Q 19 2, 22 1" stroke="#4d2c11" stroke-width="1.8" stroke-linecap="round"/>'
+      + '<path d="M 18 5 C 13 5, 12 12, 10 17 C 7 24, 8 32, 18 33 C 28 32, 29 24, 26 17 C 24 12, 23 5, 18 5 Z" fill="url(#fruitGradPear)" stroke="#4d7c0f" stroke-width="1.2"/>'
+      + '<circle cx="13" cy="22" r="3" fill="#ffffff" opacity="0.35"/>'
+      + '</svg>';
+  }
+  if (type === "peach") {
+    // 5. Życzliwość — Brzoskwinia z aksamitnym rumieńcem
+    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<path d="M 18 6 Q 19 3, 21 1" stroke="#4d2c11" stroke-width="1.8" stroke-linecap="round"/>'
+      + '<path d="M 18 6 C 12 6, 6 12, 7 21 C 8 29, 15 33, 18 33 C 21 33, 28 29, 29 21 C 30 12, 24 6, 18 6 Z" fill="url(#fruitGradPeach)" stroke="#ea580c" stroke-width="1.2"/>'
+      + '<path d="M 18 7 C 19 14, 18 24, 18 32" stroke="#c2410c" stroke-width="1.2" opacity="0.5"/>'
+      + '<circle cx="12" cy="15" r="3" fill="#ffffff" opacity="0.4"/>'
+      + '</svg>';
+  }
+  if (type === "lemon") {
+    // 6. Dobroć — Cytryna z listkami
+    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<path d="M 8 18 C 9 10, 27 10, 28 18 C 27 26, 9 26, 8 18 Z" transform="rotate(-30 18 18)" fill="url(#fruitGradLemon)" stroke="#ca8a04" stroke-width="1.2"/>'
+      + '<circle cx="5" cy="22" r="1.5" fill="#ca8a04"/>'
+      + '<circle cx="31" cy="14" r="1.5" fill="#ca8a04"/>'
+      + '<circle cx="16" cy="14" r="2.5" fill="#ffffff" opacity="0.5"/>'
+      + '</svg>';
+  }
+  if (type === "fig") {
+    // 7. Wiara — Figa z rozciętym wnętrzem
+    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<path d="M 18 4 Q 18 1, 19 0" stroke="#4d2c11" stroke-width="1.8"/>'
+      + '<path d="M 18 5 C 14 5, 8 14, 8 22 C 8 29, 14 34, 18 34 C 22 34, 28 29, 28 22 C 28 14, 22 5, 18 5 Z" fill="url(#fruitGradFig)" stroke="#581c87" stroke-width="1.2"/>'
+      + '<ellipse cx="18" cy="23" rx="6" ry="7" fill="#f43f5e" stroke="#fda4af" stroke-width="0.8"/>'
+      + '<circle cx="16" cy="21" r="0.8" fill="#fef08a"/>'
+      + '<circle cx="19" cy="20" r="0.8" fill="#fef08a"/>'
+      + '<circle cx="18" cy="24" r="0.8" fill="#fef08a"/>'
+      + '<circle cx="17" cy="26" r="0.8" fill="#fef08a"/>'
+      + '</svg>';
+  }
+  if (type === "apricot") {
+    // 8. Łagodność — Morela złocista
+    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<path d="M 18 7 Q 19 4, 21 2" stroke="#4d2c11" stroke-width="1.8"/>'
+      + '<circle cx="18" cy="20" r="13" fill="url(#fruitGradApricot)" stroke="#d97706" stroke-width="1.2"/>'
+      + '<path d="M 18 8 Q 19 18, 17 31" stroke="#b45309" stroke-width="1.2" opacity="0.6"/>'
+      + '<circle cx="12" cy="15" r="2.5" fill="#ffffff" opacity="0.45"/>'
+      + '</svg>';
+  }
+  if (type === "pomegranate") {
+    // 9. Panowanie nad sobą — Granat z koroną
+    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<polygon points="14,8 18,3 22,8 20,9 18,6 16,9" fill="#9f1239" stroke="#881337" stroke-width="0.8"/>'
+      + '<circle cx="18" cy="21" r="13" fill="url(#fruitGradPom)" stroke="#881337" stroke-width="1.2"/>'
+      + '<path d="M 21 15 C 27 17, 28 25, 23 27 C 20 25, 19 18, 21 15 Z" fill="#fbcfe8" stroke="#be123c" stroke-width="0.8"/>'
+      + '<circle cx="23" cy="19" r="1.3" fill="#be123c"/>'
+      + '<circle cx="25" cy="22" r="1.3" fill="#9f1239"/>'
+      + '<circle cx="22" cy="23" r="1.3" fill="#be123c"/>'
+      + '<circle cx="12" cy="15" r="2.5" fill="#ffffff" opacity="0.4"/>'
+      + '</svg>';
+  }
+  return '';
+}
+
 function _centrPobierzEtapDrzewa(doneCount, totalDni){
   doneCount = doneCount || 0;
   totalDni = totalDni || 365;
-  if(doneCount >= totalDni && totalDni > 0) return { name: "Wspaniałe Drzewo Życia (100%)", short: "Drzewo Życia 🏆", desc: "Ukończyłeś cały plan czytania! Twoje drzewo obficie obrodziło w duchowe owoce." };
-  if(doneCount >= 100) return { name: "Dojrzałe Drzewo Oliwne", short: "Dojrzałe Drzewo ⭐", desc: "Głęboko zakorzenione, silne drzewo wydające dojrzałe owoce regularnego czytania Słowa Bożego." };
-  if(doneCount >= 30) return { name: "Rozłożyste Drzewko", short: "Rozłożyste Drzewo 🍇", desc: "Drzewo dynamicznie rozrasta się w koronę o gęstym listowiu i silnych gałęziach." };
-  if(doneCount >= 14) return { name: "Młode Drzewo Oliwne", short: "Młode Drzewo 🍊", desc: "Wytrwałe pędy rozwijają się w młode drzewko z pierwszymi owocami." };
-  if(doneCount >= 7) return { name: "Silny Młody Pęd", short: "Młody Pęd 🍎", desc: "Pierwszy tydzień regularnego czytania przyniósł pierwszy owoc i nowe listki." };
-  if(doneCount >= 1) return { name: "Wschodzący Kiełek", short: "Kiełek 🌱", desc: "Zasiane ziarno wykiełkowało nad strumieniem żywej wody." };
-  return { name: "Zasiane Ziarno", short: "Zasiane Ziarno 🌱", desc: "Rozpocznij czytanie planu, aby Twoje drzewo zaczęło wzrastać każdego dnia." };
+  const owoce = _centrPobierzOwoceDucha(totalDni);
+  const zdobyte = owoce.filter(o => doneCount >= o.day).length;
+  if(zdobyte === 9) return { name: "Wspaniałe Drzewo Życia (9/9 owoców)", short: "Drzewo Życia 👑", desc: "Ukończyłeś cały plan czytania! Twoje drzewo w pełni obrodziło we wszystkie 9 owoców ducha." };
+  if(zdobyte >= 7) return { name: "Dojrzałe Drzewo Wiary (" + zdobyte + "/9 owoców)", short: "Dojrzałe Drzewo 🫒", desc: "Głęboko zakorzenione, silne drzewo, na którym dojrzewają najcenniejsze owoce regularnego studium." };
+  if(zdobyte >= 4) return { name: "Rozłożyste Drzewo Cierpliwości (" + zdobyte + "/9 owoców)", short: "Rozłożyste Drzewo 🍐", desc: "Drzewo dynamicznie rozrasta się w koronę, a gałęzie uginają się od kolejnych owoców." };
+  if(zdobyte >= 1) return { name: "Młode Drzewo Miłości (" + zdobyte + "/9 owoców)", short: "Młode Drzewo 🍎", desc: "Pierwsze owoce ducha wyrosły na silnych gałęziach dzięki regularnemu czytaniu Biblii." };
+  if(doneCount >= 1) return { name: "Wschodzący Kiełek", short: "Kiełek 🌱", desc: "Zasiane ziarno wykiełkowało nad strumieniem żywej wody i wypuszcza pierwsze pędy." };
+  return { name: "Zasiane Ziarno", short: "Zasiane Ziarno 🌱", desc: "Rozpocznij czytanie planu, aby Twoje drzewo zaczęło wzrastać i rodzić owoce ducha każdego dnia." };
 }
 
 function _centrGenerujDrzewoGrowthSvg(totalDni, doneCount, curSer, bestSer, animujNowy){
@@ -51149,7 +51429,7 @@ function _centrGenerujDrzewoGrowthSvg(totalDni, doneCount, curSer, bestSer, anim
   const pct = totalDni > 0 ? (doneCount / totalDni) : 0;
   const maturity = Math.min(1.0, doneCount / 180.0);
 
-  // DEFS: Gradienty, Swiatlo i Filtry
+  // DEFS: Gradienty, Swiatlo, Filtry i Kolory Owocow
   let defs = '<defs>'
     + '<linearGradient id="cenSkyGrad" x1="0%" y1="0%" x2="0%" y2="100%">'
     + '<stop offset="0%" stop-color="#0a1d33"/>'
@@ -51231,6 +51511,61 @@ function _centrGenerujDrzewoGrowthSvg(totalDni, doneCount, curSer, bestSer, anim
     + '<stop offset="70%" stop-color="#38bdf8" stop-opacity="0.95"/>'
     + '<stop offset="100%" stop-color="#0369a1" stop-opacity="0.9"/>'
     + '</linearGradient>'
+
+    + '<radialGradient id="fruitGradApple" cx="35%" cy="35%" r="65%">'
+    + '<stop offset="0%" stop-color="#fca5a5"/>'
+    + '<stop offset="40%" stop-color="#ef4444"/>'
+    + '<stop offset="90%" stop-color="#b91c1c"/>'
+    + '<stop offset="100%" stop-color="#7f1d1d"/>'
+    + '</radialGradient>'
+    + '<radialGradient id="fruitGradOrange" cx="35%" cy="35%" r="65%">'
+    + '<stop offset="0%" stop-color="#fed7aa"/>'
+    + '<stop offset="35%" stop-color="#fb923c"/>'
+    + '<stop offset="85%" stop-color="#ea580c"/>'
+    + '<stop offset="100%" stop-color="#9a3412"/>'
+    + '</radialGradient>'
+    + '<radialGradient id="fruitGradPlum" cx="35%" cy="35%" r="65%">'
+    + '<stop offset="0%" stop-color="#ddd6fe"/>'
+    + '<stop offset="35%" stop-color="#a855f7"/>'
+    + '<stop offset="85%" stop-color="#6b21a8"/>'
+    + '<stop offset="100%" stop-color="#3b0764"/>'
+    + '</radialGradient>'
+    + '<radialGradient id="fruitGradPear" cx="35%" cy="35%" r="65%">'
+    + '<stop offset="0%" stop-color="#fef08a"/>'
+    + '<stop offset="40%" stop-color="#a3e635"/>'
+    + '<stop offset="85%" stop-color="#65a30d"/>'
+    + '<stop offset="100%" stop-color="#365314"/>'
+    + '</radialGradient>'
+    + '<radialGradient id="fruitGradPeach" cx="35%" cy="35%" r="65%">'
+    + '<stop offset="0%" stop-color="#fed7aa"/>'
+    + '<stop offset="40%" stop-color="#fb923c"/>'
+    + '<stop offset="85%" stop-color="#f43f5e"/>'
+    + '<stop offset="100%" stop-color="#be123c"/>'
+    + '</radialGradient>'
+    + '<radialGradient id="fruitGradLemon" cx="35%" cy="35%" r="65%">'
+    + '<stop offset="0%" stop-color="#fef9c3"/>'
+    + '<stop offset="40%" stop-color="#fde047"/>'
+    + '<stop offset="85%" stop-color="#eab308"/>'
+    + '<stop offset="100%" stop-color="#854d0e"/>'
+    + '</radialGradient>'
+    + '<radialGradient id="fruitGradFig" cx="35%" cy="35%" r="65%">'
+    + '<stop offset="0%" stop-color="#f5d0fe"/>'
+    + '<stop offset="35%" stop-color="#c084fc"/>'
+    + '<stop offset="85%" stop-color="#7e22ce"/>'
+    + '<stop offset="100%" stop-color="#3b0764"/>'
+    + '</radialGradient>'
+    + '<radialGradient id="fruitGradApricot" cx="35%" cy="35%" r="65%">'
+    + '<stop offset="0%" stop-color="#fef3c7"/>'
+    + '<stop offset="40%" stop-color="#fbbf24"/>'
+    + '<stop offset="85%" stop-color="#d97706"/>'
+    + '<stop offset="100%" stop-color="#78350f"/>'
+    + '</radialGradient>'
+    + '<radialGradient id="fruitGradPom" cx="35%" cy="35%" r="65%">'
+    + '<stop offset="0%" stop-color="#fecdd3"/>'
+    + '<stop offset="40%" stop-color="#f43f5e"/>'
+    + '<stop offset="85%" stop-color="#be123c"/>'
+    + '<stop offset="100%" stop-color="#4c0519"/>'
+    + '</radialGradient>'
 
     + '<filter id="cenBlurSoft">'
     + '<feGaussianBlur stdDeviation="1.8"/>'
@@ -51443,33 +51778,27 @@ function _centrGenerujDrzewoGrowthSvg(totalDni, doneCount, curSer, bestSer, anim
         + '</g>';
     }
 
-    const fruitMilestones = [
-      { day: 7, x: 175, y: 170, hY: 188, icon: "❤️", name: "Miłość", color: "#f43f5e" },
-      { day: 14, x: 305, y: 170, hY: 188, icon: "🍊", name: "Radość", color: "#fb923c" },
-      { day: 30, x: 130, y: 148, hY: 166, icon: "🕊️", name: "Pokój", color: "#38bdf8" },
-      { day: 60, x: 350, y: 148, hY: 166, icon: "🫒", name: "Cierpliwość", color: "#84cc16" },
-      { day: 90, x: 208, y: 120, hY: 138, icon: "🌾", name: "Życzliwość", color: "#facc15" },
-      { day: 120, x: 272, y: 120, hY: 138, icon: "🍯", name: "Dobroć", color: "#f59e0b" },
-      { day: 180, x: 142, y: 102, hY: 120, icon: "⭐", name: "Wiara", color: "#ec4899" },
-      { day: 270, x: 338, y: 102, hY: 120, icon: "🌿", name: "Łagodność", color: "#10b981" },
-      { day: totalDni, x: 240, y: 52, hY: 66, icon: "👑", name: "Drzewo Życia", color: "#eab308" }
-    ];
+    // 9 Owoców Ducha (Galatów 5:22, 23)
+    const spiritualFruits = _centrPobierzOwoceDucha(totalDni);
 
-    let fruitsSvg = '<!-- Owoce ducha (Gal 5:22) z wahadłowym kołysaniem -->';
-    fruitMilestones.forEach(fm => {
-      if (doneCount >= fm.day && (fm.day <= totalDni || fm.day <= 365)) {
-        fruitsSvg += '<g transform="translate(' + fm.x + ',' + fm.y + ')" title="' + fm.name + ' (' + fm.icon + ')">'
-          + '<g class="cenFruitSway">'
-          + '<g class="cenDrzewoFruitGlow">'
-          + '<path d="M 0 0 Q -2 ' + ((fm.hY - fm.y)/2) + ', 0 ' + (fm.hY - fm.y) + '" stroke="#d97706" stroke-width="1.6" fill="none"/>'
-          + '<path d="M -4 ' + (fm.hY - fm.y - 2) + ' Q 0 ' + (fm.hY - fm.y + 1) + ', 4 ' + (fm.hY - fm.y - 2) + '" stroke="#15803d" stroke-width="1.2" fill="none"/>'
-          + '<circle cx="0" cy="' + (fm.hY - fm.y) + '" r="10.5" fill="' + fm.color + '" stroke="#fef08a" stroke-width="1.8"/>'
-          + '<circle cx="-3" cy="' + (fm.hY - fm.y - 3) + '" r="3" fill="#ffffff" opacity="0.6"/>'
-          + '<text x="0" y="' + (fm.hY - fm.y + 3.6) + '" text-anchor="middle" font-size="9px">' + fm.icon + '</text>'
-          + '</g>'
-          + '</g>'
-          + '</g>';
-      }
+    let fruitsSvg = '<!-- 9 Owocow Ducha (Gal 5:22) z wahadlowym kolysaniem -->';
+    spiritualFruits.forEach(fm => {
+      const isUnlocked = doneCount >= fm.day;
+      const fDist = fm.y - fm.hY;
+      fruitsSvg += '<g transform="translate(' + fm.x + ',' + fm.y + ')" title="' + fm.num + '. ' + fm.name + ' — ' + fm.fruit + ' (' + (isUnlocked ? 'Zdobyto w Dniu ' + fm.day : 'Odblokowuje się: Dzień ' + fm.day) + ')">'
+        + '<path d="M 0 ' + (-fDist) + ' Q -2 ' + (-fDist * 0.5) + ', 0 0" stroke="#78350f" stroke-width="1.8" fill="none"/>'
+        + '<path d="M -3 -2 Q 0 1, 3 -2" stroke="#15803d" stroke-width="1.2" fill="none"/>'
+        + '<g class="cenFruitSway">'
+        + '<g class="cenDrzewoFruitGlow" style="' + (!isUnlocked ? 'opacity:0.25;filter:grayscale(1);' : '') + '">'
+        + (isUnlocked ? '<circle cx="0" cy="14" r="18" fill="' + fm.color + '" opacity="0.25" filter="url(#cenBlurSoft)"/>' : '')
+        + '<g transform="translate(-16, -2)">'
+        + _centrRysujOwocSvg(fm.id, 32)
+        + '</g>'
+        + '<circle cx="9" cy="22" r="6" fill="' + (isUnlocked ? '#10b981' : '#475569') + '" stroke="#ffffff" stroke-width="1"/>'
+        + '<text x="9" y="24.8" fill="#ffffff" font-size="7px" font-weight="800" text-anchor="middle">' + fm.num + '</text>'
+        + '</g>'
+        + '</g>'
+        + '</g>';
     });
 
     treeGraphic = canopySvg + trunkSvg + branchesSvg + leavesSvg + fruitsSvg;
@@ -51518,26 +51847,15 @@ function _centrWidokDrzewoWzrostu(planInfo, dniDone, curSer, bestSer){
   const pctStr = pctNum.toFixed(1).replace(".", ",");
   const etap = _centrPobierzEtapDrzewa(doneCount, totalDni);
 
-  const spiritualFruits = [
-    { day: 7, name: "Miłość", icon: "❤️", desc: "1. tydzień czytania (Gal 5:22) — fundament duchowego wzrostu" },
-    { day: 14, name: "Radość", icon: "🍊", desc: "2 tygodnie w Słowie Bożym — serce napełnione wdzięcznością" },
-    { day: 30, name: "Pokój", icon: "🕊️", desc: "1 miesiąc regularności — wewnętrzny spokój ze studium Biblii" },
-    { day: 60, name: "Cierpliwość", icon: "🫒", desc: "2 miesiące wytrwałości — budowanie stałego nawyku" },
-    { day: 90, name: "Życzliwość", icon: "🌾", desc: "1. kwartał planu — dobre serce i chęć dzielenia się wiarą" },
-    { day: 120, name: "Dobroć", icon: "🍯", desc: "4 miesiące w Piśmie Świętym — prawe postępowanie na co dzień" },
-    { day: 180, name: "Wiara", icon: "⭐", desc: "Pół roku regularnego czytania — niezłomne zaufanie do Jehowy" },
-    { day: 270, name: "Łagodność", icon: "🌿", desc: "9 miesięcy studium — mądrość, wyrozumiałość i pokora" },
-    { day: totalDni, name: "Drzewo Życia / Panowanie nad sobą", icon: "👑", desc: "Ukończony cały plan biblijny — wspaniały duchowy triumf!" }
-  ];
-
+  const spiritualFruits = _centrPobierzOwoceDucha(totalDni);
   const unlockedFruitsCount = spiritualFruits.filter(f => doneCount >= f.day).length;
   const activeLeavesCount = doneCount > 0 ? Math.min(85, Math.max(16, Math.floor(doneCount * 1.6) + 4)) : 0;
 
   const nextFruit = spiritualFruits.find(f => doneCount < f.day);
-  let nextStageText = "Osiągnięto wszystkie kamienie milowe planu!";
+  let nextStageText = "Osiągnięto wszystkie 9 owoców ducha!";
   if(nextFruit){
     const left = nextFruit.day - doneCount;
-    nextStageText = "Kolejny owoc: <b>" + nextFruit.name + " " + nextFruit.icon + "</b> za <b>" + left + (left === 1 ? " dzień" : " dni") + "</b> czytania.";
+    nextStageText = "Kolejny owoc: <b>" + nextFruit.num + ". " + nextFruit.name + " (" + nextFruit.fruit + ")</b> za <b>" + left + (left === 1 ? " dzień" : " dni") + "</b> czytania.";
   }
 
   const svgTree = _centrGenerujDrzewoGrowthSvg(totalDni, doneCount, curSer, bestSer, false);
@@ -51545,12 +51863,12 @@ function _centrWidokDrzewoWzrostu(planInfo, dniDone, curSer, bestSer){
   let fruitsHtml = '';
   spiritualFruits.forEach(f => {
     const isUnlocked = doneCount >= f.day;
-    fruitsHtml += '<div class="cenFruitItem ' + (isUnlocked ? 'unlocked' : 'locked') + '">'
-      + '<div class="cenFruitIko">' + f.icon + '</div>'
+    fruitsHtml += '<div class="cenFruitItem ' + (isUnlocked ? 'unlocked' : 'locked') + '" title="' + esc(f.num + '. ' + f.name + ' — ' + f.fruit) + '">'
+      + '<div class="cenFruitIko">' + _centrRysujOwocSvg(f.id, 34) + '</div>'
       + '<div class="cenFruitInfo">'
       + '<div class="cenFruitName">'
-      + '<span>' + esc(f.name) + '</span>'
-      + '<span class="cenFruitBadge ' + (isUnlocked ? 'unlocked' : 'locked') + '">' + (isUnlocked ? 'Zdobyto' : ('Dzień ' + f.day)) + '</span>'
+      + '<span>' + f.num + '. ' + esc(f.name) + ' — <span style="font-weight:600;opacity:0.85;">' + esc(f.fruit) + '</span></span>'
+      + '<span class="cenFruitBadge ' + (isUnlocked ? 'unlocked' : 'locked') + '">' + (isUnlocked ? ('Zdobyto ✓ (Dzień ' + f.day + ')') : ('Dzień ' + f.day)) + '</span>'
       + '</div>'
       + '<div class="cenFruitDesc">' + esc(f.desc) + '</div>'
       + '</div>'
@@ -51730,6 +52048,9 @@ function centrWidokCzytanieChrono(){
   const pctNum = totalDni > 0 ? (doneCount / totalDni) * 100 : 0;
   const pct = pctNum.toFixed(1).replace(".", ",");
   const nastDni = planList.filter(x=>x.d > curDzien && x.d <= curDzien + 3);
+  const owoceDucha = typeof _centrPobierzOwoceDucha === "function" ? _centrPobierzOwoceDucha(totalDni) : [];
+  const odblOwoce = owoceDucha.filter(o => doneCount >= o.day).length;
+  const nastOwoc = owoceDucha.find(o => doneCount < o.day);
 
   return '<div class="cenSubHeader">'
     + '<div class="cenSubHeaderLewo">'
@@ -51751,8 +52072,8 @@ function centrWidokCzytanieChrono(){
     + '<div class="cenHeroTyt" style="font-size:18px;margin-top:2px;">' + esc(planInfo.name) + '</div>'
     + '<div class="cenHeroOpis" style="font-size:13px;">' + esc(planInfo.desc) + '</div>'
     + '</div>'
-    + '<button type="button" class="cenMiniDrzewoBadge" data-cwidok="statystyki" data-cstat-tab="drzewo" title="Zobacz swoje Drzewo Wzrostu Duchowego">'
-    + '🌱 Drzewo wzrostu (' + doneCount + ' dni)'
+    + '<button type="button" class="cenMiniDrzewoBadge" data-cwidok="statystyki" data-cstat-tab="drzewo" title="Zobacz swoje Drzewo Wzrostu Duchowego i 9 owoców ducha">'
+    + '🌳 Owoce ducha: ' + odblOwoce + '/9'
     + '</button>'
     + '</div>'
 
@@ -51767,6 +52088,18 @@ function centrWidokCzytanieChrono(){
     + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + (totalDni - doneCount) + '</div><div class="cenPlanStatLbl">Pozostało dni</div></div>'
     + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + (planInfo.pace || "~1 rozdz./dzień") + '</div><div class="cenPlanStatLbl">Średnie tempo</div></div>'
     + '</div></div>'
+
+    + '<div class="cenFruitPlanBanner" data-cwidok="statystyki" data-cstat-tab="drzewo" title="Zobacz Drzewo Wzrostu Duchowego i owoce ducha">'
+    + '<div class="cenFruitPlanBannerLewo">'
+    + '<div class="cenFruitPlanBannerIko">🌳</div>'
+    + '<div>'
+    + '<div class="cenFruitPlanBannerTyt">Owoce ducha w Twoim planie (Galatów 5:22, 23)</div>'
+    + '<div class="cenFruitPlanBannerSub">' + odblOwoce + ' z 9 owoców dojrzało • ' + (odblOwoce === 9 ? 'Wszystkie owoce zdobyte! 🌟' : (nastOwoc ? ('Kolejny owoc: <b>' + esc(nastOwoc.name) + ' (' + esc(nastOwoc.fruit) + ')</b> za ' + (nastOwoc.day - doneCount) + ' ' + (nastOwoc.day - doneCount === 1 ? 'dzień' : 'dni') + ' (Dzień ' + nastOwoc.day + ')') : '')) + '</div>'
+    + '</div></div>'
+    + '<div class="cenFruitMiniRow">'
+    + owoceDucha.map(o => '<span class="cenFruitMiniDot ' + (doneCount >= o.day ? 'active' : 'inactive') + '" title="' + esc(o.num + '. ' + o.name + ' (' + o.fruit + ') - Dzień ' + o.day + (doneCount >= o.day ? ' (Dojrzały ✓)' : ' (Jeszcze zablokowany)')) + '">' + (typeof _centrRysujOwocSvg === "function" ? _centrRysujOwocSvg(o.id, 18) : o.icon) + '</span>').join('')
+    + '</div>'
+    + '</div>'
 
     + '<div class="cenChronoAkcjeRow">'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="kalendarz">' + CEN_MODERN_ICO.calendar + '<span>Kalendarz</span></button>'
@@ -54252,7 +54585,12 @@ if($("centrum")){
             dni.add(d);
             _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
             if(typeof _centrOznaczDzisCzytanieUkonczone === "function") _centrOznaczDzisCzytanieUkonczone();
-            toast("🎉 Wspaniale! Ukończono wszystkie fragmenty na Dzień " + d + "!", "ok");
+            const fNowy = typeof _centrPobierzOwoceDucha === "function" ? _centrPobierzOwoceDucha(planInfo.days).find(o => o.day === d) : null;
+            if(fNowy){
+              toast("🌳✨ Wspaniale! Twoje drzewo wydało nowy owoc: " + fNowy.name + " (" + fNowy.fruit + ")! 🎉", "ok", 5000);
+            } else {
+              toast("🎉 Wspaniale! Ukończono wszystkie fragmenty na Dzień " + d + "!", "ok");
+            }
             if(d < planInfo.days){
               _centrWybranyDzien = d + 1;
               lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
@@ -54293,7 +54631,12 @@ if($("centrum")){
           planDay.f.forEach((_, idx) => fragi.add(_centrAktywnyPlanId + "_" + d + "_" + idx));
           _centrZapiszUkonczoneFragi(fragi);
         }
-        toast("🎉 Wspaniale! Ukończono czytanie na Dzień " + d + "!", "ok");
+        const fNowy = typeof _centrPobierzOwoceDucha === "function" ? _centrPobierzOwoceDucha(_planUk.days).find(o => o.day === d) : null;
+        if(fNowy){
+          toast("🌳✨ Wspaniale! Twoje drzewo wydało nowy owoc: " + fNowy.name + " (" + fNowy.fruit + ")! 🎉", "ok", 5000);
+        } else {
+          toast("🎉 Wspaniale! Ukończono czytanie na Dzień " + d + "!", "ok");
+        }
         if(d < _planUk.days){
           _centrWybranyDzien = d + 1;
           lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
@@ -54343,7 +54686,12 @@ if($("centrum")){
               dni.add(d);
               _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
               if(typeof _centrOznaczDzisCzytanieUkonczone === "function") _centrOznaczDzisCzytanieUkonczone();
-              toast("🎉 Wspaniale! Ukończono wszystkie fragmenty na Dzień " + d + "!", "ok");
+              const fNowy = typeof _centrPobierzOwoceDucha === "function" ? _centrPobierzOwoceDucha(planInfo.days).find(o => o.day === d) : null;
+              if(fNowy){
+                toast("🌳✨ Wspaniale! Twoje drzewo wydało nowy owoc: " + fNowy.name + " (" + fNowy.fruit + ")! 🎉", "ok", 5000);
+              } else {
+                toast("🎉 Wspaniale! Ukończono wszystkie fragmenty na Dzień " + d + "!", "ok");
+              }
               if(d < planInfo.days){
                 _centrWybranyDzien = d + 1;
                 lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
