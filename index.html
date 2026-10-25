@@ -6526,7 +6526,13 @@ body.fs-open #modalFs,
 #modalFs .fsBarBtn { background: color-mix(in srgb, var(--panel) 82%, transparent); color: var(--text); border: 1px solid color-mix(in srgb, var(--border) 60%, rgba(255,255,255,.12)); border-radius: 999px; }
 #modalFs .fsBarBtn:hover { background: color-mix(in srgb, var(--sel) 85%, var(--accent)); border-color: color-mix(in srgb, var(--accent) 35%, transparent); color: var(--accent); }
 #modalFs .fsBarBtn.active { background: color-mix(in srgb, var(--accent) 15%, transparent); border-color: var(--accent); color: var(--accent); }
-#modalFs .fsFind,
+#modalFs .fsFind {
+  background: var(--panel) !important;
+  border: 1.5px solid var(--accent) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18) !important;
+  color: var(--text) !important;
+}
 #modalFs .fsToc,
 #modalFs .fsMarks { background: color-mix(in srgb, var(--panel) 90%, transparent); border-color: color-mix(in srgb, var(--border) 70%, rgba(255,255,255,.18)); color: var(--text); }
 #modalFs .fsFindInp { background: transparent; border-color: transparent; color: var(--text); }
@@ -19324,24 +19330,198 @@ html.is-ios[data-theme="dark"], html.is-ipad[data-theme="dark"], html.is-iphone[
   background-color: #0d1217;
 }
 
-/* Styl powiększony dedykowany wyłącznie dla tabletów iPad */
+/* Styl dedykowany dla tabletów iPad (poziom i pion) */
 html.is-ipad header, body.is-ipad header,
 html.ipad-standalone header, body.ipad-standalone header {
-  min-height: calc(70px + env(safe-area-inset-top, 0px)) !important;
-  padding-top: max(26px, calc(18px + env(safe-area-inset-top, 0px))) !important;
-  padding-bottom: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  min-height: calc(64px + env(safe-area-inset-top, 0px)) !important;
+  padding-top: max(20px, calc(14px + env(safe-area-inset-top, 0px))) !important;
+  padding-bottom: 8px !important;
+  padding-left: max(14px, env(safe-area-inset-left, 0px)) !important;
+  padding-right: max(14px, env(safe-area-inset-right, 0px)) !important;
+  box-sizing: border-box !important;
+  gap: 8px !important;
+  row-gap: 8px !important;
 }
+
 html.is-ipad header .btn,
 html.is-ipad header #sortSel,
 html.is-ipad header .fontctl button {
-  min-height: 40px !important;
+  min-height: 38px !important;
 }
-html.is-ipad header .searchwrap {
-  min-height: 42px !important;
+
+/* W widoku poziomym (landscape > 900px) na iPadzie: 1 elegancki rząd */
+@media (min-width: 901px) {
+  html.is-ipad header, body.is-ipad header,
+  html.ipad-standalone header, body.ipad-standalone header {
+    flex-wrap: nowrap !important;
+  }
+  html.is-ipad header .mobile-menu-btn {
+    display: none !important;
+  }
+  html.is-ipad header .searchwrap {
+    order: 1 !important;
+    flex: 1 1 240px !important;
+    max-width: 380px !important;
+    min-width: 180px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+  }
+  html.is-ipad header #btnNew {
+    order: 20 !important;
+  }
 }
-html.is-ipad header .mobile-menu-btn {
-  min-width: 42px !important;
-  min-height: 42px !important;
+
+/* W widoku pionowym (portrait <= 900px) na iPadzie: Rząd 1 = Hamburger + Pełna Wyszukiwarka + Nowa */
+@media (max-width: 900px), (orientation: portrait) {
+  html.is-ipad header, body.is-ipad header,
+  html.ipad-standalone header, body.ipad-standalone header {
+    flex-wrap: wrap !important;
+  }
+
+  html.is-ipad header .mobile-menu-btn {
+    order: 1 !important;
+    display: inline-flex !important;
+    flex: 0 0 40px !important;
+    width: 40px !important;
+    min-width: 40px !important;
+    max-width: 40px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  html.is-ipad header .searchwrap {
+    order: 2 !important;
+    flex: 1 1 auto !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 160px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    margin: 0 !important;
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    border-radius: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  html.is-ipad header .searchwrap #search {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    font-size: 15px !important;
+    padding: 0 34px 0 36px !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+    caret-color: #ffffff !important;
+    box-sizing: border-box !important;
+  }
+
+  html.is-ipad header .searchwrap #search::placeholder {
+    color: rgba(255, 255, 255, 0.75) !important;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.75) !important;
+  }
+
+  html.is-ipad header .searchwrap .search-ic {
+    position: absolute !important;
+    left: 10px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 17px !important;
+    height: 17px !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    pointer-events: none !important;
+    margin: 0 !important;
+  }
+
+  html.is-ipad header .searchwrap #btnSearchTools {
+    position: absolute !important;
+    right: 6px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 24px !important;
+    height: 28px !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    background: transparent !important;
+    border: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    margin: 0 !important;
+  }
+
+  html.is-ipad header #btnNew {
+    order: 3 !important;
+    flex: 0 0 auto !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 14px !important;
+    border-radius: 10px !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+
+  html.is-ipad header #btnNew .tb-txt {
+    display: inline !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+  }
+
+  html.is-ipad header #btnWszystkie:not([hidden]) {
+    order: 10 !important;
+    height: 36px !important;
+    min-height: 36px !important;
+  }
+
+  html.is-ipad header #sortSel {
+    order: 11 !important;
+    flex: 1 1 120px !important;
+    max-width: 220px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+    font-size: 14px !important;
+  }
+
+  html.is-ipad header .ikony-grupa {
+    order: 12 !important;
+    height: 36px !important;
+    min-height: 36px !important;
+  }
+
+  html.is-ipad header .ikony-grupa .btn {
+    width: 36px !important;
+    min-width: 36px !important;
+    height: 36px !important;
+    min-height: 36px !important;
+  }
+
+  html.is-ipad header .fontctl {
+    order: 13 !important;
+    height: 36px !important;
+    min-height: 36px !important;
+  }
+
+  html.is-ipad header .fontctl button {
+    height: 36px !important;
+    min-height: 36px !important;
+    padding: 0 10px !important;
+    font-size: 13px !important;
+  }
 }
 
 html.ipad-standalone #modernSidebar, body.ipad-standalone #modernSidebar,
