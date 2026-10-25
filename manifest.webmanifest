@@ -18,5 +18,21 @@
     { "src": "./icon-1024.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any" },
     { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
     { "src": "./apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Centrum studium",
+      "short_name": "Centrum",
+      "description": "Otwórz Centrum studium osobistego",
+      "url": "./index.html?v=centrum",
+      "icons": [{ "src": "./icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Plan czytania Biblii",
+      "short_name": "Plan",
+      "description": "Przejdź do planu czytania Biblii",
+      "url": "./index.html?v=plan",
+      "icons": [{ "src": "./icon-192.png", "sizes": "192x192" }]
+    }
   ]
 }

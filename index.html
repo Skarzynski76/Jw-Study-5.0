@@ -180,6 +180,7 @@ select,button,input{font-family:inherit}
 .btn{padding:8px 14px;border:1px solid var(--border);border-radius:10px;background:var(--panel);cursor:pointer;font-size:13px;font-weight:500;white-space:nowrap;color:var(--text);display:inline-flex;align-items:center;justify-content:center;gap:6px;
   transition:background .14s ease, border-color .14s ease, transform .1s cubic-bezier(.22,.9,.32,1), box-shadow .14s ease}
 .btn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(34,160,107,.28)}
+:focus-visible{outline:2px solid var(--accent, #22a06b) !important;outline-offset:2px !important}
 .btn .ic{width:18px;height:18px}
 .btn.ico-btn{padding:8px 10px}
 .btn.ico-btn .ic{width:19px;height:19px}
@@ -29474,7 +29475,7 @@ function renderAll(){
      z których zmieniła się garstka. To był najdroższy pojedynczy krok całego
      odświeżania. */
   if(typeof nazwijPrzyciskiIkonowe==="function"){
-    ["tagList","bookList","noteList","pubList"].forEach(id=>{
+    ["tagList","bookList","noteList","pubList","centrum"].forEach(id=>{
       const el = document.getElementById(id);
       if(el) nazwijPrzyciskiIkonowe(el);
     });
@@ -51281,7 +51282,7 @@ function _centrPobierzOwoceDucha(totalDni){
       num: 8,
       name: "Łagodność",
       fruit: "Morela",
-      icon: "🍑",
+      icon: "🍈",
       color: "#f59e0b",
       x: 155, y: 76, hX: 155, hY: 62,
       desc: "Subtelny kolor i delikatny wygląd pasują do łagodnego usposobienia, spokojnych słów, taktu i pokory."
@@ -51319,6 +51320,7 @@ function _centrRysujOwocSvg(type, size){
   if (type === "apple") {
     // 1. Miłość — Jabłko z serduszkiem w środku
     return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<defs><radialGradient id="fruitGradApple" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fca5a5"/><stop offset="40%" stop-color="#ef4444"/><stop offset="90%" stop-color="#b91c1c"/><stop offset="100%" stop-color="#7f1d1d"/></radialGradient></defs>'
       + '<path d="M 18 8 Q 19 4, 23 2" stroke="#4d2c11" stroke-width="2" stroke-linecap="round"/>'
       + '<path d="M 20 4 C 25 3, 27 6, 26 8 C 21 8, 20 5, 20 4 Z" fill="#22c55e" stroke="#15803d" stroke-width="0.8"/>'
       + '<path d="M 18 10 C 13 5, 3 8, 4 19 C 5 28, 14 33, 18 34 C 22 33, 31 28, 32 19 C 33 8, 23 5, 18 10 Z" fill="url(#fruitGradApple)" stroke="#991b1b" stroke-width="1.2"/>'
@@ -51329,6 +51331,7 @@ function _centrRysujOwocSvg(type, size){
   if (type === "orange") {
     // 2. Radość — Pomarańcza ze szypułką
     return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<defs><radialGradient id="fruitGradOrange" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fed7aa"/><stop offset="35%" stop-color="#fb923c"/><stop offset="85%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs>'
       + '<circle cx="18" cy="20" r="14" fill="url(#fruitGradOrange)" stroke="#c2410c" stroke-width="1.2"/>'
       + '<path d="M 18 6 Q 18 3, 19 1" stroke="#3f230d" stroke-width="1.8" stroke-linecap="round"/>'
       + '<polygon points="18,6 15,9 18,8 21,9" fill="#15803d"/>'
@@ -51339,6 +51342,7 @@ function _centrRysujOwocSvg(type, size){
   if (type === "plum") {
     // 3. Pokój — Śliwka z woskowym nalotem i listkiem
     return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<defs><radialGradient id="fruitGradPlum" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#ddd6fe"/><stop offset="35%" stop-color="#a855f7"/><stop offset="85%" stop-color="#6b21a8"/><stop offset="100%" stop-color="#3b0764"/></radialGradient></defs>'
       + '<path d="M 18 7 Q 20 3, 23 1" stroke="#4d2c11" stroke-width="1.8" stroke-linecap="round"/>'
       + '<path d="M 20 4 C 25 3, 27 6, 25 8 C 21 8, 20 5, 20 4 Z" fill="#16a34a"/>'
       + '<path d="M 18 8 C 9 9, 7 19, 10 27 C 13 33, 23 34, 26 27 C 29 19, 27 9, 18 8 Z" fill="url(#fruitGradPlum)" stroke="#4c1d95" stroke-width="1.2"/>'
@@ -51349,6 +51353,7 @@ function _centrRysujOwocSvg(type, size){
   if (type === "pear") {
     // 4. Cierpliwość — Gruszka złocisto-zielona
     return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<defs><radialGradient id="fruitGradPear" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fef08a"/><stop offset="40%" stop-color="#a3e635"/><stop offset="85%" stop-color="#65a30d"/><stop offset="100%" stop-color="#365314"/></radialGradient></defs>'
       + '<path d="M 18 5 Q 19 2, 22 1" stroke="#4d2c11" stroke-width="1.8" stroke-linecap="round"/>'
       + '<path d="M 18 5 C 13 5, 12 12, 10 17 C 7 24, 8 32, 18 33 C 28 32, 29 24, 26 17 C 24 12, 23 5, 18 5 Z" fill="url(#fruitGradPear)" stroke="#4d7c0f" stroke-width="1.2"/>'
       + '<circle cx="13" cy="22" r="3" fill="#ffffff" opacity="0.35"/>'
@@ -51357,6 +51362,7 @@ function _centrRysujOwocSvg(type, size){
   if (type === "peach") {
     // 5. Życzliwość — Brzoskwinia z aksamitnym rumieńcem
     return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<defs><radialGradient id="fruitGradPeach" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fed7aa"/><stop offset="40%" stop-color="#fb923c"/><stop offset="85%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#be123c"/></radialGradient></defs>'
       + '<path d="M 18 6 Q 19 3, 21 1" stroke="#4d2c11" stroke-width="1.8" stroke-linecap="round"/>'
       + '<path d="M 18 6 C 12 6, 6 12, 7 21 C 8 29, 15 33, 18 33 C 21 33, 28 29, 29 21 C 30 12, 24 6, 18 6 Z" fill="url(#fruitGradPeach)" stroke="#ea580c" stroke-width="1.2"/>'
       + '<path d="M 18 7 C 19 14, 18 24, 18 32" stroke="#c2410c" stroke-width="1.2" opacity="0.5"/>'
@@ -51366,6 +51372,7 @@ function _centrRysujOwocSvg(type, size){
   if (type === "lemon") {
     // 6. Dobroć — Cytryna z listkami
     return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<defs><radialGradient id="fruitGradLemon" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fef9c3"/><stop offset="40%" stop-color="#fde047"/><stop offset="85%" stop-color="#eab308"/><stop offset="100%" stop-color="#854d0e"/></radialGradient></defs>'
       + '<path d="M 8 18 C 9 10, 27 10, 28 18 C 27 26, 9 26, 8 18 Z" transform="rotate(-30 18 18)" fill="url(#fruitGradLemon)" stroke="#ca8a04" stroke-width="1.2"/>'
       + '<circle cx="5" cy="22" r="1.5" fill="#ca8a04"/>'
       + '<circle cx="31" cy="14" r="1.5" fill="#ca8a04"/>'
@@ -51375,6 +51382,7 @@ function _centrRysujOwocSvg(type, size){
   if (type === "fig") {
     // 7. Wiara — Figa z rozciętym wnętrzem
     return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<defs><radialGradient id="fruitGradFig" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#f5d0fe"/><stop offset="35%" stop-color="#c084fc"/><stop offset="85%" stop-color="#7e22ce"/><stop offset="100%" stop-color="#3b0764"/></radialGradient></defs>'
       + '<path d="M 18 4 Q 18 1, 19 0" stroke="#4d2c11" stroke-width="1.8"/>'
       + '<path d="M 18 5 C 14 5, 8 14, 8 22 C 8 29, 14 34, 18 34 C 22 34, 28 29, 28 22 C 28 14, 22 5, 18 5 Z" fill="url(#fruitGradFig)" stroke="#581c87" stroke-width="1.2"/>'
       + '<ellipse cx="18" cy="23" rx="6" ry="7" fill="#f43f5e" stroke="#fda4af" stroke-width="0.8"/>'
@@ -51387,6 +51395,7 @@ function _centrRysujOwocSvg(type, size){
   if (type === "apricot") {
     // 8. Łagodność — Morela złocista
     return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<defs><radialGradient id="fruitGradApricot" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fef3c7"/><stop offset="40%" stop-color="#fbbf24"/><stop offset="85%" stop-color="#d97706"/><stop offset="100%" stop-color="#78350f"/></radialGradient></defs>'
       + '<path d="M 18 7 Q 19 4, 21 2" stroke="#4d2c11" stroke-width="1.8"/>'
       + '<circle cx="18" cy="20" r="13" fill="url(#fruitGradApricot)" stroke="#d97706" stroke-width="1.2"/>'
       + '<path d="M 18 8 Q 19 18, 17 31" stroke="#b45309" stroke-width="1.2" opacity="0.6"/>'
@@ -51396,6 +51405,7 @@ function _centrRysujOwocSvg(type, size){
   if (type === "pomegranate") {
     // 9. Panowanie nad sobą — Granat z koroną
     return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
+      + '<defs><radialGradient id="fruitGradPom" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fecdd3"/><stop offset="40%" stop-color="#f43f5e"/><stop offset="85%" stop-color="#be123c"/><stop offset="100%" stop-color="#881337"/></radialGradient></defs>'
       + '<polygon points="14,8 18,3 22,8 20,9 18,6 16,9" fill="#9f1239" stroke="#881337" stroke-width="0.8"/>'
       + '<circle cx="18" cy="21" r="13" fill="url(#fruitGradPom)" stroke="#881337" stroke-width="1.2"/>'
       + '<path d="M 21 15 C 27 17, 28 25, 23 27 C 20 25, 19 18, 21 15 Z" fill="#fbcfe8" stroke="#be123c" stroke-width="0.8"/>'
