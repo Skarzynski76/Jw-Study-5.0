@@ -25449,11 +25449,46 @@ function idbOpen(){return new Promise((res,rej)=>{
     zaloz("files");
     zaloz("wersje", {keyPath:"g"});
   };
-  r.onsuccess = e=>zakoncz(res, e.target.result);
+  r.onsuccess = e=>{
+    const db = e.target.result;
+    if(db){
+      db.onclose = () => { idb = null; };
+      db.onversionchange = () => { try{ db.close(); }catch(_){} idb = null; };
+    }
+    zakoncz(res, db);
+  };
   r.onerror = e=>zakoncz(rej, r.error || e);
   r.onblocked = ()=>zakoncz(rej, new Error("Pamięć jest zablokowana przez inną kartę aplikacji"));
 });}
-function idbAll(store){return new Promise((res,rej)=>{const t=idb.transaction(store).objectStore(store).getAll();t.onsuccess=()=>res(t.result);t.onerror=rej;});}
+
+async function idbGetDB(){
+  if(idb) return idb;
+  try {
+    idb = await idbOpen();
+    return idb;
+  } catch(e){
+    console.warn("Błąd łączenia z IndexedDB:", e);
+    return null;
+  }
+}
+
+async function idbAll(store){
+  let db = idb || (await idbGetDB());
+  if(!db) throw bladBrakuPamieci();
+  return new Promise((res,rej)=>{
+    let timer = setTimeout(()=>rej(new Error("Limit czasu odczytu bazy.")), 6000);
+    try{
+      const t = db.transaction(store).objectStore(store).getAll();
+      t.onsuccess = () => { clearTimeout(timer); res(t.result); };
+      t.onerror = (e) => { clearTimeout(timer); rej(e); };
+    }catch(e){
+      clearTimeout(timer);
+      if(e && (e.name === "InvalidStateError" || e.name === "TransactionInactiveError")) idb = null;
+      rej(e);
+    }
+  });
+}
+
 function bladBrakuPamieci(){ return new Error("Trwała pamięć jest niedostępna. Zmiany nie zostały zapisane. Zrób kopię JSON i odśwież aplikację po zamknięciu pozostałych kart JW Study."); }
 function pokazBrakPamieci(){
   let el=$("storageWarning");
@@ -25465,20 +25500,50 @@ function pokazBrakPamieci(){
   el.textContent="Brak trwałego zapisu — zmiany znikną po zamknięciu lub odświeżeniu. Zapisz kopię JSON przez Plik. Zamknij inne karty JW Study, a następnie otwórz aplikację ponownie.";
 }
 /* Sukces operacji put/delete nie jest jeszcze zatwierdzeniem transakcji. */
-function idbWrite(store, wykonaj){return new Promise((res,rej)=>{
-  if(!idb){pokazBrakPamieci();return rej(bladBrakuPamieci());}
-  let tx;
-  try{
-    tx=idb.transaction(store,"readwrite");
-    tx.oncomplete=()=>res();
-    tx.onerror=()=>rej(tx.error||new Error("Nie udało się zapisać danych."));
-    tx.onabort=()=>rej(tx.error||new Error("Zapis danych został przerwany."));
-    wykonaj(tx.objectStore(store));
-  }catch(e){if(tx)try{tx.abort();}catch(_){}rej(e);}
-});}
+async function idbWrite(store, wykonaj){
+  let db = idb || (await idbGetDB());
+  if(!db){pokazBrakPamieci();throw bladBrakuPamieci();}
+  return new Promise((res,rej)=>{
+    let tx;
+    let timer = setTimeout(()=>{
+      rej(new Error("Limit czasu operacji zapisu bazy danych."));
+    }, 6000);
+    try{
+      tx=db.transaction(store,"readwrite");
+      tx.oncomplete=()=>{ clearTimeout(timer); res(); };
+      tx.onerror=()=>{ clearTimeout(timer); rej(tx.error||new Error("Nie udało się zapisać danych.")); };
+      tx.onabort=()=>{ clearTimeout(timer); rej(tx.error||new Error("Zapis danych został przerwany.")); };
+      wykonaj(tx.objectStore(store));
+    }catch(e){
+      clearTimeout(timer);
+      if(tx)try{tx.abort();}catch(_){}
+      if(e && (e.name === "InvalidStateError" || e.name === "TransactionInactiveError")){
+        idb = null;
+      }
+      rej(e);
+    }
+  });
+}
 function idbPut(store,val,key){return idbWrite(store,os=>os.put(val,key));}
 function idbDelKey(store,key){return idbWrite(store,os=>os.delete(key));}
-function idbGet(store,key){return new Promise((res,rej)=>{const t=idb.transaction(store).objectStore(store).get(key);t.onsuccess=()=>res(t.result);t.onerror=rej;});}
+async function idbGet(store,key){
+  let db = idb || (await idbGetDB());
+  if(!db) return null;
+  return new Promise((res,rej)=>{
+    let timer = setTimeout(()=>res(null), 4000);
+    try{
+      const t = db.transaction(store).objectStore(store).get(key);
+      t.onsuccess = () => { clearTimeout(timer); res(t.result); };
+      t.onerror = (e) => { clearTimeout(timer); rej(e); };
+    }catch(e){
+      clearTimeout(timer);
+      if(e && (e.name === "InvalidStateError" || e.name === "TransactionInactiveError")){
+        idb = null;
+      }
+      res(null);
+    }
+  });
+}
 function idbBulk(store,items){return idbWrite(store,os=>items.forEach(i=>os.put(i)));}
 /**
  * Zapisuje dużą listę rekordów w porcjach, żeby jedna transakcja nie trwała zbyt długo
@@ -25897,11 +25962,72 @@ async function szkicOdzyskaj(card,n){
 }
 function szkicFlushKarty(){
   document.querySelectorAll(".ncard.editing[data-g]").forEach(card=>{
-    const n=notes.find(x=>x.g===card.dataset.g); if(n){ szkicAnuluj(n.g); szkicZapisz(card,n,true); }
+    const n=notes.find(x=>x.g===card.dataset.g);
+    if(n){
+      szkicAnuluj(n.g);
+      try {
+        const dane = szkicDane(card, n);
+        if(dane) localStorage.setItem("jw_emergency_draft_" + n.g, JSON.stringify(dane));
+      } catch(_){}
+      szkicZapisz(card,n,true);
+    }
   });
 }
 addEventListener("pagehide",szkicFlushKarty);
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden") szkicFlushKarty();});
+
+/**
+ * Odblokowanie wiszących operacji po powrocie do aplikacji (np. po przełączeniu z JW Library na iPadzie).
+ * Zapobiega zablokowaniu przycisków, przerwanych transakcji IndexedDB i zamrożeniu edytora.
+ */
+function odblokujWiszaceAkcjePoPowrocie(){
+  // 1. Zdejmij wszelkie wiszące blokady zapisu z kart notatek
+  document.querySelectorAll('.ncard[data-saving="1"]').forEach(card=>{
+    delete card.dataset.saving;
+    const btn = card.querySelector('[data-act="edit"]');
+    if(btn){
+      btn.disabled = false;
+      if(btn.classList.contains("saveon")){
+        btn.innerHTML = (typeof ICO!=="undefined"&&ICO.save?ICO.save:'') + '<span class="sbtnTxt">Zapisz</span>';
+        btn.title = "Ponów zapis";
+      } else {
+        btn.innerHTML = (typeof ICO!=="undefined"&&ICO.edit?ICO.edit:'');
+        btn.title = "Edytuj notatkę";
+      }
+    }
+    const cont = card.querySelector(".ncontent");
+    if(cont && cont.getAttribute("contenteditable") !== "true" && !card.classList.contains("editing")){
+      if(typeof ustawStanZapisu === "function") ustawStanZapisu(cont, "saved");
+    }
+  });
+
+  // 2. Jeśli wskaźnik stanu zapisu utknął na 'saving', przywróć normalny stan
+  document.querySelectorAll('.editSaveState[data-state="saving"]').forEach(el=>{
+    el.dataset.state = "saved";
+    el.textContent = "Zapisano";
+  });
+
+  // 3. Posprzątaj wiszące operacje gestów i chwytu
+  if(typeof posprzatajChwyt === "function") posprzatajChwyt();
+  if(typeof imgDragSprzataj === "function") imgDragSprzataj(false);
+
+  // 4. Odśwież połączenie z bazą IndexedDB na wypadek zerwania w tle przez iOS
+  if(typeof idbGetDB === "function"){
+    idbGetDB().catch(()=>{});
+  }
+
+  // 5. Zresetuj blokady operacji w tle
+  if(typeof syncPracuje !== "undefined") syncPracuje = false;
+  if(typeof smartPracuje !== "undefined") smartPracuje = false;
+
+  // 6. Bezpiecznie zsynchronizuj stoper jeśli był aktywny
+  if(typeof _centrResynchronizujStoperWTle === "function"){
+    try { _centrResynchronizujStoperWTle(); } catch(_){}
+  }
+}
+document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState === "visible") odblokujWiszaceAkcjePoPowrocie(); });
+window.addEventListener("pageshow", odblokujWiszaceAkcjePoPowrocie);
+window.addEventListener("focus", odblokujWiszaceAkcjePoPowrocie);
 function commitLiveEdit(ce){
   if(!ce) return;
   const card = ce.closest && ce.closest(".ncard"); if(!card) return;
@@ -34513,7 +34639,11 @@ function toggleEdit(card,n){
     n.h = clean; n.c = htmlToPlain(clean);
     n.ed=true; n.mo=new Date().toISOString();
     ustawStanZapisu(contEl,"saving"); bumpDirty();
-    Promise.resolve(szkicPrzedZapisem).then(()=>saveNote(n)).then(ok=>{
+    const zapisAkcja = Promise.race([
+      Promise.resolve(szkicPrzedZapisem).then(()=>saveNote(n)),
+      new Promise((_, rej)=>setTimeout(()=>rej(new Error("Limit czasu operacji zapisu")), 6000))
+    ]);
+    zapisAkcja.then(ok=>{
       if(ok){
         szkicUsun(n.g);
         delete card.dataset.saving;
@@ -34523,19 +34653,22 @@ function toggleEdit(card,n){
         // krótkie mrugnięcie zapisanej karty — widać od razu, której notatki dotyczyła zmiana
         flashOk(document.querySelector('#noteList .ncard[data-g="'+CSS.escape(n.g)+'"]'));
       }else{
-        /* Nie zamykamy edytora po nieudanym zapisie. Tekst nadal jest w DOM,
-           a czerwony stan mówi wprost, że trzeba spróbować ponownie lub zrobić kopię. */
-        delete card.dataset.saving;
-        btn.disabled=false;
-        card.classList.add("editing");
-        titleEl.contentEditable="true"; contEl.contentEditable="true";
-        titleEl.setAttribute("contenteditable","true"); contEl.setAttribute("contenteditable","true");
-        if(!card.querySelector(".editbar")) card.insertBefore(buildEditbar(n),contEl);
-        btn.innerHTML=ICO.save+'<span class="sbtnTxt">Zapisz</span>';
-        btn.classList.add("saveon"); btn.title="Ponów zapis";
-        ustawStanZapisu(contEl,"error"); contEl.focus();
-        if(typeof updateFsNav==="function") updateFsNav();
+        throw new Error("Zapis zwrócił false");
       }
+    }).catch(err=>{
+      /* Bezpieczna obsługa błędu lub uśpienia aplikacji w trakcie zapisu */
+      console.warn("Błąd lub limit czasu podczas zapisu notatki:", err);
+      delete card.dataset.saving;
+      btn.disabled=false;
+      card.classList.add("editing");
+      titleEl.contentEditable="true"; contEl.contentEditable="true";
+      titleEl.setAttribute("contenteditable","true"); contEl.setAttribute("contenteditable","true");
+      if(!card.querySelector(".editbar")) card.insertBefore(buildEditbar(n),contEl);
+      btn.innerHTML=ICO.save+'<span class="sbtnTxt">Zapisz</span>';
+      btn.classList.add("saveon"); btn.title="Ponów zapis";
+      ustawStanZapisu(contEl,"error"); contEl.focus();
+      if(typeof updateFsNav==="function") updateFsNav();
+      toastErr("Nie udało się zapisać — spróbuj ponownie");
     });
   }
 }
@@ -49500,7 +49633,7 @@ function _centrPobierzLubStworzWorker(){
       const blob = new Blob([workerCode], { type: "application/javascript" });
       const workerUrl = URL.createObjectURL(blob);
       _centrStoperWorker = new Worker(workerUrl);
-      try { URL.revokeObjectURL(workerUrl); } catch(_e){}
+      setTimeout(()=>{ try { URL.revokeObjectURL(workerUrl); } catch(_e){} }, 2000);
       _centrStoperWorker.onmessage = function(e){
         if(e.data === "tick"){
           _centrStoperTickKrok();
