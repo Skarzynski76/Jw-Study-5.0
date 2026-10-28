@@ -25919,6 +25919,7 @@ function createNote(props, skipUnshift){
     col: 0,
     cr: now,
     mo: now,
+    la: now,
     tg: [],
     nw: true,
     tgd: true,
@@ -29160,62 +29161,111 @@ function bookBlock(i, cnt, base){
    ========================================================================== */
 "use strict";
 /* ================= KOLUMNA 3: NOTATKI ================= */
-const crOf = n => n.cr || n.mo || "";     // data utworzenia (starsze zapisy mogą jej nie mieć)
-const moOf = n => n.mo || n.cr || "";     // data ostatniej zmiany
-/* Zestaw porównywarek powstaje raz przy starcie. Wcześniej cały obiekt z ośmioma
-   funkcjami budował się od nowa przy każdym sortowaniu listy. */
+/**
+ * Bezpiecznie zamienia znacznik czasu (ISO string, SQLite string, epoch number)
+ * na liczbę milisekund do precyzyjnego i 100x szybszego porównywania.
+ */
+function toTime(v){
+  if(!v) return 0;
+  if(typeof v === "number") return isFinite(v) ? v : 0;
+  if(typeof v === "string"){
+    const t = Date.parse(v);
+    if(isFinite(t)) return t;
+    const t2 = Date.parse(v.replace(" ", "T"));
+    if(isFinite(t2)) return t2;
+  }
+  return 0;
+}
+const crOf = n => (n && (n.cr || n.mo || n.d)) || "";     // data utworzenia (starsze zapisy mogą mieć d)
+const moOf = n => (n && (n.mo || n.cr || n.m)) || "";     // data ostatniej zmiany (starsze m)
+const laOf = n => (n && (n.la || n.mo || n.cr)) || "";    // data otwarcia
+const crTime = n => toTime(crOf(n));
+const moTime = n => toTime(moOf(n));
+const laTime = n => toTime(laOf(n));
+
+/* Zestaw porównywarek powstaje raz przy starcie. */
 const SORTERS = {
-    relevance:(a,b)=>(searchScores.get(b.g)||0)-(searchScores.get(a.g)||0)||moOf(b).localeCompare(moOf(a)),
-    new:(a,b)=>moOf(b).localeCompare(moOf(a)),                    // ostatnia zmiana — najnowsze
-    old:(a,b)=>moOf(a).localeCompare(moOf(b)),                    // ostatnia zmiana — najstarsze
-    createdNew:(a,b)=>crOf(b).localeCompare(crOf(a)),             // utworzone — najnowsze
-    createdOld:(a,b)=>crOf(a).localeCompare(crOf(b)),             // utworzone — najstarsze
-    edited:(a,b)=>((b.ed?1:0)-(a.ed?1:0)) || moOf(b).localeCompare(moOf(a)),  // edytowane najpierw
-    bible:(a,b)=>(a.b||99)-(b.b||99)||(a.ch||0)-(b.ch||0)||(a.v||0)-(b.v||0)||crOf(a).localeCompare(crOf(b)),   // jak wyżej: stała kolejność mimo edycji
+    relevance:(a,b)=>((searchScores.get(b.g)||0)-(searchScores.get(a.g)||0)) || (moTime(b)-moTime(a)) || (crTime(b)-crTime(a)) || (b.g||"").localeCompare(a.g||""),
+    new:(a,b)=>(moTime(b)-moTime(a)) || (crTime(b)-crTime(a)) || (b.g||"").localeCompare(a.g||""),                    // ostatnia zmiana — najnowsze
+    old:(a,b)=>{
+      const ta = moTime(a), tb = moTime(b);
+      if(!ta && tb) return 1;    // brak daty trafia na sam koniec, a nie na początek
+      if(ta && !tb) return -1;
+      return (ta-tb) || (crTime(a)-crTime(b)) || (a.g||"").localeCompare(b.g||"");
+    },
+    createdNew:(a,b)=>(crTime(b)-crTime(a)) || (moTime(b)-moTime(a)) || (b.g||"").localeCompare(a.g||""),             // utworzone — najnowsze
+    createdOld:(a,b)=>{
+      const ta = crTime(a), tb = crTime(b);
+      if(!ta && tb) return 1;    // brak daty na koniec
+      if(ta && !tb) return -1;
+      return (ta-tb) || (moTime(a)-moTime(b)) || (a.g||"").localeCompare(b.g||"");
+    },
+    edited:(a,b)=>{
+      const ea = (a.ed || a.nw) ? 1 : 0;
+      const eb = (b.ed || b.nw) ? 1 : 0;
+      if(ea !== eb) return eb - ea;
+      return (moTime(b)-moTime(a)) || (crTime(b)-crTime(a)) || (b.g||"").localeCompare(a.g||"");
+    },
+    bible:(a,b)=>{
+      const ba = (a.b||99), bb = (b.b||99);
+      if(ba !== bb) return ba - bb;
+      const ca = (a.ch||0), cb = (b.ch||0);
+      if(ca !== cb) return ca - cb;
+      const va = (a.v || (Array.isArray(a.verses)&&a.verses[0]) || 0);
+      const vb = (b.v || (Array.isArray(b.verses)&&b.verses[0]) || 0);
+      if(va !== vb) return va - vb;
+      return (crTime(b)-crTime(a)) || (moTime(b)-moTime(a)) || (b.g||"").localeCompare(a.g||"");
+    },
     /* KOLEJNOŚĆ W PUBLIKACJI — ta sama, którą widać w JW Library.
        Decydują cztery liczby, w tej kolejności:
          1. symbol publikacji (KeySymbol),
          2. numer wydania (IssueTagNumber) — rosnąco, więc starsze numery wyżej,
          3. numer dokumentu (DocumentId) — czyli miejsce artykułu w wydaniu,
-         4. numer akapitu (BlockIdentifier).
-
-       Tytuł artykułu NIE jest kryterium. Wcześniej był — i to on psuł całość:
-       porównywany przed numerem dokumentu, ustawiał artykuły w jednym wydaniu
-       ALFABETYCZNIE. „Bądź odważny" trafiało przed „Zachowuj czujność" bez
-       względu na to, co było wcześniej w Strażnicy. Tytuł to etykieta, nie
-       pozycja. Został wyłącznie jako rozstrzygnięcie remisu, gdy numeru
-       dokumentu brak w obu notatkach. */
+         4. numer akapitu (BlockIdentifier). */
     pub:(a,b)=>{
       const pa=a.b?1:0, pb=b.b?1:0;                       // biblijne na koniec
       if(pa!==pb) return pa-pb;
       if(!a.b && !b.b){
-        const ks=(a.ks||"").localeCompare(b.ks||"","pl");  if(ks) return ks;
-        const it=(a.itn||0)-(b.itn||0);                    if(it) return it;
-        /* Notatki bez numeru dokumentu (pisane ręcznie w aplikacji, nie
-           przeniesione z JW Library) idą na koniec swojej publikacji, a nie na
-           początek — zero nie znaczy „pierwszy", tylko „nie wiadomo gdzie". */
-        const da=a.doc||Infinity, db2=b.doc||Infinity;
+        const ks=(a.ks||"").localeCompare(b.ks||"","pl",{numeric:true});  if(ks) return ks;
+        const it=(a.itn||0)-(b.itn||0);                                   if(it) return it;
+        const da=(typeof a.doc==="number" && a.doc>0)?a.doc:Infinity;
+        const db2=(typeof b.doc==="number" && b.doc>0)?b.doc:Infinity;
         if(da!==db2) return da-db2;
-        const pr=(a.par||0)-(b.par||0);                    if(pr) return pr;
-        const tt=(a.pub||"").localeCompare(b.pub||"","pl");if(tt) return tt;
-        /* Ostatnie kryterium: data UTWORZENIA, nie modyfikacji.
-           Wcześniej wystarczyło coś w notatce podkreślić, żeby dostała świeżą datę zmiany
-           i zjechała na koniec grupy. Miejsce notatki w publikacji nie zależy od tego,
-           kiedy ostatnio ją poprawiałeś. */
-        return crOf(a).localeCompare(crOf(b));
+        const pr=(a.par||0)-(b.par||0);                                   if(pr) return pr;
+        const tt=(a.pub||"").localeCompare(b.pub||"","pl",{numeric:true});if(tt) return tt;
+        const tca = crTime(a) || moTime(a), tcb = crTime(b) || moTime(b);
+        if(!tca && tcb) return 1;
+        if(tca && !tcb) return -1;
+        return (tca - tcb) || (b.g||"").localeCompare(a.g||"");
       }
-      return (a.b||99)-(b.b||99)||(a.ch||0)-(b.ch||0)||(a.v||0)-(b.v||0);
+      const ba=(a.b||99), bb=(b.b||99); if(ba!==bb) return ba-bb;
+      const ca=(a.ch||0), cb=(b.ch||0); if(ca!==cb) return ca-cb;
+      const va=(a.v || (Array.isArray(a.verses)&&a.verses[0]) || 0);
+      const vb=(b.v || (Array.isArray(b.verses)&&b.verses[0]) || 0);
+      if(va!==vb) return va-vb;
+      return (crTime(a)||moTime(a)) - (crTime(b)||moTime(b)) || (b.g||"").localeCompare(a.g||"");
     },
-    alpha:(a,b)=>(a.t||a.c||"").localeCompare(b.t||b.c||"","pl"),
-    /* Własna kolejność: notatki bez przypisanego miejsca lądują na końcu,
-       zachowując między sobą kolejność wg ostatniej zmiany. */
+    alpha:(a,b)=>{
+      const ta = (a.t || a.c || "").trim();
+      const tb = (b.t || b.c || "").trim();
+      const cmp = ta.localeCompare(tb, "pl", { numeric: true, sensitivity: "base" });
+      if(cmp !== 0) return cmp;
+      return (moTime(b)-moTime(a)) || (b.g||"").localeCompare(a.g||"");
+    },
+    /* Własna kolejność: notatki bez przypisanego miejsca lądują na początku (najnowsze u góry),
+       dzięki czemu nowo utworzona notatka jest od razu widoczna. */
     custom:(a,b)=>{
-      const oa = (typeof a.ord==="number") ? a.ord : Infinity;
-      const ob = (typeof b.ord==="number") ? b.ord : Infinity;
+      const oa = (typeof a.ord==="number") ? a.ord : -1;
+      const ob = (typeof b.ord==="number") ? b.ord : -1;
       if(oa!==ob) return oa-ob;
-      return moOf(b).localeCompare(moOf(a));
+      return (moTime(b)-moTime(a)) || (crTime(b)-crTime(a)) || (b.g||"").localeCompare(a.g||"");
     },
-    recent:(a,b)=>(b.la||"").localeCompare(a.la||"") || moOf(b).localeCompare(moOf(a))
+    recent:(a,b)=>{
+      const ta = laTime(a), tb = laTime(b);
+      if(!ta && tb) return 1;
+      if(ta && !tb) return -1;
+      return (tb-ta) || (moTime(b)-moTime(a)) || (b.g||"").localeCompare(a.g||"");
+    }
   };
 /**
  * Sortuje listę zgodnie z bieżącym trybem (SORTERS) — przypięte zawsze na górze.
@@ -29488,14 +29538,9 @@ function renderNotes(){
   if(typeof schowajKarteczke==="function") schowajKarteczke(true);
   /* Nowa lista zaczyna się od góry, więc paski nie mają powodu zostawać schowane. */
   if(typeof odslonPaski==="function") odslonPaski();
-  let arr, _base = null;
-  if(sortMode==="recent"){
-    arr = notes.filter(n=>!n.del && n.la).sort((a,b)=>b.la.localeCompare(a.la)).slice(0,5);
-  } else {
-    _base = baseNotes();                 // jeden przebieg dla listy i dla liczników
-    arr = sortNotes(filteredNotes(_base));
-  }
-  let countsTxt = sortMode==="recent" ? (arr.length ? "Ostatnio otwierane ("+arr.length+")" : "Nie otwierałeś jeszcze żadnej notatki") : arr.length + (arr.length===1?" notatka":(arr.length%10>=2&&arr.length%10<=4&&(arr.length%100<12||arr.length%100>14))?" notatki":" notatek");
+  let _base = baseNotes();                 // jeden przebieg dla listy i dla liczników
+  let arr = sortNotes(filteredNotes(_base));
+  let countsTxt = arr.length + (arr.length===1?" notatka":(arr.length%10>=2&&arr.length%10<=4&&(arr.length%100<12||arr.length%100>14))?" notatki":" notatek");
   renderQuickFilters(_base);
   if(typeof odswiezPrzyciskWszystkie==="function") odswiezPrzyciskWszystkie();
   if(typeof odswiezPasekProjektu==="function") odswiezPasekProjektu();
@@ -35988,6 +36033,7 @@ async function zapiszNowaNotatke(otworzEdytor){
     col: 0,
     cr: now,
     mo: now,
+    la: now,
     tg: [...$("nnTags").querySelectorAll("input:checked")].map(i=>+i.value),
     nw: true,
     tgd: true
@@ -36007,6 +36053,18 @@ async function zapiszNowaNotatke(otworzEdytor){
 
   pushUndo({type:"newNote", g:n.g, label:"dodanie notatki"});
   closeModal("modalNew");
+
+  // Jeśli filtry lub szukanie ukryłyby nową notatkę, czyścimy je, aby była od razu widoczna
+  if(query){
+    query = "";
+    if($("search")) $("search").value = "";
+    parseQuery("");
+  }
+  if(typeof quickFilter !== "undefined" && quickFilter !== "all") quickFilter = "all";
+  if(filt.tag !== "all" && !noteMatchesTag(n, filt.tag)) filt.tag = "all";
+  if(filt.book !== "all" && !noteMatchesBook(n, filt.book)) filt.book = "all";
+  if(filt.pub !== "all" && !noteMatchesPub(n, filt.pub)) filt.pub = "all";
+
   renderAll();
   if(typeof rysujCentrum === "function") rysujCentrum();
 
@@ -36020,6 +36078,14 @@ async function zapiszNowaNotatke(otworzEdytor){
     const nazwaZak = n.stb && typeof secTabs !== "undefined"
       ? (secTabs.find(z=>z.id === n.stb)||{}).name : "";
     toast(nazwaZak ? "Notatka dodana do zakładki „"+nazwaZak+"”" : "Notatka dodana");
+    setTimeout(()=>{
+      const card = document.querySelector(`.ncard[data-g="${CSS.escape(n.g)}"]`);
+      if(card){
+        card.scrollIntoView({behavior:"smooth", block:"center"});
+        card.classList.add("tocFlash");
+        setTimeout(()=>card.classList.remove("tocFlash"), 1400);
+      }
+    }, 60);
   }
 }
 $("nnSave").onclick = ()=>zapiszNowaNotatke(false);
@@ -38130,12 +38196,7 @@ function pobierzAktualneWynikiSzukania(){
     if(domList.length > 0) return domList;
   }
 
-  // 3. Ostatnio otwierane
-  if(sortMode==="recent"){
-    return notes.filter(n=>!n.del && n.la).sort((a,b)=>b.la.localeCompare(a.la)).slice(0,5);
-  }
-
-  // 4. Pełne przeliczenie bez limitów ucinających bazę
+  // 3. Pełne przeliczenie bez limitów ucinających bazę
   const qStr = ($("search") ? $("search").value : (typeof query!=="undefined"?query:"")).trim();
   if(qStr && (!query || query !== qStr)){
     if(typeof parseQuery === "function") parseQuery(qStr);
@@ -43390,10 +43451,10 @@ function krokPrzewijania(y){
 function notatkiWKolejnosci(){
   return notes.filter(n=>!n.del)
               .sort((a,b)=>{
-                 const oa = typeof a.ord==="number" ? a.ord : Infinity;
-                 const ob = typeof b.ord==="number" ? b.ord : Infinity;
+                 const oa = typeof a.ord==="number" ? a.ord : -1;
+                 const ob = typeof b.ord==="number" ? b.ord : -1;
                  if(oa!==ob) return oa-ob;
-                 return (b.mo||b.cr||"").localeCompare(a.mo||a.cr||"");
+                 return (moTime(b)-moTime(a)) || (crTime(b)-crTime(a)) || (b.g||"").localeCompare(a.g||"");
               });
 }
 /** Pierwsze wejście we własną kolejność: każda notatka dostaje numer. */
@@ -43757,9 +43818,9 @@ function szukajWszedzie(){
   if(typeof expandedBook !== "undefined" && expandedBook){ expandedBook = null; }
   if(typeof quickFilter !== "undefined" && quickFilter !== "all"){ quickFilter = "all"; zdjete = true; }
   if(typeof sortMode !== "undefined" && sortMode === "recent"){
-    sortMode = "mod";
+    sortMode = "new";
     const sel = $("sortSel");
-    if(sel && [...sel.options].some(o=>o.value === "mod")){ sel.value = "mod"; lsSet(KP + "Sort", "mod"); }
+    if(sel && [...sel.options].some(o=>o.value === "new")){ sel.value = "new"; lsSet(KP + "Sort", "new"); }
     zdjete = true;
   }
   const bylCentrum = (typeof centrumWidoczne === "function") && centrumWidoczne();
@@ -54952,7 +55013,11 @@ function centrumPokaz(docelowyWidok){
   }
   if(typeof query !== "undefined") query = "";
   if(typeof expandedBook !== "undefined") expandedBook = null;
-  if(typeof sortMode !== "undefined" && sortMode === "recent") sortMode = "mod";
+  if(typeof sortMode !== "undefined" && sortMode === "recent"){
+    sortMode = "new";
+    const sel = $("sortSel");
+    if(sel && [...sel.options].some(o=>o.value === "new")){ sel.value = "new"; lsSet(KP + "Sort", "new"); }
+  }
   const inp = $("search");
   if(inp && inp.value){ inp.value = ""; }
   if(typeof parseQuery === "function") parseQuery("");
