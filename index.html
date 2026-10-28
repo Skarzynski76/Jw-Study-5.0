@@ -14195,10 +14195,18 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
   #fsWrap .ncard.editing .nhead{
     padding-top: max(78px, calc(68px + env(safe-area-inset-top, 0px))) !important;
     padding-bottom: 6px !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
   }
-  #fsWrap .ncard.editing .ncontent{ padding:8px 12px 12px; }
+  #fsWrap .ncard.editing .editbar{
+    width: calc(100% - 28px) !important;
+    margin: 4px auto 6px auto !important;
+  }
+  #fsWrap .ncard.editing .ncontent{
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    padding-top: 6px !important;
+  }
   #fsWrap .ncard.editing .ntools{
     flex-wrap:nowrap;
     overflow-x:auto;
@@ -14208,7 +14216,6 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
   }
   #fsWrap .ncard.editing .ntools::-webkit-scrollbar{ display:none; }
   #fsWrap .ncard.editing .ntools .btnrow{ flex-wrap:nowrap; }
-  #fsWrap .ncard.editing .editbar{ margin:4px auto 2px; }
 }
 
 /* ——— telefon: koniec z rezerwą pod strzałki ‹ › ———
