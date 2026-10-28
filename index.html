@@ -14060,13 +14060,12 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
 
 /* ——— Tytuł w trybie edycji: rozciągnięty na pełną szerokość okna edytora, ogólne tło, odsunięty o linię od góry ——— */
 #fsWrap .ncard.editing .nhead,
-#modalFs #fsWrap .ncard.editing .nhead,
-.ncard.editing .nhead {
-  padding-top: max(88px, calc(78px + env(safe-area-inset-top, 0px))) !important;
-  padding-bottom: 8px !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  max-width: var(--fsMax, 760px) !important;
+#modalFs #fsWrap .ncard.editing .nhead {
+  padding-top: max(84px, calc(68px + env(safe-area-inset-top, 0px))) !important;
+  padding-bottom: 6px !important;
+  padding-left: clamp(16px, 3.5vw, 28px) !important;
+  padding-right: clamp(16px, 3.5vw, 28px) !important;
+  max-width: var(--fsMax, 780px) !important;
   width: 100% !important;
   margin: 0 auto !important;
   box-sizing: border-box !important;
@@ -14076,15 +14075,12 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
 }
 
 #fsWrap .ncard.editing .nhead .nsel,
-#modalFs #fsWrap .ncard.editing .nhead .nsel,
-.ncard.editing .nsel {
+#modalFs #fsWrap .ncard.editing .nhead .nsel {
   display: none !important;
 }
 
 #fsWrap .ncard.editing .ntitle,
-#modalFs #fsWrap .ncard.editing .ntitle,
-.ncard.editing .ntitle,
-.ntitle[contenteditable="true"] {
+#modalFs #fsWrap .ncard.editing .ntitle {
   width: 100% !important;
   max-width: 100% !important;
   box-sizing: border-box !important;
@@ -14097,9 +14093,9 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
   box-shadow: none !important;
   outline: none !important;
   color: var(--text) !important;
-  font-size: clamp(20px, calc(var(--fsNoteFs, 16px) + 5px), 28px) !important;
-  font-weight: 700 !important;
-  line-height: 1.28 !important;
+  font-size: clamp(22px, calc(var(--fsNoteFs, 16px) + 6px), 32px) !important;
+  font-weight: 750 !important;
+  line-height: 1.25 !important;
   letter-spacing: -0.02em !important;
   min-height: 40px !important;
   word-break: break-word !important;
@@ -14118,8 +14114,7 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
 
 .ntitle[contenteditable="true"]:focus,
 #fsWrap .ncard.editing .ntitle:focus,
-#modalFs #fsWrap .ncard.editing .ntitle:focus,
-.ncard.editing .ntitle:focus {
+#modalFs #fsWrap .ncard.editing .ntitle:focus {
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
@@ -14129,25 +14124,63 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
 #fsWrap .ncard.editing .fsBackInline,
 #fsWrap .ncard.editing .fsCloseInline{ top:6px; }
 
-/* ——— pasek narzędzi bliżej tekstu i wycentrowany z kolumną notatki ——— */
-#fsWrap .ncard.editing .editbar{
-  max-width:var(--fsMax, 760px);
-  margin:6px auto 4px;
-  width:100%;
-  box-sizing:border-box;
-  padding:4px 8px;
+/* ——— pasek narzędzi wycentrowany i zsynchronizowany z kolumną tekstu ——— */
+#fsWrap .ncard.editing .editbar,
+#modalFs #fsWrap .ncard.editing .editbar {
+  max-width: var(--fsMax, 780px) !important;
+  width: calc(100% - 2 * clamp(16px, 3.5vw, 28px)) !important;
+  margin: 6px auto 14px auto !important;
+  box-sizing: border-box !important;
+  padding: 5px 10px !important;
+  border-radius: 13px !important;
+  background: color-mix(in srgb, var(--panel) 92%, transparent) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid color-mix(in srgb, var(--border) 75%, transparent) !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06) !important;
 }
 #fsWrap .ncard.editing .editbar .ebSel,
 #fsWrap .ncard.editing .editbar select{ padding-top:3px; padding-bottom:3px; }
 
-/* ——— tekst dostaje to, co zostało ———
-   90 px wypełnienia u dołu to rezerwa na przyklejony pasek w trybie czytania.
-   Przy pisaniu pasek nie jest przyklejony, więc rezerwa jest pustym miejscem
-   dokładnie tam, gdzie stoi kursor. */
-#fsWrap .ncard.editing .ncontent{
-  padding:10px 16px 14px;
-  margin-top:0;
+/* ——— treść notatki — pełna integracja z tłem, bez sztucznej białej ramki formularza ——— */
+#fsWrap .ncard.editing,
+#modalFs #fsWrap .ncard.editing {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }
+
+#fsWrap .ncard.editing .ncontent,
+#modalFs #fsWrap .ncard.editing .ncontent,
+#fsWrap .ncard.editing .ncontent[contenteditable="true"],
+#modalFs #fsWrap .ncard.editing .ncontent[contenteditable="true"] {
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  color: var(--text) !important;
+  padding-left: clamp(16px, 3.5vw, 28px) !important;
+  padding-right: clamp(16px, 3.5vw, 28px) !important;
+  padding-top: 6px !important;
+  margin: 0 auto !important;
+  max-width: var(--fsMax, 780px) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  font-size: var(--fsNoteFs, calc(var(--noteFs, 14px) + 3px)) !important;
+  line-height: var(--noteLh, 1.7) !important;
+  min-height: 48vh !important;
+}
+
+#fsWrap .ncard.editing .ncontent:focus,
+#modalFs #fsWrap .ncard.editing .ncontent:focus,
+#fsWrap .ncard.editing .ncontent[contenteditable="true"]:focus,
+#modalFs #fsWrap .ncard.editing .ncontent[contenteditable="true"]:focus {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
 #fsWrap .ncard.editing .ntools{
   margin-top:6px;
   padding-top:6px;
@@ -14304,21 +14337,47 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
    Wysokości nie ograniczamy — czytanie idzie w dół i każdy pixel wysokości
    pracuje. Ograniczamy tylko szerokość, bo to ona się marnowała. */
 @media (min-width:1200px){
-  #modalFs{
+  #modalFs:not(.is-fullscreen){
     /* jedno źródło szerokości: używa jej i okno, i położenie strzałek */
-    --fsOkno: min(100vw - 64px, 1180px);
-    padding:clamp(12px, 2vh, 24px) 32px;
+    --fsOkno: min(calc(100vw - 80px), 1160px);
+    background: rgba(0, 0, 0, 0.42) !important;
+    -webkit-backdrop-filter: blur(14px) !important;
+    backdrop-filter: blur(14px) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0 !important;
   }
-  #modalFs .fsmodal{
-    width:var(--fsOkno);
-    height:100%;
-    max-height:100%;
-    border-radius:18px;
+  #modalFs:not(.is-fullscreen) .fsmodal{
+    width: var(--fsOkno) !important;
+    max-width: var(--fsOkno) !important;
+    height: calc(100vh - clamp(24px, 4vh, 48px)) !important;
+    height: calc(100dvh - clamp(24px, 4vh, 48px)) !important;
+    max-height: calc(100dvh - clamp(24px, 4vh, 48px)) !important;
+    position: fixed !important;
+    inset: 0 !important;
+    margin: auto !important;
+    border-radius: 20px !important;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35), 0 0 0 1px color-mix(in srgb, var(--border) 60%, transparent) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
   }
-  /* Strzałki stoją PRZY OKNIE. `max(8px, …)` pilnuje, żeby przy 1200 px, gdzie
-     okno niemal dotyka krawędzi ekranu, nie wyjechały za nią. */
-  #modalFs .fsNav.prev{ left:max(8px, calc(50vw - var(--fsOkno) / 2 - 52px)); }
-  #modalFs .fsNav.next{ right:max(8px, calc(50vw - var(--fsOkno) / 2 - 52px)); }
+  /* Przyciski zamykania i pełnego ekranu wyrównane do okna czytnika */
+  #modalFs:not(.is-fullscreen) #fsClose{
+    right: calc((100vw - var(--fsOkno)) / 2 + 18px) !important;
+    top: calc((100vh - (100vh - clamp(24px, 4vh, 48px))) / 2 + 16px) !important;
+  }
+  #modalFs:not(.is-fullscreen) #fsFull{
+    right: calc((100vw - var(--fsOkno)) / 2 + 64px) !important;
+    top: calc((100vh - (100vh - clamp(24px, 4vh, 48px))) / 2 + 16px) !important;
+  }
+  #modalFs:not(.is-fullscreen) #fsBackFixed{
+    left: calc((100vw - var(--fsOkno)) / 2 + 18px) !important;
+    top: calc((100vh - (100vh - clamp(24px, 4vh, 48px))) / 2 + 16px) !important;
+  }
+  /* Strzałki stoją PRZY OKNIE. */
+  #modalFs:not(.is-fullscreen) .fsNav.prev{ left: max(8px, calc(50vw - var(--fsOkno) / 2 - 52px)) !important; }
+  #modalFs:not(.is-fullscreen) .fsNav.next{ right: max(8px, calc(50vw - var(--fsOkno) / 2 - 52px)) !important; }
 }
 
 /* ——— 4. „TU BYŁEŚ" PO ZAMKNIĘCIU CZYTNIKA (v2.54) ———
