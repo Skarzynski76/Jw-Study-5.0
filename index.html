@@ -14125,23 +14125,62 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
 #fsWrap .ncard.editing .fsBackInline,
 #fsWrap .ncard.editing .fsCloseInline{ top:6px; }
 
-/* ——— pasek narzędzi wycentrowany i zsynchronizowany z kolumną tekstu ——— */
+/* ——— pasek narzędzi wycentrowany i zsynchronizowany z kolumną tekstu (styl Apple Studio) ——— */
 #fsWrap .ncard.editing .editbar,
 #modalFs #fsWrap .ncard.editing .editbar {
   max-width: var(--fsMax, 780px) !important;
   width: calc(100% - 2 * clamp(16px, 3.5vw, 28px)) !important;
   margin: 6px auto 14px auto !important;
   box-sizing: border-box !important;
-  padding: 5px 10px !important;
+  padding: 6px 12px !important;
   border-radius: 13px !important;
-  background: color-mix(in srgb, var(--panel) 92%, transparent) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  backdrop-filter: blur(14px) !important;
-  border: 1px solid color-mix(in srgb, var(--border) 75%, transparent) !important;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06) !important;
+  background: color-mix(in srgb, var(--panel) 94%, transparent) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  gap: 5px !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
 }
-#fsWrap .ncard.editing .editbar .ebSel,
-#fsWrap .ncard.editing .editbar select{ padding-top:3px; padding-bottom:3px; }
+#fsWrap .ncard.editing .editbar button,
+#fsWrap .ncard.editing .editbar label {
+  border-radius: 8px !important;
+  border: 1px solid transparent !important;
+  padding: 5px 8px !important;
+  transition: all 0.15s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+#fsWrap .ncard.editing .editbar button:hover,
+#fsWrap .ncard.editing .editbar label:hover {
+  background: var(--sel) !important;
+  border-color: color-mix(in srgb, var(--border) 60%, transparent) !important;
+}
+#fsWrap .ncard.editing .editbar button.active,
+#fsWrap .ncard.editing .editbar button[data-st].active {
+  background: color-mix(in srgb, var(--accent) 15%, transparent) !important;
+  color: var(--accent) !important;
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent) !important;
+  font-weight: 700 !important;
+}
+#fsWrap .ncard.editing .editbar .eb-sep {
+  width: 1px !important;
+  height: 20px !important;
+  background: var(--border) !important;
+  margin: 0 4px !important;
+  flex-shrink: 0 !important;
+}
+#fsWrap .ncard.editing .editbar select {
+  border-radius: 8px !important;
+  border: 1px solid var(--border) !important;
+  background: var(--panel) !important;
+  padding: 4px 8px !important;
+  font-size: 12.5px !important;
+  color: var(--text) !important;
+}
 
 /* ——— treść notatki — pełna integracja z tłem, bez sztucznej białej ramki formularza ——— */
 #fsWrap .ncard.editing,
@@ -17726,12 +17765,33 @@ blockquote.callout-werset, .callout-werset {
 
 </style><style>
 /* JW Study 3.50 — bloki, malarz formatów i podpisy ilustracji */
-.ncontent > div.callout{margin:.65em 0!important;padding:11px 14px 11px 42px;border:1px solid var(--border);border-left:5px solid var(--callout,#6d8f7d);border-radius:12px;background:color-mix(in srgb,var(--callout,#6d8f7d) 10%,var(--panel));position:relative;clear:both}
-.ncontent > div.callout::before{content:var(--callout-icon,"•");position:absolute;left:14px;top:10px;font-size:18px;font-weight:800;color:var(--callout,#6d8f7d)}
-.ncontent > div.callout-important{--callout:#c48a21;--callout-icon:"!"}
-.ncontent > div.callout-conclusion{--callout:#2e7a5f;--callout-icon:"✓"}
-.ncontent > div.callout-question{--callout:#3f6fa8;--callout-icon:"?"}
-.ncontent > div.callout-example{--callout:#7a5aa6;--callout-icon:"→"}
+.ncontent > div.callout{margin:.9em 0!important;padding:13px 18px 13px 46px;border:1px solid var(--border);border-left:5px solid var(--callout,#2563eb);border-radius:12px;background:color-mix(in srgb,var(--callout,#2563eb) 8%,var(--panel));position:relative;clear:both;line-height:1.6}
+.ncontent > div.callout::before{content:var(--callout-icon,"•");position:absolute;left:15px;top:12px;font-size:19px;font-weight:700;line-height:1;color:var(--callout,#2563eb)}
+.ncontent > div.callout b:first-child{color:var(--callout,#2563eb);margin-right:4px}
+.ncontent > div.callout-goal{--callout:#2563eb;--callout-icon:"🎯"}
+.ncontent > div.callout-gem{--callout:#8b5cf6;--callout-icon:"💎"}
+.ncontent > div.callout-important{--callout:#d97706;--callout-icon:"❗"}
+.ncontent > div.callout-conclusion{--callout:#059669;--callout-icon:"✓"}
+.ncontent > div.callout-question{--callout:#0284c7;--callout-icon:"❓"}
+.ncontent > div.callout-example{--callout:#7c3aed;--callout-icon:"💡"}
+
+/* Breadcrumbs i metadane notatki w stylu Apple Studio */
+.fsBreadcrumbs{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted);margin-bottom:6px;font-weight:500;user-select:none;max-width:var(--fsMax,780px);width:100%}
+.fsBcFolder{font-size:13px;opacity:.85}
+.fsBcItem{color:var(--muted)}
+.fsBcSep{color:color-mix(in srgb,var(--border) 80%,var(--muted));font-size:11px}
+.fsBcCur{color:var(--accent);font-weight:600}
+.fsMetaSubtitle{font-size:12.5px;color:var(--muted);margin-top:4px;margin-bottom:12px;font-weight:450;max-width:var(--fsMax,780px);width:100%;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+/* Nowoczesne tabele i pigułki w notatce */
+.ncontent table.ntab{border-collapse:separate;border-spacing:0;width:100%;margin:16px 0;font-size:.93em;border-radius:10px;overflow:hidden;border:1px solid var(--border);box-shadow:0 2px 10px rgba(0,0,0,.02)}
+.ncontent table.ntab th{background:color-mix(in srgb,var(--muted) 8%,var(--panel));color:var(--muted);font-size:12px;font-weight:650;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding:10px 14px}
+.ncontent table.ntab th:last-child{border-right:none}
+.ncontent table.ntab td{border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding:11px 14px;vertical-align:middle}
+.ncontent table.ntab tr:last-child td{border-bottom:none}
+.ncontent table.ntab td:last-child{border-right:none}
+.ncontent table.ntab tr:hover td{background:color-mix(in srgb,var(--sel) 40%,transparent)}
+.ncontent .date-badge, .ncontent .pill-badge{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 25%,transparent);padding:2px 8px;border-radius:6px;font-size:11.5px;font-weight:600;display:inline-block;white-space:nowrap}
 .editbar button.eb-painter.active{background:var(--accent);color:#fff;box-shadow:none}
 .ncontent figure.note-figure{display:table;max-width:100%;margin:12px auto;clear:both;text-align:center}
 .ncontent figure.note-figure.img-left{float:left;margin:5px 16px 10px 0;clear:none}
@@ -30354,6 +30414,45 @@ function renderFs(){
       b.onclick = () => fsWroc(false);
       nh.insertBefore(b, nh.firstChild);
     }
+
+    // Dodaj eleganckie okruszki chleba (breadcrumbs) w stylu macOS nad tytułem
+    let bcPath = [];
+    if(n.b){
+      bcPath.push("Biblia", (typeof refLabel==="function"?refLabel(n):"") || ("Księga " + n.b));
+    } else if(n.ks || n.pub){
+      const fn = typeof pubFullName==="function"?pubFullName(n.ks):"";
+      bcPath.push("Publikacje", fn || n.pub || n.ks);
+    } else if(Array.isArray(n.tg) && n.tg.length && typeof tags!=="undefined"){
+      const t = tags.find(x=>x.id === n.tg[0]);
+      if(t){
+        if(t.sec) bcPath.push(t.sec);
+        bcPath.push(t.name);
+      }
+    }
+    if(!bcPath.length) bcPath.push("Notatki", "Osobiste");
+
+    const bcDiv = document.createElement("div");
+    bcDiv.className = "fsBreadcrumbs";
+    bcDiv.innerHTML = `<span class="fsBcFolder">📁</span> ` + bcPath.map((p, idx)=> idx===bcPath.length-1 ? `<span class="fsBcCur">${esc(p)}</span>` : `<span class="fsBcItem">${esc(p)}</span><span class="fsBcSep">/</span>`).join(" ");
+    nh.insertBefore(bcDiv, nh.querySelector(".ntitle") || nh.firstChild);
+
+    // Dodaj subtelne metadane pod tytułem
+    const metaSub = document.createElement("div");
+    metaSub.className = "fsMetaSubtitle";
+    const moDate = (n.mo || n.cr || "").slice(0, 10);
+    const crDate = (n.cr || n.mo || "").slice(0, 10);
+    const rRef = typeof refLabel==="function" ? refLabel(n) : "";
+    const metaParts = [];
+    if(moDate) metaParts.push("Zmiana: " + moDate);
+    if(crDate && crDate !== moDate) metaParts.push("Utw.: " + crDate);
+    if(rRef) metaParts.push("📖 " + rRef);
+    metaSub.textContent = metaParts.join(" · ");
+    const titleEl = nh.querySelector(".ntitle");
+    if(titleEl && titleEl.nextSibling){
+      nh.insertBefore(metaSub, titleEl.nextSibling);
+    } else {
+      nh.appendChild(metaSub);
+    }
   }
   // jeden przycisk „Aa" — ustawienia czytania (rozmiar, interlinia, szerokość, czcionka, tło)
   const br = card.querySelector(".btnrow");
@@ -33115,6 +33214,8 @@ function openEbPop(kind, btn, bar){
        <div class="dd-sep"></div>
        <div data-ins="quote">${IE_CYTAT}Blok cytatu wersetu</div>
        <div class="dd-lbl">Wyróżniony blok</div>
+       <div data-ins="callout:goal">🎯 Cel / Myśl przewodnia</div>
+       <div data-ins="callout:gem">💎 Klejnot duchowy</div>
        <div data-ins="callout:important">❗ Ważne</div>
        <div data-ins="callout:conclusion">✓ Wniosek</div>
        <div data-ins="callout:question">? Pytanie</div>
@@ -33429,7 +33530,7 @@ function polskaAutokorektaNaWejsciu(e){
 }
 document.addEventListener("input",polskaAutokorektaNaWejsciu,true);
 /* ===== WYRÓŻNIONE BLOKI, MALARZ FORMATÓW I RUCH AKAPITÓW ===== */
-const CALLOUT_NAZWY={important:"Ważne",conclusion:"Wniosek",question:"Pytanie",example:"Przykład"};
+const CALLOUT_NAZWY={goal:"Cel",gem:"Klejnot duchowy",important:"Ważne",conclusion:"Wniosek",question:"Pytanie",example:"Przykład"};
 function insertCallout(ce,typ){
   if(!ce||!CALLOUT_NAZWY[typ])return;
   const r=edSavedRange&&ce.contains(edSavedRange.commonAncestorContainer)?edSavedRange.cloneRange():null;
