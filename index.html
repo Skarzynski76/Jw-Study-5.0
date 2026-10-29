@@ -18021,7 +18021,7 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
-@media (max-width: 980px) {
+@media (max-width: 768px) {
   .fs-inspector-rail {
     display: none !important;
   }
@@ -18086,19 +18086,20 @@ html[data-theme="dark"] .fs-rail-tip {
   right: max(74px, calc(env(safe-area-inset-right, 0px) + 72px));
   top: 50%;
   transform: translateY(-50%);
-  width: 330px;
-  max-height: min(75vh, 560px);
+  width: min(340px, calc(100vw - 84px));
+  max-height: min(78vh, 580px);
   z-index: 10042;
   border-radius: 18px;
-  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  background: color-mix(in srgb, var(--panel) 94%, transparent);
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
   border: 1px solid color-mix(in srgb, var(--border) 70%, rgba(255, 255, 255, 0.4));
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18), 0 3px 10px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 3px 10px rgba(0, 0, 0, 0.06);
   padding: 16px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  touch-action: manipulation;
 }
 .fs-rail-pop-head {
   display: flex;
@@ -18198,6 +18199,122 @@ html[data-theme="dark"] .fs-rail-tip {
   font-size: 11px;
   color: var(--muted);
   margin-top: 2px;
+}
+/* Wyszukiwarka i historia w bocznej szynie narzędzi (#fsInspectorRail) */
+.fs-rail-search-bar {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 8px;
+}
+.fs-rail-search-inp {
+  width: 100%;
+  padding: 8px 30px 8px 10px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.fs-rail-search-inp:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.fs-rail-search-clear {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: var(--sel);
+  color: var(--muted);
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fs-rail-search-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 2px 8px;
+  border-bottom: 1px solid var(--border);
+}
+.fs-rail-search-count {
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.fs-rail-search-btns {
+  display: flex;
+  gap: 5px;
+}
+.fs-rail-search-hit {
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--sel) 40%, transparent);
+  border: 1px solid var(--border);
+  margin-bottom: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  line-height: 1.35;
+  transition: all 0.15s ease;
+}
+.fs-rail-search-hit:hover, .fs-rail-search-hit.active {
+  background: color-mix(in srgb, var(--accent) 15%, var(--panel));
+  border-color: var(--accent);
+}
+.fs-rail-hist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--sel) 40%, transparent);
+  border: 1px solid var(--border);
+  margin-bottom: 6px;
+  transition: all 0.15s ease;
+}
+.fs-rail-hist-item:hover {
+  background: color-mix(in srgb, var(--sel) 85%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.fs-rail-hist-item.current {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--panel));
+}
+.fs-rail-hist-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+.fs-rail-hist-date {
+  font-weight: 600;
+  font-size: 12.5px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fs-rail-hist-words {
+  font-size: 11px;
+  color: var(--muted);
+}
+.fs-rail-hist-act {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
 }
 #replacePanel{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:18px;z-index:10060;background:rgba(0,0,0,.34)}
 #replacePanel.show{display:flex}
@@ -22352,12 +22469,49 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
     </div>
   </div>
 
+  <div id="fsRailHistoryPop" class="fs-rail-pop" hidden>
+    <div class="fs-rail-pop-head">
+      <div class="fs-rail-pop-title">🕒 Historia wersji</div>
+      <button class="fs-rail-pop-close" data-rail-close="1" type="button" aria-label="Zamknij">✕</button>
+    </div>
+    <div class="fs-rail-pop-body" id="fsRailHistoryList"></div>
+    <div class="fs-rail-pop-foot" style="justify-content:space-between;align-items:center;">
+      <span style="font-size:11px;color:var(--muted);">Kopie lokalne</span>
+      <button class="btn sm" id="fsRailFullHistBtn" type="button">Pełne porównanie ↗</button>
+    </div>
+  </div>
+
   <div id="fsRailStatsPop" class="fs-rail-pop" hidden>
     <div class="fs-rail-pop-head">
       <div class="fs-rail-pop-title">ℹ️ Informacje i statystyki</div>
       <button class="fs-rail-pop-close" data-rail-close="1" type="button" aria-label="Zamknij">✕</button>
     </div>
     <div class="fs-rail-pop-body" id="fsRailStatsBody"></div>
+  </div>
+
+  <div id="fsRailSearchPop" class="fs-rail-pop" hidden>
+    <div class="fs-rail-pop-head">
+      <div class="fs-rail-pop-title">🔍 Szukaj w notatce</div>
+      <button class="fs-rail-pop-close" data-rail-close="1" type="button" aria-label="Zamknij">✕</button>
+    </div>
+    <div class="fs-rail-search-bar">
+      <input type="search" id="fsRailSearchInp" class="fs-rail-search-inp" placeholder="Wpisz szukaną frazę…" autocomplete="off" spellcheck="false">
+      <button type="button" id="fsRailSearchClear" class="fs-rail-search-clear" title="Wyczyść" hidden>✕</button>
+    </div>
+    <div class="fs-rail-search-nav">
+      <span id="fsRailSearchCount" class="fs-rail-search-count">0 z 0</span>
+      <div class="fs-rail-search-btns">
+        <button type="button" id="fsRailSearchPrev" class="fs-verse-btn" title="Poprzednie (Shift+Enter)">▲ Poprz.</button>
+        <button type="button" id="fsRailSearchNext" class="fs-verse-btn primary" title="Następne (Enter)">▼ Nast.</button>
+      </div>
+    </div>
+    <div class="fs-rail-pop-body" id="fsRailSearchHitsList" style="margin-top:6px;"></div>
+    <div class="fs-rail-pop-foot" style="justify-content:space-between;align-items:center;">
+      <label style="font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:5px;cursor:pointer;user-select:none;">
+        <input type="checkbox" id="fsRailSearchCase" style="cursor:pointer;"> Wielkość liter
+      </label>
+      <button class="btn sm" id="fsRailOpenReplaceBtn" type="button">Zamień…</button>
+    </div>
   </div>
 
   <div class="fsmodal">
@@ -34552,11 +34706,292 @@ $("slashMenuList")?.addEventListener("pointerdown", e => {
 });
 
 /* ===== RIGHT-SIDE MACOS UTILITY INSPECTOR RAIL DLA #modalFs ===== */
+let _fsRailTapTime = 0;
+let fsRailSearchHits = [];
+let fsRailSearchIdx = -1;
+
 function closeFsRailPops() {
-  const p1 = $("fsRailVersesPop"), p2 = $("fsRailStatsPop");
-  if(p1) p1.hidden = true;
-  if(p2) p2.hidden = true;
+  ["fsRailVersesPop", "fsRailHistoryPop", "fsRailStatsPop", "fsRailSearchPop"].forEach(id => {
+    const p = $(id);
+    if(p) p.hidden = true;
+  });
+  clearFsRailSearch();
   document.querySelectorAll(".fs-rail-btn.active").forEach(b => b.classList.remove("active"));
+}
+
+function clearFsRailSearch() {
+  const card = document.querySelector("#fsWrap .ncard");
+  const cont = card ? card.querySelector(".ncontent") : null;
+  if(typeof replaceClearHighlights === "function") replaceClearHighlights();
+  if(cont) {
+    cont.querySelectorAll("mark.fsRailHit").forEach(m => {
+      const t = document.createTextNode(m.textContent);
+      m.replaceWith(t);
+    });
+    cont.normalize();
+  }
+  fsRailSearchHits = [];
+  fsRailSearchIdx = -1;
+  const countEl = $("fsRailSearchCount");
+  if(countEl) countEl.textContent = "0 z 0";
+  const listEl = $("fsRailSearchHitsList");
+  if(listEl) listEl.innerHTML = "";
+  const clearBtn = $("fsRailSearchClear");
+  if(clearBtn) clearBtn.hidden = true;
+}
+
+function runFsRailSearch() {
+  const inp = $("fsRailSearchInp");
+  if(!inp) return;
+  const q = (inp.value || "").trim();
+  const clearBtn = $("fsRailSearchClear");
+  if(clearBtn) clearBtn.hidden = !q;
+
+  const card = document.querySelector("#fsWrap .ncard");
+  const cont = card ? card.querySelector(".ncontent") : null;
+  const countEl = $("fsRailSearchCount");
+  const listEl = $("fsRailSearchHitsList");
+  if(!cont) return;
+
+  clearFsRailSearch();
+  if(!q || q.length < 1) {
+    if(countEl) countEl.textContent = "0 z 0";
+    if(listEl) listEl.innerHTML = '<div class="outlineEmpty" style="padding:14px 6px;">Wpisz szukane słowo lub frazę.</div>';
+    return;
+  }
+
+  const matchCase = $("fsRailSearchCase")?.checked;
+  const needle = matchCase ? q : q.toLocaleLowerCase("pl-PL");
+  const walker = document.createTreeWalker(cont, NodeFilter.SHOW_TEXT, {
+    acceptNode(nd) {
+      if(!nd.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+      let p = nd.parentNode;
+      while(p && p !== cont) {
+        if(p.tagName === "SCRIPT" || p.tagName === "STYLE" || (p.classList && p.classList.contains("fs-rail-pop"))) return NodeFilter.FILTER_REJECT;
+        p = p.parentNode;
+      }
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+
+  const nodes = [];
+  let nd;
+  while(nd = walker.nextNode()) nodes.push(nd);
+
+  const ranges = [];
+  const snippets = [];
+
+  nodes.forEach(node => {
+    const src = matchCase ? node.nodeValue : node.nodeValue.toLocaleLowerCase("pl-PL");
+    let from = 0, i;
+    while((i = src.indexOf(needle, from)) >= 0) {
+      const r = document.createRange();
+      r.setStart(node, i);
+      r.setEnd(node, i + q.length);
+      ranges.push(r);
+
+      const startContext = Math.max(0, i - 22);
+      const endContext = Math.min(node.nodeValue.length, i + q.length + 28);
+      let snippet = (startContext > 0 ? "…" : "") +
+        esc(node.nodeValue.slice(startContext, i)) +
+        "<mark style='background:#ff9f0a;color:#000;border-radius:3px;padding:0 2px;font-weight:700;'>" +
+        esc(node.nodeValue.slice(i, i + q.length)) +
+        "</mark>" +
+        esc(node.nodeValue.slice(i + q.length, endContext)) +
+        (endContext < node.nodeValue.length ? "…" : "");
+      snippets.push(snippet);
+
+      from = i + Math.max(1, q.length);
+    }
+  });
+
+  fsRailSearchHits = ranges;
+  fsRailSearchIdx = ranges.length ? 0 : -1;
+
+  if(countEl) {
+    countEl.textContent = ranges.length ? `1 z ${ranges.length}` : "0 wyników";
+  }
+
+  if(!ranges.length) {
+    if(listEl) listEl.innerHTML = '<div class="outlineEmpty" style="padding:16px 8px;">Brak wyników dla podanej frazy.</div>';
+    return;
+  }
+
+  highlightFsRailSearch();
+
+  if(listEl) {
+    listEl.innerHTML = snippets.map((s, idx) => `
+      <div class="fs-rail-search-hit ${idx === 0 ? "active" : ""}" data-rhit="${idx}">
+        <span style="font-weight:700;color:var(--muted);margin-right:4px;">#${idx+1}</span> ${s}
+      </div>
+    `).join("");
+  }
+}
+
+function highlightFsRailSearch() {
+  if(!fsRailSearchHits.length) {
+    if(typeof replaceClearHighlights === "function") replaceClearHighlights();
+    return;
+  }
+  const curRange = fsRailSearchHits[fsRailSearchIdx];
+  if(typeof CSS !== "undefined" && CSS.highlights && typeof Highlight !== "undefined") {
+    try {
+      CSS.highlights.set("jw-find-all", new Highlight(...fsRailSearchHits));
+      if(curRange) CSS.highlights.set("jw-find-current", new Highlight(curRange));
+    } catch(_) {}
+  }
+  if(curRange) {
+    try {
+      const parent = curRange.startContainer.parentElement;
+      if(parent) parent.scrollIntoView({ behavior: "smooth", block: "center" });
+    } catch(_) {}
+  }
+  const countEl = $("fsRailSearchCount");
+  if(countEl) countEl.textContent = `${fsRailSearchIdx + 1} z ${fsRailSearchHits.length}`;
+
+  const listEl = $("fsRailSearchHitsList");
+  if(listEl) {
+    listEl.querySelectorAll(".fs-rail-search-hit").forEach((el, idx) => {
+      el.classList.toggle("active", idx === fsRailSearchIdx);
+      if(idx === fsRailSearchIdx) {
+        el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    });
+  }
+}
+
+function stepFsRailSearch(dir) {
+  if(!fsRailSearchHits.length) return;
+  fsRailSearchIdx = (fsRailSearchIdx + dir + fsRailSearchHits.length) % fsRailSearchHits.length;
+  highlightFsRailSearch();
+}
+
+function otworzFsRailSzukaj() {
+  const pop = $("fsRailSearchPop");
+  if(!pop) return;
+  const btn = document.querySelector('.fs-rail-btn[data-rail-act="search"]');
+  if(!pop.hidden) {
+    closeFsRailPops();
+    return;
+  }
+  closeFsRailPops();
+  pop.hidden = false;
+  if(btn) btn.classList.add("active");
+
+  const inp = $("fsRailSearchInp");
+  if(inp) {
+    const sel = window.getSelection ? String(window.getSelection()).trim() : "";
+    if(sel && sel.length < 80) inp.value = sel;
+    inp.focus();
+    if(inp.value) runFsRailSearch();
+  }
+}
+
+async function otworzFsRailHistoria() {
+  const pop = $("fsRailHistoryPop");
+  if(!pop) return;
+  const btn = document.querySelector('.fs-rail-btn[data-rail-act="history"]');
+  if(!pop.hidden) {
+    closeFsRailPops();
+    return;
+  }
+  closeFsRailPops();
+  pop.hidden = false;
+  if(btn) btn.classList.add("active");
+
+  const list = $("fsRailHistoryList");
+  if(!list) return;
+
+  const card = document.querySelector("#fsWrap .ncard");
+  const ce = card ? card.querySelector(".ncontent") : null;
+  const n = (typeof fsGuid !== "undefined" && fsGuid) ? notes.find(x => x.g === fsGuid) : null;
+  if(!n) {
+    list.innerHTML = '<div class="outlineEmpty">Brak otwartej notatki</div>';
+    return;
+  }
+
+  list.innerHTML = '<div class="outlineEmpty">Ładowanie historii wersji…</div>';
+
+  let wersje = [];
+  try {
+    if(typeof wersjeNotatki === "function") {
+      wersje = await wersjeNotatki(n.g);
+    }
+  } catch(e) {
+    wersje = [];
+  }
+
+  const stNow = typeof readStats === "function" && ce ? readStats(ce) : { words: 0 };
+  const moDate = (n.mo || n.cr || "");
+
+  let html = `
+    <div class="fs-rail-hist-item current">
+      <div class="fs-rail-hist-info">
+        <div class="fs-rail-hist-date">Bieżąca treść (Teraz)</div>
+        <div class="fs-rail-hist-words">${stNow.words} słów · stan aktualny</div>
+      </div>
+      <div class="fs-rail-hist-act">
+        <span style="font-size:11px;font-weight:600;color:var(--accent);">Aktywna</span>
+      </div>
+    </div>
+  `;
+
+  if(!wersje.length) {
+    html += `
+      <div class="outlineEmpty" style="padding:16px 8px;margin-top:10px;">
+        <div style="font-size:24px;margin-bottom:6px;">🕒</div>
+        Brak wcześniejszych wersji tej notatki.<br>
+        <small style="opacity:0.75;display:block;margin-top:6px;">Wersje zapisują się automatycznie po zakończeniu edycji.</small>
+      </div>
+    `;
+  } else {
+    html += `<div style="font-size:11.5px;color:var(--muted);margin:10px 0 6px;font-weight:600;">Zapisane kopie (${wersje.length}):</div>`;
+    wersje.forEach((v, idx) => {
+      const dzien = typeof histDzien === "function" ? histDzien(v.t) : "";
+      const czas = typeof histCzas === "function" ? histCzas(v.t) : "";
+      const slow = typeof histSlowa === "function" ? histSlowa(v.h) : 0;
+      const dateLabel = czas + (dzien ? " · " + dzien : "");
+
+      html += `
+        <div class="fs-rail-hist-item" data-wers-idx="${idx}">
+          <div class="fs-rail-hist-info">
+            <div class="fs-rail-hist-date">${esc(dateLabel)}</div>
+            <div class="fs-rail-hist-words">${slow} słów ${v.img ? '· 📷 ze zdjęciem' : ''}</div>
+          </div>
+          <div class="fs-rail-hist-act">
+            <button type="button" class="fs-verse-btn primary" data-rail-przyw="${idx}" title="Przywróć tę wersję">Przywróć</button>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  list.innerHTML = html;
+
+  list.onclick = async (e) => {
+    const przywBtn = e.target.closest("[data-rail-przyw]");
+    if(przywBtn) {
+      const idx = parseInt(przywBtn.dataset.railPrzyw, 10);
+      const v = wersje[idx];
+      if(!v) return;
+      const czasWersji = (typeof histCzas === "function" ? histCzas(v.t) : "") + ((typeof histDzien === "function" && histDzien(v.t)) ? " · " + histDzien(v.t) : "");
+      const ok = await askModal("Przywrócenie wersji", `Czy na pewno chcesz zastąpić treść notatki wersją z <b>${esc(czasWersji)}</b>?`);
+      if(!ok) return;
+
+      if(typeof histZapiszPrzedZmiana === "function" && ce) histZapiszPrzedZmiana(n, ce);
+      n.h = v.h;
+      n.mo = nowIso();
+      if(v.ttl) n.t = v.ttl;
+      if(ce) {
+        setHtml(ce, v.h);
+        if(typeof commitLiveEdit === "function") commitLiveEdit(ce);
+      }
+      if(typeof saveNotes === "function") saveNotes();
+      if(typeof renderFs === "function") renderFs();
+      toast("Przywrócono wybraną wersję notatki");
+      closeFsRailPops();
+    }
+  };
 }
 
 function otworzFsRailWersety() {
@@ -34702,45 +35137,97 @@ function otworzFsRailStatystyki() {
 }
 
 // Obsługa bocznej szyny narzędzi
+function obsluzFsRailAkcje(act) {
+  const card = document.querySelector("#fsWrap .ncard");
+  const ce = card ? card.querySelector(".ncontent") : null;
+  const btn = document.querySelector(`#fsInspectorRail .fs-rail-btn[data-rail-act="${act}"]`);
+
+  if(act === "toc") {
+    closeFsRailPops();
+    if(ce) {
+      const no = $("noteOutline");
+      if(no && no.style.display === "block") {
+        zamknijSpisNotatki(false);
+        if(btn) btn.classList.remove("active");
+      } else {
+        otworzSpisNotatki(ce);
+        if(btn) btn.classList.add("active");
+      }
+    }
+  } else if(act === "verses") {
+    otworzFsRailWersety();
+  } else if(act === "history") {
+    otworzFsRailHistoria();
+  } else if(act === "stats") {
+    otworzFsRailStatystyki();
+  } else if(act === "search") {
+    otworzFsRailSzukaj();
+  }
+}
+
 document.addEventListener("click", e => {
   const btn = e.target.closest("#fsInspectorRail .fs-rail-btn");
   if(btn) {
     e.preventDefault();
     e.stopPropagation();
-    const act = btn.dataset.railAct;
-    const card = document.querySelector("#fsWrap .ncard");
-    const ce = card ? card.querySelector(".ncontent") : null;
-
-    if(act === "toc") {
-      closeFsRailPops();
-      if(ce) {
-        const no = $("noteOutline");
-        if(no && no.style.display === "block") {
-          zamknijSpisNotatki(false);
-          btn.classList.remove("active");
-        } else {
-          otworzSpisNotatki(ce);
-          btn.classList.add("active");
-        }
-      }
-    } else if(act === "verses") {
-      otworzFsRailWersety();
-    } else if(act === "history") {
-      closeFsRailPops();
-      if(typeof openHistory === "function") openHistory(ce);
-    } else if(act === "stats") {
-      otworzFsRailStatystyki();
-    } else if(act === "search") {
-      closeFsRailPops();
-      const fbtn = document.querySelector('#fsWrap [data-fsb="find"]');
-      if(fbtn) fbtn.click();
-    }
+    if(Date.now() - _fsRailTapTime < 350) return;
+    _fsRailTapTime = Date.now();
+    obsluzFsRailAkcje(btn.dataset.railAct);
     return;
   }
 
   if(e.target.closest("[data-rail-close]")) {
     e.preventDefault();
     closeFsRailPops();
+    return;
+  }
+
+  if(e.target.closest("#fsRailFullHistBtn")) {
+    e.preventDefault();
+    closeFsRailPops();
+    const card = document.querySelector("#fsWrap .ncard");
+    const ce = card ? card.querySelector(".ncontent") : null;
+    if(typeof openHistory === "function") openHistory(ce);
+    return;
+  }
+
+  if(e.target.closest("#fsRailOpenReplaceBtn")) {
+    e.preventDefault();
+    closeFsRailPops();
+    const card = document.querySelector("#fsWrap .ncard");
+    const ce = card ? card.querySelector(".ncontent") : null;
+    if(typeof openReplace === "function") openReplace(ce);
+    return;
+  }
+
+  if(e.target.closest("#fsRailSearchClear")) {
+    e.preventDefault();
+    const inp = $("fsRailSearchInp");
+    if(inp) { inp.value = ""; inp.focus(); }
+    clearFsRailSearch();
+    return;
+  }
+
+  if(e.target.closest("#fsRailSearchNext")) {
+    e.preventDefault();
+    stepFsRailSearch(1);
+    return;
+  }
+
+  if(e.target.closest("#fsRailSearchPrev")) {
+    e.preventDefault();
+    stepFsRailSearch(-1);
+    return;
+  }
+
+  const rhit = e.target.closest("[data-rhit]");
+  if(rhit) {
+    e.preventDefault();
+    const idx = parseInt(rhit.dataset.rhit, 10);
+    if(!isNaN(idx) && idx >= 0 && idx < fsRailSearchHits.length) {
+      fsRailSearchIdx = idx;
+      highlightFsRailSearch();
+    }
     return;
   }
 
@@ -34753,7 +35240,31 @@ document.addEventListener("click", e => {
     return;
   }
 
-  if(!e.target.closest("#fsInspectorRail, .fs-rail-pop")) {
+  if(!e.target.closest("#fsInspectorRail, .fs-rail-pop, #noteOutline")) {
+    closeFsRailPops();
+  }
+});
+
+// Natychmiastowa reakcja na dotyk na iPadOS
+document.addEventListener("touchend", e => {
+  const btn = e.target.closest("#fsInspectorRail .fs-rail-btn");
+  if(btn) {
+    e.preventDefault();
+    e.stopPropagation();
+    if(Date.now() - _fsRailTapTime < 350) return;
+    _fsRailTapTime = Date.now();
+    obsluzFsRailAkcje(btn.dataset.railAct);
+  }
+}, { passive: false });
+
+$("fsRailSearchInp")?.addEventListener("input", runFsRailSearch);
+$("fsRailSearchCase")?.addEventListener("change", runFsRailSearch);
+$("fsRailSearchInp")?.addEventListener("keydown", e => {
+  if(e.key === "Enter") {
+    e.preventDefault();
+    stepFsRailSearch(e.shiftKey ? -1 : 1);
+  } else if(e.key === "Escape") {
+    e.preventDefault();
     closeFsRailPops();
   }
 });
