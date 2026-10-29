@@ -6991,20 +6991,41 @@ html[data-theme="dark"] .exp-base.warn,html[data-theme="dark"] .exp-warn{backgro
   outline-offset: -2px;
 }
 
-/* Listy zadań (checkboxy) */
-.ncontent ul.tasklist { list-style: none; margin: 8px 0; padding-left: 2px; }
-.ncontent ul.tasklist li { position: relative; padding-left: 30px; margin: 6px 0; white-space: pre-wrap; }
+/* Listy zadań (checkboxy) — nowoczesny styl Apple Reminders / Notion */
+.ncontent ul.tasklist { list-style: none; margin: 10px 0; padding-left: 2px; }
+.ncontent ul.tasklist li { position: relative; padding-left: 30px; margin: 6px 0; line-height: 1.6; white-space: pre-wrap; transition: opacity 0.2s ease, text-decoration 0.2s ease; }
 .ncontent ul.tasklist li::before {
-  content: "☐";
+  content: "";
   position: absolute;
   left: 2px;
-  top: -1px;
-  font-size: 1.15em;
-  color: var(--accent);
+  top: 3px;
+  width: 17px;
+  height: 17px;
+  border-radius: 5px;
+  border: 1.8px solid color-mix(in srgb, var(--accent) 70%, var(--border));
+  background: color-mix(in srgb, var(--panel) 90%, transparent);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
 }
-.ncontent ul.tasklist li.done::before { content: "☑"; color: #2e9e5b; }
-.ncontent ul.tasklist li.done { text-decoration: line-through; opacity: 0.65; }
+.ncontent ul.tasklist li:hover::before {
+  border-color: var(--accent);
+  transform: scale(1.08);
+}
+.ncontent ul.tasklist li.done::before {
+  background: #10b981;
+  border-color: #10b981;
+  content: "✓";
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.35);
+}
+.ncontent ul.tasklist li.done { text-decoration: line-through; text-decoration-color: var(--muted); opacity: 0.6; }
 
 /* Ilustracje */
 .ncontent img {
@@ -17803,12 +17824,369 @@ blockquote.callout-werset, .callout-werset {
 .ncontent img.img-rot-90{transform:rotate(90deg)}
 .ncontent img.img-rot-180{transform:rotate(180deg)}
 .ncontent img.img-rot-270{transform:rotate(270deg)}
-/* JW Study 3.52 — narzędzia pojawiające się przy zaznaczeniu. */
-#selEditBar{position:fixed;display:none;align-items:center;gap:4px;z-index:10045;padding:5px 6px;border:1px solid var(--border);border-radius:12px;background:var(--panel);box-shadow:0 9px 28px rgba(0,0,0,.24);max-width:calc(100vw - 16px);overflow-x:auto;overscroll-behavior:contain}
-#selEditBar button{flex:0 0 auto;min-width:34px;height:34px;padding:0 8px;border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);font-size:14px;font-weight:650;touch-action:manipulation}
-#selEditBar button:active{background:var(--sel)}
-#selEditBar .sep{flex:0 0 auto;width:1px;height:20px;background:var(--border)}
-#selEditBar .ctx-color{font-weight:800;text-decoration:underline 4px var(--accent2);text-underline-offset:3px}
+/* JW Study 3.52 / Studio Pro — narzędzia zaznaczenia w stylu Apple pill */
+#selEditBar {
+  position: fixed;
+  display: none;
+  align-items: center;
+  gap: 4px;
+  z-index: 10045;
+  padding: 5px 8px;
+  border: 1px solid color-mix(in srgb, var(--border) 60%, rgba(255, 255, 255, 0.4));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel) 84%, transparent);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.06);
+  max-width: calc(100vw - 16px);
+  overflow-x: auto;
+  overscroll-behavior: contain;
+}
+#selEditBar button {
+  flex: 0 0 auto;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 650;
+  touch-action: manipulation;
+  transition: all 0.14s ease;
+}
+#selEditBar button:hover {
+  background: var(--sel);
+  transform: translateY(-0.5px);
+}
+#selEditBar button:active {
+  transform: scale(0.92);
+}
+#selEditBar .sep {
+  flex: 0 0 auto;
+  width: 1px;
+  height: 18px;
+  background: var(--border);
+  margin: 0 2px;
+}
+#selEditBar .ctx-color {
+  font-weight: 800;
+  text-decoration: underline 3px var(--accent2);
+  text-underline-offset: 3px;
+}
+
+/* Slash Command Menu (Notion / Craft style) */
+#slashMenu {
+  position: fixed;
+  z-index: 10055;
+  width: 320px;
+  max-height: 380px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid color-mix(in srgb, var(--border) 60%, rgba(255, 255, 255, 0.35));
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.18), 0 4px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  user-select: none;
+  animation: slashMenuIn 0.14s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes slashMenuIn {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.slash-menu-head {
+  padding: 8px 12px 6px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: color-mix(in srgb, var(--sel) 30%, transparent);
+}
+.slash-menu-title {
+  font-size: 11px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.slash-menu-hint {
+  font-size: 10.5px;
+  color: var(--muted);
+  opacity: 0.8;
+}
+.slash-menu-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px;
+  overscroll-behavior: contain;
+}
+.slash-group-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 8px 8px 4px;
+}
+.slash-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 9px;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+.slash-item:hover, .slash-item.selected {
+  background: var(--accent);
+  color: #ffffff !important;
+}
+.slash-item-ic {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--sel) 80%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: background 0.12s ease;
+}
+.slash-item:hover .slash-item-ic, .slash-item.selected .slash-item-ic {
+  background: rgba(255, 255, 255, 0.22);
+}
+.slash-item-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.slash-item-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: inherit;
+}
+.slash-item-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.slash-item:hover .slash-item-desc, .slash-item.selected .slash-item-desc {
+  color: rgba(255, 255, 255, 0.85);
+}
+.slash-empty {
+  padding: 18px 12px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+/* Boczny panel narzędzi w stylu macOS / iPadOS dla #modalFs */
+.fs-inspector-rail {
+  position: fixed;
+  right: max(18px, calc(env(safe-area-inset-right, 0px) + 16px));
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10040;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 6px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--panel) 82%, transparent);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid color-mix(in srgb, var(--border) 60%, rgba(255, 255, 255, 0.3));
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+@media (max-width: 980px) {
+  .fs-inspector-rail {
+    display: none !important;
+  }
+}
+.fs-rail-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fs-rail-btn:hover {
+  background: color-mix(in srgb, var(--sel) 80%, transparent);
+  color: var(--text);
+  transform: scale(1.06);
+}
+.fs-rail-btn.active {
+  background: var(--accent);
+  color: #ffffff !important;
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.fs-rail-btn .ic {
+  width: 19px;
+  height: 19px;
+}
+.fs-rail-tip {
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(18, 22, 28, 0.92);
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 550;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+html[data-theme="dark"] .fs-rail-tip {
+  background: rgba(45, 52, 64, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.fs-rail-btn:hover .fs-rail-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+.fs-rail-pop {
+  position: fixed;
+  right: max(74px, calc(env(safe-area-inset-right, 0px) + 72px));
+  top: 50%;
+  transform: translateY(-50%);
+  width: 330px;
+  max-height: min(75vh, 560px);
+  z-index: 10042;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid color-mix(in srgb, var(--border) 70%, rgba(255, 255, 255, 0.4));
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18), 0 3px 10px rgba(0, 0, 0, 0.06);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.fs-rail-pop-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 10px;
+}
+.fs-rail-pop-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+}
+.fs-rail-pop-close {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  border: none;
+  background: var(--sel);
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+.fs-rail-pop-close:hover {
+  color: var(--text);
+  background: color-mix(in srgb, var(--sel) 80%, var(--border));
+}
+.fs-rail-pop-body {
+  flex: 1;
+  overflow-y: auto;
+  font-size: 13px;
+  overscroll-behavior: contain;
+}
+.fs-rail-pop-foot {
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+}
+.fs-verse-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--sel) 40%, transparent);
+  margin-bottom: 6px;
+  border: 1px solid var(--border);
+  transition: all 0.15s ease;
+}
+.fs-verse-row:hover {
+  background: color-mix(in srgb, var(--sel) 90%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.fs-verse-label {
+  font-weight: 600;
+  color: var(--accent);
+}
+.fs-verse-actions {
+  display: flex;
+  gap: 6px;
+}
+.fs-verse-btn {
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 11.5px;
+  cursor: pointer;
+}
+.fs-verse-btn:hover {
+  background: var(--sel);
+}
+.fs-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.fs-stat-box {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--sel) 50%, transparent);
+  border: 1px solid var(--border);
+}
+.fs-stat-val {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.2;
+}
+.fs-stat-lbl {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
 #replacePanel{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:18px;z-index:10060;background:rgba(0,0,0,.34)}
 #replacePanel.show{display:flex}
 .replaceBox{width:min(520px,100%);border:1px solid var(--border);border-radius:18px;background:var(--panel);box-shadow:0 20px 55px rgba(0,0,0,.3);padding:18px;color:var(--text)}
@@ -21878,6 +22256,13 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
   <button class="ctx-color" data-ctx="color" title="Kolor i podświetlenie">A</button><span class="sep"></span>
   <button data-ctx="link" title="Utwórz link">🔗</button><button data-ctx="quote" title="Zamień w cytat">❝</button><button data-ctx="callout" title="Zamień w blok Ważne">!</button><button data-ctx="painter" title="Malarz formatów">🖌</button>
 </div>
+<div id="slashMenu" class="slash-menu" role="menu" aria-label="Wstawianie elementów" hidden>
+  <div class="slash-menu-head">
+    <span class="slash-menu-title">Wstaw element</span>
+    <span class="slash-menu-hint">↑↓ nawigacja · ↵ wstaw · esc</span>
+  </div>
+  <div class="slash-menu-list" id="slashMenuList" role="listbox"></div>
+</div>
 <div id="replacePanel" role="dialog" aria-modal="true" aria-labelledby="replaceTitle">
   <div class="replaceBox"><h3 id="replaceTitle">Znajdź i zamień</h3><div class="replaceGrid">
     <input id="replaceFind" type="text" placeholder="Czego szukać?" autocomplete="off" spellcheck="false">
@@ -21920,6 +22305,49 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
   <button id="fsBackFixed" class="fsBackFixed" title="Wróć do poprzedniej notatki" aria-label="Wróć do poprzedniej notatki" hidden><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fsBackFixedTxt">Wróć</span><span class="fsBackFixedTyt" id="fsBackFixedTyt"></span></button>
   <button id="fsFull" title="Pełny ekran" aria-label="Pełny ekran"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
   <button id="fsClose" title="Zamknij" aria-label="Zamknij">✕</button>
+
+  <aside id="fsInspectorRail" class="fs-inspector-rail" aria-label="Boczny panel narzędzi">
+    <button class="fs-rail-btn" data-rail-act="toc" type="button" title="Spis treści i nagłówki (☷)">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h14"/></svg>
+      <span class="fs-rail-tip">Spis treści</span>
+    </button>
+    <button class="fs-rail-btn" data-rail-act="verses" type="button" title="Wersety w tej notatce">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span class="fs-rail-tip">Wersety</span>
+    </button>
+    <button class="fs-rail-btn" data-rail-act="history" type="button" title="Historia wersji i kopie">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span class="fs-rail-tip">Historia</span>
+    </button>
+    <button class="fs-rail-btn" data-rail-act="stats" type="button" title="Statystyki i informacje">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <span class="fs-rail-tip">Statystyki</span>
+    </button>
+    <button class="fs-rail-btn" data-rail-act="search" type="button" title="Szukaj w notatce">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span class="fs-rail-tip">Szukaj</span>
+    </button>
+  </aside>
+
+  <div id="fsRailVersesPop" class="fs-rail-pop" hidden>
+    <div class="fs-rail-pop-head">
+      <div class="fs-rail-pop-title">📖 Wersety w notatce</div>
+      <button class="fs-rail-pop-close" data-rail-close="1" type="button" aria-label="Zamknij">✕</button>
+    </div>
+    <div class="fs-rail-pop-body" id="fsRailVersesList"></div>
+    <div class="fs-rail-pop-foot">
+      <button class="btn primary sm" id="fsRailAddVerseBtn" type="button">+ Dodaj werset</button>
+    </div>
+  </div>
+
+  <div id="fsRailStatsPop" class="fs-rail-pop" hidden>
+    <div class="fs-rail-pop-head">
+      <div class="fs-rail-pop-title">ℹ️ Informacje i statystyki</div>
+      <button class="fs-rail-pop-close" data-rail-close="1" type="button" aria-label="Zamknij">✕</button>
+    </div>
+    <div class="fs-rail-pop-body" id="fsRailStatsBody"></div>
+  </div>
+
   <div class="fsmodal">
     <div id="fsWrap"></div>
   </div>
@@ -30983,6 +31411,8 @@ function closeFs(fromPopstate){
   const wrocDo = fsSlad.length ? fsSlad[0] : fsGuid;
   fsSlad.length = 0; fsGuid = null;
   delete window._skadOtwartoGuid;
+  if(typeof closeFsRailPops === "function") closeFsRailPops();
+  if(typeof closeSlashMenu === "function") closeSlashMenu();
   if(typeof schowajPoprzedniaNotatke === "function") schowajPoprzedniaNotatke();
   pilnujNhead(null);
   if(typeof _zmierzNheadRaf !== "undefined" && _zmierzNheadRaf){ cancelAnimationFrame(_zmierzNheadRaf); _zmierzNheadRaf = 0; }
@@ -33632,6 +34062,644 @@ $("selEditBar").addEventListener("pointerdown",ev=>{
   commitLiveEdit(ctxCe);if(typeof histZapisz==="function")histZapisz(ctxCe);schowajPasekZaznaczenia();
 });
 document.addEventListener("pointerdown",e=>{if(!e.target.closest("#selEditBar,#ebPop"))schowajPasekZaznaczenia();},true);
+
+/* =====================================================================
+   STUDIO PRO: FLOATING SLASH COMMAND MENU (/) & RIGHT-SIDE INSPECTOR
+   ===================================================================== */
+const SLASH_COMMANDS = [
+  // Wyróżnione bloki studyjne
+  {
+    group: "Wyróżnione bloki",
+    id: "goal",
+    title: "Cel studium",
+    desc: "Wyróżniony blok z celem badawczym lub tematem",
+    icon: "🎯",
+    keywords: "cel studium plan badanie temat glowny",
+    action: (ce) => insertCallout(ce, "goal")
+  },
+  {
+    group: "Wyróżnione bloki",
+    id: "gem",
+    title: "Klejnot duchowy",
+    desc: "Cenne myśli, głębsze prawdy i odkrycia",
+    icon: "💎",
+    keywords: "klejnot duchowy mysl skarb odkrycie prawda",
+    action: (ce) => insertCallout(ce, "gem")
+  },
+  {
+    group: "Wyróżnione bloki",
+    id: "important",
+    title: "Ważne / Kluczowe",
+    desc: "Ostrzeżenie lub kluczowa myśl do zapamiętania",
+    icon: "❗",
+    keywords: "wazne uwaga kluczowe istotne pamietaj ostrzezenie",
+    action: (ce) => insertCallout(ce, "important")
+  },
+  {
+    group: "Wyróżnione bloki",
+    id: "conclusion",
+    title: "Wniosek / Zastosowanie",
+    desc: "Wnioski ze studium i praktyczne wdrożenie",
+    icon: "✓",
+    keywords: "wniosek zastosowanie podsumowanie praktyka zycie sluzba",
+    action: (ce) => insertCallout(ce, "conclusion")
+  },
+  {
+    group: "Wyróżnione bloki",
+    id: "question",
+    title: "Pytanie do przemyślenia",
+    desc: "Pytanie do rozważenia lub dalszego badania",
+    icon: "❓",
+    keywords: "pytanie watpliwosc zbadac przemyslenie rozwaz",
+    action: (ce) => insertCallout(ce, "question")
+  },
+  {
+    group: "Wyróżnione bloki",
+    id: "example",
+    title: "Przykład / Ilustracja",
+    desc: "Ilustracja ułatwiająca zrozumienie tematu",
+    icon: "💡",
+    keywords: "przyklad ilustracja porownanie obraz metafora",
+    action: (ce) => insertCallout(ce, "example")
+  },
+  // Elementy treści
+  {
+    group: "Elementy treści",
+    id: "verse",
+    title: "Werset biblijny",
+    desc: "Inteligentny odnośnik do Biblii lub JW Library",
+    icon: "📖",
+    keywords: "werset biblia pismo odnosnik jwl pismo swiete",
+    action: (ce) => insertVerseRef(ce)
+  },
+  {
+    group: "Elementy treści",
+    id: "todo",
+    title: "Lista zadań (To-do)",
+    desc: "Interaktywne pole wyboru z odhaczaniem",
+    icon: "☑️",
+    keywords: "lista zadan zadanie todo checkbox czeklista checklist zrobic plan",
+    action: (ce) => insertTaskList(ce)
+  },
+  {
+    group: "Elementy treści",
+    id: "table",
+    title: "Tabela",
+    desc: "Wstaw nowoczesną tabelę z siatki",
+    icon: "📊",
+    keywords: "tabela table siatka wiersze kolumny zestawienie dane",
+    action: (ce) => insertTable(ce)
+  },
+  {
+    group: "Elementy treści",
+    id: "quote",
+    title: "Cytat",
+    desc: "Wcięty blok cytatu z pionową kreską",
+    icon: "❝",
+    keywords: "cytat blokowy zrodlo cytowanie slowa publikacja",
+    action: (ce, delR) => {
+      const blk = blockOf(delR ? delR.startContainer : ce, ce);
+      const nowy = zamienBlok(blk, "blockquote", ce);
+      if(nowy && typeof kursorNaPoczatkuBloku === "function") kursorNaPoczatkuBloku(nowy, ce);
+    }
+  },
+  {
+    group: "Elementy treści",
+    id: "hr",
+    title: "Linia pozioma (Separator)",
+    desc: "Subtelny separator podziału sekcji",
+    icon: "➖",
+    keywords: "linia pozioma separator hr podzial linijka kreska",
+    action: (ce, delR) => {
+      const hr = document.createElement("hr");
+      if(delR) delR.insertNode(hr); else ce.appendChild(hr);
+      const p = document.createElement("div");
+      p.innerHTML = "<br>";
+      hr.parentNode.insertBefore(p, hr.nextSibling);
+      const s = window.getSelection();
+      const nr = document.createRange();
+      nr.setStart(p, 0); nr.collapse(true);
+      s.removeAllRanges(); s.addRange(nr);
+    }
+  },
+  {
+    group: "Elementy treści",
+    id: "date",
+    title: "Dzisiejsza data",
+    desc: "Wstawia sformatowaną datę jako pigułkę",
+    icon: "📅",
+    keywords: "data dzis dzisiaj dzien kalendarz czas teraz",
+    action: (ce, delR) => {
+      const b = document.createElement("span");
+      b.className = "date-badge";
+      const now = new Date();
+      b.textContent = now.toLocaleDateString("pl-PL", { day: "numeric", month: "long", year: "numeric" });
+      if(delR) delR.insertNode(b); else ce.appendChild(b);
+      const sp = document.createTextNode("\u00A0");
+      b.parentNode.insertBefore(sp, b.nextSibling);
+      const s = window.getSelection();
+      const nr = document.createRange();
+      nr.setStartAfter(sp); nr.collapse(true);
+      s.removeAllRanges(); s.addRange(nr);
+    }
+  },
+  {
+    group: "Elementy treści",
+    id: "template",
+    title: "Szablon studium",
+    desc: "Gotowy szablon (werset, zebranie, służba...)",
+    icon: "📑",
+    keywords: "szablon werset zebranie sluzba wzorzec notatki uklad",
+    action: (ce) => insertTemplate(ce)
+  },
+  // Formatowanie tekstu
+  {
+    group: "Formatowanie tekstu",
+    id: "h1",
+    title: "Nagłówek 1 (Duży)",
+    desc: "Główny tytuł sekcji",
+    icon: "H1",
+    keywords: "naglowek h1 duzy tytul sekcja glowny",
+    action: (ce, delR) => {
+      const blk = blockOf(delR ? delR.startContainer : ce, ce);
+      const nowy = zamienBlok(blk, "h1", ce);
+      if(nowy && typeof kursorNaPoczatkuBloku === "function") kursorNaPoczatkuBloku(nowy, ce);
+    }
+  },
+  {
+    group: "Formatowanie tekstu",
+    id: "h2",
+    title: "Nagłówek 2 (Średni)",
+    desc: "Średni podtytuł sekcji",
+    icon: "H2",
+    keywords: "naglowek h2 sredni podtytul srodtytul",
+    action: (ce, delR) => {
+      const blk = blockOf(delR ? delR.startContainer : ce, ce);
+      const nowy = zamienBlok(blk, "h2", ce);
+      if(nowy && typeof kursorNaPoczatkuBloku === "function") kursorNaPoczatkuBloku(nowy, ce);
+    }
+  },
+  {
+    group: "Formatowanie tekstu",
+    id: "h3",
+    title: "Nagłówek 3 (Mały)",
+    desc: "Mniejszy śródtytuł sekcji",
+    icon: "H3",
+    keywords: "naglowek h3 maly srodtytul podpunkt",
+    action: (ce, delR) => {
+      const blk = blockOf(delR ? delR.startContainer : ce, ce);
+      const nowy = zamienBlok(blk, "h3", ce);
+      if(nowy && typeof kursorNaPoczatkuBloku === "function") kursorNaPoczatkuBloku(nowy, ce);
+    }
+  },
+  {
+    group: "Formatowanie tekstu",
+    id: "ul",
+    title: "Lista punktowana",
+    desc: "Standardowe wyliczenie punktorami",
+    icon: "•",
+    keywords: "lista punktowana punktor kropki wyliczenie",
+    action: (ce, delR) => {
+      const blk = blockOf(delR ? delR.startContainer : ce, ce);
+      const nowy = zamienNaListe(blk, "ul", "", ce);
+      if(nowy && typeof kursorNaPoczatkuBloku === "function") kursorNaPoczatkuBloku(nowy, ce);
+    }
+  },
+  {
+    group: "Formatowanie tekstu",
+    id: "ol",
+    title: "Lista numerowana",
+    desc: "Kolejno ponumerowane punkty",
+    icon: "1.",
+    keywords: "lista numerowana numerki cyfry liczby punkty",
+    action: (ce, delR) => {
+      const blk = blockOf(delR ? delR.startContainer : ce, ce);
+      const nowy = zamienNaListe(blk, "ol", "", ce);
+      if(nowy && typeof kursorNaPoczatkuBloku === "function") kursorNaPoczatkuBloku(nowy, ce);
+    }
+  }
+];
+
+const slashState = {
+  active: false,
+  ce: null,
+  query: "",
+  node: null,
+  offset: 0,
+  filteredItems: [],
+  selectedIndex: 0
+};
+
+function positionSlashMenu(menu, r) {
+  const rects = r.getClientRects();
+  const rect = (rects && rects.length > 0) ? rects[0] : r.getBoundingClientRect();
+  const mw = menu.offsetWidth || 320;
+  const mh = menu.offsetHeight || 340;
+  const winW = window.innerWidth;
+  const winH = window.innerHeight;
+
+  let left = rect.left;
+  if(left + mw > winW - 16) left = Math.max(16, winW - mw - 16);
+  if(left < 16) left = 16;
+
+  let top = rect.bottom + 8;
+  if(top + mh > winH - 20 && rect.top > mh + 20) {
+    top = rect.top - mh - 8;
+  }
+  menu.style.left = Math.round(left) + "px";
+  menu.style.top = Math.round(top) + "px";
+}
+
+function renderSlashMenu() {
+  const list = $("slashMenuList");
+  if(!list) return;
+  if(!slashState.filteredItems.length) {
+    list.innerHTML = '<div class="slash-empty">Brak pasujących elementów.<br><small style="opacity:0.7">Wpisz inną nazwę lub naciśnij Esc</small></div>';
+    return;
+  }
+  let html = "";
+  let curGroup = "";
+  slashState.filteredItems.forEach((it, idx) => {
+    if(it.group !== curGroup) {
+      curGroup = it.group;
+      html += `<div class="slash-group-label">${esc(curGroup)}</div>`;
+    }
+    const sel = idx === slashState.selectedIndex ? " selected" : "";
+    html += `<div class="slash-item${sel}" data-slash-idx="${idx}" role="option" aria-selected="${idx === slashState.selectedIndex}">
+      <div class="slash-item-ic">${it.icon}</div>
+      <div class="slash-item-info">
+        <div class="slash-item-title">${esc(it.title)}</div>
+        <div class="slash-item-desc">${esc(it.desc)}</div>
+      </div>
+    </div>`;
+  });
+  list.innerHTML = html;
+}
+
+function openSlashMenu(ce, query, r, node, offset) {
+  slashState.active = true;
+  slashState.ce = ce;
+  slashState.query = query;
+  slashState.node = node;
+  slashState.offset = offset;
+
+  const q = query.trim().toLowerCase();
+  if(!q) {
+    slashState.filteredItems = SLASH_COMMANDS.slice();
+  } else {
+    slashState.filteredItems = SLASH_COMMANDS.filter(it => {
+      return it.title.toLowerCase().includes(q) ||
+             it.keywords.toLowerCase().includes(q) ||
+             it.id.toLowerCase().includes(q);
+    });
+  }
+  slashState.selectedIndex = 0;
+  renderSlashMenu();
+
+  const menu = $("slashMenu");
+  if(menu) {
+    menu.hidden = false;
+    menu.style.display = "flex";
+    positionSlashMenu(menu, r);
+  }
+}
+
+function closeSlashMenu() {
+  slashState.active = false;
+  const menu = $("slashMenu");
+  if(menu) {
+    menu.hidden = true;
+    menu.style.display = "none";
+  }
+}
+
+function moveSlashMenuHighlight(delta) {
+  const count = slashState.filteredItems.length;
+  if(count === 0) return;
+  slashState.selectedIndex = (slashState.selectedIndex + delta + count) % count;
+  const list = $("slashMenuList");
+  if(!list) return;
+  const items = list.querySelectorAll(".slash-item");
+  items.forEach((it, idx) => {
+    const isSel = idx === slashState.selectedIndex;
+    it.classList.toggle("selected", isSel);
+    it.setAttribute("aria-selected", isSel);
+    if(isSel) it.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  });
+}
+
+function executeSlashCommandByIndex(idx) {
+  if(!slashState.active || !slashState.ce) return;
+  const cmd = slashState.filteredItems[idx];
+  if(!cmd) return;
+
+  const { ce, node, offset, query } = slashState;
+  closeSlashMenu();
+
+  // Usuń wpisany tekst `/query`
+  let delRange = null;
+  if(node && node.parentNode && node.nodeType === 3) {
+    const text = node.textContent;
+    const startIdx = offset - 1 - query.length;
+    if(startIdx >= 0 && text.slice(startIdx, offset) === "/" + query) {
+      delRange = document.createRange();
+      delRange.setStart(node, startIdx);
+      delRange.setEnd(node, offset);
+      delRange.deleteContents();
+      edSavedRange = delRange.cloneRange();
+    }
+  }
+
+  try {
+    cmd.action(ce, delRange);
+  } catch(err) {
+    console.warn("Błąd wykonania slash command:", cmd.id, err);
+  }
+
+  if(typeof commitLiveEdit === "function") commitLiveEdit(ce);
+  if(typeof histZapisz === "function") histZapisz(ce);
+  if(typeof updateFsNav === "function") updateFsNav();
+  if(ce.id === "nnContent" && typeof triggerNnAutosave === "function") triggerNnAutosave();
+}
+
+function checkSlashTrigger(ce) {
+  const sel = window.getSelection();
+  if(!sel || !sel.rangeCount || !sel.isCollapsed) {
+    if(slashState.active) closeSlashMenu();
+    return;
+  }
+  const r = sel.getRangeAt(0);
+  if(!ce.contains(r.startContainer)) {
+    if(slashState.active) closeSlashMenu();
+    return;
+  }
+  const node = r.startContainer;
+  if(node.nodeType !== 3) {
+    if(slashState.active) closeSlashMenu();
+    return;
+  }
+  const text = node.textContent.slice(0, r.startOffset);
+  const match = text.match(/(?:^|\s)\/([a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ\-]*)$/);
+  if(match) {
+    openSlashMenu(ce, match[1], r, node, r.startOffset);
+  } else if(slashState.active) {
+    closeSlashMenu();
+  }
+}
+
+// Globalne zdarzenia klawiatury dla menu Slash
+document.addEventListener("keydown", e => {
+  if(!slashState.active) return;
+  if(e.key === "ArrowDown") {
+    e.preventDefault(); e.stopPropagation();
+    moveSlashMenuHighlight(1);
+    return;
+  }
+  if(e.key === "ArrowUp") {
+    e.preventDefault(); e.stopPropagation();
+    moveSlashMenuHighlight(-1);
+    return;
+  }
+  if(e.key === "Enter" || e.key === "Tab") {
+    e.preventDefault(); e.stopPropagation();
+    executeSlashCommandByIndex(slashState.selectedIndex);
+    return;
+  }
+  if(e.key === "Escape") {
+    e.preventDefault(); e.stopPropagation();
+    closeSlashMenu();
+    return;
+  }
+}, true);
+
+document.addEventListener("input", e => {
+  const ce = e.target && e.target.closest ? e.target.closest('.ncontent[contenteditable="true"]') : null;
+  if(ce) {
+    checkSlashTrigger(ce);
+  } else if(slashState.active) {
+    closeSlashMenu();
+  }
+}, true);
+
+document.addEventListener("pointerdown", e => {
+  if(e.target.closest("#slashMenu")) return;
+  if(slashState.active) closeSlashMenu();
+}, true);
+
+$("slashMenuList")?.addEventListener("pointerdown", e => {
+  const item = e.target.closest("[data-slash-idx]");
+  if(!item) return;
+  e.preventDefault(); e.stopPropagation();
+  const idx = parseInt(item.dataset.slashIdx, 10);
+  executeSlashCommandByIndex(idx);
+});
+
+/* ===== RIGHT-SIDE MACOS UTILITY INSPECTOR RAIL DLA #modalFs ===== */
+function closeFsRailPops() {
+  const p1 = $("fsRailVersesPop"), p2 = $("fsRailStatsPop");
+  if(p1) p1.hidden = true;
+  if(p2) p2.hidden = true;
+  document.querySelectorAll(".fs-rail-btn.active").forEach(b => b.classList.remove("active"));
+}
+
+function otworzFsRailWersety() {
+  const pop = $("fsRailVersesPop");
+  if(!pop) return;
+  const btn = document.querySelector('.fs-rail-btn[data-rail-act="verses"]');
+  if(!pop.hidden) {
+    closeFsRailPops();
+    return;
+  }
+  closeFsRailPops();
+  pop.hidden = false;
+  if(btn) btn.classList.add("active");
+
+  const list = $("fsRailVersesList");
+  if(!list) return;
+
+  const card = document.querySelector("#fsWrap .ncard");
+  const ce = card ? card.querySelector(".ncontent") : null;
+  if(!ce) {
+    list.innerHTML = '<div class="outlineEmpty">Brak otwartej notatki</div>';
+    return;
+  }
+
+  // Wyszukaj wszystkie odnośniki wersetowe w notatce
+  const refs = Array.from(ce.querySelectorAll("a.jwl-ref, a[data-url]"));
+  if(!refs.length) {
+    list.innerHTML = `<div class="outlineEmpty" style="padding:16px 8px;">
+      <div style="font-size:24px;margin-bottom:6px;">📖</div>
+      Brak odnośników biblijnych w treści tej notatki.<br>
+      <small style="opacity:0.75;display:block;margin-top:6px;">Wpisz <b>/werset</b> w edytorze lub kliknij poniżej, aby dodać werset.</small>
+    </div>`;
+    return;
+  }
+
+  let html = `<div style="font-size:11.5px;color:var(--muted);margin-bottom:8px;font-weight:600;">Wykryto wersetów: ${refs.length}</div>`;
+  refs.forEach((a, idx) => {
+    const txt = (a.textContent || "").trim() || "Werset " + (idx + 1);
+    const url = a.getAttribute("href") || a.getAttribute("data-url") || "";
+    html += `<div class="fs-verse-row">
+      <div class="fs-verse-label">${esc(txt)}</div>
+      <div class="fs-verse-actions">
+        <button class="fs-verse-btn" type="button" data-vskocz="${idx}">Skocz</button>
+        ${url ? `<button class="fs-verse-btn primary" type="button" data-votworz="${idx}">Otwórz ↗</button>` : ""}
+      </div>
+    </div>`;
+  });
+  list.innerHTML = html;
+
+  list.onclick = (e) => {
+    const skoczBtn = e.target.closest("[data-vskocz]");
+    if(skoczBtn) {
+      const idx = parseInt(skoczBtn.dataset.vskocz, 10);
+      const target = refs[idx];
+      if(target) {
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+        target.style.transition = "outline 0.2s, background 0.2s";
+        target.style.outline = "3px solid var(--accent)";
+        target.style.background = "color-mix(in srgb, var(--accent) 25%, transparent)";
+        setTimeout(() => {
+          target.style.outline = "";
+          target.style.background = "";
+        }, 1200);
+      }
+      return;
+    }
+    const otworzBtn = e.target.closest("[data-votworz]");
+    if(otworzBtn) {
+      const idx = parseInt(otworzBtn.dataset.votworz, 10);
+      const target = refs[idx];
+      if(target && target.href) {
+        window.open(target.href, "_blank", "noopener,noreferrer");
+      }
+    }
+  };
+}
+
+function otworzFsRailStatystyki() {
+  const pop = $("fsRailStatsPop");
+  if(!pop) return;
+  const btn = document.querySelector('.fs-rail-btn[data-rail-act="stats"]');
+  if(!pop.hidden) {
+    closeFsRailPops();
+    return;
+  }
+  closeFsRailPops();
+  pop.hidden = false;
+  if(btn) btn.classList.add("active");
+
+  const body = $("fsRailStatsBody");
+  if(!body) return;
+
+  const card = document.querySelector("#fsWrap .ncard");
+  const ce = card ? card.querySelector(".ncontent") : null;
+  const n = notes.find(x => x.g === fsGuid);
+  if(!ce || !n) {
+    body.innerHTML = '<div class="outlineEmpty">Brak otwartej notatki</div>';
+    return;
+  }
+
+  const st = typeof readStats === "function" ? readStats(ce) : { words: 0, mins: 0 };
+  const chars = (ce.textContent || "").length;
+  const callouts = ce.querySelectorAll(".callout").length;
+  const heads = ce.querySelectorAll("h1, h2, h3").length;
+  const todos = ce.querySelectorAll("ul.tasklist li").length;
+  const todosDone = ce.querySelectorAll("ul.tasklist li.done").length;
+  const moDate = (n.mo || n.cr || "").slice(0, 10);
+  const crDate = (n.cr || n.mo || "").slice(0, 10);
+
+  body.innerHTML = `
+    <div class="fs-stat-grid">
+      <div class="fs-stat-box">
+        <div class="fs-stat-val">${st.words}</div>
+        <div class="fs-stat-lbl">Słów</div>
+      </div>
+      <div class="fs-stat-box">
+        <div class="fs-stat-val">${chars}</div>
+        <div class="fs-stat-lbl">Znaków</div>
+      </div>
+      <div class="fs-stat-box">
+        <div class="fs-stat-val">~${st.mins} min</div>
+        <div class="fs-stat-lbl">Czas czytania</div>
+      </div>
+      <div class="fs-stat-box">
+        <div class="fs-stat-val">${heads}</div>
+        <div class="fs-stat-lbl">Sekcji (nagłówków)</div>
+      </div>
+      <div class="fs-stat-box">
+        <div class="fs-stat-val">${callouts}</div>
+        <div class="fs-stat-lbl">Wyróżnionych bloków</div>
+      </div>
+      <div class="fs-stat-box">
+        <div class="fs-stat-val">${todos ? todosDone + "/" + todos : "0"}</div>
+        <div class="fs-stat-lbl">Zadań wykonanych</div>
+      </div>
+    </div>
+    <div style="margin-top:14px;padding-top:10px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:5px;">
+      <div><b>Ostatnia zmiana:</b> ${esc(moDate || "Brak")}</div>
+      <div><b>Utworzono:</b> ${esc(crDate || "Brak")}</div>
+      ${n.b ? `<div><b>Źródło:</b> Księga Biblii: ${esc(n.b)}</div>` : ""}
+      ${n.pub || n.ks ? `<div><b>Publikacja:</b> ${esc(n.pub || n.ks)}</div>` : ""}
+    </div>`;
+}
+
+// Obsługa bocznej szyny narzędzi
+document.addEventListener("click", e => {
+  const btn = e.target.closest("#fsInspectorRail .fs-rail-btn");
+  if(btn) {
+    e.preventDefault();
+    e.stopPropagation();
+    const act = btn.dataset.railAct;
+    const card = document.querySelector("#fsWrap .ncard");
+    const ce = card ? card.querySelector(".ncontent") : null;
+
+    if(act === "toc") {
+      closeFsRailPops();
+      if(ce) {
+        const no = $("noteOutline");
+        if(no && no.style.display === "block") {
+          zamknijSpisNotatki(false);
+          btn.classList.remove("active");
+        } else {
+          otworzSpisNotatki(ce);
+          btn.classList.add("active");
+        }
+      }
+    } else if(act === "verses") {
+      otworzFsRailWersety();
+    } else if(act === "history") {
+      closeFsRailPops();
+      if(typeof openHistory === "function") openHistory(ce);
+    } else if(act === "stats") {
+      otworzFsRailStatystyki();
+    } else if(act === "search") {
+      closeFsRailPops();
+      const fbtn = document.querySelector('#fsWrap [data-fsb="find"]');
+      if(fbtn) fbtn.click();
+    }
+    return;
+  }
+
+  if(e.target.closest("[data-rail-close]")) {
+    e.preventDefault();
+    closeFsRailPops();
+    return;
+  }
+
+  if(e.target.closest("#fsRailAddVerseBtn")) {
+    e.preventDefault();
+    closeFsRailPops();
+    const card = document.querySelector("#fsWrap .ncard");
+    const ce = card ? card.querySelector(".ncontent") : null;
+    if(ce) insertVerseRef(ce);
+    return;
+  }
+
+  if(!e.target.closest("#fsInspectorRail, .fs-rail-pop")) {
+    closeFsRailPops();
+  }
+});
 
 /* ===== SPIS NAGŁÓWKÓW I ZWIJANIE SEKCJI (3.53 + 3.56 Pkt 4) ===== */
 let outlineCe=null,outlineTimer=0;
