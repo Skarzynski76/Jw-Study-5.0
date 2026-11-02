@@ -17841,10 +17841,10 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   display: block;
   margin: 10px 0;
   border-radius: 14px;
-  background: color-mix(in srgb, var(--panel) 92%, var(--cardAccent, var(--accent)) 8%);
-  border: 1px solid color-mix(in srgb, var(--border) 80%, var(--cardAccent, var(--accent)) 20%);
-  padding: 8px 12px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+  background: color-mix(in srgb, var(--panel) 94%, var(--cardAccent, var(--accent)) 6%);
+  border: 1px solid color-mix(in srgb, var(--border) 75%, var(--cardAccent, var(--accent)) 25%);
+  padding: 8px 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
   user-select: none;
   -webkit-user-select: none;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -17857,16 +17857,17 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   transition: width 0.18s ease, max-width 0.18s ease, box-shadow 0.15s ease;
 }
 .jw-media-player:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.09);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }
 .jw-media-player.jw-media-video {
-  padding: 8px 10px 10px;
-  background: #111417;
-  border-color: rgba(255,255,255,0.15);
+  padding: 8px 10px 8px;
+  background: #0d0f12;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.35);
   color: #fff;
 }
 
-/* Rozmiary odtwarzacza (S: kompaktowy, M: średni, FULL: pełna szerokość) */
+/* Rozmiary odtwarzacza */
 .jw-media-player.jmp-size-s {
   width: 320px;
   max-width: 100%;
@@ -17875,26 +17876,17 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   width: 340px;
   max-width: 100%;
 }
-.jw-media-player.jw-media-video.jmp-size-s video {
-  max-height: 190px;
-}
 .jw-media-player.jmp-size-m {
-  width: 500px;
+  width: 480px;
   max-width: 100%;
 }
 .jw-media-player.jw-media-video.jmp-size-m {
   width: 520px;
   max-width: 100%;
 }
-.jw-media-player.jw-media-video.jmp-size-m video {
-  max-height: 295px;
-}
 .jw-media-player.jmp-size-full {
   width: 100%;
   max-width: 100%;
-}
-.jw-media-player.jw-media-video.jmp-size-full video {
-  max-height: 480px;
 }
 
 /* Wyrównanie i oblewanie tekstem */
@@ -17914,11 +17906,19 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   clear: both;
 }
 
+/* Ekran wideo */
+.jmp-video-screen {
+  position: relative;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+  cursor: pointer;
+}
 .jw-media-player video {
   width: 100%;
-  max-height: 320px;
   aspect-ratio: 16/9;
-  border-radius: 10px;
+  max-height: 480px;
   background: #000;
   display: block;
   object-fit: contain;
@@ -17926,39 +17926,33 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
 .jw-media-player audio {
   display: none;
 }
-.jmp-video-screen {
-  position: relative;
-  width: 100%;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #000;
-}
 .jmp-screen-play {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 56px;
-  height: 56px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: rgba(0,0,0,0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 2px solid rgba(255,255,255,0.7);
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255,255,255,0.6);
   color: #fff;
-  font-size: 22px;
+  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.2,0,0,1);
-  padding-left: 4px;
+  padding-left: 3px;
   pointer-events: auto;
-  opacity: 0.9;
+  opacity: 0.95;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
 }
 .jmp-screen-play:hover {
   transform: translate(-50%, -50%) scale(1.1);
-  background: var(--accent);
+  background: var(--cardAccent, var(--accent));
   border-color: #fff;
   opacity: 1;
 }
@@ -17966,15 +17960,26 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   opacity: 0;
   pointer-events: none;
 }
+
+/* Nagłówek (top bar) */
 .jmp-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 6px;
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
   color: var(--text);
+  line-height: 1.2;
+}
+.jw-media-player.jw-media-video .jmp-top {
+  color: #f1f5f9;
+}
+.jmp-icon {
+  font-size: 13px;
+  line-height: 1;
+  flex-shrink: 0;
 }
 .jmp-top-tools {
   display: flex;
@@ -17994,26 +17999,24 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   background: color-mix(in srgb, var(--bg) 60%, transparent);
   color: var(--text);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   line-height: 1;
   transition: all 0.14s ease;
-  user-select: none;
-  -webkit-user-select: none;
 }
 .jw-media-player.jw-media-video .jmp-tool-btn {
-  background: rgba(255,255,255,0.12);
-  border-color: rgba(255,255,255,0.18);
-  color: #f0f0f0;
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.16);
+  color: #e2e8f0;
 }
 .jmp-tool-btn:hover {
   background: var(--sel);
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--cardAccent, var(--accent));
+  color: var(--cardAccent, var(--accent));
 }
 .jw-media-player.jw-media-video .jmp-tool-btn:hover {
-  background: rgba(255,255,255,0.25);
-  border-color: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.35);
   color: #fff;
 }
 .jmp-del-top {
@@ -18026,69 +18029,102 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   border: 1px solid transparent;
   background: transparent;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
   padding: 0;
   margin-left: 2px;
   transition: all 0.14s ease;
-  user-select: none;
-  -webkit-user-select: none;
 }
 .jmp-del-top:hover {
-  background: rgba(231, 76, 60, 0.15);
+  background: rgba(231, 76, 60, 0.16);
   border-color: rgba(231, 76, 60, 0.35);
   color: #e74c3c;
 }
 .jw-media-player.jw-media-video .jmp-del-top {
-  color: #bbb;
+  color: #94a3b8;
 }
 .jw-media-player.jw-media-video .jmp-del-top:hover {
-  background: rgba(231, 76, 60, 0.35);
+  background: rgba(231, 76, 60, 0.3);
   border-color: rgba(231, 76, 60, 0.5);
   color: #ff6b6b;
 }
-.jmp-btn.jmp-del {
-  color: #e74c3c !important;
+
+/* Wideo: Pojedynczy, nowoczesny pasek dolny (30px) */
+.jmp-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 0 2px;
+  flex-wrap: nowrap;
+  height: 30px;
 }
-.jmp-btn.jmp-del:hover {
-  background: rgba(231, 76, 60, 0.14) !important;
-  border-color: #e74c3c !important;
-  color: #e74c3c !important;
-}
-.sbtn.ico.card-del-btn:hover {
-  color: #e74c3c !important;
-  background: rgba(231, 76, 60, 0.12) !important;
-  border-color: rgba(231, 76, 60, 0.3) !important;
-}
-.fs-rail-btn-del:hover {
-  background: rgba(231, 76, 60, 0.18) !important;
-  color: #e74c3c !important;
-  border-color: rgba(231, 76, 60, 0.4) !important;
-}
-.jw-media-player.jw-media-video .jmp-top {
-  color: #f0f0f0;
-  margin-top: 4px;
-}
-.jmp-icon {
-  font-size: 14px;
-  line-height: 1;
-}
-.jmp-title {
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.jmp-time {
+.jmp-btn {
+  border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  background: color-mix(in srgb, var(--panel) 75%, transparent);
+  color: var(--text);
+  border-radius: 6px;
+  padding: 0 7px;
   font-size: 11px;
-  font-variant-numeric: tabular-nums;
-  opacity: 0.85;
-  font-weight: 500;
-  white-space: nowrap;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  height: 26px;
+  min-height: 26px;
+  transition: all 0.14s ease;
+  flex-shrink: 0;
 }
+.jw-media-player.jw-media-video .jmp-btn {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.14);
+  color: #f1f5f9;
+}
+.jmp-btn:hover {
+  background: var(--sel);
+  border-color: var(--cardAccent, var(--accent));
+  color: var(--cardAccent, var(--accent));
+}
+.jw-media-player.jw-media-video .jmp-btn:hover {
+  background: rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.3);
+  color: #fff;
+}
+.jmp-btn:active {
+  transform: scale(0.96);
+}
+.jmp-play {
+  width: 30px;
+  min-width: 30px;
+  padding: 0;
+  background: var(--cardAccent, var(--accent));
+  color: #fff !important;
+  border-color: transparent;
+  font-size: 12px;
+}
+.jmp-play:hover {
+  background: var(--accent2, var(--accent));
+}
+.jmp-speed {
+  font-size: 10.5px;
+  padding: 0 5px;
+  font-weight: 700;
+}
+.jmp-vol, .jmp-fs {
+  font-size: 12.5px;
+  width: 26px;
+  min-width: 26px;
+  padding: 0;
+}
+
+/* Pasek postępu (Scrubber) */
 .jmp-progress-wrap {
+  flex: 1;
+  min-width: 40px;
   position: relative;
   height: 16px;
   display: flex;
@@ -18109,17 +18145,17 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
 .jmp-bar {
   position: relative;
   width: 100%;
-  height: 5px;
+  height: 4px;
   background: color-mix(in srgb, var(--border) 70%, transparent);
   border-radius: 999px;
   overflow: hidden;
   transition: height 0.15s ease;
 }
 .jw-media-player.jw-media-video .jmp-bar {
-  background: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.2);
 }
 .jmp-progress-wrap:hover .jmp-bar {
-  height: 7px;
+  height: 6px;
 }
 .jmp-fill {
   height: 100%;
@@ -18128,81 +18164,74 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   border-radius: 999px;
   transition: width 0.05s linear;
 }
-.jmp-controls {
+.jmp-time {
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Audio Player (Nowoczesna, smukła karta stylu Apple Voice Memo / Podcast) */
+.jmp-audio-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.jmp-audio-play {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  background: var(--cardAccent, var(--accent));
+  color: #fff !important;
+  border: none;
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  margin-top: 4px;
-  flex-wrap: wrap;
-}
-.jmp-btn {
-  border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
-  background: color-mix(in srgb, var(--panel) 75%, transparent);
-  color: var(--text);
-  border-radius: 8px;
-  padding: 4px 7px;
-  font-size: 11.5px;
-  font-weight: 600;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  min-height: 26px;
-  transition: all 0.14s ease;
-  user-select: none;
-  -webkit-user-select: none;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  transition: transform 0.15s ease, background 0.15s ease;
+  flex-shrink: 0;
+  padding-left: 2px;
 }
-  border-radius: 10px;
-  padding: 5px 10px;
-  font-size: 12.5px;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  min-height: 30px;
-  transition: all 0.15s ease;
-  user-select: none;
-  -webkit-user-select: none;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-}
-.jw-media-player.jw-media-video .jmp-btn {
-  background: rgba(255,255,255,0.12);
-  border-color: rgba(255,255,255,0.15);
-  color: #fff;
-}
-.jmp-btn:hover {
-  background: var(--sel);
-  border-color: var(--cardAccent, var(--accent));
-  transform: translateY(-1px);
-}
-.jw-media-player.jw-media-video .jmp-btn:hover {
-  background: rgba(255,255,255,0.25);
-}
-.jmp-btn:active {
-  transform: scale(0.96);
-}
-.jmp-play {
-  min-width: 44px;
-  font-size: 14px;
-  background: var(--cardAccent, var(--accent));
-  color: #fff !important;
-  border-color: transparent;
-}
-.jmp-play:hover {
+.jmp-audio-play:hover {
+  transform: scale(1.06);
   background: var(--accent2, var(--accent));
 }
-.jmp-speed {
-  font-size: 11.5px;
-  min-width: 42px;
+.jw-media-player.playing .jmp-audio-play {
+  padding-left: 0;
 }
-.jmp-vol, .jmp-fs {
-  font-size: 13.5px;
-  padding: 5px 8px;
+.jmp-audio-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+}
+.jmp-audio-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.jmp-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+.jmp-audio-tools {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
 }
 /* JW Study 3.52 / Studio Pro — narzędzia zaznaczenia w stylu Apple pill */
 #selEditBar {
@@ -36912,61 +36941,52 @@ function budujElementOdtwarzacza(type, src, title, size, align, customWidth){
 
   if(isVideo){
     wrap.innerHTML = `
+      <div class="jmp-top">
+        <span class="jmp-icon" aria-hidden="true">🎬</span>
+        <span class="jmp-title" title="${tytulEsc}">${tytulEsc}</span>
+        <div class="jmp-top-tools">
+          <button type="button" class="jmp-tool-btn jmp-size-btn" title="Rozmiar wideo (kliknij: S → M → 100%)" aria-label="Rozmiar"><span class="jmp-size-tag">${sizeLbl}</span></button>
+          <button type="button" class="jmp-tool-btn jmp-align-btn" title="Układ (kliknij: Środek → Lewo → Prawo)" aria-label="Układ"><span class="jmp-align-tag">${alignIcon}</span></button>
+          <button type="button" class="jmp-del-top" title="Usuń plik wideo z notatki" aria-label="Usuń wideo">✕</button>
+        </div>
+      </div>
       <div class="jmp-video-screen">
         <video playsinline preload="metadata" src="${src}"></video>
         <button type="button" class="jmp-screen-play" aria-label="Odtwórz wideo">▶</button>
       </div>
-      <div class="jmp-top">
-        <span class="jmp-icon" aria-hidden="true">🎬</span>
-        <span class="jmp-title" title="${tytulEsc}">${tytulEsc}</span>
-        <span class="jmp-time"><span class="jmp-cur">00:00</span> / <span class="jmp-dur">--:--</span></span>
-        <div class="jmp-top-tools">
-          <button type="button" class="jmp-tool-btn jmp-size-btn" title="Rozmiar wideo: kliknij, aby przełączyć (S: 340px → M: 520px → 100%)" aria-label="Rozmiar"><span class="jmp-size-tag">${sizeLbl}</span></button>
-          <button type="button" class="jmp-tool-btn jmp-align-btn" title="Układ: kliknij, aby przełączyć (Środek → Lewo z oblewaniem → Prawo z oblewaniem)" aria-label="Układ"><span class="jmp-align-tag">${alignIcon}</span></button>
-          <button type="button" class="jmp-del-top" title="Usuń plik wideo z notatki" aria-label="Usuń wideo">✕</button>
+      <div class="jmp-controls-row">
+        <button type="button" class="jmp-btn jmp-play" title="Odtwórz / Pauza" aria-label="Odtwórz">▶</button>
+        <div class="jmp-progress-wrap">
+          <input type="range" class="jmp-range" min="0" max="100" value="0" step="0.1" aria-label="Pasek postępu wideo">
+          <div class="jmp-bar"><div class="jmp-fill"></div></div>
         </div>
-      </div>
-      <div class="jmp-progress-wrap">
-        <input type="range" class="jmp-range" min="0" max="100" value="0" step="0.1" aria-label="Pasek postępu wideo">
-        <div class="jmp-bar"><div class="jmp-fill"></div></div>
-      </div>
-      <div class="jmp-controls">
-        <button type="button" class="jmp-btn jmp-play" title="Odtwórz / Pauza">▶</button>
-        <button type="button" class="jmp-btn jmp-stop" title="Zatrzymaj (Stop)">⏹</button>
-        <button type="button" class="jmp-btn jmp-skip-back" title="Cofnij o 10 sekund">↺ 10s</button>
-        <button type="button" class="jmp-btn jmp-skip-fwd" title="Do przodu o 10 sekund">10s ↻</button>
+        <span class="jmp-time"><span class="jmp-cur">00:00</span> / <span class="jmp-dur">--:--</span></span>
         <button type="button" class="jmp-btn jmp-speed" title="Prędkość odtwarzania">1.0x</button>
-        <button type="button" class="jmp-btn jmp-fs" title="Pełny ekran wideo">⛶</button>
         <button type="button" class="jmp-btn jmp-vol" title="Wycisz / włącz dźwięk">🔊</button>
-        <button type="button" class="jmp-btn jmp-size-ctrl-btn" title="Zmień rozmiar: S / M / 100%">⤢ <span class="jmp-size-ctrl-lbl">${sizeLbl}</span></button>
-        <button type="button" class="jmp-btn jmp-del" title="Usuń plik wideo z notatki" aria-label="Usuń wideo">🗑️</button>
+        <button type="button" class="jmp-btn jmp-fs" title="Pełny ekran wideo">⛶</button>
       </div>`;
   } else {
     wrap.innerHTML = `
       <audio preload="metadata" src="${src}"></audio>
-      <div class="jmp-top">
-        <span class="jmp-icon" aria-hidden="true">🎙️</span>
-        <span class="jmp-title" title="${tytulEsc}">${tytulEsc}</span>
-        <span class="jmp-time"><span class="jmp-cur">00:00</span> / <span class="jmp-dur">--:--</span></span>
-        <div class="jmp-top-tools">
-          <button type="button" class="jmp-tool-btn jmp-size-btn" title="Rozmiar nagrania: kliknij, aby przełączyć (S: 320px → M: 500px → 100%)" aria-label="Rozmiar"><span class="jmp-size-tag">${sizeLbl}</span></button>
-          <button type="button" class="jmp-tool-btn jmp-align-btn" title="Układ: kliknij, aby przełączyć (Środek → Lewo z oblewaniem → Prawo z oblewaniem)" aria-label="Układ"><span class="jmp-align-tag">${alignIcon}</span></button>
+      <div class="jmp-audio-card">
+        <button type="button" class="jmp-btn jmp-play jmp-audio-play" title="Odtwórz / Pauza" aria-label="Odtwórz">▶</button>
+        <div class="jmp-audio-main">
+          <div class="jmp-audio-info">
+            <span class="jmp-icon" aria-hidden="true">🎙️</span>
+            <span class="jmp-title" title="${tytulEsc}">${tytulEsc}</span>
+            <span class="jmp-time"><span class="jmp-cur">00:00</span> / <span class="jmp-dur">--:--</span></span>
+          </div>
+          <div class="jmp-progress-wrap">
+            <input type="range" class="jmp-range" min="0" max="100" value="0" step="0.1" aria-label="Pasek postępu audio">
+            <div class="jmp-bar"><div class="jmp-fill"></div></div>
+          </div>
+        </div>
+        <div class="jmp-audio-tools">
+          <button type="button" class="jmp-tool-btn jmp-speed" title="Prędkość odtwarzania">1.0x</button>
+          <button type="button" class="jmp-tool-btn jmp-size-btn" title="Rozmiar nagrania (kliknij: S → M → 100%)" aria-label="Rozmiar"><span class="jmp-size-tag">${sizeLbl}</span></button>
+          <button type="button" class="jmp-tool-btn jmp-align-btn" title="Układ (kliknij: Środek → Lewo → Prawo)" aria-label="Układ"><span class="jmp-align-tag">${alignIcon}</span></button>
           <button type="button" class="jmp-del-top" title="Usuń nagranie audio z notatki" aria-label="Usuń nagranie">✕</button>
         </div>
-      </div>
-      <div class="jmp-progress-wrap">
-        <input type="range" class="jmp-range" min="0" max="100" value="0" step="0.1" aria-label="Pasek postępu audio">
-        <div class="jmp-bar"><div class="jmp-fill"></div></div>
-      </div>
-      <div class="jmp-controls">
-        <button type="button" class="jmp-btn jmp-play" title="Odtwórz / Pauza">▶</button>
-        <button type="button" class="jmp-btn jmp-stop" title="Zatrzymaj (Stop)">⏹</button>
-        <button type="button" class="jmp-btn jmp-skip-back" title="Cofnij o 10 sekund">↺ 10s</button>
-        <button type="button" class="jmp-btn jmp-skip-fwd" title="Do przodu o 10 sekund">10s ↻</button>
-        <button type="button" class="jmp-btn jmp-speed" title="Prędkość odtwarzania">1.0x</button>
-        <button type="button" class="jmp-btn jmp-vol" title="Wycisz / włącz dźwięk">🔊</button>
-        <button type="button" class="jmp-btn jmp-size-ctrl-btn" title="Zmień rozmiar: S / M / 100%">⤢ <span class="jmp-size-ctrl-lbl">${sizeLbl}</span></button>
-        <button type="button" class="jmp-btn jmp-del" title="Usuń nagranie audio z notatki" aria-label="Usuń nagranie">🗑️</button>
       </div>`;
   }
   return wrap;
@@ -37019,6 +37039,17 @@ function podepnijZdarzeniaOdtwarzacza(wrap){
 
   if(playBtn) playBtn.onclick = togglePlay;
   if(screenPlay) screenPlay.onclick = togglePlay;
+  if(media.tagName === "VIDEO") media.onclick = togglePlay;
+
+  media.onplay = () => {
+    wrap.classList.add("playing");
+    if(playBtn) playBtn.textContent = "⏸";
+  };
+  media.onpause = () => {
+    wrap.classList.remove("playing");
+    if(playBtn) playBtn.textContent = "▶";
+  };
+
   if(stopBtn){
     stopBtn.onclick = (ev) => {
       ev.preventDefault(); ev.stopPropagation();
@@ -37124,7 +37155,7 @@ function podepnijZdarzeniaOdtwarzacza(wrap){
     const nextLbl = nextSize === "s" ? "S" : (nextSize === "m" ? "M" : "100%");
     wrap.querySelectorAll(".jmp-size-tag, .jmp-size-ctrl-lbl").forEach(el => el.textContent = nextLbl);
 
-    const desc = nextSize === "s" ? (isVid ? "Mały (340 px)" : "Kompaktowy (320 px)") : (nextSize === "m" ? (isVid ? "Średni (520 px)" : "Średni (500 px)") : "Pełna szerokość (100%)");
+    const desc = nextSize === "s" ? (isVid ? "Mały (340 px)" : "Kompaktowy (320 px)") : (nextSize === "m" ? (isVid ? "Średni (520 px)" : "Średni (480 px)") : "Pełna szerokość (100%)");
     toast("Rozmiar odtwarzacza: " + desc);
 
     const ce = wrap.closest(".ncontent");
