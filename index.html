@@ -17839,27 +17839,84 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
 /* ================= ODTWARZACZ MULTIMEDIALNY (AUDIO / WIDEO) ================= */
 .jw-media-player {
   display: block;
-  margin: 14px 0;
+  margin: 10px 0;
   border-radius: 14px;
   background: color-mix(in srgb, var(--panel) 92%, var(--cardAccent, var(--accent)) 8%);
   border: 1px solid color-mix(in srgb, var(--border) 80%, var(--cardAccent, var(--accent)) 20%);
-  padding: 10px 14px;
+  padding: 8px 12px;
   box-shadow: 0 3px 12px rgba(0,0,0,0.06);
   user-select: none;
   -webkit-user-select: none;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   box-sizing: border-box;
   clear: both;
+  min-width: 220px;
+  max-width: 100%;
+  resize: horizontal;
+  overflow: hidden;
+  transition: width 0.18s ease, max-width 0.18s ease, box-shadow 0.15s ease;
+}
+.jw-media-player:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.09);
 }
 .jw-media-player.jw-media-video {
-  padding: 8px 10px 12px;
+  padding: 8px 10px 10px;
   background: #111417;
   border-color: rgba(255,255,255,0.15);
   color: #fff;
 }
+
+/* Rozmiary odtwarzacza (S: kompaktowy, M: średni, FULL: pełna szerokość) */
+.jw-media-player.jmp-size-s {
+  width: 320px;
+  max-width: 100%;
+}
+.jw-media-player.jw-media-video.jmp-size-s {
+  width: 340px;
+  max-width: 100%;
+}
+.jw-media-player.jw-media-video.jmp-size-s video {
+  max-height: 190px;
+}
+.jw-media-player.jmp-size-m {
+  width: 500px;
+  max-width: 100%;
+}
+.jw-media-player.jw-media-video.jmp-size-m {
+  width: 520px;
+  max-width: 100%;
+}
+.jw-media-player.jw-media-video.jmp-size-m video {
+  max-height: 295px;
+}
+.jw-media-player.jmp-size-full {
+  width: 100%;
+  max-width: 100%;
+}
+.jw-media-player.jw-media-video.jmp-size-full video {
+  max-height: 480px;
+}
+
+/* Wyrównanie i oblewanie tekstem */
+.jw-media-player.jmp-align-left {
+  float: left;
+  margin: 6px 16px 12px 0;
+  clear: left;
+}
+.jw-media-player.jmp-align-right {
+  float: right;
+  margin: 6px 0 12px 16px;
+  clear: right;
+}
+.jw-media-player.jmp-align-center {
+  margin-left: auto;
+  margin-right: auto;
+  clear: both;
+}
+
 .jw-media-player video {
   width: 100%;
-  max-height: 480px;
+  max-height: 320px;
   aspect-ratio: 16/9;
   border-radius: 10px;
   background: #000;
@@ -17913,23 +17970,63 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  font-size: 13px;
+  gap: 6px;
+  font-size: 12.5px;
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   color: var(--text);
+}
+.jmp-top-tools {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.jmp-tool-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  background: color-mix(in srgb, var(--bg) 60%, transparent);
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+  transition: all 0.14s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.jw-media-player.jw-media-video .jmp-tool-btn {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.18);
+  color: #f0f0f0;
+}
+.jmp-tool-btn:hover {
+  background: var(--sel);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.jw-media-player.jw-media-video .jmp-tool-btn:hover {
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.4);
+  color: #fff;
 }
 .jmp-del-top {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 6px;
   border: 1px solid transparent;
   background: transparent;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
@@ -17972,10 +18069,10 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
 }
 .jw-media-player.jw-media-video .jmp-top {
   color: #f0f0f0;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 .jmp-icon {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1;
 }
 .jmp-title {
@@ -17985,7 +18082,7 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   text-overflow: ellipsis;
 }
 .jmp-time {
-  font-size: 11.5px;
+  font-size: 11px;
   font-variant-numeric: tabular-nums;
   opacity: 0.85;
   font-weight: 500;
@@ -17993,7 +18090,7 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
 }
 .jmp-progress-wrap {
   position: relative;
-  height: 18px;
+  height: 16px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -18012,7 +18109,7 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
 .jmp-bar {
   position: relative;
   width: 100%;
-  height: 6px;
+  height: 5px;
   background: color-mix(in srgb, var(--border) 70%, transparent);
   border-radius: 999px;
   overflow: hidden;
@@ -18022,7 +18119,7 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   background: rgba(255,255,255,0.25);
 }
 .jmp-progress-wrap:hover .jmp-bar {
-  height: 8px;
+  height: 7px;
 }
 .jmp-fill {
   height: 100%;
@@ -18035,14 +18132,29 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-top: 6px;
+  gap: 5px;
+  margin-top: 4px;
   flex-wrap: wrap;
 }
 .jmp-btn {
   border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
   background: color-mix(in srgb, var(--panel) 75%, transparent);
   color: var(--text);
+  border-radius: 8px;
+  padding: 4px 7px;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  min-height: 26px;
+  transition: all 0.14s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
   border-radius: 10px;
   padding: 5px 10px;
   font-size: 12.5px;
@@ -36759,15 +36871,44 @@ function formatujCzasMedia(sek){
   return h > 0 ? (h + ":" + mm + ":" + ss) : (mm + ":" + ss);
 }
 
-function budujElementOdtwarzacza(type, src, title){
+function zapiszZmianeOdtwarzacza(wrap, ce, card){
+  const isEditing = card && card.classList.contains("editing");
+  if(ce && isEditing){
+    if(typeof histZapisz === "function") histZapisz(ce);
+    commitLiveEdit(ce);
+  } else if(card){
+    const g = card.dataset.g;
+    const n = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes.find(x => x.g === g) : null;
+    if(ce && n){
+      const clean = sanitize(ce.innerHTML);
+      n.h = clean;
+      n.c = htmlToPlain(clean);
+      n.ed = true;
+      n.mo = new Date().toISOString();
+      if(typeof saveNote === "function") saveNote(n);
+      if(typeof bumpDirty === "function") bumpDirty();
+    }
+  }
+}
+
+function budujElementOdtwarzacza(type, src, title, size, align, customWidth){
   const isVideo = type === "video";
+  const defSize = size || (isVideo ? "m" : "s");
+  const defAlign = align || "center";
   const wrap = document.createElement("div");
-  wrap.className = "jw-media-player jw-media-" + (isVideo ? "video" : "audio");
+  wrap.className = `jw-media-player jw-media-${isVideo ? "video" : "audio"} jmp-size-${defSize} jmp-align-${defAlign}`;
   wrap.setAttribute("contenteditable", "false");
   wrap.setAttribute("data-type", isVideo ? "video" : "audio");
+  wrap.setAttribute("data-size", defSize);
+  wrap.setAttribute("data-align", defAlign);
+  if(customWidth && /^\d+(px|%)$/.test(customWidth)){
+    wrap.style.width = customWidth;
+  }
   const cleanTitle = (title || (isVideo ? "Wideo" : "Nagranie audio")).replace(/["<>]/g, "");
   wrap.setAttribute("data-title", cleanTitle);
   const tytulEsc = typeof esc === "function" ? esc(cleanTitle) : cleanTitle;
+  const sizeLbl = defSize === "s" ? "S" : (defSize === "m" ? "M" : "100%");
+  const alignIcon = defAlign === "center" ? "⬌" : (defAlign === "left" ? "◧" : "◨");
 
   if(isVideo){
     wrap.innerHTML = `
@@ -36777,9 +36918,13 @@ function budujElementOdtwarzacza(type, src, title){
       </div>
       <div class="jmp-top">
         <span class="jmp-icon" aria-hidden="true">🎬</span>
-        <span class="jmp-title">${tytulEsc}</span>
+        <span class="jmp-title" title="${tytulEsc}">${tytulEsc}</span>
         <span class="jmp-time"><span class="jmp-cur">00:00</span> / <span class="jmp-dur">--:--</span></span>
-        <button type="button" class="jmp-del-top" title="Usuń plik wideo z notatki" aria-label="Usuń wideo">✕</button>
+        <div class="jmp-top-tools">
+          <button type="button" class="jmp-tool-btn jmp-size-btn" title="Rozmiar wideo: kliknij, aby przełączyć (S: 340px → M: 520px → 100%)" aria-label="Rozmiar"><span class="jmp-size-tag">${sizeLbl}</span></button>
+          <button type="button" class="jmp-tool-btn jmp-align-btn" title="Układ: kliknij, aby przełączyć (Środek → Lewo z oblewaniem → Prawo z oblewaniem)" aria-label="Układ"><span class="jmp-align-tag">${alignIcon}</span></button>
+          <button type="button" class="jmp-del-top" title="Usuń plik wideo z notatki" aria-label="Usuń wideo">✕</button>
+        </div>
       </div>
       <div class="jmp-progress-wrap">
         <input type="range" class="jmp-range" min="0" max="100" value="0" step="0.1" aria-label="Pasek postępu wideo">
@@ -36788,11 +36933,12 @@ function budujElementOdtwarzacza(type, src, title){
       <div class="jmp-controls">
         <button type="button" class="jmp-btn jmp-play" title="Odtwórz / Pauza">▶</button>
         <button type="button" class="jmp-btn jmp-stop" title="Zatrzymaj (Stop)">⏹</button>
-        <button type="button" class="jmp-btn jmp-skip-back" title="Cofnij o 10 sekund">⏪ 10s</button>
-        <button type="button" class="jmp-btn jmp-skip-fwd" title="Do przodu o 10 sekund">10s ⏩</button>
+        <button type="button" class="jmp-btn jmp-skip-back" title="Cofnij o 10 sekund">↺ 10s</button>
+        <button type="button" class="jmp-btn jmp-skip-fwd" title="Do przodu o 10 sekund">10s ↻</button>
         <button type="button" class="jmp-btn jmp-speed" title="Prędkość odtwarzania">1.0x</button>
         <button type="button" class="jmp-btn jmp-fs" title="Pełny ekran wideo">⛶</button>
         <button type="button" class="jmp-btn jmp-vol" title="Wycisz / włącz dźwięk">🔊</button>
+        <button type="button" class="jmp-btn jmp-size-ctrl-btn" title="Zmień rozmiar: S / M / 100%">⤢ <span class="jmp-size-ctrl-lbl">${sizeLbl}</span></button>
         <button type="button" class="jmp-btn jmp-del" title="Usuń plik wideo z notatki" aria-label="Usuń wideo">🗑️</button>
       </div>`;
   } else {
@@ -36800,9 +36946,13 @@ function budujElementOdtwarzacza(type, src, title){
       <audio preload="metadata" src="${src}"></audio>
       <div class="jmp-top">
         <span class="jmp-icon" aria-hidden="true">🎙️</span>
-        <span class="jmp-title">${tytulEsc}</span>
+        <span class="jmp-title" title="${tytulEsc}">${tytulEsc}</span>
         <span class="jmp-time"><span class="jmp-cur">00:00</span> / <span class="jmp-dur">--:--</span></span>
-        <button type="button" class="jmp-del-top" title="Usuń nagranie audio z notatki" aria-label="Usuń nagranie">✕</button>
+        <div class="jmp-top-tools">
+          <button type="button" class="jmp-tool-btn jmp-size-btn" title="Rozmiar nagrania: kliknij, aby przełączyć (S: 320px → M: 500px → 100%)" aria-label="Rozmiar"><span class="jmp-size-tag">${sizeLbl}</span></button>
+          <button type="button" class="jmp-tool-btn jmp-align-btn" title="Układ: kliknij, aby przełączyć (Środek → Lewo z oblewaniem → Prawo z oblewaniem)" aria-label="Układ"><span class="jmp-align-tag">${alignIcon}</span></button>
+          <button type="button" class="jmp-del-top" title="Usuń nagranie audio z notatki" aria-label="Usuń nagranie">✕</button>
+        </div>
       </div>
       <div class="jmp-progress-wrap">
         <input type="range" class="jmp-range" min="0" max="100" value="0" step="0.1" aria-label="Pasek postępu audio">
@@ -36811,10 +36961,11 @@ function budujElementOdtwarzacza(type, src, title){
       <div class="jmp-controls">
         <button type="button" class="jmp-btn jmp-play" title="Odtwórz / Pauza">▶</button>
         <button type="button" class="jmp-btn jmp-stop" title="Zatrzymaj (Stop)">⏹</button>
-        <button type="button" class="jmp-btn jmp-skip-back" title="Cofnij o 10 sekund">⏪ 10s</button>
-        <button type="button" class="jmp-btn jmp-skip-fwd" title="Do przodu o 10 sekund">10s ⏩</button>
+        <button type="button" class="jmp-btn jmp-skip-back" title="Cofnij o 10 sekund">↺ 10s</button>
+        <button type="button" class="jmp-btn jmp-skip-fwd" title="Do przodu o 10 sekund">10s ↻</button>
         <button type="button" class="jmp-btn jmp-speed" title="Prędkość odtwarzania">1.0x</button>
         <button type="button" class="jmp-btn jmp-vol" title="Wycisz / włącz dźwięk">🔊</button>
+        <button type="button" class="jmp-btn jmp-size-ctrl-btn" title="Zmień rozmiar: S / M / 100%">⤢ <span class="jmp-size-ctrl-lbl">${sizeLbl}</span></button>
         <button type="button" class="jmp-btn jmp-del" title="Usuń nagranie audio z notatki" aria-label="Usuń nagranie">🗑️</button>
       </div>`;
   }
@@ -36958,6 +37109,60 @@ function podepnijZdarzeniaOdtwarzacza(wrap){
     volBtn.textContent = media.muted ? "🔇" : "🔊";
   };
 
+  const obsluzZmianeRozmiaru = (ev) => {
+    ev.preventDefault(); ev.stopPropagation();
+    const sizes = ["s", "m", "full"];
+    const isVid = wrap.classList.contains("jw-media-video");
+    const curSize = wrap.dataset.size || (isVid ? "m" : "s");
+    const nextIdx = (sizes.indexOf(curSize) + 1) % sizes.length;
+    const nextSize = sizes[nextIdx];
+    wrap.dataset.size = nextSize;
+    wrap.classList.remove("jmp-size-s", "jmp-size-m", "jmp-size-full");
+    wrap.classList.add("jmp-size-" + nextSize);
+    wrap.style.removeProperty("width");
+
+    const nextLbl = nextSize === "s" ? "S" : (nextSize === "m" ? "M" : "100%");
+    wrap.querySelectorAll(".jmp-size-tag, .jmp-size-ctrl-lbl").forEach(el => el.textContent = nextLbl);
+
+    const desc = nextSize === "s" ? (isVid ? "Mały (340 px)" : "Kompaktowy (320 px)") : (nextSize === "m" ? (isVid ? "Średni (520 px)" : "Średni (500 px)") : "Pełna szerokość (100%)");
+    toast("Rozmiar odtwarzacza: " + desc);
+
+    const ce = wrap.closest(".ncontent");
+    const card = wrap.closest(".ncard");
+    zapiszZmianeOdtwarzacza(wrap, ce, card);
+  };
+  wrap.querySelectorAll(".jmp-size-btn, .jmp-size-ctrl-btn").forEach(b => b.onclick = obsluzZmianeRozmiaru);
+
+  const obsluzZmianeUkladu = (ev) => {
+    ev.preventDefault(); ev.stopPropagation();
+    const aligns = ["center", "left", "right"];
+    const curAlign = wrap.dataset.align || "center";
+    const nextIdx = (aligns.indexOf(curAlign) + 1) % aligns.length;
+    const nextAlign = aligns[nextIdx];
+    wrap.dataset.align = nextAlign;
+    wrap.classList.remove("jmp-align-center", "jmp-align-left", "jmp-align-right");
+    wrap.classList.add("jmp-align-" + nextAlign);
+
+    const nextIcon = nextAlign === "center" ? "⬌" : (nextAlign === "left" ? "◧" : "◨");
+    wrap.querySelectorAll(".jmp-align-tag").forEach(el => el.textContent = nextIcon);
+
+    const desc = nextAlign === "center" ? "Wyśrodkowany" : (nextAlign === "left" ? "Do lewej (tekst oblewa)" : "Do prawej (tekst oblewa)");
+    toast("Układ odtwarzacza: " + desc);
+
+    const ce = wrap.closest(".ncontent");
+    const card = wrap.closest(".ncard");
+    zapiszZmianeOdtwarzacza(wrap, ce, card);
+  };
+  wrap.querySelectorAll(".jmp-align-btn").forEach(b => b.onclick = obsluzZmianeUkladu);
+
+  wrap.addEventListener("pointerup", () => {
+    if(wrap.style.width){
+      const ce = wrap.closest(".ncontent");
+      const card = wrap.closest(".ncard");
+      zapiszZmianeOdtwarzacza(wrap, ce, card);
+    }
+  });
+
   const obsluzUsuniecie = (ev) => {
     ev.preventDefault();
     ev.stopPropagation();
@@ -37018,7 +37223,9 @@ function podepnijOdtwarzaczeWKontenerze(cont){
     const src = m.getAttribute("src") || (m.querySelector("source") && m.querySelector("source").getAttribute("src")) || "";
     if(!src) return;
     const title = m.getAttribute("data-title") || m.getAttribute("title") || (isVid ? "Wideo" : "Nagranie audio");
-    const wrap = budujElementOdtwarzacza(isVid ? "video" : "audio", src, title);
+    const sz = m.getAttribute("data-size") || (isVid ? "m" : "s");
+    const al = m.getAttribute("data-align") || "center";
+    const wrap = budujElementOdtwarzacza(isVid ? "video" : "audio", src, title, sz, al);
     m.replaceWith(wrap);
   });
   cont.querySelectorAll(".jw-media-player").forEach(wrap => {
@@ -37029,7 +37236,8 @@ function podepnijOdtwarzaczeWKontenerze(cont){
 function insertMediaElement(ce, type, src, title, range){
   if(!ce) return null;
   const isVideo = type === "video";
-  const mediaWrap = budujElementOdtwarzacza(isVideo ? "video" : "audio", src, title);
+  const defSize = isVideo ? "m" : "s";
+  const mediaWrap = budujElementOdtwarzacza(isVideo ? "video" : "audio", src, title, defSize, "center");
   if(typeof histZapisz === "function") histZapisz(ce);
   try{
     let r = (range && ce.contains(range.startContainer)) ? range.cloneRange() : null;
@@ -37626,7 +37834,7 @@ function sanitize(html){
           const src = (node.getAttribute("src") || (node.querySelector("source")&&node.querySelector("source").getAttribute("src")) || "").trim();
           if(/^data:(audio|video)\/[a-z0-9.+-]+[;,]/i.test(src) || /^https?:\/\//i.test(src) || /^blob:/i.test(src)){
             const tit = String(node.getAttribute("data-title")||node.getAttribute("title")||"").slice(0,100);
-            const p = budujElementOdtwarzacza(isVid ? "video" : "audio", src, tit);
+            const p = budujElementOdtwarzacza(isVid ? "video" : "audio", src, tit, isVid ? "m" : "s", "center");
             dst.appendChild(p);
           }
         }
@@ -37640,7 +37848,10 @@ function sanitize(html){
             const src = (mediaEl ? (mediaEl.getAttribute("src")||"") : "").trim();
             if(/^data:(audio|video)\/[a-z0-9.+-]+[;,]/i.test(src) || /^https?:\/\//i.test(src) || /^blob:/i.test(src)){
               const tit = String(node.getAttribute("data-title")||(mediaEl&&mediaEl.getAttribute("data-title"))||"").slice(0,100);
-              const p = budujElementOdtwarzacza(isVid ? "video" : "audio", src, tit);
+              const sz = node.getAttribute("data-size") || ((kl.match(/jmp-size-(s|m|full)/)||[])[1]) || (isVid ? "m" : "s");
+              const al = node.getAttribute("data-align") || ((kl.match(/jmp-align-(center|left|right)/)||[])[1]) || "center";
+              const cWidth = (node.style && node.style.width && /^\d+(px|%)$/.test(node.style.width)) ? node.style.width : null;
+              const p = budujElementOdtwarzacza(isVid ? "video" : "audio", src, tit, sz, al, cWidth);
               dst.appendChild(p);
               return;
             }
