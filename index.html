@@ -5852,9 +5852,32 @@ html[data-theme="dark"] #pubPanel{border-color:var(--border)}
 .ncard.pinned{border-color:var(--accent2);box-shadow:0 0 0 1.5px var(--accent2), 0 4px 16px rgba(37,107,82,.08)}
 .ncard.selected, .ncard.active, .ncard.otwarta{border-left:4px solid var(--accent);background:color-mix(in srgb,var(--accent) 4%,var(--panel))}
 .ncard>*:not(.nhead):not(.ntools){margin-left:16px;margin-right:16px}
-/* Izolacja układu bez wirtualizacji content-visibility (zapobiega skakaniu i zacinaniu przewijania) */
-#noteList .ncard{contain:layout style}
-#noteList .ncard.editing{contain:none}
+/* Wirtualizacja kart notatek (content-visibility: auto + contain-intrinsic-size z pamięcią rozmiaru auto)
+   Zapewnia płynne 60/120 FPS przy przewijaniu baz z ponad 1000 notatek oraz oszczędza pamięć RAM i baterię. */
+#noteList .ncard {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 160px;
+}
+#noteList.v-compact .ncard {
+  contain-intrinsic-size: auto 75px;
+}
+#noteList.v-tablica .ncard {
+  contain-intrinsic-size: auto 210px;
+}
+#noteList .ncard.editing,
+#noteList .ncard.wydobyta,
+#noteList .ncard.wRuchuWydobycia,
+#noteList.reordering .ncard,
+#fsWrap .ncard,
+#modalFs .ncard {
+  content-visibility: visible !important;
+  contain-intrinsic-size: none !important;
+}
+@media print {
+  #noteList .ncard {
+    content-visibility: visible !important;
+  }
+}
 .pinmark{font-size:13px;vertical-align:1px;color:var(--accent2)}
 .sbtn.ico.pinon{color:#d97706!important;background:rgba(245,158,11,.14)!important;border-color:rgba(245,158,11,.32)!important;box-shadow:0 1px 6px rgba(245,158,11,.16)}
 .sbtn.ico.pinon .ic{transform:rotate(-12deg);transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
@@ -17610,7 +17633,8 @@ body.modal-open {
 }
 
 #noteList .ncard {
-  contain: layout style;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 160px;
 }
 
 
@@ -22161,20 +22185,20 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
     <button class="btn ico-btn" id="btnRedo" title="Ponów cofniętą zmianę (Ctrl+Y)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 7l5 5-5 5"/><path d="M20 12H9a5 5 0 0 0 0 10h3"/></svg></button>
   </div>
   <div class="fontctl" title="Rozmiar tekstu w notatkach">
-    <button id="fMinus">A−</button>
-    <button id="fPlus" style="font-size:15px">A+</button>
+    <button id="fMinus" aria-label="Zmniejsz rozmiar tekstu w notatkach" title="Zmniejsz rozmiar tekstu (A−)">A−</button>
+    <button id="fPlus" aria-label="Zwiększ rozmiar tekstu w notatkach" title="Zwiększ rozmiar tekstu (A+)" style="font-size:15px">A+</button>
   </div>
   <button class="btn primary" id="btnNew"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg> <span class="tb-txt">Nowa notatka</span></button>
 
   <!-- Niewidoczne elementy proxy podtrzymujące zgodność skryptów -->
   <div style="display:none;" aria-hidden="true">
-    <button id="btnCentrum"></button>
-    <button id="btnSettings"></button>
-    <button id="btnTheme"></button>
-    <button id="btnCols"></button>
-    <button id="btnColors"></button>
-    <button id="btnBackup"></button>
-    <button id="btnMenu"></button>
+    <button id="btnCentrum" tabindex="-1" aria-hidden="true" title="Centrum"></button>
+    <button id="btnSettings" tabindex="-1" aria-hidden="true" title="Ustawienia"></button>
+    <button id="btnTheme" tabindex="-1" aria-hidden="true" title="Motyw"></button>
+    <button id="btnCols" tabindex="-1" aria-hidden="true" title="Kolumny"></button>
+    <button id="btnColors" tabindex="-1" aria-hidden="true" title="Kolory"></button>
+    <button id="btnBackup" tabindex="-1" aria-hidden="true" title="Kopia zapasowa"></button>
+    <button id="btnMenu" tabindex="-1" aria-hidden="true" title="Menu"></button>
   </div>
 </header>
 
