@@ -7162,7 +7162,10 @@ body.fs-open #imgHandles { z-index: 100138 !important; }
 #imgBar .ib-lbl { font-size: 11px; color: var(--muted); padding: 0 4px; white-space: nowrap; }
 #imgBar input[type=range] { width: 104px; accent-color: var(--accent); cursor: pointer; }
 
-.editbar .eb-img {
+.editbar .eb-img,
+.editbar .eb-audio-btn,
+.editbar .eb-video-btn,
+.editbar .eb-rec-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -7177,7 +7180,25 @@ body.fs-open #imgHandles { z-index: 100138 !important; }
   color: var(--text);
   transition: background 0.14s ease;
 }
-.editbar .eb-img:hover { background: var(--sel); }
+.editbar .eb-img:hover,
+.editbar .eb-audio-btn:hover,
+.editbar .eb-video-btn:hover,
+.editbar .eb-rec-btn:hover { background: var(--sel); }
+#ebPop label.dd-file-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--text);
+  user-select: none;
+  -webkit-user-select: none;
+}
+#ebPop label.dd-file-item:hover {
+  background: var(--sel);
+}
 
 /* Wyróżnienia (Highlight) */
 mark.hl1 { background: var(--hl1); }
@@ -22709,25 +22730,30 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 </div>
 
 <div class="overlay" id="modalVoiceRec" role="dialog" aria-modal="true" aria-labelledby="vrTitle">
-  <div class="modal" style="max-width:440px;text-align:center;padding:24px 20px;">
-    <div style="font-size:38px;margin-bottom:6px;" id="vrIcon" aria-hidden="true">🎙️</div>
-    <h3 id="vrTitle" style="margin:0 0 6px;font-size:18px;">Dyktafon — Notatka głosowa</h3>
-    <p style="margin:0 0 14px;color:var(--muted);font-size:13px;" id="vrDesc">Nagraj swoje przemyślenia, wniosek ze studium lub komentarz</p>
+  <div class="modal vr-compact-modal" style="max-width:320px;padding:14px 16px;border-radius:18px;text-align:left;box-shadow:0 20px 48px rgba(0,0,0,0.32);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;gap:7px;font-weight:700;font-size:14px;color:var(--text);" id="vrTitle">
+        <span>🎙️</span> Dyktafon
+      </div>
+      <span id="vrStatusBadge" style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--sel);color:var(--muted);">Gotowy</span>
+    </div>
     
-    <div class="vrTimer" id="vrTimer" style="font-size:36px;font-weight:700;font-variant-numeric:tabular-nums;margin:10px 0;letter-spacing:1px;color:var(--text);">00:00</div>
-    <div class="vrWaveWrap" style="height:44px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
-      <canvas id="vrCanvas" width="320" height="44" style="max-width:100%;height:44px;border-radius:8px;background:rgba(0,0,0,0.04);"></canvas>
+    <div style="display:flex;align-items:center;gap:10px;background:color-mix(in srgb,var(--border) 25%,transparent);padding:8px 12px;border-radius:12px;margin-bottom:10px;">
+      <div id="vrTimer" style="font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;min-width:64px;color:var(--text);letter-spacing:0.5px;">00:00</div>
+      <canvas id="vrCanvas" width="180" height="26" style="flex:1;height:26px;border-radius:4px;"></canvas>
     </div>
 
-    <div id="vrPreviewWrap" style="display:none;margin-bottom:16px;">
-      <audio id="vrAudioPreview" controls style="width:100%;border-radius:8px;"></audio>
+    <div id="vrPreviewWrap" style="display:none;margin-bottom:10px;">
+      <audio id="vrAudioPreview" controls style="width:100%;height:32px;border-radius:8px;"></audio>
     </div>
 
-    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;" id="vrBtnRow">
-      <button class="btn" id="vrBtnStart" type="button" style="background:var(--accent);color:#fff;font-weight:600;min-width:115px;">🔴 Nagrywaj</button>
-      <button class="btn" id="vrBtnStop" type="button" style="display:none;background:#e74c3c;color:#fff;font-weight:600;min-width:115px;">⏹ Zatrzymaj</button>
-      <button class="btn" id="vrBtnInsert" type="button" style="display:none;background:var(--accent);color:#fff;font-weight:600;min-width:130px;">Wstaw do notatki</button>
-      <button class="btn" data-zamknij="modalVoiceRec" type="button">Anuluj</button>
+    <div id="vrControlsRow" style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;">
+      <button class="sbtn" id="vrBtnStart" type="button" title="Rozpocznij nagrywanie" style="background:var(--accent);color:#fff;border-color:transparent;font-weight:600;padding:5px 12px;">🔴 Nagraj</button>
+      <button class="sbtn" id="vrBtnPause" type="button" title="Wstrzymaj nagrywanie (Pauza)" style="display:none;padding:5px 11px;font-weight:600;">⏸ Pauza</button>
+      <button class="sbtn" id="vrBtnResume" type="button" title="Wznów nagrywanie" style="display:none;background:var(--accent);color:#fff;border-color:transparent;padding:5px 11px;font-weight:600;">▶ Wznów</button>
+      <button class="sbtn" id="vrBtnStop" type="button" title="Zakończ nagrywanie (Stop)" style="display:none;background:#e74c3c;color:#fff;border-color:transparent;padding:5px 11px;font-weight:600;">⏹ Stop</button>
+      <button class="sbtn" id="vrBtnInsert" type="button" title="Wstaw nagranie do notatki" style="display:none;background:var(--accent);color:#fff;border-color:transparent;font-weight:600;padding:5px 12px;">✓ Wstaw</button>
+      <button class="sbtn" data-zamknij="modalVoiceRec" type="button" title="Zamknij" style="padding:5px 10px;">✕</button>
     </div>
   </div>
 </div>
@@ -33008,13 +33034,24 @@ function buildEditbar(n){
     <button class="eb-color" data-pop="color" title="Kolor / podświetlenie">${svgIc('<circle cx="12" cy="12" r="8.6"/><circle cx="9" cy="9.6" r="1" fill="currentColor" stroke="none"/><circle cx="14.6" cy="9.6" r="1" fill="currentColor" stroke="none"/><circle cx="9.6" cy="14.8" r="1" fill="currentColor" stroke="none"/>')}</button>
     <button class="eb-ins eb-mobile-extra" data-pop="ins" title="Wstaw: odnośnik do wersetu, cytat, listę zadań, link, linię">${ICO.plus}</button>
     <label class="eb-img eb-mobile-extra" title="Wstaw zdjęcie / ilustrację">${ICO.image}<input type="file" accept="image/*" multiple style="display:none"></label>
-    <button class="eb-media eb-mobile-extra" data-pop="media" title="Audio / Wideo / Dyktafon">🎙️</button>
-    <input type="file" class="eb-audio-input" accept="audio/*" multiple style="display:none">
-    <input type="file" class="eb-video-input" accept="video/*" multiple style="display:none">
+    <label class="eb-audio-btn eb-mobile-extra" title="Wstaw plik audio (.mp3, .m4a, .wav)">🎵<input type="file" class="eb-audio-input" accept="audio/*,.mp3,.m4a,.aac,.wav,.ogg,.webm" multiple style="display:none"></label>
+    <label class="eb-video-btn eb-mobile-extra" title="Wstaw plik wideo (.mp4, .webm, .mov)">🎬<input type="file" class="eb-video-input" accept="video/*,.mp4,.webm,.mov,.m4v" multiple style="display:none"></label>
+    <button type="button" class="eb-rec-btn eb-mobile-extra" data-rec="1" title="Dyktafon — nagraj notatkę głosową">🎙️</button>
     <button data-outline="1" title="Spis nagłówków i zwijanie sekcji">☷</button>
     <button class="eb-more" data-pop="more" title="Więcej: wcięcia, wyrównanie, indeks, wyczyść">${IC_DOTS}</button>`;
   bar.addEventListener("pointerdown", ev=>{
-    if(ev.target.closest("select, label.eb-img, .eb-media")){ edSavedRange = captureRange(); }
+    if(ev.target.closest("select, label.eb-img, label.eb-audio-btn, label.eb-video-btn")){
+      edSavedRange = captureRange();
+      return;
+    }
+    const rec = ev.target.closest(".eb-rec-btn");
+    if(rec){
+      ev.preventDefault();
+      edSavedRange = captureRange();
+      const ce = bar.parentElement.querySelector(".ncontent");
+      otworzDyktafon(ce);
+      return;
+    }
     const pop = ev.target.closest("[data-pop]");
     if(pop){ ev.preventDefault(); edSavedRange = captureRange(); openEbPop(pop.dataset.pop, pop, bar); return; }
     const malarz=ev.target.closest("[data-painter]");
@@ -33984,16 +34021,16 @@ function openEbPop(kind, btn, bar){
       `<div class="dd-lbl">Multimedia i nagrania</div>
        <div data-ins="voice-rec">🎙️ Dyktafon (nagraj notatkę głosową)…</div>
        <div class="dd-sep"></div>
-       <div data-ins="media-audio">🎵 Wstaw plik audio (.mp3, .m4a, .wav)…</div>
-       <div data-ins="media-video">🎬 Wstaw plik wideo (.mp4, .webm, .mov)…</div>`;
+       <label class="dd-file-item">🎵 Wstaw plik audio (.mp3, .m4a, .wav)…<input type="file" class="pop-audio-input" accept="audio/*,.mp3,.m4a,.aac,.wav,.ogg,.webm" multiple style="display:none"></label>
+       <label class="dd-file-item">🎬 Wstaw plik wideo (.mp4, .webm, .mov)…<input type="file" class="pop-video-input" accept="video/*,.mp4,.webm,.mov,.m4v" multiple style="display:none"></label>`;
   } else if(kind==="ins"){
     pop.innerHTML =
       `<div data-ins="verse">${ICO.book}Odnośnik do wersetu (JW Library)</div>
        <div data-ins="url">${ICO.link}Link (adres internetowy)</div>
        <div class="dd-sep"></div>
        <div data-ins="voice-rec">🎙️ Dyktafon (notatka głosowa)…</div>
-       <div data-ins="media-audio">🎵 Plik audio (.mp3, .m4a)…</div>
-       <div data-ins="media-video">🎬 Plik wideo (.mp4, .webm)…</div>
+       <label class="dd-file-item">🎵 Wstaw plik audio (.mp3, .m4a)…<input type="file" class="pop-audio-input" accept="audio/*,.mp3,.m4a,.aac,.wav,.ogg,.webm" multiple style="display:none"></label>
+       <label class="dd-file-item">🎬 Wstaw plik wideo (.mp4, .webm)…<input type="file" class="pop-video-input" accept="video/*,.mp4,.webm,.mov,.m4v" multiple style="display:none"></label>
        <div class="dd-sep"></div>
        <div data-ins="przypis">${IE_GORNY}Przypis¹</div>
        <div class="dd-sep"></div>
@@ -34074,7 +34111,23 @@ function openEbPop(kind, btn, bar){
   pop.style.left=Math.max(ob.lewo+8, Math.min(r.left, ob.prawo-w-8))+"px";
   pop.style.top=Math.max(ob.gora+8, Math.min(r.bottom+6, ob.dol-h-8))+"px";
 }
+$("ebPop").addEventListener("change", ev=>{
+  const pop=$("ebPop"); const ce=pop._ce;
+  if(ev.target.classList.contains("pop-audio-input")){
+    pop.style.display="none";
+    obsluzWyborPlikowMedia(ev.target.files, "audio", ce);
+    ev.target.value = "";
+  } else if(ev.target.classList.contains("pop-video-input")){
+    pop.style.display="none";
+    obsluzWyborPlikowMedia(ev.target.files, "video", ce);
+    ev.target.value = "";
+  }
+});
 $("ebPop").addEventListener("pointerdown", ev=>{
+  if(ev.target.closest("label.dd-file-item, input[type=file]")){
+    edSavedRange = captureRange();
+    return;
+  }
   ev.preventDefault();
   const pop=$("ebPop"); const ce=pop._ce;
   const mobile=ev.target.closest("[data-mobile-act]");
@@ -36667,8 +36720,9 @@ function budujElementOdtwarzacza(type, src, title){
         <div class="jmp-bar"><div class="jmp-fill"></div></div>
       </div>
       <div class="jmp-controls">
+        <button type="button" class="jmp-btn jmp-play" title="Odtwórz / Pauza">▶</button>
+        <button type="button" class="jmp-btn jmp-stop" title="Zatrzymaj (Stop)">⏹</button>
         <button type="button" class="jmp-btn jmp-skip-back" title="Cofnij o 10 sekund">⏪ 10s</button>
-        <button type="button" class="jmp-btn jmp-play" title="Odtwórz / Wstrzymaj">▶</button>
         <button type="button" class="jmp-btn jmp-skip-fwd" title="Do przodu o 10 sekund">10s ⏩</button>
         <button type="button" class="jmp-btn jmp-speed" title="Prędkość odtwarzania">1.0x</button>
         <button type="button" class="jmp-btn jmp-fs" title="Pełny ekran wideo">⛶</button>
@@ -36687,8 +36741,9 @@ function budujElementOdtwarzacza(type, src, title){
         <div class="jmp-bar"><div class="jmp-fill"></div></div>
       </div>
       <div class="jmp-controls">
+        <button type="button" class="jmp-btn jmp-play" title="Odtwórz / Pauza">▶</button>
+        <button type="button" class="jmp-btn jmp-stop" title="Zatrzymaj (Stop)">⏹</button>
         <button type="button" class="jmp-btn jmp-skip-back" title="Cofnij o 10 sekund">⏪ 10s</button>
-        <button type="button" class="jmp-btn jmp-play" title="Odtwórz / Wstrzymaj">▶</button>
         <button type="button" class="jmp-btn jmp-skip-fwd" title="Do przodu o 10 sekund">10s ⏩</button>
         <button type="button" class="jmp-btn jmp-speed" title="Prędkość odtwarzania">1.0x</button>
         <button type="button" class="jmp-btn jmp-vol" title="Wycisz / włącz dźwięk">🔊</button>
@@ -36709,6 +36764,7 @@ function podepnijZdarzeniaOdtwarzacza(wrap){
   const range = wrap.querySelector(".jmp-range");
   const fill = wrap.querySelector(".jmp-fill");
   const playBtn = wrap.querySelector(".jmp-play");
+  const stopBtn = wrap.querySelector(".jmp-stop");
   const screenPlay = wrap.querySelector(".jmp-screen-play");
   const skipBack = wrap.querySelector(".jmp-skip-back");
   const skipFwd = wrap.querySelector(".jmp-skip-fwd");
@@ -36743,6 +36799,18 @@ function podepnijZdarzeniaOdtwarzacza(wrap){
 
   if(playBtn) playBtn.onclick = togglePlay;
   if(screenPlay) screenPlay.onclick = togglePlay;
+  if(stopBtn){
+    stopBtn.onclick = (ev) => {
+      ev.preventDefault(); ev.stopPropagation();
+      media.pause();
+      media.currentTime = 0;
+      wrap.classList.remove("playing");
+      if(playBtn) playBtn.textContent = "▶";
+      if(range) range.value = 0;
+      if(fill) fill.style.width = "0%";
+      if(curEl) curEl.textContent = "00:00";
+    };
+  }
 
   media.ontimeupdate = () => {
     if(!wrap._isSeeking && isFinite(media.duration) && media.duration > 0){
@@ -36880,18 +36948,32 @@ async function obsluzWyborPlikowMedia(plikiList, typDomyslny, ce){
   let wstawione = 0, zakres = edSavedRange;
 
   for(const f of pliki){
-    const isVideo = f.type.startsWith("video") || typDomyslny === "video" || /\.(mp4|webm|mov|m4v)$/i.test(f.name);
-    if(f.size > 50 * 1024 * 1024){
+    const ext = (f.name.split('.').pop() || '').toLowerCase();
+    const isVideo = (f.type && f.type.startsWith("video")) || typDomyslny === "video" || /^(mp4|webm|mov|m4v|mkv|avi|ogv)$/i.test(ext);
+    if(f.size > 100 * 1024 * 1024){
       const mb = Math.round(f.size / (1024 * 1024));
       if(!confirm("Plik " + f.name + " ma " + mb + " MB. Duże pliki mogą obciążyć pamięć podręczną. Czy na pewno wstawić?")) continue;
     }
     try{
-      const dataUrl = await new Promise((res, rej)=>{
+      let dataUrl = await new Promise((res, rej)=>{
         const r = new FileReader();
         r.onload = () => res(r.result);
         r.onerror = rej;
         r.readAsDataURL(f);
       });
+      if(typeof dataUrl === "string"){
+        if(isVideo){
+          if(!dataUrl.startsWith("data:video/")){
+            const vMime = f.type && f.type.startsWith("video/") ? f.type : (ext === 'webm' ? 'video/webm' : (ext === 'mov' ? 'video/quicktime' : 'video/mp4'));
+            dataUrl = dataUrl.replace(/^data:[^;]*;base64,/, `data:${vMime};base64,`);
+          }
+        } else {
+          if(!dataUrl.startsWith("data:audio/")){
+            const aMime = f.type && f.type.startsWith("audio/") ? f.type : (ext === 'ogg' ? 'audio/ogg' : (ext === 'wav' ? 'audio/wav' : (ext === 'm4a' ? 'audio/mp4' : 'audio/mpeg')));
+            dataUrl = dataUrl.replace(/^data:[^;]*;base64,/, `data:${aMime};base64,`);
+          }
+        }
+      }
       const tytul = f.name.replace(/\.[^/.]+$/, "");
       const elem = insertMediaElement(ceTarget, isVideo ? "video" : "audio", dataUrl, tytul, zakres);
       if(elem){
@@ -36911,7 +36993,7 @@ async function obsluzWyborPlikowMedia(plikiList, typDomyslny, ce){
 function wybierzPlikMedia(typ, ce){
   const inp = document.createElement("input");
   inp.type = "file";
-  inp.accept = typ === "video" ? "video/*" : "audio/*";
+  inp.accept = typ === "video" ? "video/*,.mp4,.webm,.mov,.m4v" : "audio/*,.mp3,.m4a,.wav,.ogg,.aac";
   inp.multiple = true;
   inp.style.display = "none";
   inp.onchange = ev => {
@@ -36941,6 +37023,15 @@ function _vrFormatujSekundy(sek){
 function _vrAktualizujCzas(){
   const t = $("vrTimer");
   if(t) t.textContent = _vrFormatujSekundy(_vrSecs);
+}
+
+function _vrUstawStatus(txt, bg, col){
+  const b = $("vrStatusBadge");
+  if(b){
+    b.textContent = txt;
+    if(bg) b.style.background = bg;
+    if(col) b.style.color = col;
+  }
 }
 
 async function vrRozpocznijNagrywanie(){
@@ -36984,14 +37075,15 @@ async function vrRozpocznijNagrywanie(){
       const pw = $("vrPreviewWrap");
       if(pw) pw.style.display = "block";
     }
+    _vrUstawStatus("Gotowe", "rgba(46, 204, 113, 0.2)", "#2ecc71");
     const bStart = $("vrBtnStart");
-    if(bStart){ bStart.style.display = "inline-flex"; bStart.textContent = "🔄 Nagraj ponownie"; }
+    if(bStart){ bStart.style.display = "inline-flex"; bStart.textContent = "🔄 Ponów"; }
+    if($("vrBtnPause")) $("vrBtnPause").style.display = "none";
+    if($("vrBtnResume")) $("vrBtnResume").style.display = "none";
     const bStop = $("vrBtnStop");
     if(bStop) bStop.style.display = "none";
     const bIns = $("vrBtnInsert");
     if(bIns) bIns.style.display = "inline-flex";
-    const desc = $("vrDesc");
-    if(desc) desc.textContent = "Nagranie gotowe! Możesz je odsłuchać lub wstawić do notatki.";
   };
 
   _vrRecorder.start(250);
@@ -37007,17 +37099,41 @@ async function vrRozpocznijNagrywanie(){
   }, 1000);
 
   _vrUruchomVisualizer(_vrStream);
+  _vrUstawStatus("Nagrywanie…", "rgba(231, 76, 60, 0.2)", "#e74c3c");
 
-  const bStart = $("vrBtnStart");
-  if(bStart) bStart.style.display = "none";
-  const bStop = $("vrBtnStop");
-  if(bStop) bStop.style.display = "inline-flex";
-  const bIns = $("vrBtnInsert");
-  if(bIns) bIns.style.display = "none";
-  const pw = $("vrPreviewWrap");
-  if(pw) pw.style.display = "none";
-  const desc = $("vrDesc");
-  if(desc) desc.textContent = "Trwa nagrywanie… mów wyraźnie do mikrofonu.";
+  if($("vrBtnStart")) $("vrBtnStart").style.display = "none";
+  if($("vrBtnPause")) $("vrBtnPause").style.display = "inline-flex";
+  if($("vrBtnResume")) $("vrBtnResume").style.display = "none";
+  if($("vrBtnStop")) $("vrBtnStop").style.display = "inline-flex";
+  if($("vrBtnInsert")) $("vrBtnInsert").style.display = "none";
+  if($("vrPreviewWrap")) $("vrPreviewWrap").style.display = "none";
+}
+
+function vrPauzaNagrywania(){
+  if(_vrRecorder && _vrRecorder.state === "recording"){
+    try{ _vrRecorder.pause(); }catch(e){ console.warn("Błąd pauzy nagrywania:", e); }
+    if(_vrTimerInt){ clearInterval(_vrTimerInt); _vrTimerInt = null; }
+    _vrUstawStatus("Pauza", "rgba(243, 156, 18, 0.2)", "#f39c12");
+    if($("vrBtnPause")) $("vrBtnPause").style.display = "none";
+    if($("vrBtnResume")) $("vrBtnResume").style.display = "inline-flex";
+  }
+}
+
+function vrWznowNagrywanie(){
+  if(_vrRecorder && _vrRecorder.state === "paused"){
+    try{ _vrRecorder.resume(); }catch(e){ console.warn("Błąd wznowienia nagrywania:", e); }
+    _vrTimerInt = setInterval(()=>{
+      _vrSecs++;
+      _vrAktualizujCzas();
+      if(_vrSecs >= 1800){
+        vrZatrzymajNagrywanie();
+        toast("Osiągnięto limit 30 minut nagrania");
+      }
+    }, 1000);
+    _vrUstawStatus("Nagrywanie…", "rgba(231, 76, 60, 0.2)", "#e74c3c");
+    if($("vrBtnPause")) $("vrBtnPause").style.display = "inline-flex";
+    if($("vrBtnResume")) $("vrBtnResume").style.display = "none";
+  }
 }
 
 function vrZatrzymajNagrywanie(){
@@ -37071,7 +37187,7 @@ function _vrUruchomVisualizer(stream){
       const barWidth = (canvas.width / bufferLength) * 1.8;
       let x = 0;
       for(let i = 0; i < bufferLength; i++){
-        const barHeight = Math.max(4, (dataArray[i] / 255) * canvas.height * 0.9);
+        const barHeight = Math.max(3, (dataArray[i] / 255) * canvas.height * 0.88);
         const y = (canvas.height - barHeight) / 2;
         ctx.fillStyle = "rgba(46, 204, 113, 0.85)";
         ctx.beginPath();
@@ -37103,12 +37219,14 @@ function _vrResetStan(){
   _vrChunks = [];
   _vrBlob = null;
   _vrSecs = 0;
+  _vrUstawStatus("Gotowy", "var(--sel)", "var(--muted)");
   if($("vrTimer")) $("vrTimer").textContent = "00:00";
-  if($("vrDesc")) $("vrDesc").textContent = "Nagraj swoje przemyślenia, wniosek ze studium lub komentarz";
   if($("vrBtnStart")){
     $("vrBtnStart").style.display = "inline-flex";
-    $("vrBtnStart").textContent = "🔴 Nagrywaj";
+    $("vrBtnStart").textContent = "🔴 Nagraj";
   }
+  if($("vrBtnPause")) $("vrBtnPause").style.display = "none";
+  if($("vrBtnResume")) $("vrBtnResume").style.display = "none";
   if($("vrBtnStop")) $("vrBtnStop").style.display = "none";
   if($("vrBtnInsert")) $("vrBtnInsert").style.display = "none";
   if($("vrPreviewWrap")){
@@ -37120,6 +37238,8 @@ function _vrResetStan(){
 
 document.addEventListener("DOMContentLoaded", ()=>{
   $("vrBtnStart")?.addEventListener("click", vrRozpocznijNagrywanie);
+  $("vrBtnPause")?.addEventListener("click", vrPauzaNagrywania);
+  $("vrBtnResume")?.addEventListener("click", vrWznowNagrywanie);
   $("vrBtnStop")?.addEventListener("click", vrZatrzymajNagrywanie);
   $("vrBtnInsert")?.addEventListener("click", vrWstawNagranieDoNotatki);
 });
