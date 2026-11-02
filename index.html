@@ -17815,6 +17815,211 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
 .ncontent img.img-rot-90{transform:rotate(90deg)}
 .ncontent img.img-rot-180{transform:rotate(180deg)}
 .ncontent img.img-rot-270{transform:rotate(270deg)}
+/* ================= ODTWARZACZ MULTIMEDIALNY (AUDIO / WIDEO) ================= */
+.jw-media-player {
+  display: block;
+  margin: 14px 0;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--panel) 92%, var(--cardAccent, var(--accent)) 8%);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, var(--cardAccent, var(--accent)) 20%);
+  padding: 10px 14px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+  user-select: none;
+  -webkit-user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+  clear: both;
+}
+.jw-media-player.jw-media-video {
+  padding: 8px 10px 12px;
+  background: #111417;
+  border-color: rgba(255,255,255,0.15);
+  color: #fff;
+}
+.jw-media-player video {
+  width: 100%;
+  max-height: 480px;
+  aspect-ratio: 16/9;
+  border-radius: 10px;
+  background: #000;
+  display: block;
+  object-fit: contain;
+}
+.jw-media-player audio {
+  display: none;
+}
+.jmp-video-screen {
+  position: relative;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+}
+.jmp-screen-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid rgba(255,255,255,0.7);
+  color: #fff;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.2,0,0,1);
+  padding-left: 4px;
+  pointer-events: auto;
+  opacity: 0.9;
+}
+.jmp-screen-play:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: var(--accent);
+  border-color: #fff;
+  opacity: 1;
+}
+.jw-media-player.playing .jmp-screen-play {
+  opacity: 0;
+  pointer-events: none;
+}
+.jmp-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+.jw-media-player.jw-media-video .jmp-top {
+  color: #f0f0f0;
+  margin-top: 6px;
+}
+.jmp-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+.jmp-title {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.jmp-time {
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.jmp-progress-wrap {
+  position: relative;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+}
+.jmp-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+  margin: 0;
+}
+.jmp-bar {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: color-mix(in srgb, var(--border) 70%, transparent);
+  border-radius: 999px;
+  overflow: hidden;
+  transition: height 0.15s ease;
+}
+.jw-media-player.jw-media-video .jmp-bar {
+  background: rgba(255,255,255,0.25);
+}
+.jmp-progress-wrap:hover .jmp-bar {
+  height: 8px;
+}
+.jmp-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--cardAccent, var(--accent));
+  border-radius: 999px;
+  transition: width 0.05s linear;
+}
+.jmp-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+.jmp-btn {
+  border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  background: color-mix(in srgb, var(--panel) 75%, transparent);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 5px 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  min-height: 30px;
+  transition: all 0.15s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.jw-media-player.jw-media-video .jmp-btn {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.15);
+  color: #fff;
+}
+.jmp-btn:hover {
+  background: var(--sel);
+  border-color: var(--cardAccent, var(--accent));
+  transform: translateY(-1px);
+}
+.jw-media-player.jw-media-video .jmp-btn:hover {
+  background: rgba(255,255,255,0.25);
+}
+.jmp-btn:active {
+  transform: scale(0.96);
+}
+.jmp-play {
+  min-width: 44px;
+  font-size: 14px;
+  background: var(--cardAccent, var(--accent));
+  color: #fff !important;
+  border-color: transparent;
+}
+.jmp-play:hover {
+  background: var(--accent2, var(--accent));
+}
+.jmp-speed {
+  font-size: 11.5px;
+  min-width: 42px;
+}
+.jmp-vol, .jmp-fs {
+  font-size: 13.5px;
+  padding: 5px 8px;
+}
 /* JW Study 3.52 / Studio Pro — narzędzia zaznaczenia w stylu Apple pill */
 #selEditBar {
   position: fixed;
@@ -22503,6 +22708,30 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
   <button id="fsNext" class="fsNav next" title="Następna notatka" aria-label="Następna">›</button>
 </div>
 
+<div class="overlay" id="modalVoiceRec" role="dialog" aria-modal="true" aria-labelledby="vrTitle">
+  <div class="modal" style="max-width:440px;text-align:center;padding:24px 20px;">
+    <div style="font-size:38px;margin-bottom:6px;" id="vrIcon" aria-hidden="true">🎙️</div>
+    <h3 id="vrTitle" style="margin:0 0 6px;font-size:18px;">Dyktafon — Notatka głosowa</h3>
+    <p style="margin:0 0 14px;color:var(--muted);font-size:13px;" id="vrDesc">Nagraj swoje przemyślenia, wniosek ze studium lub komentarz</p>
+    
+    <div class="vrTimer" id="vrTimer" style="font-size:36px;font-weight:700;font-variant-numeric:tabular-nums;margin:10px 0;letter-spacing:1px;color:var(--text);">00:00</div>
+    <div class="vrWaveWrap" style="height:44px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+      <canvas id="vrCanvas" width="320" height="44" style="max-width:100%;height:44px;border-radius:8px;background:rgba(0,0,0,0.04);"></canvas>
+    </div>
+
+    <div id="vrPreviewWrap" style="display:none;margin-bottom:16px;">
+      <audio id="vrAudioPreview" controls style="width:100%;border-radius:8px;"></audio>
+    </div>
+
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;" id="vrBtnRow">
+      <button class="btn" id="vrBtnStart" type="button" style="background:var(--accent);color:#fff;font-weight:600;min-width:115px;">🔴 Nagrywaj</button>
+      <button class="btn" id="vrBtnStop" type="button" style="display:none;background:#e74c3c;color:#fff;font-weight:600;min-width:115px;">⏹ Zatrzymaj</button>
+      <button class="btn" id="vrBtnInsert" type="button" style="display:none;background:var(--accent);color:#fff;font-weight:600;min-width:130px;">Wstaw do notatki</button>
+      <button class="btn" data-zamknij="modalVoiceRec" type="button">Anuluj</button>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="modalFile">
   <div class="modal">
     <h3 id="mfTitle"></h3>
@@ -26811,7 +27040,7 @@ function sanitizeNote(n, obce){
   n.t  = typeof n.t==="string" ? n.t : (n.t==null ? "" : String(n.t));
   n.c  = typeof n.c==="string" ? n.c : (n.c==null ? "" : String(n.c));
   n.h  = typeof n.h==="string" ? n.h : "";
-  if(n.h && (obce || /<\s*(script|iframe|object|embed|form|applet|meta|link|base|svg|math|button|input|textarea|select|audio|video)|\son[a-z]+=/i.test(n.h))){
+  if(n.h && (obce || /<\s*(script|iframe|object|embed|form|applet|meta|link|base|svg|math|textarea|select)|\son[a-z]+=/i.test(n.h) || (/<\s*(button|input)/i.test(n.h) && !/jw-media-player/i.test(n.h)))){
     const czysty = czystyHtmlZObcegoZrodla(n.h);
     if(czysty !== n.h) console.warn("Oczyszczono treść notatki:", n.g);
     n.h = czysty;
@@ -30364,7 +30593,9 @@ function noteCard(n){
                 `<div class="ncontent">${contentHtml(n)}</div>` +
                 `<div class="wysUchwyt" title="Przeciągnij, aby zmienić wysokość notatki (dwuklik = jak w widoku)"></div>` +
                 noteCardTools(n);
-  autolinkRefs(d.querySelector(".ncontent"));
+  const _contEl = d.querySelector(".ncontent");
+  autolinkRefs(_contEl);
+  if(typeof podepnijOdtwarzaczeWKontenerze==="function") podepnijOdtwarzaczeWKontenerze(_contEl);
   /* Odsyłacze do notatek dostają napis z BIEŻĄCEGO tytułu, a przypisy numery
      z kolejności odsyłaczy — jedno i drugie liczone przy wyświetleniu, nie
      zapisane w treści. Wyjaśnienia w 54-wzmianki.js i 55-przypisy.js. */
@@ -32777,10 +33008,13 @@ function buildEditbar(n){
     <button class="eb-color" data-pop="color" title="Kolor / podświetlenie">${svgIc('<circle cx="12" cy="12" r="8.6"/><circle cx="9" cy="9.6" r="1" fill="currentColor" stroke="none"/><circle cx="14.6" cy="9.6" r="1" fill="currentColor" stroke="none"/><circle cx="9.6" cy="14.8" r="1" fill="currentColor" stroke="none"/>')}</button>
     <button class="eb-ins eb-mobile-extra" data-pop="ins" title="Wstaw: odnośnik do wersetu, cytat, listę zadań, link, linię">${ICO.plus}</button>
     <label class="eb-img eb-mobile-extra" title="Wstaw zdjęcie / ilustrację">${ICO.image}<input type="file" accept="image/*" multiple style="display:none"></label>
+    <button class="eb-media eb-mobile-extra" data-pop="media" title="Audio / Wideo / Dyktafon">🎙️</button>
+    <input type="file" class="eb-audio-input" accept="audio/*" multiple style="display:none">
+    <input type="file" class="eb-video-input" accept="video/*" multiple style="display:none">
     <button data-outline="1" title="Spis nagłówków i zwijanie sekcji">☷</button>
     <button class="eb-more" data-pop="more" title="Więcej: wcięcia, wyrównanie, indeks, wyczyść">${IC_DOTS}</button>`;
   bar.addEventListener("pointerdown", ev=>{
-    if(ev.target.closest("select, label.eb-img")){ edSavedRange = captureRange(); return; }
+    if(ev.target.closest("select, label.eb-img, .eb-media")){ edSavedRange = captureRange(); }
     const pop = ev.target.closest("[data-pop]");
     if(pop){ ev.preventDefault(); edSavedRange = captureRange(); openEbPop(pop.dataset.pop, pop, bar); return; }
     const malarz=ev.target.closest("[data-painter]");
@@ -32818,6 +33052,14 @@ function buildEditbar(n){
     if(!wstawione) toast("Nie udało się wczytać zdjęcia");
     else if(pliki.length > 1) toastOk("Wstawiono zdjęć: " + wstawione);
     if(wstawione) histZapisz(ceIns);
+  });
+  bar.querySelector(".eb-audio-input")?.addEventListener("change", ev=>{
+    obsluzWyborPlikowMedia(ev.target.files, "audio", bar.parentElement.querySelector(".ncontent"));
+    ev.target.value = "";
+  });
+  bar.querySelector(".eb-video-input")?.addEventListener("change", ev=>{
+    obsluzWyborPlikowMedia(ev.target.files, "video", bar.parentElement.querySelector(".ncontent"));
+    ev.target.value = "";
   });
   return bar;
 }
@@ -33737,10 +33979,21 @@ function openEbPop(kind, btn, bar){
       `<div class="dd-lbl">Styl akapitu</div>`+ poz("blok", BLOK_STYLE, teraz)+
       `<div class="dd-sep"></div><div class="dd-lbl">${IE_INTER}Interlinia</div>`+ poz("lh", INTERLINIE, lhTeraz)+
       `<div class="dd-sep"></div><div class="dd-lbl">${IE_ODSTEP}Odstęp przed i po akapicie</div>`+ poz("pm", ODSTEPY, pmTeraz);
+  } else if(kind==="media"){
+    pop.innerHTML =
+      `<div class="dd-lbl">Multimedia i nagrania</div>
+       <div data-ins="voice-rec">🎙️ Dyktafon (nagraj notatkę głosową)…</div>
+       <div class="dd-sep"></div>
+       <div data-ins="media-audio">🎵 Wstaw plik audio (.mp3, .m4a, .wav)…</div>
+       <div data-ins="media-video">🎬 Wstaw plik wideo (.mp4, .webm, .mov)…</div>`;
   } else if(kind==="ins"){
     pop.innerHTML =
       `<div data-ins="verse">${ICO.book}Odnośnik do wersetu (JW Library)</div>
        <div data-ins="url">${ICO.link}Link (adres internetowy)</div>
+       <div class="dd-sep"></div>
+       <div data-ins="voice-rec">🎙️ Dyktafon (notatka głosowa)…</div>
+       <div data-ins="media-audio">🎵 Plik audio (.mp3, .m4a)…</div>
+       <div data-ins="media-video">🎬 Plik wideo (.mp4, .webm)…</div>
        <div class="dd-sep"></div>
        <div data-ins="przypis">${IE_GORNY}Przypis¹</div>
        <div class="dd-sep"></div>
@@ -33768,6 +34021,7 @@ function openEbPop(kind, btn, bar){
        <div class="ebMobileMenu" data-cmd="insertOrderedList">${ICO.ol}Lista numerowana</div>
        <div class="ebMobileMenu" data-mobile-act="insert">${ICO.plus}Wstaw element…</div>
        <div class="ebMobileMenu" data-mobile-act="image">${ICO.image}Wstaw zdjęcie…</div>
+       <div class="ebMobileMenu" data-mobile-act="media">🎙️ Multimedia i dyktafon…</div>
        <div class="ebMobileMenu dd-sep"></div>
        <div data-cmd="outdent">${ICO.outdent}Zmniejsz wcięcie</div>
        <div data-cmd="indent">${ICO.indent}Zwiększ wcięcie</div>
@@ -33833,6 +34087,10 @@ $("ebPop").addEventListener("pointerdown", ev=>{
       const b=bar.querySelector(".eb-ins");
       openEbPop("ins",b||bar.querySelector(".eb-more"),bar);
     } else if(act==="image") bar.querySelector(".eb-img input")?.click();
+    else if(act==="media"){
+      const b=bar.querySelector(".eb-media");
+      openEbPop("media",b||bar.querySelector(".eb-more"),bar);
+    }
     else if(act==="font"){
       const s=bar.querySelector(".eb-font");
       if(s){
@@ -33886,6 +34144,19 @@ $("ebPop").addEventListener("pointerdown", ev=>{
   if(ins){
     const k=ins.dataset.ins;
     pop.style.display="none";
+    if(k==="voice-rec"){ otworzDyktafon(ce); return; }
+    if(k==="media-audio"){
+      const bar=ce && ce.parentElement && ce.parentElement.querySelector(".editbar");
+      const ai=bar ? bar.querySelector(".eb-audio-input") : null;
+      if(ai) ai.click(); else wybierzPlikMedia("audio", ce);
+      return;
+    }
+    if(k==="media-video"){
+      const bar=ce && ce.parentElement && ce.parentElement.querySelector(".editbar");
+      const vi=bar ? bar.querySelector(".eb-video-input") : null;
+      if(vi) vi.click(); else wybierzPlikMedia("video", ce);
+      return;
+    }
     if(k==="verse"){ insertVerseRef(ce); return; }   // własne okienko + commit w środku
     if(k==="przypis"){ if(typeof przWstaw==="function") przWstaw(ce); return; }
     if(k==="url"){ insertUrlLink(ce); return; }
@@ -36137,6 +36408,19 @@ document.addEventListener("paste", async e=>{
       if(f){ try{ const url=await compressImage(f); if(!(await checkSpaceForImage(url.length))) return; insertImageUrl(ce, url, miejsce); }catch(err){ toast("Nie udało się wkleić obrazu"); } }
       return;
     }
+    if(it.type && (it.type.indexOf("audio")===0 || it.type.indexOf("video")===0)){
+      e.preventDefault();
+      const f=it.getAsFile(), miejsce=captureRange();
+      if(f){
+        const isVid = it.type.indexOf("video")===0;
+        const reader = new FileReader();
+        reader.onload = ev => {
+          insertMediaElement(ce, isVid ? "video" : "audio", ev.target.result, f.name.replace(/\.[^/.]+$/, ""), miejsce);
+        };
+        reader.readAsDataURL(f);
+      }
+      return;
+    }
   } }
   // 2) tekst lub sformatowany HTML
   const txt = cd.getData("text/plain") || "";
@@ -36343,6 +36627,502 @@ async function compressImage(file){
   cv.getContext("2d").drawImage(img,0,0,w,h);
   return cv.toDataURL("image/jpeg", 0.78);
 }
+
+/* =====================================================================
+   MULTIMEDIA: ODTWARZACZ AUDIO I WIDEO ORAZ DYKTAFON (JW STUDY)
+   ===================================================================== */
+function formatujCzasMedia(sek){
+  if(!isFinite(sek) || isNaN(sek) || sek < 0) return "00:00";
+  const s = Math.floor(sek % 60);
+  const m = Math.floor((sek / 60) % 60);
+  const h = Math.floor(sek / 3600);
+  const ss = String(s).padStart(2, "0");
+  const mm = String(m).padStart(2, "0");
+  return h > 0 ? (h + ":" + mm + ":" + ss) : (mm + ":" + ss);
+}
+
+function budujElementOdtwarzacza(type, src, title){
+  const isVideo = type === "video";
+  const wrap = document.createElement("div");
+  wrap.className = "jw-media-player jw-media-" + (isVideo ? "video" : "audio");
+  wrap.setAttribute("contenteditable", "false");
+  wrap.setAttribute("data-type", isVideo ? "video" : "audio");
+  const cleanTitle = (title || (isVideo ? "Wideo" : "Nagranie audio")).replace(/["<>]/g, "");
+  wrap.setAttribute("data-title", cleanTitle);
+  const tytulEsc = typeof esc === "function" ? esc(cleanTitle) : cleanTitle;
+
+  if(isVideo){
+    wrap.innerHTML = `
+      <div class="jmp-video-screen">
+        <video playsinline preload="metadata" src="${src}"></video>
+        <button type="button" class="jmp-screen-play" aria-label="Odtwórz wideo">▶</button>
+      </div>
+      <div class="jmp-top">
+        <span class="jmp-icon" aria-hidden="true">🎬</span>
+        <span class="jmp-title">${tytulEsc}</span>
+        <span class="jmp-time"><span class="jmp-cur">00:00</span> / <span class="jmp-dur">--:--</span></span>
+      </div>
+      <div class="jmp-progress-wrap">
+        <input type="range" class="jmp-range" min="0" max="100" value="0" step="0.1" aria-label="Pasek postępu wideo">
+        <div class="jmp-bar"><div class="jmp-fill"></div></div>
+      </div>
+      <div class="jmp-controls">
+        <button type="button" class="jmp-btn jmp-skip-back" title="Cofnij o 10 sekund">⏪ 10s</button>
+        <button type="button" class="jmp-btn jmp-play" title="Odtwórz / Wstrzymaj">▶</button>
+        <button type="button" class="jmp-btn jmp-skip-fwd" title="Do przodu o 10 sekund">10s ⏩</button>
+        <button type="button" class="jmp-btn jmp-speed" title="Prędkość odtwarzania">1.0x</button>
+        <button type="button" class="jmp-btn jmp-fs" title="Pełny ekran wideo">⛶</button>
+        <button type="button" class="jmp-btn jmp-vol" title="Wycisz / włącz dźwięk">🔊</button>
+      </div>`;
+  } else {
+    wrap.innerHTML = `
+      <audio preload="metadata" src="${src}"></audio>
+      <div class="jmp-top">
+        <span class="jmp-icon" aria-hidden="true">🎙️</span>
+        <span class="jmp-title">${tytulEsc}</span>
+        <span class="jmp-time"><span class="jmp-cur">00:00</span> / <span class="jmp-dur">--:--</span></span>
+      </div>
+      <div class="jmp-progress-wrap">
+        <input type="range" class="jmp-range" min="0" max="100" value="0" step="0.1" aria-label="Pasek postępu audio">
+        <div class="jmp-bar"><div class="jmp-fill"></div></div>
+      </div>
+      <div class="jmp-controls">
+        <button type="button" class="jmp-btn jmp-skip-back" title="Cofnij o 10 sekund">⏪ 10s</button>
+        <button type="button" class="jmp-btn jmp-play" title="Odtwórz / Wstrzymaj">▶</button>
+        <button type="button" class="jmp-btn jmp-skip-fwd" title="Do przodu o 10 sekund">10s ⏩</button>
+        <button type="button" class="jmp-btn jmp-speed" title="Prędkość odtwarzania">1.0x</button>
+        <button type="button" class="jmp-btn jmp-vol" title="Wycisz / włącz dźwięk">🔊</button>
+      </div>`;
+  }
+  return wrap;
+}
+
+function podepnijZdarzeniaOdtwarzacza(wrap){
+  if(!wrap || wrap._jmpBound) return;
+  const media = wrap.querySelector("audio, video");
+  if(!media) return;
+  wrap._jmpBound = true;
+  media.classList.add("jmp-media");
+
+  const curEl = wrap.querySelector(".jmp-cur");
+  const durEl = wrap.querySelector(".jmp-dur");
+  const range = wrap.querySelector(".jmp-range");
+  const fill = wrap.querySelector(".jmp-fill");
+  const playBtn = wrap.querySelector(".jmp-play");
+  const screenPlay = wrap.querySelector(".jmp-screen-play");
+  const skipBack = wrap.querySelector(".jmp-skip-back");
+  const skipFwd = wrap.querySelector(".jmp-skip-fwd");
+  const speedBtn = wrap.querySelector(".jmp-speed");
+  const volBtn = wrap.querySelector(".jmp-vol");
+  const fsBtn = wrap.querySelector(".jmp-fs");
+
+  const togglePlay = (ev) => {
+    if(ev){ ev.preventDefault(); ev.stopPropagation(); }
+    if(media.paused){
+      document.querySelectorAll(".jw-media-player audio, .jw-media-player video").forEach(other => {
+        if(other !== media && !other.paused){
+          other.pause();
+          const owrap = other.closest(".jw-media-player");
+          if(owrap){
+            owrap.classList.remove("playing");
+            const op = owrap.querySelector(".jmp-play");
+            if(op) op.textContent = "▶";
+          }
+        }
+      });
+      media.play().then(()=>{
+        wrap.classList.add("playing");
+        if(playBtn) playBtn.textContent = "⏸";
+      }).catch(err => console.warn("Odtwarzanie zablokowane:", err));
+    } else {
+      media.pause();
+      wrap.classList.remove("playing");
+      if(playBtn) playBtn.textContent = "▶";
+    }
+  };
+
+  if(playBtn) playBtn.onclick = togglePlay;
+  if(screenPlay) screenPlay.onclick = togglePlay;
+
+  media.ontimeupdate = () => {
+    if(!wrap._isSeeking && isFinite(media.duration) && media.duration > 0){
+      const pct = (media.currentTime / media.duration) * 100;
+      if(range) range.value = pct;
+      if(fill) fill.style.width = pct + "%";
+      if(curEl) curEl.textContent = formatujCzasMedia(media.currentTime);
+    }
+  };
+
+  media.onloadedmetadata = () => {
+    if(durEl && isFinite(media.duration)) durEl.textContent = formatujCzasMedia(media.duration);
+  };
+  if(isFinite(media.duration) && media.duration > 0 && durEl){
+    durEl.textContent = formatujCzasMedia(media.duration);
+  }
+
+  media.onended = () => {
+    wrap.classList.remove("playing");
+    if(playBtn) playBtn.textContent = "▶";
+    media.currentTime = 0;
+    if(range) range.value = 0;
+    if(fill) fill.style.width = "0%";
+    if(curEl) curEl.textContent = "00:00";
+  };
+
+  if(range){
+    range.oninput = (ev) => {
+      ev.stopPropagation();
+      wrap._isSeeking = true;
+      const pct = parseFloat(range.value);
+      if(fill) fill.style.width = pct + "%";
+      if(curEl && isFinite(media.duration)) curEl.textContent = formatujCzasMedia((pct / 100) * media.duration);
+    };
+    range.onchange = (ev) => {
+      ev.stopPropagation();
+      if(isFinite(media.duration)){
+        media.currentTime = (parseFloat(range.value) / 100) * media.duration;
+      }
+      wrap._isSeeking = false;
+    };
+  }
+
+  if(skipBack) skipBack.onclick = (ev) => {
+    ev.preventDefault(); ev.stopPropagation();
+    media.currentTime = Math.max(0, media.currentTime - 10);
+  };
+  if(skipFwd) skipFwd.onclick = (ev) => {
+    ev.preventDefault(); ev.stopPropagation();
+    media.currentTime = Math.min(media.duration || Infinity, media.currentTime + 10);
+  };
+
+  const speeds = [1, 1.25, 1.5, 2, 0.75];
+  if(speedBtn) speedBtn.onclick = (ev) => {
+    ev.preventDefault(); ev.stopPropagation();
+    const cur = media.playbackRate || 1;
+    const idx = speeds.findIndex(s => Math.abs(s - cur) < 0.05);
+    const next = speeds[(idx + 1) % speeds.length];
+    media.playbackRate = next;
+    speedBtn.textContent = next + "x";
+  };
+
+  if(fsBtn){
+    fsBtn.onclick = (ev) => {
+      ev.preventDefault(); ev.stopPropagation();
+      if(media.requestFullscreen) media.requestFullscreen();
+      else if(media.webkitEnterFullscreen) media.webkitEnterFullscreen();
+      else if(media.webkitRequestFullscreen) media.webkitRequestFullscreen();
+      else if(media.msRequestFullscreen) media.msRequestFullscreen();
+    };
+  }
+
+  if(volBtn) volBtn.onclick = (ev) => {
+    ev.preventDefault(); ev.stopPropagation();
+    media.muted = !media.muted;
+    volBtn.textContent = media.muted ? "🔇" : "🔊";
+  };
+}
+
+function podepnijOdtwarzaczeWKontenerze(cont){
+  if(!cont) return;
+  const surowe = cont.querySelectorAll("audio:not(.jmp-media), video:not(.jmp-media)");
+  surowe.forEach(m => {
+    if(m.closest(".jw-media-player")) return;
+    const isVid = m.tagName === "VIDEO";
+    const src = m.getAttribute("src") || (m.querySelector("source") && m.querySelector("source").getAttribute("src")) || "";
+    if(!src) return;
+    const title = m.getAttribute("data-title") || m.getAttribute("title") || (isVid ? "Wideo" : "Nagranie audio");
+    const wrap = budujElementOdtwarzacza(isVid ? "video" : "audio", src, title);
+    m.replaceWith(wrap);
+  });
+  cont.querySelectorAll(".jw-media-player").forEach(wrap => {
+    podepnijZdarzeniaOdtwarzacza(wrap);
+  });
+}
+
+function insertMediaElement(ce, type, src, title, range){
+  if(!ce) return null;
+  const isVideo = type === "video";
+  const mediaWrap = budujElementOdtwarzacza(isVideo ? "video" : "audio", src, title);
+  if(typeof histZapisz === "function") histZapisz(ce);
+  try{
+    let r = (range && ce.contains(range.startContainer)) ? range.cloneRange() : null;
+    if(!r){
+      const sel = getSelection();
+      if(sel && sel.rangeCount && ce.contains(sel.getRangeAt(0).startContainer)) r = sel.getRangeAt(0).cloneRange();
+    }
+    if(r){
+      r.deleteContents();
+      r.collapse(false);
+      r.insertNode(mediaWrap);
+    } else {
+      ce.appendChild(mediaWrap);
+    }
+    if(!mediaWrap.nextSibling) mediaWrap.parentNode.insertBefore(document.createElement("br"), mediaWrap.nextSibling);
+    const sel = getSelection(), po = document.createRange();
+    po.setStartAfter(mediaWrap);
+    po.collapse(true);
+    if(sel){ sel.removeAllRanges(); sel.addRange(po); }
+  }catch(_){
+    try{ ce.appendChild(mediaWrap); }catch(__){}
+  }
+  podepnijZdarzeniaOdtwarzacza(mediaWrap);
+  if(typeof histZapisz === "function") histZapisz(ce);
+  commitLiveEdit(ce);
+  toastOk("Wstawiono " + (isVideo ? "plik wideo" : "plik audio"));
+  return mediaWrap;
+}
+
+async function obsluzWyborPlikowMedia(plikiList, typDomyslny, ce){
+  const pliki = [...(plikiList || [])];
+  if(!pliki.length) return;
+  const ceTarget = ce || (document.querySelector(".ncard.editing .ncontent") || document.querySelector("#fsWrap .ncontent"));
+  if(!ceTarget){ toast("Najpierw włącz edycję notatki"); return; }
+  let wstawione = 0, zakres = edSavedRange;
+
+  for(const f of pliki){
+    const isVideo = f.type.startsWith("video") || typDomyslny === "video" || /\.(mp4|webm|mov|m4v)$/i.test(f.name);
+    if(f.size > 50 * 1024 * 1024){
+      const mb = Math.round(f.size / (1024 * 1024));
+      if(!confirm("Plik " + f.name + " ma " + mb + " MB. Duże pliki mogą obciążyć pamięć podręczną. Czy na pewno wstawić?")) continue;
+    }
+    try{
+      const dataUrl = await new Promise((res, rej)=>{
+        const r = new FileReader();
+        r.onload = () => res(r.result);
+        r.onerror = rej;
+        r.readAsDataURL(f);
+      });
+      const tytul = f.name.replace(/\.[^/.]+$/, "");
+      const elem = insertMediaElement(ceTarget, isVideo ? "video" : "audio", dataUrl, tytul, zakres);
+      if(elem){
+        zakres = document.createRange();
+        zakres.setStartAfter(elem);
+        zakres.collapse(true);
+        wstawione++;
+      }
+    }catch(err){
+      console.warn("Błąd wczytywania pliku multimedialnego:", f.name, err);
+    }
+  }
+  if(!wstawione && pliki.length > 0) toast("Nie udało się wczytać pliku");
+  else if(wstawione > 1) toastOk("Wstawiono plików: " + wstawione);
+}
+
+function wybierzPlikMedia(typ, ce){
+  const inp = document.createElement("input");
+  inp.type = "file";
+  inp.accept = typ === "video" ? "video/*" : "audio/*";
+  inp.multiple = true;
+  inp.style.display = "none";
+  inp.onchange = ev => {
+    obsluzWyborPlikowMedia(ev.target.files, typ, ce);
+    inp.remove();
+  };
+  document.body.appendChild(inp);
+  inp.click();
+}
+
+/* --- Dyktafon --- */
+let _vrStream = null, _vrRecorder = null, _vrChunks = [], _vrTimerInt = null, _vrSecs = 0;
+let _vrAudioCtx = null, _vrAnalyser = null, _vrAnimId = null, _vrBlob = null, _vrTargetCe = null;
+
+function otworzDyktafon(ce){
+  _vrTargetCe = ce || (document.querySelector(".ncard.editing .ncontent") || document.querySelector("#fsWrap .ncontent"));
+  _vrResetStan();
+  openModal("modalVoiceRec");
+}
+
+function _vrFormatujSekundy(sek){
+  const s = Math.floor(sek % 60);
+  const m = Math.floor(sek / 60);
+  return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+}
+
+function _vrAktualizujCzas(){
+  const t = $("vrTimer");
+  if(t) t.textContent = _vrFormatujSekundy(_vrSecs);
+}
+
+async function vrRozpocznijNagrywanie(){
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    toast("Twoja przeglądarka nie obsługuje nagrywania głosu");
+    return;
+  }
+  try{
+    _vrStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  }catch(err){
+    console.warn("Brak uprawnień mikrofonu:", err);
+    toast("Brak dostępu do mikrofonu — sprawdź uprawnienia w przeglądarce");
+    return;
+  }
+  _vrChunks = [];
+  let mimeType = "";
+  if(typeof MediaRecorder !== "undefined"){
+    if(MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported("audio/webm;codecs=opus")) mimeType = "audio/webm;codecs=opus";
+    else if(MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported("audio/mp4")) mimeType = "audio/mp4";
+    else if(MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported("audio/webm")) mimeType = "audio/webm";
+    else if(MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported("audio/ogg")) mimeType = "audio/ogg";
+  }
+
+  try{
+    _vrRecorder = mimeType ? new MediaRecorder(_vrStream, { mimeType }) : new MediaRecorder(_vrStream);
+  }catch(e){
+    _vrRecorder = new MediaRecorder(_vrStream);
+  }
+
+  _vrRecorder.ondataavailable = e => {
+    if(e.data && e.data.size > 0) _vrChunks.push(e.data);
+  };
+
+  _vrRecorder.onstop = () => {
+    _vrZatrzymajAnimacje();
+    const type = _vrRecorder.mimeType || mimeType || "audio/webm";
+    _vrBlob = new Blob(_vrChunks, { type });
+    const preview = $("vrAudioPreview");
+    if(preview){
+      try{ preview.src = URL.createObjectURL(_vrBlob); }catch(_){}
+      const pw = $("vrPreviewWrap");
+      if(pw) pw.style.display = "block";
+    }
+    const bStart = $("vrBtnStart");
+    if(bStart){ bStart.style.display = "inline-flex"; bStart.textContent = "🔄 Nagraj ponownie"; }
+    const bStop = $("vrBtnStop");
+    if(bStop) bStop.style.display = "none";
+    const bIns = $("vrBtnInsert");
+    if(bIns) bIns.style.display = "inline-flex";
+    const desc = $("vrDesc");
+    if(desc) desc.textContent = "Nagranie gotowe! Możesz je odsłuchać lub wstawić do notatki.";
+  };
+
+  _vrRecorder.start(250);
+  _vrSecs = 0;
+  _vrAktualizujCzas();
+  _vrTimerInt = setInterval(()=>{
+    _vrSecs++;
+    _vrAktualizujCzas();
+    if(_vrSecs >= 1800){
+      vrZatrzymajNagrywanie();
+      toast("Osiągnięto limit 30 minut nagrania");
+    }
+  }, 1000);
+
+  _vrUruchomVisualizer(_vrStream);
+
+  const bStart = $("vrBtnStart");
+  if(bStart) bStart.style.display = "none";
+  const bStop = $("vrBtnStop");
+  if(bStop) bStop.style.display = "inline-flex";
+  const bIns = $("vrBtnInsert");
+  if(bIns) bIns.style.display = "none";
+  const pw = $("vrPreviewWrap");
+  if(pw) pw.style.display = "none";
+  const desc = $("vrDesc");
+  if(desc) desc.textContent = "Trwa nagrywanie… mów wyraźnie do mikrofonu.";
+}
+
+function vrZatrzymajNagrywanie(){
+  if(_vrRecorder && _vrRecorder.state !== "inactive"){
+    try{ _vrRecorder.stop(); }catch(_){}
+  }
+  if(_vrTimerInt){ clearInterval(_vrTimerInt); _vrTimerInt = null; }
+  if(_vrStream){
+    _vrStream.getTracks().forEach(t=>t.stop());
+    _vrStream = null;
+  }
+}
+
+function vrWstawNagranieDoNotatki(){
+  if(!_vrBlob){ toast("Brak nagrania do wstawienia"); return; }
+  const reader = new FileReader();
+  reader.onload = e => {
+    const dataUrl = e.target.result;
+    const dataStr = new Date();
+    const dd = String(dataStr.getDate()).padStart(2, "0");
+    const mm = String(dataStr.getMonth() + 1).padStart(2, "0");
+    const hh = String(dataStr.getHours()).padStart(2, "0");
+    const min = String(dataStr.getMinutes()).padStart(2, "0");
+    const title = `Głos (${dd}.${mm} ${hh}:${min}) · ${_vrFormatujSekundy(_vrSecs)}`;
+    insertMediaElement(_vrTargetCe, "audio", dataUrl, title, edSavedRange);
+    closeModal("modalVoiceRec");
+    _vrResetStan();
+  };
+  reader.readAsDataURL(_vrBlob);
+}
+
+function _vrUruchomVisualizer(stream){
+  try{
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if(!AudioCtx) return;
+    _vrAudioCtx = new AudioCtx();
+    const source = _vrAudioCtx.createMediaStreamSource(stream);
+    _vrAnalyser = _vrAudioCtx.createAnalyser();
+    _vrAnalyser.fftSize = 64;
+    source.connect(_vrAnalyser);
+    const canvas = $("vrCanvas");
+    if(!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const bufferLength = _vrAnalyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    function draw(){
+      _vrAnimId = requestAnimationFrame(draw);
+      _vrAnalyser.getByteFrequencyData(dataArray);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const barWidth = (canvas.width / bufferLength) * 1.8;
+      let x = 0;
+      for(let i = 0; i < bufferLength; i++){
+        const barHeight = Math.max(4, (dataArray[i] / 255) * canvas.height * 0.9);
+        const y = (canvas.height - barHeight) / 2;
+        ctx.fillStyle = "rgba(46, 204, 113, 0.85)";
+        ctx.beginPath();
+        if(ctx.roundRect) ctx.roundRect(x, y, Math.max(2, barWidth - 2), barHeight, 2);
+        else ctx.rect(x, y, Math.max(2, barWidth - 2), barHeight);
+        ctx.fill();
+        x += barWidth;
+      }
+    }
+    draw();
+  }catch(e){
+    console.warn("Visualizer audio context:", e);
+  }
+}
+
+function _vrZatrzymajAnimacje(){
+  if(_vrAnimId){ cancelAnimationFrame(_vrAnimId); _vrAnimId = null; }
+  if(_vrAudioCtx){ try{ _vrAudioCtx.close(); }catch(_){} _vrAudioCtx = null; }
+  const canvas = $("vrCanvas");
+  if(canvas){
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
+
+function _vrResetStan(){
+  vrZatrzymajNagrywanie();
+  _vrZatrzymajAnimacje();
+  _vrChunks = [];
+  _vrBlob = null;
+  _vrSecs = 0;
+  if($("vrTimer")) $("vrTimer").textContent = "00:00";
+  if($("vrDesc")) $("vrDesc").textContent = "Nagraj swoje przemyślenia, wniosek ze studium lub komentarz";
+  if($("vrBtnStart")){
+    $("vrBtnStart").style.display = "inline-flex";
+    $("vrBtnStart").textContent = "🔴 Nagrywaj";
+  }
+  if($("vrBtnStop")) $("vrBtnStop").style.display = "none";
+  if($("vrBtnInsert")) $("vrBtnInsert").style.display = "none";
+  if($("vrPreviewWrap")){
+    $("vrPreviewWrap").style.display = "none";
+    const prev = $("vrAudioPreview");
+    if(prev){ prev.pause(); prev.removeAttribute("src"); prev.load(); }
+  }
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+  $("vrBtnStart")?.addEventListener("click", vrRozpocznijNagrywanie);
+  $("vrBtnStop")?.addEventListener("click", vrZatrzymajNagrywanie);
+  $("vrBtnInsert")?.addEventListener("click", vrWstawNagranieDoNotatki);
+});
 /**
  * Włącza albo kończy edycję notatki w miejscu (contenteditable).
  * Przy włączaniu: rozwija podświetlenia, dokłada pasek narzędzi edytora.
@@ -36602,13 +37382,33 @@ function sanitize(html){
             dst.appendChild(im);
           }
         }
+        else if(tag==="AUDIO"||tag==="VIDEO"){
+          const isVid = tag === "VIDEO";
+          const src = (node.getAttribute("src") || (node.querySelector("source")&&node.querySelector("source").getAttribute("src")) || "").trim();
+          if(/^data:(audio|video)\/[a-z0-9.+-]+[;,]/i.test(src) || /^https?:\/\//i.test(src) || /^blob:/i.test(src)){
+            const tit = String(node.getAttribute("data-title")||node.getAttribute("title")||"").slice(0,100);
+            const p = budujElementOdtwarzacza(isVid ? "video" : "audio", src, tit);
+            dst.appendChild(p);
+          }
+        }
         else if(tag==="UL"||tag==="OL"){ const l=document.createElement(tag.toLowerCase()); if(tag==="UL" && /(^|\s)tasklist(\s|$)/.test(node.className||"")) l.className="tasklist"; walk(node,l); dst.appendChild(l); }
         else if(tag==="LI"){ const li=document.createElement("li"); if(/(^|\s)done(\s|$)/.test(node.className||"")) li.className="done"; walk(node,li); dst.appendChild(li); }
         else if(tag==="DIV"||tag==="P"){
+          const kl=node.className||"";
+          if(/(^|\s)jw-media-player(\s|$)/.test(kl)){
+            const isVid = /(^|\s)jw-media-video(\s|$)/.test(kl) || node.dataset.type==="video";
+            const mediaEl = node.querySelector(isVid ? "video" : "audio");
+            const src = (mediaEl ? (mediaEl.getAttribute("src")||"") : "").trim();
+            if(/^data:(audio|video)\/[a-z0-9.+-]+[;,]/i.test(src) || /^https?:\/\//i.test(src) || /^blob:/i.test(src)){
+              const tit = String(node.getAttribute("data-title")||(mediaEl&&mediaEl.getAttribute("data-title"))||"").slice(0,100);
+              const p = budujElementOdtwarzacza(isVid ? "video" : "audio", src, tit);
+              dst.appendChild(p);
+              return;
+            }
+          }
           const d2=document.createElement("div");
           /* Blok przypisów i pojedynczy przypis. Trzymamy je w treści notatki,
              a nie w osobnym polu — patrz decyzja 3 w 55-przypisy.js. */
-          const kl=node.className||"";
           if(/(^|\s)fnlist(\s|$)/.test(kl)) d2.className="fnlist";
           else if(/(^|\s)callout(\s|$)/.test(kl)){
             const rodz=(kl.match(/callout-(important|conclusion|question|example)/)||[])[1]||"important";
@@ -36656,6 +37456,16 @@ function htmlToPlain(html){
         if(t==="BR"){ out+="\n"; return; }
         if(t==="HR"){ out+="\n———\n"; return; }
         if(t==="IMG"){ out+="[ilustracja]"; return; }
+        if(t==="AUDIO" || (t==="DIV" && ch.classList && ch.classList.contains("jw-media-audio"))){
+          const tit = ch.getAttribute("data-title") || "nagranie";
+          out += " [audio: " + tit + "] ";
+          return;
+        }
+        if(t==="VIDEO" || (t==="DIV" && ch.classList && ch.classList.contains("jw-media-video"))){
+          const tit = ch.getAttribute("data-title") || "wideo";
+          out += " [wideo: " + tit + "] ";
+          return;
+        }
         if(t==="LI") out+= (ch.parentElement&&ch.parentElement.tagName==="OL")
           ? ([...ch.parentElement.children].indexOf(ch)+1)+". " : "• ";
         walk(ch);
@@ -41137,6 +41947,9 @@ function closeModal(id, fromPopstate){
   if(pudlo){
     pudlo.style.transform = "";
     pudlo.style.transition = "";
+  }
+  if(id === "modalVoiceRec" || okno.id === "modalVoiceRec"){
+    if(typeof _vrResetStan === "function") _vrResetStan();
   }
   if(id === "modalCelTimer" || okno.id === "modalCelTimer"){
     if(typeof _centrNaZamkniecieStopera === "function"){
