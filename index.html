@@ -17838,8 +17838,8 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
 .ncontent img.img-rot-270{transform:rotate(270deg)}
 /* ================= ODTWARZACZ MULTIMEDIALNY (AUDIO / WIDEO / DYKTAFON) ================= */
 .jw-media-player {
-  display: block;
-  margin: 10px 0;
+  display: block !important;
+  margin: 12px 0 !important;
   border-radius: 14px;
   background: var(--panel, #ffffff);
   border: 1px solid color-mix(in srgb, var(--border) 80%, rgba(0,0,0,0.12) 20%);
@@ -17847,7 +17847,7 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   box-sizing: border-box;
   clear: both;
   min-width: 260px;
-  max-width: 100%;
+  max-width: 100% !important;
   resize: horizontal;
   overflow: visible;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -17860,35 +17860,35 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   box-shadow: 0 4px 16px rgba(0,0,0,0.08);
 }
 
-/* Rozmiary okna odtwarzacza */
+/* Rozmiary okna odtwarzacza — stałe proporcjonalne szerokości, nigdy nie rozciągają się bez sensu */
 .jw-media-player.jmp-size-s {
-  width: 320px;
-  max-width: 100%;
+  width: 320px !important;
+  max-width: 100% !important;
 }
 .jw-media-player.jmp-size-m {
-  width: 480px;
-  max-width: 100%;
+  width: 440px !important;
+  max-width: 100% !important;
 }
 .jw-media-player.jmp-size-full {
-  width: 100%;
-  max-width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 /* Wyrównanie i oblewanie tekstem */
 .jw-media-player.jmp-align-left {
-  float: left;
-  margin: 6px 16px 12px 0;
-  clear: left;
+  float: left !important;
+  margin: 6px 16px 12px 0 !important;
+  clear: left !important;
 }
 .jw-media-player.jmp-align-right {
-  float: right;
-  margin: 6px 0 12px 16px;
-  clear: right;
+  float: right !important;
+  margin: 6px 0 12px 16px !important;
+  clear: right !important;
 }
 .jw-media-player.jmp-align-center {
-  margin-left: auto;
-  margin-right: auto;
-  clear: both;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  clear: both !important;
 }
 
 /* ----------------- KARTA WIDEO (wg wzorca Poprawiony odtwarzacz wideo) ----------------- */
@@ -17943,31 +17943,37 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   pointer-events: none;
 }
 .jmp-card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
   padding: 8px 2px 2px;
   gap: 8px;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 .jmp-footer-left {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
   gap: 8px;
   min-width: 0;
-  flex: 1;
+  flex: 1 1 auto !important;
 }
 .jmp-footer-icon {
   width: 22px;
   height: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   color: var(--muted, #6b7280);
   flex-shrink: 0;
 }
 .jmp-meta-text {
   min-width: 0;
-  flex: 1;
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 .jmp-meta-title {
   font-size: 13px;
@@ -17987,6 +17993,8 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
 .jmp-footer-right {
   position: relative;
   flex-shrink: 0;
+  display: flex !important;
+  align-items: center !important;
 }
 
 /* ----------------- KARTA MP3 / AUDIO (wg wzorca MP3 – średni odtwarzacz) ----------------- */
@@ -17994,31 +18002,39 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   padding: 12px 14px;
 }
 .jmp-audio-top {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
   gap: 10px;
   margin-bottom: 8px;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 .jmp-audio-badge {
   width: 40px;
   height: 40px;
   border-radius: 10px;
   background: color-mix(in srgb, var(--panel) 82%, var(--border, #9ca3af) 18%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   flex-shrink: 0;
   color: var(--text, #374151);
 }
 .jmp-audio-mid {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
   margin-bottom: 8px;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 .jmp-audio-controls {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
   gap: 6px;
 }
 .jmp-ctrl-btn {
