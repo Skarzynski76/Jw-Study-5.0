@@ -17919,6 +17919,57 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   margin-bottom: 6px;
   color: var(--text);
 }
+.jmp-del-top {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 2px;
+  transition: all 0.14s ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.jmp-del-top:hover {
+  background: rgba(231, 76, 60, 0.15);
+  border-color: rgba(231, 76, 60, 0.35);
+  color: #e74c3c;
+}
+.jw-media-player.jw-media-video .jmp-del-top {
+  color: #bbb;
+}
+.jw-media-player.jw-media-video .jmp-del-top:hover {
+  background: rgba(231, 76, 60, 0.35);
+  border-color: rgba(231, 76, 60, 0.5);
+  color: #ff6b6b;
+}
+.jmp-btn.jmp-del {
+  color: #e74c3c !important;
+}
+.jmp-btn.jmp-del:hover {
+  background: rgba(231, 76, 60, 0.14) !important;
+  border-color: #e74c3c !important;
+  color: #e74c3c !important;
+}
+.sbtn.ico.card-del-btn:hover {
+  color: #e74c3c !important;
+  background: rgba(231, 76, 60, 0.12) !important;
+  border-color: rgba(231, 76, 60, 0.3) !important;
+}
+.fs-rail-btn-del:hover {
+  background: rgba(231, 76, 60, 0.18) !important;
+  color: #e74c3c !important;
+  border-color: rgba(231, 76, 60, 0.4) !important;
+}
 .jw-media-player.jw-media-video .jmp-top {
   color: #f0f0f0;
   margin-top: 6px;
@@ -22663,6 +22714,10 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
     <button class="fs-rail-btn" data-rail-act="search" type="button" title="Szukaj w notatce">
       <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <span class="fs-rail-tip">Szukaj</span>
+    </button>
+    <button class="fs-rail-btn fs-rail-btn-del" data-rail-act="del" type="button" title="Usuń tę notatkę (Kosz)">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16"/><path d="M10 11v6M14 11v6"/><path d="M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12"/><path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg>
+      <span class="fs-rail-tip">Usuń</span>
     </button>
   </aside>
 
@@ -30509,6 +30564,7 @@ function noteCardTools(n){
          <button class="sbtn ico ${n.fav?"favon":""}" data-act="fav" title="${n.fav?"Usuń z ulubionych":"Dodaj do ulubionych"}">${ICO.star}</button>
          <button class="sbtn ico" data-act="tagpanel" title="Etykiety (dodaj / przenieś)">${ICO.tag}</button>
          <button class="sbtn ico more-btn" data-act="more" title="Więcej działań">${ICO.dots}</button>
+         <button class="sbtn ico card-del-btn" data-act="del" title="Usuń notatkę (Kosz)" style="margin-left:auto;">${ICO.trash}</button>
        </div>
        <div class="tagrow">
          <select data-role="tagsel" data-puste="1" title="Wybierz zakładkę"></select>
@@ -35377,6 +35433,15 @@ function obsluzFsRailAkcje(act) {
     otworzFsRailStatystyki();
   } else if(act === "search") {
     otworzFsRailSzukaj();
+  } else if(act === "del") {
+    closeFsRailPops();
+    const g = fsGuid || (card ? card.dataset.g : null);
+    const n = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes.find(x => x.g === g) : null;
+    if(n) {
+      delNote(n).then(() => {
+        if(n.del && typeof closeFs === "function") closeFs();
+      });
+    }
   }
 }
 
@@ -36714,6 +36779,7 @@ function budujElementOdtwarzacza(type, src, title){
         <span class="jmp-icon" aria-hidden="true">🎬</span>
         <span class="jmp-title">${tytulEsc}</span>
         <span class="jmp-time"><span class="jmp-cur">00:00</span> / <span class="jmp-dur">--:--</span></span>
+        <button type="button" class="jmp-del-top" title="Usuń plik wideo z notatki" aria-label="Usuń wideo">✕</button>
       </div>
       <div class="jmp-progress-wrap">
         <input type="range" class="jmp-range" min="0" max="100" value="0" step="0.1" aria-label="Pasek postępu wideo">
@@ -36727,6 +36793,7 @@ function budujElementOdtwarzacza(type, src, title){
         <button type="button" class="jmp-btn jmp-speed" title="Prędkość odtwarzania">1.0x</button>
         <button type="button" class="jmp-btn jmp-fs" title="Pełny ekran wideo">⛶</button>
         <button type="button" class="jmp-btn jmp-vol" title="Wycisz / włącz dźwięk">🔊</button>
+        <button type="button" class="jmp-btn jmp-del" title="Usuń plik wideo z notatki" aria-label="Usuń wideo">🗑️</button>
       </div>`;
   } else {
     wrap.innerHTML = `
@@ -36735,6 +36802,7 @@ function budujElementOdtwarzacza(type, src, title){
         <span class="jmp-icon" aria-hidden="true">🎙️</span>
         <span class="jmp-title">${tytulEsc}</span>
         <span class="jmp-time"><span class="jmp-cur">00:00</span> / <span class="jmp-dur">--:--</span></span>
+        <button type="button" class="jmp-del-top" title="Usuń nagranie audio z notatki" aria-label="Usuń nagranie">✕</button>
       </div>
       <div class="jmp-progress-wrap">
         <input type="range" class="jmp-range" min="0" max="100" value="0" step="0.1" aria-label="Pasek postępu audio">
@@ -36747,6 +36815,7 @@ function budujElementOdtwarzacza(type, src, title){
         <button type="button" class="jmp-btn jmp-skip-fwd" title="Do przodu o 10 sekund">10s ⏩</button>
         <button type="button" class="jmp-btn jmp-speed" title="Prędkość odtwarzania">1.0x</button>
         <button type="button" class="jmp-btn jmp-vol" title="Wycisz / włącz dźwięk">🔊</button>
+        <button type="button" class="jmp-btn jmp-del" title="Usuń nagranie audio z notatki" aria-label="Usuń nagranie">🗑️</button>
       </div>`;
   }
   return wrap;
@@ -36888,6 +36957,56 @@ function podepnijZdarzeniaOdtwarzacza(wrap){
     media.muted = !media.muted;
     volBtn.textContent = media.muted ? "🔇" : "🔊";
   };
+
+  const obsluzUsuniecie = (ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    const isVid = wrap.classList.contains("jw-media-video");
+    const label = isVid ? "plik wideo" : "nagranie audio";
+    if(!confirm(`Czy na pewno chcesz usunąć to ${label} z notatki?`)) return;
+    try {
+      media.pause();
+      media.removeAttribute("src");
+      media.load();
+    }catch(_){}
+
+    const ce = wrap.closest(".ncontent");
+    const card = wrap.closest(".ncard");
+    const isEditing = card && card.classList.contains("editing");
+
+    if(ce && isEditing){
+      if(typeof histZapisz === "function") histZapisz(ce);
+      wrap.remove();
+      commitLiveEdit(ce);
+      toast(`Usunięto ${label}`);
+    } else if(card) {
+      const g = card.dataset.g;
+      const n = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes.find(x => x.g === g) : null;
+      wrap.remove();
+      if(ce && n){
+        const clean = sanitize(ce.innerHTML);
+        n.h = clean;
+        n.c = htmlToPlain(clean);
+        n.ed = true;
+        n.mo = new Date().toISOString();
+        if(typeof saveNote === "function"){
+          saveNote(n).then(ok => {
+            if(ok) toast(`Usunięto ${label}`);
+          });
+        }
+        if(typeof bumpDirty === "function") bumpDirty();
+      } else {
+        toast(`Usunięto ${label}`);
+      }
+    } else {
+      wrap.remove();
+      toast(`Usunięto ${label}`);
+    }
+  };
+
+  wrap.querySelectorAll(".jmp-del-top, .jmp-del").forEach(b => {
+    b.onclick = obsluzUsuniecie;
+  });
 }
 
 function podepnijOdtwarzaczeWKontenerze(cont){
