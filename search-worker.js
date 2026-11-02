@@ -29,13 +29,22 @@ function odleglosc(a,b,max){
   }
   return prev[b.length];
 }
+function wersetNakladaSie(nVerse, qStart, qEnd){
+  if(!nVerse || qStart === null || qEnd === null || isNaN(qStart) || isNaN(qEnd)) return false;
+  const nums = String(nVerse).match(/\d+/g);
+  if(!nums || !nums.length) return false;
+  const p = nums.map(x => parseInt(x, 10));
+  const nStart = Math.min(...p);
+  const nEnd = Math.max(...p);
+  return Math.max(nStart, qStart) <= Math.min(nEnd, qEnd);
+}
 function przygotuj(r){
   const pola={
     title:norm(r.title), body:norm(r.body), tag:norm(r.tag), ref:norm(r.ref)
   };
   const tekst=norm(r.plain || [r.title,r.body,r.tag,r.ref].join(" "));
   return {g:r.g, tekst, squash:squash(tekst), tokeny:null, pola,
-    pin:!!r.pin, fav:!!r.fav};
+    pin:!!r.pin, fav:!!r.fav, b:r.b, ch:r.ch, v:r.v};
 }
 function maWariant(r, warianty, smart){
   for(const surowy of warianty || []){
@@ -56,6 +65,20 @@ function maWariant(r, warianty, smart){
 }
 function pasuje(r,p){
   if(p.allowed && !p.allowed.has(r.g)) return false;
+  if(p.bibleMatch && r.b === p.bibleMatch.book){
+    if(!p.bibleMatch.ch) return true;
+    if(r.ch === p.bibleMatch.ch){
+      if(!p.bibleMatch.vStart) return true;
+      if(r.v && wersetNakladaSie(r.v, p.bibleMatch.vStart, p.bibleMatch.vEnd)) return true;
+      if(!r.v) return true;
+    }
+  }
+  if(p.field && p.field !== "all"){
+    const fTxt = r.pola[p.field] || "";
+    if((p.phrases || []).some(x => !fTxt.includes(norm(x)))) return false;
+    if((p.groups || []).some(g => !g.some(t => fTxt.includes(norm(t).replace(/\*/g,""))))) return false;
+    return true;
+  }
   if(p.fields && !p.fields.every(x=>(r.pola[x.f] || "").includes(norm(x.v)))) return false;
   const smart=p.mode!=="exact";
   if((p.neg || []).some(g=>maWariant(r,g,smart))) return false;
@@ -69,6 +92,14 @@ function pasuje(r,p){
    Bez niej limit wyników oznaczał „pierwsze w bazie”, a nie „najlepsze”. */
 function punkty(r,p){
   let wynik=0;
+  if(p.bibleMatch && r.b === p.bibleMatch.book){
+    if(p.bibleMatch.ch && r.ch === p.bibleMatch.ch){
+      if(p.bibleMatch.vStart && r.v && wersetNakladaSie(r.v, p.bibleMatch.vStart, p.bibleMatch.vEnd)) wynik += 1800;
+      else wynik += 950;
+    } else {
+      wynik += 450;
+    }
+  }
   const title=r.pola.title, body=r.pola.body, tag=r.pola.tag, ref=r.pola.ref;
   for(const surowa of (p.phrases||[])){
     const x=norm(surowa);

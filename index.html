@@ -16942,12 +16942,30 @@ html[data-theme="dark"] .gran-badge.identyczny{background:var(--sel);color:var(-
 .searchMeaning{ width:100%; margin:0; padding:5px 8px; border-radius:9px; background:var(--panel); color:var(--accent); }
 .ssChip,.ssNav{ border:1px solid var(--border); background:var(--panel); color:var(--text); border-radius:999px; padding:5px 9px; font-size:12px; cursor:pointer; }
 .ssChip.on{ color:#fff; background:var(--accent); border-color:var(--accent); }
-.searchMatch{ display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:start; gap:7px; margin:7px 12px 2px; color:var(--muted); font-size:11.5px; }
-.searchReason{ color:var(--accent); background:var(--sel); border-radius:999px; padding:2px 7px; white-space:nowrap; }
+.searchMatch{ display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:start; gap:7px; margin:7px 12px 2px; color:var(--muted); font-size:11.5px; cursor:pointer; border-radius:8px; padding:3px 6px; transition:background-color .15s ease; }
+.searchMatch:hover{ background:color-mix(in srgb,var(--sel) 72%,transparent); }
+.searchMatch:hover .searchReason{ background:var(--accent); color:#fff; }
+.searchReason{ color:var(--accent); background:var(--sel); border-radius:999px; padding:2px 7px; white-space:nowrap; transition:all .15s ease; }
 .searchSnippets{ min-width:0; display:flex; flex-direction:column; gap:3px; }
 .searchSnippet{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .searchSnippet .qhl{ background:#ffe58a; color:inherit; border-radius:3px; padding:0 1px; }
 .searchHits{ white-space:nowrap; color:var(--muted); padding-top:2px; }
+.ssFieldGrp{ display:inline-flex; align-items:center; gap:3px; background:var(--panel); border:1px solid var(--border); border-radius:999px; padding:2px; }
+.ssFieldGrp .ssChip{ border:none; background:transparent; padding:3px 8px; font-size:11.5px; border-radius:999px; color:var(--muted); }
+.ssFieldGrp .ssChip.on{ background:var(--accent); color:#fff; font-weight:600; }
+#searchSug .sug-del{ margin-left:auto; border:0; background:transparent; color:var(--muted); cursor:pointer; padding:2px 7px; font-size:13px; border-radius:6px; line-height:1; }
+#searchSug .sug-del:hover{ color:var(--danger,#ef4444); background:var(--sel); }
+#searchSug .sug-footer{ display:flex; justify-content:center; padding:7px; border-top:1px solid var(--border); }
+#searchSug .sug-clear-all{ border:0; background:transparent; color:var(--muted); font-size:11.5px; cursor:pointer; padding:4px 9px; border-radius:7px; }
+#searchSug .sug-clear-all:hover{ color:var(--text); background:var(--sel); }
+mark.szukajTrafieniePuls{ background:#fde047; color:#1c1917; border-radius:4px; padding:2px 5px; box-shadow:0 0 0 5px rgba(250,204,21,0.55), 0 2px 8px rgba(0,0,0,0.18); animation:szukajPulsBlysk 2.5s ease-out forwards; }
+html[data-theme="dark"] mark.szukajTrafieniePuls, html[data-theme="oled"] mark.szukajTrafieniePuls{ background:#ca8a04; color:#fef08a; box-shadow:0 0 0 5px rgba(234,179,8,0.45), 0 2px 8px rgba(0,0,0,0.35); }
+@keyframes szukajPulsBlysk{
+  0%   { transform:scale(1.08); box-shadow:0 0 0 6px rgba(250,204,21,0.7); }
+  30%  { transform:scale(1);    box-shadow:0 0 0 4px rgba(250,204,21,0.5); }
+  60%  { transform:scale(1.04); box-shadow:0 0 0 5px rgba(250,204,21,0.6); }
+  100% { transform:scale(1);    box-shadow:0 0 0 0 transparent; }
+}
 .searchFacets{ width:100%; border-top:1px solid var(--border); padding-top:6px; }
 .searchFacets summary{ cursor:pointer; color:var(--accent); font-size:12px; font-weight:650; margin-bottom:7px; }
 .searchFacets label{ display:inline-flex; align-items:center; gap:4px; margin:3px 6px 3px 0; color:var(--muted); font-size:11.5px; }
@@ -22241,7 +22259,10 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
       <button class="qf" data-qf="fav">Ulubione</button>
       <button class="qf" data-qf="untagged">Bez etykiety</button>
       <button class="qf" data-qf="img">Ze zdjęciem</button>
-        <button class="qf" data-qf="week">Ostatni tydzień</button>
+      <button class="qf" data-qf="audio" title="Notatki z nagraniami audio" hidden>🎙️ Audio</button>
+      <button class="qf" data-qf="questions" title="Notatki z pytaniami do studium" hidden>❓ Pytania</button>
+      <button class="qf" data-qf="links" title="Notatki ze wzmiankami i odsyłaczami" hidden>🔗 Wzmianki</button>
+      <button class="qf" data-qf="week">Ostatni tydzień</button>
       <button class="qf qf-cen" data-qf="cenq" data-lbl="Do przeczytania">Do przeczytania</button>
       <button class="qf qf-cen" data-qf="ceni" data-lbl="Do opracowania">Do opracowania</button>
       <!-- Powroty do notatek wskazanych przez użytkownika. Chip pokazuje się
@@ -23153,10 +23174,11 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
     <div class="searchGrid">
       <label>Zakres<select id="sScope"><option value="current">Obecny widok</option><option value="all">Wszystkie notatki</option></select></label>
       <label>Grupa<select id="sGroup"><option value="all">Wszystkie</option><option value="bible">Biblia</option><option value="publication">Publikacje</option><option value="own">Własne notatki</option></select></label>
+      <label>Pole szukania<select id="sField"><option value="all">Wszędzie</option><option value="title">Tylko tytuł</option><option value="body">Tylko treść</option><option value="ref">Tylko werset / publikacja</option><option value="tag">Tylko etykiety</option></select></label>
       <label>Od daty<input id="sDateFrom" type="date"></label>
       <label>Do daty<input id="sDateTo" type="date"></label>
       <label>Podświetlenie<select id="sHighlight"><option value="all">Dowolne</option><option value="has">Ma podświetlenie</option><option value="1">Żółte</option><option value="2">Zielone</option><option value="3">Niebieskie</option><option value="4">Fioletowe</option><option value="5">Czerwone</option><option value="6">Pomarańczowe</option><option value="7">Turkusowe</option></select></label>
-      <label>Dodatkowy filtr<select id="sExtra"><option value="all">Brak</option><option value="fav">Ulubione</option><option value="pin">Przypięte</option><option value="img">Ze zdjęciem</option><option value="week">Ostatni tydzień</option><option value="edited">Zmienione przeze mnie</option></select></label>
+      <label>Dodatkowy filtr<select id="sExtra"><option value="all">Brak</option><option value="fav">Ulubione</option><option value="pin">Przypięte</option><option value="img">Ze zdjęciem</option><option value="audio">Z nagraniem audio</option><option value="attach">Z załącznikiem / plikiem</option><option value="questions">Z pytaniami studium</option><option value="links">Z odsyłaczami / wzmiankami</option><option value="week">Ostatni tydzień</option><option value="month">Ostatni miesiąc (30 dni)</option><option value="year">Bieżący rok</option><option value="edited">Zmienione przeze mnie</option></select></label>
     </div>
     <div class="searchActions">
       <button class="btn" id="sClearQuery" type="button">Wyczyść tekst</button>
@@ -27934,7 +27956,15 @@ const SZUK_POJECIA=[
   ["decyzja","wybor","wybór","sumienie","madrosc","mądrość","rada","kierownictwo"],
   ["samotnosc","samotność","osamotnienie","przyjazn","przyjaźń","przyjaciel"],
   ["praca","pracowac","pracować","zatrudnienie","pieniadze","pieniądze","dlug","dług"],
-  ["nawyk","uzaleznienie","uzależnienie","pokusa","samokontrola","panowanie nad soba","panowanie nad sobą"]
+  ["nawyk","uzaleznienie","uzależnienie","pokusa","samokontrola","panowanie nad soba","panowanie nad sobą"],
+  ["owoc ducha","owoce ducha","milosc","miłość","radosc","radość","pokoj","pokój","cierpliwosc","cierpliwość","zyczliwosc","życzliwość","dobroc","dobroć","wiara","lagodnosc","łagodność"],
+  ["zbroja","zbroja boza","zbroja boża","pas prawdy","pancerz prawosci","buty","tarcza wiary","helm","hełm zbawienia","miecz ducha"],
+  ["cechy jehowy","przymioty boze","przymioty boże","sprawiedliwosc","sprawiedliwość","madrosc","mądrość"],
+  ["niewolnik","niewolnik wierny","cialo kierownicze","ciało kierownicze","pokarm na czas"],
+  ["zmartwychwstanie","zmartwychwstac","zmartwychwstać","grobowce pamieci","grobowce pamięci","powstanie z martwych","wskrzeszenie"],
+  ["chrzest","ochrzczony","chrzcic","chrzcić","zanurzenie","oddanie sie","oddanie się"],
+  ["okup","cena okupu","ofiara jezusa","ofiarowany","wybawienie"],
+  ["odwiedziny","odwiedzic","odwiedzić","kurs biblijny","studium biblijne","studium biblii","zainteresowanie"]
 ].map(g=>g.map(normSzukStart));
 
 "jak jaki jaka jakie gdzie kiedy dlaczego czemu kto ktos ktoś prosze proszę pomoz pomóż znajde znajdę znalezc znaleźć moge mogę mozna można powinien powinienem powinnam zrobic zrobić radzic radzić sobie zachowac zachować gdy jesli jeśli wtedy mnie mi moje moja moj mojego swój swoj swoim się sie tym tego tej ten ta".split(" ").forEach(x=>SZUK_STOP.add(normSzukStart(x)));
@@ -27979,12 +28009,16 @@ function parseAdvancedQuery(raw){
   if(/@ulubione/.test(nraw)) qSpecial.fav=true;
   if(/@przypiete|@przypięte/.test(nraw)) qSpecial.pin=true;
   if(/@duplikaty/.test(nraw)) qSpecial.duplicates=true;
+  if(/(?:^|\s)(?:zdjecie|zdjęcie|foto|img):(?:\s|$)/.test(nraw)) searchOpts.extra="img";
+  if(/(?:^|\s)(?:audio|dzwiek|dźwięk):(?:\s|$)/.test(nraw)) searchOpts.extra="audio";
+  if(/(?:^|\s)(?:pytanie|pytania):(?:\s|$)/.test(nraw)) searchOpts.extra="questions";
+  if(/(?:^|\s)(?:linki|wzmianki):(?:\s|$)/.test(nraw)) searchOpts.extra="links";
   const hash=nraw.match(/(?:^|\s)#([\p{L}\p{N}_-]+)/u); if(hash) qSpecial.tag=hash[1].replace(/-/g," ");
   if(/(?:^|\s)biblia:(?:\s|$)/.test(nraw)) qSpecial.group="bible";
   if(/(?:^|\s)publikacja:(?:\s|$)/.test(nraw)) qSpecial.group="publication";
   const kolor=nraw.match(/kolor:(zolty|żółty|zielony|niebieski|fioletowy|czerwony|pomaranczowy|pomarańczowy|turkusowy)/);
   if(kolor) qSpecial.highlight=({zolty:1,"żółty":1,zielony:2,niebieski:3,fioletowy:4,czerwony:5,pomaranczowy:6,"pomarańczowy":6,turkusowy:7})[kolor[1]];
-  let clean=nraw.replace(/"[^"]+"/g," ").replace(/(?:tytul|tytuł|title|t|etykieta|etykiety|tag|e|werset|wersety|ref|ksiega|księga|w|tresc|treść|body):(?:"[^"]+"|\S+)/g," ")
+  let clean=nraw.replace(/"[^"]+"/g," ").replace(/(?:tytul|tytuł|title|t|etykieta|etykiety|tag|e|werset|wersety|ref|ksiega|księga|w|tresc|treść|body|zdjecie|zdjęcie|foto|img|audio|dzwiek|dźwięk|pytanie|pytania|linki|wzmianki):(?:"[^"]+"|\S+)?/g," ")
     .replace(/@\S+|#\S+|(?:biblia|publikacja):|kolor:\S+/g," ");
   const tok=[]; let tm; const tr=/\(([^)]+)\)|(\S+)/g;
   while((tm=tr.exec(clean))) tok.push({text:tm[1]!==undefined?tm[1]:tm[2],grouped:tm[1]!==undefined});
@@ -28041,11 +28075,14 @@ function przechodziOpcjeSzukania(n){
   if((qSpecial.fav||searchOpts.extra==="fav")&&!n.fav) return false;
   if((qSpecial.pin||searchOpts.extra==="pin")&&!n.pin) return false;
   if(qSpecial.tag){ const tagSzuk=norm(qSpecial.tag); const tgs=(n.tg||[]).map(id=>((typeof tagById==="function"?tagById(id):tags.find(t=>t.id===id))||{}).name||""); if(!tgs.some(t=>norm(t).includes(tagSzuk))) return false; }
-  if(searchOpts.extra==="attach" && !(Array.isArray(n.att)&&n.att.length)) return false;
-  if(searchOpts.extra==="links" && !(Array.isArray(n.links)&&n.links.length)) return false;
+  if(searchOpts.extra==="img" && !(/<img/i.test(n.h||""))) return false;
+  if(searchOpts.extra==="audio" && !(/(?:<audio|data-audio)/i.test(n.h||"") || (Array.isArray(n.audios)&&n.audios.length))) return false;
+  if(searchOpts.extra==="attach" && !(Array.isArray(n.att)&&n.att.length) && !(/data-zalacznik|href="[^"]+\.(pdf|docx|zip)/i.test(n.h||""))) return false;
+  if(searchOpts.extra==="questions" && !(/(?:ramka-pytania|data-pytanie|q-box)/i.test(n.h||"") || (n.c&&n.c.includes("?")))) return false;
+  if(searchOpts.extra==="links" && !(Array.isArray(n.links)&&n.links.length) && !(/(?:data-note-ref|\[\[)/i.test(n.h||"") || (n.c&&n.c.includes("[[")))) return false;
   if(searchOpts.extra==="hasNote" && !(n.c||"").trim()) return false;
   if(searchOpts.extra==="untagged" && Array.isArray(n.tg) && n.tg.length) return false;
-  if(searchOpts.extra==="unmodified" && n.mo && n.cr && n.mo!==n.cr) return false;
+  if((searchOpts.extra==="unmodified"||searchOpts.extra==="edited") && n.mo && n.cr && (searchOpts.extra==="unmodified" ? n.mo!==n.cr : n.mo===n.cr)) return false;
   if(qSpecial.duplicates){
     if(!searchDuplicateSet){
       const seen=new Map(), dup=new Set();
@@ -28054,10 +28091,10 @@ function przechodziOpcjeSzukania(n){
     }
     if(!searchDuplicateSet.has(n.g)) return false;
   }
-  if(searchOpts.extra==="modified7"||searchOpts.extra==="created30"){
+  if(searchOpts.extra==="week"||searchOpts.extra==="modified7"||searchOpts.extra==="month"||searchOpts.extra==="created30"||searchOpts.extra==="year"){
     const czas=Date.parse(n.mo||n.cr||""); if(!czas) return false;
-    const limit=Date.now() - (searchOpts.extra==="modified7"?7:30)*86400000;
-    if(czas<limit) return false;
+    const dni=(searchOpts.extra==="week"||searchOpts.extra==="modified7")?7:(searchOpts.extra==="year"?365:30);
+    if(Date.now() - czas > dni*86400000) return false;
   }
   return true;
 }
@@ -28256,6 +28293,11 @@ function noteMatchesQuery(n){
 function dopasujZapytanie(n){
   if(!przechodziOpcjeSzukania(n)) return false;
   if(!query) return true;
+  if(searchOpts.field && searchOpts.field !== "all"){
+    const fTxt = norm(noteFieldText(n, searchOpts.field));
+    if(qAdvPhrases.length && !qAdvPhrases.every(p => fTxt.includes(norm(p)))) return false;
+    if(qAdvTerms.length && !qAdvTerms.every(g => g.some(t => fTxt.includes(norm(t).replace(/\*/g,""))))) return false;
+  }
   if(qFields && !qFields.every(({f,v})=>norm(noteFieldText(n,f)).includes(v))) return false;
   const c = searchTextOf(n);
   if(qAdvNeg.some(g=>searchMode==="smart"?smartTermMatch(c,g):g.some(t=>c.norm.includes(norm(t))))) return false;
@@ -28312,7 +28354,7 @@ let _swOdbudowaTimer=0, _swAktualizacje=new Map();
 
 function rekordDlaWorkerSzukania(n, mapaTagow){
   const tag=(n.tg||[]).map(id=>mapaTagow.get(id)||"").filter(Boolean).join(" ");
-  return {g:n.g,plain:plainOf(n)+" "+tag,title:n.t||"",body:n.c||"",tag,ref:refLabel(n)||"",pin:!!n.pin,fav:!!n.fav};
+  return {g:n.g,plain:plainOf(n)+" "+tag,title:n.t||"",body:n.c||"",tag,ref:refLabel(n)||"",pin:!!n.pin,fav:!!n.fav,b:n.b,ch:n.ch,v:n.v};
 }
 function uruchomIndeksWorkerSzukania(){
   if(typeof Worker!=="function" || !location || location.protocol==="file:") return false;
@@ -28365,6 +28407,8 @@ function workerPlanSzukania(){
   return {type:"search",seq:_swSeq,mode:searchMode,
     groups:qAdvTerms.map(rozwin),neg:qAdvNeg.map(rozwin),phrases:qAdvPhrases.slice(),
     fields:qFields?qFields.map(x=>({f:x.f,v:x.v})):[],squash:_qSquash,allowed,
+    bibleMatch: qBibleMatch ? { book: qBibleMatch.book, ch: qBibleMatch.ch, vStart: qBibleMatch.vStart, vEnd: qBibleMatch.vEnd } : null,
+    field: searchOpts.field || "all",
     matchLimit:searchMatchLimit,scanLimit:searchScanLimit};
 }
 function uruchomWorkerSzukania(){
@@ -28632,6 +28676,9 @@ function matchesQuick(n){
   if(quickFilter==="fav") return !!n.fav;
   if(quickFilter==="untagged") return !n.tg || n.tg.length===0;
   if(quickFilter==="img") return /<img/i.test(n.h||"");
+  if(quickFilter==="audio") return /(?:<audio|data-audio)/i.test(n.h||"") || (Array.isArray(n.audios)&&n.audios.length>0);
+  if(quickFilter==="questions") return /(?:ramka-pytania|data-pytanie|q-box)/i.test(n.h||"") || (n.c&&n.c.includes("?"));
+  if(quickFilter==="links") return (Array.isArray(n.links)&&n.links.length>0) || /(?:data-note-ref|\[\[)/i.test(n.h||"") || (n.c&&n.c.includes("[["));
   if(quickFilter==="powtorka") return (typeof czekaNaPowrot==="function") && czekaNaPowrot(n);
   if(quickFilter==="cenq") return !!n.cenq;
   if(quickFilter==="ceni") return !!n.ceni;
@@ -28697,7 +28744,7 @@ function renderQuickFilters(base){
   const projTagSet = typeof getProjectTagIdsSet === "function" ? getProjectTagIdsSet() : new Set();
   const maProjekty = projTagSet && projTagSet.size > 0;
   const curProj = typeof aktywnyProjektTag === "function" ? aktywnyProjektTag() : null;
-  const cnt={ all: base.length, proj:0, pin:0, fav:0, untagged:0, img:0, week:0, powtorka:0, cenq:0, ceni:0 };
+  const cnt={ all: base.length, proj:0, pin:0, fav:0, untagged:0, img:0, audio:0, questions:0, links:0, week:0, powtorka:0, cenq:0, ceni:0 };
   for(let i=0;i<base.length;i++){
     const n=base[i];
     if(maProjekty && noteIsProject(n, projTagSet)) cnt.proj++;
@@ -28705,6 +28752,9 @@ function renderQuickFilters(base){
     if(n.fav) cnt.fav++;
     if(!n.tg || !n.tg.length) cnt.untagged++;
     if(n.h && n.h.indexOf("<img")>=0) cnt.img++;
+    if(n.h && (n.h.indexOf("<audio")>=0 || n.h.indexOf("data-audio")>=0 || (Array.isArray(n.audios)&&n.audios.length))) cnt.audio++;
+    if((n.h && (n.h.indexOf("ramka-pytania")>=0 || n.h.indexOf("data-pytanie")>=0 || n.h.indexOf("q-box")>=0)) || (n.c && n.c.indexOf("?")>=0)) cnt.questions++;
+    if((Array.isArray(n.links)&&n.links.length) || (n.h && (n.h.indexOf("data-note-ref")>=0 || n.h.indexOf("[[")>=0)) || (n.c && n.c.indexOf("[[")>=0)) cnt.links++;
     const t=Date.parse(n.mo||n.cr||"");
     if(isFinite(t) && (now-t)<_QF_WEEK) cnt.week++;
     if(typeof czekaNaPowrot==="function" && czekaNaPowrot(n)) cnt.powtorka++;
@@ -28766,7 +28816,7 @@ function renderQuickFilters(base){
        zbiory, które istnieją zawsze; ten opisuje umówione spotkania — a pusty
        chip „Na dziś 0" uczyłby omijać go wzrokiem także wtedy, gdy coś w nim
        będzie. */
-    if(k==="powtorka" || k==="cenq" || k==="ceni") b.hidden = !c && quickFilter!==k;
+    if(k==="powtorka" || k==="cenq" || k==="ceni" || k==="audio" || k==="questions" || k==="links") b.hidden = !c && quickFilter!==k;
     const label = b.dataset.lbl || b.textContent.replace(/\s*\d+$/,"").trim();
     setHtml(b, esc(label) + (k!=="all" && c ? ` <span class="qf-n">${c}</span>` : ""));
     b.onclick = ()=>{ quickFilter = (quickFilter===k && k!=="all") ? "all" : k; renderNotes(); };
@@ -30332,6 +30382,14 @@ function noteCard(n){
   d.addEventListener("focusin", obudzListe, true);
   d.addEventListener("keydown", obudzListe, true);
   d.addEventListener("click", e=>{
+    const sm = e.target.closest && e.target.closest(".searchMatch");
+    if(sm){
+      e.stopPropagation();
+      touchAccess(n);
+      openFs(n);
+      setTimeout(()=>skoczDoTrafieniaWSzukanym(query), 240);
+      return;
+    }
     if(e.target.closest(".ntitle") && !e.target.isContentEditable){
       const selT = (typeof getSelection === "function") ? getSelection() : null;
       if(selT && !selT.isCollapsed && String(selT).trim()) return;
@@ -30653,6 +30711,7 @@ function openFs(n, fromPopstate){
   if(typeof updateFsBackFixed==="function") updateFsBackFixed();
   const fm=$("modalFs").querySelector(".fsmodal"); if(fm) fm.scrollTop=0;
   updateFsProgress();
+  if(query && query.trim()) setTimeout(()=>skoczDoTrafieniaWSzukanym(query), 240);
 }
 function selectNote(guid, fromPopstate){
   if(!guid) return;
@@ -31412,6 +31471,7 @@ function fsGo(dir){
   fsGuid = fsNavList[j]; renderFs();
   const fm=$("modalFs").querySelector(".fsmodal"); if(fm) fm.scrollTop=0;
   updateFsProgress();
+  if(query && query.trim()) setTimeout(()=>skoczDoTrafieniaWSzukanym(query), 240);
 }
 function updateFsNav(){
   const prev=$("fsPrev"), next=$("fsNext"); if(!prev||!next) return;
@@ -31726,7 +31786,7 @@ function storeSavedSearches(a){ lsSet(SEARCH_SAVED_KEY,JSON.stringify(a.slice(0,
 function zastosujStanSzukania(x){
   const inp=$("search"); inp.value=x.q||"";
   searchMode=x.mode==="exact"?"exact":"smart";
-  searchOpts=Object.assign({scope:"current",group:"all",dateFrom:"",dateTo:"",highlight:"all",extra:"all"},x.opts||{});
+  searchOpts=Object.assign({scope:"current",group:"all",field:"all",dateFrom:"",dateTo:"",highlight:"all",extra:"all"},x.opts||{});
   lsSet(KP+"SearchMode",searchMode); lsSet(KP+"SearchOpts",JSON.stringify(searchOpts));
   parseQuery(inp.value); sortMode=query?"relevance":sortMode; if(query) $("sortSel").value="relevance";
   if(typeof uruchomWorkerSzukania==="function") uruchomWorkerSzukania();
@@ -31743,19 +31803,20 @@ function renderSavedSearches(){
 function wypelnijPanelSzukania(){
   document.querySelectorAll("[data-smode]").forEach(b=>b.classList.toggle("on",b.dataset.smode===searchMode));
   $("sScope").value=searchOpts.scope; $("sGroup").value=searchOpts.group;
+  if($("sField")) $("sField").value=searchOpts.field||"all";
   $("sDateFrom").value=searchOpts.dateFrom; $("sDateTo").value=searchOpts.dateTo;
   $("sHighlight").value=String(searchOpts.highlight); $("sExtra").value=searchOpts.extra;
   renderSavedSearches();
 }
 function zapiszOpcjeZPanelu(){
-  searchOpts={scope:$("sScope").value,group:$("sGroup").value,dateFrom:$("sDateFrom").value,dateTo:$("sDateTo").value,highlight:$("sHighlight").value,extra:$("sExtra").value};
+  searchOpts={scope:$("sScope").value,group:$("sGroup").value,field:$("sField")?$("sField").value:"all",dateFrom:$("sDateFrom").value,dateTo:$("sDateTo").value,highlight:$("sHighlight").value,extra:$("sExtra").value};
   lsSet(KP+"SearchOpts",JSON.stringify(searchOpts)); resetSearchWindow(); resetQueryCache(); renderAll();
 }
 $("btnSearchTools").onclick=()=>{ hideSearchSug(); wypelnijPanelSzukania(); openModal("modalSearch"); };
 document.querySelectorAll("[data-smode]").forEach(b=>b.onclick=()=>{
   searchMode=b.dataset.smode; lsSet(KP+"SearchMode",searchMode); resetSearchWindow(); parseQuery($("search").value); wypelnijPanelSzukania(); renderAll();
 });
-["sScope","sGroup","sDateFrom","sDateTo","sHighlight","sExtra"].forEach(id=>$(id).addEventListener("change",zapiszOpcjeZPanelu));
+["sScope","sGroup","sField","sDateFrom","sDateTo","sHighlight","sExtra"].forEach(id=>{ const el=$(id); if(el) el.addEventListener("change",zapiszOpcjeZPanelu); });
 $("sClearQuery").onclick=()=>{
   $("search").value=""; parseQuery("");
   if(sortMode==="relevance"){
@@ -31816,6 +31877,79 @@ function opisFiltrowWynikow(){
   }
   return a.join(" · ");
 }
+function skoczDoTrafieniaWSzukanym(q){
+  if(!q || typeof q !== "string") return;
+  const stopSet = (typeof SZUK_STOP!=="undefined") ? SZUK_STOP : new Set();
+  const slowa = norm(q).replace(/[^\p{L}\p{N}]+/gu, " ").trim().split(/\s+/).filter(w => w.length >= 2 && !stopSet.has(w));
+  if(!slowa.length) return;
+  const container = (fsGuid && document.querySelector("#modalFs.show #fsWrap .ncontent")) ||
+                    document.querySelector("#modalFs.show #fsWrap .ncontent") ||
+                    document.querySelector(".ncard.fs .ncontent") ||
+                    document.querySelector(".ncard .ncontent");
+  if(!container) return;
+
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null);
+  let targetNode = null;
+  let matchedWord = "";
+  let matchedIdx = -1;
+
+  while(walker.nextNode()){
+    const node = walker.currentNode;
+    const parentTag = (node.parentElement && node.parentElement.tagName) || "";
+    if(["SCRIPT","STYLE","BUTTON","SELECT"].includes(parentTag)) continue;
+    const txtNorm = norm(node.nodeValue || "");
+    for(const w of slowa){
+      const idx = txtNorm.indexOf(w);
+      if(idx >= 0){
+        targetNode = node;
+        matchedWord = w;
+        matchedIdx = idx;
+        break;
+      }
+    }
+    if(targetNode) break;
+  }
+
+  if(!targetNode || matchedIdx < 0) return;
+
+  try{
+    const origText = targetNode.nodeValue;
+    const len = matchedWord.length;
+    let rawIdx = -1;
+    for(let i = 0; i <= origText.length - len; i++){
+      if(norm(origText.slice(i, i + len)) === matchedWord){
+        rawIdx = i;
+        break;
+      }
+    }
+    if(rawIdx < 0) rawIdx = matchedIdx;
+
+    const beforeText = origText.slice(0, rawIdx);
+    const hitText = origText.slice(rawIdx, rawIdx + len);
+    const afterText = origText.slice(rawIdx + len);
+
+    const mark = document.createElement("mark");
+    mark.className = "szukajTrafieniePuls";
+    mark.textContent = hitText;
+
+    const frag = document.createDocumentFragment();
+    if(beforeText) frag.appendChild(document.createTextNode(beforeText));
+    frag.appendChild(mark);
+    if(afterText) frag.appendChild(document.createTextNode(afterText));
+
+    const parent = targetNode.parentNode;
+    if(parent){
+      parent.replaceChild(frag, targetNode);
+      mark.scrollIntoView({ behavior: "smooth", block: "center" });
+      setTimeout(()=>{
+        try{ mark.classList.remove("szukajTrafieniePuls"); }catch(_){}
+      }, 2800);
+    }
+  }catch(err){
+    console.warn("Błąd podświetlania trafienia:", err);
+  }
+}
+
 var _searchCounts = {all:0, bible:0, publication:0, own:0};
 function renderSearchStatus(arr){
   const box=$("searchStatus"); const active=!!query||aktywneOpcjeSzukania(); box.hidden=!active; if(!active){box.innerHTML="";return;}
@@ -31827,16 +31961,40 @@ function renderSearchStatus(arr){
   const zakres=opisFiltrowWynikow();
   const calosc=searchInProgress?` · sprawdzono ${searchScannedCount} z ${notes.length}`
     :(searchTotalMatches>arr.length?` · znaleziono ${searchTotalMatches}, pokazano najlepsze ${arr.length}`:" · przeszukano całą bazę");
-  const bibleBadge = qBibleMatch ? `<span class="ssChip on" style="font-weight:700;" title="Rozpoznano werset biblijny">📖 ${esc(qBibleMatch.label)}</span>` : "";
+  const bibleBadge = qBibleMatch ? `<span class="ssChip on" style="font-weight:700;" title="Rozpoznano werset biblijny (dopasowanie z zakresami)">📖 ${esc(qBibleMatch.label)}</span>` : "";
+  const curField = searchOpts.field || "all";
+  const fieldChips = [["all","Wszędzie"],["title","Tytuł"],["body","Treść"],["ref","Werset"],["tag","Etykieta"]]
+    .map(([k,l])=>`<button class="ssChip${curField===k?" on":""}" data-ssfield="${k}">${l}</button>`).join("");
+  const extraNazwy = {img:"ze zdjęciem",audio:"audio",attach:"załącznik",questions:"pytania",links:"wzmianki",week:"ostatni tydzień",month:"ostatni miesiąc",year:"bieżący rok",fav:"ulubione",pin:"przypięte",edited:"edytowane"};
+  const extraBadge = (searchOpts.extra && searchOpts.extra!=="all" && extraNazwy[searchOpts.extra]) ? `<button class="ssChip on" data-ssextraclear="1" title="Usuń filtr dodatkowy">Filtr: ${extraNazwy[searchOpts.extra]} ×</button>` : "";
   box.innerHTML=`<span class="ssInfo">${searchMode==="smart"?"Inteligentnie":"Dokładnie"} · ${arr.length}${searchWasLimited?"+":""} wyników${calosc}</span>`+
     bibleBadge+
     (zakres?`<button class="ssChip on ssZakres" data-ssfiltersclear="1" title="Usuń zawężenie">Wyniki w: ${esc(zakres)} ×</button>`:"")+
+    extraBadge+
+    `<span class="ssFieldGrp" title="Zakres przeszukiwanego pola notatek">${fieldChips}</span>`+
     [["all","Wszystkie"],["bible","Biblia"],["publication","Publikacje"],["own","Własne"]].map(([k,l])=>`<button class="ssChip${searchOpts.group===k?" on":""}" data-ssgroup="${k}">${l} ${cnt[k]||0}</button>`).join("")+
     (searchWasLimited&&!searchInProgress?`<button class="ssNav" data-ssmore="1">Wczytaj dalsze</button>`:"")+
     `<button class="ssNav" data-ssnav="-1" title="Poprzedni wynik">↑</button><button class="ssNav" data-ssnav="1" title="Następny wynik">↓</button><button class="ssNav" data-ssexport="1" title="Eksportuj wyniki (Word / PDF)">📄 Eksportuj…</button><button class="ssNav" data-sshelp="1">Instrukcja</button><button class="ssNav" data-ssclear="1">Wyczyść</button>`;
   box.onclick=e=>{
     if(e.target.closest("[data-ssfiltersclear]")){
       filt.tag="all";filt.book="all";filt.ch=null;filt.pub="all";persistFilt();resetSearchWindow();resetQueryCache();renderAll();return;
+    }
+    if(e.target.closest("[data-ssextraclear]")){
+      searchOpts.extra="all";
+      lsSet(KP+"SearchOpts",JSON.stringify(searchOpts));
+      resetSearchWindow(); resetQueryCache();
+      if(typeof uruchomWorkerSzukania==="function" && query) uruchomWorkerSzukania();
+      renderAll(); return;
+    }
+    const f=e.target.closest("[data-ssfield]"); if(f){
+      const targetField = f.dataset.ssfield;
+      searchOpts.field = (searchOpts.field === targetField && targetField !== "all") ? "all" : targetField;
+      lsSet(KP+"SearchOpts",JSON.stringify(searchOpts));
+      resetSearchWindow();
+      resetQueryCache();
+      if(typeof uruchomWorkerSzukania==="function" && query) uruchomWorkerSzukania();
+      renderAll();
+      return;
     }
     const g=e.target.closest("[data-ssgroup]"); if(g){
       const targetGroup = g.dataset.ssgroup;
@@ -31857,7 +32015,7 @@ function renderSearchStatus(arr){
     if(e.target.closest("[data-sshelp]")){$("btnSearchTools").click();return;}
     if(e.target.closest("[data-ssclear]")){
       _searchCounts={all:0,bible:0,publication:0,own:0};
-      $("search").value="";parseQuery("");searchOpts={scope:"current",group:"all",dateFrom:"",dateTo:"",highlight:"all",extra:"all"};lsSet(KP+"SearchOpts",JSON.stringify(searchOpts));
+      $("search").value="";parseQuery("");searchOpts={scope:"current",group:"all",field:"all",dateFrom:"",dateTo:"",highlight:"all",extra:"all"};lsSet(KP+"SearchOpts",JSON.stringify(searchOpts));
       if(sortMode==="relevance"){sortMode=window._sortPrzedSzukaniem||"new";$("sortSel").value=sortMode;}
       renderAll();
     }
@@ -41884,7 +42042,17 @@ function showSearchSug(val){
   }
   // 3) ostatnie wyszukiwania (gdy pole puste lub krótkie)
   if(v.length<2){
-    recentSearches().slice(0,6).forEach(q=>items.push({type:"recent", label:q, hint:"ostatnie", apply:()=>q}));
+    const rec = recentSearches();
+    if(rec.length){
+      rec.slice(0,6).forEach(q=>items.push({type:"recent", label:q, hint:"ostatnie", apply:()=>q}));
+    }
+    items.push({type:"shortcut", label:"📖 Szukaj po wersecie (np. Jan 3:16)", hint:"werset", apply:()=>"werset:"});
+    items.push({type:"shortcut", label:"🏷️ Szukaj po etykiecie", hint:"etykieta", apply:()=>"etykieta:"});
+    items.push({type:"shortcut", label:"★ Ulubione notatki", hint:"filtr", apply:()=>"@ulubione"});
+    items.push({type:"shortcut", label:"📌 Przypięte na górze", hint:"filtr", apply:()=>"@przypięte"});
+    items.push({type:"shortcut", label:"🖼️ Notatki ze zdjęciem", hint:"filtr", apply:()=>"zdjecie:"});
+    items.push({type:"shortcut", label:"🎙️ Notatki z nagraniem audio", hint:"filtr", apply:()=>"audio:"});
+    items.push({type:"shortcut", label:"❓ Pytania studium", hint:"filtr", apply:()=>"pytania:"});
   }
   if(!items.length){ hideSearchSug(); return; }
   box.innerHTML="";
@@ -41892,16 +42060,43 @@ function showSearchSug(val){
   items.forEach((it,i)=>{
     if(it.type!==lastType){
       const l=document.createElement("div"); l.className="sug-lbl";
-      l.textContent = it.type==="tag"?"Etykiety":it.type==="pub"?"Publikacje":it.type==="ref"?"Wersety":it.type==="concept"?"Powiązane pojęcia":it.type==="field"?"Zawężanie":"Ostatnie wyszukiwania";
+      l.textContent = it.type==="tag"?"Etykiety":it.type==="pub"?"Publikacje":it.type==="ref"?"Wersety":it.type==="concept"?"Pojęcia biblijne":it.type==="field"?"Zawężanie":it.type==="shortcut"?"Szybkie filtry":"Ostatnie wyszukiwania";
       box.appendChild(l); lastType=it.type;
     }
     const d=document.createElement("div"); d.className="sug"; d.dataset.i=i;
     const ic = it.type==="tag" ? `<span class="sdot" style="background:${it.color||"var(--muted)"}"></span>`
-             : it.type==="field"||it.type==="ref"||it.type==="concept" ? ICO.search : ICO.undo;
-    d.innerHTML = ic + `<span>${esc(it.label)}</span><span class="shint">${esc(it.hint)}</span>`;
-    d.onmousedown = ev=>{ ev.preventDefault(); applySug(it); };
+             : it.type==="field"||it.type==="ref"||it.type==="concept"||it.type==="shortcut" ? ICO.search : ICO.undo;
+    const delBtn = it.type==="recent" ? `<button type="button" class="sug-del" data-sugdel="${esc(it.label)}" title="Usuń z historii">✕</button>` : "";
+    d.innerHTML = ic + `<span>${esc(it.label)}</span><span class="shint">${esc(it.hint)}</span>` + delBtn;
+    d.onmousedown = ev=>{
+      if(ev.target.closest("[data-sugdel]")) return;
+      ev.preventDefault(); applySug(it);
+    };
     box.appendChild(d);
   });
+  if(v.length<2 && recentSearches().length>0){
+    const foot=document.createElement("div"); foot.className="sug-footer";
+    foot.innerHTML=`<button type="button" class="sug-clear-all" id="btnSugClearAll">Wyczyść historię wyszukiwania</button>`;
+    box.appendChild(foot);
+  }
+  box.onpointerdown = e => {
+    const del = e.target.closest("[data-sugdel]");
+    if(del){
+      e.preventDefault(); e.stopPropagation();
+      const q = del.dataset.sugdel;
+      const r = recentSearches().filter(x => x !== q);
+      lsSet(SUG_KEY, JSON.stringify(r));
+      showSearchSug($("search").value);
+      return;
+    }
+    const clr = e.target.closest("#btnSugClearAll");
+    if(clr){
+      e.preventDefault(); e.stopPropagation();
+      lsSet(SUG_KEY, "[]");
+      showSearchSug($("search").value);
+      return;
+    }
+  };
   box.style.display="block"; sugIdx=-1;
   box._items=items;
 }
