@@ -17836,44 +17836,37 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
 .ncontent img.img-rot-90{transform:rotate(90deg)}
 .ncontent img.img-rot-180{transform:rotate(180deg)}
 .ncontent img.img-rot-270{transform:rotate(270deg)}
-/* ================= ODTWARZACZ MULTIMEDIALNY (AUDIO / WIDEO) ================= */
+/* ================= ODTWARZACZ MULTIMEDIALNY (AUDIO / WIDEO / DYKTAFON) ================= */
 .jw-media-player {
   display: block;
-  margin: 6px 0;
-  border-radius: 10px;
-  background: color-mix(in srgb, var(--panel) 94%, var(--cardAccent, var(--accent)) 6%);
-  border: 1px solid color-mix(in srgb, var(--border) 75%, var(--cardAccent, var(--accent)) 25%);
-  padding: 4px 6px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-  user-select: none;
-  -webkit-user-select: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 10px 0;
+  border-radius: 14px;
+  background: var(--panel, #ffffff);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, rgba(0,0,0,0.12) 20%);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   box-sizing: border-box;
   clear: both;
-  min-width: 200px;
+  min-width: 260px;
   max-width: 100%;
   resize: horizontal;
-  overflow: hidden;
-  transition: width 0.15s ease, max-width 0.15s ease;
+  overflow: visible;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative;
+  transition: width 0.15s ease, max-width 0.15s ease, box-shadow 0.15s ease;
 }
 .jw-media-player:hover {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-.jw-media-player.jw-media-video {
-  padding: 4px 6px;
-  background: #111418;
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-  color: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
 }
 
-/* Rozmiary okna odtwarzacza — Domyślnie małe (S: 280px) */
+/* Rozmiary okna odtwarzacza */
 .jw-media-player.jmp-size-s {
-  width: 280px;
+  width: 320px;
   max-width: 100%;
 }
 .jw-media-player.jmp-size-m {
-  width: 420px;
+  width: 480px;
   max-width: 100%;
 }
 .jw-media-player.jmp-size-full {
@@ -17884,12 +17877,12 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
 /* Wyrównanie i oblewanie tekstem */
 .jw-media-player.jmp-align-left {
   float: left;
-  margin: 4px 12px 6px 0;
+  margin: 6px 16px 12px 0;
   clear: left;
 }
 .jw-media-player.jmp-align-right {
   float: right;
-  margin: 4px 0 6px 12px;
+  margin: 6px 0 12px 16px;
   clear: right;
 }
 .jw-media-player.jmp-align-center {
@@ -17898,111 +17891,301 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   clear: both;
 }
 
-/* Zwięzły mikro-pasek nagłówka (wysokość ~20px) */
-.jmp-header {
+/* ----------------- KARTA WIDEO (wg wzorca Poprawiony odtwarzacz wideo) ----------------- */
+.jw-media-player.jw-media-video {
+  padding: 10px;
+}
+.jmp-video-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #1c222b;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 5px;
-  height: 20px;
-  margin-bottom: 3px;
-  padding: 0 2px;
-  line-height: 1;
+  justify-content: center;
 }
-.jmp-icon {
-  font-size: 13px;
+.jmp-video-viewport video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #000;
+  border-radius: 8px;
+}
+.jmp-center-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #1c222b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+  border: none;
+  z-index: 2;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+  padding-left: 2px;
+}
+.jmp-center-play-btn:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+.jw-media-player.playing .jmp-center-play-btn {
+  opacity: 0;
+  pointer-events: none;
+}
+.jmp-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 2px 2px;
+  gap: 8px;
+}
+.jmp-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  flex: 1;
+}
+.jmp-footer-icon {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted, #6b7280);
   flex-shrink: 0;
-  line-height: 1;
 }
-.jmp-title {
-  font-size: 11px;
+.jmp-meta-text {
+  min-width: 0;
+  flex: 1;
+}
+.jmp-meta-title {
+  font-size: 13px;
   font-weight: 600;
-  color: var(--text);
+  color: var(--text, #111827);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  flex: 1;
+  line-height: 1.25;
 }
-.jw-media-player.jw-media-video .jmp-title {
-  color: #f1f5f9;
+.jmp-meta-sub {
+  font-size: 11px;
+  color: var(--muted, #6b7280);
+  line-height: 1.2;
+  margin-top: 2px;
 }
-.jmp-tools {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  margin-left: auto;
+.jmp-footer-right {
+  position: relative;
   flex-shrink: 0;
-}
-.jmp-btn {
-  border: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
-  background: color-mix(in srgb, var(--panel) 75%, transparent);
-  color: var(--text);
-  border-radius: 5px;
-  padding: 0 5px;
-  font-size: 10px;
-  font-weight: 700;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  height: 18px;
-  min-height: 18px;
-  transition: all 0.14s ease;
-  flex-shrink: 0;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-.jw-media-player.jw-media-video .jmp-btn {
-  background: rgba(255,255,255,0.12);
-  border-color: rgba(255,255,255,0.18);
-  color: #f1f5f9;
-}
-.jmp-btn:hover {
-  background: var(--sel);
-  border-color: var(--cardAccent, var(--accent));
-  color: var(--cardAccent, var(--accent));
-}
-.jw-media-player.jw-media-video .jmp-btn:hover {
-  background: rgba(255,255,255,0.25);
-  border-color: rgba(255,255,255,0.35);
-  color: #fff;
-}
-.jmp-del {
-  width: 18px;
-  min-width: 18px;
-  padding: 0;
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 700;
-}
-.jmp-del:hover {
-  background: rgba(231, 76, 60, 0.16) !important;
-  border-color: rgba(231, 76, 60, 0.35) !important;
-  color: #e74c3c !important;
-}
-.jw-media-player.jw-media-video .jmp-del:hover {
-  background: rgba(231, 76, 60, 0.3) !important;
-  border-color: rgba(231, 76, 60, 0.5) !important;
-  color: #ff6b6b !important;
 }
 
-/* Natywne elementy audio i wideo — 100% wsparcie na iPhone i iPad */
-.jmp-native-audio {
-  width: 100%;
-  height: 36px;
-  display: block;
-  border-radius: 6px;
-  outline: none;
+/* ----------------- KARTA MP3 / AUDIO (wg wzorca MP3 – średni odtwarzacz) ----------------- */
+.jw-media-player.jw-media-audio {
+  padding: 12px 14px;
 }
-.jmp-native-video {
-  width: 100%;
-  aspect-ratio: 16/9;
-  max-height: 320px;
-  background: #000;
-  display: block;
+.jmp-audio-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.jmp-audio-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--panel) 82%, var(--border, #9ca3af) 18%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--text, #374151);
+}
+.jmp-audio-mid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.jmp-audio-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.jmp-ctrl-btn {
+  width: 28px;
+  height: 28px;
   border-radius: 6px;
-  outline: none;
-  object-fit: contain;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--text, #111827);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s ease;
+  padding: 0;
+}
+.jmp-ctrl-btn:hover {
+  background: color-mix(in srgb, var(--border) 40%, transparent);
+}
+.jmp-ctrl-btn:active {
+  transform: scale(0.94);
+}
+.jmp-play-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--text, #111827);
+  color: var(--panel, #ffffff);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.14s ease, background 0.14s ease;
+  padding: 0;
+}
+.jmp-play-circle:hover {
+  transform: scale(1.06);
+  background: var(--accent, #2563eb);
+  color: #fff;
+}
+.jmp-play-circle:active {
+  transform: scale(0.96);
+}
+.jmp-audio-speed-wrap {
+  flex-shrink: 0;
+}
+.jmp-speed-btn {
+  padding: 2px 7px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted, #6b7280);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+.jmp-speed-btn:hover {
+  background: color-mix(in srgb, var(--border) 40%, transparent);
+  color: var(--text, #111827);
+}
+
+/* Oś czasu (Timeline) i czasy */
+.jmp-audio-progress-box {
+  width: 100%;
+}
+.jmp-timeline {
+  position: relative;
+  width: 100%;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  touch-action: none;
+}
+.jmp-track {
+  width: 100%;
+  height: 4px;
+  background: color-mix(in srgb, var(--border) 75%, rgba(0,0,0,0.1) 25%);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+  transition: height 0.15s ease;
+}
+.jmp-timeline:hover .jmp-track {
+  height: 6px;
+}
+.jmp-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent, #2563eb);
+  border-radius: 999px;
+  transition: width 0.05s linear;
+}
+.jmp-time-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted, #6b7280);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+/* Przycisk więcej ... i menu rozwijane */
+.jmp-more-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--muted, #6b7280);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s ease, color 0.12s ease;
+  padding: 0;
+}
+.jmp-more-btn:hover {
+  background: color-mix(in srgb, var(--border) 40%, transparent);
+  color: var(--text, #111827);
+}
+.jmp-pop-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  min-width: 190px;
+  background: var(--panel, #ffffff);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, rgba(0,0,0,0.15) 20%);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.16);
+  padding: 4px;
+  z-index: 100;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.jmp-menu-item {
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text, #111827);
+  font-size: 11.5px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.12s ease;
+}
+.jmp-menu-item:hover {
+  background: color-mix(in srgb, var(--sel, #e0e7ff) 80%, transparent);
+}
+.jmp-menu-item.text-danger {
+  color: #ef4444;
+}
+.jmp-menu-item.text-danger:hover {
+  background: rgba(239, 68, 68, 0.12);
 }
 /* JW Study 3.52 / Studio Pro — narzędzia zaznaczenia w stylu Apple pill */
 #selEditBar {
@@ -36693,7 +36876,7 @@ function zapiszZmianeOdtwarzacza(wrap, ce, card){
 
 function budujElementOdtwarzacza(type, src, title, size, align, customWidth){
   const isVideo = type === "video";
-  const defSize = size || "s";
+  const defSize = size || (isVideo ? "m" : "m");
   const defAlign = align || "center";
   const wrap = document.createElement("div");
   wrap.className = `jw-media-player jw-media-${isVideo ? "video" : "audio"} jmp-size-${defSize} jmp-align-${defAlign}`;
@@ -36704,36 +36887,119 @@ function budujElementOdtwarzacza(type, src, title, size, align, customWidth){
   if(customWidth && /^\d+(px|%)$/.test(customWidth)){
     wrap.style.width = customWidth;
   }
-  const cleanTitle = (title || (isVideo ? "Wideo" : "Nagranie audio")).replace(/["<>]/g, "");
+  const cleanTitle = (title || (isVideo ? "Materiał filmowy" : "Nagranie – komentarz")).replace(/["<>]/g, "");
   wrap.setAttribute("data-title", cleanTitle);
   const tytulEsc = typeof esc === "function" ? esc(cleanTitle) : cleanTitle;
-  const sizeLbl = defSize === "s" ? "S" : (defSize === "m" ? "M" : "100%");
-  const alignIcon = defAlign === "center" ? "⬌" : (defAlign === "left" ? "◧" : "◨");
+  const sizeLbl = defSize === "s" ? "Kompaktowy (S)" : (defSize === "m" ? "Średni (M)" : "Pełny (100%)");
+  const alignLbl = defAlign === "center" ? "Środek" : (defAlign === "left" ? "Do lewej" : "Do prawej");
+  const fmt = isVideo ? "MP4" : "MP3";
 
   if(isVideo){
     wrap.innerHTML = `
-      <div class="jmp-header">
-        <span class="jmp-icon" aria-hidden="true">🎬</span>
-        <span class="jmp-title" title="${tytulEsc}">${tytulEsc}</span>
-        <div class="jmp-tools">
-          <button type="button" class="jmp-btn jmp-size-btn" title="Rozmiar okna (S: 280px / M: 420px / 100%)"><span class="jmp-size-tag">${sizeLbl}</span></button>
-          <button type="button" class="jmp-btn jmp-align-btn" title="Układ (Środek / Lewo / Prawo)"><span class="jmp-align-tag">${alignIcon}</span></button>
-          <button type="button" class="jmp-btn jmp-del" title="Usuń wideo z notatki" aria-label="Usuń">✕</button>
-        </div>
+      <div class="jmp-video-viewport">
+        <video playsinline webkit-playsinline preload="metadata" src="${src}"></video>
+        <button type="button" class="jmp-center-play-btn" aria-label="Odtwórz wideo">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="8,5 19,12 8,19"></polygon></svg>
+        </button>
       </div>
-      <video controls playsinline webkit-playsinline preload="metadata" src="${src}" class="jmp-native-video"></video>`;
+      <div class="jmp-card-footer">
+        <div class="jmp-footer-left">
+          <div class="jmp-footer-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+              <line x1="7" y1="2" x2="7" y2="22"></line>
+              <line x1="17" y1="2" x2="17" y2="22"></line>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <line x1="2" y1="7" x2="7" y2="7"></line>
+              <line x1="2" y1="17" x2="7" y2="17"></line>
+              <line x1="17" y1="17" x2="22" y2="17"></line>
+              <line x1="17" y1="7" x2="22" y2="7"></line>
+            </svg>
+          </div>
+          <div class="jmp-meta-text">
+            <div class="jmp-meta-title" title="${tytulEsc}">${tytulEsc}</div>
+            <div class="jmp-meta-sub">${fmt} · <span class="jmp-dur">--:--</span></div>
+          </div>
+        </div>
+        <div class="jmp-footer-right">
+          <button type="button" class="jmp-more-btn" aria-label="Opcje wideo" title="Więcej opcji">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <circle cx="5" cy="12" r="2"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+              <circle cx="19" cy="12" r="2"></circle>
+            </svg>
+          </button>
+          <div class="jmp-pop-menu" style="display:none;">
+            <button type="button" class="jmp-menu-item jmp-menu-size"><span>⤢ Rozmiar</span><b>${sizeLbl}</b></button>
+            <button type="button" class="jmp-menu-item jmp-menu-align"><span>⬌ Układ</span><b>${alignLbl}</b></button>
+            <button type="button" class="jmp-menu-item jmp-menu-rec"><span>🎙️ Dyktafon</span></button>
+            <button type="button" class="jmp-menu-item jmp-menu-download"><span>⬇️ Pobierz plik</span></button>
+            <button type="button" class="jmp-menu-item jmp-menu-del text-danger"><span>🗑️ Usuń z notatki</span></button>
+          </div>
+        </div>
+      </div>`;
   } else {
     wrap.innerHTML = `
-      <div class="jmp-header">
-        <span class="jmp-icon" aria-hidden="true">🎙️</span>
-        <span class="jmp-title" title="${tytulEsc}">${tytulEsc}</span>
-        <div class="jmp-tools">
-          <button type="button" class="jmp-btn jmp-size-btn" title="Rozmiar okna (S: 280px / M: 420px / 100%)"><span class="jmp-size-tag">${sizeLbl}</span></button>
-          <button type="button" class="jmp-btn jmp-align-btn" title="Układ (Środek / Lewo / Prawo)"><span class="jmp-align-tag">${alignIcon}</span></button>
-          <button type="button" class="jmp-btn jmp-del" title="Usuń nagranie z notatki" aria-label="Usuń">✕</button>
+      <audio preload="metadata" playsinline webkit-playsinline src="${src}"></audio>
+      <div class="jmp-audio-top">
+        <div class="jmp-audio-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" class="jmp-wave-svg" width="20" height="20" fill="currentColor">
+            <rect x="2" y="9" width="2.5" height="6" rx="1.25"></rect>
+            <rect x="7" y="5" width="2.5" height="14" rx="1.25"></rect>
+            <rect x="12" y="3" width="2.5" height="18" rx="1.25"></rect>
+            <rect x="17" y="7" width="2.5" height="10" rx="1.25"></rect>
+            <rect x="22" y="10" width="2.5" height="4" rx="1.25"></rect>
+          </svg>
+        </div>
+        <div class="jmp-meta-text">
+          <div class="jmp-meta-title" title="${tytulEsc}">${tytulEsc}</div>
+          <div class="jmp-meta-sub">${fmt} · <span class="jmp-dur">--:--</span></div>
+        </div>
+        <div class="jmp-footer-right">
+          <button type="button" class="jmp-more-btn" aria-label="Opcje audio" title="Więcej opcji">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <circle cx="5" cy="12" r="2"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+              <circle cx="19" cy="12" r="2"></circle>
+            </svg>
+          </button>
+          <div class="jmp-pop-menu" style="display:none;">
+            <button type="button" class="jmp-menu-item jmp-menu-size"><span>⤢ Rozmiar</span><b>${sizeLbl}</b></button>
+            <button type="button" class="jmp-menu-item jmp-menu-align"><span>⬌ Układ</span><b>${alignLbl}</b></button>
+            <button type="button" class="jmp-menu-item jmp-menu-rec"><span>🎙️ Dyktafon</span></button>
+            <button type="button" class="jmp-menu-item jmp-menu-download"><span>⬇️ Pobierz plik</span></button>
+            <button type="button" class="jmp-menu-item jmp-menu-del text-danger"><span>🗑️ Usuń z notatki</span></button>
+          </div>
         </div>
       </div>
-      <audio controls preload="metadata" playsinline webkit-playsinline src="${src}" class="jmp-native-audio"></audio>`;
+      <div class="jmp-audio-mid">
+        <div class="jmp-audio-controls">
+          <button type="button" class="jmp-ctrl-btn jmp-btn-prev" title="Cofnij o 10 sekund" aria-label="Cofnij">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path></svg>
+          </button>
+          <button type="button" class="jmp-play-circle" title="Odtwórz / Pauza" aria-label="Odtwórz">
+            <svg viewBox="0 0 24 24" class="jmp-play-ico" width="13" height="13" fill="currentColor"><polygon points="8,5 19,12 8,19"></polygon></svg>
+            <svg viewBox="0 0 24 24" class="jmp-pause-ico" width="13" height="13" fill="currentColor" style="display:none;"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>
+          </button>
+          <button type="button" class="jmp-ctrl-btn jmp-btn-next" title="Przewiń do przodu o 10 sekund" aria-label="Dalej">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"></path></svg>
+          </button>
+        </div>
+        <div class="jmp-audio-speed-wrap">
+          <button type="button" class="jmp-speed-btn" title="Prędkość odtwarzania">1x</button>
+        </div>
+      </div>
+      <div class="jmp-audio-progress-box">
+        <div class="jmp-timeline">
+          <div class="jmp-track">
+            <div class="jmp-bar-fill"></div>
+          </div>
+        </div>
+        <div class="jmp-time-row">
+          <span class="jmp-cur">00:00</span>
+          <span class="jmp-dur-sub">--:--</span>
+        </div>
+      </div>`;
   }
   return wrap;
 }
@@ -36745,112 +37011,302 @@ function podepnijZdarzeniaOdtwarzacza(wrap){
   wrap._jmpBound = true;
   media.classList.add("jmp-media");
 
-  const obsluzZmianeRozmiaru = (ev) => {
-    if(ev){ ev.stopPropagation(); }
-    const sizes = ["s", "m", "full"];
-    const curSize = wrap.dataset.size || "s";
-    const nextIdx = (sizes.indexOf(curSize) + 1) % sizes.length;
-    const nextSize = sizes[nextIdx];
-    wrap.dataset.size = nextSize;
-    wrap.classList.remove("jmp-size-s", "jmp-size-m", "jmp-size-full");
-    wrap.classList.add("jmp-size-" + nextSize);
-    wrap.style.removeProperty("width");
+  const isVideo = media.tagName === "VIDEO";
+  const durEl = wrap.querySelector(".jmp-dur");
+  const durSub = wrap.querySelector(".jmp-dur-sub");
+  const curEl = wrap.querySelector(".jmp-cur");
+  const fill = wrap.querySelector(".jmp-bar-fill");
+  const timeline = wrap.querySelector(".jmp-timeline");
+  const playCircle = wrap.querySelector(".jmp-play-circle");
+  const playIco = wrap.querySelector(".jmp-play-ico");
+  const pauseIco = wrap.querySelector(".jmp-pause-ico");
+  const centerPlayBtn = wrap.querySelector(".jmp-center-play-btn");
+  const viewport = wrap.querySelector(".jmp-video-viewport");
+  const prevBtn = wrap.querySelector(".jmp-btn-prev");
+  const nextBtn = wrap.querySelector(".jmp-btn-next");
+  const speedBtn = wrap.querySelector(".jmp-speed-btn");
+  const moreBtn = wrap.querySelector(".jmp-more-btn");
+  const popMenu = wrap.querySelector(".jmp-pop-menu");
 
-    const nextLbl = nextSize === "s" ? "S" : (nextSize === "m" ? "M" : "100%");
-    wrap.querySelectorAll(".jmp-size-tag").forEach(el => el.textContent = nextLbl);
-
-    const desc = nextSize === "s" ? "Małe (280 px)" : (nextSize === "m" ? "Średnie (420 px)" : "Pełna szerokość (100%)");
-    toast("Rozmiar odtwarzacza: " + desc);
-
-    const ce = wrap.closest(".ncontent");
-    const card = wrap.closest(".ncard");
-    zapiszZmianeOdtwarzacza(wrap, ce, card);
-  };
-
-  const obsluzZmianeUkladu = (ev) => {
-    if(ev){ ev.stopPropagation(); }
-    const aligns = ["center", "left", "right"];
-    const curAlign = wrap.dataset.align || "center";
-    const nextIdx = (aligns.indexOf(curAlign) + 1) % aligns.length;
-    const nextAlign = aligns[nextIdx];
-    wrap.dataset.align = nextAlign;
-    wrap.classList.remove("jmp-align-center", "jmp-align-left", "jmp-align-right");
-    wrap.classList.add("jmp-align-" + nextAlign);
-
-    const nextIcon = nextAlign === "center" ? "⬌" : (nextAlign === "left" ? "◧" : "◨");
-    wrap.querySelectorAll(".jmp-align-tag").forEach(el => el.textContent = nextIcon);
-
-    const desc = nextAlign === "center" ? "Wyśrodkowany" : (nextAlign === "left" ? "Do lewej (tekst oblewa)" : "Do prawej (tekst oblewa)");
-    toast("Układ odtwarzacza: " + desc);
-
-    const ce = wrap.closest(".ncontent");
-    const card = wrap.closest(".ncard");
-    zapiszZmianeOdtwarzacza(wrap, ce, card);
-  };
-
-  const obsluzUsuniecie = (ev) => {
-    if(ev){ ev.stopPropagation(); }
-    const isVid = wrap.classList.contains("jw-media-video");
-    const label = isVid ? "plik wideo" : "nagranie audio";
-    if(!confirm(`Czy na pewno chcesz usunąć to ${label} z notatki?`)) return;
-    try {
-      media.pause();
-      media.removeAttribute("src");
-      media.load();
-    }catch(_){}
-
-    const ce = wrap.closest(".ncontent");
-    const card = wrap.closest(".ncard");
-    const isEditing = card && card.classList.contains("editing");
-
-    if(ce && isEditing){
-      if(typeof histZapisz === "function") histZapisz(ce);
-      wrap.remove();
-      commitLiveEdit(ce);
-      toast(`Usunięto ${label}`);
-    } else if(card) {
-      const g = card.dataset.g;
-      const n = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes.find(x => x.g === g) : null;
-      wrap.remove();
-      if(ce && n){
-        const clean = sanitize(ce.innerHTML);
-        n.h = clean;
-        n.c = htmlToPlain(clean);
-        n.ed = true;
-        n.mo = new Date().toISOString();
-        if(typeof saveNote === "function"){
-          saveNote(n).then(ok => {
-            if(ok) toast(`Usunięto ${label}`);
-          });
-        }
-        if(typeof bumpDirty === "function") bumpDirty();
-      } else {
-        toast(`Usunięto ${label}`);
-      }
-    } else {
-      wrap.remove();
-      toast(`Usunięto ${label}`);
+  const zaktualizujCzas = () => {
+    if(durEl && isFinite(media.duration) && media.duration > 0){
+      const fmt = formatujCzasMedia(media.duration);
+      durEl.textContent = fmt;
+      if(durSub) durSub.textContent = fmt;
     }
   };
 
-  wrap.querySelectorAll(".jmp-size-btn").forEach(b => {
-    b.onclick = obsluzZmianeRozmiaru;
-    b.onpointerdown = (e) => e.stopPropagation();
-  });
-  wrap.querySelectorAll(".jmp-align-btn").forEach(b => {
-    b.onclick = obsluzZmianeUkladu;
-    b.onpointerdown = (e) => e.stopPropagation();
-  });
-  wrap.querySelectorAll(".jmp-del").forEach(b => {
-    b.onclick = obsluzUsuniecie;
-    b.onpointerdown = (e) => e.stopPropagation();
-  });
+  media.addEventListener("loadedmetadata", zaktualizujCzas);
+  if(isFinite(media.duration) && media.duration > 0) zaktualizujCzas();
+
+  if(isVideo){
+    const toggleVideo = (ev) => {
+      if(ev) ev.stopPropagation();
+      if(media.paused){
+        document.querySelectorAll("audio, video").forEach(other => {
+          if(other !== media && !other.paused) other.pause();
+        });
+        media.play().catch(e => console.warn("Video play:", e));
+      } else {
+        media.pause();
+      }
+    };
+    if(centerPlayBtn) centerPlayBtn.onclick = toggleVideo;
+    if(viewport) viewport.onclick = (ev) => {
+      if(ev.target.tagName !== "VIDEO" && ev.target.closest("button")) return;
+      toggleVideo(ev);
+    };
+    media.addEventListener("play", () => {
+      wrap.classList.add("playing");
+      if(centerPlayBtn) centerPlayBtn.style.display = "none";
+      media.setAttribute("controls", "controls");
+    });
+    media.addEventListener("pause", () => {
+      wrap.classList.remove("playing");
+      if(centerPlayBtn) centerPlayBtn.style.display = "flex";
+    });
+    media.addEventListener("ended", () => {
+      wrap.classList.remove("playing");
+      if(centerPlayBtn) centerPlayBtn.style.display = "flex";
+    });
+  } else {
+    // AUDIO
+    const toggleAudio = (ev) => {
+      if(ev) ev.stopPropagation();
+      if(media.paused){
+        document.querySelectorAll("audio, video").forEach(other => {
+          if(other !== media && !other.paused) other.pause();
+        });
+        media.play().catch(e => console.warn("Audio play:", e));
+      } else {
+        media.pause();
+      }
+    };
+    if(playCircle) playCircle.onclick = toggleAudio;
+
+    media.addEventListener("play", () => {
+      wrap.classList.add("playing");
+      if(playIco) playIco.style.display = "none";
+      if(pauseIco) pauseIco.style.display = "block";
+    });
+    media.addEventListener("pause", () => {
+      wrap.classList.remove("playing");
+      if(playIco) playIco.style.display = "block";
+      if(pauseIco) pauseIco.style.display = "none";
+    });
+    media.addEventListener("ended", () => {
+      wrap.classList.remove("playing");
+      if(playIco) playIco.style.display = "block";
+      if(pauseIco) pauseIco.style.display = "none";
+      if(fill) fill.style.width = "0%";
+      if(curEl) curEl.textContent = "00:00";
+    });
+
+    media.addEventListener("timeupdate", () => {
+      if(!wrap._isSeeking && isFinite(media.duration) && media.duration > 0){
+        const pct = (media.currentTime / media.duration) * 100;
+        if(fill) fill.style.width = pct + "%";
+        if(curEl) curEl.textContent = formatujCzasMedia(media.currentTime);
+      }
+    });
+
+    if(prevBtn) prevBtn.onclick = (ev) => {
+      ev.stopPropagation();
+      media.currentTime = Math.max(0, media.currentTime - 10);
+    };
+    if(nextBtn) nextBtn.onclick = (ev) => {
+      ev.stopPropagation();
+      media.currentTime = Math.min(media.duration || Infinity, media.currentTime + 10);
+    };
+
+    const speeds = [1, 1.25, 1.5, 2];
+    if(speedBtn) speedBtn.onclick = (ev) => {
+      ev.stopPropagation();
+      const cur = media.playbackRate || 1;
+      const idx = speeds.findIndex(s => Math.abs(s - cur) < 0.05);
+      const next = speeds[(idx + 1) % speeds.length];
+      media.playbackRate = next;
+      speedBtn.textContent = next + "x";
+    };
+
+    const seekTo = (clientX) => {
+      if(!isFinite(media.duration) || media.duration <= 0) return;
+      const rect = timeline.getBoundingClientRect();
+      const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+      if(fill) fill.style.width = (ratio * 100) + "%";
+      if(curEl) curEl.textContent = formatujCzasMedia(ratio * media.duration);
+      media.currentTime = ratio * media.duration;
+    };
+
+    if(timeline){
+      timeline.addEventListener("pointerdown", (ev) => {
+        ev.stopPropagation();
+        wrap._isSeeking = true;
+        seekTo(ev.clientX);
+        const onMove = (e) => { seekTo(e.clientX); };
+        const onUp = (e) => {
+          seekTo(e.clientX);
+          wrap._isSeeking = false;
+          window.removeEventListener("pointermove", onMove);
+          window.removeEventListener("pointerup", onUp);
+        };
+        window.addEventListener("pointermove", onMove);
+        window.addEventListener("pointerup", onUp);
+      });
+    }
+  }
+
+  // Menu Więcej (...)
+  if(moreBtn && popMenu){
+    moreBtn.onclick = (ev) => {
+      ev.stopPropagation();
+      document.querySelectorAll(".jmp-pop-menu").forEach(m => {
+        if(m !== popMenu) m.style.display = "none";
+      });
+      popMenu.style.display = popMenu.style.display === "none" ? "flex" : "none";
+    };
+
+    const menuSize = popMenu.querySelector(".jmp-menu-size");
+    if(menuSize){
+      menuSize.onclick = (ev) => {
+        ev.stopPropagation();
+        popMenu.style.display = "none";
+        const sizes = ["s", "m", "full"];
+        const curSize = wrap.dataset.size || "m";
+        const nextIdx = (sizes.indexOf(curSize) + 1) % sizes.length;
+        const nextSize = sizes[nextIdx];
+        wrap.dataset.size = nextSize;
+        wrap.classList.remove("jmp-size-s", "jmp-size-m", "jmp-size-full");
+        wrap.classList.add("jmp-size-" + nextSize);
+        wrap.style.removeProperty("width");
+
+        const lbl = nextSize === "s" ? "Kompaktowy (S)" : (nextSize === "m" ? "Średni (M)" : "Pełny (100%)");
+        const b = menuSize.querySelector("b");
+        if(b) b.textContent = lbl;
+        toast("Rozmiar odtwarzacza: " + lbl);
+
+        const ce = wrap.closest(".ncontent");
+        const card = wrap.closest(".ncard");
+        zapiszZmianeOdtwarzacza(wrap, ce, card);
+      };
+    }
+
+    const menuAlign = popMenu.querySelector(".jmp-menu-align");
+    if(menuAlign){
+      menuAlign.onclick = (ev) => {
+        ev.stopPropagation();
+        popMenu.style.display = "none";
+        const aligns = ["center", "left", "right"];
+        const curAlign = wrap.dataset.align || "center";
+        const nextIdx = (aligns.indexOf(curAlign) + 1) % aligns.length;
+        const nextAlign = aligns[nextIdx];
+        wrap.dataset.align = nextAlign;
+        wrap.classList.remove("jmp-align-center", "jmp-align-left", "jmp-align-right");
+        wrap.classList.add("jmp-align-" + nextAlign);
+
+        const lbl = nextAlign === "center" ? "Środek" : (nextAlign === "left" ? "Do lewej" : "Do prawej");
+        const b = menuAlign.querySelector("b");
+        if(b) b.textContent = lbl;
+        toast("Układ odtwarzacza: " + lbl);
+
+        const ce = wrap.closest(".ncontent");
+        const card = wrap.closest(".ncard");
+        zapiszZmianeOdtwarzacza(wrap, ce, card);
+      };
+    }
+
+    const menuRec = popMenu.querySelector(".jmp-menu-rec");
+    if(menuRec){
+      menuRec.onclick = (ev) => {
+        ev.stopPropagation();
+        popMenu.style.display = "none";
+        const ce = wrap.closest(".ncontent");
+        otworzDyktafon(ce);
+      };
+    }
+
+    const menuDl = popMenu.querySelector(".jmp-menu-download");
+    if(menuDl){
+      menuDl.onclick = (ev) => {
+        ev.stopPropagation();
+        popMenu.style.display = "none";
+        const src = media.getAttribute("src") || "";
+        if(!src){ toast("Brak źródła pliku do pobrania"); return; }
+        const a = document.createElement("a");
+        a.href = src;
+        const ext = isVideo ? "mp4" : "mp3";
+        a.download = (wrap.getAttribute("data-title") || "multimedia") + "." + ext;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        toast("Rozpoczęto pobieranie pliku");
+      };
+    }
+
+    const menuDel = popMenu.querySelector(".jmp-menu-del");
+    if(menuDel){
+      menuDel.onclick = (ev) => {
+        ev.stopPropagation();
+        popMenu.style.display = "none";
+        const label = isVideo ? "plik wideo" : "nagranie audio";
+        if(!confirm(`Czy na pewno chcesz usunąć to ${label} z notatki?`)) return;
+        try {
+          media.pause();
+          media.removeAttribute("src");
+          media.load();
+        }catch(_){}
+
+        const ce = wrap.closest(".ncontent");
+        const card = wrap.closest(".ncard");
+        const isEditing = card && card.classList.contains("editing");
+
+        if(ce && isEditing){
+          if(typeof histZapisz === "function") histZapisz(ce);
+          wrap.remove();
+          commitLiveEdit(ce);
+          toast(`Usunięto ${label}`);
+        } else if(card) {
+          const g = card.dataset.g;
+          const n = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes.find(x => x.g === g) : null;
+          wrap.remove();
+          if(ce && n){
+            const clean = sanitize(ce.innerHTML);
+            n.h = clean;
+            n.c = htmlToPlain(clean);
+            n.ed = true;
+            n.mo = new Date().toISOString();
+            if(typeof saveNote === "function"){
+              saveNote(n).then(ok => {
+                if(ok) toast(`Usunięto ${label}`);
+              });
+            }
+            if(typeof bumpDirty === "function") bumpDirty();
+          } else {
+            toast(`Usunięto ${label}`);
+          }
+        } else {
+          wrap.remove();
+          toast(`Usunięto ${label}`);
+        }
+      };
+    }
+  }
 
   wrap.addEventListener("pointerup", () => {
     if(wrap.style.width){
       const ce = wrap.closest(".ncontent");
       const card = wrap.closest(".ncard");
       zapiszZmianeOdtwarzacza(wrap, ce, card);
+    }
+  });
+}
+
+// Zamykanie menu po kliknięciu poza odtwarzaczem
+if(!window._jmpDocMenuBound){
+  window._jmpDocMenuBound = true;
+  document.addEventListener("pointerdown", (ev) => {
+    if(!ev.target.closest(".jmp-footer-right")){
+      document.querySelectorAll(".jmp-pop-menu").forEach(m => m.style.display = "none");
     }
   });
 }
@@ -36863,8 +37319,8 @@ function podepnijOdtwarzaczeWKontenerze(cont){
     const isVid = m.tagName === "VIDEO";
     const src = m.getAttribute("src") || (m.querySelector("source") && m.querySelector("source").getAttribute("src")) || "";
     if(!src) return;
-    const title = m.getAttribute("data-title") || m.getAttribute("title") || (isVid ? "Wideo" : "Nagranie audio");
-    const sz = m.getAttribute("data-size") || "s";
+    const title = m.getAttribute("data-title") || m.getAttribute("title") || (isVid ? "Materiał filmowy" : "Nagranie – komentarz");
+    const sz = m.getAttribute("data-size") || "m";
     const al = m.getAttribute("data-align") || "center";
     const wrap = budujElementOdtwarzacza(isVid ? "video" : "audio", src, title, sz, al);
     m.replaceWith(wrap);
@@ -36877,7 +37333,7 @@ function podepnijOdtwarzaczeWKontenerze(cont){
 function insertMediaElement(ce, type, src, title, range){
   if(!ce) return null;
   const isVideo = type === "video";
-  const defSize = "s";
+  const defSize = "m";
   const mediaWrap = budujElementOdtwarzacza(isVideo ? "video" : "audio", src, title, defSize, "center");
   if(typeof histZapisz === "function") histZapisz(ce);
   try{
@@ -37125,7 +37581,7 @@ function vrWstawNagranieDoNotatki(){
     const mm = String(dataStr.getMonth() + 1).padStart(2, "0");
     const hh = String(dataStr.getHours()).padStart(2, "0");
     const min = String(dataStr.getMinutes()).padStart(2, "0");
-    const title = `Głos (${dd}.${mm} ${hh}:${min}) · ${_vrFormatujSekundy(_vrSecs)}`;
+    const title = `Nagranie (${dd}.${mm} ${hh}:${min})`;
     insertMediaElement(_vrTargetCe, "audio", dataUrl, title, edSavedRange);
     closeModal("modalVoiceRec");
     _vrResetStan();
