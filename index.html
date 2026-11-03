@@ -19360,7 +19360,7 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
     width: 58px !important;
     min-width: 58px !important;
     max-width: 58px !important;
-    padding: max(26px, calc(18px + env(safe-area-inset-top, 0px))) 6px 12px 6px !important;
+    padding: max(48px, calc(40px + env(safe-area-inset-top, 0px))) 6px 12px 6px !important;
     position: static !important;
     transform: none !important;
     display: flex !important;
@@ -19402,7 +19402,7 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   width: 58px !important;
   min-width: 58px !important;
   max-width: 58px !important;
-  padding: max(26px, calc(18px + env(safe-area-inset-top, 0px))) 6px 12px 6px !important;
+  padding: max(48px, calc(40px + env(safe-area-inset-top, 0px))) 6px 12px 6px !important;
   opacity: 1 !important;
   transform: none !important;
   pointer-events: auto !important;
@@ -20369,7 +20369,7 @@ html[data-theme="sepia"] .sidebar-float-trigger {
   header {
     position: relative;
     min-height: 52px;
-    padding: 8px 14px;
+    padding: max(8px, calc(8px + env(safe-area-inset-top, 0px))) 14px 8px 14px;
     gap: 8px;
     background-color: var(--accent, #1b6348) !important;
     -webkit-backdrop-filter: none !important;
@@ -20405,13 +20405,13 @@ html.is-ios[data-theme="dark"], html.is-ipad[data-theme="dark"], html.is-iphone[
   background-color: #0d1217;
 }
 
-/* Styl dedykowany dla tabletów iPad (poziom i pion) */
+/* Styl dedykowany dla tabletów iPad (poziom i pion) — obniżony o linię tekstu dla czytelności pod paskiem systemowym Apple */
 html.is-ipad header, body.is-ipad header,
 html.ipad-standalone header, body.ipad-standalone header {
   display: flex !important;
   align-items: center !important;
-  min-height: calc(58px + env(safe-area-inset-top, 0px)) !important;
-  padding-top: max(18px, calc(12px + env(safe-area-inset-top, 0px))) !important;
+  min-height: calc(80px + env(safe-area-inset-top, 0px)) !important;
+  padding-top: max(40px, calc(34px + env(safe-area-inset-top, 0px))) !important;
   padding-bottom: 8px !important;
   padding-left: max(14px, env(safe-area-inset-left, 0px)) !important;
   padding-right: max(14px, env(safe-area-inset-right, 0px)) !important;
@@ -20720,7 +20720,7 @@ html.is-ipad header .searchwrap #btnSearchTools {
 
 html.ipad-standalone #modernSidebar, body.ipad-standalone #modernSidebar,
 html.is-ipad #modernSidebar, body.is-ipad #modernSidebar {
-  padding-top: max(26px, calc(18px + env(safe-area-inset-top, 0px))) !important;
+  padding-top: max(48px, calc(40px + env(safe-area-inset-top, 0px))) !important;
 }
 
 /* ══════════════ ULTRA-KOMPAKTOWY GÓRNY PASEK DLA IPHONE I EKRANÓW MOBILNYCH ══════════════ */
