@@ -14258,6 +14258,16 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
   background: transparent !important;
 }
 
+.ncard.editing .ncontent,
+.ncard.editing .ncontent[contenteditable="true"],
+.ncard.editing .ntitle,
+.ncard.editing .ntitle[contenteditable="true"] {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-touch-callout: default !important;
+  cursor: text !important;
+}
+
 #fsWrap .ncard.editing .ncontent,
 #modalFs #fsWrap .ncard.editing .ncontent,
 #fsWrap .ncard.editing .ncontent[contenteditable="true"],
@@ -27233,10 +27243,91 @@ function odblokujWiszaceAkcjePoPowrocie(){
   if(typeof _centrResynchronizujStoperWTle === "function"){
     try { _centrResynchronizujStoperWTle(); } catch(_){}
   }
+
+  // 7. ODBLOKOWANIE KLAWIATURY NA IPADZIE / IPHONE PO POWROCIE Z INNEJ APLIKACJI
+  // Rozwiązuje problem utraty First Respondera w WebKit: gdy użytkownik wraca z JW Library
+  // lub innej aplikacji, pojedyncze dotknięcie notatki lub naciśnięcie klawisza natychmiast
+  // aktywuje klawiaturę bez konieczności klikania „Zapisz” i „Edytuj”.
+  window._reaktywujKlawiaturePoPowrocie = true;
+  const aktywneKarty = document.querySelectorAll(".ncard.editing");
+  if(aktywneKarty.length > 0){
+    aktywneKarty.forEach(card => {
+      const titleEl = card.querySelector(".ntitle");
+      const contEl = card.querySelector(".ncontent");
+      [titleEl, contEl].forEach(el => {
+        if(!el) return;
+        el.contentEditable = "true";
+        el.setAttribute("contenteditable", "true");
+        el.setAttribute("lang", "pl");
+        el.setAttribute("spellcheck", "true");
+        el.setAttribute("autocorrect", "on");
+        el.setAttribute("autocapitalize", "sentences");
+        el.style.webkitUserSelect = "text";
+        el.style.userSelect = "text";
+      });
+    });
+
+    // Zresetuj potencjalnie zamrożone ognisko w DOM,
+    // by pierwszy dotyk ekranu wywołał czyste zdarzenie focus w iOS WebKit:
+    const akt = document.activeElement;
+    if(akt && (akt.isContentEditable || (akt.getAttribute && akt.getAttribute("contenteditable") === "true"))){
+      try { akt.blur(); } catch(_){}
+    }
+
+    // Dla klawiatur zewnętrznych (Magic Keyboard / Smart Folio):
+    // ustaw bezpieczne ognisko po chwili, by można było od razu pisać:
+    setTimeout(()=>{
+      const card = document.querySelector("#fsWrap .ncard.editing, .ncard.editing");
+      const ce = card && card.querySelector(".ncontent[contenteditable='true']");
+      if(ce && card.classList.contains("editing") && ce.isConnected){
+        try { ce.focus({ preventScroll: true }); } catch(_){}
+      }
+    }, 80);
+  }
 }
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState === "visible") odblokujWiszaceAkcjePoPowrocie(); });
 window.addEventListener("pageshow", odblokujWiszaceAkcjePoPowrocie);
 window.addEventListener("focus", odblokujWiszaceAkcjePoPowrocie);
+
+// Gwarancja natychmiastowego otwarcia klawiatury na iPadzie/iPhone po dotknięciu edytora
+(function zainstalujReaktywacjeKlawiaturyIOS(){
+  if(window._kbIosReaktywatorZainstalowany) return;
+  window._kbIosReaktywatorZainstalowany = true;
+
+  const obsluzDotykEdytora = (e) => {
+    const ce = e.target && e.target.closest && e.target.closest('.ncard.editing .ncontent[contenteditable="true"], .ncard.editing .ntitle[contenteditable="true"]');
+    if(!ce) return;
+    // Nie przechwytuj kliknięć w przyciski, linki, odtwarzacze, kontrolki, zdjęcia
+    if(e.target.closest("button, a, .jw-media-player, input, select, label, .wysUchwyt, .jmp-ctrl-btn, img")) return;
+
+    if(window._reaktywujKlawiaturePoPowrocie || document.activeElement !== ce){
+      window._reaktywujKlawiaturePoPowrocie = false;
+      try {
+        if(document.activeElement === ce) ce.blur();
+        ce.focus({ preventScroll: true });
+      } catch(_){
+        try { ce.focus(); } catch(__){}
+      }
+    }
+  };
+
+  document.addEventListener("pointerdown", obsluzDotykEdytora, { passive: true });
+  document.addEventListener("click", obsluzDotykEdytora, true);
+
+  // Obsługa natychmiastowego pisania z klawiatury zewnętrznej (Magic Keyboard) po powrocie z innej aplikacji
+  document.addEventListener("keydown", (e) => {
+    if(e.key && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey){
+      const card = document.querySelector("#fsWrap .ncard.editing, .ncard.editing");
+      if(card){
+        const ce = card.querySelector(".ncontent[contenteditable='true']");
+        const akt = document.activeElement;
+        if(ce && akt !== ce && (!akt || (!akt.isContentEditable && akt.tagName !== "INPUT" && akt.tagName !== "TEXTAREA"))){
+          try { ce.focus({ preventScroll: true }); } catch(_){}
+        }
+      }
+    }
+  }, true);
+})();
 function commitLiveEdit(ce){
   if(!ce) return;
   const card = ce.closest && ce.closest(".ncard"); if(!card) return;
