@@ -1,6 +1,6 @@
 /* JW Study — Service Worker (Obsługa trybu offline) */
 const CACHE_PREFIX = 'jwstudy-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + 'v585';
+const CACHE = CACHE_PREFIX + 'v586';
 
 const CORE = [
   './index.html',
@@ -36,7 +36,7 @@ self.addEventListener('message', e=>{
 });
 
 self.addEventListener('install', e=>{
-  // Usunięto bezwarunkowe self.skipWaiting() — nowa wersja czeka na zatwierdzenie przez użytkownika w pasku #nowaWersja
+  self.skipWaiting();
   e.waitUntil(caches.open(CACHE).then(async c=>{
     // Główny dokument index.html
     try{

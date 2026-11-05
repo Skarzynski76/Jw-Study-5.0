@@ -12369,37 +12369,51 @@ header #btnWszystkie{ flex:0 1 auto; max-width:230px; overflow:hidden; }
   header .fontctl button{ padding:6px 10px; }
 }
 
-/* ——— WIDOK ŚREDNI (v2.09) ———
-   Pełna treść dawała trzy notatki na ekranie, widok zwarty ucinał je tak mocno,
-   że trzeba było otwierać każdą. Średni pokazuje kilka pierwszych linijek —
-   dość, by rozpoznać notatkę — i mieści ich kilkanaście. */
-#noteList.v-medium .ncontent{
-  max-height:7.5em; line-height:1.5;
-  overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch;
+/* ——— WIDOK LISTY NOTATEK (v5.0) ———
+   Karty układają się jedna pod drugą. Na ekranie widać ok. 10 linii tekstu notatki,
+   co gwarantuje idealną czytelność, lekkość i estetykę zbliżoną do Apple Notes.
+   Kliknięcie tytułu lub karty natychmiast otwiera pełny czytnik. */
+#noteList.v-list .ncard,
+#noteList.v-medium .ncard,
+#noteList.v-compact .ncard{
+  min-height:54px;
+  margin-bottom:11px;
 }
-#noteList.v-medium .ncontent::-webkit-scrollbar{ width:4px; }
-#noteList.v-medium .ncontent::-webkit-scrollbar-thumb{ background:rgba(0,0,0,.22); border-radius:3px; }
-/* ——— ZDJĘCIA W MINIATURACH ZACHOWUJĄ PROPORCJE ———
-   Zdjęcie wstawione do notatki dostaje wpisaną W ATRYBUCIE szerokość
-   (np. 45%), bo tak działa jego regulacja w edytorze. Wpis w atrybucie bije
-   każdą regułę arkusza, więc w miniaturze szerokość zostawała duża, a sama
-   wysokość była przycinana do 70 px — obraz wychodził spłaszczony.
-
-   W widokach miniaturowych zdejmujemy więc wpisaną szerokość (!important) i
-   pozwalamy jej iść za wysokością. Do tego object-fit pilnuje proporcji nawet
-   wtedy, gdyby coś jeszcze narzuciło oba wymiary. */
-#noteList.v-medium .ncontent img{
+#noteList.v-list .ncontent,
+#noteList.v-medium .ncontent,
+#noteList.v-compact .ncontent{
+  max-height:15.5em; /* ok. 10 linii tekstu notatki przy standardowej interlinii 1.5 */
+  line-height:1.5;
+  overflow:hidden;
+  position:relative;
+  -webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 24px),transparent);
+  mask-image:linear-gradient(180deg,#000 calc(100% - 24px),transparent);
+}
+#noteList.v-list .ncontent::-webkit-scrollbar,
+#noteList.v-medium .ncontent::-webkit-scrollbar,
+#noteList.v-compact .ncontent::-webkit-scrollbar{ width:4px; }
+#noteList.v-list .ncontent::-webkit-scrollbar-thumb,
+#noteList.v-medium .ncontent::-webkit-scrollbar-thumb,
+#noteList.v-compact .ncontent::-webkit-scrollbar-thumb{ background:rgba(0,0,0,.22); border-radius:3px; }
+#noteList.v-list .ncontent img,
+#noteList.v-medium .ncontent img,
+#noteList.v-compact .ncontent img{
   width:auto!important; height:auto!important;
-  max-width:100%!important; max-height:110px;
+  max-width:100%!important; max-height:130px;
   object-fit:contain;
   float:none!important; display:block; margin:6px 0;
 }
-#noteList.v-medium .ncard{ margin-bottom:7px; }
-/* Własna wysokość notatki przebija widok — to wybór dotyczący tej jednej karty. */
-#noteList.v-medium .ncard.wlasnaWys .ncontent{
+#noteList.v-list .ncard.wlasnaWys .ncontent,
+#noteList.v-medium .ncard.wlasnaWys .ncontent,
+#noteList.v-compact .ncard.wlasnaWys .ncontent{
   -webkit-mask-image:none; mask-image:none;
 }
-#noteList.v-medium .ncard.pelnaWys .ncontent{ max-height:none; overflow:visible; }
+#noteList.v-list .ncard.pelnaWys .ncontent,
+#noteList.v-medium .ncard.pelnaWys .ncontent,
+#noteList.v-compact .ncard.pelnaWys .ncontent{
+  max-height:none!important; overflow:visible!important;
+  -webkit-mask-image:none!important; mask-image:none!important;
+}
 
 /* ============================================================
    WIDOK TABLICY — KARTECZKI OBOK SIEBIE (v2.10)
@@ -22664,10 +22678,8 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
       <div id="viewBar">
         <span class="vb-lbl">Widok</span>
         <div class="vb-group">
-          <button class="vb" data-view="list" title="Lista — cała treść notatki">${''}</button>
-          <button class="vb" data-view="medium" title="Średni — pierwsze linijki treści, najwięcej notatek na ekranie">${''}</button>
-          <button class="vb" data-view="compact" title="Zwarty — tytuł i początek treści">${''}</button>
-          <button class="vb" data-view="tablica" title="Tablica — karteczki obok siebie, kilkanaście naraz">${''}</button>
+          <button class="vb" data-view="list" title="Lista notatek (ok. 10 linii treści)" aria-label="Lista notatek">${''}</button>
+          <button class="vb" data-view="tablica" title="Widok tablicy (karteczki obok siebie)" aria-label="Widok tablicy">${''}</button>
         </div>
         <select id="rozmiarTablicy" hidden aria-label="Wielkość karteczek" title="Wielkość karteczek — ile treści widać na każdej">
           <option value="xs">bardzo małe</option>
@@ -24747,9 +24759,12 @@ function resetQueryCache(){
 }
 
 let query = "", sortMode = "new";
-/* Pierwsza porcja mieści kilka ekranów, ale nie tworzy od razu sześćdziesięciu
-   rozbudowanych kart. Pozostałe dochodzą automatycznie przy przewijaniu. */
-let visibleCount = 36;
+function domyslnyVisibleCount(){
+  return (typeof window !== "undefined" && window.innerWidth <= 768) ? 12 : 24;
+}
+/* Pierwsza porcja mieści kilka notatek, oszczędzając pamięć urządzenia.
+   Pozostałe dochodzą automatycznie w tle przy przewijaniu. */
+let visibleCount = domyslnyVisibleCount();
 let expandedBook = null;
 let idb = null;
 /**
@@ -29059,39 +29074,41 @@ function workerOznaczIndeksDoOdbudowy(){
    dość, żeby rozpoznać notatkę, i mieści ich na ekranie kilkanaście. */
 let noteView = "list";
 const savedView = lsGet(KP+"View", null);
-if(["list","medium","compact","tablica"].includes(savedView)) noteView = savedView;
+if(savedView === "tablica") noteView = "tablica"; else noteView = "list";
 function applyNoteView(){
   const el=$("noteList"); if(!el) return;
+  if(noteView !== "tablica") noteView = "list";
   el.classList.remove("v-list","v-medium","v-compact","v-tablica");
   el.classList.add("v-"+noteView);
+  const selKol = $("kolTablicy"), selRoz = $("rozmiarTablicy");
   if(noteView === "tablica"){
     if(typeof zastosujKolumnyTablicy==="function") zastosujKolumnyTablicy();
+    if(selKol) selKol.hidden = false;
+    if(selRoz) selRoz.hidden = false;
   } else {
     el.removeAttribute("data-kol");
+    if(selKol) selKol.hidden = true;
+    if(selRoz) selRoz.hidden = true;
   }
   if(typeof odswiezWyborKolumn==="function") odswiezWyborKolumn();
   document.querySelectorAll("#viewBar .vb").forEach(b=>{
     const wlaczony = b.dataset.view===noteView;
     b.classList.toggle("on", wlaczony);
-    b.setAttribute("aria-pressed", String(wlaczony));   // czytnik ekranu mówi, który widok jest włączony
+    b.setAttribute("aria-pressed", String(wlaczony));
   });
 }
 function setNoteView(v){
-  noteView=v;
-  lsSet(KP+"View", v);
+  noteView = (v === "tablica") ? "tablica" : "list";
+  lsSet(KP+"View", noteView);
   applyNoteView(); renderNotes();
 }
 function initViewBar(){
   const ic={
     list:_svg('<path d="M4 6h16M4 12h16M4 18h16"/>'),
-    medium:_svg('<path d="M4 5h16M4 9h16M4 15h16M4 19h16"/>'),
-    compact:_svg('<path d="M4 5h16M4 9h16M4 13h16M4 17h16M4 21h16"/>'),
     tablica:_svg('<rect x="3.5" y="3.5" width="7" height="7" rx="1.4"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.4"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.4"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.4"/>')
   };
   document.querySelectorAll("#viewBar .vb").forEach(b=>{
     b.innerHTML = ic[b.dataset.view]||"";
-    /* Ikona sama w sobie nic nie mówi czytnikowi ekranu — nazwę bierzemy z podpowiedzi.
-       aria-pressed pokazuje, który widok jest właśnie włączony. */
     if(b.title && !b.getAttribute("aria-label")) b.setAttribute("aria-label", b.title);
     b.setAttribute("aria-pressed", String(b.classList.contains("on")));
     b.onclick = ()=>setNoteView(b.dataset.view);
@@ -30606,7 +30623,11 @@ function renderNotes(){
       ? `<button class="btn btn-load-more">Pokaż więcej (${arr.length-visibleCount})</button>`
       : `<button class="btn btn-load-more">Wczytaj dalsze wyniki</button>`;
     const dalej=()=>{
-      if(wiecejKart){ visibleCount+=60; renderNotes(); }
+      if(wiecejKart){
+        const krok = (typeof window !== "undefined" && window.innerWidth <= 768) ? 15 : 30;
+        visibleCount += krok;
+        renderNotes();
+      }
       else if(typeof doladujWynikiSzukania==="function") doladujWynikiSzukania();
     };
     more.querySelector("button").onclick = dalej;
@@ -30770,10 +30791,19 @@ function noteCardHead(n){
   const pin = n.pin ? `<span class="pinmark" title="Przypięta">${IC_PIN}</span> ` : "";
   const fav = n.fav ? `<span class="favmark" title="Ulubiona">${IC_STAR}</span> ` : "";
   const sel = (typeof zaznaczoneNotatki !== "undefined" && zaznaczoneNotatki.has(n.g)) ? " checked" : "";
+  let tytul = (n.t && String(n.t).trim()) ? n.t : "";
+  if(!tytul){
+    const plain = (typeof htmlToPlain === "function" && n.c) ? htmlToPlain(n.c).trim() : (n.c || "").replace(/<[^>]+>/g, "").trim();
+    if(plain){
+      tytul = plain.slice(0, 75) + (plain.length > 75 ? "…" : "");
+    } else {
+      tytul = "Notatka bez tytułu";
+    }
+  }
   return `<div class="nhead">
        <label class="nsel" title="Zaznacz notatkę" onclick="event.stopPropagation()"><input type="checkbox" class="nsel-cb" data-g="${n.g}"${sel}><span class="nsel-box"></span></label>
        <span class="drag" draggable="true" title="Przeciągnij na zakładkę">${IC_GRIP}</span>
-       <div class="ntitle">${pin}${fav}${hilite(esc(n.t||""))}</div>
+       <div class="ntitle">${pin}${fav}${hilite(esc(tytul))}</div>
      </div>`;
 }
 
@@ -30967,9 +30997,10 @@ function noteCard(n){
   const match=sd?`<div class="searchMatch"><span class="searchReason">${esc(sd.reason||"dopasowanie")}</span>`+
     `<span class="searchSnippets">${fragmenty.filter(Boolean).map(s=>`<span class="searchSnippet">${hilite(esc(s))}</span>`).join("")}</span>`+
     (ileTraf?`<span class="searchHits">${ileTraf}</span>`:"")+`</div>`:"";
+  const cHtml = contentHtml(n);
   d.innerHTML = noteCardHead(n) + noteCardMeta(n) + noteCardChips(n) + match +
                 (typeof htmlPaskaPowtorki==="function" ? htmlPaskaPowtorki(n) : "") +
-                `<div class="ncontent">${contentHtml(n)}</div>` +
+                `<div class="ncontent">${cHtml || '<span style="color:var(--muted);font-style:italic">Brak dodatkowej treści</span>'}</div>` +
                 `<div class="wysUchwyt" title="Przeciągnij, aby zmienić wysokość notatki (dwuklik = jak w widoku)"></div>` +
                 noteCardTools(n);
   const _contEl = d.querySelector(".ncontent");
@@ -31068,7 +31099,7 @@ function noteCard(n){
 function renderAll(){
   resetQueryCache();        // wyniki wyszukiwania liczymy raz na przerysowanie, nie cztery razy
   if(typeof resetLicznikowZakladek==="function") resetLicznikowZakladek();
-  visibleCount=query?50:36;
+  visibleCount = query ? 25 : domyslnyVisibleCount();
   renderTags(); renderBooks(); renderNotes();
   if(typeof renderPubPanel === "function") renderPubPanel();
   if(typeof updateUnifiedTabsBadges === "function") updateUnifiedTabsBadges();
@@ -43487,7 +43518,7 @@ function uruchomWyszukiwanie(raw){
   /* Każde nowe zapytanie zaczyna od zwartej, ale użytecznej porcji. Poprzednio
      visibleCount mógł zostać na kilkuset po długim przewijaniu i pierwsza
      litera następnego wyszukiwania od razu budowała setki kart. */
-  if(query!==poprzednie) visibleCount=query?50:36;
+  if(query!==poprzednie) visibleCount = query ? 25 : domyslnyVisibleCount();
   if(query && !bylo){ window._sortPrzedSzukaniem=sortMode; sortMode="relevance"; $("sortSel").value="relevance"; }
   else if(!query && bylo && sortMode==="relevance"){
     sortMode=window._sortPrzedSzukaniem||"new"; $("sortSel").value=sortMode;
@@ -44156,7 +44187,7 @@ function openSettings(){
      </div>
      <div class="st-sec">
        <div class="st-lbl">Układ listy notatek</div>
-       ${optionGroup("view", [["list","Pełne karty"],["compact","Zwarta lista"]], noteView)}
+       ${optionGroup("view", [["list","Lista notatek"],["tablica","Widok tablicy"]], noteView)}
      </div>
      <div class="st-sec">
        <div class="st-lbl">Oszczędzanie miejsca u góry</div>

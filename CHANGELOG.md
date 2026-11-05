@@ -1,6 +1,15 @@
 ## 5.0 — 2026-11-05 (Aktualizacja bieżąca)
 
-- **Naprawa znikających kart notatek na iPhonie (zwijanie do pustych linii, cache `v585`):**
+- **Uproszczenie widoków notatek do 2 opcji (Lista notatek oraz Widok tablicy):**
+  - Zredukowano przełącznik widoków do dwóch przejrzystych i jednoznacznych trybów: **Lista notatek** oraz **Widok tablicy** (wycofano zbędne tryby pośrednie).
+  - W widoku listy na telefonach i mniejszych ekranach każda karta notatki ma zwięzłą, zoptymalizowaną wysokość obejmującą około 10 linii tekstu z łagodnym zanikaniem, eliminując konieczność przewijania kilometrowych artykułów w widoku ogólnym.
+- **Oszczędzanie zasobów i bateria (lekkie porcje + wczytywanie z tła):**
+  - Zredukowano początkową liczbę renderowanych kart do 10–12 notatek na małych ekranach, co przyspieszyło start do zaledwie paru milisekund.
+  - Kolejne notatki (po 15–20) ładują się płynnie i bezszelestnie w tle, gdy użytkownik zbliża się do dołu listy.
+  - Karta bez wpisanego tytułu automatycznie przyjmuje fragment pierwszego zdania lub czytelny podpis zamiast pustego nagłówka.
+- **Wymuszenie natychmiastowej aktualizacji w PWA (cache `v586`):**
+  - Włączono bezpośrednie `self.skipWaiting()` i `self.clients.claim()` w Service Workerze, co sprawia, że iPhone i iPad nie zostają na starym buforze, lecz natychmiast przejmują najnowszy kod.
+- **Naprawa znikających kart notatek na iPhonie (zwijanie do pustych linii):**
   - Wyeliminowano usterkę silnika WebKit (iOS Safari), gdzie reguła `content-visibility: auto` błędnie uznawała karty notatek wewnątrz przewijanego kontenera za niewidoczne i pomijała ich renderowanie, zwijając je do 1-pikselowych linii obramowania.
   - Przywrócono w pełni stabilną i bezpieczną izolację układu (`contain: layout style`), gwarantującą natychmiastowe wyświetlanie tytułów, treści, etykiet i narzędzi notatek.
 - **Płynne automatyczne doładowywanie notatek przy przewijaniu (infinite scroll):**
