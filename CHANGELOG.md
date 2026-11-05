@@ -1,3 +1,24 @@
+## 5.0 — 2026-11-05 (Aktualizacja bieżąca)
+
+- **Uporządkowanie struktury projektu i dokumentacji:**
+  - Zsynchronizowano nazwę katalogu roboczego projektu (`JW-Study-5.0`) z nazwą aplikacji i repozytorium GitHub, tworząc symlink zachowujący wsteczną zgodność ścieżek narzędziowych.
+  - Zarchiwizowano dawne kopie robocze do katalogu `docs/archiwalne/` i utworzono dedykowany katalog `docs/audyty/` dla raportów z audytów bezpieczeństwa.
+  - Zredagowano kompletny podręcznik użytkownika i opis architektury w `README.md` oraz przewodnik wdrażania wydań w `docs/WYDANIE.md`.
+- **Kompaktowy pasek odtwarzacza audio MP3 (cache `v582`):**
+  - Wprowadzono nowoczesny, wąski profil odtwarzacza o wysokości zredukowanej do ~4 linii tekstu (~74 px), oszczędzający przestrzeń roboczą na iPadzie i telefonie.
+  - Zoptymalizowano pasek postępu, wskaźniki czasu, przyciski sterujące i przełącznik tempa odtwarzania.
+- **Optymalizacja odtwarzacza wideo:**
+  - Uporządkowano skalowanie, proporcje i tryb pełnoekranowy osadzonych filmów wideo.
+- **Filtr Anty-Mojibake:**
+  - Wdrożono automatyczne czyszczenie tekstu wklejanego ze schowka z uszkodzonych znaków diakrytycznych i błędnych encji UTF-8/Windows-1250 (np. przy kopiowaniu z zewnętrznych asystentów AI).
+- **Naprawa zacinania klawiatury na iPadOS (cache `v583`):**
+  - Wyeliminowano usterkę WebKit powodującą utratę reakcji klawiatury po przełączeniu między aplikacjami (np. z JW Library) i powrocie do edycji notatki.
+  - Wprowadzono automatyczne ponowne podpięcie respondera (`re-attach responder`) i synchronizację fokusu pola edycji.
+- **Dopasowanie marginesu górnego dla iPadOS (cache `v584`):**
+  - Obniżono górny nagłówek i boczny pasek narzędzi o jedną linię tekstu (~22 px) z uwzględnieniem `safe-area-inset-top`, zapewniając pełną czytelność interfejsu pod wskaźnikami zegara i baterii Apple.
+- **Audyt bezpieczeństwa poświadczeń:**
+  - Usunięto Personal Access Token z pliku `.git/config` i wdrożono bezpieczny mechanizm zarządzania poświadczeniami Git (`credential.helper`).
+
 ## 5.0 — 2026-09-29
 
 - Naprawiono widoczność pól „Rozdział" i „Werset" w oknie nowej notatki na urządzeniach mobilnych.

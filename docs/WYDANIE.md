@@ -1,35 +1,61 @@
-# Wydanie 3.36
+# Procedura Wydania i Wdrożenia — JW-Study 5.0
 
-JW Study 3.36 — naprawa importu PDF, Word i OCR
+Ten dokument opisuje procedurę przygotowania, testowania oraz publikacji wydań aplikacji **JW-Study 5.0** na platformie GitHub Pages.
 
-PRZYCZYNA BŁĘDU ZE ZRZUTU
-Wskazany plik https://skarzynski76.github.io/JW-Study-3.1/lib/smart-import/pdf.worker.min.js zwracał HTTP 404 podczas sprawdzania 17.09.2026. PDF.js nie mógł uruchomić ani zwykłego, ani awaryjnego workera.
+---
 
-CO ZMIENIONO
-Biblioteki PDF.js (wraz z workerem), Mammoth, JSZip, Tesseract, silnik WebAssembly i polski model OCR są teraz wbudowane w index.html. Import PDF, DOCX i obrazów nie pobiera ich z katalogu lib ani z zewnętrznych serwerów. Rozpoznawanie pozostaje lokalne.
-Dodano przyciski „Zdjęcie / zrzut ekranu” i „Wklej zrzut ze schowka”. Wklejanie zależy od obsługi schowka i zgody przeglądarki; wybór zapisanego obrazu działa bez dostępu do schowka.
-Zachowano edycję treści przed zapisem, wykrywanie typu po zawartości i dokładny OCR wszystkich stron PDF oraz ilustracji DOCX.
-Zmieniono numer wersji na 3.36 oraz pamięć podręczną aplikacji.
-Pliki zachowują prawidłowe rozszerzenia. Paczka ma .zip, strona index.html, skrypty .js. Nie dopisano do nich .json. Istniejące kopie danych w formacie JSON nadal pozostają kopiami JSON.
+## 1. Zakres Wydania 5.0
 
-JAK WGRYWAĆ
-1. Zapisz kopię swoich notatek z działającej aplikacji.
-2. Rozpakuj JW-Study-3.36.zip.
-3. W dotychczasowym repozytorium i katalogu publikowanym przez GitHub Pages podmień zawartość na pliki z katalogu JW-Study-3.36. Nie twórz dodatkowego katalogu 3.36 wewnątrz obecnej strony. Szczególnie ważne: podmień index.html i sw.js. Wgraj także pozostałe pliki; inne funkcje aplikacji, np. import JW Library, nadal korzystają z lib.
-4. Poczekaj na zakończenie publikacji GitHub Pages. Otwórz dotychczasowy adres strony z internetem, opcjonalnie z końcówką ?v=3.36. Jeśli pojawi się propozycja aktualizacji, zaakceptuj ją. Zamknij i otwórz aplikację ponownie.
-5. Przy logo wewnątrz strony musi być v3.36. Nazwa starej ikony na ekranie głównym iPada może się nie zmienić — nie jest potwierdzeniem wersji kodu.
-Nie usuwaj danych witryny Safari ani aplikacji z danymi: tam mogą być przechowywane Twoje notatki. Ta paczka nie została automatycznie opublikowana na Twoim hostingu.
+Wydanie **JW-Study 5.0** integruje kluczowe usprawnienia architektury PWA, interfejsu i obsługi multimediów:
+- **Kompaktowy odtwarzacz audio MP3:** odtwarzacz w formie paska o grubości ~4 linii tekstu (~74 px) z regulacją prędkości i responsywnym układem.
+- **Dedykowany odtwarzacz wideo:** optymalizacja odtwarzania plików wideo na iPadach i komputerach stacjonarnych.
+- **Obsługa specyfiki iPadOS:**
+  - Ochrona przed zacinaniem klawiatury po powrocie z innych aplikacji (np. JW Library) – dynamiczne przywracanie fokusowania (`re-attach responder`).
+  - Odpowiedni margines górny (`env(safe-area-inset-top)`) zapobiegający nakładaniu się paska menu na wskaźniki systemowe zegara, baterii i sieci Apple.
+- **Filtr Anty-Mojibake:** automatyczne czyszczenie błędnie zdekodowanych polskich znaków diakrytycznych przy wklejaniu ze schowka.
+- **Gotowość Offline-First:** pełne buforowanie aplikacji przez Service Worker, brak zewnętrznych zależności CDN blokowanych przy braku sieci.
+- **Audyt bezpieczeństwa:** usunięcie poświadczeń z konfiguracji `.git/config` i wdrożenie globalnego menedżera poświadczeń.
 
-JAK IMPORTOWAĆ
-Plik → Inteligentny import → wybierz dokument lub „Zdjęcie / zrzut ekranu” → Rozpoznaj i pokaż podgląd → sprawdź i popraw treść → Dodaj wybrane notatki.
-Jeśli PDF ma tylko fragment tekstu, zaznacz „Dokładny OCR”. Ta opcja rozpoznaje również tekst ilustracji w DOCX.
-Obsługiwane: PDF, DOCX, PNG, JPG/JPEG, WEBP. Stary binarny Word .doc trzeba zapisać jako DOCX w Wordzie. HEIC wymaga konwersji do JPEG lub PNG.
+---
 
-TESTY
-26/26 testów regresji.
-Test przeglądarkowy z serwerem celowo zwracającym 404 dla katalogu lib i zewnętrznego JSZip: PDF tekstowy, DOCX, OCR obrazu, skanowany PDF, OCR ilustracji DOCX, poprawka treści i zapis pięciu notatek — PASS.
-Osobno wybór obrazu nowym przyciskiem przez okno plików, OCR i zapis nowej notatki przez interfejs — PASS.
-Testy wykonano w przeglądarce Codex oraz w Safari na Macu. W Safari potwierdzono pięć rodzajów importu, edycję i zapis, zachowanie pięciu notatek po odświeżeniu oraz brak duplikatów po ponownym imporcie. Nie potwierdzono działania na fizycznym iPadzie; nie testowano schowka systemowego iPada.
-Kontrola strony online 17.09.2026: pod adresem https://skarzynski76.github.io/JW-Study-3.1/ nadal widniała wersja v3.24, bez wbudowanej biblioteki PDF. Wersję 3.36 trzeba wdrożyć na ten hosting.
+## 2. Krok po kroku: Publikacja na GitHub Pages
 
-Zrzut zgłoszonego błędu dostarczono osobno jako zrzut-bledu-3.36.png. Nie należy go publikować na hostingu razem z aplikacją.
+### Krok 1: Weryfikacja plików i numeru wersji
+Przed wdrożeniem upewnij się, że:
+1. Plik `WERSJA` zawiera numer `5.0`.
+2. W `manifest.webmanifest` nazwa aplikacji to `JW-Study 5.0`.
+3. W pliku `sw.js` identyfikator pamięci podręcznej odpowiada bieżącemu wydaniu (np. `jw-study-cache-v584`).
+4. Kod JavaScript w `index.html` nie zawiera błędów składniowych.
+
+### Krok 2: Wypchnięcie zmian do repozytorium GitHub
+Wszystkie zmiany publikowane są bezpośrednio do gałęzi `main`:
+```bash
+git add -A
+git commit -m "Wydanie 5.0: Uporządkowanie dokumentacji i struktury projektu"
+git push origin main
+```
+> [!NOTE]
+> GitHub Pages automatycznie buduje i publikuje nową wersję w ciągu około 1–2 minut po zakończeniu operacji `push`.
+
+---
+
+## 3. Aktualizacja po stronie użytkownika (iPad / Mac / PC)
+
+1. **Uruchomienie aplikacji:** Otwórz aplikację pod adresem hostingu GitHub Pages przy aktywnym połączeniu internetowym.
+2. **Powiadomienie o aktualizacji:** Service Worker w tle wykryje nowy plik `sw.js` i pobierze zaktualizowane zasoby do nowej pamięci podręcznej. Na ekranie pojawi się komunikat o dostępności nowej wersji.
+3. **Akceptacja aktualizacji:** Kliknij przycisk „Zaktualizuj” lub zamknij i ponownie otwórz aplikację PWA.
+4. **Weryfikacja wersji:**
+   - W stopce bocznego menu lub w oknie informacyjnym upewnij się, że wyświetlana jest wersja **5.0**.
+
+> [!CAUTION]
+> **Nigdy nie usuwaj danych witryny ani pamięci podręcznej przeglądarki Safari w Ustawieniach iOS w celu wymuszenia aktualizacji!**
+> W pamięci lokalnej (IndexedDB) przechowywane są Twoje notatki, etykiety i materiały. Usunięcie danych witryny skasuje niezapisane w plikach kopie notatek. Do zaktualizowania kodu wystarczy zwykłe odświeżenie strony lub kliknięcie komunikatu o nowej wersji.
+
+---
+
+## 4. Wykonywanie kopii zapasowych przed aktualizacją
+
+Przed każdą większą aktualizacją zaleca się pobranie kopii bezpieczeństwa:
+1. W aplikacji przejdź do: **Menu → Kopia zapasowa / Eksport**.
+2. Wybierz **Pełny eksport (JSON)**.
+3. Zapisz plik w bezpiecznej lokalizacji (np. w aplikacji Pliki na iPadzie lub na dysku iCloud / Google Drive).

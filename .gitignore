@@ -1,6 +1,8 @@
 .DS_Store
 *.zip
+*.mp4
 JW-Study-3.*/
+docs/archiwalne/JW-Study-3.*/
 testy/
 index-*.html
 index.*backup*.html
