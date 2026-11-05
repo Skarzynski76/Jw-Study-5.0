@@ -5852,17 +5852,11 @@ html[data-theme="dark"] #pubPanel{border-color:var(--border)}
 .ncard.pinned{border-color:var(--accent2);box-shadow:0 0 0 1.5px var(--accent2), 0 4px 16px rgba(37,107,82,.08)}
 .ncard.selected, .ncard.active, .ncard.otwarta{border-left:4px solid var(--accent);background:color-mix(in srgb,var(--accent) 4%,var(--panel))}
 .ncard>*:not(.nhead):not(.ntools){margin-left:16px;margin-right:16px}
-/* Wirtualizacja kart notatek (content-visibility: auto + contain-intrinsic-size z pamięcią rozmiaru auto)
-   Zapewnia płynne 60/120 FPS przy przewijaniu baz z ponad 1000 notatek oraz oszczędza pamięć RAM i baterię. */
+/* Bezpieczna izolacja układu kart notatek (contain: layout style).
+   Wycofano content-visibility: auto, które w silniku WebKit (iOS Safari) traktowało karty
+   wewnątrz przewijanego kontenera jako niewidoczne i zwijało je do 1-pikselowych linii. */
 #noteList .ncard {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 160px;
-}
-#noteList.v-compact .ncard {
-  contain-intrinsic-size: auto 75px;
-}
-#noteList.v-tablica .ncard {
-  contain-intrinsic-size: auto 210px;
+  contain: layout style;
 }
 #noteList .ncard.editing,
 #noteList .ncard.wydobyta,
@@ -5870,13 +5864,7 @@ html[data-theme="dark"] #pubPanel{border-color:var(--border)}
 #noteList.reordering .ncard,
 #fsWrap .ncard,
 #modalFs .ncard {
-  content-visibility: visible !important;
-  contain-intrinsic-size: none !important;
-}
-@media print {
-  #noteList .ncard {
-    content-visibility: visible !important;
-  }
+  contain: none !important;
 }
 .pinmark{font-size:13px;vertical-align:1px;color:var(--accent2)}
 .sbtn.ico.pinon{color:#d97706!important;background:rgba(245,158,11,.14)!important;border-color:rgba(245,158,11,.32)!important;box-shadow:0 1px 6px rgba(245,158,11,.16)}
@@ -17619,8 +17607,7 @@ body.modal-open {
 }
 
 #noteList .ncard {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 160px;
+  contain: layout style;
 }
 
 
@@ -30613,20 +30600,41 @@ function renderNotes(){
   const wiecejWIndeksie=!!query && searchWasLimited && !searchInProgress && !wiecejKart;
   if(wiecejKart || wiecejWIndeksie){
     const more = document.createElement("div");
+    more.className = "more-cards-wrapper";
     more.style.cssText = "text-align:center;padding:14px";
     more.innerHTML = wiecejKart
-      ? `<button class="btn">Pokaż więcej (${arr.length-visibleCount})</button>`
-      : `<button class="btn">Wczytaj dalsze wyniki</button>`;
+      ? `<button class="btn btn-load-more">Pokaż więcej (${arr.length-visibleCount})</button>`
+      : `<button class="btn btn-load-more">Wczytaj dalsze wyniki</button>`;
     const dalej=()=>{
       if(wiecejKart){ visibleCount+=60; renderNotes(); }
       else if(typeof doladujWynikiSzukania==="function") doladujWynikiSzukania();
     };
     more.querySelector("button").onclick = dalej;
     wanted.push(more);
-    _moreObserver = new IntersectionObserver(es=>{
-      if(es[0].isIntersecting){ _moreObserver.disconnect(); _moreObserver=null; dalej(); }
-    });
-    _moreObserver.observe(more);
+    if(typeof IntersectionObserver !== "undefined"){
+      _moreObserver = new IntersectionObserver(es=>{
+        if(es[0].isIntersecting){ _moreObserver.disconnect(); _moreObserver=null; dalej(); }
+      }, { root: el, rootMargin: "350px" });
+      _moreObserver.observe(more);
+    }
+  }
+  if(!el._lazyScrollBound){
+    el._lazyScrollBound = true;
+    let _scrollTicking = false;
+    el.addEventListener("scroll", ()=>{
+      if(!_scrollTicking){
+        _scrollTicking = true;
+        requestAnimationFrame(()=>{
+          _scrollTicking = false;
+          if(el.scrollHeight - el.scrollTop - el.clientHeight < 450){
+            const btn = el.querySelector(".btn-load-more");
+            if(btn && !btn.disabled){
+              btn.click();
+            }
+          }
+        });
+      }
+    }, { passive: true });
   }
   syncChildren(el, wanted);
   if(typeof odswiezZaznaczeniaKart==="function") odswiezZaznaczeniaKart(el);

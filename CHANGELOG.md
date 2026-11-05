@@ -1,5 +1,11 @@
 ## 5.0 — 2026-11-05 (Aktualizacja bieżąca)
 
+- **Naprawa znikających kart notatek na iPhonie (zwijanie do pustych linii, cache `v585`):**
+  - Wyeliminowano usterkę silnika WebKit (iOS Safari), gdzie reguła `content-visibility: auto` błędnie uznawała karty notatek wewnątrz przewijanego kontenera za niewidoczne i pomijała ich renderowanie, zwijając je do 1-pikselowych linii obramowania.
+  - Przywrócono w pełni stabilną i bezpieczną izolację układu (`contain: layout style`), gwarantującą natychmiastowe wyświetlanie tytułów, treści, etykiet i narzędzi notatek.
+- **Płynne automatyczne doładowywanie notatek przy przewijaniu (infinite scroll):**
+  - Podpięto `IntersectionObserver` bezpośrednio pod kontener przewijania `#noteList` z zapasem 350 px (`rootMargin`), umożliwiając wyprzedzające doładowywanie kolejnych partii notatek.
+  - Dodano sprzętowo optymalizowany nasłuch zdarzenia przewijania (`scroll` + `requestAnimationFrame`), zapewniający niezawodne ładowanie kolejnych notatek na iPhone i iPadzie bez zatrzymywania gestu.
 - **Uporządkowanie struktury projektu i dokumentacji:**
   - Zsynchronizowano nazwę katalogu roboczego projektu (`JW-Study-5.0`) z nazwą aplikacji i repozytorium GitHub, tworząc symlink zachowujący wsteczną zgodność ścieżek narzędziowych.
   - Zarchiwizowano dawne kopie robocze do katalogu `docs/archiwalne/` i utworzono dedykowany katalog `docs/audyty/` dla raportów z audytów bezpieczeństwa.
