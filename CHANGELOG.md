@@ -1,4 +1,13 @@
-## 5.0 — 2026-11-06 (Aktualizacja bieżąca — v587)
+## 5.0 — 2026-11-06 (Aktualizacja bieżąca — v588)
+
+- **Eliminacja samoczynnego przewijania okna do góry po powrocie do aplikacji:**
+  - Zidentyfikowano błąd w procedurze pozycjonowania kursora (`kbPokazKursor`), która przy braku punktowego zaznaczenia w edytorze tekstu (`contenteditable`) brała prostokąt całego bloku artykułu. Ponieważ góra przewiniętego artykułu znajdowała się poza ekranem, funkcja błędnie interpretowała to jako schowanie kursora pod górną belkę i gwałtownie cofała przewinięcie do zera (`scrollTop = 0`).
+  - Wprowadzono rygorystyczne sprawdzanie wysokości kursora (`height < 90px`) — przy braku precyzyjnego kursora widok nie jest ruszany i zachowuje dokładnie ustaloną pozycję.
+  - Dodano czasową blokadę automatycznego przewijania (`1.2 s`) natychmiast po powrocie z innej aplikacji (`visibilitychange`, `pageshow`, `focus`), zabezpieczającą ekran przed szarpnięciami podczas animacji systemowych iPadOS.
+  - Wyłączono niekontrolowane automatyczne przeładowywanie strony (`location.reload`) przy zmianie kontrolera Service Workera, gdy użytkownik aktywnie edytuje notatkę lub korzysta z czytnika.
+  - Usunięto agresywne `self.skipWaiting()` z etapu instalacji Service Workera i podniesiono wersję pamięci podręcznej do `v588`.
+
+## 5.0 — 2026-11-06 (Wersja v587)
 
 - **Całkowita eliminacja zawieszania edytora i klawiatury na iPadzie po powrocie z innej aplikacji:**
   - Zidentyfikowano i wyeliminowano kolizję w silniku WebKit (iPadOS/iOS), w której sztuczne wywołania `.blur()` i `.focus()` rejestrowane w zdarzeniach `pointerdown` i `click` przerywały natywny gest dotknięcia ekranu (`becomeFirstResponder` w UIKit).

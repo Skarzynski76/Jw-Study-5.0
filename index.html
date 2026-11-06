@@ -27253,6 +27253,8 @@ function odblokujWiszaceAkcjePoPowrocie(){
   // NIGDY nie wolno wywoływać w trakcie zdarzeń dotykowych sztucznego blur() ani focus(),
   // gdyż przerywa to procedurę respondera w UIKit i trwale zamraża edytor i klawiaturę!
   // Tutaj jedynie bezpiecznie odświeżamy atrybuty na wypadek uśpienia WebProcess w tle.
+  // Nie zmieniamy własności contentEditable jeśli już jest włączona, by nie resetować
+  // stanu przewinięcia ani pozycji selekcji wewnątrz notatki!
   const aktywneKarty = document.querySelectorAll(".ncard.editing");
   if(aktywneKarty.length > 0){
     aktywneKarty.forEach(card => {
@@ -27260,8 +27262,10 @@ function odblokujWiszaceAkcjePoPowrocie(){
       const contEl = card.querySelector(".ncontent");
       [titleEl, contEl].forEach(el => {
         if(!el) return;
-        el.contentEditable = "true";
-        el.setAttribute("contenteditable", "true");
+        if(el.getAttribute("contenteditable") !== "true"){
+          el.setAttribute("contenteditable", "true");
+          el.contentEditable = "true";
+        }
         el.setAttribute("lang", "pl");
         el.setAttribute("spellcheck", "true");
         el.setAttribute("autocorrect", "on");
@@ -27276,8 +27280,10 @@ function odblokujWiszaceAkcjePoPowrocie(){
     const mTitle = $("nnTitle"), mCont = $("nnContent");
     [mTitle, mCont].forEach(el => {
       if(!el) return;
-      el.contentEditable = "true";
-      el.setAttribute("contenteditable", "true");
+      if(el.getAttribute("contenteditable") !== "true"){
+        el.setAttribute("contenteditable", "true");
+        el.contentEditable = "true";
+      }
       el.setAttribute("lang", "pl");
       el.setAttribute("spellcheck", "true");
       el.setAttribute("autocorrect", "on");
@@ -27288,10 +27294,14 @@ function odblokujWiszaceAkcjePoPowrocie(){
   }
 }
 let _ostatnieOdblokowanieTs = 0;
+let _powrotZablokujScrollDoKursora = 0;
 function odblokujWiszaceAkcjePoPowrocieDebounced(){
   const now = Date.now();
   if(now - _ostatnieOdblokowanieTs < 400) return;
   _ostatnieOdblokowanieTs = now;
+  // Blokujemy sztuczne przewijanie ekranu przez 1.2 sekundy po powrocie z innej aplikacji,
+  // aby układ strony i pozycja czytania/pisania nie skakały pod palcem użytkownika.
+  _powrotZablokujScrollDoKursora = now + 1200;
   odblokujWiszaceAkcjePoPowrocie();
 }
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState === "visible") odblokujWiszaceAkcjePoPowrocieDebounced(); });
@@ -27787,6 +27797,10 @@ let _przeladowano = false;
 function przejeloObsluge(bylaObsluga){
   if(!bylaObsluga) return false;   // pierwsze uruchomienie — nie ma czego odświeżać
   if(_przeladowano) return false;
+  // Jeśli użytkownik ma otwartą edycję notatki, czytnik lub modal, nie przeładowuj strony bez jego wiedzy!
+  if(document.querySelector(".ncard.editing, #modalFs.show, .modal.show")){
+    return false;
+  }
   _przeladowano = true;
   location.reload();
   return true;
@@ -44944,13 +44958,16 @@ function kursorProstokat(){
   if(!sel || !sel.rangeCount) return null;
   const zakres = sel.getRangeAt(0);
   const rects = zakres.getClientRects();
-  if(rects && rects.length > 0) return rects[0];
+  if(rects && rects.length > 0){
+    const r0 = rects[0];
+    if(r0 && r0.height > 0 && r0.height < 90) return r0;
+  }
   let r = zakres.getBoundingClientRect();
-  if(r && (r.top || r.bottom || r.height)) return r;
+  if(r && (r.top || r.bottom || r.height) && r.height < 90) return r;
   const node = sel.anchorNode;
-  if(node){
-    const el = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
-    if(el) return el.getBoundingClientRect();
+  if(node && node.nodeType === Node.TEXT_NODE && node.parentElement){
+    const pr = node.parentElement.getBoundingClientRect();
+    if(pr && pr.height > 0 && pr.height < 90) return pr;
   }
   return null;
 }
@@ -44971,6 +44988,7 @@ function kbPojemnik(el){
 
 /** Przewija tak, żeby kursor stanął nad klawiaturą ekranową lub dolną krawędzią ekranu. */
 function kbPokazKursor(){
+  if(typeof _powrotZablokujScrollDoKursora !== "undefined" && Date.now() < _powrotZablokujScrollDoKursora) return;
   const akt = document.activeElement;
   if(!akt) return;
   const wPolu = akt.tagName === "TEXTAREA" || akt.tagName === "INPUT";
@@ -44986,8 +45004,18 @@ function kbPokazKursor(){
   const dolnaGranica = widocznaWys - zapasDolny;
   const zapasGorny = 68;
 
-  let r = wTresci ? (kursorProstokat() || akt.getBoundingClientRect()) : akt.getBoundingClientRect();
-  if(!r) return;
+  let r = null;
+  if(wTresci){
+    r = kursorProstokat();
+    // Jeśli nie mamy precyzyjnego prostokąta kursora (pojedynczej linii tekstu),
+    // POD ŻADNYM POZOREM nie przewijamy widoku! Nie bierzemy akt.getBoundingClientRect(),
+    // gdyż góra całego kontenera ncontent znajduje się poza ekranem i zrzucała scrollTop do zera!
+    if(!r || r.height > 90) return;
+  } else {
+    r = akt.getBoundingClientRect();
+    if(!r) return;
+    if(r.height > 120 && r.top < zapasGorny) return;
+  }
 
   const nadmiar = r.bottom - dolnaGranica;
   if(nadmiar > 0){
