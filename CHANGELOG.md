@@ -1,4 +1,14 @@
-## 5.0 — 2026-11-05 (Aktualizacja bieżąca)
+## 5.0 — 2026-11-06 (Aktualizacja bieżąca — v587)
+
+- **Całkowita eliminacja zawieszania edytora i klawiatury na iPadzie po powrocie z innej aplikacji:**
+  - Zidentyfikowano i wyeliminowano kolizję w silniku WebKit (iPadOS/iOS), w której sztuczne wywołania `.blur()` i `.focus()` rejestrowane w zdarzeniach `pointerdown` i `click` przerywały natywny gest dotknięcia ekranu (`becomeFirstResponder` w UIKit).
+  - Usunięto kolizyjne listenery zdarzeń dotykowych ingerujące w naturalne zachowanie pól `contenteditable`.
+  - Wdrożono czyste, bezinwazyjne odświeżanie atrybutów edytora po powrocie z tła (bez sztucznego przestawiania fokusu), dzięki czemu dotknięcie ekranu palcem lub Apple Pencilem natychmiast wysuwa klawiaturę bez konieczności klikania „Zapisz” i „Edytuj”.
+  - Zabezpieczono obsługę fizycznych klawiatur (Apple Magic Keyboard / Smart Keyboard Folio) poprzez dedykowany nasłuch `keydown` aktywujący edytor przy naciśnięciu dowolnego klawisza znakowego.
+  - Zabezpieczono procedurę powrotu przed wielokrotnym nakładaniem się zdarzeń (`debounce` 400 ms dla `visibilitychange`, `pageshow` i `focus`).
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v587`.
+
+## 5.0 — 2026-11-05 (Wydanie 5.0)
 
 - **Uproszczenie widoków notatek do 2 opcji (Lista notatek oraz Widok tablicy):**
   - Zredukowano przełącznik widoków do dwóch przejrzystych i jednoznacznych trybów: **Lista notatek** oraz **Widok tablicy** (wycofano zbędne tryby pośrednie).
