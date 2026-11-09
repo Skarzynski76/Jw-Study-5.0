@@ -1,4 +1,13 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v595)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v596)
+
+- **Poprawa wyglądu i działania kafelków nawyków w Centrum Studium (Ekran Powitalny):**
+  - **Usunięcie błędu `undefined`:** Naprawiono odczyt właściwości dni tygodnia z generatora tygodnia (błędne odwołanie do `d.date` i `d.done` zastąpiono prawidłowymi `d.dateStr`, `d.dayName`, `d.dayNum` oraz `d.isDone`).
+  - **Nowy, przejrzysty pasek 7 dni tygodnia:** Zastąpiono zlewające się kropki eleganckimi miniprzyciskami (Pn, Wt, Śr, Cz, Pt, So, Nd) z numerami dni miesiąca.
+  - **Pełna interaktywność:** Każdy dzień w kafelku stał się klikalnym przyciskiem (`data-cel-habit-day`), dzięki czemu użytkownik może bezpośrednio z ekranu powitalnego jednym dotknięciem zaliczyć lub odznaczyć wykonanie nawyku w danym dniu.
+  - **Wyróżnienie dzisiejszego dnia i ukończenia:** Dzisiejszy dzień posiada akcentową ramkę i podświetlenie, dni ukończone oznaczane są szmaragdową zielenią ze znacznikiem `✓`, a w przypadku spełnienia tygodniowego celu pojawia się odznaka *„Cel osiągnięty ✓”*.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v596`.
+
+## 5.0 — 2026-11-09 (Wersja v595)
 
 - **Ekran powitalny codziennego studium wyświetlany natychmiast przy otwieraniu aplikacji:**
   - **Naprawa logiki startowej:**
