@@ -1,4 +1,20 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v592)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v593)
+
+- **Własne zdjęcie lub grafika profilu użytkownika (100% lokalnie i prywatnie):**
+  - **Wgrywanie zdjęć i grafik z urządzenia:**
+    - W oknie Ustawień (karta „Profil”) dodano przycisk **„Wgraj zdjęcie z urządzenia”** obsługujący zdjęcia z dysku komputera, galerii lub aparatu iPada / iPhone'a.
+    - Automatyczne centrowanie i inteligentna kompresja (kwadratowy center-crop do 192×192 px, ~8-12 KB), co zapewnia błyskawiczne wczytywanie i brak obciążenia pamięci.
+  - **Kolekcja gotowych symboli studium i wiary:**
+    - Zestaw 12 estetycznych grafik / symboli do wyboru jednym kliknięciem (np. 📖 Pismo Święte, 🕊️ Gołębica, 🏛️ Świątynia, 🏔️ Góra, 🌳 Drzewo życia, ⛵ Łódź, 🛡️ Tarcza wiary, 💎 Klejnot, 🌅 Świt, 🌿 Gałązka oliwna, 🦁 Lew Judy, 🐑 Trzoda).
+    - Możliwość usunięcia grafiki przyciskiem „Usuń grafikę” i powrotu do kolorowego gradientu z inicjałami.
+  - **Spójna prezentacja awatara w całej aplikacji:**
+    - Zdjęcie lub grafika automatycznie pojawia się na karcie profilu w lewym pasku bocznym (`#sidebarUserAvatar`), w banerze powitalnym Centrum Studium (`.cenUserAvatar`) oraz w oknie Ustawień.
+  - **Bezpieczeństwo i kopie zapasowe:**
+    - Wszystkie dane graficzne są przechowywane **wyłącznie lokalnie** w pamięci urządzenia (`localStorage`), bez wysyłania do chmury.
+    - Awatar jest uwzględniony w strukturze kopii zapasowej (`daneKopii().userAvatar`), dzięki czemu jest bezpiecznie zachowywany i przywracany przy imporcie danych.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v593`.
+
+## 5.0 — 2026-11-09 (Wersja v592)
 
 - **Personalizacja profilu użytkownika (Imię / Pseudonim) i integracja w całej aplikacji:**
   - **Możliwość ustawienia własnej nazwy użytkownika:**

@@ -20078,6 +20078,46 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   font-weight: 750;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
 }
+.sidebar-user-avatar.has-custom-img,
+.cenUserAvatar.has-custom-img,
+.st-profil-avatar.has-custom-img {
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  color: transparent !important;
+}
+.st-avatar-presets {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.st-avatar-preset-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--border, #d1d5db) 70%, transparent);
+  background: var(--panel, #ffffff);
+  font-size: 19px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.st-avatar-preset-btn:hover {
+  transform: scale(1.14);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--panel, #ffffff));
+}
+.st-avatar-preset-btn.active {
+  border: 2px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, var(--panel, #ffffff));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+  transform: scale(1.08);
+}
 .st-profil-details {
   display: flex;
   flex-direction: column;
@@ -25404,7 +25444,7 @@ document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState=
 
 /* ==========================================================================
    PROFIL UŻYTKOWNIKA I PERSONALIZACJA (JW STUDY)
-   Obsługa nazwy użytkownika, powitań, inicjałów i spersonalizowanych komunikatów.
+   Obsługa nazwy użytkownika, zdjęcia profilowego, powitań, inicjałów i komunikatów.
    ========================================================================== */
 function pobierzNazweUzytkownika(){
   return (lsGet(KP + "UserName", "") || lsGet("jw_user_name", "") || "").trim();
@@ -25412,6 +25452,67 @@ function pobierzNazweUzytkownika(){
 
 function userImie(domyslne){
   return pobierzNazweUzytkownika() || (domyslne !== undefined ? domyslne : "");
+}
+
+function pobierzZdjecieUzytkownika(){
+  return (lsGet(KP + "UserAvatar", "") || lsGet("jw_user_avatar", "") || "").trim();
+}
+
+function ustawZdjecieUzytkownika(nowyAwatar, cichy){
+  const av = (nowyAwatar || "").trim();
+  lsSet(KP + "UserAvatar", av);
+  lsSet("jw_user_avatar", av);
+  aktualizujElementyProfilu();
+  if(!cichy && typeof toastOk === "function"){
+    toastOk(av ? "Zaktualizowano grafikę profilu" : "Przywrócono domyślny awatar");
+  }
+}
+
+async function kompresujAwatar(file){
+  const dataUrl = await new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+  const img = await new Promise((res, rej) => {
+    const i = new Image();
+    i.onload = () => res(i);
+    i.onerror = rej;
+    i.src = dataUrl;
+  });
+  const size = 192;
+  const cv = document.createElement("canvas");
+  cv.width = size;
+  cv.height = size;
+  const ctx = cv.getContext("2d");
+  const minDim = Math.min(img.width, img.height);
+  const sx = (img.width - minDim) / 2;
+  const sy = (img.height - minDim) / 2;
+  ctx.drawImage(img, sx, sy, minDim, minDim, 0, 0, size, size);
+  return cv.toDataURL("image/jpeg", 0.85);
+}
+
+function renderujElementAwatara(el, imie, avatarData){
+  if(!el) return;
+  const av = (avatarData !== undefined) ? avatarData : pobierzZdjecieUzytkownika();
+  const inicjaly = userInicjaly(imie);
+
+  if(av && av.startsWith("data:image/")){
+    el.textContent = "";
+    el.style.backgroundImage = `url("${av}")`;
+    el.style.backgroundSize = "cover";
+    el.style.backgroundPosition = "center";
+    el.classList.add("has-custom-img");
+  } else if(av && av.startsWith("emoji:")){
+    el.style.backgroundImage = "";
+    el.classList.remove("has-custom-img");
+    el.textContent = av.slice(6);
+  } else {
+    el.style.backgroundImage = "";
+    el.classList.remove("has-custom-img");
+    el.textContent = inicjaly;
+  }
 }
 
 function userInicjaly(imie){
@@ -25442,27 +25543,31 @@ function ustawNazweUzytkownika(noweImie, cichy){
 
 function aktualizujElementyProfilu(){
   const n = pobierzNazweUzytkownika();
-  const inicjaly = userInicjaly(n);
+  const av = pobierzZdjecieUzytkownika();
   
   // 1. Pasek boczny (Sidebar)
   const sName = $("sidebarUserName");
   const sAvatar = $("sidebarUserAvatar");
   const sCard = $("sidebarUserCard");
   if(sName) sName.textContent = n || "Ustaw imię ✏️";
-  if(sAvatar) sAvatar.textContent = inicjaly;
+  if(sAvatar) renderujElementAwatara(sAvatar, n, av);
   if(sCard){
-    sCard.classList.toggle("needs-name", !n);
-    sCard.title = n ? `Profil: ${n} (kliknij, aby edytować)` : "Ustaw swoje imię w aplikacji";
+    sCard.classList.toggle("needs-name", !n && !av);
+    sCard.title = n ? `Profil: ${n} (kliknij, aby edytować)` : "Ustaw swoje imię i zdjęcie w aplikacji";
   }
 
   // 2. Centrum Studium
   const cGreeting = document.querySelector(".cenUserGreeting");
   const cAvatar = document.querySelector(".cenUserAvatar:not(.cenUserAvatarPrompt)");
   if(cGreeting && n) cGreeting.innerHTML = `${pobierzPowitanieUzytkownika(n)}, <b>${esc(n)}</b>! 👋`;
-  if(cAvatar && n) cAvatar.textContent = inicjaly;
+  if(cAvatar) renderujElementAwatara(cAvatar, n, av);
   
   const cBtnTxt = document.querySelector(".cenUserProfileBtn span");
   if(cBtnTxt && n) cBtnTxt.textContent = n;
+
+  // 3. Okno Ustawień (jeśli otwarte)
+  const pAvatar = $("stProfilAvatarPreview");
+  if(pAvatar) renderujElementAwatara(pAvatar, n, av);
 }
 
 // Inicjalizacja przy wczytaniu DOM
@@ -42697,6 +42802,7 @@ async function nazwaPlikuKopii(){
 function daneKopii(){
   return {
     userName: (typeof pobierzNazweUzytkownika === "function") ? pobierzNazweUzytkownika() : "",
+    userAvatar: (typeof pobierzZdjecieUzytkownika === "function") ? pobierzZdjecieUzytkownika() : "",
     tags,
     notes,
     sections: (Array.isArray(sections) ? sections : []),
@@ -43290,6 +43396,11 @@ async function wczytajKopieZTekstu(tekstPliku){
           ustawNazweUzytkownika(data.userName, true);
         }
       }
+      if(data.userAvatar && typeof ustawZdjecieUzytkownika === "function"){
+        if(!pobierzZdjecieUzytkownika()){
+          ustawZdjecieUzytkownika(data.userAvatar, true);
+        }
+      }
       const kontrolaM = idb ? await sprawdzZapis(notes.length, tags.length) : null;
       renderAll();
       /* Do tablicy trafiło naraz dużo notatek — pamięć podręczna szukania
@@ -43380,6 +43491,9 @@ async function wczytajKopieZTekstu(tekstPliku){
     }
     if(data.userName && typeof ustawNazweUzytkownika === "function"){
       ustawNazweUzytkownika(data.userName, true);
+    }
+    if(data.userAvatar && typeof ustawZdjecieUzytkownika === "function"){
+      ustawZdjecieUzytkownika(data.userAvatar, true);
     }
     renderAll();
     /* Do tablicy trafiło naraz dużo notatek — pamięć podręczna szukania
@@ -44928,14 +45042,26 @@ function skrotyEdycjiHtml(){
 function openSettings(){
   const box = $("setBody");
   const userName = (typeof pobierzNazweUzytkownika === "function") ? pobierzNazweUzytkownika() : "";
+  const userAvatar = (typeof pobierzZdjecieUzytkownika === "function") ? pobierzZdjecieUzytkownika() : "";
   const powitanie = (typeof pobierzPowitanieUzytkownika === "function") ? pobierzPowitanieUzytkownika(userName) : "Dzień dobry";
   const inicjaly = (typeof userInicjaly === "function") ? userInicjaly(userName) : "👤";
+
+  let avatarPreviewStyle = '';
+  let avatarPreviewClass = 'st-profil-avatar';
+  let avatarPreviewContent = esc(inicjaly);
+  if(userAvatar && userAvatar.startsWith("data:image/")){
+    avatarPreviewStyle = `style="background-image:url('${userAvatar}');"`;
+    avatarPreviewClass += ' has-custom-img';
+    avatarPreviewContent = '';
+  } else if(userAvatar && userAvatar.startsWith("emoji:")){
+    avatarPreviewContent = esc(userAvatar.slice(6));
+  }
 
   box.innerHTML =
     `<div class="st-karta" data-karta="profil">
      <div class="st-sec">
        <div class="st-profil-card">
-         <div class="st-profil-avatar" id="stProfilAvatarPreview">${esc(inicjaly)}</div>
+         <div class="${avatarPreviewClass}" id="stProfilAvatarPreview" ${avatarPreviewStyle}>${avatarPreviewContent}</div>
          <div class="st-profil-details">
            <div class="st-profil-name-title" id="stProfilNameTitle">${userName ? esc(userName) : "Użytkownik"}</div>
            <div class="st-profil-sub">Twój profil osobisty w aplikacji JW-Study</div>
@@ -44950,6 +45076,23 @@ function openSettings(){
          ${userName ? '<button type="button" class="btn" id="stUserNameClearBtn" title="Wyczyść imię" style="height:38px;">Wyczyść</button>' : ''}
        </div>
        <div class="st-hint">Wpisana nazwa będzie używana w codziennych powitaniach (np. <i>${powitanie}, ${esc(userName || "Grzegorz")}!</i>), w podsumowaniach czytania Biblii, powiadomieniach o ukończonych celach i fragmentach oraz w nagłówkach kopii zapasowych.</div>
+     </div>
+     <div class="st-sec">
+       <div class="st-lbl">Zdjęcie lub grafika profilu</div>
+       <div class="st-row" style="gap:10px;align-items:center;flex-wrap:wrap;">
+         <input type="file" id="stAvatarFileInput" accept="image/*" style="display:none;" aria-label="Wybierz plik ze zdjęciem">
+         <button type="button" class="btn" id="stAvatarUploadBtn" style="height:38px;">
+           <svg class="ic" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+           Wgraj zdjęcie z urządzenia
+         </button>
+         <button type="button" class="btn" id="stAvatarRemoveBtn" style="height:38px;${userAvatar ? '' : 'display:none;'}">
+           Usuń grafikę
+         </button>
+       </div>
+       <div class="st-hint" style="margin-top:6px;">Możesz wgrać własne zdjęcie z dysku lub galerii (zostaje przeskalowane i zapisane wyłącznie na Twoim urządzeniu) albo wybrać gotowy symbol studium poniżej:</div>
+       <div class="st-avatar-presets" id="stAvatarPresets">
+         ${["📖","🕊️","🏛️","🏔️","🌳","⛵","🛡️","💎","🌅","🌿","🦁","🐑"].map(sym => `<button type="button" class="st-avatar-preset-btn${userAvatar === 'emoji:' + sym ? ' active' : ''}" data-avatar-sym="${sym}" title="Ustaw symbol: ${sym}">${sym}</button>`).join("")}
+       </div>
      </div>
      <div class="st-sec">
        <div class="st-lbl">Podgląd komunikatów w aplikacji</div>
@@ -45179,7 +45322,7 @@ function openSettings(){
     if(!uInp) return;
     const nowe = uInp.value.trim();
     ustawNazweUzytkownika(nowe);
-    if($("stProfilAvatarPreview")) $("stProfilAvatarPreview").textContent = userInicjaly(nowe);
+    if($("stProfilAvatarPreview")) renderujElementAwatara($("stProfilAvatarPreview"), nowe);
     if($("stProfilNameTitle")) $("stProfilNameTitle").textContent = nowe || "Użytkownik";
     if($("stPrevGreeting")) $("stPrevGreeting").innerHTML = `👋 ${pobierzPowitanieUzytkownika(nowe)}, <b>${esc(nowe || "Użytkowniku")}</b>!`;
     if($("stPrevReading")) $("stPrevReading").innerHTML = `✓ Wspaniale, <b>${esc(nowe || "Użytkowniku")}</b>! Oznaczono czytanie jako ukończone.`;
@@ -45192,7 +45335,7 @@ function openSettings(){
     uInp.onkeydown = e => { if(e.key === "Enter"){ e.preventDefault(); zapiszImieZOkna(); } };
     uInp.oninput = () => {
       const v = uInp.value.trim();
-      if($("stProfilAvatarPreview")) $("stProfilAvatarPreview").textContent = userInicjaly(v);
+      if($("stProfilAvatarPreview")) renderujElementAwatara($("stProfilAvatarPreview"), v);
       if($("stProfilNameTitle")) $("stProfilNameTitle").textContent = v || "Użytkownik";
       if($("stPrevGreeting")) $("stPrevGreeting").innerHTML = `👋 ${pobierzPowitanieUzytkownika(v)}, <b>${esc(v || "Użytkowniku")}</b>!`;
       if($("stPrevReading")) $("stPrevReading").innerHTML = `✓ Wspaniale, <b>${esc(v || "Użytkowniku")}</b>! Oznaczono czytanie jako ukończone.`;
@@ -45205,6 +45348,60 @@ function openSettings(){
       if(uInp) uInp.value = "";
       ustawNazweUzytkownika("");
       zapiszImieZOkna();
+    };
+  }
+
+  // Obsługa wgrywania zdjęcia, usuwania i presetów graficznych
+  const btnAvatarUpload = $("stAvatarUploadBtn");
+  const fileAvatarInput = $("stAvatarFileInput");
+  const btnAvatarRemove = $("stAvatarRemoveBtn");
+  const presetsBox = $("stAvatarPresets");
+
+  if(btnAvatarUpload && fileAvatarInput){
+    btnAvatarUpload.onclick = () => fileAvatarInput.click();
+    fileAvatarInput.onchange = async () => {
+      const file = fileAvatarInput.files && fileAvatarInput.files[0];
+      if(!file) return;
+      try {
+        if(typeof toast === "function") toast("Optymalizowanie zdjęcia…", "info");
+        const dataUrl = await kompresujAwatar(file);
+        ustawZdjecieUzytkownika(dataUrl);
+        if(btnAvatarRemove) btnAvatarRemove.style.display = "";
+        if(presetsBox) presetsBox.querySelectorAll(".st-avatar-preset-btn").forEach(b => b.classList.remove("active"));
+        if(typeof rysujCentrum === "function" && document.body.classList.contains("centrum-open")) rysujCentrum();
+      } catch(err){
+        console.error("Błąd kompresji awatara:", err);
+        if(typeof toastErr === "function") toastErr("Nie udało się załadować zdjęcia");
+      }
+      fileAvatarInput.value = "";
+    };
+  }
+
+  if(btnAvatarRemove){
+    btnAvatarRemove.onclick = () => {
+      ustawZdjecieUzytkownika("");
+      btnAvatarRemove.style.display = "none";
+      if(presetsBox) presetsBox.querySelectorAll(".st-avatar-preset-btn").forEach(b => b.classList.remove("active"));
+      if(typeof rysujCentrum === "function" && document.body.classList.contains("centrum-open")) rysujCentrum();
+    };
+  }
+
+  if(presetsBox){
+    presetsBox.onclick = (e) => {
+      const btn = e.target.closest("[data-avatar-sym]");
+      if(!btn) return;
+      const sym = btn.dataset.avatarSym;
+      const current = pobierzZdjecieUzytkownika();
+      if(current === "emoji:" + sym){
+        ustawZdjecieUzytkownika("");
+        if(btnAvatarRemove) btnAvatarRemove.style.display = "none";
+        btn.classList.remove("active");
+      } else {
+        ustawZdjecieUzytkownika("emoji:" + sym);
+        if(btnAvatarRemove) btnAvatarRemove.style.display = "";
+        presetsBox.querySelectorAll(".st-avatar-preset-btn").forEach(b => b.classList.toggle("active", b === btn));
+      }
+      if(typeof rysujCentrum === "function" && document.body.classList.contains("centrum-open")) rysujCentrum();
     };
   }
 
@@ -56789,22 +56986,34 @@ function renderCentrumWidok(){
   const celeAktywneCount = celeList.filter(c => !c.completed).length;
 
   const userName = (typeof pobierzNazweUzytkownika === "function") ? pobierzNazweUzytkownika() : "";
+  const userAvatar = (typeof pobierzZdjecieUzytkownika === "function") ? pobierzZdjecieUzytkownika() : "";
   const greeting = (typeof pobierzPowitanieUzytkownika === "function") ? pobierzPowitanieUzytkownika(userName) : "Dzień dobry";
   const initials = (typeof userInicjaly === "function") ? userInicjaly(userName) : "👤";
   const nameEsc = esc(userName);
 
+  let avatarInlineStyle = "";
+  let avatarClass = "cenUserAvatar";
+  let avatarHtmlContent = esc(initials);
+  if(userAvatar && userAvatar.startsWith("data:image/")){
+    avatarInlineStyle = ' style="background-image:url(\'' + userAvatar + '\');"';
+    avatarClass += " has-custom-img";
+    avatarHtmlContent = "";
+  } else if(userAvatar && userAvatar.startsWith("emoji:")){
+    avatarHtmlContent = esc(userAvatar.slice(6));
+  }
+
   let userBannerHtml = '';
-  if(userName){
+  if(userName || userAvatar){
     userBannerHtml = '<div class="cenUserHeroBanner">'
       + '<div class="cenUserHeroLeft">'
-      + '<div class="cenUserAvatar" title="Twój profil: ' + nameEsc + '">' + esc(initials) + '</div>'
+      + '<div class="' + avatarClass + '"' + avatarInlineStyle + ' title="Twój profil' + (userName ? (': ' + nameEsc) : '') + '">' + avatarHtmlContent + '</div>'
       + '<div class="cenUserGreetingWrap">'
-      + '<div class="cenUserGreeting">' + greeting + ', <b>' + nameEsc + '</b>! 👋</div>'
+      + '<div class="cenUserGreeting">' + greeting + (userName ? (', <b>' + nameEsc + '</b>!') : '!') + ' 👋</div>'
       + '<div class="cenUserSub">Oto Twoje osobiste postępy i aktualny plan czytania na dziś.</div>'
       + '</div></div>'
       + '<button type="button" class="cenUserProfileBtn" data-act="otworzProfil" title="Zarządzaj profilem użytkownika">'
       + '<svg class="ic" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>'
-      + '<span>' + nameEsc + '</span>'
+      + '<span>' + (nameEsc || 'Profil') + '</span>'
       + '</button>'
       + '</div>';
   } else {
