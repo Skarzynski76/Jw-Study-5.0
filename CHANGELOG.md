@@ -1,4 +1,16 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v596)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v597)
+
+- **Wierne stosowanie Pisma Świętego w Przekładzie Nowego Świata — wydanie do studium (`nwtsty`):**
+  - **Bezpośrednie otwieranie Biblii do studium w JW Library:** W generatorze odnośników biblijnych (`finderUrl`) ustawiono stały symbol `pub=nwtsty`, gwarantując, że każdy werset, rozdział i fragment otwierany w JW Library uruchamia się w *Piśmie Świętym w Przekładzie Nowego Świata — Biblia do studium*.
+  - **Weryfikacja i uaktualnienie wszystkich cytatów w aplikacji:**
+    - **1 Tymoteusza 4:15:** *„Rozmyślaj o tym, bądź tym pochłonięty, aby twój postęp był widoczny dla wszystkich.”* (z podpisem: *Pismo Święte w Przekładzie Nowego Świata — Biblia do studium*).
+    - **Psalm 1:2, 3:** *„Ma upodobanie w prawie Jehowy i czyta Jego prawo półgłosem dniem i nocą. Będzie jak drzewo zasadzone nad strumieniami wód, które wydaje owoc w swoim czasie i którego liście nie usychają. Wszystko, co czyni, przyniesie mu sukces.”* (w Drzewie Wzrostu Duchowego oraz zbiorze klejnotów).
+    - **Jozuego 1:8:** *„Księga tego Prawa niech nie oddala się od twoich ust. Masz czytać ją półgłosem dniem i nocą, żeby starannie stosować się do wszystkiego, co w niej napisano, bo wtedy odniesiesz sukces i będziesz postępować mądrze.”* (w banerze powitalnym i przypomnieniach).
+    - **Zbiór duchowych klejnotów (NWT Study Edition):** Wzbogacono pulę losowanych myśli duchowych o wersety dosłownie zaczerpnięte z *Biblii do studium* (m.in. Flp 4:6-7, Joz 1:8, Ps 1:2-3, Prz 3:5-6, Rz 12:2, Iz 41:10, Hbr 4:12, 1 Ptr 5:6-7, Gal 5:22-23).
+    - **Powiadomienia i przypomnienia:** Uaktualniono cytaty z Mt 4:4, 2 Tm 3:16, Ps 119:105, Dz 17:11 do brzmienia Przekładu Nowego Świata.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v597`.
+
+## 5.0 — 2026-11-09 (Wersja v596)
 
 - **Poprawa wyglądu i działania kafelków nawyków w Centrum Studium (Ekran Powitalny):**
   - **Usunięcie błędu `undefined`:** Naprawiono odczyt właściwości dni tygodnia z generatora tygodnia (błędne odwołanie do `d.date` i `d.done` zastąpiono prawidłowymi `d.dateStr`, `d.dayName`, `d.dayNum` oraz `d.isDone`).

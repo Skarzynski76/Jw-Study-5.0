@@ -31511,7 +31511,8 @@ function finderUrl(n){
         bible = ciagly ? kod(ch, wersety[0]) + "-" + kod(ch, wersety[wersety.length - 1]) : wersety.map(x=>kod(ch, x)).join(",");
       }
     }
-    const pubSym = (typeof bibleKs === "string" && bibleKs.trim() && bibleKs !== "bi12" && bibleKs !== "nwt") ? bibleKs : "nwtsty";
+    // Zawsze otwieraj w Przekładzie Nowego Świata — Biblia do studium (nwtsty)
+    const pubSym = "nwtsty";
     return "https://www.jw.org/finder?srcid=jwlshare&wtlocale=P&prefer=lang&bible=" + bible + "&pub=" + pubSym;
   }
   if(n.doc) return "https://www.jw.org/finder?srcid=jwlshare&wtlocale=P&prefer=lang&docid=" + n.doc;
@@ -56034,11 +56035,11 @@ const DEFAULT_PLAN_REM_CFG = {
 };
 
 const BIBLE_REMINDER_QUOTES = [
-  { quote: "Rozmyślaj nad nią dniem i nocą, aby pilnie stosować się do wszystkiego", ref: "Jozuego 1:8" },
-  { quote: "Jego upodobaniem jest prawo Jehowy i czyta je półgłosem dniem i nocą", ref: "Psalm 1:2" },
+  { quote: "Księga tego Prawa niech nie oddala się od twoich ust. Masz czytać ją półgłosem dniem i nocą, żeby starannie stosować się do wszystkiego, co w niej napisano", ref: "Jozuego 1:8" },
+  { quote: "Ma upodobanie w prawie Jehowy i czyta Jego prawo półgłosem dniem i nocą", ref: "Psalm 1:2" },
   { quote: "Twoje słowo jest lampą dla moich stóp i światłem na mojej ścieżce", ref: "Psalm 119:105" },
-  { quote: "Człowiek ma żyć nie samym chlebem, ale każdym słowem pochodzącym z ust Jehowy", ref: "Mateusza 4:4" },
-  { quote: "Całe Pismo jest natchnione przez Boga i pożyteczne do nauczania", ref: "2 Tymoteusza 3:16" },
+  { quote: "Człowiek ma żyć nie samym chlebem, ale każdym słowem, które pochodzi z ust Jehowy", ref: "Mateusza 4:4" },
+  { quote: "Całe Pismo jest natchnione przez Boga i pożyteczne do nauczania, do upominania, do prostowania", ref: "2 Tymoteusza 3:16" },
   { quote: "Codziennie starannie badali Pisma, czy tak się rzeczy mają", ref: "Dzieje 17:11" }
 ];
 
@@ -57309,7 +57310,7 @@ function _centrWidokDrzewoWzrostu(planInfo, dniDone, curSer, bestSer){
 
   return '<div class="cenDrzewoCard">'
     + '<div class="cenDrzewoCytatBox">'
-    + '„Będzie on jak drzewo zasadzone nad strumieniami wód, które wydaje owoc we właściwym czasie i którego liście nie więdną...” — <b>Psalm 1:3</b>'
+    + '„Będzie jak drzewo zasadzone nad strumieniami wód, które wydaje owoc w swoim czasie i którego liście nie usychają. Wszystko, co czyni, przyniesie mu sukces.” — <b>Psalm 1:3</b> <span style="font-size:11px;opacity:0.85;">(Pismo Święte w Przekładzie Nowego Świata — Biblia do studium)</span>'
     + '</div>'
     + '<div class="cenDrzewoHeaderRow">'
     + '<div>'
@@ -57353,6 +57354,65 @@ function _centrWidokDrzewoWzrostu(planInfo, dniDone, curSer, bestSer){
 }
 
 /* 1. GŁÓWNY WIDOK CENTRUM (DASHBOARD — EKRAN POWITALNY STUDIUM) */
+const _CENTR_NWTSTY_KLEJNOTY = [
+  {
+    g: null,
+    isSample: true,
+    t: "Filipian 4:6, 7 — Pokój Boży strzegący serca",
+    c: "„O nic się nie zamartwiajcie, ale we wszystkim w modlitwie i błaganiu wraz z dziękczynieniem niech wasze gorące prośby zostaną przedstawione Bogu. A pokój Boży, którego ludzki umysł nie jest w stanie pojąć, będzie strzegł waszych serc i władz umysłowych przez Chrystusa Jezusa.”\n\nPrawdziwy pokój od Jehowy to nie brak problemów, lecz wewnętrzna pewność, że On panuje nad każdą sytuacją. Gdy przychodzi lęk, natychmiast zamieniam go w konkretną, dziękczynną modlitwę.",
+    tg: ["Biblia do studium", "Przekład Nowego Świata", "modlitwa"]
+  },
+  {
+    g: null,
+    isSample: true,
+    t: "Jozuego 1:8 — Czytanie Prawa półgłosem",
+    c: "„Księga tego Prawa niech nie oddala się od twoich ust. Masz czytać ją półgłosem dniem i nocą, żeby starannie stosować się do wszystkiego, co w niej napisano, bo wtedy odniesiesz sukces i będziesz postępować mądrze.”\n\nSukces w oczach Jehowy nie zależy od ludzkich kalkulacji, lecz od codziennego napełniania umysłu i serca Jego natchnionym Słowem oraz wprowadzania go w czyn.",
+    tg: ["Biblia do studium", "Przekład Nowego Świata", "studium"]
+  },
+  {
+    g: null,
+    isSample: true,
+    t: "Psalm 1:2, 3 — Drzewo zasadzone nad strumieniami wód",
+    c: "„Ma upodobanie w prawie Jehowy i czyta Jego prawo półgłosem dniem i nocą. Będzie jak drzewo zasadzone nad strumieniami wód, które wydaje owoc w swoim czasie i którego liście nie usychają. Wszystko, co czyni, przyniesie mu sukces.”\n\nRegularne studium Biblii daje niewyczerpane korzenie duchowe. Nawet w czasie życiowych prób nasza wiara pozostaje zielona i wydaje obfite owoce ducha.",
+    tg: ["Biblia do studium", "Przekład Nowego Świata", "Psalmy"]
+  },
+  {
+    g: null,
+    isSample: true,
+    t: "Przysłów 3:5, 6 — Zaufanie Jehowie całym sercem",
+    c: "„Zaufaj Jehowie całym sercem i nie polegaj na własnym zrozumieniu. Zważaj na Niego na wszystkich swoich drogach, a On wyprostuje twoje ścieżki.”\n\nNigdy nie polegam wyłącznie na własnym doświadczeniu. Przed każdą decyzją pytam w modlitwie: jakie zasady biblijne Jehowa dał mi w tej sprawie?",
+    tg: ["Biblia do studium", "Przekład Nowego Świata", "zaufanie"]
+  },
+  {
+    g: null,
+    isSample: true,
+    t: "Rzymian 12:2 — Odnawianie swojego umysłu",
+    c: "„I nie bierzcie już wzoru z tego świata, ale się przemieniajcie przez odnawianie swojego umysłu, żebyście sami mogli się upewnić, co jest dobrą, miłą i doskonałą wolą Bożą.”\n\nŚwiat próbuje wtłoczyć nas w swoją foremkę. Tylko stałe karmienie się czystą prawdą z Pisma Świętego pozwala zachować duchowe rozeznanie.",
+    tg: ["Biblia do studium", "Przekład Nowego Świata", "Rzymian"]
+  },
+  {
+    g: null,
+    isSample: true,
+    t: "Izajasza 41:10 — Prawica prawości Jehowy",
+    c: "„Nie lękaj się, bo jestem z tobą. Nie trać odwagi, bo jestem twoim Bogiem. Wzmocnię cię. Naprawdę ci pomogę. Będę cię mocno trzymać swoją prawicą prawości.”\n\nJehowa nie tylko patrzy na nasze zmagania z daleka — On ujmuje nas za rękę i dodaje sił przekraczających to, co normalne.",
+    tg: ["Biblia do studium", "Przekład Nowego Świata", "odwaga"]
+  },
+  {
+    g: null,
+    isSample: true,
+    t: "Hebrajczyków 4:12 — Żywe słowo Boże",
+    c: "„Bo słowo Boże jest żywe i oddziałuje z mocą, i jest ostrzejsze niż jakikolwiek miecz obosieczny i przenika aż do rozdzielenia duszy i ducha, a także stawów i szpiku, i potrafi rozeznać myśli oraz zamiary serca.”\n\nPodczas osobistego studium pozwalam Słowu Bożemu badać moje pobudki. To najczystsze lustro ukazujące, kim naprawdę jestem wewnątrz.",
+    tg: ["Biblia do studium", "Przekład Nowego Świata", "serce"]
+  },
+  {
+    g: null,
+    isSample: true,
+    t: "1 Piotra 5:6, 7 — Przerzucenie trosk na Jehowę",
+    c: "„Ukorzcie się więc pod potężną ręką Boga, żeby was wywyższył we właściwym czasie, i przerzućcie na Niego wszelki swój niepokój, bo On się o was troszczy.”\n\nNigdy nie muszę dźwigać ciężarów samemu. Z pokorą oddaję wszystko Jehowie, wierząc w Jego niezawodną opiekę.",
+    tg: ["Biblia do studium", "Przekład Nowego Świata", "pokora"]
+  }
+];
+let _centrSampleIdx = 0;
 let _centrWylosowanyKlejnotGuid = null;
 function _centrPobierzLosowyKlejnot(){
   const zywe = (typeof notes !== "undefined" && Array.isArray(notes))
@@ -57367,13 +57427,8 @@ function _centrPobierzLosowyKlejnot(){
     _centrWylosowanyKlejnotGuid = zywe[idx].g;
     return zywe[idx];
   }
-  return {
-    g: null,
-    isSample: true,
-    t: "Filipian 4:6, 7 — Pokój Boży strzegący serca",
-    c: "„O nic się nie zamartwiajcie, ale we wszystkim w modlitwie i błaganiu wraz z dziękczynieniem niech wasze gorące prośby zostaną przedstawione Bogu. A pokój Boży, którego ludzki umysł nie jest w stanie pojąć, będzie strzegł waszych serc i władz umysłowych...”\n\nPrawdziwy pokój od Jehowy to nie brak problemów, lecz wewnętrzna pewność, że On panuje nad każdą sytuacją. Gdy przychodzi lęk, natychmiast zamieniam go w konkretną, dziękczynną modlitwę.",
-    tg: []
-  };
+  const sample = _CENTR_NWTSTY_KLEJNOTY[_centrSampleIdx % _CENTR_NWTSTY_KLEJNOTY.length];
+  return sample;
 }
 
 function renderCentrumWidok(){
@@ -57422,7 +57477,7 @@ function renderCentrumWidok(){
       + '<div class="cenUserGreetingWrap">'
       + '<div style="font-size:11.5px;font-weight:750;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent,#2563eb);margin-bottom:2px;">Osobiste Studium Słowa Bożego</div>'
       + '<div class="cenUserGreeting">' + greeting + (userName ? (', <b>' + nameEsc + '</b>!') : '!') + ' 👋</div>'
-      + '<div class="cenUserSub">„Będziesz czytał tę księgę półgłosem dniem i nocą...” — niech Jehowa obficie błogosławi Twoje dzisiejsze rozważania.</div>'
+      + '<div class="cenUserSub">„Księga tego Prawa niech nie oddala się od twoich ust. Masz czytać ją półgłosem dniem i nocą...” (Jozuego 1:8, NWT) — niech Jehowa obficie błogosławi Twoje dzisiejsze rozważania.</div>'
       + '</div></div>'
       + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;">'
       + '<div style="font-size:12px;font-weight:600;color:var(--cen-text-muted);background:color-mix(in srgb, var(--border,#d1d5db) 30%, transparent);padding:5px 12px;border-radius:20px;white-space:nowrap;">📅 ' + dzisiajCap + '</div>'
@@ -57516,11 +57571,11 @@ function renderCentrumWidok(){
 
     gemHtml = '<div class="cenWelcomeCard" style="background:linear-gradient(180deg, var(--panel, #ffffff) 0%, color-mix(in srgb, #d97706 4%, var(--panel, #ffffff)) 100%);">'
       + '<div class="cenWelcomeCardHeader">'
-      + '<span class="cenWelcomeTag tag-gold">💎 Z Twojej duchowej skarbnicy</span>'
+      + '<span class="cenWelcomeTag tag-gold">💎 Z Twojej duchowej skarbnicy · Pismo Święte w Przekładzie Nowego Świata (Biblia do studium)</span>'
       + '<span class="card-action-link" data-cakcja="losuj-klejnot" style="font-size:12.5px;color:#d97706;cursor:pointer;font-weight:750;">Losuj inny 🎲</span>'
       + '</div>'
       + '<div class="cenGemQuote">„' + esc(quoteText.slice(0, 180)) + (quoteText.length > 180 ? '…' : '') + '”</div>'
-      + (gemNote.t ? ('<div class="cenGemBibleRef">📜 ' + esc(gemNote.t) + '</div>') : (noteRef ? ('<div class="cenGemBibleRef">📜 ' + esc(noteRef) + '</div>') : ''))
+      + (gemNote.t ? ('<div class="cenGemBibleRef">📜 ' + esc(gemNote.t) + ' <span style="font-size:11px;font-weight:600;opacity:0.8;">(Biblia do studium — nwtsty)</span></div>') : (noteRef ? ('<div class="cenGemBibleRef">📜 ' + esc(noteRef) + ' <span style="font-size:11px;font-weight:600;opacity:0.8;">(Biblia do studium — nwtsty)</span></div>') : ''))
       + '<div class="cenGemReflection">'
       + '<b>Wniosek ze studium osobistego:</b>'
       + '<span>' + esc(reflectionText.slice(0, 220)) + (reflectionText.length > 220 ? '…' : '') + '</span>'
@@ -57591,7 +57646,7 @@ function renderCentrumWidok(){
   // 4. CYTAT ROZMYŚLANIA
   const scriptureHtml = '<div class="cenScriptureBanner">'
     + '<div class="cenScriptureText">„Rozmyślaj o tym, bądź tym pochłonięty, aby twój postęp był widoczny dla wszystkich.”</div>'
-    + '<div class="cenScriptureSource">— 1 Tymoteusza 4:15</div>'
+    + '<div class="cenScriptureSource">— 1 Tymoteusza 4:15 · <i>Pismo Święte w Przekładzie Nowego Świata (Biblia do studium)</i></div>'
     + '</div>';
 
   // 5. SKRÓTY DO POZOSTAŁYCH MODUŁÓW
@@ -60947,8 +61002,10 @@ if($("centrum")){
           const inne = zywe.filter(n => n.g !== _centrWylosowanyKlejnotGuid);
           const idx = Math.floor(Math.random() * inne.length);
           _centrWylosowanyKlejnotGuid = inne[idx].g;
+        } else {
+          _centrSampleIdx++;
         }
-        toast("Wylosowano inny klejnot duchowy 💎");
+        toast("Wylosowano inny klejnot duchowy 💎 (Biblia do studium)");
         rysujCentrum();
         return;
       }
