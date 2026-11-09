@@ -1,4 +1,12 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v593)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v594)
+
+- **Bezpośrednie otwieranie wersetów w aplikacji JW Library na iPadzie i iPhone:**
+  - Naprawiono mechanizm Universal Links (`openUrlJWL`) dla urządzeń z systemem iPadOS i iOS. Dotychczasowe wymuszanie `target="_blank"` powodowało, że Safari otwierało stronę internetową w nowej karcie zamiast przekazać odnośnik do zainstalowanej aplikacji JW Library.
+  - Wprowadzono bezpośrednią nawigację systemową na urządzeniach mobilnych Apple, dzięki czemu kliknięcie wersetu natychmiast wywołuje aplikację **JW Library** z otwarciem konkretnego rozdziału Biblii do studium (*nwtsty*).
+  - W prototypie i elementach interfejsu uaktualniono etykiety przycisków na **„JW Library 📖”** oraz zaktualizowano powiadomienia na *„Otwieranie [Werset] w aplikacji JW Library…”*.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v594`.
+
+## 5.0 — 2026-11-09 (Wersja v593)
 
 - **Własne zdjęcie lub grafika profilu użytkownika (100% lokalnie i prywatnie):**
   - **Wgrywanie zdjęć i grafik z urządzenia:**

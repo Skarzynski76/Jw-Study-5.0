@@ -41711,11 +41711,21 @@ function importFromDb(db, opcje){
 /* ===== podkreślenia: kolory, etykieta, link ===== */
 function openUrlJWL(url){
   if(!url) return;
-  // Uniwersalny link jw.org: na iPhone/iPad system sam przekieruje do aplikacji JW Library,
-  // na komputerze otworzy kartę przeglądarki. Otwieramy przez prawdziwy odnośnik (działa z gestem dotyku).
-  const a=document.createElement("a");
-  a.href=url; a.target="_blank"; a.rel="noopener noreferrer";
-  document.body.appendChild(a); a.click(); a.remove();
+  // Na iPad / iPhone: target="_blank" wymusza otwarcie nowej karty Safari i blokuje Universal Link do JW Library.
+  // Bezpośrednie przejście pozwala systemowi iOS/iPadOS natychmiast przekierować wywołanie do zainstalowanej aplikacji JW Library!
+  const isAppleMobile = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if(isAppleMobile){
+    window.location.href = url;
+  } else {
+    const a = document.createElement("a");
+    a.href = url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
 }
 
 </script>
@@ -59989,7 +59999,7 @@ if($("centrum")){
     const jwBtn = ev.target.closest("[data-copen-jw]");
     if(jwBtn){
       const ref = jwBtn.dataset.copenJw;
-      toast("Otwieranie " + ref + "…");
+      toast("Otwieranie " + ref + " w aplikacji JW Library…");
       const parsed = parseRef ? parseRef(ref) : null;
       let url = (parsed && typeof finderUrl === "function") ? finderUrl(parsed) : null;
       if(!url && parsed && parsed.b){
