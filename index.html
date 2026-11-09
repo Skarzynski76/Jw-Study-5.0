@@ -19614,8 +19614,16 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   #modernSidebar .sidebar-brand-title,
   #modernSidebar .sidebar-brand-ver,
   #modernSidebar .sidebar-new-btn span,
-  #modernSidebar .sidebar-nav-item span {
+  #modernSidebar .sidebar-nav-item span,
+  #modernSidebar .sidebar-user-info,
+  #modernSidebar .sidebar-user-edit-btn {
     display: none !important;
+  }
+  #modernSidebar .sidebar-user-card {
+    justify-content: center !important;
+    padding: 6px 0 !important;
+    width: 44px !important;
+    margin: 6px auto !important;
   }
   #modernSidebar .sidebar-new-btn {
     padding: 10px 0 !important;
@@ -19658,8 +19666,17 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
 
 #appContainer.sidebar-collapsed .sidebar-brand-title,
 #appContainer.sidebar-collapsed .sidebar-new-btn span,
-#appContainer.sidebar-collapsed .sidebar-nav-item span {
+#appContainer.sidebar-collapsed .sidebar-nav-item span,
+#appContainer.sidebar-collapsed .sidebar-user-info,
+#appContainer.sidebar-collapsed .sidebar-user-edit-btn {
   display: none !important;
+}
+
+#appContainer.sidebar-collapsed .sidebar-user-card {
+  justify-content: center !important;
+  padding: 6px 0 !important;
+  width: 44px !important;
+  margin: 6px auto !important;
 }
 
 #appContainer.sidebar-collapsed .sidebar-new-btn {
@@ -19851,6 +19868,272 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   flex-direction: column;
   gap: 3px;
 }
+/* ================= PROFIL UŻYTKOWNIKA I PERSONALIZACJA ================= */
+.sidebar-user-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  margin: 8px 0 4px 0;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent, #256b52) 8%, var(--panel, #ffffff));
+  border: 1px solid color-mix(in srgb, var(--accent, #256b52) 18%, transparent);
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+  user-select: none;
+  outline: none;
+}
+.sidebar-user-card:hover {
+  background: color-mix(in srgb, var(--accent, #256b52) 15%, var(--panel, #ffffff));
+  border-color: color-mix(in srgb, var(--accent, #256b52) 32%, transparent);
+  transform: translateY(-1px);
+}
+.sidebar-user-card:active {
+  transform: scale(0.98);
+}
+.sidebar-user-card.needs-name {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--accent, #256b52) 40%, transparent);
+}
+.sidebar-user-avatar {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent, #2563eb) 0%, #10b981 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13.5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
+}
+.sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.sidebar-user-name {
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+.sidebar-user-role {
+  font-size: 10.5px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+.sidebar-user-edit-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: all 0.12s ease;
+}
+.sidebar-user-card:hover .sidebar-user-edit-btn {
+  color: var(--accent);
+}
+
+/* Baner powitalny w Centrum Studium */
+.cenUserHeroBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent, #2563eb) 12%, var(--panel, #ffffff)) 0%, color-mix(in srgb, #10b981 8%, var(--panel, #ffffff)) 100%);
+  border: 1px solid color-mix(in srgb, var(--accent, #2563eb) 22%, transparent);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+}
+.cenUserHeroLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+.cenUserAvatar {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent, #2563eb) 0%, #10b981 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 750;
+  font-size: 17px;
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--accent, #2563eb) 35%, transparent);
+  flex-shrink: 0;
+}
+.cenUserAvatarPrompt {
+  background: color-mix(in srgb, var(--accent, #2563eb) 20%, transparent);
+  color: var(--accent, #2563eb);
+  font-size: 22px;
+}
+.cenUserGreetingWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.cenUserGreeting {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text, #111827);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+.cenUserSub {
+  font-size: 12.5px;
+  color: var(--muted, #6b7280);
+  line-height: 1.35;
+}
+.cenUserProfileBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--border, #d1d5db) 80%, transparent);
+  background: var(--panel, #ffffff);
+  color: var(--text, #111827);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+.cenUserProfileBtn:hover {
+  background: var(--sel, rgba(0, 0, 0, 0.04));
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+.cenUserPromptForm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.cenQuickNameInp {
+  padding: 8px 12px;
+  font-size: 13px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel, #ffffff);
+  color: var(--text);
+  outline: none;
+  width: 170px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.cenQuickNameInp:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+/* Karta Profilu w Ustawieniach */
+.st-profil-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--accent, #2563eb) 8%, var(--panel, #ffffff));
+  border: 1px solid color-mix(in srgb, var(--accent, #2563eb) 20%, transparent);
+  margin-bottom: 6px;
+}
+.st-profil-avatar {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent, #2563eb) 0%, #10b981 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  font-weight: 750;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
+}
+.st-profil-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.st-profil-name-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+.st-profil-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+.st-profil-preview-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--border, #d1d5db) 25%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border, #d1d5db) 50%, transparent);
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+.st-prev-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.st-prev-row b {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.st-prev-row span {
+  color: var(--text);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .cenUserHeroBanner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .cenUserPromptForm {
+    width: 100%;
+  }
+  .cenQuickNameInp {
+    flex: 1;
+    width: auto;
+  }
+}
+
 #appMainContent {
   flex: 1 1 0;
   display: flex;
@@ -22747,6 +23030,17 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
       </button>
     </div>
 
+    <div class="sidebar-user-card" id="sidebarUserCard" role="button" tabindex="0" title="Profil użytkownika — kliknij, aby zmienić imię">
+      <div class="sidebar-user-avatar" id="sidebarUserAvatar">👤</div>
+      <div class="sidebar-user-info">
+        <span class="sidebar-user-name" id="sidebarUserName">Ustaw imię</span>
+        <span class="sidebar-user-role">Osobiste studium</span>
+      </div>
+      <button type="button" class="sidebar-user-edit-btn" id="sidebarUserEditBtn" title="Zmień imię i ustawienia profilu" aria-label="Profil użytkownika">
+        <svg class="ic" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </button>
+    </div>
+
     <button class="sidebar-new-btn" id="sidebarBtnNew" title="Nowa notatka (Ctrl+N)">
       <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
       <span>Nowa notatka</span>
@@ -25107,6 +25401,78 @@ function lsFlush(){
 }
 addEventListener("pagehide", lsFlush);
 document.addEventListener("visibilitychange", ()=>{ if(document.visibilityState==="hidden") lsFlush(); });
+
+/* ==========================================================================
+   PROFIL UŻYTKOWNIKA I PERSONALIZACJA (JW STUDY)
+   Obsługa nazwy użytkownika, powitań, inicjałów i spersonalizowanych komunikatów.
+   ========================================================================== */
+function pobierzNazweUzytkownika(){
+  return (lsGet(KP + "UserName", "") || lsGet("jw_user_name", "") || "").trim();
+}
+
+function userImie(domyslne){
+  return pobierzNazweUzytkownika() || (domyslne !== undefined ? domyslne : "");
+}
+
+function userInicjaly(imie){
+  const n = (imie !== undefined ? imie : pobierzNazweUzytkownika()).trim();
+  if(!n) return "👤";
+  const czesci = n.split(/\s+/).filter(Boolean);
+  if(czesci.length === 1) return czesci[0].charAt(0).toUpperCase();
+  return (czesci[0].charAt(0) + czesci[czesci.length - 1].charAt(0)).toUpperCase();
+}
+
+function pobierzPowitanieUzytkownika(imie){
+  const h = new Date().getHours();
+  if(h >= 5 && h < 12) return "Dzień dobry";
+  if(h >= 12 && h < 18) return "Dobrego popołudnia";
+  if(h >= 18 && h < 22) return "Dobry wieczór";
+  return "Dobrej nocy";
+}
+
+function ustawNazweUzytkownika(noweImie, cichy){
+  const n = (noweImie || "").trim();
+  lsSet(KP + "UserName", n);
+  lsSet("jw_user_name", n);
+  aktualizujElementyProfilu();
+  if(!cichy && typeof toastOk === "function"){
+    toastOk(n ? `Zapisano profil: ${n}` : "Wyczyszczono imię użytkownika");
+  }
+}
+
+function aktualizujElementyProfilu(){
+  const n = pobierzNazweUzytkownika();
+  const inicjaly = userInicjaly(n);
+  
+  // 1. Pasek boczny (Sidebar)
+  const sName = $("sidebarUserName");
+  const sAvatar = $("sidebarUserAvatar");
+  const sCard = $("sidebarUserCard");
+  if(sName) sName.textContent = n || "Ustaw imię ✏️";
+  if(sAvatar) sAvatar.textContent = inicjaly;
+  if(sCard){
+    sCard.classList.toggle("needs-name", !n);
+    sCard.title = n ? `Profil: ${n} (kliknij, aby edytować)` : "Ustaw swoje imię w aplikacji";
+  }
+
+  // 2. Centrum Studium
+  const cGreeting = document.querySelector(".cenUserGreeting");
+  const cAvatar = document.querySelector(".cenUserAvatar:not(.cenUserAvatarPrompt)");
+  if(cGreeting && n) cGreeting.innerHTML = `${pobierzPowitanieUzytkownika(n)}, <b>${esc(n)}</b>! 👋`;
+  if(cAvatar && n) cAvatar.textContent = inicjaly;
+  
+  const cBtnTxt = document.querySelector(".cenUserProfileBtn span");
+  if(cBtnTxt && n) cBtnTxt.textContent = n;
+}
+
+// Inicjalizacja przy wczytaniu DOM
+if(typeof document !== "undefined"){
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", () => setTimeout(aktualizujElementyProfilu, 80));
+  } else {
+    setTimeout(aktualizujElementyProfilu, 80);
+  }
+}
 
 /* ——— ROZKŁADANIE CUDZEGO HTML-a NA DRZEWO ———
 
@@ -42214,13 +42580,15 @@ setupExportSearchUI();
    szablony: notatki po przeniesieniu były, a porządek, który ktoś sobie zrobił,
    znikał bez śladu i bez ostrzeżenia. Dwie drogi zapisu muszą zapisywać to samo. */
 async function shareBackup(){
-  const name = "moje-notatki-kopia-"+new Date().toISOString().substring(0,10)+".json";
+  const _uName = (typeof pobierzNazweUzytkownika === "function") ? pobierzNazweUzytkownika() : "";
+  const _uSlug = _uName ? ("-" + _uName.toLowerCase().replace(/[^a-z0-9ąćęłńóśźż]+/gi, "_").slice(0, 20)) : "";
+  const name = "moje-notatki" + _uSlug + "-kopia-" + new Date().toISOString().substring(0,10) + ".json";
   const blob = new Blob([JSON.stringify(daneKopii())],{type:"application/json"});
   // 1. iPad/iPhone i telefony: systemowy arkusz udostępniania (OneDrive, iCloud Drive, Dysk Google…)
   try{
     const file = new File([blob], name, {type:"application/json"});
     if(navigator.canShare && navigator.canShare({files:[file]})){
-      await navigator.share({files:[file], title:"Kopia notatek JW Study"});
+      await navigator.share({files:[file], title: "Kopia notatek JW Study" + (_uName ? (" — " + _uName) : "")});
       clearDirty();
       toast("Kopia przekazana do wybranej aplikacji");
       return;
@@ -42328,6 +42696,7 @@ async function nazwaPlikuKopii(){
 /** Dane do kopii — jedno miejsce, żeby zapis do pliku i pobranie były identyczne. */
 function daneKopii(){
   return {
+    userName: (typeof pobierzNazweUzytkownika === "function") ? pobierzNazweUzytkownika() : "",
     tags,
     notes,
     sections: (Array.isArray(sections) ? sections : []),
@@ -42390,7 +42759,9 @@ async function exportJson(){
       toast("Nie udało się nadpisać pliku — pobieram nowy");
     }
   }
-  const name = "moje-notatki-kopia-" + new Date().toISOString().substring(0,10) + ".json";
+  const _uName = (typeof pobierzNazweUzytkownika === "function") ? pobierzNazweUzytkownika() : "";
+  const _uSlug = _uName ? ("-" + _uName.toLowerCase().replace(/[^a-z0-9ąćęłńóśźż]+/gi, "_").slice(0, 20)) : "";
+  const name = "moje-notatki" + _uSlug + "-kopia-" + new Date().toISOString().substring(0,10) + ".json";
   saveFile(new Blob([tekst], {type:"application/json"}), name, "Kopia notatek (JSON)");
   clearDirty();
   toast("Zapisano kopię danych");
@@ -42914,6 +43285,11 @@ async function wczytajKopieZTekstu(tekstPliku){
           stCentrum = _centrImportDanych(cPayload, choice);
         } catch(eCentr){ console.warn("Błąd importu centrum:", eCentr); }
       }
+      if(data.userName && typeof ustawNazweUzytkownika === "function"){
+        if(!pobierzNazweUzytkownika()){
+          ustawNazweUzytkownika(data.userName, true);
+        }
+      }
       const kontrolaM = idb ? await sprawdzZapis(notes.length, tags.length) : null;
       renderAll();
       /* Do tablicy trafiło naraz dużo notatek — pamięć podręczna szukania
@@ -43001,6 +43377,9 @@ async function wczytajKopieZTekstu(tekstPliku){
         const cPayload = data.centrum || (data.centrumLayout ? { layout: data.centrumLayout } : null);
         _centrImportDanych(cPayload, "replace");
       } catch(eCentr){ console.warn("Błąd importu centrum:", eCentr); }
+    }
+    if(data.userName && typeof ustawNazweUzytkownika === "function"){
+      ustawNazweUzytkownika(data.userName, true);
     }
     renderAll();
     /* Do tablicy trafiło naraz dużo notatek — pamięć podręczna szukania
@@ -44439,16 +44818,17 @@ function kompozycjeHtml(){
    Nagłówek z kartami i stopka z „Gotowe" są przyklejone (patrz arkusz stylów),
    więc wyjście z okna jest widoczne zawsze, na każdej wysokości przewinięcia. */
 const ST_KARTY = [
+  ["profil",  "Profil"],
   ["wyglad",  "Wygląd"],
   ["dane",    "Notatki i dane"],
   ["pomoc",   "Pomoc"]
 ];
-let stKarta = lsGet(KP+"Karta", "wyglad");
-if(!ST_KARTY.some(k=>k[0]===stKarta)) stKarta = "wyglad";
+let stKarta = lsGet(KP+"Karta", (typeof pobierzNazweUzytkownika === "function" && pobierzNazweUzytkownika()) ? "wyglad" : "profil");
+if(!ST_KARTY.some(k=>k[0]===stKarta)) stKarta = "profil";
 
 /** Przełącza widoczną kartę ustawień i zapamiętuje wybór na następne otwarcie. */
 function pokazKarteUstawien(id){
-  if(!ST_KARTY.some(k=>k[0]===id)) id = "wyglad";
+  if(!ST_KARTY.some(k=>k[0]===id)) id = "profil";
   stKarta = id;
   lsSet(KP+"Karta", id);
   document.querySelectorAll("#setBody .st-karta").forEach(k=>
@@ -44547,8 +44927,41 @@ function skrotyEdycjiHtml(){
 
 function openSettings(){
   const box = $("setBody");
+  const userName = (typeof pobierzNazweUzytkownika === "function") ? pobierzNazweUzytkownika() : "";
+  const powitanie = (typeof pobierzPowitanieUzytkownika === "function") ? pobierzPowitanieUzytkownika(userName) : "Dzień dobry";
+  const inicjaly = (typeof userInicjaly === "function") ? userInicjaly(userName) : "👤";
+
   box.innerHTML =
-    `<div class="st-karta" data-karta="wyglad">
+    `<div class="st-karta" data-karta="profil">
+     <div class="st-sec">
+       <div class="st-profil-card">
+         <div class="st-profil-avatar" id="stProfilAvatarPreview">${esc(inicjaly)}</div>
+         <div class="st-profil-details">
+           <div class="st-profil-name-title" id="stProfilNameTitle">${userName ? esc(userName) : "Użytkownik"}</div>
+           <div class="st-profil-sub">Twój profil osobisty w aplikacji JW-Study</div>
+         </div>
+       </div>
+     </div>
+     <div class="st-sec">
+       <div class="st-lbl">Twoje imię lub nazwa użytkownika</div>
+       <div class="st-row" style="gap:8px;align-items:center;">
+         <input type="text" id="stUserNameInp" class="cenQuickNameInp" value="${esc(userName)}" placeholder="np. Grzegorz…" maxlength="40" style="flex:1;max-width:280px;height:38px;" aria-label="Twoje imię">
+         <button type="button" class="btn primary" id="stUserNameSaveBtn" style="height:38px;">Zapisz</button>
+         ${userName ? '<button type="button" class="btn" id="stUserNameClearBtn" title="Wyczyść imię" style="height:38px;">Wyczyść</button>' : ''}
+       </div>
+       <div class="st-hint">Wpisana nazwa będzie używana w codziennych powitaniach (np. <i>${powitanie}, ${esc(userName || "Grzegorz")}!</i>), w podsumowaniach czytania Biblii, powiadomieniach o ukończonych celach i fragmentach oraz w nagłówkach kopii zapasowych.</div>
+     </div>
+     <div class="st-sec">
+       <div class="st-lbl">Podgląd komunikatów w aplikacji</div>
+       <div class="st-profil-preview-box">
+         <div class="st-prev-row"><b>Powitanie na pulpicie:</b> <span id="stPrevGreeting">👋 ${powitanie}, <b>${esc(userName || "Użytkowniku")}</b>!</span></div>
+         <div class="st-prev-row"><b>Gratulacje w planie czytania:</b> <span id="stPrevReading">✓ Wspaniale, <b>${esc(userName || "Użytkowniku")}</b>! Oznaczono czytanie jako ukończone.</span></div>
+         <div class="st-prev-row"><b>Owoce Ducha Świętego:</b> <span id="stPrevFruit">🌳 Brawo, <b>${esc(userName || "Użytkowniku")}</b>! Twoje drzewo wydało nowy owoc ducha.</span></div>
+         <div class="st-prev-row"><b>Kopia zapasowa danych:</b> <span id="stPrevBackup">📦 Kopia notatek użytkownika ${esc(userName || "Użytkownik")}</span></div>
+       </div>
+     </div>
+     </div>
+     <div class="st-karta" data-karta="wyglad">
      <div class="st-sec">
        <div class="st-lbl">Wielkość tekstu w notatkach</div>
        <div class="st-fs" data-font="note">
@@ -44758,6 +45171,42 @@ function openSettings(){
     }
   }
   openModal("modalSettings");
+
+  const uInp = $("stUserNameInp");
+  const uSave = $("stUserNameSaveBtn");
+  const uClear = $("stUserNameClearBtn");
+  const zapiszImieZOkna = () => {
+    if(!uInp) return;
+    const nowe = uInp.value.trim();
+    ustawNazweUzytkownika(nowe);
+    if($("stProfilAvatarPreview")) $("stProfilAvatarPreview").textContent = userInicjaly(nowe);
+    if($("stProfilNameTitle")) $("stProfilNameTitle").textContent = nowe || "Użytkownik";
+    if($("stPrevGreeting")) $("stPrevGreeting").innerHTML = `👋 ${pobierzPowitanieUzytkownika(nowe)}, <b>${esc(nowe || "Użytkowniku")}</b>!`;
+    if($("stPrevReading")) $("stPrevReading").innerHTML = `✓ Wspaniale, <b>${esc(nowe || "Użytkowniku")}</b>! Oznaczono czytanie jako ukończone.`;
+    if($("stPrevFruit")) $("stPrevFruit").innerHTML = `🌳 Brawo, <b>${esc(nowe || "Użytkowniku")}</b>! Twoje drzewo wydało nowy owoc ducha.`;
+    if($("stPrevBackup")) $("stPrevBackup").textContent = `📦 Kopia notatek użytkownika ${nowe || "Użytkownik"}`;
+    if(typeof rysujCentrum === "function" && document.body.classList.contains("centrum-open")) rysujCentrum();
+  };
+  if(uSave) uSave.onclick = zapiszImieZOkna;
+  if(uInp) {
+    uInp.onkeydown = e => { if(e.key === "Enter"){ e.preventDefault(); zapiszImieZOkna(); } };
+    uInp.oninput = () => {
+      const v = uInp.value.trim();
+      if($("stProfilAvatarPreview")) $("stProfilAvatarPreview").textContent = userInicjaly(v);
+      if($("stProfilNameTitle")) $("stProfilNameTitle").textContent = v || "Użytkownik";
+      if($("stPrevGreeting")) $("stPrevGreeting").innerHTML = `👋 ${pobierzPowitanieUzytkownika(v)}, <b>${esc(v || "Użytkowniku")}</b>!`;
+      if($("stPrevReading")) $("stPrevReading").innerHTML = `✓ Wspaniale, <b>${esc(v || "Użytkowniku")}</b>! Oznaczono czytanie jako ukończone.`;
+      if($("stPrevFruit")) $("stPrevFruit").innerHTML = `🌳 Brawo, <b>${esc(v || "Użytkowniku")}</b>! Twoje drzewo wydało nowy owoc ducha.`;
+      if($("stPrevBackup")) $("stPrevBackup").textContent = `📦 Kopia notatek użytkownika ${v || "Użytkownik"}`;
+    };
+  }
+  if(uClear){
+    uClear.onclick = () => {
+      if(uInp) uInp.value = "";
+      ustawNazweUzytkownika("");
+      zapiszImieZOkna();
+    };
+  }
 
   box.onclick = e=>{
     if(e.target.closest("#stBledy")){
@@ -52004,7 +52453,9 @@ function _centrPrzelaczCelUkonczony(celId){
     if(c.completed){
       cenCelebration();
       cenPlaySound("complete");
-      toast("🎉 Gratulacje! Ukończono cel duchowy: „" + c.title + "”", "ok");
+      const _uIm = (typeof userImie === "function") ? userImie() : "";
+      const _prefix = _uIm ? ("🎉 Gratulacje, " + _uIm + "! ") : "🎉 Gratulacje! ";
+      toast(_prefix + "Ukończono cel duchowy: „" + c.title + "”", "ok");
     } else {
       cenPlaySound("uncheck");
     }
@@ -52028,7 +52479,9 @@ function _centrZmienLicznikCelu(celId, delta){
     if(!prevCompleted && c.completed){
       cenCelebration();
       cenPlaySound("complete");
-      toast("🎉 Wspaniale! Osiągnięto cel: „" + c.title + "” (" + c.current + "/" + c.target + " " + (c.unit || "") + ")", "ok");
+      const _uIm = (typeof userImie === "function") ? userImie() : "";
+      const _prefix = _uIm ? ("🎉 Wspaniale, " + _uIm + "! ") : "🎉 Wspaniale! ";
+      toast(_prefix + "Osiągnięto cel: „" + c.title + "” (" + c.current + "/" + c.target + " " + (c.unit || "") + ")", "ok");
     } else if(delta > 0){
       cenPlaySound("check");
     } else {
@@ -52050,7 +52503,9 @@ function _centrPrzelaczKrokCelu(celId, stepIdx){
     if(!prevCompleted && allDone){
       cenCelebration();
       cenPlaySound("complete");
-      toast("🎉 Wspaniale! Wszystkie etapy celu „" + c.title + "” ukończone!", "ok");
+      const _uIm = (typeof userImie === "function") ? userImie() : "";
+      const _prefix = _uIm ? ("🎉 Brawo, " + _uIm + "! ") : "🎉 Wspaniale! ";
+      toast(_prefix + "Wszystkie etapy celu „" + c.title + "” ukończone!", "ok");
     } else if(c.steps[stepIdx].done){
       cenPlaySound("check");
     } else {
@@ -52075,19 +52530,21 @@ function _centrPrzelaczDzienNawyku(celId, dateStr){
       const weekStreak = _centrObliczSerieTygodniowa(c);
       const streak = _centrObliczSerieNawyku(c.history);
       const habitTarget = weekProgress.target;
+      const _uIm = (typeof userImie === "function") ? userImie() : "";
 
       if(weekProgress.doneThisWeek === habitTarget){
         cenCelebration();
         cenPlaySound("complete");
-        toast("🎉 Gratulacje! Cel na ten tydzień osiągnięty (" + habitTarget + " " + (habitTarget === 1 ? "dzień" : "dni") + ")! Wspaniała konsekwencja!", "ok");
+        const _pfx = _uIm ? ("🎉 Gratulacje, " + _uIm + "! ") : "🎉 Gratulacje! ";
+        toast(_pfx + "Cel na ten tydzień osiągnięty (" + habitTarget + " " + (habitTarget === 1 ? "dzień" : "dni") + ")! Wspaniała konsekwencja!", "ok");
       } else if(habitTarget === 7 && streak.current > 0 && (streak.current % 7 === 0 || streak.current === 21 || streak.current === 30 || (streak.current === streak.best && streak.current >= 5))){
         cenCelebration();
         cenPlaySound("streak");
-        toast("🔥 Wspaniała seria! Już " + streak.current + " " + (streak.current === 1 ? "dzień" : "dni") + " z rzędu!", "ok");
+        toast("🔥 Wspaniała seria" + (_uIm ? (", " + _uIm) : "") + "! Już " + streak.current + " " + (streak.current === 1 ? "dzień" : "dni") + " z rzędu!", "ok");
       } else if(habitTarget < 7 && weekStreak.current > 0 && (weekStreak.current % 4 === 0 || (weekStreak.current === weekStreak.best && weekStreak.current >= 2))){
         cenCelebration();
         cenPlaySound("streak");
-        toast("🔥 Wspaniała seria! Już " + weekStreak.current + " " + (weekStreak.current === 1 ? "tydzień" : (weekStreak.current < 5 ? "tygodnie" : "tygodni")) + " z rzędu z osiągniętym celem!", "ok");
+        toast("🔥 Wspaniała seria" + (_uIm ? (", " + _uIm) : "") + "! Już " + weekStreak.current + " " + (weekStreak.current === 1 ? "tydzień" : (weekStreak.current < 5 ? "tygodnie" : "tygodni")) + " z rzędu z osiągniętym celem!", "ok");
       }
     } else {
       cenPlaySound("uncheck");
@@ -56331,7 +56788,41 @@ function renderCentrumWidok(){
   const celeList = _centrPobierzCele();
   const celeAktywneCount = celeList.filter(c => !c.completed).length;
 
-  return '<div class="cenHeroGrid">'
+  const userName = (typeof pobierzNazweUzytkownika === "function") ? pobierzNazweUzytkownika() : "";
+  const greeting = (typeof pobierzPowitanieUzytkownika === "function") ? pobierzPowitanieUzytkownika(userName) : "Dzień dobry";
+  const initials = (typeof userInicjaly === "function") ? userInicjaly(userName) : "👤";
+  const nameEsc = esc(userName);
+
+  let userBannerHtml = '';
+  if(userName){
+    userBannerHtml = '<div class="cenUserHeroBanner">'
+      + '<div class="cenUserHeroLeft">'
+      + '<div class="cenUserAvatar" title="Twój profil: ' + nameEsc + '">' + esc(initials) + '</div>'
+      + '<div class="cenUserGreetingWrap">'
+      + '<div class="cenUserGreeting">' + greeting + ', <b>' + nameEsc + '</b>! 👋</div>'
+      + '<div class="cenUserSub">Oto Twoje osobiste postępy i aktualny plan czytania na dziś.</div>'
+      + '</div></div>'
+      + '<button type="button" class="cenUserProfileBtn" data-act="otworzProfil" title="Zarządzaj profilem użytkownika">'
+      + '<svg class="ic" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>'
+      + '<span>' + nameEsc + '</span>'
+      + '</button>'
+      + '</div>';
+  } else {
+    userBannerHtml = '<div class="cenUserHeroBanner cenUserPromptBanner">'
+      + '<div class="cenUserHeroLeft">'
+      + '<div class="cenUserAvatar cenUserAvatarPrompt">👋</div>'
+      + '<div class="cenUserGreetingWrap">'
+      + '<div class="cenUserGreeting">Witaj w <b>JW-Study</b>!</div>'
+      + '<div class="cenUserSub">Wpisz swoje imię, aby spersonalizować powiadomienia, plany i gratulacje.</div>'
+      + '</div></div>'
+      + '<div class="cenUserPromptForm">'
+      + '<input type="text" id="cenQuickNameInp" class="cenQuickNameInp" placeholder="Wpisz swoje imię…" maxlength="40" aria-label="Twoje imię">'
+      + '<button type="button" class="btn primary" id="cenQuickNameSaveBtn">Zapisz</button>'
+      + '</div>'
+      + '</div>';
+  }
+
+  return userBannerHtml + '<div class="cenHeroGrid">'
     // Karta 1: Aktywny plan czytania
     + '<div class="cenHeroCard card-blue" data-cwidok="czytanie-chronologiczne">'
     + '<div class="cenHeroCardTop">'
@@ -56404,7 +56895,7 @@ function renderCentrumWidok(){
     + '<div class="cenZadaniePodtyt">' + (planDzis.f ? planDzis.f.length : 0) + ' fragmenty • ' + esc(planDzis.t) + '</div>'
     + '</div></div>'
     + '<div style="display:flex;align-items:center;gap:8px;">'
-    + '<button type="button" class="cenZadanieBtn" data-cwidok="dzien" data-cdzien="' + curDzien + '">Czytaj dzisiaj ' + CEN_MODERN_ICO.chevron + '</button>'
+    + '<button type="button" class="cenZadanieBtn" data-cwidok="dzien" data-cdzien="' + curDzien + '">' + (userName ? ('Czytaj dzisiaj, ' + nameEsc) : 'Czytaj dzisiaj') + ' ' + CEN_MODERN_ICO.chevron + '</button>'
     + '</div></div>'
 
     // BANNER: CECHY I MOŻLIWOŚCI
@@ -56444,12 +56935,13 @@ function centrWidokCzytanieChrono(){
   const owoceDucha = typeof _centrPobierzOwoceDucha === "function" ? _centrPobierzOwoceDucha(totalDni) : [];
   const odblOwoce = owoceDucha.filter(o => doneCount >= o.day).length;
   const nastOwoc = owoceDucha.find(o => doneCount < o.day);
+  const u = (typeof pobierzNazweUzytkownika === "function") ? pobierzNazweUzytkownika() : "";
 
   return '<div class="cenSubHeader">'
     + '<div class="cenSubHeaderLewo">'
     + '<button type="button" class="cenSubWsteczBtn" data-cwidok="centrum">' + CEN_MODERN_ICO.chevronLeft + ' <span>Centrum</span></button>'
     + '<div class="cenSubTytulBox">'
-    + '<div class="cenSubTytul">Plan czytania Biblii</div>'
+    + '<div class="cenSubTytul">' + (u ? ('Plan czytania — ' + esc(u)) : 'Plan czytania Biblii') + '</div>'
     + '<div class="cenSubPodtytul">' + esc(planInfo.name) + ' • ' + esc(planInfo.duration || (planInfo.days + ' dni')) + '</div>'
     + '</div></div>'
     + '<div style="display:flex;align-items:center;gap:8px;">'
@@ -56487,7 +56979,7 @@ function centrWidokCzytanieChrono(){
     + '<div class="cenFruitPlanBannerLewo">'
     + '<div class="cenFruitPlanBannerIko">🌳</div>'
     + '<div>'
-    + '<div class="cenFruitPlanBannerTyt">Owoce ducha w Twoim planie (Galatów 5:22, 23)</div>'
+    + '<div class="cenFruitPlanBannerTyt">' + (u ? ('Owoce ducha w planie czytania — ' + esc(u)) : 'Owoce ducha w Twoim planie (Galatów 5:22, 23)') + '</div>'
     + '<div class="cenFruitPlanBannerSub">' + odblOwoce + ' z 9 owoców dojrzało • ' + (odblOwoce === 9 ? 'Wszystkie owoce zdobyte! 🌟' : (nastOwoc ? ('Kolejny owoc: <b>' + esc(nastOwoc.name) + ' (' + esc(nastOwoc.fruit) + ')</b> za ' + (nastOwoc.day - doneCount) + ' ' + (nastOwoc.day - doneCount === 1 ? 'dzień' : 'dni') + ' (Dzień ' + nastOwoc.day + ')') : '')) + '</div>'
     + '</div></div>'
     + '<div class="cenFruitMiniRow">'
@@ -56757,7 +57249,7 @@ function centrWidokDzien(dNr){
 
     + '<div class="cenDzienUkonczWrap">'
     + '<button type="button" class="cenDzienUkonczBtn' + (jestDzienUkonczony ? ' done' : '') + '" data-cdzien-ukoncz="' + dNr + '">'
-    + CEN_MODERN_ICO.check + ' ' + (jestDzienUkonczony ? 'Dzień oznaczony jako ukończony (Kliknij, aby odznaczyć)' : 'Ukończyłem dzisiejsze czytanie')
+    + CEN_MODERN_ICO.check + ' ' + (jestDzienUkonczony ? 'Dzień oznaczony jako ukończony (Kliknij, aby odznaczyć)' : ('Ukończyłem dzisiejsze czytanie' + (typeof pobierzNazweUzytkownika === "function" && pobierzNazweUzytkownika() ? (', ' + esc(pobierzNazweUzytkownika())) : '')))
     + '</button>'
     + '</div>';
 }
@@ -59135,7 +59627,39 @@ if($("centrum")){
     }
   });
 
+  $("centrum").addEventListener("keydown", ev=>{
+    if(ev.key === "Enter" && ev.target && ev.target.id === "cenQuickNameInp"){
+      ev.preventDefault();
+      const val = ev.target.value.trim();
+      if(val){
+        if(typeof ustawNazweUzytkownika === "function") ustawNazweUzytkownika(val);
+        rysujCentrum();
+      }
+    }
+  });
+
   $("centrum").addEventListener("click", async ev=>{
+    // 0. Profil użytkownika i szybkie zapisanie imienia
+    const profilBtn = ev.target.closest("[data-act='otworzProfil']");
+    if(profilBtn){
+      if(typeof openSettings === "function") openSettings();
+      if(typeof pokazKarteUstawien === "function") pokazKarteUstawien("profil");
+      return;
+    }
+
+    const quickSaveBtn = ev.target.closest("#cenQuickNameSaveBtn");
+    if(quickSaveBtn){
+      const inp = $("cenQuickNameInp");
+      const val = inp ? inp.value.trim() : "";
+      if(val){
+        if(typeof ustawNazweUzytkownika === "function") ustawNazweUzytkownika(val);
+        rysujCentrum();
+      } else {
+        toast("Wpisz swoje imię lub pseudonim", "info");
+      }
+      return;
+    }
+
     // 1. Zmiana widoku
     const widokBtn = ev.target.closest("[data-cwidok]");
     if(widokBtn){
@@ -59190,10 +59714,11 @@ if($("centrum")){
             _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
             if(typeof _centrOznaczDzisCzytanieUkonczone === "function") _centrOznaczDzisCzytanieUkonczone();
             const fNowy = typeof _centrPobierzOwoceDucha === "function" ? _centrPobierzOwoceDucha(planInfo.days).find(o => o.day === d) : null;
+            const _uIm = (typeof userImie === "function") ? userImie() : "";
             if(fNowy){
-              toast("🌳✨ Wspaniale! Twoje drzewo wydało nowy owoc: " + fNowy.name + " (" + fNowy.fruit + ")! 🎉", "ok", 5000);
+              toast("🌳✨ " + (_uIm ? ("Brawo, " + _uIm + "! ") : "Wspaniale! ") + "Twoje drzewo wydało nowy owoc: " + fNowy.name + " (" + fNowy.fruit + ")! 🎉", "ok", 5000);
             } else {
-              toast("🎉 Wspaniale! Ukończono wszystkie fragmenty na Dzień " + d + "!", "ok");
+              toast("🎉 " + (_uIm ? ("Świetnie, " + _uIm + "! ") : "Wspaniale! ") + "Ukończono wszystkie fragmenty na Dzień " + d + "!", "ok");
             }
             if(d < planInfo.days){
               _centrWybranyDzien = d + 1;
@@ -59236,10 +59761,11 @@ if($("centrum")){
           _centrZapiszUkonczoneFragi(fragi);
         }
         const fNowy = typeof _centrPobierzOwoceDucha === "function" ? _centrPobierzOwoceDucha(_planUk.days).find(o => o.day === d) : null;
+        const _uIm = (typeof userImie === "function") ? userImie() : "";
         if(fNowy){
-          toast("🌳✨ Wspaniale! Twoje drzewo wydało nowy owoc: " + fNowy.name + " (" + fNowy.fruit + ")! 🎉", "ok", 5000);
+          toast("🌳✨ " + (_uIm ? ("Brawo, " + _uIm + "! ") : "Wspaniale! ") + "Twoje drzewo wydało nowy owoc: " + fNowy.name + " (" + fNowy.fruit + ")! 🎉", "ok", 5000);
         } else {
-          toast("🎉 Wspaniale! Ukończono czytanie na Dzień " + d + "!", "ok");
+          toast("🎉 " + (_uIm ? ("Świetnie, " + _uIm + "! ") : "Wspaniale! ") + "Ukończono czytanie na Dzień " + d + "!", "ok");
         }
         if(d < _planUk.days){
           _centrWybranyDzien = d + 1;
@@ -59291,10 +59817,11 @@ if($("centrum")){
               _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
               if(typeof _centrOznaczDzisCzytanieUkonczone === "function") _centrOznaczDzisCzytanieUkonczone();
               const fNowy = typeof _centrPobierzOwoceDucha === "function" ? _centrPobierzOwoceDucha(planInfo.days).find(o => o.day === d) : null;
+              const _uIm = (typeof userImie === "function") ? userImie() : "";
               if(fNowy){
-                toast("🌳✨ Wspaniale! Twoje drzewo wydało nowy owoc: " + fNowy.name + " (" + fNowy.fruit + ")! 🎉", "ok", 5000);
+                toast("🌳✨ " + (_uIm ? ("Brawo, " + _uIm + "! ") : "Wspaniale! ") + "Twoje drzewo wydało nowy owoc: " + fNowy.name + " (" + fNowy.fruit + ")! 🎉", "ok", 5000);
               } else {
-                toast("🎉 Wspaniale! Ukończono wszystkie fragmenty na Dzień " + d + "!", "ok");
+                toast("🎉 " + (_uIm ? ("Świetnie, " + _uIm + "! ") : "Wspaniale! ") + "Ukończono wszystkie fragmenty na Dzień " + d + "!", "ok");
               }
               if(d < planInfo.days){
                 _centrWybranyDzien = d + 1;
@@ -59448,7 +59975,8 @@ if($("centrum")){
           if(planDay && planDay.f){
             planDay.f.forEach((_, idx) => fragi.add(planInfo.id + "_" + dNr + "_" + idx));
           }
-          toast("✓ Oznaczono Dzień " + dNr + " jako przeczytany!", "ok");
+          const _uIm = (typeof userImie === "function") ? userImie() : "";
+          toast("✓ " + (_uIm ? ("Świetnie, " + _uIm + "! ") : "") + "Oznaczono Dzień " + dNr + " jako przeczytany!", "ok");
         }
         _centrZapiszUkonczoneDni(dni, planInfo.id);
         _centrZapiszUkonczoneFragi(fragi);
@@ -63657,10 +64185,22 @@ document.querySelector(".searchHelp").appendChild(helpMore);
     });
   }
 
+  // Obsługa kliknięcia w kartę profilu użytkownika w pasku bocznym
+  const sidebarUserCard = document.getElementById("sidebarUserCard");
+  if (sidebarUserCard) {
+    sidebarUserCard.addEventListener("click", () => {
+      if (typeof openSettings === "function") openSettings();
+      if (typeof pokazKarteUstawien === "function") pokazKarteUstawien("profil");
+      if (window.innerWidth <= 768 || document.body.classList.contains("mobile-sidebar-open")) {
+        toggleMobileSidebar(false);
+      }
+    });
+  }
+
   // Zamykanie drawera na telefonie po kliknięciu dowolnej pozycji w pasku bocznym
   if (sidebarEl) {
     sidebarEl.addEventListener("click", (e) => {
-      const btn = e.target && e.target.closest ? e.target.closest(".sidebar-nav-item, .sidebar-new-btn") : null;
+      const btn = e.target && e.target.closest ? e.target.closest(".sidebar-nav-item, .sidebar-new-btn, .sidebar-user-card") : null;
       if (btn) {
         if (window.innerWidth <= 768 || document.body.classList.contains("mobile-sidebar-open")) {
           toggleMobileSidebar(false);

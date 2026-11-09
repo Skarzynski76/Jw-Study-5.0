@@ -1,4 +1,18 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v591)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v592)
+
+- **Personalizacja profilu użytkownika (Imię / Pseudonim) i integracja w całej aplikacji:**
+  - **Możliwość ustawienia własnej nazwy użytkownika:**
+    - Nowa dedykowana karta **„Profil”** w Oknie Ustawień (`#modalSettings`) jako pierwsza domyślna zakładka, z podglądem na żywo powitań, powiadomień i nagłówków.
+    - Wizualna, klikalna karta użytkownika w lewym pasku bocznym (`#modernSidebar`), prezentująca awatar z dynamicznymi inicjałami, nazwę profilu oraz szybki skrót edycji.
+    - Szybki baner powitalny na pulpicie głównym Centrum Studium z możliwością natychmiastowego wpisania i zapisania imienia jednym kliknięciem lub klawiszem Enter.
+  - **Spójne posługiwanie się nazwą użytkownika w aplikacji:**
+    - **Pulpit Centrum Studium:** Dynamiczne powitania w zależności od pory dnia („Dzień dobry, Grzegorz!”, „Dobry wieczór, Grzegorz!”), spersonalizowany przycisk dzisiejszego zadania studium.
+    - **Plany czytania Biblii:** Spersonalizowany nagłówek aktywnego planu („Plan czytania — Grzegorz”), baner Drzewa Owoców Ducha („Owoce ducha w planie czytania — Grzegorz”), oraz przycisk zaliczenia dnia („Ukończyłem dzisiejsze czytanie, Grzegorz”).
+    - **Powiadomienia Toast i Celebracje:** Gratulacje po ukończeniu fragmentu, całego dnia czytania, zdobyciu nowego Owocu Ducha, ukończeniu celów duchowych, zrealizowaniu etapów lub osiągnięciu serii nawyków wzywają użytkownika po imieniu (np. „🎉 Brawo, Grzegorz! Ukończono wszystkie fragmenty na Dzień X!”, „🔥 Wspaniała seria, Grzegorz! Już 7 dni z rzędu!”).
+    - **Kopie zapasowe i eksport:** Nazwa użytkownika jest uwzględniana w strukturze pliku JSON kopii zapasowej (`daneKopii().userName`), w nazwie pobieranego lub udostępnianego pliku (`moje-notatki-grzegorz-kopia-RRRR-MM-DD.json`) oraz automatycznie przywracana podczas wczytywania kopii.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v592`.
+
+## 5.0 — 2026-11-09 (Wersja v591)
 
 - **Nowoczesny falujący potencjometr audio (Waveform) dostosowany do głosu:**
   - Wprowadzono estetyczny, responsywny pasek audio stylizowany na standardy Apple Voice Memos / Telegram z organicznym falującym potencjometrem (36 słupków fali dźwiękowej o zróżnicowanej wysokości).
