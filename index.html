@@ -23705,13 +23705,13 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v602)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v603)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v602</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v603</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v602) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v602</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v603) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v603</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -25491,7 +25491,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:26px;">🚀</span>
         <div>
-          <div id="clModalTitle" style="font-size:18px;font-weight:800;color:var(--text);">JW-Study 5.0 <span class="nwVerBadge" style="margin-left:6px;background:var(--accent);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px;font-weight:750;">v602</span></div>
+          <div id="clModalTitle" style="font-size:18px;font-weight:800;color:var(--text);">JW-Study 5.0 <span class="nwVerBadge" style="margin-left:6px;background:var(--accent);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px;font-weight:750;">v603</span></div>
           <div style="font-size:12px;color:var(--muted);">Historia aktualizacji i stan pamięci podręcznej</div>
         </div>
       </div>
@@ -25956,9 +25956,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v602";
+const APP_BUILD = "v603";
 const APP_BUILD_DATE = "2026-11-09";
-const APP_FULL_VERSION = "5.0 (v602)";
+const APP_FULL_VERSION = "5.0 (v603)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -57819,13 +57819,25 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v602</span>
+          <span class="cl-ver-num">v603</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">9 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Klarowna prezentacja myśli ze skarbnicy duchowej (bez powtórzeń)</div>
+        <ul class="cl-ver-list">
+          <li><b>Usunięcie powtórzeń:</b> Usunięto sztuczne pole „Wniosek ze studium osobistego”, które dublowało treść notatki. Karta prezentuje teraz jedną, czystą i spójną myśl biblijną lub komentarz ze studium.</li>
+          <li><b>Płynny układ:</b> Odnośnik biblijny oraz etykiety są czytelnie wyeksponowane, a przycisk „Otwórz notatkę” prowadzi bezpośrednio do pełnego zapisu.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v602</span>
           <span class="cl-ver-date">9 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Powszechny wskaźnik wersji aplikacji i weryfikacja pamięci podręcznej</div>
         <ul class="cl-ver-list">
-          <li><b>Stała widoczność wersji i kompilacji:</b> Wersja <code>5.0 (v602)</code> jest teraz stale widoczna na Ekranie Powitalnym, w stopce Centrum Studium oraz na pasku bocznym (w tym w trybie zwiniętym 58 px na iPadzie i w Split View).</li>
+          <li><b>Stała widoczność wersji i kompilacji:</b> Wersja <code>5.0 (v603)</code> jest stale widoczna na Ekranie Powitalnym, w stopce Centrum Studium oraz na pasku bocznym (w tym w trybie zwiniętym 58 px na iPadzie i w Split View).</li>
           <li><b>Diagnostyka Service Workera w czasie rzeczywistym:</b> Aplikacja weryfikuje aktywny magazyn cache i natychmiast informuje, czy urządzenie pobrało najnowszą wersję, czy wymaga odświeżenia.</li>
           <li><b>Szybki podgląd zmian (Changelog):</b> Jedno kliknięcie w dowolną plakietkę wersji otwiera to okno z historią uaktualnień.</li>
         </ul>
@@ -58148,26 +58160,36 @@ function renderEkranPowitalny(){
   const gemNote = _centrPobierzLosowyKlejnot();
   let gemHtml = '';
   if(gemNote){
-    const plainText = gemNote.c ? htmlToPlain(gemNote.c) : (gemNote.h ? htmlToPlain(gemNote.h) : '');
-    const paragraphs = plainText.split(/\n+/).map(p => p.trim()).filter(Boolean);
-    const quoteText = paragraphs[0] || (gemNote.t || 'Rozważania biblijne');
-    const reflectionText = paragraphs.slice(1).join(' ') || (plainText || 'Warto powrócić do tej myśli podczas dzisiejszego rozmyślania.');
+    const rawPlain = gemNote.c ? htmlToPlain(gemNote.c) : (gemNote.h ? htmlToPlain(gemNote.h) : '');
+    const cleanText = rawPlain.replace(/\s+/g, ' ').trim();
+    const noteTitle = (gemNote.t || '').trim();
     const noteRef = (gemNote.b && typeof refStr === 'function') ? refStr(gemNote) : '';
     const noteTags = Array.isArray(gemNote.tg)
       ? gemNote.tg.map(tid => (tags.find(t => t.id === tid) || {}).name).filter(Boolean)
       : [];
 
+    const sourceLabel = noteTitle || noteRef || 'Rozważania biblijne';
+    const isNwtsty = noteTags.some(t => t.toLowerCase().includes('biblia do studium') || t.toLowerCase().includes('nwtsty')) || (gemNote.isSample === true);
+
+    // Wyciągnięcie treści bez sztucznego powielania i bez fikcyjnego pola 'Wniosek'
+    let displayBody = cleanText;
+    if(noteTitle && displayBody.toLowerCase().startsWith(noteTitle.toLowerCase())){
+      displayBody = displayBody.slice(noteTitle.length).replace(/^[\s:—–-]+/, '').trim();
+    }
+    if(!displayBody) displayBody = cleanText || noteTitle || 'Warto powrócić do tej myśli podczas dzisiejszego rozmyślania.';
+
+    // Skrócenie z eleganckim domknięciem
+    const maxChars = 320;
+    const isTruncated = displayBody.length > maxChars;
+    const excerpt = isTruncated ? displayBody.slice(0, maxChars).trim() + '…' : displayBody;
+
     gemHtml = '<div class="cenWelcomeCard" style="background:linear-gradient(180deg, var(--panel, #ffffff) 0%, color-mix(in srgb, #d97706 4%, var(--panel, #ffffff)) 100%);">'
       + '<div class="cenWelcomeCardHeader">'
-      + '<span class="cenWelcomeTag tag-gold">💎 Z Twojej duchowej skarbnicy · Pismo Święte w Przekładzie Nowego Świata (Biblia do studium)</span>'
-      + '<span class="card-action-link" data-cakcja="losuj-klejnot" style="font-size:12.5px;color:#d97706;cursor:pointer;font-weight:750;">Losuj inny 🎲</span>'
+      + '<span class="cenWelcomeTag tag-gold">💎 Z Twojej duchowej skarbnicy' + (isNwtsty ? ' · Biblia do studium' : '') + '</span>'
+      + '<span class="card-action-link" data-cakcja="losuj-klejnot" style="font-size:12.5px;color:#d97706;cursor:pointer;font-weight:750;">Losuj inną 🎲</span>'
       + '</div>'
-      + '<div class="cenGemQuote">„' + esc(quoteText.slice(0, 180)) + (quoteText.length > 180 ? '…' : '') + '”</div>'
-      + (gemNote.t ? ('<div class="cenGemBibleRef">📜 ' + esc(gemNote.t) + ' <span style="font-size:11px;font-weight:600;opacity:0.8;">(Biblia do studium — nwtsty)</span></div>') : (noteRef ? ('<div class="cenGemBibleRef">📜 ' + esc(noteRef) + ' <span style="font-size:11px;font-weight:600;opacity:0.8;">(Biblia do studium — nwtsty)</span></div>') : ''))
-      + '<div class="cenGemReflection">'
-      + '<b>Wniosek ze studium osobistego:</b>'
-      + '<span>' + esc(reflectionText.slice(0, 220)) + (reflectionText.length > 220 ? '…' : '') + '</span>'
-      + '</div>'
+      + '<div class="cenGemBibleRef">📜 <b>' + esc(sourceLabel) + '</b></div>'
+      + '<div class="cenGemQuote">„' + esc(excerpt) + '”</div>'
       + (noteTags.length ? ('<div class="cenGemTags">' + noteTags.slice(0, 4).map(tn => '<span class="cenGemTagPill">#' + esc(tn) + '</span>').join('') + '</div>') : '<div style="margin-bottom:12px;"></div>')
       + '<div class="cenGemFooterBtns">'
       + (gemNote.g ? ('<button type="button" class="cenBtnOpenGem" data-cnota="' + esc(gemNote.g) + '">Otwórz notatkę 📖</button>') : '')

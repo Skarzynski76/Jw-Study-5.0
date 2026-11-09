@@ -1,4 +1,11 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v602)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v603)
+
+- **Klarowna prezentacja myśli w karcie „Z Twojej duchowej skarbnicy” (usunięcie powtórzeń):**
+  - **Usunięcie sztucznego pola „Wniosek ze studium osobistego”:** Wyeliminowano algorytmiczny błąd, który powodował, że jednolite notatki użytkownika (np. komentarze z Biblii do studium) były wyświetlane dwukrotnie — najpierw jako rzekomy „cytat”, a zaraz pod nim powtarzane słowo w słowo w ramce „Wniosek”.
+  - **Spójny i elegancki układ karty duchowego klejnotu:** Karta prezentuje teraz czystą, spójną myśl biblijną lub komentarz ze studium z wyraźnym odnośnikiem 📜, estetycznym złotym akcentem, etykietami oraz przyciskami *„Otwórz notatkę 📖”* i *„Następna myśl ↻”*.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v603`.
+
+## 5.0 — 2026-11-09 (Wersja v602)
 
 - **Powszechny system widoczności wersji aplikacji w interfejsie i weryfikacja magazynu pamięci podręcznej (Cache):**
   - **Pełne oznaczenie kompilacji `5.0 (v602)`:** Zastąpiono statyczne oznaczenie `v5.0` formatem z dokładnym numerem kompilacji i wersji Service Workera.
