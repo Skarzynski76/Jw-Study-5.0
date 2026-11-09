@@ -1,4 +1,14 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v599)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v600)
+
+- **Kalendarzowe przypisanie i jednoznaczny status ukończenia czytania Biblii na Ekranie Powitalnym:**
+  - **Bezpośrednie powiązanie z kalendarzem:** Do każdego dnia planu wyświetlana jest dokładna data kalendarzowa (np. *„Dzień 38 z 90 • Poniedziałek, 9 listopada”*), wyliczana ze stałej daty startu planu.
+  - **Jednoznaczny stan ukończenia czytania na dany dzień:**
+    - **Gdy czytanie na dziś zostało ukończone:** Wyświetla się szmaragdowy badge *„✓ Dzisiejsze czytanie ukończone”*, zielone obramowanie karty, fragmenty z ptaszkami `✓`, zielony przycisk *„✓ Ukończyłeś czytanie na dziś! (Kliknij, aby cofnąć)”* oraz elegancki kafelek z zapowiedzią jutrzejszego czytania (*„📅 Jutrzejsze czytanie: Dzień 39 • Dzieje 22-24”*) z przyciskiem *„Czytaj z wyprzedzeniem ➔”*.
+    - **Gdy czytanie na dziś jeszcze oczekuje:** Wyświetla się niebieski badge *„📖 Zadanie na dziś • [data]”* oraz aktywny przycisk *„✓ Ukończyłem dzisiejsze czytanie”*.
+    - **Obsługa zaległości i czytania z wyprzedzeniem:** Jeśli użytkownik nadrabia zaległości lub czyta naprzód, karta wyraźnie wskazuje status (*„⚠️ Zaległy fragment”* lub *„🚀 Czytasz z wyprzedzeniem”*) wraz z odniesieniem do bieżącego dnia w kalendarzu.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v600`.
+
+## 5.0 — 2026-11-09 (Wersja v599)
 
 - **Dosłowna zgodność wszystkich cytatów z zrewidowanym Pismem Świętym w Przekładzie Nowego Świata — Biblia do studium (NWT 2020/2025):**
   - **1 Tymoteusza 4:15:** Zaktualizowano cytat do dokładnego brzmienia zrewidowanego Przekładu Nowego Świata:

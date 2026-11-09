@@ -52427,9 +52427,6 @@ function _centrPobierzUkonczoneDni(planId){
 function _centrZapiszUkonczoneDni(set, planId){
   planId = planId || _centrAktywnyPlanId || "chrono";
   lsSet(KP + "CentrumDniDone_" + planId, JSON.stringify(Array.from(set)));
-  if(set && set.size > 0 && typeof _centrOznaczDzisCzytanieUkonczone === "function"){
-    _centrOznaczDzisCzytanieUkonczone();
-  }
   if(typeof bumpDirty === "function") bumpDirty();
 }
 
@@ -56089,6 +56086,15 @@ function _centrCzyDzisUkonczonoCzytanie(planId){
     if(planInfo){
       const doneSet = _centrPobierzUkonczoneDni(planInfo.id);
       if(doneSet && planInfo.days > 0 && doneSet.size >= planInfo.days) return true;
+
+      const startDate = _centrPobierzPlanStartDate(planInfo.id);
+      const now = new Date();
+      now.setHours(0,0,0,0);
+      const diffDays = Math.round((now.getTime() - startDate.getTime()) / 86400000);
+      const calDay = diffDays + 1;
+      if(calDay >= 1 && calDay <= planInfo.days && doneSet.has(calDay)){
+        return true;
+      }
     }
     return false;
   } catch(e){
@@ -57439,9 +57445,33 @@ function renderEkranPowitalny(){
   const doneCount = dniDone.size;
   const pctNum = totalDni > 0 ? (doneCount / totalDni) * 100 : 0;
   const pct = pctNum.toFixed(1).replace(".", ",");
-  const curDzien = _centrZnajdzBiezacyDzienPlanu(curPlan.id);
+
+  const startDate = _centrPobierzPlanStartDate(curPlan.id);
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  const diffDays = Math.round((now.getTime() - startDate.getTime()) / 86400000);
+  const calDayForToday = Math.max(1, Math.min(totalDni, diffDays + 1));
+
+  const dzisISO = _centrFormatujDateISO(now);
+  const dzisDoneFlag = (lsGet(JW_PLAN_DZIS_UKONCZONO, "") === dzisISO);
+  const calDayIsDone = dniDone.has(calDayForToday);
+  const czyDzisUkonczono = calDayIsDone || dzisDoneFlag;
+
+  // Ustalenie wyświetlanego dnia:
+  let curDzien;
+  if(czyDzisUkonczono){
+    curDzien = calDayForToday;
+  } else {
+    const firstUnread = _centrZnajdzBiezacyDzienPlanu(curPlan.id);
+    curDzien = firstUnread;
+  }
+
   const planList = curPlan.plan || [];
-  const planDzis = planList.find(x => x.d === curDzien) || planList[0] || { d: 1, t: "Czytanie biblijne", f: [] };
+  const planDzis = planList.find(x => x.d === curDzien) || planList[0] || { d: curDzien, t: "Czytanie biblijne", f: [] };
+
+  const planDayDate = new Date(startDate.getTime() + (curDzien - 1) * 86400000);
+  const planDayDateStr = planDayDate.toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long' });
+  const planDayDateCap = planDayDateStr.charAt(0).toUpperCase() + planDayDateStr.slice(1);
 
   const tematy = _centrPobierzTematyStudium();
   const tCount = tematy.length;
@@ -57504,11 +57534,12 @@ function renderEkranPowitalny(){
   }
 
   // 1. ZADANIE NA DZIŚ (CZYTANIE BIBLII Z PLANU)
+  const isDayDone = dniDone.has(curDzien);
   const fragiDone = _centrPobierzUkonczoneFragi();
   const fragmentsHtml = (planDzis.f && planDzis.f.length)
     ? planDzis.f.map((frag, idx) => {
         const fKey = curPlan.id + "_" + curDzien + "_" + idx;
-        const isDone = fragiDone.has(fKey);
+        const isDone = isDayDone || fragiDone.has(fKey);
         return '<div class="cenPortionRow">'
           + '<div>'
           + '<div class="cenPortionName">' + (isDone ? '<span style="color:#059669;margin-right:6px;font-weight:bold;">✓</span>' : '') + esc(frag.r) + '</div>'
@@ -57521,10 +57552,77 @@ function renderEkranPowitalny(){
       }).join('')
     : '<div style="font-size:13px;color:var(--muted);padding:8px 0;">Brak szczegółowych fragmentów na ten dzień.</div>';
 
-  const isDayDone = dniDone.has(curDzien);
-  const completeBtnHtml = '<button type="button" class="cenBtnCompleteDay' + (isDayDone ? ' done' : '') + '" data-cdzien-ukoncz="' + curDzien + '">'
-    + '<span>✓</span> ' + (isDayDone ? 'Dzień oznaczony jako przeczytany (Kliknij, aby cofnąć)' : ('Ukończyłem dzisiejsze czytanie' + (userName ? (', ' + nameEsc) : '')))
-    + '</button>';
+  let cardTagHtml = '';
+  let cardSubHtml = '';
+  let completeBtnHtml = '';
+  let tomorrowPreviewHtml = '';
+
+  if(isDayDone){
+    cardTagHtml = '<span class="cenWelcomeTag" style="background:#059669;color:#ffffff;font-weight:750;box-shadow:0 2px 6px rgba(5,150,105,0.25);">✓ Dzisiejsze czytanie ukończone</span>';
+    cardSubHtml = '<div style="font-size:13px;color:#059669;font-weight:750;margin-bottom:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">'
+      + '<span>Dzień ' + curDzien + ' z ' + totalDni + '</span>'
+      + '<span style="color:var(--border);">•</span>'
+      + '<span>📅 ' + planDayDateCap + '</span>'
+      + '<span style="color:var(--border);">•</span>'
+      + '<span style="background:rgba(5,150,105,0.12);padding:2px 8px;border-radius:6px;">Zrealizowano na dziś ✓</span>'
+      + '</div>';
+
+    completeBtnHtml = '<button type="button" class="cenBtnCompleteDay done" data-cdzien-ukoncz="' + curDzien + '">'
+      + '<span>✓</span> Ukończyłeś czytanie na dziś' + (userName ? (', ' + nameEsc) : '') + '! (Kliknij, aby cofnąć)'
+      + '</button>';
+
+    if(curDzien < totalDni){
+      const jutroDzien = curDzien + 1;
+      const jutroPlanDay = planList.find(x => x.d === jutroDzien);
+      const jutroDate = new Date(startDate.getTime() + (jutroDzien - 1) * 86400000);
+      const jutroDateStr = jutroDate.toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long' });
+      const jutroDateCap = jutroDateStr.charAt(0).toUpperCase() + jutroDateStr.slice(1);
+      const jutroFragi = (jutroPlanDay && jutroPlanDay.f && jutroPlanDay.f.length)
+        ? jutroPlanDay.f.map(x => x.r).join(', ')
+        : (jutroPlanDay ? (jutroPlanDay.t || 'Kolejny rozdział') : '');
+
+      tomorrowPreviewHtml = '<div class="cenTomorrowPreviewBox" style="margin-top:14px;padding:12px 14px;border-radius:12px;background:color-mix(in srgb, var(--accent,#2563eb) 7%, var(--panel,#ffffff));border:1px dashed color-mix(in srgb, var(--accent,#2563eb) 35%, transparent);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">'
+        + '<div style="min-width:0;">'
+        + '<div style="font-size:11px;font-weight:750;text-transform:uppercase;letter-spacing:0.04em;color:var(--accent,#2563eb);">📅 Kolejny fragment (na jutro • ' + esc(jutroDateCap) + ')</div>'
+        + '<div style="font-size:13.5px;font-weight:750;color:var(--text);margin-top:2px;">Dzień ' + jutroDzien + ' • ' + esc(jutroFragi) + '</div>'
+        + '</div>'
+        + '<button type="button" class="btn small" data-cwidok="dzien" data-cdzien="' + jutroDzien + '" style="font-size:12px;padding:6px 14px;white-space:nowrap;font-weight:650;">Czytaj z wyprzedzeniem ➔</button>'
+        + '</div>';
+    }
+  } else {
+    const isPastDue = (curDzien < calDayForToday);
+    const isAhead = (curDzien > calDayForToday);
+
+    if(isPastDue){
+      cardTagHtml = '<span class="cenWelcomeTag" style="background:#f59e0b;color:#ffffff;font-weight:750;">⚠️ Zaległy fragment do przeczytania</span>';
+      cardSubHtml = '<div style="font-size:13px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">'
+        + '<span>Dzień ' + curDzien + ' z ' + totalDni + '</span>'
+        + '<span style="color:var(--border);">•</span>'
+        + '<span>Zaplanowany na: ' + planDayDateCap + '</span>'
+        + '<span style="color:#d97706;font-weight:700;background:rgba(245,158,11,0.12);padding:2px 8px;border-radius:6px;">Dziś w kalendarzu: Dzień ' + calDayForToday + '</span>'
+        + '</div>';
+    } else if(isAhead){
+      cardTagHtml = '<span class="cenWelcomeTag" style="background:#8b5cf6;color:#ffffff;font-weight:750;">🚀 Czytasz z wyprzedzeniem</span>';
+      cardSubHtml = '<div style="font-size:13px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">'
+        + '<span>Dzień ' + curDzien + ' z ' + totalDni + '</span>'
+        + '<span style="color:var(--border);">•</span>'
+        + '<span>Zaplanowany na: ' + planDayDateCap + '</span>'
+        + '<span style="color:#7c3aed;font-weight:700;background:rgba(139,92,246,0.12);padding:2px 8px;border-radius:6px;">Dziś w kalendarzu: Dzień ' + calDayForToday + '</span>'
+        + '</div>';
+    } else {
+      cardTagHtml = '<span class="cenWelcomeTag tag-blue">📖 Zadanie na dziś • ' + planDayDateCap + '</span>';
+      cardSubHtml = '<div style="font-size:13px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">'
+        + '<span>Dzień ' + curDzien + ' z ' + totalDni + '</span>'
+        + '<span style="color:var(--border);">•</span>'
+        + '<span>📅 ' + planDayDateCap + '</span>'
+        + (planDzis.etap ? ('<span style="color:var(--border);">•</span><span>Etap: ' + esc(planDzis.etap) + '</span>') : (planDzis.t ? ('<span style="color:var(--border);">•</span><span>' + esc(planDzis.t) + '</span>') : ''))
+        + '</div>';
+    }
+
+    completeBtnHtml = '<button type="button" class="cenBtnCompleteDay" data-cdzien-ukoncz="' + curDzien + '">'
+      + '<span>✓</span> Ukończyłem dzisiejsze czytanie' + (userName ? (', ' + nameEsc) : '')
+      + '</button>';
+  }
 
   const spiritualFruits = _centrPobierzOwoceDucha(totalDni);
   const nextFruit = spiritualFruits.find(f => doneCount < f.day);
@@ -57542,19 +57640,21 @@ function renderEkranPowitalny(){
       + '</div>';
   }
 
-  const zadanieKartaHtml = '<div class="cenWelcomeCard">'
+  const cardBorderHighlight = isDayDone ? ' style="border-color:rgba(16,185,129,0.38);background:linear-gradient(180deg, rgba(16,185,129,0.04) 0%, transparent 100%);"' : '';
+  const zadanieKartaHtml = '<div class="cenWelcomeCard"' + cardBorderHighlight + '>'
     + '<div class="cenWelcomeCardHeader">'
-    + '<span class="cenWelcomeTag tag-blue">📖 Zadanie na dziś • Plan czytania</span>'
+    + cardTagHtml
     + '<span class="card-action-link" data-cwidok="czytanie-chronologiczne" style="font-size:12.5px;color:var(--accent);cursor:pointer;font-weight:750;">Wszystkie dni ▾</span>'
     + '</div>'
     + '<div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:2px;">' + esc(curPlan.name) + '</div>'
-    + '<div style="font-size:13px;color:var(--muted);margin-bottom:14px;">Dzień ' + curDzien + ' z ' + totalDni + (planDzis.etap ? (' • Etap: ' + esc(planDzis.etap)) : (planDzis.t ? (' • ' + esc(planDzis.t)) : '')) + '</div>'
+    + cardSubHtml
     + '<div class="cenReadingPortions">'
     + '<div class="cenReadingLabel">Wyznaczone fragmenty Słowa Bożego:</div>'
     + fragmentsHtml
     + '</div>'
     + nextFruitHtml
     + completeBtnHtml
+    + tomorrowPreviewHtml
     + '</div>';
 
   // 2. KARTA: LOSOWY KLEJNOT DUCHOWY ZE SKARBNICY
@@ -60701,6 +60801,7 @@ if($("centrum")){
       if(dni.has(d)){
         dni.delete(d);
         _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
+        try { lsRem(JW_PLAN_DZIS_UKONCZONO); } catch(e){}
         if(planDay){
           const fragi = _centrPobierzUkonczoneFragi();
           planDay.f.forEach((_, idx) => fragi.delete(_centrAktywnyPlanId + "_" + d + "_" + idx));
