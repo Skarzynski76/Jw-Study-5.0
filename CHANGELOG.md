@@ -1,4 +1,17 @@
-## 5.0 — 2026-11-06 (Aktualizacja bieżąca — v588)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v589)
+
+- **Plany czytania Biblii (np. 90 dni) i Kalendarz — wyraźna widoczność nieprzeczytanych dni i reset planu:**
+  - **Siatka dni planu (1–90):** Wprowadzono nowoczesny, przejrzysty widok siatki prezentujący wszystkie dni aktywnego planu z numerem dnia, fragmentami biblijnymi, odznakami statusu (✓ Ukończono, ◉ Dzisiaj, ⚠️ Nieprzeczytane, ⏳ Zaplanowane) oraz szybkim przyciskiem bezpośredniego oznaczania (`✓` / `○`) bez konieczności wchodzenia w szczegóły każdego dnia.
+  - **Widoczność dni zaległych / nieprzeczytanych:** Jeśli którykolwiek dzień przed bieżącym (`d < curDzien`) nie został przeczytany, jest natychmiast wyróżniony ciepłą koralową ramką, jaskrawą kropką ostrzegawczą (`dot-missed`) oraz plakietką `⚠️ Nieprzeczytane` (zarówno w siatce, na liście dni, jak i w kalendarzu miesięcznym).
+  - **Karta zaległości na pulpicie planu:** Dodano wyraźny baner z ostrzeżeniem o zaległych dniach i jednym kliknięciem przenoszącym do listy zaległości.
+  - **Przycisk resetowania planu („↺ Zacznij od nowa”):** Dodano bezpieczny przycisk z potwierdzeniem czyszczący postęp wybranego planu do Dnia 1.
+  - **Automatyczne czyszczenie mocków 90 dni:** Usunięto stare dane testowe, które automatycznie oznaczały wszystkie 90 dni jako ukończone w planach Życie Jezusa i Nowy Testament.
+  - **Usprawnienia wizualne i naprawa błędów interfejsu (Modern Elevation):**
+    - Naprawiono zdublowany napis „Nowa notatkaNowa” na iPadzie i w oknach poniżej 1400px poprzez wyłączenie kolizyjnego pseudo-elementu `::after`.
+    - Wyeliminowano zwijanie się kart notatek do cienkich linii na iPhone (usunięto `contain: layout` powodujący zapadanie się wysokości w WebKit Safari, gwarantując stałą minimalną wysokość i czytelność ~10 linii tekstu notatki).
+    - Podniesiono wersję pamięci podręcznej Service Workera do `v589`.
+
+## 5.0 — 2026-11-06 (Wersja v588)
 
 - **Eliminacja samoczynnego przewijania okna do góry po powrocie do aplikacji:**
   - Zidentyfikowano błąd w procedurze pozycjonowania kursora (`kbPokazKursor`), która przy braku punktowego zaznaczenia w edytorze tekstu (`contenteditable`) brała prostokąt całego bloku artykułu. Ponieważ góra przewiniętego artykułu znajdowała się poza ekranem, funkcja błędnie interpretowała to jako schowanie kursora pod górną belkę i gwałtownie cofała przewinięcie do zera (`scrollTop = 0`).

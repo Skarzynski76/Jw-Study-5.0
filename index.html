@@ -2108,14 +2108,163 @@ html[data-theme="dark"] .cenRemPermAlert.default {
   color: var(--cen-cal-day-color);
 }
 .cenKalDzienKropka {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   margin-top: 4px;
+  transition: all 0.15s ease;
 }
-.cenKalDzienKropka.dot-done { background: #10b981; }
-.cenKalDzienKropka.dot-part { background: #f59e0b; }
-.cenKalDzienKropka.dot-empty { background: transparent; }
+.cenKalDzienKropka.dot-done { background: #10b981; box-shadow: 0 0 5px rgba(16, 185, 129, 0.4); }
+.cenKalDzienKropka.dot-part { background: #3b82f6; box-shadow: 0 0 6px rgba(59, 130, 246, 0.5); }
+.cenKalDzienKropka.dot-missed { background: #ef4444; box-shadow: 0 0 7px rgba(239, 68, 68, 0.7); }
+.cenKalDzienKropka.dot-future { background: rgba(140, 155, 170, 0.35); }
+.cenKalDzienKropka.dot-empty { background: rgba(140, 155, 170, 0.35); }
+
+.cenKalDzienKomorka.is-done {
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+.cenKalDzienKomorka.is-missed {
+  border: 1.5px solid rgba(239, 68, 68, 0.6) !important;
+  background: rgba(239, 68, 68, 0.08) !important;
+}
+.cenKalDzienKomorka.is-missed .cenKalDzienNr {
+  color: #ef4444 !important;
+  font-weight: 700;
+}
+
+/* Siatka wszystkich dni planu czytania (np. 1–90) */
+.cenPlanGrid90 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(136px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+  margin-bottom: 24px;
+}
+@media (max-width: 600px) {
+  .cenPlanGrid90 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
+.cenDzienTile {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 94px;
+  position: relative;
+  transition: all 0.16s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+.cenDzienTile:hover {
+  transform: translateY(-2px);
+  border-color: var(--cen-card-border-hover);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.07);
+}
+.cenDzienTile.is-done {
+  border-color: rgba(16, 185, 129, 0.45);
+  background: linear-gradient(180deg, var(--cen-card-bg) 0%, rgba(16, 185, 129, 0.06) 100%);
+}
+.cenDzienTile.is-missed {
+  border: 1.5px solid rgba(239, 68, 68, 0.55);
+  background: linear-gradient(180deg, var(--cen-card-bg) 0%, rgba(239, 68, 68, 0.08) 100%);
+}
+.cenDzienTile.is-cur {
+  border: 2px solid #3b82f6;
+  background: linear-gradient(180deg, var(--cen-card-bg) 0%, rgba(59, 130, 246, 0.08) 100%);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+}
+.cenDzienTileGora {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.cenDzienTileNr {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--cen-text-main);
+}
+.cenDzienTileBtnCheck {
+  border: 1px solid var(--cen-card-border);
+  background: var(--cen-card-bg);
+  padding: 3px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--cen-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.12s ease;
+}
+.cenDzienTileBtnCheck:hover {
+  background: var(--sel);
+  color: var(--accent);
+}
+.cenDzienTileBtnCheck.is-done {
+  color: #10b981;
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.1);
+}
+.cenDzienTileBtnCheck.is-missed {
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.4);
+  background: rgba(239, 68, 68, 0.1);
+}
+.cenDzienTileFragment {
+  font-size: 11.5px;
+  color: var(--cen-text-muted);
+  line-height: 1.35;
+  margin-bottom: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.cenDzienTileBadge {
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 2px 6px;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.cenDzienTileBadge.badge-done {
+  background: rgba(16, 185, 129, 0.15);
+  color: #059669;
+}
+.cenDzienTileBadge.badge-missed {
+  background: rgba(239, 68, 68, 0.15);
+  color: #dc2626;
+  font-weight: 700;
+}
+.cenDzienTileBadge.badge-cur {
+  background: rgba(59, 130, 246, 0.15);
+  color: #2563eb;
+}
+.cenDzienTileBadge.badge-future {
+  background: rgba(148, 163, 184, 0.15);
+  color: var(--cen-text-muted);
+}
+.cenBadgeMissed {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.12);
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
 
 .cenKalLegenda {
   display: flex;
@@ -5852,11 +6001,19 @@ html[data-theme="dark"] #pubPanel{border-color:var(--border)}
 .ncard.pinned{border-color:var(--accent2);box-shadow:0 0 0 1.5px var(--accent2), 0 4px 16px rgba(37,107,82,.08)}
 .ncard.selected, .ncard.active, .ncard.otwarta{border-left:4px solid var(--accent);background:color-mix(in srgb,var(--accent) 4%,var(--panel))}
 .ncard>*:not(.nhead):not(.ntools){margin-left:16px;margin-right:16px}
-/* Bezpieczna izolacja układu kart notatek (contain: layout style).
-   Wycofano content-visibility: auto, które w silniku WebKit (iOS Safari) traktowało karty
-   wewnątrz przewijanego kontenera jako niewidoczne i zwijało je do 1-pikselowych linii. */
+/* Bezpieczna izolacja układu kart notatek (contain: style).
+   Wycofano contain: layout i content-visibility: auto, które w silniku WebKit (iOS Safari)
+   potrafiły traktować karty w długich listach jako niewidoczne i zwijać je do 1-pikselowych linii. */
 #noteList .ncard {
-  contain: layout style;
+  contain: style;
+  box-sizing: border-box;
+  min-height: 52px;
+}
+@media (max-width: 768px) {
+  #noteList .ncard {
+    contain: none !important;
+    min-height: 56px !important;
+  }
 }
 #noteList .ncard.editing,
 #noteList .ncard.wydobyta,
@@ -13558,8 +13715,8 @@ header{ row-gap: calc(7px * var(--uiw, 1)); }
 @media (max-width:1400px){
   #btnWszystkie .bwTxt{ font-size:0; }
   #btnWszystkie .bwTxt::after{ content:"Wszystkie"; font-size:calc(13px * var(--uiw,1)); }
-  #btnNew .tb-txt{ font-size:0; }
-  #btnNew .tb-txt::after{ content:"Nowa"; font-size:calc(13px * var(--uiw,1)); }
+  body:not(.is-ipad) #btnNew .tb-txt{ font-size:0; }
+  body:not(.is-ipad) #btnNew .tb-txt::after{ content:"Nowa"; font-size:calc(13px * var(--uiw,1)); }
 }
 
 /* ══════════════ PASEK PRZYPOMNIENIA O KOPII ══════════════
@@ -20591,10 +20748,16 @@ html.is-ipad header .searchwrap #btnSearchTools {
     box-sizing: border-box !important;
   }
 
-  html.is-ipad header #btnNew .tb-txt {
+  html.is-ipad header #btnNew .tb-txt,
+  body.is-ipad header #btnNew .tb-txt {
     display: inline !important;
     font-size: 13px !important;
     font-weight: 600 !important;
+  }
+  html.is-ipad header #btnNew .tb-txt::after,
+  body.is-ipad header #btnNew .tb-txt::after {
+    display: none !important;
+    content: "" !important;
   }
 }
 
@@ -20649,10 +20812,16 @@ html.is-ipad header .searchwrap #btnSearchTools {
     box-sizing: border-box !important;
   }
 
-  html.is-ipad header #btnNew .tb-txt {
+  html.is-ipad header #btnNew .tb-txt,
+  body.is-ipad header #btnNew .tb-txt {
     display: inline !important;
     font-size: 13px !important;
     font-weight: 600 !important;
+  }
+  html.is-ipad header #btnNew .tb-txt::after,
+  body.is-ipad header #btnNew .tb-txt::after {
+    display: none !important;
+    content: "" !important;
   }
 
   /* Rząd 2: Narzędzia i okna funkcyjne */
@@ -50553,6 +50722,7 @@ let _centrCeleEdycjaId = null;
 const _cenNow = new Date();
 let _centrKalRok = _cenNow.getFullYear();
 let _centrKalMies = _cenNow.getMonth();
+let _centrKalWidokTryb = lsGet(KP + "CentrumKalWidokTryb", "siatka"); // "siatka" | "miesiac"
 let _centrHabitKalCelId = null;
 let _centrHabitKalRok = _cenNow.getFullYear();
 let _centrHabitKalMies = _cenNow.getMonth();
@@ -50575,6 +50745,28 @@ let _centrHabitKalMies = _cenNow.getMonth();
         lsRem(KP + "CentrumDniDone_nt");
       }
       lsSet(KP + "CentrumNtMockCleaned_v2", "1");
+    }
+    // v589: Wyczyszczenie pre-wypełnionych 90 dni dla planu Życie Jezusa i Nowy Testament
+    if(!lsGet(KP + "CentrumClean90_v589", null)){
+      const rawJezus = lsGet(KP + "CentrumDniDone_zycie-jezusa-90dni", null);
+      if(rawJezus){
+        try {
+          const arrJ = JSON.parse(rawJezus);
+          if(Array.isArray(arrJ) && arrJ.length >= 85){
+            lsRem(KP + "CentrumDniDone_zycie-jezusa-90dni");
+          }
+        }catch(e){}
+      }
+      const rawNt90 = lsGet(KP + "CentrumDniDone_nt", null);
+      if(rawNt90){
+        try {
+          const arrN = JSON.parse(rawNt90);
+          if(Array.isArray(arrN) && arrN.length >= 85){
+            lsRem(KP + "CentrumDniDone_nt");
+          }
+        }catch(e){}
+      }
+      lsSet(KP + "CentrumClean90_v589", "1");
     }
     const rawFragi = lsGet(KP + "CentrumFragiDone", null);
     if(rawFragi && (rawFragi.includes("chrono_47_0") || rawFragi.includes("47_0")) && !lsGet(KP + "CentrumFragiMockCleaned_v2", null)){
@@ -55975,6 +56167,7 @@ function centrWidokCzytanieChrono(){
   const curDzien = Math.min(totalDni, _centrWybranyDzien || _centrZnajdzBiezacyDzienPlanu(planInfo.id));
   const planDzis = planList.find(x=>x.d===curDzien) || planList[0] || { d: 1, t: "Czytanie biblijne", f: [] };
   const doneCount = dniDone.size;
+  const missedDays = planList.filter(x => x.d < curDzien && !dniDone.has(x.d));
   const pctNum = totalDni > 0 ? (doneCount / totalDni) * 100 : 0;
   const pct = pctNum.toFixed(1).replace(".", ",");
   const nastDni = planList.filter(x=>x.d > curDzien && x.d <= curDzien + 3);
@@ -56015,6 +56208,7 @@ function centrWidokCzytanieChrono(){
 
     + '<div class="cenPlanStatsGrid">'
     + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + doneCount + '</div><div class="cenPlanStatLbl">Ukończono dni</div></div>'
+    + '<div class="cenPlanStatTile"><div class="cenPlanStatVal" style="' + (missedDays.length ? 'color:#ef4444;font-weight:700;' : '') + '">' + missedDays.length + '</div><div class="cenPlanStatLbl">Zaległe dni</div></div>'
     + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + (totalDni - doneCount) + '</div><div class="cenPlanStatLbl">Pozostało dni</div></div>'
     + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + (planInfo.pace || "~1 rozdz./dzień") + '</div><div class="cenPlanStatLbl">Średnie tempo</div></div>'
     + '</div></div>'
@@ -56032,13 +56226,36 @@ function centrWidokCzytanieChrono(){
     + '</div>'
 
     + '<div class="cenChronoAkcjeRow">'
-    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="kalendarz">' + CEN_MODERN_ICO.calendar + '<span>Kalendarz</span></button>'
-    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="lista-dni">' + CEN_MODERN_ICO.list + '<span>Lista dni</span></button>'
+    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="kalendarz">' + CEN_MODERN_ICO.calendar + '<span>Kalendarz / Siatka</span></button>'
+    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="lista-dni">' + CEN_MODERN_ICO.list + '<span>Lista dni' + (missedDays.length ? ' (' + missedDays.length + ' ⚠️)' : '') + '</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki">' + CEN_MODERN_ICO.chart + '<span>Statystyki</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki" data-cstat-tab="drzewo">🌱 <span>Drzewo</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cakcja="przypomnienie-planu" title="Przypomnienia o czytaniu Biblii" style="position:relative;">' + (CEN_MODERN_ICO.bell || '🔔') + '<span>Przypomnij' + (_centrCzyPrzypomnienieWlaczone() ? ' •' : '') + '</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="moje-plany">' + CEN_MODERN_ICO.clipboard + '<span>Zmień plan</span></button>'
+    + '<button type="button" class="cenChronoAkcjaBtn" data-cakcja="resetuj-postep-planu" title="Wyczyść postęp i zacznij plan od nowa">↺ <span>Od nowa</span></button>'
     + '</div>'
+
+    + (missedDays.length > 0 ? (
+        '<div class="cenZadanieCard" style="margin-bottom:14px;border:1.5px solid rgba(239,68,68,0.45);background:rgba(239,68,68,0.06);">'
+        + '<div class="cenZadanieLewo">'
+        + '<div class="cenZadanieIko" style="background:rgba(239,68,68,0.15);color:#ef4444;">⚠️</div>'
+        + '<div><div class="cenZadanieTyt" style="color:#ef4444;">Masz ' + missedDays.length + ' ' + (missedDays.length === 1 ? 'nieprzeczytany dzień' : 'nieprzeczytane dni') + '</div>'
+        + '<div class="cenZadaniePodtyt">Zaległe: ' + missedDays.slice(0, 5).map(m => 'Dzień ' + m.d).join(', ') + (missedDays.length > 5 ? '…' : '') + '</div>'
+        + '</div></div>'
+        + '<button type="button" class="cenZadanieBtn" style="background:#ef4444;color:#fff;" data-cwidok="lista-dni" data-clista-tab="zalegle">Zobacz zaległe ›</button>'
+        + '</div>'
+      ) : '')
+
+    + (doneCount >= totalDni && totalDni > 0 ? (
+        '<div class="cenZadanieCard" style="margin-bottom:14px;border:1.5px solid rgba(16,185,129,0.5);background:rgba(16,185,129,0.08);">'
+        + '<div class="cenZadanieLewo">'
+        + '<div class="cenZadanieIko" style="background:rgba(16,185,129,0.18);color:#10b981;">🎉</div>'
+        + '<div><div class="cenZadanieTyt" style="color:#059669;">Wspaniale! Cały plan został ukończony!</div>'
+        + '<div class="cenZadaniePodtyt">Przeczytano wszystkie ' + totalDni + ' dni. Możesz zresetować postęp i czytać ponownie.</div>'
+        + '</div></div>'
+        + '<button type="button" class="cenZadanieBtn" data-cakcja="resetuj-postep-planu" style="background:#059669;color:#fff;">↺ Zacznij od nowa</button>'
+        + '</div>'
+      ) : '')
 
     + '<div style="margin-bottom:20px;">'
     + '<div class="cenSecHeadTyt">Czytanie na dziś</div>'
@@ -56243,11 +56460,13 @@ function centrWidokListaDni(filtr, szukaj){
   const planList = planInfo.plan || [];
   const dniDone = _centrPobierzUkonczoneDni(planInfo.id);
   const curDzien = Math.min(planInfo.days, _centrWybranyDzien || _centrZnajdzBiezacyDzienPlanu(planInfo.id));
+  const zalegleDni = planList.filter(x => x.d < curDzien && !dniDone.has(x.d));
 
   let filtered = planList.filter(item=>{
     const isDone = dniDone.has(item.d);
     if(filtr === "ukonczone" && !isDone) return false;
     if(filtr === "nieukonczone" && isDone) return false;
+    if(filtr === "zalegle" && (isDone || item.d >= curDzien)) return false;
     if(szukaj){
       const str = ("dzień " + item.d + " " + item.t + " " + (item.f||[]).map(x=>x.r+" "+x.t).join(" ")).toLowerCase();
       if(!str.includes(szukaj)) return false;
@@ -56260,7 +56479,7 @@ function centrWidokListaDni(filtr, szukaj){
     + '<button type="button" class="cenSubWsteczBtn" data-cwidok="czytanie-chronologiczne">' + CEN_MODERN_ICO.chevronLeft + ' <span>Plan czytania</span></button>'
     + '<div class="cenSubTytulBox">'
     + '<div class="cenSubTytul">Lista dni czytania</div>'
-    + '<div class="cenSubPodtytul">' + esc(planInfo.name) + ' • ' + planList.length + ' dni</div>'
+    + '<div class="cenSubPodtytul">' + esc(planInfo.name) + ' • ' + planList.length + ' dni' + (zalegleDni.length ? (' • <span style="color:#ef4444;font-weight:600;">' + zalegleDni.length + ' zaległych</span>') : '') + '</div>'
     + '</div></div>'
     + '<div class="cenNaglAkcje" style="display:flex;align-items:center;gap:8px;">'
     + '<div style="position:relative;">'
@@ -56272,7 +56491,8 @@ function centrWidokListaDni(filtr, szukaj){
     + '<div class="cenTabsRow">'
     + '<button type="button" class="cenTabBtn' + (filtr==="wszystkie"?' active':'') + '" data-clista-tab="wszystkie">Wszystkie (' + planList.length + ')</button>'
     + '<button type="button" class="cenTabBtn' + (filtr==="ukonczone"?' active':'') + '" data-clista-tab="ukonczone">Ukończone (' + dniDone.size + ')</button>'
-    + '<button type="button" class="cenTabBtn' + (filtr==="nieukonczone"?' active':'') + '" data-clista-tab="nieukonczone">Nieukończone (' + (planList.length - dniDone.size) + ')</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="zalegle"?' active':'') + '" data-clista-tab="zalegle" style="' + (zalegleDni.length ? 'color:#ef4444;font-weight:700;' : '') + '">⚠️ Nieprzeczytane (' + zalegleDni.length + ')</button>'
+    + '<button type="button" class="cenTabBtn' + (filtr==="nieukonczone"?' active':'') + '" data-clista-tab="nieukonczone">Pozostałe (' + (planList.length - dniDone.size) + ')</button>'
     + '</div>'
 
     + '<div class="cenListaDniContainer">'
@@ -56280,14 +56500,25 @@ function centrWidokListaDni(filtr, szukaj){
     + filtered.map(item=>{
         const isDone = dniDone.has(item.d);
         const isCur = item.d === curDzien;
-        return '<div class="cenRowItem" style="' + (isCur ? 'border-color:#3b82f6;background:rgba(37,99,235,0.08);' : '') + '" data-cwidok="dzien" data-cdzien="' + item.d + '">'
+        const isMissed = !isDone && (item.d < curDzien);
+        return '<div class="cenRowItem' + (isMissed ? ' is-missed' : '') + '" style="' + (isCur ? 'border-color:#3b82f6;background:rgba(37,99,235,0.08);' : (isMissed ? 'border-left:4px solid #ef4444;background:rgba(239,68,68,0.05);' : '')) + '" data-cwidok="dzien" data-cdzien="' + item.d + '">'
           + '<div class="cenRowLewo">'
           + '<div>'
-          + '<div class="cenRowTyt" style="' + (isCur ? 'color:#2563eb;font-weight:700;' : '') + '">Dzień ' + item.d + (isCur ? ' (Bieżący)' : '') + '</div>'
+          + '<div class="cenRowTyt" style="' + (isCur ? 'color:#2563eb;font-weight:700;' : (isMissed ? 'color:#dc2626;font-weight:700;' : '')) + '">Dzień ' + item.d + (isCur ? ' (Bieżący)' : (isMissed ? ' (Nieprzeczytane)' : '')) + '</div>'
           + '<div class="cenRowPodtyt">' + (item.f ? item.f.length : 0) + ' fragmenty • ' + esc(item.t) + '</div>'
           + '</div></div>'
           + '<div style="display:flex;align-items:center;gap:10px;">'
-          + (isDone ? '<span style="color:#10b981;display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;">' + CEN_MODERN_ICO.check + ' Ukończono</span>' : '<span class="cenPozStrz">' + CEN_MODERN_ICO.chevron + '</span>')
+          + (isDone
+              ? '<span style="color:#10b981;display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;">' + CEN_MODERN_ICO.check + ' Ukończono</span>'
+              : (isMissed
+                  ? '<span class="cenBadgeMissed">⚠️ Nieprzeczytane</span>'
+                  : '<span style="color:var(--cen-text-muted);font-size:12px;">Zaplanowane</span>'
+                )
+            )
+          + '<button type="button" class="cenDzienTileBtnCheck ' + (isDone ? 'is-done' : (isMissed ? 'is-missed' : '')) + '" data-cdzien-toggle="' + item.d + '" title="' + (isDone ? 'Kliknij, aby odznaczyć' : 'Kliknij, aby oznaczyć jako przeczytane') + '">'
+          + (isDone ? '✓' : '○')
+          + '</button>'
+          + '<span class="cenPozStrz">' + CEN_MODERN_ICO.chevron + '</span>'
           + '</div>'
           + '</div>';
       }).join('')
@@ -56414,23 +56645,89 @@ function centrWidokKalendarz(rok, mies){
   mies = (mies !== undefined) ? mies : _centrKalMies;
   const nazwyMies = ["Styczeń","Luty","Marzec","Kwiecień","Maj","Czerwiec","Lipiec","Sierpień","Wrzesień","Październik","Listopad","Grudzień"];
   const planInfo = _centrPobierzPlanData(_centrAktywnyPlanId);
-  const firstDay = new Date(rok, mies, 1).getDay();
-  const dniWPrzedziale = (firstDay === 0 ? 6 : firstDay - 1);
-  const totalDays = new Date(rok, mies + 1, 0).getDate();
-
-  let gridHtml = '';
-  for(let i=0; i<dniWPrzedziale; i++){
-    gridHtml += '<div class="cenKalDzienKomorka" style="opacity:0.2;"></div>';
-  }
+  const planList = planInfo.plan || [];
   const dniDoneKal = _centrPobierzUkonczoneDni(planInfo.id);
   const curDzienKal = Math.min(planInfo.days, _centrWybranyDzien || _centrZnajdzBiezacyDzienPlanu(planInfo.id));
-  for(let d=1; d<=totalDays; d++){
-    const planDay = Math.min(planInfo.days, d);
-    const czyDone = dniDoneKal.has(planDay);
-    const isCur = (planDay === curDzienKal);
-    gridHtml += '<div class="cenKalDzienKomorka' + (isCur ? ' active' : '') + '" data-cwidok="dzien" data-cdzien="' + planDay + '">'
-      + '<span class="cenKalDzienNr">' + d + '</span>'
-      + '<span class="cenKalDzienKropka ' + (czyDone ? 'dot-done' : isCur ? 'dot-part' : 'dot-empty') + '"></span>'
+  const zalegleList = planList.filter(x => x.d < curDzienKal && !dniDoneKal.has(x.d));
+  const tryb = _centrKalWidokTryb || "siatka";
+
+  let zawartoscGlownaHtml = "";
+  if(tryb === "siatka"){
+    let kafelkiHtml = "";
+    for(let d = 1; d <= planInfo.days; d++){
+      const planDay = planList.find(x => x.d === d) || { d, t: "Czytanie biblijne", f: [] };
+      const czyDone = dniDoneKal.has(d);
+      const isCur = (d === curDzienKal);
+      const isMissed = !czyDone && (d < curDzienKal);
+
+      let tileClass = "cenDzienTile";
+      let badgeHtml = "";
+      if(czyDone){
+        tileClass += " is-done";
+        badgeHtml = '<span class="cenDzienTileBadge badge-done">✓ Ukończono</span>';
+      } else if(isCur){
+        tileClass += " is-cur";
+        badgeHtml = '<span class="cenDzienTileBadge badge-cur">◉ Dzisiaj</span>';
+      } else if(isMissed){
+        tileClass += " is-missed";
+        badgeHtml = '<span class="cenDzienTileBadge badge-missed">⚠️ Nieprzeczytane</span>';
+      } else {
+        badgeHtml = '<span class="cenDzienTileBadge badge-future">⏳ Zaplanowane</span>';
+      }
+
+      const fragTekst = (planDay.f && planDay.f.length)
+        ? planDay.f.map(f => f.r).join(", ")
+        : (planDay.t || "");
+
+      kafelkiHtml += '<div class="' + tileClass + '" data-cwidok="dzien" data-cdzien="' + d + '">'
+        + '<div class="cenDzienTileGora">'
+        + '<span class="cenDzienTileNr">Dzień ' + d + '</span>'
+        + '<button type="button" class="cenDzienTileBtnCheck ' + (czyDone ? 'is-done' : (isMissed ? 'is-missed' : '')) + '" data-cdzien-toggle="' + d + '" title="' + (czyDone ? 'Odznacz ten dzień' : 'Oznacz ten dzień jako przeczytany') + '">'
+        + (czyDone ? '✓' : (isMissed ? '⚠️' : '○'))
+        + '</button>'
+        + '</div>'
+        + '<div class="cenDzienTileFragment" title="' + esc(fragTekst) + '">' + esc(fragTekst) + '</div>'
+        + badgeHtml
+        + '</div>';
+    }
+
+    zawartoscGlownaHtml = '<div class="cenPlanGrid90">' + kafelkiHtml + '</div>';
+  } else {
+    const firstDay = new Date(rok, mies, 1).getDay();
+    const dniWPrzedziale = (firstDay === 0 ? 6 : firstDay - 1);
+    const totalDays = new Date(rok, mies + 1, 0).getDate();
+
+    let gridHtml = '';
+    for(let i=0; i<dniWPrzedziale; i++){
+      gridHtml += '<div class="cenKalDzienKomorka" style="opacity:0.2;"></div>';
+    }
+    for(let d=1; d<=totalDays; d++){
+      const planDay = Math.min(planInfo.days, d);
+      const czyDone = dniDoneKal.has(planDay);
+      const isCur = (planDay === curDzienKal);
+      const isMissed = !czyDone && (planDay < curDzienKal);
+      let komorkaClass = 'cenKalDzienKomorka';
+      if(isCur) komorkaClass += ' active';
+      if(czyDone) komorkaClass += ' is-done';
+      else if(isMissed) komorkaClass += ' is-missed';
+
+      const dotClass = czyDone ? 'dot-done' : (isMissed ? 'dot-missed' : (isCur ? 'dot-part' : 'dot-future'));
+
+      gridHtml += '<div class="' + komorkaClass + '" data-cwidok="dzien" data-cdzien="' + planDay + '" title="' + (czyDone ? ('Dzień ' + planDay + ': Ukończono') : (isMissed ? ('Dzień ' + planDay + ': Nieprzeczytane!') : ('Dzień ' + planDay))) + '">'
+        + '<span class="cenKalDzienNr">' + d + '</span>'
+        + '<span class="cenKalDzienKropka ' + dotClass + '"></span>'
+        + '</div>';
+    }
+
+    zawartoscGlownaHtml = '<div class="cenKalendarzMiesiac">'
+      + '<button type="button" class="cenNaglBtnIko" data-ckal-naw="-1">' + CEN_MODERN_ICO.chevronLeft + '</button>'
+      + '<div class="cenKalendarzMiesiacTyt">' + nazwyMies[mies] + ' ' + rok + '</div>'
+      + '<button type="button" class="cenNaglBtnIko" data-ckal-naw="1">' + CEN_MODERN_ICO.chevron + '</button>'
+      + '</div>'
+      + '<div class="cenKalendarzGrid">'
+      + '<div class="cenKalNaglowekDnia">Pn</div><div class="cenKalNaglowekDnia">Wt</div><div class="cenKalNaglowekDnia">Śr</div>'
+      + '<div class="cenKalNaglowekDnia">Cz</div><div class="cenKalNaglowekDnia">Pt</div><div class="cenKalNaglowekDnia">Sb</div><div class="cenKalNaglowekDnia">Nd</div>'
+      + gridHtml
       + '</div>';
   }
 
@@ -56438,27 +56735,36 @@ function centrWidokKalendarz(rok, mies){
     + '<div class="cenSubHeaderLewo">'
     + '<button type="button" class="cenSubWsteczBtn" data-cwidok="czytanie-chronologiczne">' + CEN_MODERN_ICO.chevronLeft + ' <span>Plan czytania</span></button>'
     + '<div class="cenSubTytulBox">'
-    + '<div class="cenSubTytul">Kalendarz czytania</div>'
-    + '<div class="cenSubPodtytul">' + esc(planInfo.name) + ' • ' + nazwyMies[mies] + ' ' + rok + '</div>'
+    + '<div class="cenSubTytul">Kalendarz i dni planu</div>'
+    + '<div class="cenSubPodtytul">' + esc(planInfo.name) + ' • ' + dniDoneKal.size + ' z ' + planInfo.days + ' dni ukończonych' + (zalegleList.length ? (' • <span style="color:#ef4444;font-weight:600;">' + zalegleList.length + ' zaległych</span>') : '') + '</div>'
     + '</div></div>'
+    + '<div style="display:flex;align-items:center;gap:8px;">'
+    + '<button type="button" class="cenSubWsteczBtn" data-cakcja="resetuj-postep-planu" title="Wyczyść postęp i zacznij ten plan od nowa" style="color:var(--cen-text-muted);font-size:12px;padding:5px 9px;">↺ Resetuj postęp</button>'
+    + '</div></div>'
+
+    + '<div class="cenTabsRow" style="margin-bottom:12px;">'
+    + '<button type="button" class="cenTabBtn' + (tryb==="siatka"?' active':'') + '" data-ckal-tryb="siatka">Siatka planu (1–' + planInfo.days + ')</button>'
+    + '<button type="button" class="cenTabBtn' + (tryb==="miesiac"?' active':'') + '" data-ckal-tryb="miesiac">Widok miesiąca</button>'
     + '</div>'
 
-    + '<div class="cenKalendarzMiesiac">'
-    + '<button type="button" class="cenNaglBtnIko" data-ckal-naw="-1">' + CEN_MODERN_ICO.chevronLeft + '</button>'
-    + '<div class="cenKalendarzMiesiacTyt">' + nazwyMies[mies] + ' ' + rok + '</div>'
-    + '<button type="button" class="cenNaglBtnIko" data-ckal-naw="1">' + CEN_MODERN_ICO.chevron + '</button>'
-    + '</div>'
+    + (zalegleList.length > 0 ? (
+        '<div class="cenZadanieCard" style="margin-bottom:14px;border:1.5px solid rgba(239,68,68,0.45);background:rgba(239,68,68,0.06);">'
+        + '<div class="cenZadanieLewo">'
+        + '<div class="cenZadanieIko" style="background:rgba(239,68,68,0.15);color:#ef4444;">⚠️</div>'
+        + '<div><div class="cenZadanieTyt" style="color:#ef4444;">Masz ' + zalegleList.length + ' ' + (zalegleList.length===1?'nieprzeczytany dzień':'nieprzeczytane dni') + '</div>'
+        + '<div class="cenZadaniePodtyt">Zaległe dni: ' + zalegleList.slice(0, 8).map(m=>'Dzień '+m.d).join(', ') + (zalegleList.length > 8 ? '…' : '') + '</div>'
+        + '</div></div>'
+        + '<button type="button" class="cenZadanieBtn" data-cwidok="dzien" data-cdzien="' + zalegleList[0].d + '" style="background:#ef4444;color:#fff;">Otwórz Dzień ' + zalegleList[0].d + ' ›</button>'
+        + '</div>'
+      ) : '')
 
-    + '<div class="cenKalendarzGrid">'
-    + '<div class="cenKalNaglowekDnia">Pn</div><div class="cenKalNaglowekDnia">Wt</div><div class="cenKalNaglowekDnia">Śr</div>'
-    + '<div class="cenKalNaglowekDnia">Cz</div><div class="cenKalNaglowekDnia">Pt</div><div class="cenKalNaglowekDnia">Sb</div><div class="cenKalNaglowekDnia">Nd</div>'
-    + gridHtml
-    + '</div>'
+    + zawartoscGlownaHtml
 
     + '<div class="cenKalLegenda">'
-    + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-done" style="margin:0;"></span> <span>Ukończone</span></div>'
-    + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-part" style="margin:0;"></span> <span>Bieżący dzień</span></div>'
-    + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-empty" style="border:1px solid var(--cen-text-muted);margin:0;"></span> <span>Nieukończone</span></div>'
+    + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-done" style="margin:0;"></span> <span>Ukończone (' + dniDoneKal.size + ')</span></div>'
+    + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-missed" style="margin:0;"></span> <span style="color:#ef4444;font-weight:600;">⚠️ Nieprzeczytane (' + zalegleList.length + ')</span></div>'
+    + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-part" style="margin:0;"></span> <span>Bieżący dzień (Dzień ' + curDzienKal + ')</span></div>'
+    + '<div class="cenKalLegendaItem"><span class="cenKalDzienKropka dot-future" style="margin:0;"></span> <span>Zaplanowane</span></div>'
     + '</div>';
 }
 
@@ -58478,6 +58784,9 @@ if($("centrum")){
         _centrWybranyDzien = parseInt(dNr, 10);
         lsSet(KP + "CentrumCurDay", String(_centrWybranyDzien));
       }
+      if(widokBtn.dataset.clistaTab){
+        _centrListaTab = widokBtn.dataset.clistaTab;
+      }
       const planOtw = widokBtn.dataset.cplanOtworz;
       if(planOtw){
         _centrAktywnyPlanId = planOtw;
@@ -58746,6 +59055,47 @@ if($("centrum")){
       return;
     }
 
+    // Przełącznik trybu kalendarza: siatka planu vs miesiąc
+    const kalTrybBtn = ev.target.closest("[data-ckal-tryb]");
+    if(kalTrybBtn){
+      _centrKalWidokTryb = kalTrybBtn.dataset.ckalTryb;
+      lsSet(KP + "CentrumKalWidokTryb", _centrKalWidokTryb);
+      rysujCentrum();
+      return;
+    }
+
+    // Szybkie zaznaczenie / odznaczenie dnia planu bezpośrednio z listy lub siatki
+    const toggleDzienBtn = ev.target.closest("[data-cdzien-toggle]");
+    if(toggleDzienBtn){
+      ev.preventDefault();
+      ev.stopPropagation();
+      const dNr = parseInt(toggleDzienBtn.dataset.cdzienToggle, 10);
+      if(dNr){
+        const planInfo = _centrPobierzPlanData(_centrAktywnyPlanId);
+        const dni = _centrPobierzUkonczoneDni(planInfo.id);
+        const fragi = _centrPobierzUkonczoneFragi();
+        const planDay = (planInfo.plan || []).find(x => x.d === dNr);
+
+        if(dni.has(dNr)){
+          dni.delete(dNr);
+          if(planDay && planDay.f){
+            planDay.f.forEach((_, idx) => fragi.delete(planInfo.id + "_" + dNr + "_" + idx));
+          }
+          toast("Oznaczono Dzień " + dNr + " jako nieukończony");
+        } else {
+          dni.add(dNr);
+          if(planDay && planDay.f){
+            planDay.f.forEach((_, idx) => fragi.add(planInfo.id + "_" + dNr + "_" + idx));
+          }
+          toast("✓ Oznaczono Dzień " + dNr + " jako przeczytany!", "ok");
+        }
+        _centrZapiszUkonczoneDni(dni, planInfo.id);
+        _centrZapiszUkonczoneFragi(fragi);
+        rysujCentrum();
+      }
+      return;
+    }
+
     // Obsługa wyboru tematu
     const tematCard = ev.target.closest("[data-ctemat-id]");
     if(tematCard && !ev.target.closest("[data-ctemat-usunwers]")){
@@ -58997,6 +59347,27 @@ if($("centrum")){
         lsSet(CENTR_WIDOK_KLUCZ, "moje-plany");
         rysujCentrum();
         const _cu = $("centrum"); if(_cu) _cu.scrollTop = 0;
+      }
+      // Reset postępu bieżącego planu czytania
+      if(akcja.dataset.cakcja === "resetuj-postep-planu"){
+        const planInfo = _centrPobierzPlanData(_centrAktywnyPlanId);
+        if(confirm("Czy na pewno chcesz zresetować postęp planu „" + planInfo.name + "” i zacząć od Dnia 1?\n\nDotychczasowe oznaczenia przeczytanych dni w tym planie zostaną wyczyszczone.")){
+          lsRem(KP + "CentrumDniDone_" + planInfo.id);
+          const fragi = _centrPobierzUkonczoneFragi();
+          let zmiana = false;
+          fragi.forEach(fk => {
+            if(fk.startsWith(planInfo.id + "_")){
+              fragi.delete(fk);
+              zmiana = true;
+            }
+          });
+          if(zmiana) _centrZapiszUkonczoneFragi(fragi);
+          _centrWybranyDzien = 1;
+          lsSet(KP + "CentrumCurDay", "1");
+          toast("Postęp planu został wyczyszczony. Zaczynasz od Dnia 1!", "ok");
+          rysujCentrum();
+        }
+        return;
       }
       // Przypomnienia o planie czytania
       if(akcja.dataset.cakcja === "przypomnienie-planu"){
