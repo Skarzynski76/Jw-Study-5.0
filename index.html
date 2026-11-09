@@ -20603,6 +20603,206 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   letter-spacing: 0.06em;
 }
 
+/* ══════════════ WSKAŹNIKI WERSJI APLIKACJI I KOMPILACJI (v5.0 / v602) ══════════════ */
+.sidebar-logo-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+.sidebar-mini-ver {
+  display: none;
+}
+#appContainer.sidebar-collapsed .sidebar-mini-ver {
+  display: inline-block !important;
+  font-size: 8.5px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  color: var(--accent) !important;
+  background: color-mix(in srgb, var(--accent) 14%, transparent) !important;
+  border-radius: 4px !important;
+  padding: 1.5px 3.5px !important;
+  margin-top: 3px !important;
+  letter-spacing: 0.02em !important;
+  text-align: center !important;
+  border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent) !important;
+  box-sizing: border-box !important;
+  cursor: pointer !important;
+}
+.sidebar-ver-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 750;
+  padding: 1px 5px;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  margin-left: 3px;
+  vertical-align: middle;
+}
+.sidebar-brand-ver {
+  cursor: pointer !important;
+  transition: opacity 0.15s ease;
+}
+.sidebar-brand-ver:hover {
+  opacity: 0.85;
+}
+
+.cenHeroVerPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--panel, #ffffff) 88%, transparent);
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--text);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  flex-shrink: 0;
+}
+.cenHeroVerPill:hover {
+  background: var(--sel);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+  transform: translateY(-1px);
+}
+.cenVerDot {
+  color: #059669;
+  font-size: 9px;
+  display: inline-block;
+  animation: pulseDot 2.4s infinite ease-in-out;
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.85); }
+}
+.cenBuildTag {
+  font-size: 10px;
+  font-weight: 750;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: 2px;
+}
+
+/* Stopka w Centrum Studium */
+.cenPulpitFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  margin: 28px 0 10px 0;
+  border-top: 1px solid var(--border);
+  font-size: 12.5px;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.cenFooterVerInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cenFooterSep {
+  opacity: 0.4;
+}
+.cenFooterStatus {
+  color: #059669;
+  font-weight: 600;
+  font-size: 11.5px;
+  background: rgba(5, 150, 105, 0.1);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+.cenFooterActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cenFooterBtn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.14s ease;
+  font-family: inherit;
+}
+.cenFooterBtn:hover {
+  background: var(--sel);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Karty w oknie changelogu */
+.cl-ver-card {
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--panel, #ffffff) 70%, var(--bg, #f8fafc));
+  margin-bottom: 12px;
+}
+.cl-ver-card:first-child {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  background: color-mix(in srgb, var(--accent) 4%, var(--panel, #ffffff));
+}
+.cl-ver-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.cl-ver-num {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--accent);
+}
+.cl-ver-tag.latest {
+  font-size: 10px;
+  font-weight: 750;
+  background: #059669;
+  color: #ffffff;
+  padding: 2px 7px;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+.cl-ver-date {
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-left: auto;
+}
+.cl-ver-title {
+  font-size: 13.5px;
+  font-weight: 750;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.cl-ver-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12.5px;
+  color: var(--text);
+  line-height: 1.55;
+}
+.cl-ver-list li {
+  margin-bottom: 4px;
+}
+
 #appMainContent {
   flex: 1 1 0;
   display: flex;
@@ -23505,10 +23705,13 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v602)">
+        <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v602</span>
+      </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver">v5.0</span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v602) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v602</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -25282,6 +25485,34 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
   </div>
 </div>
 
+<div class="overlay" id="modalChangelog" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="clModalTitle">
+  <div class="modal exp-modal" style="max-width:620px;border-radius:20px;padding:22px 24px;box-shadow:0 24px 70px rgba(0,0,0,0.35);background:var(--panel);">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:26px;">🚀</span>
+        <div>
+          <div id="clModalTitle" style="font-size:18px;font-weight:800;color:var(--text);">JW-Study 5.0 <span class="nwVerBadge" style="margin-left:6px;background:var(--accent);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px;font-weight:750;">v602</span></div>
+          <div style="font-size:12px;color:var(--muted);">Historia aktualizacji i stan pamięci podręcznej</div>
+        </div>
+      </div>
+      <button type="button" class="btn ico-btn" data-zamknij="modalChangelog" aria-label="Zamknij" style="width:34px;height:34px;border-radius:10px;font-size:16px;">✕</button>
+    </div>
+    
+    <div id="changelogModalBody" style="max-height:60vh;overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;font-size:13.5px;line-height:1.6;color:var(--text);">
+    </div>
+    
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px;">
+      <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;">
+        <span class="cenVerDot">●</span> Stan magazynu offline: <span id="changelogSwStatus" style="font-weight:700;color:var(--accent);">v602 (aktualna)</span>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button type="button" class="btn" id="btnChangelogRefreshSw" style="font-size:12.5px;">Wymuś odświeżenie 🔄</button>
+        <button type="button" class="btn primary" data-zamknij="modalChangelog" style="font-size:12.5px;">Zamknij</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="modalHistoriaBledow" aria-hidden="true">
   <div class="modal hb-modal" role="dialog" aria-labelledby="modalHistoriaBledow-tytul">
     <div class="nn-head hb-head">
@@ -25725,6 +25956,13 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
+const APP_BUILD = "v602";
+const APP_BUILD_DATE = "2026-11-09";
+const APP_FULL_VERSION = "5.0 (v602)";
+window.APP_VERSION = APP_VERSION;
+window.APP_BUILD = APP_BUILD;
+window.APP_BUILD_DATE = APP_BUILD_DATE;
+window.APP_FULL_VERSION = APP_FULL_VERSION;
 function norm(s){ return (s||"").toLowerCase().replace(/\u0142/g,"l").normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
 window.norm = norm;
 const BOOKS = ["","Rodzaju","Wyjścia","Kapłańska","Liczb","Powtórzonego Prawa","Jozuego","Sędziów","Rut","1 Samuela","2 Samuela","1 Królów","2 Królów","1 Kronik","2 Kronik","Ezdrasza","Nehemiasza","Estery","Hioba","Psalmy","Przysłów","Kaznodziei","Pieśń Salomona","Izajasza","Jeremiasza","Lamentacje","Ezechiela","Daniela","Ozeasza","Joela","Amosa","Abdiasza","Jonasza","Micheasza","Nahuma","Habakuka","Sofoniasza","Aggeusza","Zachariasza","Malachiasza","Mateusza","Marka","Łukasza","Jana","Dzieje","Rzymian","1 Koryntian","2 Koryntian","Galatów","Efezjan","Filipian","Kolosan","1 Tesaloniczan","2 Tesaloniczan","1 Tymoteusza","2 Tymoteusza","Tytusa","Filemona","Hebrajczyków","Jakuba","1 Piotra","2 Piotra","1 Jana","2 Jana","3 Jana","Judy","Objawienie"];
@@ -28839,7 +29077,8 @@ function zarejestrujSW(){
     const oznaczOffline = ()=>{
       lsSet(KP+"OfflineOK","1");
       const stW = document.getElementById("stWersja");
-      if(stW) stW.textContent = "Wersja v" + APP_VERSION + " · zapisana do pracy offline";
+      if(stW) stW.textContent = "Wersja " + APP_VERSION + " (" + (window.ACTUAL_BUILD || APP_BUILD) + ") · zapisana do pracy offline";
+      if(typeof zbadajWersjeCache === "function") zbadajWersjeCache();
     };
     if(rej.active) oznaczOffline();
     rej.addEventListener("updatefound", ()=>{
@@ -45763,12 +46002,13 @@ function openSettings(){
     } else if(offlineReady()){
       statusOffline = " · zapisana do pracy offline";
     }
-    pole.textContent = "Wersja v" + APP_VERSION + statusOffline;
+    const bld = window.ACTUAL_BUILD || APP_BUILD;
+    pole.textContent = "Wersja " + APP_VERSION + " (" + bld + ")" + statusOffline;
     if(location.protocol.indexOf("http") === 0 && "serviceWorker" in navigator){
       navigator.serviceWorker.getRegistration().then(r => {
         if(r && (r.active || r.installing || r.waiting)){
           lsSet(KP+"OfflineOK","1");
-          pole.textContent = "Wersja v" + APP_VERSION + " · zapisana do pracy offline";
+          pole.textContent = "Wersja " + APP_VERSION + " (" + bld + ") · zapisana do pracy offline";
         }
       }).catch(()=>{});
     }
@@ -57510,6 +57750,177 @@ function _centrPobierzLosowyKlejnot(){
   return sample;
 }
 
+/* ══════════════ SYSTEM WIDOCZNOŚCI WERSJI I HISTORII ZMIAN (v5.0 / v602) ══════════════ */
+function _centrGenerujStopkeWersji(){
+  const swB = window.ACTUAL_BUILD || APP_BUILD;
+  return '<footer class="cenPulpitFooter">'
+    + '<div class="cenFooterVerInfo">'
+    + '<span>JW-Study <b>5.0</b> (kompilacja <b class="app-build-label">' + APP_BUILD + '</b>)</span>'
+    + '<span class="cenFooterSep">•</span>'
+    + '<span class="cenFooterStatus" id="cenFooterStatus">Magazyn offline: <b>' + esc(swB) + '</b> ✓</span>'
+    + '</div>'
+    + '<div class="cenFooterActions">'
+    + '<button type="button" class="cenFooterBtn" id="cenBtnChangelog" onclick="pokazChangelogModal()">Co nowego w ' + APP_BUILD + ' ↗</button>'
+    + '<button type="button" class="cenFooterBtn" id="cenBtnCheckUpdates" onclick="sprawdzAktualizacjeRzeczowo()">Sprawdź aktualizacje 🔄</button>'
+    + '</div>'
+    + '</footer>';
+}
+window._centrGenerujStopkeWersji = _centrGenerujStopkeWersji;
+
+async function zbadajWersjeCache(){
+  let swBuild = APP_BUILD;
+  try {
+    if(window.caches){
+      const keys = await caches.keys();
+      for(const k of keys){
+        const m = k.match(/v(\d+)/i);
+        if(m && m[0]){
+          swBuild = m[0].toLowerCase();
+          break;
+        }
+      }
+    }
+  } catch(e) {}
+  window.ACTUAL_BUILD = swBuild;
+  
+  // Aktualizacja wszystkich wskaźników na stronie
+  document.querySelectorAll(".build-tag, .app-build-label, .cenBuildTag").forEach(el => {
+    el.textContent = APP_BUILD;
+  });
+  const miniEl = document.getElementById("sidebarMiniVer");
+  if(miniEl){
+    miniEl.textContent = APP_BUILD;
+    miniEl.title = "JW-Study 5.0 (" + APP_BUILD + ")";
+  }
+  const brandVer = document.getElementById("sidebarBrandVer");
+  if(brandVer){
+    brandVer.innerHTML = 'v5.0 <small class="sidebar-ver-tag">' + APP_BUILD + '</small>';
+  }
+  const clStatus = document.getElementById("changelogSwStatus");
+  if(clStatus){
+    if(swBuild === APP_BUILD){
+      clStatus.textContent = swBuild + " (aktualna ✓)";
+      clStatus.style.color = "#059669";
+    } else {
+      clStatus.textContent = swBuild + " (dostępna " + APP_BUILD + " ⚠️)";
+      clStatus.style.color = "#d97706";
+    }
+  }
+  const cenStatus = document.getElementById("cenFooterStatus");
+  if(cenStatus){
+    cenStatus.innerHTML = "Magazyn offline: <b>" + esc(swBuild) + "</b> ✓";
+  }
+}
+window.zbadajWersjeCache = zbadajWersjeCache;
+
+function pokazChangelogModal(){
+  const bodyEl = document.getElementById("changelogModalBody");
+  if(bodyEl){
+    bodyEl.innerHTML = `
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v602</span>
+          <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">9 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Powszechny wskaźnik wersji aplikacji i weryfikacja pamięci podręcznej</div>
+        <ul class="cl-ver-list">
+          <li><b>Stała widoczność wersji i kompilacji:</b> Wersja <code>5.0 (v602)</code> jest teraz stale widoczna na Ekranie Powitalnym, w stopce Centrum Studium oraz na pasku bocznym (w tym w trybie zwiniętym 58 px na iPadzie i w Split View).</li>
+          <li><b>Diagnostyka Service Workera w czasie rzeczywistym:</b> Aplikacja weryfikuje aktywny magazyn cache i natychmiast informuje, czy urządzenie pobrało najnowszą wersję, czy wymaga odświeżenia.</li>
+          <li><b>Szybki podgląd zmian (Changelog):</b> Jedno kliknięcie w dowolną plakietkę wersji otwiera to okno z historią uaktualnień.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v601</span>
+          <span class="cl-ver-date">9 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Optymalizacja Split View na iPadzie i Macu oraz naprawa przycisków narożnych</div>
+        <ul class="cl-ver-list">
+          <li><b>Nowy przycisk „✕ Zamknij”:</b> Zastąpiono surowy krzyżyk elegancką pigułką nawigacyjną frosted glass, bezpiecznie odsuniętą od tytułu notatki.</li>
+          <li><b>Ukrycie zbędnego pełnego ekranu w Split View:</b> Przycisk pełnego ekranu został wyłączony w trybie dzielenia okna, eliminując błędy WebKit.</li>
+          <li><b>Usunięcie krzyżyka z logo JW:</b> Przycisk zamykania paska bocznego pojawia się tylko w rozwiniętym drawerze, nigdy na zwiniętym pasku ikon.</li>
+          <li><b>Izolacja czytnika notatek:</b> Pasek boczny nie przebija już na lewą krawędź czytnika w Split View.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v600</span>
+          <span class="cl-ver-date">9 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Kalendarzowe czytanie Biblii i status ukończenia na dziś</div>
+        <ul class="cl-ver-list">
+          <li><b>Przypisanie do kalendarza:</b> Każdy dzień planu czytania ma przypisaną rzeczywistą datę kalendarzową.</li>
+          <li><b>Jasny status na dany dzień:</b> Szmaragdowy badge „✓ Dzisiejsze czytanie ukończone” lub „📖 Zadanie na dziś”.</li>
+          <li><b>Podgląd jutrzejszego czytania:</b> Możliwość czytania z wyprzedzeniem jednym kliknięciem.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v599</span>
+          <span class="cl-ver-date">9 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Dosłowna zgodność z Przekładem Nowego Świata (Biblia do studium NWT 2020)</div>
+        <ul class="cl-ver-list">
+          <li>Ujednolicono wszystkie cytaty biblijne w aplikacji (m.in. 1 Tymoteusza 4:15, Jozuego 1:8, Psalm 1:2-3) do dosłownego brzmienia NWT 2020.</li>
+        </ul>
+      </div>
+    `;
+  }
+  zbadajWersjeCache();
+  openModal("modalChangelog");
+}
+window.pokazChangelogModal = pokazChangelogModal;
+
+async function sprawdzAktualizacjeRzeczowo(){
+  toast("Sprawdzam dostępność aktualizacji…");
+  try {
+    if(navigator.serviceWorker){
+      const reg = await navigator.serviceWorker.getRegistration();
+      if(reg){
+        await reg.update().catch(()=>{});
+        if(reg.waiting){
+          pokazNowaWersje(reg.waiting);
+          return;
+        }
+      }
+    }
+    const res = await fetch("WERSJA?t=" + Date.now(), { cache: "no-store" });
+    if(res.ok){
+      const txt = (await res.text()).trim();
+      if(txt && txt !== APP_FULL_VERSION && txt !== APP_BUILD && !txt.includes(APP_BUILD)){
+        toast("✨ Dostępna nowa wersja: " + txt + ". Przeładuj stronę!");
+        return;
+      }
+    }
+    toast("✓ Masz najnowszą wersję aplikacji: " + APP_FULL_VERSION);
+  } catch(e) {
+    toast("✓ Aplikacja działa w wersji: " + APP_FULL_VERSION);
+  }
+}
+window.sprawdzAktualizacjeRzeczowo = sprawdzAktualizacjeRzeczowo;
+
+async function wymusOdswiezenieCalejAplikacji(){
+  toast("Czyszczenie pamięci podręcznej i przeładowywanie…");
+  try {
+    if(window.caches){
+      const keys = await caches.keys();
+      await Promise.all(keys.map(k => caches.delete(k)));
+    }
+    if(navigator.serviceWorker){
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(r => r.unregister()));
+    }
+  } catch(e) {}
+  setTimeout(()=>{
+    location.reload(true);
+  }, 350);
+}
+window.wymusOdswiezenieCalejAplikacji = wymusOdswiezenieCalejAplikacji;
+
 /* 1. ODRĘBNY EKRAN POWITALNY (SKUPIENIE NA ROZWAŻANIACH DNIA I ZADANIU) */
 function renderEkranPowitalny(){
   const curPlan = _centrPobierzPlanData(_centrAktywnyPlanId);
@@ -57584,7 +57995,10 @@ function renderEkranPowitalny(){
       + '<div class="cenUserSub">„Niech ta księga Prawa zawsze będzie na twoich ustach i uważnie ją czytaj dniem i nocą, żeby ściśle trzymać się wszystkiego, co jest w niej napisane.” — Jozuego 1:8</div>'
       + '</div></div>'
       + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;">'
+      + '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end;">'
+      + '<div class="cenHeroVerPill" role="button" tabindex="0" onclick="pokazChangelogModal()" title="JW-Study 5.0 (v602) • Kliknij, aby zobaczyć historię zmian"><span class="cenVerDot">●</span><span class="cenVerNum">5.0 <small class="cenBuildTag">v602</small></span></div>'
       + '<div style="font-size:12px;font-weight:600;color:var(--cen-text-muted);background:color-mix(in srgb, var(--border,#d1d5db) 30%, transparent);padding:5px 12px;border-radius:20px;white-space:nowrap;">📅 ' + dzisiajCap + '</div>'
+      + '</div>'
       + '<button type="button" class="cenUserProfileBtn" data-act="otworzProfil" title="Zarządzaj profilem użytkownika">'
       + '<svg class="ic" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>'
       + '<span>' + (nameEsc || 'Profil') + '</span>'
@@ -57595,7 +58009,7 @@ function renderEkranPowitalny(){
       + '<div class="cenUserHeroLeft">'
       + '<div class="cenUserAvatar cenUserAvatarPrompt">👋</div>'
       + '<div class="cenUserGreetingWrap">'
-      + '<div style="font-size:11.5px;font-weight:750;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent,#2563eb);margin-bottom:2px;">Osobiste Studium Słowa Bożego</div>'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px;"><div style="font-size:11.5px;font-weight:750;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent,#2563eb);">Osobiste Studium Słowa Bożego</div><div class="cenHeroVerPill" role="button" tabindex="0" onclick="pokazChangelogModal()" title="JW-Study 5.0 (v602)"><span class="cenVerDot">●</span><span class="cenVerNum">5.0 <small class="cenBuildTag">v602</small></span></div></div>'
       + '<div class="cenUserGreeting">Witaj w <b>JW-Study</b>!</div>'
       + '<div class="cenUserSub">Wpisz swoje imię, aby spersonalizować powiadomienia, plany i gratulacje.</div>'
       + '</div></div>'
@@ -57895,7 +58309,8 @@ function renderEkranPowitalny(){
     + '<div style="display:flex;align-items:center;justify-content:center;gap:14px;margin:28px 0 16px 0;flex-wrap:wrap;">'
     + '<button type="button" class="btn primary" data-cwidok="centrum" style="font-size:14px;padding:10px 22px;border-radius:12px;font-weight:750;box-shadow:0 4px 12px rgba(37,99,235,0.2);">Przejdź do Pulpitu Studium ➔</button>'
     + '<button type="button" class="btn" data-cakcja="lista" style="font-size:14px;padding:10px 20px;border-radius:12px;font-weight:600;">Otwórz wszystkie notatki 📖</button>'
-    + '</div>';
+    + '</div>'
+    + _centrGenerujStopkeWersji();
 }
 
 /* 1b. GŁÓWNY PULPIT CENTRUM STUDIUM (CZYSTY, PRZEJRZYSTY DASHBOARD) */
@@ -57943,7 +58358,10 @@ function renderCentrumWidok(){
       + '<div class="cenUserSub">Centrum Twojego osobistego studium, czytania Biblii i rozwoju duchowego.</div>'
       + '</div></div>'
       + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;">'
+      + '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end;">'
+      + '<div class="cenHeroVerPill" role="button" tabindex="0" onclick="pokazChangelogModal()" title="JW-Study 5.0 (v602) • Kliknij, aby zobaczyć historię zmian"><span class="cenVerDot">●</span><span class="cenVerNum">5.0 <small class="cenBuildTag">v602</small></span></div>'
       + '<div style="font-size:12px;font-weight:600;color:var(--cen-text-muted);background:color-mix(in srgb, var(--border,#d1d5db) 30%, transparent);padding:5px 12px;border-radius:20px;white-space:nowrap;">📅 ' + dzisiajCap + '</div>'
+      + '</div>'
       + '<button type="button" class="cenUserProfileBtn" data-act="otworzProfil" title="Zarządzaj profilem użytkownika">'
       + '<svg class="ic" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>'
       + '<span>' + (nameEsc || 'Profil') + '</span>'
@@ -57954,6 +58372,7 @@ function renderCentrumWidok(){
       + '<div class="cenUserHeroLeft">'
       + '<div class="cenUserAvatar cenUserAvatarPrompt">👋</div>'
       + '<div class="cenUserGreetingWrap">'
+      + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px;"><div style="font-size:11.5px;font-weight:750;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent,#2563eb);">Osobiste Studium Słowa Bożego</div><div class="cenHeroVerPill" role="button" tabindex="0" onclick="pokazChangelogModal()" title="JW-Study 5.0 (v602)"><span class="cenVerDot">●</span><span class="cenVerNum">5.0 <small class="cenBuildTag">v602</small></span></div></div>'
       + '<div class="cenUserGreeting">Witaj w <b>JW-Study</b>!</div>'
       + '<div class="cenUserSub">Wpisz swoje imię, aby spersonalizować powiadomienia, plany i gratulacje.</div>'
       + '</div></div>'
@@ -58041,7 +58460,8 @@ function renderCentrumWidok(){
 
   return userBannerHtml
     + quickWelcomeBanner
-    + modulesGridHtml;
+    + modulesGridHtml
+    + _centrGenerujStopkeWersji();
 }
 
 /* 2. CZYTANIE AKTYWNEGO PLANU BIBLIJNEGO */
@@ -65302,9 +65722,22 @@ document.querySelector(".searchHelp").appendChild(helpMore);
   if (sidebarBrand) {
     sidebarBrand.addEventListener("click", (e) => {
       if (e.target && e.target.closest("#sidebarCloseBtn")) return;
+      if (e.target && e.target.closest("#sidebarBrandVer, #sidebarMiniVer, .sidebar-ver-tag")) {
+        e.stopPropagation();
+        if (typeof pokazChangelogModal === "function") pokazChangelogModal();
+        return;
+      }
       if (window.innerWidth > 768) {
         toggleSidebar();
       }
+    });
+  }
+
+  // Obsługa przycisku wymuszenia odświeżenia w oknie Changelog
+  const btnChRefresh = document.getElementById("btnChangelogRefreshSw");
+  if (btnChRefresh) {
+    btnChRefresh.addEventListener("click", () => {
+      if (typeof wymusOdswiezenieCalejAplikacji === "function") wymusOdswiezenieCalejAplikacji();
     });
   }
   if (btnSidebarCollapse) btnSidebarCollapse.addEventListener("click", () => toggleSidebar(true));

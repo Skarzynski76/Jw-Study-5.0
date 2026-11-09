@@ -1,4 +1,20 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v601)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v602)
+
+- **Powszechny system widoczności wersji aplikacji w interfejsie i weryfikacja magazynu pamięci podręcznej (Cache):**
+  - **Pełne oznaczenie kompilacji `5.0 (v602)`:** Zastąpiono statyczne oznaczenie `v5.0` formatem z dokładnym numerem kompilacji i wersji Service Workera.
+  - **Widoczność na Ekranie Powitalnym (Centrum Studium):**
+    - W prawym górnym rogu banera powitalnego dodano klikalną pigułkę `● 5.0 v602` z pulsującą kontrolką stanu synchronizacji offline.
+    - Na dole Centrum Studium dodano elegancką stopkę z oznaczeniem wersji, statusem magazynu offline oraz przyciskami *„Co nowego w v602 ↗”* i *„Sprawdź aktualizacje 🔄”*.
+  - **Widoczność na pasku bocznym (w tym 58 px na iPadzie i w Split View):**
+    - W trybie rozwiniętym: pod nazwą aplikacji widnieje klikalna plakietka `v5.0 v602`.
+    - W trybie zwiniętym (58 px Icon Rail): tuż pod logo `JW` dodano stały mikro-badge `v602`, dzięki czemu na każdym zrzucie ekranu od razu widać aktywną kompilację.
+  - **Nowe okno historii zmian (Changelog Modal):**
+    - Kliknięcie w dowolną plakietkę wersji otwiera czytelne okno dialogowe z zestawieniem najważniejszych nowości z ostatnich wersji oraz przyciskiem *„Wymuś odświeżenie 🔄”*.
+  - **Weryfikacja pamięci podręcznej Service Workera w czasie rzeczywistym:**
+    - Aplikacja automatycznie bada zawartość `caches.keys()`, by upewnić się, czy przeglądarka załadowała najświeższy kod, czy korzysta ze starszej kopii.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v602`.
+
+## 5.0 — 2026-11-09 (Wersja v601)
 
 - **Optymalizacja widoku dzielonego ekranu (Split View na iPadzie i Macu) oraz naprawa błędów przycisków narożnych:**
   - **Usunięcie zagubionego krzyżyka `✕` i zielonego przycisku w prawym górnym rogu czytnika:**
