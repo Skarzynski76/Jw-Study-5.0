@@ -1,4 +1,19 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v590)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v591)
+
+- **Nowoczesny falujący potencjometr audio (Waveform) dostosowany do głosu:**
+  - Wprowadzono estetyczny, responsywny pasek audio stylizowany na standardy Apple Voice Memos / Telegram z organicznym falującym potencjometrem (36 słupków fali dźwiękowej o zróżnicowanej wysokości).
+  - **Dynamiczna modulacja fali głosu:**
+    - Podczas odtwarzania nagrań głosowych (zarówno z wbudowanego Dyktafonu, jak i dodanych plików MP3), słupek po słupku faluje dynamicznie w rytm i ton mowy ludzkiej.
+    - Zintegrowano Web Audio API (`AudioContext` + `AnalyserNode`) do analizy rzeczywistych częstotliwości głosu w czasie rzeczywistym.
+    - Wdrożono inteligentny algorytm modulacji głosu (kadencja sylabiczna i fale harmoniczne mowy), który płynnie ożywia potencjometr bez ryzyka wyciszenia dźwięku przez ograniczenia CORS.
+  - **Progres odtwarzania i wskaźnik głowicy (Playhead):**
+    - Słupki przed pozycją kursora podświetlają się żywym szmaragdowo-akcentowym gradientem z subtelną poświatą neonową (`.played`), aktywny punkt pulsuje (`.active`), a głowica z punktem magnetycznym (`.jmp-playhead-dot`) płynnie przesuwa się po osi czasu.
+    - Pełna obsługa precyzyjnego przewijania dotykiem i myszką (scrubbing) bezpośrednio po falach dźwiękowych.
+  - **Animowany VU-metr w ikonie audio:**
+    - Miniaturowy 4-pasmowy korektor VU-metr w ikonie nagrania pulsuje w czasie odtwarzania dźwięku.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v591`.
+
+## 5.0 — 2026-11-09 (Wersja v590)
 
 - **Eliminacja błędnego oznaczania przyszłych miesięcy (np. grudnia) w kalendarzu czytania:**
   - Zdiagnozowano i usunięto błąd w kalendarzu miesięcznym, gdzie numer dnia miesiąca (`d = 1..31`) był bezpośrednio utożsamiany z numerem dnia planu (`planDay = d`), co powodowało, że w każdym kolejnym miesiącu (w tym w grudniu) pierwsze dni wyglądały na przeczytane, mimo że grudzień jeszcze w ogóle nie nastąpił.
