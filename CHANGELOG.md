@@ -1,4 +1,17 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v598)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v599)
+
+- **Dosłowna zgodność wszystkich cytatów z zrewidowanym Pismem Świętym w Przekładzie Nowego Świata — Biblia do studium (NWT 2020/2025):**
+  - **1 Tymoteusza 4:15:** Zaktualizowano cytat do dokładnego brzmienia zrewidowanego Przekładu Nowego Świata:
+    > *„Zastanawiaj się nad tymi rzeczami, bądź nimi pochłonięty, żeby wszyscy wyraźnie widzieli twój postęp.”*
+  - **Jozuego 1:8:** Zaktualizowano cytat w banerze powitalnym, przypomnieniach i notatkach wzorcowych do dokładnego brzmienia NWT 2020:
+    > *„Niech ta księga Prawa zawsze będzie na twoich ustach i uważnie ją czytaj dniem i nocą, żeby ściśle trzymać się wszystkiego, co jest w niej napisane. Wtedy odniesiesz sukces i będziesz działać mądrze.”*
+  - **Usunięcie nieautoryzowanych dopisków:** Z banera powitalnego usunięto sformułowanie *„niech Jehowa obficie błogosławi Twoje dzisiejsze rozważania”* — podtytuł skupia się teraz czysto na dosłownym wersecie biblijnym z Jozuego 1:8.
+  - **Psalm 1:2, 3:** Zaktualizowano cytat w Drzewie Wzrostu Duchowego oraz zbiorze klejnotów do brzmienia NWT 2020:
+    > *„ale rozkoszuje się prawem Jehowy i uważnie je czyta dniem i nocą. Będzie jak drzewo zasadzone nad strumieniami, drzewo, które w odpowiednim czasie owocuje, którego liście nie więdną. I wszystko, co robi, przyniesie pomyślność.”*
+  - **Zbiór klejnotów duchowych i przypomnień:** Zaktualizowano wszystkie wersety (m.in. Filipian 4:6-7, Przysłów 3:5-6, Rzymian 12:2, Izajasza 41:10, Hebrajczyków 4:12, 1 Piotra 5:6-7, Psalm 119:105, 2 Tymoteusza 3:16) do dosłownego tekstu z serwisu jw.org i aplikacji JW Library.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v599`.
+
+## 5.0 — 2026-11-09 (Wersja v598)
 
 - **Rozdzielenie Ekranu Powitalnego od Pulpitu Centrum Studium (koniec z przeładowaniem informacjami):**
   - **Dedykowany Ekran Powitalny (`powitanie`):**
