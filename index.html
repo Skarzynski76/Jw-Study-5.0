@@ -6617,6 +6617,16 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
 #modalFs[data-reader-theme="sage"], #readPop[data-reader-theme="sage"], #dropdown[data-reader-theme="sage"], body.fs-open[data-reader-theme="sage"], html[data-reader-theme="sage"]{--bg:#eaf1ec;--panel:#eaf1ec;--text:#192c1e;--muted:#586b5c;--border:#c5d4c7;--sel:#d7e4d9;--accent:#275a37;--accent2:#3f7c52;color-scheme:light}
 #modalFs[data-reader-theme="app"], #modalFs:not([data-reader-theme]), #readPop[data-reader-theme="app"], #dropdown[data-reader-theme="app"]{--bg:var(--panel)}
 
+/* Split View & Reader overlay integrity — czytnik ma pełną widoczność, sidebar nie przebija */
+body.fs-open #modernSidebar,
+body.fs-open .sidebar-backdrop {
+  display: none !important;
+  pointer-events: none !important;
+}
+body.fs-open #modalFs {
+  z-index: 10050 !important;
+}
+
 body.fs-open,
 body.fs-open #modalFs,
 #modalFs,
@@ -12774,45 +12784,66 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
    dokumentu i ma się przewijać razem z treścią.
    ============================================================ */
 #fsWrap .nhead{ position:static!important; }
-/* Krzyżyk trzyma się rogu okna (position:fixed), niezależnie od przewinięcia czy edycji. */
+/* Przycisk zamknięcia czytnika (✕ Zamknij) oraz pełnego ekranu — zoptymalizowane pod iPad Split View, Mac i Mobile */
 #modalFs #fsClose,
 #modalFs > #fsClose,
 #modalFs .fsmodal > #fsClose{
-  display:flex!important; position:fixed!important;
-  top:max(16px, calc(12px + env(safe-area-inset-top, 0px)))!important;
-  right:max(14px, calc(12px + env(safe-area-inset-right, 0px)))!important;
-  z-index:10035!important;
-  width:38px!important; height:38px!important; border-radius:50%!important;
+  display:inline-flex!important; position:fixed!important;
+  top:max(14px, calc(10px + env(safe-area-inset-top, 0px)))!important;
+  right:max(14px, calc(10px + env(safe-area-inset-right, 0px)))!important;
+  z-index:10045!important;
+  height:36px!important;
+  padding:0 14px 0 11px!important;
+  border-radius:18px!important;
   align-items:center!important; justify-content:center!important;
-  border:1px solid var(--border)!important; background:var(--panel)!important; color:var(--text)!important;
-  font-size:18px!important; font-weight:700!important; line-height:1!important; cursor:pointer!important;
-  box-shadow:0 4px 14px rgba(0,0,0,.18)!important;
+  gap:6px!important;
+  border:1px solid var(--border)!important;
+  background:color-mix(in srgb, var(--panel, #ffffff) 92%, transparent)!important;
+  color:var(--text)!important;
+  font-size:13px!important; font-weight:650!important; line-height:1!important; cursor:pointer!important;
+  box-shadow:0 4px 16px rgba(0,0,0,.12), 0 1px 3px rgba(0,0,0,.05)!important;
   opacity:1!important; pointer-events:auto!important; visibility:visible!important;
   transform:none!important;
   box-sizing:border-box!important;
-  transition:background .15s ease, color .15s ease, transform .14s ease!important;
+  -webkit-backdrop-filter:blur(16px) saturate(180%)!important;
+  backdrop-filter:blur(16px) saturate(180%)!important;
+  transition:background .15s ease, color .15s ease, transform .14s ease, border-color .15s ease!important;
+}
+#modalFs #fsClose .ic{
+  width:14px!important; height:14px!important; stroke-width:2.3!important; flex-shrink:0!important;
+}
+#modalFs #fsClose .fsCloseTxt{
+  letter-spacing:-0.01em!important; white-space:nowrap!important;
 }
 #modalFs #fsClose:hover,
 #modalFs > #fsClose:hover,
-#modalFs .fsmodal > #fsClose:hover{ background:var(--sel)!important; color:var(--accent)!important; }
+#modalFs .fsmodal > #fsClose:hover{
+  background:var(--sel)!important; color:var(--accent)!important;
+  border-color:color-mix(in srgb, var(--accent) 30%, var(--border))!important;
+}
 #modalFs #fsClose:active,
 #modalFs > #fsClose:active,
-#modalFs .fsmodal > #fsClose:active{ transform:scale(.92)!important; }
+#modalFs .fsmodal > #fsClose:active{ transform:scale(.94)!important; }
+
 #modalFs #fsFull,
 #modalFs > #fsFull,
 #modalFs .fsmodal > #fsFull{
-  display:flex!important; position:fixed!important;
-  top:max(16px, calc(12px + env(safe-area-inset-top, 0px)))!important;
-  right:max(60px, calc(58px + env(safe-area-inset-right, 0px)))!important;
-  z-index:10035!important;
-  width:38px!important; height:38px!important; border-radius:50%!important;
+  display:inline-flex!important; position:fixed!important;
+  top:max(14px, calc(10px + env(safe-area-inset-top, 0px)))!important;
+  right:max(122px, calc(118px + env(safe-area-inset-right, 0px)))!important;
+  z-index:10045!important;
+  width:36px!important; height:36px!important; border-radius:50%!important;
   align-items:center!important; justify-content:center!important;
-  border:1px solid var(--border)!important; background:var(--panel)!important; color:var(--text)!important;
+  border:1px solid var(--border)!important;
+  background:color-mix(in srgb, var(--panel, #ffffff) 92%, transparent)!important;
+  color:var(--text)!important;
   font-size:15px!important; line-height:1!important; cursor:pointer!important;
-  box-shadow:0 4px 14px rgba(0,0,0,.18)!important;
+  box-shadow:0 4px 16px rgba(0,0,0,.12), 0 1px 3px rgba(0,0,0,.05)!important;
   box-sizing:border-box!important;
   opacity:1!important; pointer-events:auto!important; visibility:visible!important;
   transform:none!important;
+  -webkit-backdrop-filter:blur(16px) saturate(180%)!important;
+  backdrop-filter:blur(16px) saturate(180%)!important;
   transition:opacity .25s ease, transform .2s ease, background .15s ease, color .15s ease, border-color .15s ease!important;
 }
 #modalFs #fsFull:hover,
@@ -12821,9 +12852,33 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
 #modalFs #fsFull:active,
 #modalFs > #fsFull:active,
 #modalFs .fsmodal > #fsFull:active{ transform:scale(.92)!important; }
-#modalFs #fsFull .ic{ width:18px; height:18px; }
+#modalFs #fsFull .ic{ width:16px; height:16px; }
 #modalFs #fsFull.active{ background:var(--accent)!important; color:#ffffff!important; border-color:var(--accent)!important; }
 #modalFs #fsFull.active:hover{ opacity:.9!important; }
+
+/* W widoku Split View (iPad i Mac) oraz na ekranach tabletów / smartfonów (<= 1100px)
+   ukrywamy przycisk pełnego ekranu (#fsFull) — w podziale ekranu HTML5 fullscreen nie działa lub niszczy widok obok siebie */
+@media (max-width: 1100px) {
+  #modalFs #fsFull,
+  #modalFs > #fsFull,
+  #modalFs .fsmodal > #fsFull {
+    display: none !important;
+  }
+}
+
+/* Na wąskich szerokościach (np. 1/3 Split View lub telefony <= 480px) zwiń napis do zwartej pigułki z ikoną */
+@media (max-width: 480px) {
+  #modalFs #fsClose,
+  #modalFs > #fsClose,
+  #modalFs .fsmodal > #fsClose {
+    width: 36px !important;
+    padding: 0 !important;
+    justify-content: center !important;
+  }
+  #modalFs #fsClose .fsCloseTxt {
+    display: none !important;
+  }
+}
 
 #modalFs #fsBackFixed,
 #modalFs > #fsBackFixed,
@@ -13163,9 +13218,11 @@ body.fs-fullscreen #modalFs .fsNav.next {
   transform: translateY(-50%) !important;
 }
 
-/* Skoro krzyżyk jest w rogu okna, ten w nagłówku byłby drugi taki sam. */
+/* Skoro przycisk zamykania jest na górze, ten w nagłówku byłby drugi taki sam.
+   Zachowujemy bezpieczny prawy margines, by tytuł i metadane nie wchodziły pod przycisk '✕ Zamknij' */
 #fsWrap .fsCloseInline{ display:none!important; }
-#fsWrap .nhead{ padding-right:clamp(4px, 2vw, 20px)!important; }
+#fsWrap .nhead{ padding-right:clamp(96px, 15vw, 150px)!important; }
+#fsWrap .nmeta2{ padding-right:clamp(96px, 15vw, 150px)!important; }
 
 /* ============================================================
    WYDOBYCIE KARTECZKI NA WIERZCH (v2.17)
@@ -14659,7 +14716,7 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
     top: calc((100vh - (100vh - clamp(24px, 4vh, 48px))) / 2 + 16px) !important;
   }
   #modalFs.show:not(.is-fullscreen) #fsFull{
-    right: calc((100vw - var(--fsOkno)) / 2 + 64px) !important;
+    right: calc((100vw - var(--fsOkno)) / 2 + 124px) !important;
     top: calc((100vh - (100vh - clamp(24px, 4vh, 48px))) / 2 + 16px) !important;
   }
   #modalFs.show:not(.is-fullscreen) #fsBackFixed{
@@ -20996,6 +21053,14 @@ html[data-theme="sepia"] .sidebar-float-trigger {
 .sidebar-close-btn {
   display: none !important;
 }
+body.mobile-sidebar-open .sidebar-close-btn,
+#appContainer.mobile-sidebar-open .sidebar-close-btn {
+  display: inline-flex !important;
+}
+#appContainer.sidebar-collapsed .sidebar-close-btn,
+#modernSidebar.collapsed .sidebar-close-btn {
+  display: none !important;
+}
 .sidebar-backdrop {
   display: none;
 }
@@ -21113,7 +21178,7 @@ html[data-theme="sepia"] .sidebar-float-trigger {
   }
 
   .sidebar-close-btn {
-    display: inline-flex !important;
+    display: none !important;
     align-items: center;
     justify-content: center;
     width: 32px;
@@ -21126,6 +21191,14 @@ html[data-theme="sepia"] .sidebar-float-trigger {
     cursor: pointer;
     transition: all 0.14s ease;
     flex-shrink: 0;
+  }
+  body.mobile-sidebar-open .sidebar-close-btn,
+  #appContainer.mobile-sidebar-open .sidebar-close-btn {
+    display: inline-flex !important;
+  }
+  #appContainer.sidebar-collapsed .sidebar-close-btn,
+  #modernSidebar.collapsed .sidebar-close-btn {
+    display: none !important;
   }
   .sidebar-close-btn:hover {
     background: var(--sel);
@@ -23818,7 +23891,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
   <div id="fsProg" role="progressbar" aria-label="Postęp czytania" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
   <button id="fsBackFixed" class="fsBackFixed" title="Wróć do poprzedniej notatki" aria-label="Wróć do poprzedniej notatki" hidden><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="fsBackFixedTxt">Wróć</span><span class="fsBackFixedTyt" id="fsBackFixedTyt"></span></button>
   <button id="fsFull" title="Pełny ekran" aria-label="Pełny ekran"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
-  <button id="fsClose" title="Zamknij" aria-label="Zamknij">✕</button>
+  <button id="fsClose" title="Zamknij (Esc)" aria-label="Zamknij"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg><span class="fsCloseTxt">Zamknij</span></button>
 
   <aside id="fsInspectorRail" class="fs-inspector-rail" aria-label="Boczny panel narzędzi">
     <button class="fs-rail-btn" data-rail-act="toc" type="button" title="Spis treści i nagłówki (☷)">

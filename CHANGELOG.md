@@ -1,4 +1,18 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v600)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v601)
+
+- **Optymalizacja widoku dzielonego ekranu (Split View na iPadzie i Macu) oraz naprawa błędów przycisków narożnych:**
+  - **Usunięcie zagubionego krzyżyka `✕` i zielonego przycisku w prawym górnym rogu czytnika:**
+    - Zastąpiono surowy, wiszący w rogu ekranu okrągły przycisk `✕` profesjonalną pigułką nawigacyjną `✕ Zamknij` w stylu iPadOS/macOS z bezpiecznym tłem, efektem frosted glass i etykietą tekstową.
+    - W trybach Split View (podział ekranu na iPadzie i Macu) oraz na tabletach i telefonach ukryto przycisk `⛶` pełnego ekranu (`#fsFull`), który w widoku podzielonym nie ma zastosowania, powodował błędy WebKit i kolidował z systemowymi kontrolkami multitaskingu iPadOS (`...`).
+    - Zwiększono prawy margines bezpieczeństwa nagłówka i tytułu notatki (`padding-right: clamp(96px, 15vw, 150px)`), dzięki czemu długie tytuły notatek nigdy nie kolidują z przyciskiem zamykania.
+  - **Naprawa zduplikowanego krzyżyka `✕` na pasku bocznym (Icon Rail):**
+    - Wyeliminowano błąd reguły CSS, która wymuszała wyświetlanie przycisku zamykania paska bocznego (`.sidebar-close-btn`) w lewym górnym rogu na zwiniętym pasku ikon (58px), przez co krzyżyk nakładał się brzydko na logo `JW`.
+    - Przycisk zamykania paska bocznego jest teraz aktywny wyłącznie wtedy, gdy wysuwany drawer mobilny jest rzeczywiście otwarty.
+  - **Prawidłowe warstwy `z-index` i izolacja czytnika:**
+    - Wyeliminowano przenikanie paska bocznego (`#modernSidebar`) na lewą krawędź czytnika notatek w trybie Split View (`body.fs-open`). Czytnik obejmuje pełną szerokość przydzielonego okna bez zasłaniania treści.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v601`.
+
+## 5.0 — 2026-11-09 (Wersja v600)
 
 - **Kalendarzowe przypisanie i jednoznaczny status ukończenia czytania Biblii na Ekranie Powitalnym:**
   - **Bezpośrednie powiązanie z kalendarzem:** Do każdego dnia planu wyświetlana jest dokładna data kalendarzowa (np. *„Dzień 38 z 90 • Poniedziałek, 9 listopada”*), wyliczana ze stałej daty startu planu.
