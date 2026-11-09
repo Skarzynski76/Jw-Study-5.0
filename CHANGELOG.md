@@ -1,4 +1,14 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v589)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v590)
+
+- **Eliminacja błędnego oznaczania przyszłych miesięcy (np. grudnia) w kalendarzu czytania:**
+  - Zdiagnozowano i usunięto błąd w kalendarzu miesięcznym, gdzie numer dnia miesiąca (`d = 1..31`) był bezpośrednio utożsamiany z numerem dnia planu (`planDay = d`), co powodowało, że w każdym kolejnym miesiącu (w tym w grudniu) pierwsze dni wyglądały na przeczytane, mimo że grudzień jeszcze w ogóle nie nastąpił.
+  - Wdrożono rzeczywiste mapowanie dat kalendarzowych na oś czasu planu (`diffDays = (cellDate - startDate)`). Dni w przyszłości (`cellDate > dzisiaj`) są teraz jednoznacznie i logicznie traktowane jako **Zaplanowane (`dot-future`)**, a nie przeczytane.
+- **Równoległe korzystanie z wielu planów czytania Biblii:**
+  - Dodano pełne wsparcie i dedykowany panel **„Twoje równoległe plany czytania”** bezpośrednio na pulpicie czytania, umożliwiający jednoczesne prowadzenie kilku niezależnych planów (np. 90-dniowego planu o życiu Jezusa rano i planu rocznego wieczorem).
+  - Każdy plan zachowuje w 100% niezależny zapis ukończonych dni, fragmentów, notatek i statystyk. Przełączanie między planami odbywa się jednym kliknięciem bez utraty postępu.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v590`.
+
+## 5.0 — 2026-11-09 (Wersja v589)
 
 - **Plany czytania Biblii (np. 90 dni) i Kalendarz — wyraźna widoczność nieprzeczytanych dni i reset planu:**
   - **Siatka dni planu (1–90):** Wprowadzono nowoczesny, przejrzysty widok siatki prezentujący wszystkie dni aktywnego planu z numerem dnia, fragmentami biblijnymi, odznakami statusu (✓ Ukończono, ◉ Dzisiaj, ⚠️ Nieprzeczytane, ⏳ Zaplanowane) oraz szybkim przyciskiem bezpośredniego oznaczania (`✓` / `○`) bez konieczności wchodzenia w szczegóły każdego dnia.

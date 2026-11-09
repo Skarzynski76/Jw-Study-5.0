@@ -2131,6 +2131,10 @@ html[data-theme="dark"] .cenRemPermAlert.default {
   color: #ef4444 !important;
   font-weight: 700;
 }
+.cenKalDzienKomorka.is-outside {
+  opacity: 0.28;
+  cursor: default;
+}
 
 /* Siatka wszystkich dni planu czytania (np. 1–90) */
 .cenPlanGrid90 {
@@ -51107,6 +51111,25 @@ function _centrZnajdzBiezacyDzienPlanu(planId){
   return planInfo.days || 1;
 }
 
+function _centrPobierzPlanStartDate(planId){
+  planId = planId || _centrAktywnyPlanId || "chrono";
+  const raw = lsGet(KP + "CentrumPlanStart_" + planId, null);
+  if(raw){
+    const d = new Date(raw);
+    if(!isNaN(d.getTime())){
+      d.setHours(0,0,0,0);
+      return d;
+    }
+  }
+  // Jeśli brak zapisu: wyznacz tak, aby bieżący dzień planu przypadał dokładnie na DZISIAJ
+  const curD = _centrZnajdzBiezacyDzienPlanu(planId);
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  const calculatedStart = new Date(now.getTime() - (curD - 1) * 86400000);
+  lsSet(KP + "CentrumPlanStart_" + planId, _centrFormatujDateISO(calculatedStart));
+  return calculatedStart;
+}
+
 /* 7. Odczyt i zapis postępu użytkownika */
 function _centrPobierzUkonczoneDni(planId){
   planId = planId || _centrAktywnyPlanId || "chrono";
@@ -56278,7 +56301,47 @@ function centrWidokCzytanieChrono(){
       + '</div>'
       + '<span class="cenPozStrz">'+CEN_MODERN_ICO.chevron+'</span>'
       + '</div>').join('')
-    + '</div>';
+    + '</div>'
+
+    + (function(){
+        const wszystkiePlany = _centrPobierzPlany();
+        const innePlanyWTok = wszystkiePlany.filter(p => p.id !== planInfo.id && _centrPobierzUkonczoneDni(p.id).size > 0);
+        if(innePlanyWTok.length > 0){
+          return '<div style="margin-top:24px;">'
+            + '<div class="cenSecHeadTyt" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">'
+            + '<span>📚 Twoje równoległe plany czytania (' + innePlanyWTok.length + ')</span>'
+            + '<button type="button" class="cenHeroChangePlanBtn" data-cwidok="moje-plany" style="font-size:12px;padding:3px 10px;">Wszystkie plany ▾</button>'
+            + '</div>'
+            + '<div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:10px;">'
+            + innePlanyWTok.map(ip => {
+                const dSet = _centrPobierzUkonczoneDni(ip.id);
+                const cD = _centrZnajdzBiezacyDzienPlanu(ip.id);
+                const pNum = ip.days > 0 ? (dSet.size / ip.days) * 100 : 0;
+                return '<div class="cenRowItem" style="margin-bottom:0;flex-direction:column;align-items:stretch;gap:8px;cursor:pointer;" data-cwidok="czytanie-chronologiczne" data-cplan-otworz="' + ip.id + '" title="Przełącz na plan: ' + esc(ip.name) + '">'
+                  + '<div style="display:flex;justify-content:space-between;align-items:center;">'
+                  + '<div style="font-weight:700;font-size:14px;color:var(--cen-text-main);">' + esc(ip.name) + '</div>'
+                  + '<span class="cenPlanDurationBadge">' + esc(ip.duration || (ip.days + ' dni')) + '</span>'
+                  + '</div>'
+                  + '<div style="display:flex;justify-content:space-between;font-size:12px;color:var(--cen-text-muted);">'
+                  + '<span>Bieżący: Dzień ' + cD + '</span>'
+                  + '<span>' + dSet.size + ' / ' + ip.days + ' dni (' + Math.round(pNum) + '%)</span>'
+                  + '</div>'
+                  + '<div class="cenProgressBar" style="margin:2px 0;"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(dSet.size>0?3:0, pNum)) + '%;"></div></div>'
+                  + '<button type="button" class="btn primary" style="font-size:12.5px;padding:6px 12px;margin-top:2px;align-self:flex-start;" data-cwidok="czytanie-chronologiczne" data-cplan-otworz="' + ip.id + '">Przełącz na ten plan ›</button>'
+                  + '</div>';
+              }).join('')
+            + '</div></div>';
+        }
+        return '<div class="cenFruitPlanBanner" style="cursor:pointer;margin-top:22px;" data-cwidok="moje-plany" title="Otwórz wybór planów czytania">'
+          + '<div class="cenFruitPlanBannerLewo">'
+          + '<div class="cenFruitPlanBannerIko">📚</div>'
+          + '<div>'
+          + '<div class="cenFruitPlanBannerTyt">Możesz czytać kilka planów równolegle!</div>'
+          + '<div class="cenFruitPlanBannerSub">Chcesz czytać np. 90-dniowy plan o życiu Jezusa rano oraz równolegle plan roczny wieczorem? Każdy plan pamięta swój postęp! Kliknij, aby wybrać kolejny plan ›</div>'
+          + '</div></div>'
+          + '<button type="button" class="cenZadanieBtn" data-cwidok="moje-plany" style="font-size:12.5px;padding:6px 14px;">Wybierz plan ›</button>'
+          + '</div>';
+      })();
 }
 
 /* 3. EKRAN KONKRETNEGO DNIA */
@@ -56697,23 +56760,66 @@ function centrWidokKalendarz(rok, mies){
     const dniWPrzedziale = (firstDay === 0 ? 6 : firstDay - 1);
     const totalDays = new Date(rok, mies + 1, 0).getDate();
 
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const startDate = _centrPobierzPlanStartDate(planInfo.id);
+
     let gridHtml = '';
     for(let i=0; i<dniWPrzedziale; i++){
-      gridHtml += '<div class="cenKalDzienKomorka" style="opacity:0.2;"></div>';
+      gridHtml += '<div class="cenKalDzienKomorka is-outside" style="opacity:0.18;"></div>';
     }
     for(let d=1; d<=totalDays; d++){
-      const planDay = Math.min(planInfo.days, d);
-      const czyDone = dniDoneKal.has(planDay);
-      const isCur = (planDay === curDzienKal);
-      const isMissed = !czyDone && (planDay < curDzienKal);
+      const cellDate = new Date(rok, mies, d);
+      cellDate.setHours(0,0,0,0);
+
+      // Oblicz numer dnia planu na podstawie daty kalendarza
+      const diffDays = Math.round((cellDate.getTime() - startDate.getTime()) / 86400000);
+      const planDay = diffDays + 1; // 1-based dzień planu
+
+      const isFuture = cellDate.getTime() > today.getTime();
+      const isToday = cellDate.getTime() === today.getTime();
+      const isPast = cellDate.getTime() < today.getTime();
+
       let komorkaClass = 'cenKalDzienKomorka';
-      if(isCur) komorkaClass += ' active';
-      if(czyDone) komorkaClass += ' is-done';
-      else if(isMissed) komorkaClass += ' is-missed';
+      let dotClass = 'dot-future';
+      let titleTxt = d + ' ' + nazwyMies[mies] + ' ' + rok;
+      let canClick = false;
 
-      const dotClass = czyDone ? 'dot-done' : (isMissed ? 'dot-missed' : (isCur ? 'dot-part' : 'dot-future'));
+      if(planDay < 1){
+        komorkaClass += ' is-outside';
+        dotClass = 'dot-empty';
+        titleTxt += ' (Przed startem planu)';
+      } else if(planDay > planInfo.days){
+        komorkaClass += ' is-outside';
+        dotClass = 'dot-empty';
+        titleTxt += ' (Po zakończeniu planu)';
+      } else {
+        canClick = true;
+        const czyDone = dniDoneKal.has(planDay);
+        titleTxt = 'Dzień planu ' + planDay + ' (' + d + ' ' + nazwyMies[mies] + ')';
 
-      gridHtml += '<div class="' + komorkaClass + '" data-cwidok="dzien" data-cdzien="' + planDay + '" title="' + (czyDone ? ('Dzień ' + planDay + ': Ukończono') : (isMissed ? ('Dzień ' + planDay + ': Nieprzeczytane!') : ('Dzień ' + planDay))) + '">'
+        if(czyDone){
+          komorkaClass += ' is-done';
+          dotClass = 'dot-done';
+          titleTxt += ': Ukończono ✓';
+        } else if(isToday){
+          komorkaClass += ' active';
+          dotClass = 'dot-part';
+          titleTxt += ': Czytanie na dziś ◉';
+        } else if(isPast){
+          komorkaClass += ' is-missed';
+          dotClass = 'dot-missed';
+          titleTxt += ': ⚠️ Nieprzeczytane (zaległe)';
+        } else {
+          // Przyszły dzień (np. grudzień, gdy dziś jest listopad) — ZAWSZE dot-future!
+          dotClass = 'dot-future';
+          titleTxt += ': Zaplanowane ⏳';
+        }
+      }
+
+      gridHtml += '<div class="' + komorkaClass + '"'
+        + (canClick ? (' data-cwidok="dzien" data-cdzien="' + planDay + '"') : '')
+        + ' title="' + esc(titleTxt) + '">'
         + '<span class="cenKalDzienNr">' + d + '</span>'
         + '<span class="cenKalDzienKropka ' + dotClass + '"></span>'
         + '</div>';
@@ -56801,6 +56907,14 @@ function centrWidokMojePlany(tab){
     + '<button type="button" class="cenTabBtn' + (tab==="zbalansowany"?' active':'') + '" data-cplan-tab="zbalansowany">Pisma Hebr. i Greckie (1, 2, 3 lata)</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="temat"?' active':'') + '" data-cplan-tab="temat">Pisma Greckie i Tematyczne</button>'
     + '</div>'
+
+    + '<div class="cenFruitPlanBanner" style="margin-bottom:16px;background:rgba(59,130,246,0.06);border-color:rgba(59,130,246,0.22);cursor:default;">'
+    + '<div class="cenFruitPlanBannerLewo">'
+    + '<div class="cenFruitPlanBannerIko">💡</div>'
+    + '<div>'
+    + '<div class="cenFruitPlanBannerTyt">Równoległe czytanie wielu planów</div>'
+    + '<div class="cenFruitPlanBannerSub">Każdy plan ma w 100% niezależny zapis postępu. Możesz prowadzić np. plan 90 dni i plan roczny jednocześnie – przełączasz się między nimi w dowolnej chwili bez utraty żadnego zaznaczonego dnia!</div>'
+    + '</div></div></div>'
 
     + '<div class="cenPlanGrid">'
     + filtered.map(p => {
@@ -59353,6 +59467,7 @@ if($("centrum")){
         const planInfo = _centrPobierzPlanData(_centrAktywnyPlanId);
         if(confirm("Czy na pewno chcesz zresetować postęp planu „" + planInfo.name + "” i zacząć od Dnia 1?\n\nDotychczasowe oznaczenia przeczytanych dni w tym planie zostaną wyczyszczone.")){
           lsRem(KP + "CentrumDniDone_" + planInfo.id);
+          lsRem(KP + "CentrumPlanStart_" + planInfo.id);
           const fragi = _centrPobierzUkonczoneFragi();
           let zmiana = false;
           fragi.forEach(fk => {
