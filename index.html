@@ -20174,6 +20174,331 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   }
 }
 
+/* ================= EKRAN POWITALNY CODZIENNEGO STUDIUM ================= */
+.cenWelcomeGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+@media (max-width: 860px) {
+  .cenWelcomeGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cenWelcomeCard {
+  background: var(--panel, #ffffff);
+  border: 1px solid var(--border, rgba(0, 0, 0, 0.08));
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.cenWelcomeCard:hover {
+  border-color: color-mix(in srgb, var(--accent, #2563eb) 35%, transparent);
+}
+.cenWelcomeCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 10px;
+}
+.cenWelcomeTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+.cenWelcomeTag.tag-blue {
+  background: color-mix(in srgb, var(--accent, #2563eb) 12%, transparent);
+  color: var(--accent, #2563eb);
+}
+.cenWelcomeTag.tag-gold {
+  background: rgba(217, 119, 6, 0.12);
+  color: #d97706;
+}
+.cenWelcomeTag.tag-purple {
+  background: rgba(124, 58, 237, 0.12);
+  color: #7c3aed;
+}
+
+/* Karta Zadanie na Dziś */
+.cenReadingPortions {
+  background: color-mix(in srgb, var(--accent, #2563eb) 6%, var(--panel, #ffffff));
+  border: 1px solid color-mix(in srgb, var(--accent, #2563eb) 18%, transparent);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.cenReadingLabel {
+  font-size: 11px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent, #2563eb);
+  margin-bottom: 8px;
+}
+.cenPortionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--panel, #ffffff);
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border, rgba(0, 0, 0, 0.08));
+  margin-bottom: 8px;
+  gap: 10px;
+}
+.cenPortionRow:last-child {
+  margin-bottom: 0;
+}
+.cenPortionName {
+  font-weight: 750;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.3;
+}
+.cenPortionTopic {
+  font-size: 12px;
+  color: var(--muted);
+}
+.cenBtnJwLib {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  color: #ffffff !important;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 750;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.cenBtnJwLib:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+}
+.cenFruitMiniBar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(5, 150, 105, 0.08);
+  border: 1px solid rgba(5, 150, 105, 0.22);
+  font-size: 12.5px;
+  color: #059669;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.cenBtnCompleteDay {
+  width: 100%;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 13.5px;
+  font-weight: 750;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+  transition: all 0.15s ease;
+}
+.cenBtnCompleteDay:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
+}
+.cenBtnCompleteDay.done {
+  background: #0f766e;
+}
+
+/* Karta Losowy Klejnot */
+.cenGemQuote {
+  font-family: Georgia, serif;
+  font-size: 15.5px;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.55;
+  margin-bottom: 12px;
+  padding-left: 14px;
+  border-left: 3px solid #d97706;
+}
+.cenGemBibleRef {
+  font-size: 13.5px;
+  font-weight: 750;
+  color: #d97706;
+  margin-bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.cenGemReflection {
+  background: rgba(217, 119, 6, 0.08);
+  border: 1px dashed rgba(217, 119, 6, 0.35);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+}
+.cenGemReflection b {
+  color: #d97706;
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.cenGemTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.cenGemTagPill {
+  padding: 3px 9px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--muted) 18%, transparent);
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 600;
+}
+.cenGemFooterBtns {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+.cenBtnOpenGem {
+  flex: 1;
+  padding: 10px 14px;
+  background: #d97706;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  text-align: center;
+  transition: opacity 0.15s;
+}
+.cenBtnOpenGem:hover { opacity: 0.9; }
+.cenBtnRefreshGem {
+  padding: 10px 14px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+.cenBtnRefreshGem:hover {
+  background: color-mix(in srgb, var(--border) 40%, transparent);
+  color: var(--text);
+}
+
+/* Moduł Cele i Nawyki na pulpicie */
+.cenGoalsWelcomeCard {
+  background: var(--panel, #ffffff);
+  border: 1px solid var(--border, rgba(0, 0, 0, 0.08));
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  margin-bottom: 22px;
+}
+.cenGoalsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+.cenGoalMiniItem {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  background: color-mix(in srgb, var(--bg, #f8fafc) 60%, var(--panel, #ffffff));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cenHabitDaysRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.cenHabitDayDot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10.5px;
+  font-weight: 750;
+  background: color-mix(in srgb, var(--muted) 15%, transparent);
+  color: var(--muted);
+}
+.cenHabitDayDot.done {
+  background: #059669;
+  color: #ffffff;
+}
+.cenHabitDayDot.today {
+  border: 2px solid var(--accent, #2563eb);
+}
+
+/* Myśl biblijna na zakończenie */
+.cenScriptureBanner {
+  text-align: center;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(124, 58, 237, 0.05));
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  margin-bottom: 22px;
+}
+.cenScriptureText {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.55;
+  max-width: 720px;
+  margin: 0 auto 6px auto;
+}
+.cenScriptureSource {
+  font-size: 12.5px;
+  font-weight: 750;
+  color: var(--accent, #2563eb);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
 #appMainContent {
   flex: 1 1 0;
   display: flex;
@@ -28325,6 +28650,10 @@ async function boot(){
   buildStatic();
   initViewBar();
   renderAll();
+  if(typeof centrWlaczone !== "undefined" && centrWlaczone && typeof centrCosWybrane === "function" && !centrCosWybrane()){
+    if(typeof centrumPokaz === "function") centrumPokaz("centrum");
+    if(window.innerWidth <= 900 && typeof mobileShow === "function") mobileShow("colNotes");
+  }
   // Przy stylu paska `default` iPadOS sam rezerwuje miejsce na pasek stanu.
   // Nie dokładamy stałych pikseli: na iPadOS 27 tworzyły drugi, pusty pas.
   if(isIOS() && navigator.standalone){
@@ -56976,7 +57305,30 @@ function _centrWidokDrzewoWzrostu(planInfo, dniDone, curSer, bestSer){
     + '</div>';
 }
 
-/* 1. GŁÓWNY WIDOK CENTRUM (DASHBOARD) */
+/* 1. GŁÓWNY WIDOK CENTRUM (DASHBOARD — EKRAN POWITALNY STUDIUM) */
+let _centrWylosowanyKlejnotGuid = null;
+function _centrPobierzLosowyKlejnot(){
+  const zywe = (typeof notes !== "undefined" && Array.isArray(notes))
+    ? notes.filter(n => !n.del && ((n.t && n.t.trim()) || (n.c && n.c.trim())))
+    : [];
+  if(zywe.length){
+    if(_centrWylosowanyKlejnotGuid){
+      const ist = zywe.find(n => n.g === _centrWylosowanyKlejnotGuid);
+      if(ist) return ist;
+    }
+    const idx = Math.floor(Math.random() * zywe.length);
+    _centrWylosowanyKlejnotGuid = zywe[idx].g;
+    return zywe[idx];
+  }
+  return {
+    g: null,
+    isSample: true,
+    t: "Filipian 4:6, 7 — Pokój Boży strzegący serca",
+    c: "„O nic się nie zamartwiajcie, ale we wszystkim w modlitwie i błaganiu wraz z dziękczynieniem niech wasze gorące prośby zostaną przedstawione Bogu. A pokój Boży, którego ludzki umysł nie jest w stanie pojąć, będzie strzegł waszych serc i władz umysłowych...”\n\nPrawdziwy pokój od Jehowy to nie brak problemów, lecz wewnętrzna pewność, że On panuje nad każdą sytuacją. Gdy przychodzi lęk, natychmiast zamieniam go w konkretną, dziękczynną modlitwę.",
+    tg: []
+  };
+}
+
 function renderCentrumWidok(){
   const curPlan = _centrPobierzPlanData(_centrAktywnyPlanId);
   const dniDone = _centrPobierzUkonczoneDni(curPlan.id);
@@ -57001,6 +57353,9 @@ function renderCentrumWidok(){
   const initials = (typeof userInicjaly === "function") ? userInicjaly(userName) : "👤";
   const nameEsc = esc(userName);
 
+  const dzisiajStr = new Date().toLocaleDateString('pl-PL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const dzisiajCap = dzisiajStr.charAt(0).toUpperCase() + dzisiajStr.slice(1);
+
   let avatarInlineStyle = "";
   let avatarClass = "cenUserAvatar";
   let avatarHtmlContent = esc(initials);
@@ -57018,19 +57373,23 @@ function renderCentrumWidok(){
       + '<div class="cenUserHeroLeft">'
       + '<div class="' + avatarClass + '"' + avatarInlineStyle + ' title="Twój profil' + (userName ? (': ' + nameEsc) : '') + '">' + avatarHtmlContent + '</div>'
       + '<div class="cenUserGreetingWrap">'
+      + '<div style="font-size:11.5px;font-weight:750;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent,#2563eb);margin-bottom:2px;">Osobiste Studium Słowa Bożego</div>'
       + '<div class="cenUserGreeting">' + greeting + (userName ? (', <b>' + nameEsc + '</b>!') : '!') + ' 👋</div>'
-      + '<div class="cenUserSub">Oto Twoje osobiste postępy i aktualny plan czytania na dziś.</div>'
+      + '<div class="cenUserSub">„Będziesz czytał tę księgę półgłosem dniem i nocą...” — niech Jehowa obficie błogosławi Twoje dzisiejsze rozważania.</div>'
       + '</div></div>'
+      + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;">'
+      + '<div style="font-size:12px;font-weight:600;color:var(--cen-text-muted);background:color-mix(in srgb, var(--border,#d1d5db) 30%, transparent);padding:5px 12px;border-radius:20px;white-space:nowrap;">📅 ' + dzisiajCap + '</div>'
       + '<button type="button" class="cenUserProfileBtn" data-act="otworzProfil" title="Zarządzaj profilem użytkownika">'
       + '<svg class="ic" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>'
       + '<span>' + (nameEsc || 'Profil') + '</span>'
       + '</button>'
-      + '</div>';
+      + '</div></div>';
   } else {
     userBannerHtml = '<div class="cenUserHeroBanner cenUserPromptBanner">'
       + '<div class="cenUserHeroLeft">'
       + '<div class="cenUserAvatar cenUserAvatarPrompt">👋</div>'
       + '<div class="cenUserGreetingWrap">'
+      + '<div style="font-size:11.5px;font-weight:750;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent,#2563eb);margin-bottom:2px;">Osobiste Studium Słowa Bożego</div>'
       + '<div class="cenUserGreeting">Witaj w <b>JW-Study</b>!</div>'
       + '<div class="cenUserSub">Wpisz swoje imię, aby spersonalizować powiadomienia, plany i gratulacje.</div>'
       + '</div></div>'
@@ -57041,7 +57400,146 @@ function renderCentrumWidok(){
       + '</div>';
   }
 
-  return userBannerHtml + '<div class="cenHeroGrid">'
+  // 1. ZADANIE NA DZIŚ (CZYTANIE BIBLII Z PLANU)
+  const fragiDone = _centrPobierzUkonczoneFragi();
+  const fragmentsHtml = (planDzis.f && planDzis.f.length)
+    ? planDzis.f.map((frag, idx) => {
+        const fKey = curPlan.id + "_" + curDzien + "_" + idx;
+        const isDone = fragiDone.has(fKey);
+        return '<div class="cenPortionRow">'
+          + '<div>'
+          + '<div class="cenPortionName">' + (isDone ? '<span style="color:#059669;margin-right:6px;font-weight:bold;">✓</span>' : '') + esc(frag.r) + '</div>'
+          + '<div class="cenPortionTopic">' + esc(frag.t || planDzis.t || 'Rozdział do przeczytania') + '</div>'
+          + '</div>'
+          + '<button type="button" class="cenBtnJwLib" data-copen-jw="' + esc(frag.r) + '" data-cfrag-key="' + fKey + '" data-cdzien="' + curDzien + '" title="Otwórz ' + esc(frag.r) + ' w aplikacji JW Library">'
+          + '<span>JW Library</span> 📖'
+          + '</button>'
+          + '</div>';
+      }).join('')
+    : '<div style="font-size:13px;color:var(--muted);padding:8px 0;">Brak szczegółowych fragmentów na ten dzień.</div>';
+
+  const isDayDone = dniDone.has(curDzien);
+  const completeBtnHtml = '<button type="button" class="cenBtnCompleteDay' + (isDayDone ? ' done' : '') + '" data-cdzien-ukoncz="' + curDzien + '">'
+    + '<span>✓</span> ' + (isDayDone ? 'Dzień oznaczony jako przeczytany (Kliknij, aby cofnąć)' : ('Ukończyłem dzisiejsze czytanie' + (userName ? (', ' + nameEsc) : '')))
+    + '</button>';
+
+  const spiritualFruits = _centrPobierzOwoceDucha(totalDni);
+  const nextFruit = spiritualFruits.find(f => doneCount < f.day);
+  let nextFruitHtml = '';
+  if(nextFruit){
+    const left = nextFruit.day - doneCount;
+    nextFruitHtml = '<div class="cenFruitMiniBar">'
+      + '<span style="font-size:20px;">🌳</span>'
+      + '<div>Drzewo owoców ducha: Kolejny owoc <b>' + esc(nextFruit.name) + ' (' + esc(nextFruit.fruit) + ')</b> za <b>' + left + (left === 1 ? ' dzień' : ' dni') + '</b> czytania!</div>'
+      + '</div>';
+  } else {
+    nextFruitHtml = '<div class="cenFruitMiniBar">'
+      + '<span style="font-size:20px;">🌳</span>'
+      + '<div>Wspaniale! Twoje drzewo wydało już wszystkie 9 owoców ducha! 🎉</div>'
+      + '</div>';
+  }
+
+  const zadanieKartaHtml = '<div class="cenWelcomeCard">'
+    + '<div class="cenWelcomeCardHeader">'
+    + '<span class="cenWelcomeTag tag-blue">📖 Zadanie na dziś • Plan czytania</span>'
+    + '<span class="card-action-link" data-cwidok="czytanie-chronologiczne" style="font-size:12.5px;color:var(--accent);cursor:pointer;font-weight:750;">Wszystkie dni ▾</span>'
+    + '</div>'
+    + '<div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:2px;">' + esc(curPlan.name) + '</div>'
+    + '<div style="font-size:13px;color:var(--muted);margin-bottom:14px;">Dzień ' + curDzien + ' z ' + totalDni + (planDzis.etap ? (' • Etap: ' + esc(planDzis.etap)) : (planDzis.t ? (' • ' + esc(planDzis.t)) : '')) + '</div>'
+    + '<div class="cenReadingPortions">'
+    + '<div class="cenReadingLabel">Wyznaczone fragmenty Słowa Bożego:</div>'
+    + fragmentsHtml
+    + '</div>'
+    + nextFruitHtml
+    + completeBtnHtml
+    + '</div>';
+
+  // 2. KARTA: LOSOWY KLEJNOT DUCHOWY ZE SKARBNICY
+  const gemNote = _centrPobierzLosowyKlejnot();
+  let gemHtml = '';
+  if(gemNote){
+    const plainText = gemNote.c ? htmlToPlain(gemNote.c) : (gemNote.h ? htmlToPlain(gemNote.h) : '');
+    const paragraphs = plainText.split(/\n+/).map(p => p.trim()).filter(Boolean);
+    const quoteText = paragraphs[0] || (gemNote.t || 'Rozważania biblijne');
+    const reflectionText = paragraphs.slice(1).join(' ') || (plainText || 'Warto powrócić do tej myśli podczas dzisiejszego rozmyślania.');
+    const noteRef = (gemNote.b && typeof refStr === 'function') ? refStr(gemNote) : '';
+    const noteTags = Array.isArray(gemNote.tg)
+      ? gemNote.tg.map(tid => (tags.find(t => t.id === tid) || {}).name).filter(Boolean)
+      : [];
+
+    gemHtml = '<div class="cenWelcomeCard" style="background:linear-gradient(180deg, var(--panel, #ffffff) 0%, color-mix(in srgb, #d97706 4%, var(--panel, #ffffff)) 100%);">'
+      + '<div class="cenWelcomeCardHeader">'
+      + '<span class="cenWelcomeTag tag-gold">💎 Z Twojej duchowej skarbnicy</span>'
+      + '<span class="card-action-link" data-cakcja="losuj-klejnot" style="font-size:12.5px;color:#d97706;cursor:pointer;font-weight:750;">Losuj inny 🎲</span>'
+      + '</div>'
+      + '<div class="cenGemQuote">„' + esc(quoteText.slice(0, 180)) + (quoteText.length > 180 ? '…' : '') + '”</div>'
+      + (gemNote.t ? ('<div class="cenGemBibleRef">📜 ' + esc(gemNote.t) + '</div>') : (noteRef ? ('<div class="cenGemBibleRef">📜 ' + esc(noteRef) + '</div>') : ''))
+      + '<div class="cenGemReflection">'
+      + '<b>Wniosek ze studium osobistego:</b>'
+      + '<span>' + esc(reflectionText.slice(0, 220)) + (reflectionText.length > 220 ? '…' : '') + '</span>'
+      + '</div>'
+      + (noteTags.length ? ('<div class="cenGemTags">' + noteTags.slice(0, 4).map(tn => '<span class="cenGemTagPill">#' + esc(tn) + '</span>').join('') + '</div>') : '<div style="margin-bottom:12px;"></div>')
+      + '<div class="cenGemFooterBtns">'
+      + (gemNote.g ? ('<button type="button" class="cenBtnOpenGem" data-cnota="' + esc(gemNote.g) + '">Otwórz notatkę 📖</button>') : '')
+      + '<button type="button" class="cenBtnRefreshGem" data-cakcja="losuj-klejnot">Następna myśl ↻</button>'
+      + '</div>'
+      + '</div>';
+  }
+
+  // 3. TEOKRATYCZNE CELE I NAWYKI
+  let celeHtml = '';
+  if(celeList.length){
+    celeHtml = '<div class="cenGoalsWelcomeCard">'
+      + '<div class="cenWelcomeCardHeader">'
+      + '<div>'
+      + '<span class="cenWelcomeTag tag-purple">🎯 Teokratyczne cele i nawyki</span>'
+      + '<div style="font-size:16px;font-weight:800;color:var(--text);margin-top:4px;">Twoja stała duchowa rutyna</div>'
+      + '</div>'
+      + '<span class="card-action-link" data-cwidok="duchowe-cele" style="font-size:13px;color:var(--accent);cursor:pointer;font-weight:750;">Zarządzaj celami ↗</span>'
+      + '</div>'
+      + '<div class="cenGoalsGrid">'
+      + celeList.slice(0, 3).map(c => {
+          if(c.type === 'habit'){
+            const weekP = _centrObliczPostepTygodniowyNawyku(c);
+            const daysPills = weekP.days.map(d => {
+              const dNum = new Date(d.date).getDay();
+              const dNames = ['Nd', 'Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So'];
+              const dName = dNames[dNum];
+              return '<div class="cenHabitDayDot' + (d.done ? ' done' : '') + (d.isToday ? ' today' : '') + '" title="' + d.date + (d.done ? ' (Zrobione)' : '') + '">' + dName + '</div>';
+            }).join('');
+            return '<div class="cenGoalMiniItem">'
+              + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">'
+              + '<span style="font-size:20px;">' + (c.icon || '📖') + '</span>'
+              + '<div>'
+              + '<div style="font-size:14px;font-weight:750;color:var(--text);">' + esc(c.title) + '</div>'
+              + '<div style="font-size:11.5px;color:var(--muted);">' + weekP.doneThisWeek + ' z ' + weekP.target + ' dni w tym tygodniu</div>'
+              + '</div></div>'
+              + '<div class="cenHabitDaysRow">' + daysPills + '</div>'
+              + '</div>';
+          } else {
+            return '<div class="cenGoalMiniItem">'
+              + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">'
+              + '<span style="font-size:20px;">' + (c.icon || '🎯') + '</span>'
+              + '<div>'
+              + '<div style="font-size:14px;font-weight:750;color:var(--text);">' + esc(c.title) + '</div>'
+              + '<div style="font-size:11.5px;color:var(--muted);">' + (c.completed ? '<span style="color:#059669;font-weight:700;">Ukończono ✓</span>' : (c.desc || 'W trakcie realizacji')) + '</div>'
+              + '</div></div>'
+              + '<div style="display:flex;justify-content:flex-end;margin-top:6px;">'
+              + '<button type="button" class="btn small" data-cwidok="duchowe-cele" style="font-size:11.5px;padding:4px 8px;">Zobacz szczegóły ↗</button>'
+              + '</div></div>';
+          }
+        }).join('')
+      + '</div></div>';
+  }
+
+  // 4. CYTAT ROZMYŚLANIA
+  const scriptureHtml = '<div class="cenScriptureBanner">'
+    + '<div class="cenScriptureText">„Rozmyślaj o tym, bądź tym pochłonięty, aby twój postęp był widoczny dla wszystkich.”</div>'
+    + '<div class="cenScriptureSource">— 1 Tymoteusza 4:15</div>'
+    + '</div>';
+
+  // 5. SKRÓTY DO POZOSTAŁYCH MODUŁÓW
+  const modulesGridHtml = '<div class="cenHeroGrid">'
     // Karta 1: Aktywny plan czytania
     + '<div class="cenHeroCard card-blue" data-cwidok="czytanie-chronologiczne">'
     + '<div class="cenHeroCardTop">'
@@ -57103,39 +57601,13 @@ function renderCentrumWidok(){
     + '<span class="cenHeroMetaLabel">Ukończone dni</span>'
     + '<span class="cenHeroMetaVal val-orange">' + doneCount + ' z ' + totalDni + ' dni</span>'
     + '</div></div></div>'
-    + '</div>'
-
-    // BANNER: DZISIEJSZE ZADANIE
-    + '<div class="cenZadanieCard">'
-    + '<div class="cenZadanieLewo">'
-    + '<div class="cenZadanieIko">' + CEN_MODERN_ICO.book + '</div>'
-    + '<div>'
-    + '<div class="cenZadanieTyt">' + esc(curPlan.name) + ' — Dzień ' + curDzien + '</div>'
-    + '<div class="cenZadaniePodtyt">' + (planDzis.f ? planDzis.f.length : 0) + ' fragmenty • ' + esc(planDzis.t) + '</div>'
-    + '</div></div>'
-    + '<div style="display:flex;align-items:center;gap:8px;">'
-    + '<button type="button" class="cenZadanieBtn" data-cwidok="dzien" data-cdzien="' + curDzien + '">' + (userName ? ('Czytaj dzisiaj, ' + nameEsc) : 'Czytaj dzisiaj') + ' ' + CEN_MODERN_ICO.chevron + '</button>'
-    + '</div></div>'
-
-    // BANNER: CECHY I MOŻLIWOŚCI
-    + '<div class="cenFeaturesBanner">'
-    + '<div class="cenFeatureItem">'
-    + '<div class="cenFeatureIko">' + CEN_MODERN_ICO.jw + '</div>'
-    + '<div class="cenFeatureTxt"><b>Otwórz w JW Library</b><span>Szybkie otwieranie wersetów bezpośrednio w aplikacji</span></div>'
-    + '</div>'
-    + '<div class="cenFeatureItem">'
-    + '<div class="cenFeatureIko">' + CEN_MODERN_ICO.note + '</div>'
-    + '<div class="cenFeatureTxt"><b>Dodawaj notatki</b><span>Zapisuj ważne spostrzeżenia do wybranego fragmentu</span></div>'
-    + '</div>'
-    + '<div class="cenFeatureItem">'
-    + '<div class="cenFeatureIko">' + CEN_MODERN_ICO.clipboard + '</div>'
-    + '<div class="cenFeatureTxt"><b>Własne tempo</b><span>Wybieraj między 1, 2 a 3 latami czytania</span></div>'
-    + '</div>'
-    + '<div class="cenFeatureItem">'
-    + '<div class="cenFeatureIko">' + CEN_MODERN_ICO.sync + '</div>'
-    + '<div class="cenFeatureTxt"><b>Zapisywanie postępu</b><span>Twój stan czytania jest zawsze automatycznie zapisywany</span></div>'
-    + '</div>'
     + '</div>';
+
+  return userBannerHtml
+    + '<div class="cenWelcomeGrid">' + zadanieKartaHtml + gemHtml + '</div>'
+    + celeHtml
+    + scriptureHtml
+    + modulesGridHtml;
 }
 
 /* 2. CZYTANIE AKTYWNEGO PLANU BIBLIJNEGO */
@@ -58090,7 +58562,7 @@ const CENTR_BLOKI = [
   {id:"statystyki", nazwa:"Podsumowanie"}
 ];
 
-let centrTryb = lsGet(CENTR_KLUCZ, "auto") === "lista" ? "lista" : "auto";
+let centrTryb = lsGet(CENTR_KLUCZ, "centrum") === "lista" ? "lista" : "centrum";
 let centrWlaczone = lsGet(CENTR_WLACZONE, "1") !== "0";
 let centrDostosujOtwarte = false;
 let centrWidok = CENTR_WIDOKI.includes(lsGet(CENTR_WIDOK_KLUCZ,"centrum"))
@@ -58139,8 +58611,7 @@ function centrCosWybrane(){
     || (filt && String(filt.tag) !== "all")
     || (filt && String(filt.book) !== "all")
     || (filt && String(filt.pub||"all") !== "all")
-    || (filt && filt.ch != null)
-    || (typeof sortMode !== "undefined" && sortMode === "recent");
+    || (filt && filt.ch != null);
 }
 function centrumWidoczne(){
   if (!centrWlaczone) return false;
@@ -60412,6 +60883,19 @@ if($("centrum")){
 
     const akcja = ev.target.closest("[data-cakcja]");
     if(akcja){
+      if(akcja.dataset.cakcja === "losuj-klejnot"){
+        const zywe = (typeof notes !== "undefined" && Array.isArray(notes))
+          ? notes.filter(n => !n.del && ((n.t && n.t.trim()) || (n.c && n.c.trim())))
+          : [];
+        if(zywe.length > 1){
+          const inne = zywe.filter(n => n.g !== _centrWylosowanyKlejnotGuid);
+          const idx = Math.floor(Math.random() * inne.length);
+          _centrWylosowanyKlejnotGuid = inne[idx].g;
+        }
+        toast("Wylosowano inny klejnot duchowy 💎");
+        rysujCentrum();
+        return;
+      }
       if(akcja.dataset.cakcja === "lista") centrumSchowaj();
       if(akcja.dataset.cakcja === "menu-centrum"){
         centrMenuOtwarte=!centrMenuOtwarte; rysujCentrum();

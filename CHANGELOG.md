@@ -1,4 +1,18 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v594)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v595)
+
+- **Ekran powitalny codziennego studium wyświetlany natychmiast przy otwieraniu aplikacji:**
+  - **Naprawa logiki startowej:**
+    - Usunięto kolizyjny warunek w `centrCosWybrane()`, który błędnie traktował domyślne sortowanie notatek jako aktywny filtr, przez co Centrum Studium (Ekran Powitalny) było ukrywane podczas uruchamiania aplikacji.
+    - Ustawiono domyślny tryb startowy na `centrum` oraz dodano bezpośrednie wywołanie otwierania ekranu powitalnego w procedurze startowej `boot()` (zarówno na iPadzie, iPhone, jak i na komputerze).
+  - **Wdrożenie pełnego ekranu powitalnego codziennego studium:**
+    - **Spersonalizowany baner powitalny:** Ciepłe powitanie użytkownika w retoryce Świadków Jehowy (*„Dzień dobry, [Imię]! 👋 Niech Jehowa obficie błogosławi Twoje dzisiejsze rozważania”*), data teokratyczna oraz awatar ze zdjęciem lub symbolem.
+    - **Zadanie na dziś (Czytanie Biblii):** Tytuł aktywnego planu czytania, numer dnia, wyznaczone rozdziały z przyciskami **JW Library 📖** (uruchamiającymi bezpośrednio aplikację JW Library), minibar Drzewa Owoców Ducha oraz przycisk zaliczenia dnia.
+    - **Klejnot duchowy z Twojej skarbnicy (Losowa notatka):** Dynamiczne losowanie notatki z bazy osobistych notatek użytkownika wraz z wersetem i wnioskiem do rozważenia, z przyciskami *„Otwórz notatkę 📖”* oraz *„Następna myśl / Losuj inny 🎲”*.
+    - **Teokratyczne cele i nawyki:** Przegląd aktywnych celów duchowych (codzienne czytanie Biblii z dniami tygodnia, zebranie, służba kaznodziejska).
+    - **Myśl do rozmyślania na dziś:** Werset z 1 Tymoteusza 4:15.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v595`.
+
+## 5.0 — 2026-11-09 (Wersja v594)
 
 - **Bezpośrednie otwieranie wersetów w aplikacji JW Library na iPadzie i iPhone:**
   - Naprawiono mechanizm Universal Links (`openUrlJWL`) dla urządzeń z systemem iPadOS i iOS. Dotychczasowe wymuszanie `target="_blank"` powodowało, że Safari otwierało stronę internetową w nowej karcie zamiast przekazać odnośnik do zainstalowanej aplikacji JW Library.
