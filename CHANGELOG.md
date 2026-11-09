@@ -1,4 +1,18 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v597)
+## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v598)
+
+- **Rozdzielenie Ekranu Powitalnego od Pulpitu Centrum Studium (koniec z przeładowaniem informacjami):**
+  - **Dedykowany Ekran Powitalny (`powitanie`):**
+    - Wyodrębniono poranny ekran skupienia jako osobną, przejrzystą przestrzeń w aplikacji wyświetlaną natychmiast przy uruchomieniu.
+    - Zawiera wyłącznie to, co potrzebne na początek dnia: osobiste powitanie i datę, wyznaczone fragmenty czytania Biblii na dziś z przyciskami **JW Library 📖**, wylosowany klejnot duchowy z wnioskiem do rozważenia, teokratyczne cele/nawyki oraz werset z 1 Tymoteusza 4:15.
+    - Na dole ekranu powitalnego dodano wygodne przyciski szybkiego przejścia: *„Przejdź do Pulpitu Studium ➔”* oraz *„Otwórz wszystkie notatki 📖”*.
+  - **Uporządkowany, czysty Pulpit Studium (`centrum`):**
+    - Z głównego pulpitu Centrum Studium usunięto przeładowujące zdublowane karty zadań i notatek.
+    - Pulpit powrócił do czytelnego, przejrzystego układu z banerem profilu, estetycznym odnośnikiem *„Dzisiejszy Ekran Powitalny & Zadanie na dziś ↗”* oraz 4 głównymi kafelkami (Aktywny plan czytania, Studium osobiste, Cele i nawyki, Statystyki).
+  - **Nowy element nawigacji bocznej:**
+    - W panelu nawigacji Centrum dodano pozycję *„☀️ Ekran powitalny”* tuż nad *„Pulpit studium”*, umożliwiając łatwe przełączanie między porannym podsumowaniem a pełnym pulpitem.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v598`.
+
+## 5.0 — 2026-11-09 (Wersja v597)
 
 - **Wierne stosowanie Pisma Świętego w Przekładzie Nowego Świata — wydanie do studium (`nwtsty`):**
   - **Bezpośrednie otwieranie Biblii do studium w JW Library:** W generatorze odnośników biblijnych (`finderUrl`) ustawiono stały symbol `pub=nwtsty`, gwarantując, że każdy werset, rozdział i fragment otwierany w JW Library uruchamia się w *Piśmie Świętym w Przekładzie Nowego Świata — Biblia do studium*.

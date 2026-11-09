@@ -28698,7 +28698,7 @@ async function boot(){
   initViewBar();
   renderAll();
   if(typeof centrWlaczone !== "undefined" && centrWlaczone && typeof centrCosWybrane === "function" && !centrCosWybrane()){
-    if(typeof centrumPokaz === "function") centrumPokaz("centrum");
+    if(typeof centrumPokaz === "function") centrumPokaz("powitanie");
     if(window.innerWidth <= 900 && typeof mobileShow === "function") mobileShow("colNotes");
   }
   // Przy stylu paska `default` iPadOS sam rezerwuje miejsce na pasek stanu.
@@ -51873,7 +51873,7 @@ const CENTR_KLUCZ = KP + "Centrum";        // "auto" albo "lista"
 const CENTR_WLACZONE = KP + "CentrumWl";   // "1" albo "0"
 const CENTR_UKLAD_KLUCZ = KP + "CentrumUklad306";
 const CENTR_WIDOK_KLUCZ = KP + "CentrumWidok308";
-const CENTR_WIDOKI = ["centrum","czytanie-chronologiczne","dzien","lista-dni","kalendarz","statystyki","drzewo","moje-plany","studium-osobiste","temat-szczegoly","duchowe-cele","cele","projekty","kolejka","inbox","ostatnie","bezpieczenstwo"];
+const CENTR_WIDOKI = ["powitanie","centrum","czytanie-chronologiczne","dzien","lista-dni","kalendarz","statystyki","drzewo","moje-plany","studium-osobiste","temat-szczegoly","duchowe-cele","cele","projekty","kolejka","inbox","ostatnie","bezpieczenstwo"];
 
 const CEN_MODERN_ICO = {
   clock: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
@@ -57431,7 +57431,8 @@ function _centrPobierzLosowyKlejnot(){
   return sample;
 }
 
-function renderCentrumWidok(){
+/* 1. ODRĘBNY EKRAN POWITALNY (SKUPIENIE NA ROZWAŻANIACH DNIA I ZADANIU) */
+function renderEkranPowitalny(){
   const curPlan = _centrPobierzPlanData(_centrAktywnyPlanId);
   const dniDone = _centrPobierzUkonczoneDni(curPlan.id);
   const totalDni = curPlan.days;
@@ -57718,6 +57719,155 @@ function renderCentrumWidok(){
     + '<div class="cenWelcomeGrid">' + zadanieKartaHtml + gemHtml + '</div>'
     + celeHtml
     + scriptureHtml
+    + '<div style="display:flex;align-items:center;justify-content:center;gap:14px;margin:28px 0 16px 0;flex-wrap:wrap;">'
+    + '<button type="button" class="btn primary" data-cwidok="centrum" style="font-size:14px;padding:10px 22px;border-radius:12px;font-weight:750;box-shadow:0 4px 12px rgba(37,99,235,0.2);">Przejdź do Pulpitu Studium ➔</button>'
+    + '<button type="button" class="btn" data-cakcja="lista" style="font-size:14px;padding:10px 20px;border-radius:12px;font-weight:600;">Otwórz wszystkie notatki 📖</button>'
+    + '</div>';
+}
+
+/* 1b. GŁÓWNY PULPIT CENTRUM STUDIUM (CZYSTY, PRZEJRZYSTY DASHBOARD) */
+function renderCentrumWidok(){
+  const curPlan = _centrPobierzPlanData(_centrAktywnyPlanId);
+  const dniDone = _centrPobierzUkonczoneDni(curPlan.id);
+  const totalDni = curPlan.days;
+  const doneCount = dniDone.size;
+  const pctNum = totalDni > 0 ? (doneCount / totalDni) * 100 : 0;
+  const pct = pctNum.toFixed(1).replace(".", ",");
+
+  const tematy = _centrPobierzTematyStudium();
+  const tCount = tematy.length;
+  const celeList = _centrPobierzCele();
+  const celeAktywneCount = celeList.filter(c => !c.completed).length;
+
+  const userName = (typeof pobierzNazweUzytkownika === "function") ? pobierzNazweUzytkownika() : "";
+  const userAvatar = (typeof pobierzZdjecieUzytkownika === "function") ? pobierzZdjecieUzytkownika() : "";
+  const greeting = (typeof pobierzPowitanieUzytkownika === "function") ? pobierzPowitanieUzytkownika(userName) : "Dzień dobry";
+  const initials = (typeof userInicjaly === "function") ? userInicjaly(userName) : "👤";
+  const nameEsc = esc(userName);
+
+  const dzisiajStr = new Date().toLocaleDateString('pl-PL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const dzisiajCap = dzisiajStr.charAt(0).toUpperCase() + dzisiajStr.slice(1);
+
+  let avatarInlineStyle = "";
+  let avatarClass = "cenUserAvatar";
+  let avatarHtmlContent = esc(initials);
+  if(userAvatar && userAvatar.startsWith("data:image/")){
+    avatarInlineStyle = ' style="background-image:url(\'' + userAvatar + '\');"';
+    avatarClass += " has-custom-img";
+    avatarHtmlContent = "";
+  } else if(userAvatar && userAvatar.startsWith("emoji:")){
+    avatarHtmlContent = esc(userAvatar.slice(6));
+  }
+
+  let userBannerHtml = '';
+  if(userName || userAvatar){
+    userBannerHtml = '<div class="cenUserHeroBanner">'
+      + '<div class="cenUserHeroLeft">'
+      + '<div class="' + avatarClass + '"' + avatarInlineStyle + ' title="Twój profil' + (userName ? (': ' + nameEsc) : '') + '">' + avatarHtmlContent + '</div>'
+      + '<div class="cenUserGreetingWrap">'
+      + '<div style="font-size:11.5px;font-weight:750;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent,#2563eb);margin-bottom:2px;">Osobiste Studium Słowa Bożego</div>'
+      + '<div class="cenUserGreeting">' + greeting + (userName ? (', <b>' + nameEsc + '</b>!') : '!') + ' 👋</div>'
+      + '<div class="cenUserSub">Centrum Twojego osobistego studium, czytania Biblii i rozwoju duchowego.</div>'
+      + '</div></div>'
+      + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;">'
+      + '<div style="font-size:12px;font-weight:600;color:var(--cen-text-muted);background:color-mix(in srgb, var(--border,#d1d5db) 30%, transparent);padding:5px 12px;border-radius:20px;white-space:nowrap;">📅 ' + dzisiajCap + '</div>'
+      + '<button type="button" class="cenUserProfileBtn" data-act="otworzProfil" title="Zarządzaj profilem użytkownika">'
+      + '<svg class="ic" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>'
+      + '<span>' + (nameEsc || 'Profil') + '</span>'
+      + '</button>'
+      + '</div></div>';
+  } else {
+    userBannerHtml = '<div class="cenUserHeroBanner cenUserPromptBanner">'
+      + '<div class="cenUserHeroLeft">'
+      + '<div class="cenUserAvatar cenUserAvatarPrompt">👋</div>'
+      + '<div class="cenUserGreetingWrap">'
+      + '<div class="cenUserGreeting">Witaj w <b>JW-Study</b>!</div>'
+      + '<div class="cenUserSub">Wpisz swoje imię, aby spersonalizować powiadomienia, plany i gratulacje.</div>'
+      + '</div></div>'
+      + '<div class="cenUserPromptForm">'
+      + '<input type="text" id="cenQuickNameInp" class="cenQuickNameInp" placeholder="Wpisz swoje imię…" maxlength="40" aria-label="Twoje imię">'
+      + '<button type="button" class="btn primary" id="cenQuickNameSaveBtn">Zapisz</button>'
+      + '</div>'
+      + '</div>';
+  }
+
+  // Szybki kafel prowadzący do odrębnego Ekranu Powitalnego
+  const quickWelcomeBanner = '<div class="cenWelcomeQuickBar" data-cwidok="powitanie" style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;margin-bottom:18px;background:linear-gradient(135deg, rgba(37,99,235,0.06), rgba(16,185,129,0.06));border:1px solid var(--border);border-radius:14px;cursor:pointer;" title="Kliknij, aby otworzyć dzisiejszy ekran powitalny i zadanie czytania">'
+    + '<div style="display:flex;align-items:center;gap:12px;">'
+    + '<span style="font-size:26px;">☀️</span>'
+    + '<div>'
+    + '<div style="font-size:14px;font-weight:750;color:var(--text);">Dzisiejszy Ekran Powitalny & Zadanie na dziś</div>'
+    + '<div style="font-size:12px;color:var(--muted);">Zobacz wyznaczony fragment Biblii do przeczytania, klejnot duchowy i codzienne cele</div>'
+    + '</div></div>'
+    + '<button type="button" class="btn small primary" data-cwidok="powitanie" style="font-size:12.5px;padding:6px 14px;">Otwórz powitanie ↗</button>'
+    + '</div>';
+
+  const modulesGridHtml = '<div class="cenHeroGrid">'
+    // Karta 1: Aktywny plan czytania
+    + '<div class="cenHeroCard card-blue" data-cwidok="czytanie-chronologiczne">'
+    + '<div class="cenHeroCardTop">'
+    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.book + '</div>'
+    + '<div class="cenHeroInfo">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;">'
+    + '<span class="cenHeroTag">' + esc(curPlan.catName || "Plan") + ' • ' + esc(curPlan.duration || (curPlan.days + ' dni')) + '</span>'
+    + '<button type="button" class="cenHeroChangePlanBtn" data-cwidok="moje-plany" title="Zmień aktywny plan czytania">Zmień plan ▾</button>'
+    + '</div>'
+    + '<div class="cenHeroTyt">' + esc(curPlan.name) + '</div>'
+    + '<div class="cenHeroOpis">' + esc(curPlan.desc) + '</div>'
+    + '</div></div>'
+    + '<div class="cenHeroBottom">'
+    + '<div class="cenHeroMetaRow">'
+    + '<span class="cenHeroMetaLabel">Postęp planu</span>'
+    + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> <span style="color:var(--cen-text-muted);font-weight:400;margin-left:4px;">' + pct + '%</span></span>'
+    + '</div>'
+    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;"></div></div>'
+    + '</div></div>'
+
+    // Karta 2: Studium osobiste
+    + '<div class="cenHeroCard card-green" data-cwidok="studium-osobiste">'
+    + '<div class="cenHeroCardTop">'
+    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.note + '</div>'
+    + '<div class="cenHeroInfo">'
+    + '<div class="cenHeroTyt">Studium osobiste</div>'
+    + '<div class="cenHeroOpis">Prowadź tematyczne badania biblijne, gromadź wersety i własne przemyślenia.</div>'
+    + '</div></div>'
+    + '<div class="cenHeroBottom">'
+    + '<div class="cenHeroMetaRow">'
+    + '<span class="cenHeroMetaLabel">Aktywne tematy</span>'
+    + '<span class="cenHeroMetaVal val-green">' + tCount + ' tematów studium</span>'
+    + '</div></div></div>'
+
+    // Karta 3: Duchowe cele i nawyki
+    + '<div class="cenHeroCard card-purple" data-cwidok="duchowe-cele">'
+    + '<div class="cenHeroCardTop">'
+    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.target + '</div>'
+    + '<div class="cenHeroInfo">'
+    + '<div class="cenHeroTyt">Duchowe cele i nawyki</div>'
+    + '<div class="cenHeroOpis">Wyznaczaj cele osobiste, służby i studium, buduj dobre nawyki i śledź postępy.</div>'
+    + '</div></div>'
+    + '<div class="cenHeroBottom">'
+    + '<div class="cenHeroMetaRow">'
+    + '<span class="cenHeroMetaLabel">Aktywne cele</span>'
+    + '<span class="cenHeroMetaVal val-purple">' + celeAktywneCount + ' aktywnych celów</span>'
+    + '</div></div></div>'
+
+    // Karta 4: Statystyki i postęp
+    + '<div class="cenHeroCard card-orange" data-cwidok="statystyki">'
+    + '<div class="cenHeroCardTop">'
+    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.clipboard + '</div>'
+    + '<div class="cenHeroInfo">'
+    + '<div class="cenHeroTyt">Statystyki i postęp</div>'
+    + '<div class="cenHeroOpis">Śledź tempo czytania, ukończone fragmenty, serie dni i drzewo wzrostu.</div>'
+    + '</div></div>'
+    + '<div class="cenHeroBottom">'
+    + '<div class="cenHeroMetaRow">'
+    + '<span class="cenHeroMetaLabel">Ukończone dni</span>'
+    + '<span class="cenHeroMetaVal val-orange">' + doneCount + ' z ' + totalDni + ' dni</span>'
+    + '</div></div></div>'
+    + '</div>';
+
+  return userBannerHtml
+    + quickWelcomeBanner
     + modulesGridHtml;
 }
 
@@ -59961,7 +60111,8 @@ function centrBoczna(){
     inbox:zywe.filter(n=>n.ceni).length
   };
   const pozycje=[
-    ["centrum","Centrum",ICO.bars,0],
+    ["powitanie","Ekran powitalny",'<span style="font-size:16px;line-height:1;margin-right:2px;">☀️</span>',0],
+    ["centrum","Pulpit studium",ICO.bars,0],
     ["duchowe-cele","Cele i nawyki",ICO.target,lic.cele],
     ["projekty","Projekty",ICO.tag,lic.projekty],
     ["kolejka","Do przeczytania",ICO.bookOpen,lic.kolejka],
@@ -59981,7 +60132,8 @@ function centrBoczna(){
 
 function centrNaglowekWidoku(){
   const opisy={
-    centrum:["Centrum studium",centrPowitanie()],
+    powitanie:["Ekran powitalny","Poranne rozważania i zadanie na dziś"],
+    centrum:["Pulpit studium",centrPowitanie()],
     "duchowe-cele":["Duchowe cele i nawyki","Wyznaczaj cele, buduj nawyki i śledź swój wzrost duchowy"],
     "cele":["Duchowe cele i nawyki","Wyznaczaj cele, buduj nawyki i śledź swój wzrost duchowy"],
     projekty:["Projekty","Łącz notatki z różnych wersetów i publikacji"],
@@ -59991,7 +60143,7 @@ function centrNaglowekWidoku(){
     bezpieczenstwo:["Bezpieczeństwo danych","Kopia, pamięć i kontrola bazy"]
   };
   const o=opisy[centrWidok]||opisy.centrum;
-  if(centrWidok === "centrum"){
+  if(centrWidok === "powitanie" || centrWidok === "centrum"){
     const akcje='<button type="button" class="btn" data-cakcja="dostosuj" aria-expanded="'+centrDostosujOtwarte+'">'
       +ICO.gear+' Dostosuj</button><button type="button" class="btn" data-cakcja="lista">Pokaż wszystkie notatki</button>';
     return '<div class="cenNagl"><div class="cenTyt"><b>'+esc(o[0])+'</b><span>'+esc(o[1])+'</span></div>'
@@ -60165,7 +60317,8 @@ function centrWidokPulpitGlowny(){ return renderCentrumWidok(); }
 
 function rysujCentrumWnetrze306(el){
   let tresc = '';
-  if(centrWidok === "centrum") tresc = renderCentrumWidok();
+  if(centrWidok === "powitanie") tresc = renderEkranPowitalny();
+  else if(centrWidok === "centrum") tresc = renderCentrumWidok();
   else if(centrWidok === "czytanie-chronologiczne") tresc = centrWidokCzytanieChrono();
   else if(centrWidok === "dzien") tresc = centrWidokDzien(_centrWybranyDzien || _centrZnajdzBiezacyDzienPlanu(_centrAktywnyPlanId) || 1);
   else if(centrWidok === "lista-dni") tresc = centrWidokListaDni(_centrListaTab, _centrListaSzukaj);
@@ -60250,8 +60403,10 @@ function centrumPokaz(docelowyWidok){
     centrWidok = docelowyWidok;
   } else if(typeof aktywnyProjektTag === "function" && aktywnyProjektTag()){
     centrWidok = "projekty";
+  } else if(centrWidok && CENTR_WIDOKI.includes(centrWidok)){
+    // zachowaj bieżący podwidok (np. powitanie lub centrum)
   } else {
-    centrWidok = "centrum";
+    centrWidok = "powitanie";
   }
   lsSet(CENTR_WIDOK_KLUCZ, centrWidok);
   
