@@ -1,4 +1,11 @@
-## 5.0 — 2026-11-09 (Aktualizacja bieżąca — v603)
+## 5.0 — 2026-11-10 (Aktualizacja bieżąca — v604)
+
+- **Uproszczenie Ekranu Powitalnego (usunięcie technicznych oznaczeń wersji):**
+  - **Czysty, skupiony Ekran Powitalny:** Zgodnie z przeznaczeniem ekranu powitalnego jako odrębnej, spokojnej przestrzeni do codziennych duchowych rozważań, usunięto z niego etykietę wersji w prawym górnym rogu banera oraz techniczną stopkę magazynu offline z dołu strony.
+  - **Dostępność wersji i narzędzi diagnostycznych w odpowiednich miejscach:** Oznaczenie wersji i kompilacji (`5.0 (v604)`), stan magazynu pamięci podręcznej Service Workera oraz okno historii zmian (Changelog) pozostają w pełni dostępne w głównym Pulpicie Studium (Centrum), w stopce pulpitu, w ustawieniach oraz na bocznym pasku nawigacji (również w trybie 58 px na iPadzie).
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v604`.
+
+## 5.0 — 2026-11-09 (Wersja v603)
 
 - **Klarowna prezentacja myśli w karcie „Z Twojej duchowej skarbnicy” (usunięcie powtórzeń):**
   - **Usunięcie sztucznego pola „Wniosek ze studium osobistego”:** Wyeliminowano algorytmiczny błąd, który powodował, że jednolite notatki użytkownika (np. komentarze z Biblii do studium) były wyświetlane dwukrotnie — najpierw jako rzekomy „cytat”, a zaraz pod nim powtarzane słowo w słowo w ramce „Wniosek”.
