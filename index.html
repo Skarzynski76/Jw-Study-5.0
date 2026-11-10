@@ -20235,8 +20235,9 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
 .cenWelcomeGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  margin-bottom: 22px;
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 24px;
 }
 @media (max-width: 860px) {
   .cenWelcomeGrid {
@@ -20247,15 +20248,19 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
 .cenWelcomeCard {
   background: var(--panel, #ffffff);
   border: 1px solid var(--border, rgba(0, 0, 0, 0.08));
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .cenWelcomeCard:hover {
   border-color: color-mix(in srgb, var(--accent, #2563eb) 35%, transparent);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
 }
 .cenWelcomeCardHeader {
   display: flex;
@@ -20280,8 +20285,8 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   color: var(--accent, #2563eb);
 }
 .cenWelcomeTag.tag-gold {
-  background: rgba(217, 119, 6, 0.12);
-  color: #d97706;
+  background: rgba(180, 83, 9, 0.12);
+  color: #b45309;
 }
 .cenWelcomeTag.tag-purple {
   background: rgba(124, 58, 237, 0.12);
@@ -20328,27 +20333,40 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   font-size: 12px;
   color: var(--muted);
 }
+/* Przycisk JW Library w charakterystycznym fioletowym kolorze ikony aplikacji */
 .cenBtnJwLib {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
-  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  padding: 6px 13px;
+  background: linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%) !important;
   color: #ffffff !important;
-  border-radius: 8px;
+  border-radius: 9px;
   font-size: 12px;
   font-weight: 750;
   text-decoration: none;
   cursor: pointer;
-  border: none;
-  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 2px 8px rgba(109, 40, 217, 0.32) !important;
   transition: all 0.15s ease;
   flex-shrink: 0;
   white-space: nowrap;
 }
 .cenBtnJwLib:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+  background: linear-gradient(135deg, #581c87 0%, #7c3aed 100%) !important;
+  box-shadow: 0 4px 14px rgba(109, 40, 217, 0.45) !important;
+}
+.cenBtnJwLib:active {
+  transform: translateY(0);
+}
+.cenFragBtnJW[data-copen-jw] {
+  background: linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%) !important;
+  box-shadow: 0 2px 8px rgba(109, 40, 217, 0.28) !important;
+}
+.cenFragBtnJW[data-copen-jw]:hover {
+  background: linear-gradient(135deg, #581c87 0%, #7c3aed 100%) !important;
+  box-shadow: 0 4px 12px rgba(109, 40, 217, 0.4) !important;
 }
 .cenFruitMiniBar {
   display: flex;
@@ -20389,24 +20407,44 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
 }
 
 /* Karta Losowy Klejnot */
+.cenGemCardBg {
+  background: linear-gradient(180deg, var(--panel, #ffffff) 0%, color-mix(in srgb, #b45309 4%, var(--panel, #ffffff)) 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+.cenGemWatermark {
+  position: absolute;
+  right: 18px;
+  top: 6px;
+  font-family: "Georgia", serif;
+  font-size: 110px;
+  line-height: 1;
+  color: #b45309;
+  opacity: 0.07;
+  pointer-events: none;
+  user-select: none;
+}
 .cenGemQuote {
-  font-family: Georgia, serif;
+  font-family: "Georgia", "Times New Roman", serif;
   font-size: 15.5px;
   font-style: italic;
   color: var(--text);
-  line-height: 1.55;
+  line-height: 1.58;
   margin-bottom: 12px;
   padding-left: 14px;
-  border-left: 3px solid #d97706;
+  border-left: 3px solid #b45309;
 }
 .cenGemBibleRef {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 750;
-  color: #d97706;
+  color: #b45309;
   margin-bottom: 12px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  background: color-mix(in srgb, #b45309 10%, transparent);
+  padding: 3px 9px;
+  border-radius: 8px;
 }
 .cenGemReflection {
   background: rgba(217, 119, 6, 0.08);
@@ -20444,11 +20482,12 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   display: flex;
   gap: 10px;
   margin-top: auto;
+  padding-top: 10px;
 }
 .cenBtnOpenGem {
   flex: 1;
   padding: 10px 14px;
-  background: #d97706;
+  background: #b45309;
   color: #ffffff;
   border: none;
   border-radius: 10px;
@@ -20456,9 +20495,14 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   font-weight: 750;
   cursor: pointer;
   text-align: center;
-  transition: opacity 0.15s;
+  box-shadow: 0 2px 6px rgba(180, 83, 9, 0.25);
+  transition: all 0.15s;
 }
-.cenBtnOpenGem:hover { opacity: 0.9; }
+.cenBtnOpenGem:hover {
+  background: #92400e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(180, 83, 9, 0.35);
+}
 .cenBtnRefreshGem {
   padding: 10px 14px;
   background: transparent;
@@ -23705,13 +23749,13 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v604)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v605)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v604</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v605</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v604) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v604</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v605) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v605</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -25491,7 +25535,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:26px;">🚀</span>
         <div>
-          <div id="clModalTitle" style="font-size:18px;font-weight:800;color:var(--text);">JW-Study 5.0 <span class="nwVerBadge" style="margin-left:6px;background:var(--accent);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px;font-weight:750;">v604</span></div>
+          <div id="clModalTitle" style="font-size:18px;font-weight:800;color:var(--text);">JW-Study 5.0 <span class="nwVerBadge" style="margin-left:6px;background:var(--accent);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px;font-weight:750;">v605</span></div>
           <div style="font-size:12px;color:var(--muted);">Historia aktualizacji i stan pamięci podręcznej</div>
         </div>
       </div>
@@ -25503,7 +25547,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
     
     <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px;">
       <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;">
-        <span class="cenVerDot">●</span> Stan magazynu offline: <span id="changelogSwStatus" style="font-weight:700;color:var(--accent);">v604 (aktualna)</span>
+        <span class="cenVerDot">●</span> Stan magazynu offline: <span id="changelogSwStatus" style="font-weight:700;color:var(--accent);">v605 (aktualna)</span>
       </div>
       <div style="display:flex;gap:8px;">
         <button type="button" class="btn" id="btnChangelogRefreshSw" style="font-size:12.5px;">Wymuś odświeżenie 🔄</button>
@@ -25956,9 +26000,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v604";
+const APP_BUILD = "v605";
 const APP_BUILD_DATE = "2026-11-10";
-const APP_FULL_VERSION = "5.0 (v604)";
+const APP_FULL_VERSION = "5.0 (v605)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -57819,8 +57863,24 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v604</span>
+          <span class="cl-ver-num">v605</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">10 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Nowy, szlachetny Ekran Powitalny & fioletowy przycisk JW Library</div>
+        <ul class="cl-ver-list">
+          <li><b>Fioletowy przycisk JW Library:</b> Przycisk odsyłający do aplikacji JW Library zyskał autentyczny, fioletowo-królewski kolor nawiązujący bezpośrednio do ikony oficjalnej aplikacji.</li>
+          <li><b>Harmonijna symetria kart:</b> Karta Zadania na dziś oraz Karta Skarbnicy duchowej mają idealnie wyrównane proporcje i wspólną linię bazową przycisków.</li>
+          <li><b>Duchowa seria czytania & owoce ducha:</b> Dodano wskaźnik regularności czytania (np. <i>🔥 14 dni z rzędu</i>) obok owocu ducha.</li>
+          <li><b>Karta Skarbnicy w stylu pergaminu:</b> Wzbogacona o dyskretny cudzysłów w tle, złociste odznaczenie wersetu z <i>Biblii do studium</i> i typografię szeryfową.</li>
+          <li><b>Udoskonalone nawyki:</b> Wizualne paski postępu tygodnia oraz wyróżniająca pastylka <b>DZIŚ</b> na aktywnym dniu tygodnia.</li>
+          <li><b>Dynamiczny werset przewodni:</b> Możliwość wylosowania innego pokrzepiającego wersetu z <i>Biblii do studium</i> przyciskiem <i>„Inny werset ↻”</i>.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v604</span>
           <span class="cl-ver-date">10 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Uproszczenie Ekranu Powitalnego (usunięcie oznaczeń wersji)</div>
@@ -57945,6 +58005,65 @@ async function wymusOdswiezenieCalejAplikacji(){
 }
 window.wymusOdswiezenieCalejAplikacji = wymusOdswiezenieCalejAplikacji;
 
+/* ══════════════ STATYSTYKI SERII CZYTANIA I WERSETY ROZMYŚLANIA ══════════════ */
+function _centrObliczSeriaCzytania(planId){
+  const plan = _centrPobierzPlanData(planId);
+  const doneSet = _centrPobierzUkonczoneDni(plan.id);
+  const startDate = _centrPobierzPlanStartDate(plan.id);
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  const diffDays = Math.round((now.getTime() - startDate.getTime()) / 86400000);
+  const todayDay = Math.max(1, Math.min(plan.days, diffDays + 1));
+  
+  let streak = 0;
+  let checkDay = doneSet.has(todayDay) ? todayDay : (todayDay - 1);
+  while(checkDay >= 1 && doneSet.has(checkDay)){
+    streak++;
+    checkDay--;
+  }
+  return streak;
+}
+window._centrObliczSeriaCzytania = _centrObliczSeriaCzytania;
+
+const _CENTR_WERSY_ROZMYSLANIA = [
+  {
+    w: "1 Tymoteusza 4:15",
+    t: "„Zastanawiaj się nad tymi rzeczami, bądź nimi pochłonięty, żeby wszyscy wyraźnie widzieli twój postęp.”"
+  },
+  {
+    w: "Jozuego 1:8",
+    t: "„Niech ta księga Prawa zawsze będzie na twoich ustach i uważnie ją czytaj dniem i nocą, żeby ściśle trzymać się wszystkiego, co jest w niej napisane. Wtedy twoja droga będzie pomyślna i będziesz postępować mądrze.”"
+  },
+  {
+    w: "Psalm 1:2, 3",
+    t: "„Znajduje upodobanie w prawie Jehowy i czyta Jego prawo półgłosem dniem i nocą. Będzie jak drzewo zasadzone nad strumieniami wód, które wydaje owoc w swoim czasie i którego liście nie usychają. Wszystko, co czyni, będzie mu się udawać.”"
+  },
+  {
+    w: "Przysłów 3:5, 6",
+    t: "„Zaufaj Jehowie całym sercem i nie polegaj na własnym zrozumieniu. Zważaj na Niego na wszystkich swoich drogach, a On wyprostuje twoje ścieżki.”"
+  },
+  {
+    w: "Rzymian 12:2",
+    t: "„Nie bierzcie już wzoru z tego świata, ale przemieniajcie się przez odnawianie swojego umysłu, żebyście sami mogli sprawdzić, co jest dobrą, miłą i doskonałą wolą Bożą.”"
+  },
+  {
+    w: "Izajasza 30:21",
+    t: "„A na własne uszy usłyszysz za sobą słowo: ‚To jest ta droga. Chodźcie nią’ — gdybyście skręcili w prawo lub w lewo.”"
+  }
+];
+let _centrWybranyWersetRozmyslaniaIdx = 0;
+function _centrLosujWersetRozmyslania(){
+  _centrWybranyWersetRozmyslaniaIdx = (_centrWybranyWersetRozmyslaniaIdx + 1) % _CENTR_WERSY_ROZMYSLANIA.length;
+  const el = document.getElementById("cenScriptureContainer");
+  if(el){
+    const item = _CENTR_WERSY_ROZMYSLANIA[_centrWybranyWersetRozmyslaniaIdx];
+    el.innerHTML = '<div class="cenScriptureText">' + esc(item.t) + '</div>'
+      + '<div class="cenScriptureSource">— ' + esc(item.w) + ' · <i>Pismo Święte w Przekładzie Nowego Świata (Biblia do studium)</i></div>';
+    if(typeof toast === "function") toast("📖 Werset zachęty: " + item.w);
+  }
+}
+window._centrLosujWersetRozmyslania = _centrLosujWersetRozmyslania;
+
 /* 1. ODRĘBNY EKRAN POWITALNY (SKUPIENIE NA ROZWAŻANIACH DNIA I ZADANIU) */
 function renderEkranPowitalny(){
   const curPlan = _centrPobierzPlanData(_centrAktywnyPlanId);
@@ -57981,18 +58100,18 @@ function renderEkranPowitalny(){
   const planDayDateStr = planDayDate.toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long' });
   const planDayDateCap = planDayDateStr.charAt(0).toUpperCase() + planDayDateStr.slice(1);
 
-  const tematy = _centrPobierzTematyStudium();
-  const tCount = tematy.length;
-  const plany = _centrPobierzPlany();
-  const aktywnePlany = plany.filter(p=>p.active).length;
   const celeList = _centrPobierzCele();
-  const celeAktywneCount = celeList.filter(c => !c.completed).length;
 
   const userName = (typeof pobierzNazweUzytkownika === "function") ? pobierzNazweUzytkownika() : "";
   const userAvatar = (typeof pobierzZdjecieUzytkownika === "function") ? pobierzZdjecieUzytkownika() : "";
   const greeting = (typeof pobierzPowitanieUzytkownika === "function") ? pobierzPowitanieUzytkownika(userName) : "Dzień dobry";
   const initials = (typeof userInicjaly === "function") ? userInicjaly(userName) : "👤";
   const nameEsc = esc(userName);
+
+  const godzAktualna = new Date().getHours();
+  let poraDniaTag = "Dobrego dnia 🌤️";
+  if(godzAktualna >= 5 && godzAktualna < 12) poraDniaTag = "Dobrego poranka ☀️";
+  else if(godzAktualna >= 18 || godzAktualna < 5) poraDniaTag = "Spokojnego wieczoru 🌙";
 
   const dzisiajStr = new Date().toLocaleDateString('pl-PL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   const dzisiajCap = dzisiajStr.charAt(0).toUpperCase() + dzisiajStr.slice(1);
@@ -58014,7 +58133,10 @@ function renderEkranPowitalny(){
       + '<div class="cenUserHeroLeft">'
       + '<div class="' + avatarClass + '"' + avatarInlineStyle + ' title="Twój profil' + (userName ? (': ' + nameEsc) : '') + '">' + avatarHtmlContent + '</div>'
       + '<div class="cenUserGreetingWrap">'
-      + '<div style="font-size:11.5px;font-weight:750;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent,#2563eb);margin-bottom:2px;">Osobiste Studium Słowa Bożego</div>'
+      + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;flex-wrap:wrap;">'
+      + '<div style="font-size:11.5px;font-weight:750;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent,#2563eb);">Osobiste Studium Słowa Bożego</div>'
+      + '<div style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:12px;background:rgba(5,150,105,0.1);color:#059669;">' + poraDniaTag + '</div>'
+      + '</div>'
       + '<div class="cenUserGreeting">' + greeting + (userName ? (', <b>' + nameEsc + '</b>!') : '!') + ' 👋</div>'
       + '<div class="cenUserSub">„Niech ta księga Prawa zawsze będzie na twoich ustach i uważnie ją czytaj dniem i nocą, żeby ściśle trzymać się wszystkiego, co jest w niej napisane.” — Jozuego 1:8</div>'
       + '</div></div>'
@@ -58132,24 +58254,32 @@ function renderEkranPowitalny(){
       + '</button>';
   }
 
+  // Obliczenie serii czytania i owocu ducha (Dwa kafelki motywacyjne obok siebie)
+  const streakDays = _centrObliczSeriaCzytania(curPlan.id);
+  const streakLabel = streakDays > 0 ? (streakDays + (streakDays === 1 ? ' dzień' : ' dni') + ' z rzędu') : 'Rozpocznij dziś serię!';
+
   const spiritualFruits = _centrPobierzOwoceDucha(totalDni);
   const nextFruit = spiritualFruits.find(f => doneCount < f.day);
-  let nextFruitHtml = '';
-  if(nextFruit){
-    const left = nextFruit.day - doneCount;
-    nextFruitHtml = '<div class="cenFruitMiniBar">'
-      + '<span style="font-size:20px;">🌳</span>'
-      + '<div>Drzewo owoców ducha: Kolejny owoc <b>' + esc(nextFruit.name) + ' (' + esc(nextFruit.fruit) + ')</b> za <b>' + left + (left === 1 ? ' dzień' : ' dni') + '</b> czytania!</div>'
-      + '</div>';
-  } else {
-    nextFruitHtml = '<div class="cenFruitMiniBar">'
-      + '<span style="font-size:20px;">🌳</span>'
-      + '<div>Wspaniale! Twoje drzewo wydało już wszystkie 9 owoców ducha! 🎉</div>'
-      + '</div>';
-  }
+  const left = nextFruit ? (nextFruit.day - doneCount) : 0;
+
+  const dualStatusBarHtml = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">'
+    + '<div style="background:rgba(5,150,105,0.08);border:1px solid rgba(5,150,105,0.22);border-radius:11px;padding:9px 12px;display:flex;align-items:center;gap:9px;min-width:0;">'
+    + '<span style="font-size:20px;flex-shrink:0;">🌳</span>'
+    + '<div style="min-width:0;">'
+    + '<div style="font-size:11px;font-weight:750;color:#047857;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (nextFruit ? ('Owoc: ' + esc(nextFruit.name)) : 'Owoce Ducha') + '</div>'
+    + '<div style="font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (nextFruit ? (left + (left === 1 ? ' dzień' : ' dni') + ' czytania') : 'Wszystkie 9 owoców! 🎉') + '</div>'
+    + '</div></div>'
+    + '<div style="background:rgba(217,119,6,0.08);border:1px solid rgba(217,119,6,0.25);border-radius:11px;padding:9px 12px;display:flex;align-items:center;gap:9px;min-width:0;">'
+    + '<span style="font-size:20px;flex-shrink:0;">🔥</span>'
+    + '<div style="min-width:0;">'
+    + '<div style="font-size:11px;font-weight:750;color:#b45309;text-transform:uppercase;letter-spacing:0.04em;">Seria czytania</div>'
+    + '<div style="font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + esc(streakLabel) + '</div>'
+    + '</div></div>'
+    + '</div>';
 
   const cardBorderHighlight = isDayDone ? ' style="border-color:rgba(16,185,129,0.38);background:linear-gradient(180deg, rgba(16,185,129,0.04) 0%, transparent 100%);"' : '';
   const zadanieKartaHtml = '<div class="cenWelcomeCard"' + cardBorderHighlight + '>'
+    + '<div>'
     + '<div class="cenWelcomeCardHeader">'
     + cardTagHtml
     + '<span class="card-action-link" data-cwidok="czytanie-chronologiczne" style="font-size:12.5px;color:var(--accent);cursor:pointer;font-weight:750;">Wszystkie dni ▾</span>'
@@ -58160,12 +58290,15 @@ function renderEkranPowitalny(){
     + '<div class="cenReadingLabel">Wyznaczone fragmenty Słowa Bożego:</div>'
     + fragmentsHtml
     + '</div>'
-    + nextFruitHtml
+    + dualStatusBarHtml
+    + '</div>'
+    + '<div>'
     + completeBtnHtml
     + tomorrowPreviewHtml
+    + '</div>'
     + '</div>';
 
-  // 2. KARTA: LOSOWY KLEJNOT DUCHOWY ZE SKARBNICY
+  // 2. KARTA: LOSOWY KLEJNOT DUCHOWY ZE SKARBNICY (SZLACHETNA KARTA PERGAMINU)
   const gemNote = _centrPobierzLosowyKlejnot();
   let gemHtml = '';
   if(gemNote){
@@ -58180,34 +58313,37 @@ function renderEkranPowitalny(){
     const sourceLabel = noteTitle || noteRef || 'Rozważania biblijne';
     const isNwtsty = noteTags.some(t => t.toLowerCase().includes('biblia do studium') || t.toLowerCase().includes('nwtsty')) || (gemNote.isSample === true);
 
-    // Wyciągnięcie treści bez sztucznego powielania i bez fikcyjnego pola 'Wniosek'
     let displayBody = cleanText;
     if(noteTitle && displayBody.toLowerCase().startsWith(noteTitle.toLowerCase())){
       displayBody = displayBody.slice(noteTitle.length).replace(/^[\s:—–-]+/, '').trim();
     }
     if(!displayBody) displayBody = cleanText || noteTitle || 'Warto powrócić do tej myśli podczas dzisiejszego rozmyślania.';
 
-    // Skrócenie z eleganckim domknięciem
     const maxChars = 320;
     const isTruncated = displayBody.length > maxChars;
     const excerpt = isTruncated ? displayBody.slice(0, maxChars).trim() + '…' : displayBody;
 
-    gemHtml = '<div class="cenWelcomeCard" style="background:linear-gradient(180deg, var(--panel, #ffffff) 0%, color-mix(in srgb, #d97706 4%, var(--panel, #ffffff)) 100%);">'
+    gemHtml = '<div class="cenWelcomeCard cenGemCardBg">'
+      + '<div class="cenGemWatermark">“</div>'
+      + '<div style="position:relative;z-index:2;display:flex;flex-direction:column;flex:1;justify-content:space-between;">'
+      + '<div>'
       + '<div class="cenWelcomeCardHeader">'
       + '<span class="cenWelcomeTag tag-gold">💎 Z Twojej duchowej skarbnicy' + (isNwtsty ? ' · Biblia do studium' : '') + '</span>'
-      + '<span class="card-action-link" data-cakcja="losuj-klejnot" style="font-size:12.5px;color:#d97706;cursor:pointer;font-weight:750;">Losuj inną 🎲</span>'
+      + '<span class="card-action-link" data-cakcja="losuj-klejnot" style="font-size:12.5px;color:#b45309;cursor:pointer;font-weight:750;">Losuj inną 🎲</span>'
       + '</div>'
       + '<div class="cenGemBibleRef">📜 <b>' + esc(sourceLabel) + '</b></div>'
       + '<div class="cenGemQuote">„' + esc(excerpt) + '”</div>'
       + (noteTags.length ? ('<div class="cenGemTags">' + noteTags.slice(0, 4).map(tn => '<span class="cenGemTagPill">#' + esc(tn) + '</span>').join('') + '</div>') : '<div style="margin-bottom:12px;"></div>')
+      + '</div>'
       + '<div class="cenGemFooterBtns">'
       + (gemNote.g ? ('<button type="button" class="cenBtnOpenGem" data-cnota="' + esc(gemNote.g) + '">Otwórz notatkę 📖</button>') : '')
       + '<button type="button" class="cenBtnRefreshGem" data-cakcja="losuj-klejnot">Następna myśl ↻</button>'
       + '</div>'
+      + '</div>'
       + '</div>';
   }
 
-  // 3. TEOKRATYCZNE CELE I NAWYKI
+  // 3. TEOKRATYCZNE CELE I NAWYKI (NOWY PROJEKT Z PASKIEM POSTĘPU I ETYKIETĄ DZIŚ)
   let celeHtml = '';
   if(celeList.length){
     celeHtml = '<div class="cenGoalsWelcomeCard">'
@@ -58222,6 +58358,7 @@ function renderEkranPowitalny(){
       + celeList.slice(0, 3).map(c => {
           if(c.type === 'habit'){
             const weekP = _centrObliczPostepTygodniowyNawyku(c);
+            const pctHabit = weekP.target > 0 ? Math.round((weekP.doneThisWeek / weekP.target) * 100) : 0;
             const daysButtons = weekP.days.map(d => {
               const cls = 'cenHabitDayBtn'
                 + (d.isDone ? ' done' : '')
@@ -58229,20 +58366,25 @@ function renderEkranPowitalny(){
                 + (d.isFuture ? ' future' : '');
               const tooltip = d.dateStr + ' (' + d.dayName + ')' + (d.isDone ? ' — Wykonano ✓ (kliknij aby cofnąć)' : (d.isToday ? ' — Dzisiaj (kliknij aby zaliczyć)' : ' — Kliknij aby zaliczyć'));
               return '<button type="button" class="' + cls + '" data-cel-habit-day="' + c.id + '" data-date="' + d.dateStr + '" title="' + tooltip + '">'
-                + '<span class="cenHabitDayLbl">' + d.dayName + '</span>'
+                + '<span class="cenHabitDayLbl"' + (d.isToday ? ' style="color:var(--accent);font-weight:800;"' : '') + '>' + (d.isToday ? 'DZIŚ' : d.dayName) + '</span>'
                 + '<span class="cenHabitDayNum">' + d.dayNum + '</span>'
                 + '<span class="cenHabitDayIko">' + (d.isDone ? '✓' : (d.isToday ? '•' : '○')) + '</span>'
                 + '</button>';
             }).join('');
             return '<div class="cenGoalMiniItem">'
-              + '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;">'
+              + '<div>'
+              + '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px;">'
               + '<div style="display:flex;align-items:center;gap:10px;min-width:0;">'
               + '<span style="font-size:20px;flex-shrink:0;">' + (c.icon || '📖') + '</span>'
               + '<div style="min-width:0;">'
               + '<div style="font-size:14px;font-weight:750;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + esc(c.title) + '</div>'
               + '<div style="font-size:11.5px;color:var(--muted);">' + weekP.doneThisWeek + ' z ' + weekP.target + ' dni w tym tygodniu</div>'
               + '</div></div>'
-              + (weekP.isTargetMet ? '<span style="font-size:11px;font-weight:750;color:#059669;background:rgba(5,150,105,0.12);padding:2px 6px;border-radius:6px;flex-shrink:0;">Cel osiągnięty ✓</span>' : '')
+              + '<span style="font-size:11px;font-weight:750;color:' + (weekP.isTargetMet ? '#059669;background:rgba(5,150,105,0.12)' : 'var(--accent);background:color-mix(in srgb, var(--accent) 12%, transparent)') + ';padding:2px 7px;border-radius:6px;flex-shrink:0;">' + (weekP.isTargetMet ? 'Cel osiągnięty ✓' : (pctHabit + '%')) + '</span>'
+              + '</div>'
+              + '<div style="width:100%;height:5px;background:color-mix(in srgb, var(--border) 70%, transparent);border-radius:4px;overflow:hidden;margin-bottom:8px;">'
+              + '<div style="height:100%;background:' + (weekP.isTargetMet ? '#059669' : 'var(--accent)') + ';width:' + Math.min(100, pctHabit) + '%;border-radius:4px;transition:width 0.25s ease;"></div>'
+              + '</div>'
               + '</div>'
               + '<div class="cenHabitDaysRow">' + daysButtons + '</div>'
               + '</div>';
@@ -58262,76 +58404,17 @@ function renderEkranPowitalny(){
       + '</div></div>';
   }
 
-  // 4. CYTAT ROZMYŚLANIA
-  const scriptureHtml = '<div class="cenScriptureBanner">'
-    + '<div class="cenScriptureText">„Zastanawiaj się nad tymi rzeczami, bądź nimi pochłonięty, żeby wszyscy wyraźnie widzieli twój postęp.”</div>'
-    + '<div class="cenScriptureSource">— 1 Tymoteusza 4:15 · <i>Pismo Święte w Przekładzie Nowego Świata (Biblia do studium)</i></div>'
-    + '</div>';
-
-  // 5. SKRÓTY DO POZOSTAŁYCH MODUŁÓW
-  const modulesGridHtml = '<div class="cenHeroGrid">'
-    // Karta 1: Aktywny plan czytania
-    + '<div class="cenHeroCard card-blue" data-cwidok="czytanie-chronologiczne">'
-    + '<div class="cenHeroCardTop">'
-    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.book + '</div>'
-    + '<div class="cenHeroInfo">'
-    + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;">'
-    + '<span class="cenHeroTag">' + esc(curPlan.catName || "Plan") + ' • ' + esc(curPlan.duration || (curPlan.days + ' dni')) + '</span>'
-    + '<button type="button" class="cenHeroChangePlanBtn" data-cwidok="moje-plany" title="Zmień aktywny plan czytania">Zmień plan ▾</button>'
+  // 4. CYTAT ROZMYŚLANIA (Z PRZYCISKIEM LOSOWANIA INNEJ MYŚLI Z BIBLII DO STUDIUM)
+  const currentScripture = _CENTR_WERSY_ROZMYSLANIA[_centrWybranyWersetRozmyslaniaIdx] || _CENTR_WERSY_ROZMYSLANIA[0];
+  const scriptureHtml = '<div class="cenScriptureBanner" style="position:relative;">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:10px;">'
+    + '<span style="font-size:11px;font-weight:750;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);">Myśl przewodnia rozmyślania</span>'
+    + '<button type="button" class="cenBtnRefreshGem" onclick="_centrLosujWersetRozmyslania()" style="padding:4px 10px;font-size:11.5px;border-radius:8px;cursor:pointer;">Inny werset ↻</button>'
     + '</div>'
-    + '<div class="cenHeroTyt">' + esc(curPlan.name) + '</div>'
-    + '<div class="cenHeroOpis">' + esc(curPlan.desc) + '</div>'
-    + '</div></div>'
-    + '<div class="cenHeroBottom">'
-    + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Postęp planu</span>'
-    + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> <span style="color:var(--cen-text-muted);font-weight:400;margin-left:4px;">' + pct + '%</span></span>'
-    + '</div>'
-    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;"></div></div>'
-    + '</div></div>'
-
-    // Karta 2: Studium osobiste
-    + '<div class="cenHeroCard card-green" data-cwidok="studium-osobiste">'
-    + '<div class="cenHeroCardTop">'
-    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.note + '</div>'
-    + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt">Studium osobiste</div>'
-    + '<div class="cenHeroOpis">Prowadź tematyczne badania biblijne, gromadź wersety i własne przemyślenia.</div>'
-    + '</div></div>'
-    + '<div class="cenHeroBottom">'
-    + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Aktywne tematy</span>'
-    + '<span class="cenHeroMetaVal val-green">' + tCount + ' tematów studium</span>'
-    + '</div></div></div>'
-
-    // Karta 3: Duchowe cele i nawyki
-    + '<div class="cenHeroCard card-purple" data-cwidok="duchowe-cele">'
-    + '<div class="cenHeroCardTop">'
-    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.target + '</div>'
-    + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt">Duchowe cele i nawyki</div>'
-    + '<div class="cenHeroOpis">Wyznaczaj cele osobiste, służby i studium, buduj dobre nawyki i śledź postępy.</div>'
-    + '</div></div>'
-    + '<div class="cenHeroBottom">'
-    + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Aktywne cele</span>'
-    + '<span class="cenHeroMetaVal val-purple">' + celeAktywneCount + ' aktywnych celów</span>'
-    + '</div></div></div>'
-
-    // Karta 4: Statystyki i postęp
-    + '<div class="cenHeroCard card-orange" data-cwidok="statystyki">'
-    + '<div class="cenHeroCardTop">'
-    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.clipboard + '</div>'
-    + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt">Statystyki i postęp</div>'
-    + '<div class="cenHeroOpis">Śledź tempo czytania, ukończone fragmenty, serie dni i drzewo wzrostu.</div>'
-    + '</div></div>'
-    + '<div class="cenHeroBottom">'
-    + '<div class="cenHeroMetaRow">'
-    + '<span class="cenHeroMetaLabel">Ukończone dni</span>'
-    + '<span class="cenHeroMetaVal val-orange">' + doneCount + ' z ' + totalDni + ' dni</span>'
-    + '</div></div></div>'
-    + '</div>';
+    + '<div id="cenScriptureContainer">'
+    + '<div class="cenScriptureText">' + esc(currentScripture.t) + '</div>'
+    + '<div class="cenScriptureSource">— ' + esc(currentScripture.w) + ' · <i>Pismo Święte w Przekładzie Nowego Świata (Biblia do studium)</i></div>'
+    + '</div></div>';
 
   return userBannerHtml
     + '<div class="cenWelcomeGrid">' + zadanieKartaHtml + gemHtml + '</div>'

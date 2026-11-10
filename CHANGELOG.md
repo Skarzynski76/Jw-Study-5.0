@@ -1,4 +1,15 @@
-## 5.0 — 2026-11-10 (Aktualizacja bieżąca — v604)
+## 5.0 — 2026-11-10 (Aktualizacja bieżąca — v605)
+
+- **Nowy, szlachetny projekt Ekranu Powitalnego & fioletowy przycisk JW Library:**
+  - **Fioletowy przycisk JW Library:** Zastąpiono dawny niebieski przycisk eleganckim, fioletowo-królewskim przyciskiem w barwach oficjalnej ikony aplikacji *JW Library*, z subtelnym obramowaniem i miękkim cieniem.
+  - **Harmonijne, wyrównane karty:** Karta Zadania na dziś i Karta Skarbnicy duchowej mają idealnie wyrównane wysokości i kończą się w równej linii bazowej przycisków akcji.
+  - **Duchowa seria regularnego czytania:** Wprowadzono wskaźnik stałości czytania Słowa Bożego (np. *🔥 14 dni z rzędu*) prezentowany obok drzewa owoców ducha.
+  - **Skarbnica duchowa w stylu pergaminu:** Dodano dyskretny znak wodny cytatu `“` w tle, złocisty badge wersetu z *Biblii do studium*, szlachetną typografię szeryfową oraz przycisk *„Następna myśl ↻”*.
+  - **Udoskonalona sekcja celów i nawyków:** Dodano wizualne paski postępu tygodniowego (np. *71%*) oraz wyróżniającą etykietę **DZIŚ** na bieżącym dniu tygodnia.
+  - **Dynamiczny werset przewodni rozmyślania:** W dolnej belce dodano przycisk *„Inny werset zachęty ↻”*, który pozwala w locie losować kolejne pokrzepiające wersety z *Biblii do studium* (Jozuego 1:8, Psalm 1:2,3, Przysłów 3:5,6, Rzymian 12:2, Izajasza 30:21).
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v605`.
+
+## 5.0 — 2026-11-10 (Wersja v604)
 
 - **Uproszczenie Ekranu Powitalnego (usunięcie technicznych oznaczeń wersji):**
   - **Czysty, skupiony Ekran Powitalny:** Zgodnie z przeznaczeniem ekranu powitalnego jako odrębnej, spokojnej przestrzeni do codziennych duchowych rozważań, usunięto z niego etykietę wersji w prawym górnym rogu banera oraz techniczną stopkę magazynu offline z dołu strony.
