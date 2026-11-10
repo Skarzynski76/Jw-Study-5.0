@@ -1,4 +1,13 @@
-## 5.0 — 2026-11-10 (Aktualizacja bieżąca — v605)
+## 5.0 — 2026-11-10 (Aktualizacja bieżąca — v606)
+
+- **Klarowne etykiety przycisku zatwierdzenia czytania (usunięcie mylącego napisu):**
+  - **Eliminacja niejednoznaczności:** Dawny przycisk z napisem czasu przeszłego *„✓ Ukończyłem dzisiejsze czytanie”* i zielonym ptaszkiem wprowadzał w błąd, sugerując użytkownikowi, że aplikacja samoczynnie uznała dzień za przeczytany.
+  - **Przejrzyste wezwanie do działania:** Przed kliknięciem przycisk wyraźnie zachęca do zatwierdzenia: *„📖 Oznacz jako przeczytane na dziś”*, a w przypadku zaległości: *„📖 Oznacz zaległy Dzień X jako przeczytany”*.
+  - **Dopasowanie do zaległych fragmentów:** Gdy nadrabiany jest wcześniejszy dzień (np. Dzień 38 z niedzieli), przycisk nie nazywa go już fałszywie „dzisiejszym czytaniem”, lecz precyzyjnie wskazuje zaległy dzień.
+  - **Szybki skok do dnia dzisiejszego:** Dodano klikalny przycisk *„Dziś w kalendarzu: Dzień X ➔”*, pozwalający jednym ruchem przejść bezpośrednio do dzisiejszego przydziału czytania.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v606`.
+
+## 5.0 — 2026-11-10 (Wersja v605)
 
 - **Nowy, szlachetny projekt Ekranu Powitalnego & fioletowy przycisk JW Library:**
   - **Fioletowy przycisk JW Library:** Zastąpiono dawny niebieski przycisk eleganckim, fioletowo-królewskim przyciskiem w barwach oficjalnej ikony aplikacji *JW Library*, z subtelnym obramowaniem i miękkim cieniem.

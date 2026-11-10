@@ -20402,6 +20402,13 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35);
 }
+.cenBtnCompleteDay.is-past-due {
+  background: linear-gradient(135deg, #b45309 0%, #059669 100%);
+  box-shadow: 0 4px 12px rgba(180, 83, 9, 0.25);
+}
+.cenBtnCompleteDay.is-past-due:hover {
+  box-shadow: 0 6px 16px rgba(180, 83, 9, 0.35);
+}
 .cenBtnCompleteDay.done {
   background: #0f766e;
 }
@@ -23749,13 +23756,13 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v605)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v606)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v605</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v606</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v605) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v605</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v606) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v606</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -25535,7 +25542,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:26px;">🚀</span>
         <div>
-          <div id="clModalTitle" style="font-size:18px;font-weight:800;color:var(--text);">JW-Study 5.0 <span class="nwVerBadge" style="margin-left:6px;background:var(--accent);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px;font-weight:750;">v605</span></div>
+          <div id="clModalTitle" style="font-size:18px;font-weight:800;color:var(--text);">JW-Study 5.0 <span class="nwVerBadge" style="margin-left:6px;background:var(--accent);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px;font-weight:750;">v606</span></div>
           <div style="font-size:12px;color:var(--muted);">Historia aktualizacji i stan pamięci podręcznej</div>
         </div>
       </div>
@@ -25547,7 +25554,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
     
     <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px;">
       <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;">
-        <span class="cenVerDot">●</span> Stan magazynu offline: <span id="changelogSwStatus" style="font-weight:700;color:var(--accent);">v605 (aktualna)</span>
+        <span class="cenVerDot">●</span> Stan magazynu offline: <span id="changelogSwStatus" style="font-weight:700;color:var(--accent);">v606 (aktualna)</span>
       </div>
       <div style="display:flex;gap:8px;">
         <button type="button" class="btn" id="btnChangelogRefreshSw" style="font-size:12.5px;">Wymuś odświeżenie 🔄</button>
@@ -26000,9 +26007,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v605";
+const APP_BUILD = "v606";
 const APP_BUILD_DATE = "2026-11-10";
-const APP_FULL_VERSION = "5.0 (v605)";
+const APP_FULL_VERSION = "5.0 (v606)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -57863,8 +57870,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v605</span>
+          <span class="cl-ver-num">v606</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">10 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Klarowne etykiety przycisku zatwierdzenia czytania</div>
+        <ul class="cl-ver-list">
+          <li><b>Koniec z mylącym napisem:</b> Usunięto niejednoznaczny napis czasu przeszłego <i>„✓ Ukończyłem dzisiejsze czytanie”</i>, który sprawiał wrażenie, że dzień został już oznaczony przez aplikację.</li>
+          <li><b>Intuicyjny przycisk akcji:</b> Przycisk wyraźnie zachęca do działania: <i>„📖 Oznacz jako przeczytane na dziś”</i>, a w przypadku zaległości: <i>„📖 Oznacz zaległy Dzień X jako przeczytany”</i>.</li>
+          <li><b>Szybki przeskok do dnia dzisiejszego:</b> W przypadku zaległego fragmentu można jednym kliknięciem przejść bezpośrednio do dzisiejszego przydziału z kalendarza.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v605</span>
           <span class="cl-ver-date">10 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Nowy, szlachetny Ekran Powitalny & fioletowy przycisk JW Library</div>
@@ -58188,17 +58208,27 @@ function renderEkranPowitalny(){
   let tomorrowPreviewHtml = '';
 
   if(isDayDone){
-    cardTagHtml = '<span class="cenWelcomeTag" style="background:#059669;color:#ffffff;font-weight:750;box-shadow:0 2px 6px rgba(5,150,105,0.25);">✓ Dzisiejsze czytanie ukończone</span>';
+    let doneTagText = '✓ Dzisiejsze czytanie ukończone';
+    let doneBtnText = '✓ Ukończyłeś czytanie na dziś' + (userName ? (', ' + nameEsc) : '') + '! (Kliknij, aby cofnąć)';
+    if(curDzien < calDayForToday){
+      doneTagText = '✓ Zaległy Dzień ' + curDzien + ' ukończony';
+      doneBtnText = '✓ Dzień ' + curDzien + ' przeczytany (Kliknij, aby cofnąć)';
+    } else if(curDzien > calDayForToday){
+      doneTagText = '✓ Dzień ' + curDzien + ' ukończony z wyprzedzeniem';
+      doneBtnText = '✓ Dzień ' + curDzien + ' przeczytany z wyprzedzeniem (Kliknij, aby cofnąć)';
+    }
+
+    cardTagHtml = '<span class="cenWelcomeTag" style="background:#059669;color:#ffffff;font-weight:750;box-shadow:0 2px 6px rgba(5,150,105,0.25);">' + doneTagText + '</span>';
     cardSubHtml = '<div style="font-size:13px;color:#059669;font-weight:750;margin-bottom:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">'
       + '<span>Dzień ' + curDzien + ' z ' + totalDni + '</span>'
       + '<span style="color:var(--border);">•</span>'
       + '<span>📅 ' + planDayDateCap + '</span>'
       + '<span style="color:var(--border);">•</span>'
-      + '<span style="background:rgba(5,150,105,0.12);padding:2px 8px;border-radius:6px;">Zrealizowano na dziś ✓</span>'
+      + '<span style="background:rgba(5,150,105,0.12);padding:2px 8px;border-radius:6px;">Zrealizowano ✓</span>'
       + '</div>';
 
     completeBtnHtml = '<button type="button" class="cenBtnCompleteDay done" data-cdzien-ukoncz="' + curDzien + '">'
-      + '<span>✓</span> Ukończyłeś czytanie na dziś' + (userName ? (', ' + nameEsc) : '') + '! (Kliknij, aby cofnąć)'
+      + '<span>✓</span> ' + doneBtnText
       + '</button>';
 
     if(curDzien < totalDni){
@@ -58223,14 +58253,18 @@ function renderEkranPowitalny(){
     const isPastDue = (curDzien < calDayForToday);
     const isAhead = (curDzien > calDayForToday);
 
+    let btnText = '';
+    let btnIcon = '📖';
+
     if(isPastDue){
       cardTagHtml = '<span class="cenWelcomeTag" style="background:#f59e0b;color:#ffffff;font-weight:750;">⚠️ Zaległy fragment do przeczytania</span>';
       cardSubHtml = '<div style="font-size:13px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">'
         + '<span>Dzień ' + curDzien + ' z ' + totalDni + '</span>'
         + '<span style="color:var(--border);">•</span>'
         + '<span>Zaplanowany na: ' + planDayDateCap + '</span>'
-        + '<span style="color:#d97706;font-weight:700;background:rgba(245,158,11,0.12);padding:2px 8px;border-radius:6px;">Dziś w kalendarzu: Dzień ' + calDayForToday + '</span>'
+        + '<button type="button" class="btn small" data-cwidok="dzien" data-cdzien="' + calDayForToday + '" style="font-size:11.5px;padding:2px 8px;border-radius:6px;background:rgba(245,158,11,0.14);border:1px solid rgba(245,158,11,0.35);color:#d97706;font-weight:750;cursor:pointer;" title="Kliknij, aby przejść do dzisiejszego czytania w kalendarzu">Dziś w kalendarzu: Dzień ' + calDayForToday + ' ➔</button>'
         + '</div>';
+      btnText = 'Oznacz zaległy Dzień ' + curDzien + ' jako przeczytany';
     } else if(isAhead){
       cardTagHtml = '<span class="cenWelcomeTag" style="background:#8b5cf6;color:#ffffff;font-weight:750;">🚀 Czytasz z wyprzedzeniem</span>';
       cardSubHtml = '<div style="font-size:13px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">'
@@ -58239,6 +58273,8 @@ function renderEkranPowitalny(){
         + '<span>Zaplanowany na: ' + planDayDateCap + '</span>'
         + '<span style="color:#7c3aed;font-weight:700;background:rgba(139,92,246,0.12);padding:2px 8px;border-radius:6px;">Dziś w kalendarzu: Dzień ' + calDayForToday + '</span>'
         + '</div>';
+      btnText = 'Oznacz Dzień ' + curDzien + ' jako przeczytany z wyprzedzeniem';
+      btnIcon = '🚀';
     } else {
       cardTagHtml = '<span class="cenWelcomeTag tag-blue">📖 Zadanie na dziś • ' + planDayDateCap + '</span>';
       cardSubHtml = '<div style="font-size:13px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">'
@@ -58247,10 +58283,11 @@ function renderEkranPowitalny(){
         + '<span>📅 ' + planDayDateCap + '</span>'
         + (planDzis.etap ? ('<span style="color:var(--border);">•</span><span>Etap: ' + esc(planDzis.etap) + '</span>') : (planDzis.t ? ('<span style="color:var(--border);">•</span><span>' + esc(planDzis.t) + '</span>') : ''))
         + '</div>';
+      btnText = 'Oznacz jako przeczytane na dziś' + (userName ? (', ' + nameEsc) : '');
     }
 
-    completeBtnHtml = '<button type="button" class="cenBtnCompleteDay" data-cdzien-ukoncz="' + curDzien + '">'
-      + '<span>✓</span> Ukończyłem dzisiejsze czytanie' + (userName ? (', ' + nameEsc) : '')
+    completeBtnHtml = '<button type="button" class="cenBtnCompleteDay' + (isPastDue ? ' is-past-due' : '') + '" data-cdzien-ukoncz="' + curDzien + '">'
+      + '<span>' + btnIcon + '</span> ' + btnText
       + '</button>';
   }
 
@@ -58904,7 +58941,7 @@ function centrWidokDzien(dNr){
 
     + '<div class="cenDzienUkonczWrap">'
     + '<button type="button" class="cenDzienUkonczBtn' + (jestDzienUkonczony ? ' done' : '') + '" data-cdzien-ukoncz="' + dNr + '">'
-    + CEN_MODERN_ICO.check + ' ' + (jestDzienUkonczony ? 'Dzień oznaczony jako ukończony (Kliknij, aby odznaczyć)' : ('Ukończyłem dzisiejsze czytanie' + (typeof pobierzNazweUzytkownika === "function" && pobierzNazweUzytkownika() ? (', ' + esc(pobierzNazweUzytkownika())) : '')))
+    + (jestDzienUkonczony ? '✓ Dzień oznaczony jako przeczytany (kliknij, aby cofnąć)' : ('📖 Oznacz Dzień ' + dNr + ' jako przeczytany'))
     + '</button>'
     + '</div>';
 }
