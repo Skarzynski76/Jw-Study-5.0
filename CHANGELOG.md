@@ -1,4 +1,12 @@
-## 5.0 — 2026-11-10 (Aktualizacja bieżąca — v606)
+## 5.0 — 2026-11-10 (Aktualizacja bieżąca — v607)
+
+- **Zunifikowane wymiary, marginesy i układ ekranów w Centrum Studium:**
+  - **Spójna szerokość wszystkich zakładek:** Usunięto rozbieżne ograniczenia szerokości (`max-width: 1440px` vs `1640px` vs `1480px`) pomiędzy Pulpitem Studium, Celami i nawykami, Projektami, Do przeczytania, Do opracowania, Statystykami, Kalendarzem oraz Bezpieczeństwem.
+  - **Brak przeskoków ekranu przy przełączaniu:** Wszystkie podstrony w Centrum Studium korzystają ze zunifikowanego kontenera (`.cenCentrumShell` i `.cenCentrumMain`), co eliminuje irytujące „skakanie” marginesów i szerokości przy przechodzeniu między zakładkami w bocznym menu.
+  - **Perfekcyjne dopasowanie na iPadzie i Macu:** Zoptymalizowano siatki kart i kafelków statystyk pod kątem podziału ekranu (iPad Split View) oraz szerokich ekranów Maca, zapewniając idealną symetrię i czytelność.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v607`.
+
+## 5.0 — 2026-11-10 (Wersja v606)
 
 - **Klarowne etykiety przycisku zatwierdzenia czytania (usunięcie mylącego napisu):**
   - **Eliminacja niejednoznaczności:** Dawny przycisk z napisem czasu przeszłego *„✓ Ukończyłem dzisiejsze czytanie”* i zielonym ptaszkiem wprowadzał w błąd, sugerując użytkownikowi, że aplikacja samoczynnie uznała dzień za przeczytany.

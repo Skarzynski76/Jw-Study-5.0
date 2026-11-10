@@ -346,17 +346,22 @@ html[data-theme="sepia"] {
   grid-template-columns: 215px minmax(0, 1fr);
   align-items: start;
   gap: 20px;
-  max-width: 1480px;
+  width: 100%;
+  max-width: 1560px;
   margin: 0 auto;
+  padding: 14px 18px 48px;
+  box-sizing: border-box;
   min-height: calc(100vh - 64px);
   background: var(--cen-bg);
 }
 
 .cenCentrumMain {
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
+  width: 100%;
   max-width: 100%;
-  padding: 18px 24px 60px;
+  box-sizing: border-box;
+  padding: 0 4px 48px;
   color: var(--cen-text);
   font-family: inherit;
 }
@@ -448,9 +453,11 @@ html[data-theme="sepia"] {
 /* 4 HERO CARDS (2x2 Grid) */
 .cenHeroGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px;
   margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .cenHeroCard {
@@ -2674,10 +2681,12 @@ html[data-theme="dark"] .cenHeroTag {
 }
 .cenCeleStatsRow {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   margin-top: 14px;
   margin-bottom: 18px;
+  width: 100%;
+  box-sizing: border-box;
 }
 @media(max-width: 840px) {
   .cenCeleStatsRow {
@@ -4690,8 +4699,10 @@ html[data-theme="dark"] .cenGoalModal input[type="date"]::-webkit-calendar-picke
   flex-shrink: 0 !important;
 }
 .cenProjektyWidok {
-  max-width: 1440px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
 }
 .cenProjStatsRow {
   display: grid;
@@ -5622,6 +5633,7 @@ body.centrum-open .cenProjActiveBar {
   .cenCentrumShell {
     grid-template-columns: 190px minmax(0, 1fr);
     gap: 14px;
+    padding: 12px 14px 44px;
   }
   .cenFeaturesBanner {
     grid-template-columns: repeat(2, 1fr);
@@ -5632,9 +5644,10 @@ body.centrum-open .cenProjActiveBar {
   .cenCentrumShell {
     grid-template-columns: 1fr;
     gap: 0;
+    padding: 10px 12px 40px;
   }
   .cenCentrumMain {
-    padding: 14px 16px 48px;
+    padding: 0 0 48px;
   }
   .cenHeroGrid {
     grid-template-columns: 1fr;
@@ -5644,7 +5657,7 @@ body.centrum-open .cenProjActiveBar {
     padding: 16px 20px;
   }
   .cenCeleStatsRow {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -16599,7 +16612,7 @@ body.ma-zaznaczenie #fsWrap .ntools{ opacity:.12; pointer-events:none; }
     radial-gradient(720px 360px at 98% 2%, color-mix(in srgb, #d69a2d 8%, transparent), transparent 68%);
 }
 .cenNagl{
-  max-width:1440px; margin:0 auto;
+  width:100%; max-width:100%; box-sizing:border-box; margin:0 0 14px 0;
   padding:8px 6px 18px;
 }
 .cenTyt b{
@@ -16608,7 +16621,7 @@ body.ma-zaznaczenie #fsWrap .ntools{ opacity:.12; pointer-events:none; }
 }
 .cenTyt span{ margin-top:2px; line-height:1.45; }
 .cenGora,.cenSzybkie,.cenSiatka,.cenSiatkaM,.cenStat{
-  max-width:1440px; margin-left:auto; margin-right:auto;
+  width:100%; max-width:100%; box-sizing:border-box; margin-left:0; margin-right:0;
 }
 .cenHero,.cenKarta,.cenStat{
   border-color:color-mix(in srgb, var(--border) 76%, var(--accent));
@@ -17236,7 +17249,7 @@ html[data-theme="dark"] mark.szukajTrafieniePuls, html[data-theme="oled"] mark.s
 }
 .cenBiblioteka{
   display:grid; grid-template-columns:minmax(0,1.08fr) minmax(330px,.92fr);
-  gap:14px; max-width:1440px; margin:0 auto 14px;
+  gap:14px; width:100%; max-width:100%; box-sizing:border-box; margin:0 0 14px 0;
 }
 .cenKolekcje,.cenCzytelnia{
   min-width:0; border:1px solid color-mix(in srgb,var(--border) 82%,var(--accent));
@@ -17396,9 +17409,10 @@ html[data-theme="dark"] mark.szukajTrafieniePuls, html[data-theme="oled"] mark.s
   display:flex;
   flex-direction:column;
   gap:20px;
-  max-width:1440px;
-  margin:0 auto;
   width:100%;
+  max-width:100%;
+  box-sizing:border-box;
+  margin:0 0 16px 0;
 }
 .cenBlok{
   min-width:0;
@@ -17436,10 +17450,18 @@ html[data-theme="dark"] mark.szukajTrafieniePuls, html[data-theme="oled"] mark.s
 /* Pełna rama Centrum 3.08. Boczny wybór jest częścią Centrum, dzięki czemu
    nie miesza się z kolumnami Biblia / Etykiety / Publikacje. */
 .cenCentrumShell{
-  display:grid; grid-template-columns:205px minmax(0,1fr); align-items:start; gap:20px;
-  max-width:1640px; margin:0 auto;
+  width:100%;
+  max-width:1560px;
+  margin:0 auto;
+  box-sizing:border-box;
 }
-.cenCentrumMain{ min-width:0; }
+.cenCentrumMain{
+  flex:1 1 auto;
+  min-width:0;
+  width:100%;
+  max-width:100%;
+  box-sizing:border-box;
+}
 .cenBoczna{
   position:sticky; top:12px; min-width:0; padding:14px 10px; border-radius:18px;
   border:1px solid color-mix(in srgb,var(--border) 84%,transparent);
@@ -17478,7 +17500,8 @@ html[data-theme="dark"] mark.szukajTrafieniePuls, html[data-theme="oled"] mark.s
 .cenMenuMobilne>svg:last-child{ transition:transform var(--dur-szybko) var(--ease); }
 .cenMenuMobilne[aria-expanded="true"]>svg:last-child{ transform:rotate(90deg); }
 .cenPodstrona{
-  max-width:1440px; min-height:320px; margin:0 auto 16px; padding:21px;
+  width:100%; min-height:320px; margin:0 0 16px; padding:21px;
+  max-width:100%; box-sizing:border-box;
   border:1px solid color-mix(in srgb,var(--border) 86%,transparent); border-radius:20px;
   background:var(--panel); box-shadow:0 10px 32px rgba(22,36,29,.045);
 }
@@ -17496,7 +17519,7 @@ html[data-theme="dark"] mark.szukajTrafieniePuls, html[data-theme="oled"] mark.s
 .cenBezPelne{ max-width:640px; margin:32px auto 0; }
 .cenBezPelne .cenBezMini{ min-height:68px; }
 .cenUklad{
-  max-width:1440px; margin:0 auto 14px; padding:14px;
+  width:100%; max-width:100%; box-sizing:border-box; margin:0 0 14px; padding:14px;
   border:1px solid color-mix(in srgb,var(--accent) 32%,var(--border)); border-radius:16px;
   background:color-mix(in srgb,var(--accent) 4%,var(--panel)); box-shadow:var(--cien-1);
 }
@@ -17575,16 +17598,19 @@ html[data-theme="dark"] mark.szukajTrafieniePuls, html[data-theme="oled"] mark.s
 .cenBezMini .cenPozStrz,.cenBezMini>svg:last-child{ width:15px; height:15px; color:var(--muted); }
 
 @container notatki (max-width:980px){
-  .cenCentrumShell{ grid-template-columns:168px minmax(0,1fr); gap:12px; }
+  .cenCentrumShell{ grid-template-columns:180px minmax(0,1fr); gap:12px; }
   .cenBoczna{ padding-left:7px; padding-right:7px; }
   .cenBoczPoz{ padding-left:8px; padding-right:7px; gap:7px; }
   .cenProjektLista{ grid-template-columns:repeat(2,minmax(0,1fr)); }
   .cenProjektListaPelna{ grid-template-columns:repeat(2,minmax(0,1fr)); }
   .cenUkladLista{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .cenCeleStatsRow{ grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
-@container notatki (max-width:700px){
+@container notatki (max-width:720px){
   .cenBlokiGrid{ grid-template-columns:minmax(0,1fr); }
   .cenCentrumShell{ grid-template-columns:minmax(0,1fr); gap:0; }
+  .cenHeroGrid{ grid-template-columns:minmax(0,1fr); }
+  .cenWelcomeGrid{ grid-template-columns:minmax(0,1fr); }
   .cenMenuMobilne{ display:flex; }
   .cenBoczna{ display:none; position:static; margin:0 0 12px; }
   .cenBoczna.otwarte{ display:block; }
@@ -23226,6 +23252,7 @@ body.centrum-open #centrum:not([hidden]) {
   min-width: 0 !important;
   min-height: 0 !important;
   height: auto !important;
+  padding: 0 !important;
   box-sizing: border-box !important;
   overflow-y: auto !important;
   overflow-x: hidden !important;
@@ -23756,13 +23783,13 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v606)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v607)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v606</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v607</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v606) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v606</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v607) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v607</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -25542,7 +25569,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:26px;">🚀</span>
         <div>
-          <div id="clModalTitle" style="font-size:18px;font-weight:800;color:var(--text);">JW-Study 5.0 <span class="nwVerBadge" style="margin-left:6px;background:var(--accent);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px;font-weight:750;">v606</span></div>
+          <div id="clModalTitle" style="font-size:18px;font-weight:800;color:var(--text);">JW-Study 5.0 <span class="nwVerBadge" style="margin-left:6px;background:var(--accent);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px;font-weight:750;">v607</span></div>
           <div style="font-size:12px;color:var(--muted);">Historia aktualizacji i stan pamięci podręcznej</div>
         </div>
       </div>
@@ -25554,7 +25581,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
     
     <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px;">
       <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;">
-        <span class="cenVerDot">●</span> Stan magazynu offline: <span id="changelogSwStatus" style="font-weight:700;color:var(--accent);">v606 (aktualna)</span>
+        <span class="cenVerDot">●</span> Stan magazynu offline: <span id="changelogSwStatus" style="font-weight:700;color:var(--accent);">v607 (aktualna)</span>
       </div>
       <div style="display:flex;gap:8px;">
         <button type="button" class="btn" id="btnChangelogRefreshSw" style="font-size:12.5px;">Wymuś odświeżenie 🔄</button>
@@ -26007,9 +26034,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v606";
+const APP_BUILD = "v607";
 const APP_BUILD_DATE = "2026-11-10";
-const APP_FULL_VERSION = "5.0 (v606)";
+const APP_FULL_VERSION = "5.0 (v607)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -57870,8 +57897,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v606</span>
+          <span class="cl-ver-num">v607</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">10 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Zunifikowane wymiary i układ ekranów w Centrum Studium</div>
+        <ul class="cl-ver-list">
+          <li><b>Spójna szerokość wszystkich zakładek:</b> Usunięto rozbieżne ograniczenia szerokości (np. 1440px vs 1640px) pomiędzy Pulpitem Studium, Celami i nawykami, Projektami, Do przeczytania, Do opracowania, Statystykami oraz Bezpieczeństwem.</li>
+          <li><b>Brak przeskoków ekranu:</b> Wszystkie widoki w Centrum Studium korzystają z tej samej ramy układu (<code>.cenCentrumShell</code> i <code>.cenCentrumMain</code>), dzięki czemu nawigacja między kartami na iPadzie i Macu jest płynna i stabilna.</li>
+          <li><b>Lepsze dopasowanie na iPadzie i w Split View:</b> Zoptymalizowano siatki kart i kafelków statystyk pod kątem podziału ekranu, zachowując czytelność i naturalne proporcje bez bocznych przesunięć.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v606</span>
           <span class="cl-ver-date">10 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Klarowne etykiety przycisku zatwierdzenia czytania</div>
