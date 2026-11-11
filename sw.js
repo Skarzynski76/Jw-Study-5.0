@@ -1,6 +1,6 @@
 /* JW Study — Service Worker (Obsługa trybu offline) */
 const CACHE_PREFIX = 'jwstudy-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + 'v607';
+const CACHE = CACHE_PREFIX + 'v608';
 
 const CORE = [
   './index.html',
@@ -15,6 +15,9 @@ const CORE = [
   './apple-touch-icon.png',
   './favicon-32.png',
   './icon.svg',
+  './public/images/bible-journey/forest-night.webp',
+  './public/images/bible-journey/forest-dawn.webp',
+  './public/images/bible-journey/forest-morning.webp',
   './lib/jszip.min.js',
   './lib/sql-wasm.js',
   './lib/sql-wasm.wasm',

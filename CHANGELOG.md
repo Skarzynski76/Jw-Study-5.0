@@ -1,4 +1,15 @@
-## 5.0 — 2026-11-10 (Aktualizacja bieżąca — v607)
+## 5.0 — 2026-11-11 (Aktualizacja bieżąca — v608)
+
+- **Nowy motyw wizualny czytania Biblii: „Światło na ścieżce” (16:9):**
+  - **Inspiracja biblijna (Psalm 119:105):** Wprowadzono nowy motyw graficzny oparty na słowach: *„Twoje słowo jest lampą dla moich stóp i światłem na mojej drodze”*. Postęp w czytaniu Biblii jest obrazowany przez fotorealistyczną ścieżkę biegnącą przez majestatyczny las, wzdłuż której zapalają się kolejne latarnie, a sceneria stopniowo rozjaśnia się od zmierzchu, przez poranek we mgle, aż po pełny słoneczny blask.
+  - **52 etapy dla planu rocznego i 13 etapów dla planu 90-dniowego:** Zaimplementowano precyzyjny silnik wizualny, który na podstawie rzeczywiście ukończonych dni czytania płynnie reguluje natężenie światła i sekwencyjnie zapala 7 latarni na ścieżce (bez nakładających się artefaktów czy przeskoków kadrów).
+  - **Siatka tygodni w zakładce Statystyki:** W zakładce *Statystyki i postęp* dodano nową kartę *🏮 Światło na ścieżce*, prezentującą pełną siatkę 52 tygodni (dla planu rocznego) lub 13 tygodni (dla planu 90-dniowego) z miniaturami krajobrazu, stanem oświetlenia i liczbą zapalonych lampionów.
+  - **Otwarta Biblia na finiszu:** Po ukończeniu co najmniej 95% planu czytania, na pierwszym planie przy rozświetlonym lampionie pojawia się otwarta księga Pisma Świętego ze złocistą zakładką.
+  - **Pełna kontrola użytkownika & nienaruszalność danych:** Użytkownik może w każdej chwili przełączać się między motywem *🏮 Światło na ścieżce* a klasycznym *🌳 Drzewo wzrostu* zarówno za pomocą przełącznika w nagłówku karty planu, jak i w Ustawieniach aplikacji. Wszystkie istniejące dane, baza `CentrumDniDone`, notatki, etykiety i serie czytania pozostały w 100% nienaruszone.
+  - **Pełna praca offline:** Zasoby graficzne w formacie WebP 16:9 (`forest-night.webp`, `forest-dawn.webp`, `forest-morning.webp`) zostały włączone do magazynu pamięci podręcznej Service Workera.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v608`.
+
+## 5.0 — 2026-11-10 (Wersja v607)
 
 - **Zunifikowane wymiary, marginesy i układ ekranów w Centrum Studium:**
   - **Spójna szerokość wszystkich zakładek:** Usunięto rozbieżne ograniczenia szerokości (`max-width: 1440px` vs `1640px` vs `1480px`) pomiędzy Pulpitem Studium, Celami i nawykami, Projektami, Do przeczytania, Do opracowania, Statystykami, Kalendarzem oraz Bezpieczeństwem.

@@ -8,3 +8,5 @@ index-*.html
 index.*backup*.html
 *.backup.html
 
+backups/
+*.tar.gz

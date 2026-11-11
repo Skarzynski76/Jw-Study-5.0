@@ -2059,6 +2059,212 @@ html[data-theme="dark"] .cenRemPermAlert.default {
   filter: grayscale(1);
 }
 
+/* 🏮 ŚCIEŻKA ŚWIATŁA — SYSTEM WIZUALNY PLANU CZYTANIA BIBLII (PSALM 119:105) */
+.cenSciezkaHeroStage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 480px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #03060c;
+  box-shadow: var(--cen-card-shadow, 0 10px 30px rgba(0,0,0,0.25));
+  margin-bottom: 20px;
+}
+.cenSciezkaLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  transition: opacity 0.35s ease-out;
+}
+.cenSciezkaLayerA { z-index: 1; }
+.cenSciezkaLayerB { z-index: 2; }
+.cenSciezkaSvgLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+.cenSciezkaOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  padding: 24px 26px 18px;
+  background: linear-gradient(180deg, transparent 0%, rgba(6, 10, 18, 0.75) 40%, rgba(6, 10, 18, 0.98) 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.cenSciezkaBadge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.25);
+  border: 1px solid rgba(245, 158, 11, 0.55);
+  color: #fbbf24;
+  margin-bottom: 4px;
+}
+.cenSciezkaTitle {
+  font-size: clamp(16px, 2.5vw, 22px);
+  font-weight: 850;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.85);
+  line-height: 1.25;
+}
+.cenSciezkaDesc {
+  font-size: clamp(12px, 1.8vw, 13.5px);
+  color: #e2e8f0;
+  max-width: 620px;
+  margin-top: 3px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.85);
+}
+.cenSciezkaMeters {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.cenSciezkaMeterItem {
+  text-align: right;
+}
+.cenSciezkaMeterVal {
+  font-size: 17px;
+  font-weight: 850;
+  color: #fbbf24;
+}
+.cenSciezkaMeterLbl {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.5px;
+}
+.cenMotywToggleBox {
+  display: flex;
+  align-items: center;
+  background: var(--cen-row-bg, rgba(0,0,0,0.06));
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 3px;
+  gap: 4px;
+}
+.cenMotywToggleBtn {
+  background: transparent;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--cen-text-muted);
+  cursor: pointer;
+  transition: all 0.16s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.cenMotywToggleBtn.active {
+  background: var(--card-bg, #ffffff);
+  color: var(--text, #111827);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  font-weight: 750;
+}
+.cenMosaicGrid52 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+.cenMosaicGrid13 {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+.cenMosaicTile {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 14px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  position: relative;
+}
+.cenMosaicTile:hover {
+  border-color: rgba(245, 158, 11, 0.65);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+}
+.cenMosaicTile.is-active {
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, var(--cen-card-bg) 100%);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.35);
+}
+.cenMosaicTile.is-done {
+  border-color: rgba(16, 185, 129, 0.45);
+}
+.cenMosaicThumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background: #060a12;
+  margin-bottom: 6px;
+}
+.cenMosaicImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.cenMosaicOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 4px 6px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.65) 0%, transparent 50%, rgba(0,0,0,0.85) 100%);
+  pointer-events: none;
+}
+.cenMosaicWeek {
+  font-size: 11px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+}
+.cenMosaicPct {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #fbbf24;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+}
+.cenMosaicLamp {
+  position: absolute;
+  bottom: 3px;
+  right: 6px;
+  font-size: 9.5px;
+  font-weight: 750;
+  color: #fef08a;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+}
+
 /* KALENDARZ SIATKA */
 .cenKalendarzMiesiac {
   display: flex;
@@ -23783,13 +23989,13 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v607)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v608)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v607</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v608</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v607) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v607</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v608) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v608</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -25569,7 +25775,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:26px;">🚀</span>
         <div>
-          <div id="clModalTitle" style="font-size:18px;font-weight:800;color:var(--text);">JW-Study 5.0 <span class="nwVerBadge" style="margin-left:6px;background:var(--accent);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px;font-weight:750;">v607</span></div>
+          <div id="clModalTitle" style="font-size:18px;font-weight:800;color:var(--text);">JW-Study 5.0 <span class="nwVerBadge" style="margin-left:6px;background:var(--accent);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px;font-weight:750;">v608</span></div>
           <div style="font-size:12px;color:var(--muted);">Historia aktualizacji i stan pamięci podręcznej</div>
         </div>
       </div>
@@ -25581,7 +25787,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
     
     <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px;">
       <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;">
-        <span class="cenVerDot">●</span> Stan magazynu offline: <span id="changelogSwStatus" style="font-weight:700;color:var(--accent);">v607 (aktualna)</span>
+        <span class="cenVerDot">●</span> Stan magazynu offline: <span id="changelogSwStatus" style="font-weight:700;color:var(--accent);">v608 (aktualna)</span>
       </div>
       <div style="display:flex;gap:8px;">
         <button type="button" class="btn" id="btnChangelogRefreshSw" style="font-size:12.5px;">Wymuś odświeżenie 🔄</button>
@@ -26034,9 +26240,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v607";
-const APP_BUILD_DATE = "2026-11-10";
-const APP_FULL_VERSION = "5.0 (v607)";
+const APP_BUILD = "v608";
+const APP_BUILD_DATE = "2026-11-11";
+const APP_FULL_VERSION = "5.0 (v608)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -45942,6 +46148,11 @@ function openSettings(){
        <div class="st-hint">Ukrywa na chwilę kolumny Biblia, Etykiety i Publikacje. Centrum studium oraz lista notatek zajmują całą szerokość. Po powrocie boczne kolumny zachowują swoje ustawienia.</div>
      </div>
      <div class="st-sec">
+       <div class="st-lbl">Motyw wizualny planu czytania Biblii</div>
+       ${optionGroup("reading_theme", [["sciezka","🏮 Światło na ścieżce (16:9 las)"],["drzewo","🌳 Drzewo wzrostu"]], (typeof _centrPobierzMotywCzytania === "function" ? _centrPobierzMotywCzytania() : "sciezka"))}
+       <div class="st-hint">Wybierz główny motyw wizualizacji postępu w czytaniu Biblii: fotorealistyczną leśną ścieżkę z rozjaśniającym się światłem i lampionami (52 etapy w planie rocznym / 13 etapów w planie 90-dniowym) lub klasyczne drzewo z owocami ducha. W każdej chwili możesz przełączać motyw bezpośrednio w planie czytania.</div>
+     </div>
+     <div class="st-sec">
        <div class="st-lbl">Układ listy notatek</div>
        ${optionGroup("view", [["list","Lista notatek"],["tablica","Widok tablicy"]], noteView)}
      </div>
@@ -46303,6 +46514,10 @@ function openSettings(){
     else if(grp==="theme") setTheme(v);
     else if(grp==="view") setNoteView(v);
     else if(grp==="focus") setFocusMode(v === "1");
+    else if(grp==="reading_theme"){
+      if(typeof _centrUstawMotywCzytania === "function") _centrUstawMotywCzytania(v);
+      if(typeof rysujCentrum === "function") rysujCentrum();
+    }
     opt.parentElement.querySelectorAll(".st-opt").forEach(b=>b.classList.toggle("on", b===opt));
     toastOk("Zapisano ustawienie");
   };
@@ -57750,6 +57965,255 @@ function _centrWidokDrzewoWzrostu(planInfo, dniDone, curSer, bestSer){
     + '</div>';
 }
 
+/* ══════════════════════════════════════════════════════════════════════
+   🏮 SYSTEM WIZUALNY: ŚWIATŁO NA ŚCIEŻCE (PLAN CZYTANIA BIBLII)
+   Podstawa: Psalm 119:105, Przysłów 4:18
+   52 etapy (plan roczny) / 13 etapów (plan 90-dniowy)
+   ══════════════════════════════════════════════════════════════════════ */
+
+const _CENTR_SCIEZKA_IMGS = {
+  night: './public/images/bible-journey/forest-night.webp',
+  dawn: './public/images/bible-journey/forest-dawn.webp',
+  morning: './public/images/bible-journey/forest-morning.webp'
+};
+
+const _CENTR_SCIEZKA_LANTERNS = [
+  { id: 1, x: 235, y: 590, r: 44, startPct: 0 },
+  { id: 2, x: 425, y: 520, r: 34, startPct: 10 },
+  { id: 3, x: 670, y: 505, r: 36, startPct: 24 },
+  { id: 4, x: 840, y: 465, r: 28, startPct: 40 },
+  { id: 5, x: 935, y: 420, r: 24, startPct: 58 },
+  { id: 6, x: 1010, y: 380, r: 20, startPct: 74 },
+  { id: 7, x: 1070, y: 345, r: 17, startPct: 88 }
+];
+
+function _centrPobierzMotywCzytania(){
+  return lsGet(KP + "CentrumMotywCzytania", "sciezka");
+}
+
+function _centrUstawMotywCzytania(m){
+  lsSet(KP + "CentrumMotywCzytania", m);
+  rysujCentrum();
+}
+
+function _centrObliczEtapSciezkiSwiatla(planInfo, doneCount){
+  const totalDays = (planInfo && planInfo.days) ? planInfo.days : 365;
+  const is90Days = totalDays <= 100;
+  const maxWeeks = is90Days ? 13 : 52;
+  const daysPerWeek = totalDays / maxWeeks;
+  const progressPct = totalDays > 0 ? Math.min(100, Math.round((doneCount / totalDays) * 100)) : 0;
+  const currentWeek = Math.min(maxWeeks, Math.max(1, Math.ceil(doneCount / daysPerWeek) || 1));
+
+  let litCount = 1;
+  _CENTR_SCIEZKA_LANTERNS.forEach(l => {
+    if(progressPct >= l.startPct) litCount = l.id;
+  });
+  const lightVal = Math.round(8 + (progressPct / 100) * 92);
+
+  let badge = "Tydzień " + currentWeek + " z " + maxWeeks + " • " + progressPct + "% Planu";
+  let title = "Pierwszy lampion w mroku nocy";
+  let desc = "Gęsty leśny mrok. Pierwsza drewniano-metalowa latarnia tli się ciepłym światłem, rozjaśniając drogę pod stopami.";
+
+  if(currentWeek === 1){
+    title = "Pierwsze kroki w mroku nocy (Noc)";
+    desc = "Gęsty mrok leśnej nocy. Tylko pierwsza latarnia tli się ciepłym blaskiem tuż pod stopami, wyznaczając początek drogi.";
+  } else if(!is90Days && currentWeek === 13){
+    badge = "Tydzień 13 z 52 • 25% (Koniec I kwartału)";
+    title = "Pewne przewodnictwo latarni — Wczesna droga";
+    desc = "Koniec pierwszego kwartału (25% planu). Płoną już 3 latarnie wzdłuż łuku ścieżki, a kontury drzew wyłaniają się z mroku.";
+  } else if(progressPct < 50 && currentWeek !== Math.round(maxWeeks / 2)){
+    title = "Narastające światło (" + litCount + " z 7 latarni zapalonych)";
+    desc = "Ścieżka prowadzi w głąb lasu. Kolejne lampiony rozświetlają zakręty kamiennego bruku, niosąc pokój i stałość.";
+  } else if(progressPct === 50 || currentWeek === Math.round(maxWeeks / 2)){
+    badge = "Tydzień " + currentWeek + " z " + maxWeeks + " • PÓŁMETEK (50% Planu)";
+    title = "Świt na półmetku wędrówki";
+    desc = "Przełomowy moment świtu! Złota jutrzenka rozjaśnia horyzont między pniami drzew, łącząc się z ciepłym blaskiem lampionów.";
+  } else if(!is90Days && currentWeek === 39){
+    badge = "Tydzień 39 z 52 • 75% (Koniec III kwartału)";
+    title = "Złote snopy promieni słonecznych";
+    desc = "Koniec trzeciego kwartału (75% planu). Słońce śmiało przedziera się przez gałęzie. Wszystkie latarnie płoną jasnym, ciepłym ogniem.";
+  } else if(progressPct < 98){
+    title = "Poranna jasność i blask (" + litCount + " z 7 latarni)";
+    desc = "Las skąpany w porannym słońcu. Soczysta zieleń runa lśni w porannej rosie, a przed Tobą rozpościera się jasna, pewna droga.";
+  } else {
+    badge = "Tydzień " + currentWeek + " z " + maxWeeks + " • FINAŁ (100% — Ukończony Plan)";
+    title = "Pełny blask dnia i Otwarta Biblia";
+    desc = "Tryumf światła! Ukończona cała droga przez Pismo Święte. Pełne słońce w zenicie, a u stóp latarni spoczywa otwarta Biblia (Psalm 119:105).";
+  }
+
+  return {
+    totalDays, is90Days, maxWeeks, currentWeek, progressPct, litCount, lightVal, badge, title, desc,
+    isCompleted: progressPct >= 100
+  };
+}
+
+function _centrGenerujSciezkaSwiatlaHero(planInfo, dniDone, curDzien){
+  const doneCount = dniDone.size;
+  const etap = _centrObliczEtapSciezkiSwiatla(planInfo, doneCount);
+  const curMotyw = _centrPobierzMotywCzytania();
+
+  let imgA = _CENTR_SCIEZKA_IMGS.night;
+  let imgB = _CENTR_SCIEZKA_IMGS.dawn;
+  let opacityA = 1.0;
+  let opacityB = 0.0;
+  let filterA = "";
+  let filterB = "";
+
+  if(etap.progressPct <= 50){
+    const localT = etap.progressPct / 50.0;
+    imgA = _CENTR_SCIEZKA_IMGS.night;
+    imgB = _CENTR_SCIEZKA_IMGS.dawn;
+    opacityA = (1.0 - localT).toFixed(3);
+    opacityB = localT.toFixed(3);
+    filterA = "brightness(" + (0.85 + localT * 0.25).toFixed(2) + ") contrast(1.02)";
+    filterB = "brightness(" + (0.90 + localT * 0.15).toFixed(2) + ") contrast(1.05)";
+  } else {
+    const localT = (etap.progressPct - 50.0) / 50.0;
+    imgA = _CENTR_SCIEZKA_IMGS.dawn;
+    imgB = _CENTR_SCIEZKA_IMGS.morning;
+    opacityA = (1.0 - localT).toFixed(3);
+    opacityB = localT.toFixed(3);
+    filterA = "brightness(" + (1.0 + localT * 0.08).toFixed(2) + ") contrast(1.05)";
+    filterB = "brightness(" + (1.0 + localT * 0.05).toFixed(2) + ") contrast(1.08)";
+  }
+
+  let svgGlows = '';
+  _CENTR_SCIEZKA_LANTERNS.forEach(l => {
+    if(etap.progressPct >= l.startPct){
+      const age = etap.progressPct - l.startPct;
+      const igniteT = Math.min(1.0, Math.max(0.25, age / 8.0));
+      const curR = (l.r * (0.65 + igniteT * 0.55)).toFixed(1);
+      const curOpacity = (0.35 + igniteT * 0.55).toFixed(2);
+      svgGlows += '<g transform="translate(' + l.x + ', ' + l.y + ')">'
+        + '<circle cx="0" cy="0" r="' + curR + '" fill="url(#cenSciezkaWarmGlow)" opacity="' + curOpacity + '"/>'
+        + '<circle cx="0" cy="0" r="' + (curR * 0.22).toFixed(1) + '" fill="#ffffff" opacity="' + (curOpacity * 1.15).toFixed(2) + '"/>'
+        + '</g>';
+    }
+  });
+
+  const bibleSvg = (etap.progressPct >= 95)
+    ? ('<g transform="translate(380, 680) scale(1.2)" opacity="' + Math.min(1.0, (etap.progressPct - 95) / 5.0).toFixed(2) + '">'
+       + '<ellipse cx="0" cy="10" rx="60" ry="18" fill="rgba(0,0,0,0.55)"/>'
+       + '<path d="M-55,0 Q-25,-18 0,0 Q25,-18 55,0 L50,14 Q25,-5 0,8 Q-25,-5 -50,14 Z" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>'
+       + '<path d="M-50,-2 Q-25,-16 -4,0 L-4,10 Q-25,-7 -46,10 Z" fill="#ffffff"/>'
+       + '<path d="M50,-2 Q25,-16 4,0 L4,10 Q25,-7 46,10 Z" fill="#ffffff"/>'
+       + '<path d="M0,-1 Q-6,18 4,28" stroke="#d97706" stroke-width="2.5" fill="none"/>'
+       + '<text x="0" y="-18" text-anchor="middle" fill="#d97706" font-size="12" font-weight="bold" letter-spacing="1">PISMO ŚWIĘTE</text>'
+       + '</g>')
+    : '';
+
+  return '<div style="margin-bottom:20px;">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap;">'
+    + '<div style="display:flex;align-items:center;gap:8px;">'
+    + '<span class="cenHeroTag" style="background:rgba(245,158,11,0.18);border:1px solid rgba(245,158,11,0.4);color:#fbbf24;">🏮 Światło na ścieżce</span>'
+    + '<span style="font-size:12.5px;color:var(--cen-text-muted);font-weight:600;">' + esc(planInfo.name) + '</span>'
+    + '</div>'
+    + '<div class="cenMotywToggleBox">'
+    + '<button type="button" class="cenMotywToggleBtn' + (curMotyw === 'sciezka' ? ' active' : '') + '" data-cakcja="motyw-sciezka" title="Włącz motyw: Światło na ścieżce">🏮 Ścieżka</button>'
+    + '<button type="button" class="cenMotywToggleBtn' + (curMotyw === 'drzewo' ? ' active' : '') + '" data-cakcja="motyw-drzewo" title="Włącz klasyczny motyw: Drzewo wzrostu">🌳 Drzewo</button>'
+    + '</div>'
+    + '</div>'
+
+    + '<div class="cenSciezkaHeroStage">'
+    + '<img class="cenSciezkaLayer cenSciezkaLayerA" src="' + imgA + '" style="opacity:' + opacityA + ';filter:' + filterA + ';" alt="Ścieżka światła A">'
+    + '<img class="cenSciezkaLayer cenSciezkaLayerB" src="' + imgB + '" style="opacity:' + opacityB + ';filter:' + filterB + ';" alt="Ścieżka światła B">'
+
+    + '<svg class="cenSciezkaSvgLayer" viewBox="0 0 1365 768" preserveAspectRatio="none">'
+    + '<defs>'
+    + '<radialGradient id="cenSciezkaWarmGlow" cx="50%" cy="50%" r="50%">'
+    + '<stop offset="0%" stop-color="#fffbeb" stop-opacity="0.95"/>'
+    + '<stop offset="25%" stop-color="#fbbf24" stop-opacity="0.8"/>'
+    + '<stop offset="65%" stop-color="#f59e0b" stop-opacity="0.3"/>'
+    + '<stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>'
+    + '</radialGradient>'
+    + '</defs>'
+    + '<g>' + svgGlows + '</g>'
+    + bibleSvg
+    + '</svg>'
+
+    + '<div class="cenSciezkaOverlay">'
+    + '<div>'
+    + '<span class="cenSciezkaBadge">' + esc(etap.badge) + '</span>'
+    + '<div class="cenSciezkaTitle">' + esc(etap.title) + '</div>'
+    + '<div class="cenSciezkaDesc">' + esc(etap.desc) + '</div>'
+    + '</div>'
+    + '<div class="cenSciezkaMeters">'
+    + '<div class="cenSciezkaMeterItem">'
+    + '<div class="cenSciezkaMeterLbl">Światło w lesie</div>'
+    + '<div class="cenSciezkaMeterVal">' + etap.lightVal + '%</div>'
+    + '</div>'
+    + '<div class="cenSciezkaMeterItem">'
+    + '<div class="cenSciezkaMeterLbl">Zapalonych latarni</div>'
+    + '<div class="cenSciezkaMeterVal">' + etap.litCount + ' z 7</div>'
+    + '</div>'
+    + '</div>'
+    + '</div>'
+    + '</div>'
+    + '</div>';
+}
+
+function _centrWidokSciezkaSwiatla(planInfo, dniDone, curSer, bestSer){
+  const doneCount = dniDone.size;
+  const etap = _centrObliczEtapSciezkiSwiatla(planInfo, doneCount);
+  const heroHtml = _centrGenerujSciezkaSwiatlaHero(planInfo, dniDone, doneCount);
+
+  let mosaicTilesHtml = '';
+  for(let w = 1; w <= etap.maxWeeks; w++){
+    const pct = Math.min(100, Math.round((w / etap.maxWeeks) * 100));
+    let litCount = 1;
+    _CENTR_SCIEZKA_LANTERNS.forEach(l => {
+      if(pct >= l.startPct) litCount = l.id;
+    });
+    const lightVal = Math.round(8 + (pct / 100) * 92);
+
+    let thumbSrc = _CENTR_SCIEZKA_IMGS.night;
+    let thumbFilter = "brightness(" + (0.85 + (pct/33)*0.25).toFixed(2) + ")";
+    if(pct >= 33 && pct < 67){
+      thumbSrc = _CENTR_SCIEZKA_IMGS.dawn;
+      thumbFilter = "brightness(" + (0.90 + ((pct-33)/34)*0.20).toFixed(2) + ")";
+    } else if(pct >= 67){
+      thumbSrc = _CENTR_SCIEZKA_IMGS.morning;
+      thumbFilter = "brightness(" + (0.95 + ((pct-67)/33)*0.10).toFixed(2) + ")";
+    }
+
+    const isActive = (w === etap.currentWeek);
+    const isDone = (w < etap.currentWeek || (w === etap.maxWeeks && etap.isCompleted));
+
+    mosaicTilesHtml += '<div class="cenMosaicTile' + (isActive ? ' is-active' : '') + (isDone ? ' is-done' : '') + '" title="Tydzień ' + w + ' z ' + etap.maxWeeks + ' • ' + pct + '% postępu • ' + litCount + ' z 7 latarni">'
+      + '<div class="cenMosaicThumb">'
+      + '<img class="cenMosaicImg" src="' + thumbSrc + '" style="filter:' + thumbFilter + ';" alt="Tydzień ' + w + '">'
+      + '<div class="cenMosaicOverlay">'
+      + '<span class="cenMosaicWeek">Tydz. ' + w + '</span>'
+      + '<span class="cenMosaicPct">' + pct + '%</span>'
+      + '</div>'
+      + '<div class="cenMosaicLamp">🏮 ' + litCount + '/7</div>'
+      + '</div>'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--cen-text-muted);padding:2px 2px 0;">'
+      + '<span>' + (isDone ? '✓ Gotowe' : (isActive ? '● Bieżący' : '○ Do zrobienia')) + '</span>'
+      + '<span style="font-weight:700;color:#fbbf24;">' + lightVal + '% ☀️</span>'
+      + '</div>'
+      + '</div>';
+  }
+
+  const gridClass = (etap.maxWeeks === 52) ? "cenMosaicGrid52" : "cenMosaicGrid13";
+
+  return heroHtml
+    + '<div class="cenSciezkaCard" style="margin-top:20px;">'
+    + '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;">'
+    + '<div style="font-size:16px;font-weight:750;color:var(--cen-text);">'
+    + (etap.maxWeeks === 52 ? 'Siatka 52 tygodni (Plan roczny)' : 'Siatka 13 tygodni (Plan 90-dniowy)')
+    + '</div>'
+    + '<div style="font-size:12px;color:var(--cen-text-muted);">'
+    + 'Każdy kafelek obrazuje stan leśnej drogi i lampionów w danym tygodniu'
+    + '</div>'
+    + '</div>'
+
+    + '<div class="' + gridClass + '">'
+    + mosaicTilesHtml
+    + '</div>'
+    + '</div>';
+}
+
 /* 1. GŁÓWNY WIDOK CENTRUM (DASHBOARD — EKRAN POWITALNY STUDIUM) */
 const _CENTR_NWTSTY_KLEJNOTY = [
   {
@@ -57897,8 +58361,23 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v607</span>
+          <span class="cl-ver-num">v608</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">11 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Nowy motyw wizualny czytania Biblii: „Światło na ścieżce” (16:9)</div>
+        <ul class="cl-ver-list">
+          <li><b>Fotorealistyczna leśna ścieżka z lampionami:</b> Inspirowana słowami Psalmu 119:105 (<i>„Twoje słowo jest lampą dla moich stóp i światłem na mojej drodze”</i>). Scena lasu rozjaśnia się w miarę postępów w czytaniu od zmierzchu, przez poranną mgłę, aż po pełny słoneczny blask.</li>
+          <li><b>52 etapy dla planu rocznego i 13 etapów dla planu 90-dniowego:</b> Płynna zmiana natężenia światła oraz sekwencyjne zapalanie 7 latarni wzdłuż kamiennego traktu bez artefaktów czy przeskoków kadrów.</li>
+          <li><b>Pełna responsywność i proporcje 16:9:</b> Idealne dopasowanie na iPadzie, iPhonie i komputerze w ramach ujednoliconego kontenera <code>.cenCentrumShell</code>.</li>
+          <li><b>Otwarta Biblia na finiszu:</b> Po ukończeniu co najmniej 95% planu u dołu ścieżki pojawia się otwarta księga Pisma Świętego ze złocistą wstęgą.</li>
+          <li><b>Pełna dowolność i bezpieczeństwo:</b> Możliwość łatwego przełączania między nowym motywem <i>🏮 Światło na ścieżce</i> a klasycznym <i>🌳 Drzewo wzrostu</i> wprost z nagłówka planu oraz w Ustawieniach. Żadne dotychczasowe dane, notatki ani serie czytania nie uległy zmianie.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v607</span>
           <span class="cl-ver-date">10 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Zunifikowane wymiary i układ ekranów w Centrum Studium</div>
@@ -58682,47 +59161,55 @@ function centrWidokCzytanieChrono(){
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="ustawienia-planu" title="Wybór i ustawienia planów">' + CEN_MODERN_ICO.gear + '</button>'
     + '</div></div>'
 
-    + '<div class="cenHeroCard card-blue" style="margin-bottom:20px;cursor:default;">'
-    + '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap;">'
-    + '<div>'
-    + '<span class="cenHeroTag">' + esc(planInfo.catName || "Plan") + ' • ' + esc(planInfo.duration || (planInfo.days + ' dni')) + '</span>'
-    + '<div class="cenHeroTyt" style="font-size:18px;margin-top:2px;">' + esc(planInfo.name) + '</div>'
-    + '<div class="cenHeroOpis" style="font-size:13px;">' + esc(planInfo.desc) + '</div>'
-    + '</div>'
-    + '<button type="button" class="cenMiniDrzewoBadge" data-cwidok="statystyki" data-cstat-tab="drzewo" title="Zobacz swoje Drzewo Wzrostu Duchowego i 9 owoców ducha">'
-    + '🌳 Owoce ducha: ' + odblOwoce + '/9'
-    + '</button>'
-    + '</div>'
-
-    + '<div class="cenHeroMetaRow" style="margin-top:10px;">'
-    + '<span class="cenHeroMetaLabel">Postęp czytania</span>'
-    + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> <span style="color:var(--cen-text-muted);font-weight:400;margin-left:4px;">(' + pct + '%)</span></span>'
-    + '</div>'
-    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;"></div></div>'
-
-    + '<div class="cenPlanStatsGrid">'
-    + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + doneCount + '</div><div class="cenPlanStatLbl">Ukończono dni</div></div>'
-    + '<div class="cenPlanStatTile"><div class="cenPlanStatVal" style="' + (missedDays.length ? 'color:#ef4444;font-weight:700;' : '') + '">' + missedDays.length + '</div><div class="cenPlanStatLbl">Zaległe dni</div></div>'
-    + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + (totalDni - doneCount) + '</div><div class="cenPlanStatLbl">Pozostało dni</div></div>'
-    + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + (planInfo.pace || "~1 rozdz./dzień") + '</div><div class="cenPlanStatLbl">Średnie tempo</div></div>'
-    + '</div></div>'
-
-    + '<div class="cenFruitPlanBanner" data-cwidok="statystyki" data-cstat-tab="drzewo" title="Zobacz Drzewo Wzrostu Duchowego i owoce ducha">'
-    + '<div class="cenFruitPlanBannerLewo">'
-    + '<div class="cenFruitPlanBannerIko">🌳</div>'
-    + '<div>'
-    + '<div class="cenFruitPlanBannerTyt">' + (u ? ('Owoce ducha w planie czytania — ' + esc(u)) : 'Owoce ducha w Twoim planie (Galatów 5:22, 23)') + '</div>'
-    + '<div class="cenFruitPlanBannerSub">' + odblOwoce + ' z 9 owoców dojrzało • ' + (odblOwoce === 9 ? 'Wszystkie owoce zdobyte! 🌟' : (nastOwoc ? ('Kolejny owoc: <b>' + esc(nastOwoc.name) + ' (' + esc(nastOwoc.fruit) + ')</b> za ' + (nastOwoc.day - doneCount) + ' ' + (nastOwoc.day - doneCount === 1 ? 'dzień' : 'dni') + ' (Dzień ' + nastOwoc.day + ')') : '')) + '</div>'
-    + '</div></div>'
-    + '<div class="cenFruitMiniRow">'
-    + owoceDucha.map(o => '<span class="cenFruitMiniDot ' + (doneCount >= o.day ? 'active' : 'inactive') + '" title="' + esc(o.num + '. ' + o.name + ' (' + o.fruit + ') - Dzień ' + o.day + (doneCount >= o.day ? ' (Dojrzały ✓)' : ' (Jeszcze zablokowany)')) + '">' + (typeof _centrRysujOwocSvg === "function" ? _centrRysujOwocSvg(o.id, 18) : o.icon) + '</span>').join('')
-    + '</div>'
-    + '</div>'
+    + (_centrPobierzMotywCzytania() === "sciezka"
+        ? _centrGenerujSciezkaSwiatlaHero(planInfo, dniDone, curDzien)
+        : (
+            '<div class="cenHeroCard card-blue" style="margin-bottom:20px;cursor:default;">'
+            + '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap;">'
+            + '<div>'
+            + '<span class="cenHeroTag">' + esc(planInfo.catName || "Plan") + ' • ' + esc(planInfo.duration || (planInfo.days + ' dni')) + '</span>'
+            + '<div class="cenHeroTyt" style="font-size:18px;margin-top:2px;">' + esc(planInfo.name) + '</div>'
+            + '<div class="cenHeroOpis" style="font-size:13px;">' + esc(planInfo.desc) + '</div>'
+            + '</div>'
+            + '<div style="display:flex;align-items:center;gap:8px;">'
+            + '<div class="cenMotywToggleBox">'
+            + '<button type="button" class="cenMotywToggleBtn" data-cakcja="motyw-sciezka" title="Włącz motyw: Światło na ścieżce">🏮 Ścieżka</button>'
+            + '<button type="button" class="cenMotywToggleBtn active" data-cakcja="motyw-drzewo" title="Włącz klasyczny motyw: Drzewo wzrostu">🌳 Drzewo</button>'
+            + '</div>'
+            + '<button type="button" class="cenMiniDrzewoBadge" data-cwidok="statystyki" data-cstat-tab="drzewo" title="Zobacz swoje Drzewo Wzrostu Duchowego i 9 owoców ducha">'
+            + '🌳 Owoce ducha: ' + odblOwoce + '/9'
+            + '</button>'
+            + '</div></div>'
+            + '<div class="cenHeroMetaRow" style="margin-top:10px;">'
+            + '<span class="cenHeroMetaLabel">Postęp czytania</span>'
+            + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> <span style="color:var(--cen-text-muted);font-weight:400;margin-left:4px;">(' + pct + '%)</span></span>'
+            + '</div>'
+            + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;"></div></div>'
+            + '<div class="cenPlanStatsGrid">'
+            + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + doneCount + '</div><div class="cenPlanStatLbl">Ukończono dni</div></div>'
+            + '<div class="cenPlanStatTile"><div class="cenPlanStatVal" style="' + (missedDays.length ? 'color:#ef4444;font-weight:700;' : '') + '">' + missedDays.length + '</div><div class="cenPlanStatLbl">Zaległe dni</div></div>'
+            + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + (totalDni - doneCount) + '</div><div class="cenPlanStatLbl">Pozostało dni</div></div>'
+            + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + (planInfo.pace || "~1 rozdz./dzień") + '</div><div class="cenPlanStatLbl">Średnie tempo</div></div>'
+            + '</div></div>'
+            + '<div class="cenFruitPlanBanner" data-cwidok="statystyki" data-cstat-tab="drzewo" title="Zobacz Drzewo Wzrostu Duchowego i owoce ducha">'
+            + '<div class="cenFruitPlanBannerLewo">'
+            + '<div class="cenFruitPlanBannerIko">🌳</div>'
+            + '<div>'
+            + '<div class="cenFruitPlanBannerTyt">' + (u ? ('Owoce ducha w planie czytania — ' + esc(u)) : 'Owoce ducha w Twoim planie (Galatów 5:22, 23)') + '</div>'
+            + '<div class="cenFruitPlanBannerSub">' + odblOwoce + ' z 9 owoców dojrzało • ' + (odblOwoce === 9 ? 'Wszystkie owoce zdobyte! 🌟' : (nastOwoc ? ('Kolejny owoc: <b>' + esc(nastOwoc.name) + ' (' + esc(nastOwoc.fruit) + ')</b> za ' + (nastOwoc.day - doneCount) + ' ' + (nastOwoc.day - doneCount === 1 ? 'dzień' : 'dni') + ' (Dzień ' + nastOwoc.day + ')') : '')) + '</div>'
+            + '</div></div>'
+            + '<div class="cenFruitMiniRow">'
+            + owoceDucha.map(o => '<span class="cenFruitMiniDot ' + (doneCount >= o.day ? 'active' : 'inactive') + '" title="' + esc(o.num + '. ' + o.name + ' (' + o.fruit + ') - Dzień ' + o.day + (doneCount >= o.day ? ' (Dojrzały ✓)' : ' (Jeszcze zablokowany)')) + '">' + (typeof _centrRysujOwocSvg === "function" ? _centrRysujOwocSvg(o.id, 18) : o.icon) + '</span>').join('')
+            + '</div>'
+            + '</div>'
+          )
+      )
 
     + '<div class="cenChronoAkcjeRow">'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="kalendarz">' + CEN_MODERN_ICO.calendar + '<span>Kalendarz / Siatka</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="lista-dni">' + CEN_MODERN_ICO.list + '<span>Lista dni' + (missedDays.length ? ' (' + missedDays.length + ' ⚠️)' : '') + '</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki">' + CEN_MODERN_ICO.chart + '<span>Statystyki</span></button>'
+    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki" data-cstat-tab="sciezka">🏮 <span>Ścieżka</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki" data-cstat-tab="drzewo">🌱 <span>Drzewo</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cakcja="przypomnienie-planu" title="Przypomnienia o czytaniu Biblii" style="position:relative;">' + (CEN_MODERN_ICO.bell || '🔔') + '<span>Przypomnij' + (_centrCzyPrzypomnienieWlaczone() ? ' •' : '') + '</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="moje-plany">' + CEN_MODERN_ICO.clipboard + '<span>Zmień plan</span></button>'
@@ -59101,10 +59588,15 @@ function centrWidokStatystyki(tab){
     + '</div></div>'
     + '<div class="cenTabsRow">'
     + '<button type="button" class="cenTabBtn' + (tab==="ogolny"?' active':'') + '" data-cstat-tab="ogolny">Ogólny</button>'
+    + '<button type="button" class="cenTabBtn' + (tab==="sciezka"?' active':'') + '" data-cstat-tab="sciezka">🏮 Światło na ścieżce</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="drzewo"?' active':'') + '" data-cstat-tab="drzewo">🌳 Drzewo wzrostu</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="ksiegi"?' active':'') + '" data-cstat-tab="ksiegi">Według sekcji</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="serie"?' active':'') + '" data-cstat-tab="serie">Serie dni</button>'
     + '</div>';
+
+  if(tab === "sciezka"){
+    return _nagl + _centrWidokSciezkaSwiatla(planInfo, dniDone, _curSer, _bestSer);
+  }
 
   if(tab === "drzewo"){
     return _nagl + _centrWidokDrzewoWzrostu(planInfo, dniDone, _curSer, _bestSer);
@@ -61408,6 +61900,9 @@ if($("centrum")){
       if(widokBtn.dataset.clistaTab){
         _centrListaTab = widokBtn.dataset.clistaTab;
       }
+      if(widokBtn.dataset.cstatTab){
+        _centrStatTab = widokBtn.dataset.cstatTab;
+      }
       const planOtw = widokBtn.dataset.cplanOtworz;
       if(planOtw){
         _centrAktywnyPlanId = planOtw;
@@ -62009,6 +62504,19 @@ if($("centrum")){
           toast("Postęp planu został wyczyszczony. Zaczynasz od Dnia 1!", "ok");
           rysujCentrum();
         }
+        return;
+      }
+      // Przełączanie motywu wizualnego czytania
+      if(akcja.dataset.cakcja === "motyw-sciezka"){
+        _centrUstawMotywCzytania("sciezka");
+        toast("Włączono motyw: 🏮 Światło na ścieżce", "ok");
+        rysujCentrum();
+        return;
+      }
+      if(akcja.dataset.cakcja === "motyw-drzewo"){
+        _centrUstawMotywCzytania("drzewo");
+        toast("Włączono motyw: 🌳 Drzewo wzrostu", "ok");
+        rysujCentrum();
         return;
       }
       // Przypomnienia o planie czytania
