@@ -1,4 +1,13 @@
-## 5.0 — 2026-11-11 (Aktualizacja bieżąca — v608)
+## 5.0 — 2026-11-12 (Aktualizacja bieżąca — v609)
+
+- **Kinowa animacja żywego ognia i zapłonu latarni w motywie „Światło na ścieżce”:**
+  - **Silnik optyczny Canvas Cinemagraph:** Dodano dynamiczną warstwę oświetlenia w trybie mieszania `mix-blend-mode: screen`, która modeluje naturalne, żywe migotanie płomieni w lampionach. Animacja łączy wieloczęstotliwościowe oscylacje płomyków, subtelny dryf i poświatę wewnątrz szklanych kloszy z ciepłym rozproszonym światłem padającym na kamienny trakt i mech.
+  - **Mikrokalibracja współrzędnych i geometrii ognia:** Wszystkie 7 latarni stoi pewnie na podłożu wzdłuż leśnej ścieżki. Położenie płomienia pierwszej latarni pierwszego planu zostało precyzyjnie wyrównane z knotem świecy (`x: 359, y: 520`), a kształt rdzenia ognia zoptymalizowano do smukłej elipsy (teardrop) idealnie pokrywającej fizyczny płomień świecy.
+  - **Dynamiczny zapłon kolejnej latarni po osiągnięciu celu:** W momencie ukończenia czytania kolejnych dni i przejścia do nowego etapu postępu, nowo zapalona latarnia rozbłyskuje falą ciepłego światła, wypuszczając świetliste drobinki ku górze, a aplikacji towarzyszy toast informujący o rozświetleniu drogi.
+  - **Efektywność energetyczna:** Pętla animacji działa w oparciu o `requestAnimationFrame` z automatycznym wstrzymywaniem po opuszczeniu widoku lub przełączeniu na klasyczny motyw Drzewa, nie obciążając baterii ani procesora na urządzeniach mobilnych (iPad / iPhone) i komputerach Mac.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v609`.
+
+## 5.0 — 2026-11-11 (Wersja v608)
 
 - **Nowy motyw wizualny czytania Biblii: „Światło na ścieżce” (16:9):**
   - **Inspiracja biblijna (Psalm 119:105):** Wprowadzono nowy motyw graficzny oparty na słowach: *„Twoje słowo jest lampą dla moich stóp i światłem na mojej drodze”*. Postęp w czytaniu Biblii jest obrazowany przez fotorealistyczną ścieżkę biegnącą przez majestatyczny las, wzdłuż której zapalają się kolejne latarnie, a sceneria stopniowo rozjaśnia się od zmierzchu, przez poranek we mgle, aż po pełny słoneczny blask.
