@@ -1,4 +1,13 @@
-## 5.0 — 2026-11-12 (Aktualizacja bieżąca — v609)
+## 5.0 — 2026-11-12 (Aktualizacja bieżąca — v610)
+
+- **Czysta ilustracja 16:9, dedykowana karta motywacji i pełna eliminacja motywu drzewa:**
+  - **Czysty, niczym nieprzysłonięty kadr 16:9:** Usunięto z powierzchni ilustracji leśnej wszystkie ciemne gradienty i nakładki tekstowe. Na telefonach (np. iPhone) oraz tabletach grafika ścieżki i animowane płomienie latarni są w 100% odsłonięte i w pełni widoczne.
+  - **Dedykowana Karta Postępów i Motywacji pod ilustracją:** Wszystkie informacje o etapie, inspirujący cytat z Psalmu 119:105 (*„Twoje słowo jest lampą dla moich stóp i światłem na mojej drodze”*), pasek postępu z poziomem oświetlenia traktu (☀️), 7-punktowy tor zapalonych latarni oraz kafelki metryk czytania (ukończone, zaległe, pozostałe, seria) umieszczono w estetycznej, responsywnej karcie poniżej grafiki.
+  - **Całkowite wycofanie motywu drzewa i owoców ducha:** Zgodnie z decyzją projektową usunięto przełączniki motywów, zakładki oraz ponad 1100 linii nieużywanych definicji stylów i kodu SVG drzewa, koncentrując aplikację na spójnym motywie „Światło na ścieżce”.
+  - **Powiadomienia i toasty:** Dostosowano komunikaty gratulacyjne po ukończeniu dni do zapalania kolejnych latarni na ścieżce.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v610`.
+
+## 5.0 — 2026-11-12 (Wersja v609)
 
 - **Kinowa animacja żywego ognia i zapłonu latarni w motywie „Światło na ścieżce”:**
   - **Silnik optyczny Canvas Cinemagraph:** Dodano dynamiczną warstwę oświetlenia w trybie mieszania `mix-blend-mode: screen`, która modeluje naturalne, żywe migotanie płomieni w lampionach. Animacja łączy wieloczęstotliwościowe oscylacje płomyków, subtelny dryf i poświatę wewnątrz szklanych kloszy z ciepłym rozproszonym światłem padającym na kamienny trakt i mech.

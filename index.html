@@ -1494,257 +1494,7 @@ html[data-theme="dark"] .cenMapLinkBtn.primary:hover {
   color: var(--cen-text);
 }
 
-/* DRZEWO WZROSTU DUCHOWEGO / CZYTANIA (PSALM 1:3) */
-@keyframes cenTreeSway {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(0.95deg); }
-}
-@keyframes cenBranchSwayL {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(-1.25deg); }
-}
-@keyframes cenBranchSwayR {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(1.15deg); }
-}
-@keyframes cenRustle1 {
-  0%, 100% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(2deg) scale(1.02); }
-}
-@keyframes cenRustle2 {
-  0%, 100% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(-2.2deg) scale(0.98); }
-}
-@keyframes cenFruitPendulum {
-  0%, 100% { transform: rotate(-3.5deg); }
-  50% { transform: rotate(3.5deg); }
-}
-@keyframes cenFruitGlowPulse {
-  0%, 100% { filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.45)) drop-shadow(0 0 1px rgba(254, 240, 138, 0.7)); }
-  50% { filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.85)) drop-shadow(0 0 3px rgba(254, 240, 138, 0.95)); }
-}
-@keyframes cenSunBreathe {
-  0%, 100% { transform: scale(1); opacity: 0.88; }
-  50% { transform: scale(1.04); opacity: 1; }
-}
-@keyframes cenRaysShimmer {
-  0%, 100% { opacity: 0.05; }
-  50% { opacity: 0.11; }
-}
-@keyframes cenGlintMove1 {
-  0%, 100% { opacity: 0.25; transform: scaleX(0.85); }
-  50% { opacity: 0.85; transform: scaleX(1.15); }
-}
-@keyframes cenGlintMove2 {
-  0%, 100% { opacity: 0.75; transform: scaleX(1.1); }
-  50% { opacity: 0.3; transform: scaleX(0.9); }
-}
-@keyframes cenMoteFloatA {
-  0% { transform: translate(0, 0); opacity: 0; }
-  25% { opacity: 0.85; }
-  75% { opacity: 0.85; }
-  100% { transform: translate(14px, -28px); opacity: 0; }
-}
-@keyframes cenMoteFloatB {
-  0% { transform: translate(0, 0); opacity: 0; }
-  30% { opacity: 0.75; }
-  70% { opacity: 0.75; }
-  100% { transform: translate(-12px, -24px); opacity: 0; }
-}
-@keyframes cenGrassWave {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(2.5deg); }
-}
-@keyframes cenLeafBloom {
-  0% { transform: scale(0) rotate(-20deg); opacity: 0; filter: drop-shadow(0 0 10px #34d399); }
-  65% { transform: scale(1.3) rotate(5deg); opacity: 1; filter: drop-shadow(0 0 8px #34d399); }
-  100% { transform: scale(1) rotate(0deg); opacity: 1; filter: none; }
-}
-@keyframes cenLeafFall {
-  0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
-  30% { transform: translateY(60px) translateX(25px) rotate(45deg) scale(0.95); }
-  60% { transform: translateY(130px) translateX(-20px) rotate(110deg) scale(0.9); }
-  90% { transform: translateY(200px) translateX(15px) rotate(190deg) scale(0.85); opacity: 0.8; }
-  100% { transform: translateY(240px) translateX(5px) rotate(220deg) scale(0.8); opacity: 0.2; }
-}
-
-.cenDrzewoCard {
-  background: var(--cen-card-bg);
-  border: 1px solid var(--cen-card-border);
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: var(--cen-card-shadow);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 20px;
-}
-.cenDrzewoCytatBox {
-  margin-bottom: 16px;
-  padding: 12px 16px;
-  border-radius: 12px;
-  background: rgba(16, 185, 129, 0.08);
-  border-left: 3px solid #10b981;
-  font-size: 13px;
-  color: var(--cen-text-muted);
-  font-style: italic;
-  line-height: 1.5;
-}
-.cenDrzewoStage {
-  position: relative;
-  width: 100%;
-  max-width: 520px;
-  margin: 0 auto 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
-  border: 1px solid var(--cen-card-border);
-  background: #081426;
-}
-.cenDrzewoSvg {
-  width: 100%;
-  height: auto;
-  max-height: 380px;
-  display: block;
-}
-.cenDrzewoSway {
-  transform-origin: 240px 285px;
-  animation: cenTreeSway 8.5s ease-in-out infinite;
-}
-.cenBranchL {
-  transform-origin: 234px 196px;
-  animation: cenBranchSwayL 7s ease-in-out infinite;
-}
-.cenBranchR {
-  transform-origin: 246px 196px;
-  animation: cenBranchSwayR 7.5s ease-in-out infinite;
-}
-.cenLeafRustleA {
-  animation: cenRustle1 4.5s ease-in-out infinite;
-}
-.cenLeafRustleB {
-  animation: cenRustle2 5.2s ease-in-out infinite;
-}
-.cenFruitSway {
-  animation: cenFruitPendulum 4s ease-in-out infinite;
-}
-.cenDrzewoFruitGlow {
-  animation: cenFruitGlowPulse 3.2s ease-in-out infinite;
-  cursor: pointer;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.cenDrzewoFruitGlow:hover {
-  transform: scale(1.18);
-  filter: drop-shadow(0 0 16px rgba(245, 158, 11, 1)) drop-shadow(0 0 5px rgba(254, 240, 138, 1)) !important;
-}
-.cenSunCore {
-  transform-origin: 68px 52px;
-  animation: cenSunBreathe 6s ease-in-out infinite;
-}
-.cenSunRays {
-  animation: cenRaysShimmer 5s ease-in-out infinite;
-}
-.cenSparkle1 {
-  transform-origin: center;
-  animation: cenGlintMove1 3.5s ease-in-out infinite;
-}
-.cenSparkle2 {
-  transform-origin: center;
-  animation: cenGlintMove2 4.2s ease-in-out infinite;
-}
-.cenMote1 { animation: cenMoteFloatA 6s ease-in-out infinite; }
-.cenMote2 { animation: cenMoteFloatB 7s ease-in-out infinite 1.5s; }
-.cenMote3 { animation: cenMoteFloatA 5.5s ease-in-out infinite 3s; }
-.cenGrassTuft {
-  transform-origin: bottom center;
-  animation: cenGrassWave 5s ease-in-out infinite;
-}
-.cenDrzewoLeafNew {
-  transform-origin: center;
-  animation: cenLeafBloom 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-.cenDrzewoLeafFall {
-  transform-origin: center;
-  animation: cenLeafFall 2.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-.cenDrzewoHeaderRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-.cenDrzewoEtapBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: rgba(16, 185, 129, 0.15);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  color: #059669;
-  font-weight: 700;
-  font-size: 13px;
-}
-html[data-theme="dark"] .cenDrzewoEtapBadge {
-  color: #34d399;
-  background: rgba(16, 185, 129, 0.2);
-  border-color: rgba(16, 185, 129, 0.4);
-}
-.cenDrzewoStatsBar {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 10px;
-  margin-top: 16px;
-  width: 100%;
-}
-.cenDrzewoStatBox {
-  background: var(--cen-row-bg, rgba(0,0,0,0.03));
-  border: 1px solid var(--cen-card-border);
-  border-radius: 12px;
-  padding: 10px 14px;
-  text-align: center;
-}
-.cenDrzewoStatBoxLbl {
-  font-size: 11.5px;
-  color: var(--cen-text-muted);
-  font-weight: 500;
-  margin-bottom: 2px;
-}
-.cenDrzewoStatBoxVal {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--cen-text);
-}
-.cenMiniDrzewoBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: rgba(16, 185, 129, 0.12);
-  color: #059669;
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.14s ease;
-  text-decoration: none;
-}
-html[data-theme="dark"] .cenMiniDrzewoBadge {
-  color: #34d399;
-  background: rgba(16, 185, 129, 0.18);
-  border-color: rgba(16, 185, 129, 0.35);
-}
-.cenMiniDrzewoBadge:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.08);
-}
+/* Motyw czytania: Światło na ścieżce (Psalm 119:105) */
 .cenPlanReminderBadge {
   display: inline-flex;
   align-items: center;
@@ -1910,155 +1660,6 @@ html[data-theme="dark"] .cenRemPermAlert.default {
   color: var(--cen-text-muted);
 }
 
-.cenFruitGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 14px;
-  margin-top: 14px;
-}
-.cenFruitItem {
-  background: var(--cen-card-bg);
-  border: 1px solid var(--cen-card-border);
-  border-radius: 16px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  transition: all 0.2s ease;
-  box-shadow: var(--cen-card-shadow);
-}
-.cenFruitItem.unlocked {
-  border-color: rgba(16, 185, 129, 0.4);
-  background: linear-gradient(135deg, var(--cen-card-bg) 0%, rgba(16, 185, 129, 0.08) 100%);
-}
-.cenFruitItem.locked {
-  opacity: 0.55;
-  filter: grayscale(0.5);
-}
-.cenFruitIko {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  background: rgba(0, 0, 0, 0.04);
-}
-.cenFruitItem.unlocked .cenFruitIko {
-  background: rgba(16, 185, 129, 0.15);
-  box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
-}
-.cenFruitInfo {
-  flex: 1;
-  min-width: 0;
-}
-.cenFruitName {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--cen-text);
-  margin-bottom: 3px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.cenFruitDesc {
-  font-size: 12px;
-  color: var(--cen-text-muted);
-  line-height: 1.4;
-}
-.cenFruitBadge {
-  font-size: 10px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 999px;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-.cenFruitBadge.unlocked {
-  background: #10b981;
-  color: #ffffff;
-}
-.cenFruitBadge.locked {
-  background: var(--cen-row-bg, rgba(0,0,0,0.06));
-  color: var(--cen-text-muted);
-}
-
-/* Baner owoców w planie czytania */
-.cenFruitPlanBanner {
-  background: var(--cen-card-bg);
-  border: 1px solid var(--cen-card-border);
-  border-radius: 16px;
-  padding: 12px 16px;
-  margin-bottom: 16px;
-  box-shadow: var(--cen-card-shadow);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  flex-wrap: wrap;
-  cursor: pointer;
-  transition: all 0.16s ease;
-}
-.cenFruitPlanBanner:hover {
-  border-color: var(--accent);
-  transform: translateY(-1px);
-}
-.cenFruitPlanBannerLewo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.cenFruitPlanBannerIko {
-  font-size: 26px;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(16, 185, 129, 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.cenFruitPlanBannerTyt {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--cen-text);
-  margin-bottom: 2px;
-}
-.cenFruitPlanBannerSub {
-  font-size: 12px;
-  color: var(--cen-text-muted);
-}
-.cenFruitMiniRow {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-.cenFruitMiniDot {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--sel);
-  border: 1px solid var(--border);
-  transition: all 0.14s ease;
-}
-.cenFruitMiniDot.active {
-  background: rgba(16, 185, 129, 0.15);
-  border-color: rgba(16, 185, 129, 0.4);
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.25);
-}
-.cenFruitMiniDot.inactive {
-  opacity: 0.35;
-  filter: grayscale(1);
-}
-
 /* 🏮 ŚCIEŻKA ŚWIATŁA — SYSTEM WIZUALNY PLANU CZYTANIA BIBLII (PSALM 119:105) */
 .cenSciezkaHeroStage {
   position: relative;
@@ -2102,19 +1703,97 @@ html[data-theme="dark"] .cenRemPermAlert.default {
   z-index: 4;
   pointer-events: none;
 }
-.cenSciezkaOverlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 5;
-  padding: 24px 26px 18px;
-  background: linear-gradient(180deg, transparent 0%, rgba(6, 10, 18, 0.75) 40%, rgba(6, 10, 18, 0.98) 100%);
+.cenSciezkaProgressCard {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 18px;
+  padding: 20px 22px;
+  margin-top: 14px;
+  box-shadow: var(--cen-card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.cenSciezkaCardTop {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  gap: 14px;
+  align-items: flex-start;
+  gap: 16px;
   flex-wrap: wrap;
+}
+.cenSciezkaStageBadgeBox {
+  flex: 1 1 320px;
+}
+.cenSciezkaHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cenSciezkaHeaderTag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cenSciezkaPillTag {
+  font-size: 11.5px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #d97706;
+}
+html[data-theme="dark"] .cenSciezkaPillTag {
+  color: #fbbf24;
+}
+.cenSciezkaPlanName {
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--cen-text-muted);
+}
+.cenSciezkaSiatkaBtn {
+  background: var(--cen-row-bg, rgba(0,0,0,0.05));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--cen-text);
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+.cenSciezkaSiatkaBtn:hover {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #d97706;
+}
+.cenSciezkaCytatBox {
+  flex: 1 1 280px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(245, 158, 11, 0.08);
+  border-left: 3px solid #f59e0b;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--cen-text-muted);
+}
+.cenSciezkaCytatTekst {
+  font-style: italic;
+}
+.cenSciezkaCytatRef {
+  margin-top: 4px;
+  font-weight: 750;
+  color: #d97706;
+  font-size: 11.5px;
+}
+html[data-theme="dark"] .cenSciezkaCytatRef {
+  color: #fbbf24;
 }
 .cenSciezkaBadge {
   display: inline-block;
@@ -2124,72 +1803,110 @@ html[data-theme="dark"] .cenRemPermAlert.default {
   letter-spacing: 0.5px;
   padding: 3px 10px;
   border-radius: 999px;
-  background: rgba(245, 158, 11, 0.25);
-  border: 1px solid rgba(245, 158, 11, 0.55);
-  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.20);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  color: #d97706;
   margin-bottom: 4px;
 }
-.cenSciezkaTitle {
-  font-size: clamp(16px, 2.5vw, 22px);
-  font-weight: 850;
-  color: #ffffff;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.85);
-  line-height: 1.25;
-}
-.cenSciezkaDesc {
-  font-size: clamp(12px, 1.8vw, 13.5px);
-  color: #e2e8f0;
-  max-width: 620px;
-  margin-top: 3px;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.85);
-}
-.cenSciezkaMeters {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-.cenSciezkaMeterItem {
-  text-align: right;
-}
-.cenSciezkaMeterVal {
-  font-size: 17px;
-  font-weight: 850;
+html[data-theme="dark"] .cenSciezkaBadge {
   color: #fbbf24;
 }
-.cenSciezkaMeterLbl {
-  font-size: 10.5px;
+.cenSciezkaTitle {
+  font-size: clamp(17px, 2.2vw, 21px);
+  font-weight: 800;
+  color: var(--cen-text);
+  line-height: 1.25;
+  margin-top: 4px;
+}
+.cenSciezkaDesc {
+  font-size: 13px;
+  color: var(--cen-text-muted);
+  line-height: 1.45;
+  margin-top: 4px;
+  max-width: 680px;
+}
+.cenSciezkaProgressRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cenSciezkaProgressLabels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--cen-text);
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.cenSciezkaTrack {
+  background: var(--cen-row-bg, rgba(0,0,0,0.03));
+  border: 1px solid var(--cen-card-border);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+.cenSciezkaTrackHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--cen-text-muted);
+  margin-bottom: 10px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.75);
   letter-spacing: 0.5px;
 }
-.cenMotywToggleBox {
+.cenSciezkaTrackItems {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+@media (max-width: 600px) {
+  .cenSciezkaTrackItems {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.cenTrackLantern {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  background: var(--cen-row-bg, rgba(0,0,0,0.06));
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 3px;
-  gap: 4px;
-}
-.cenMotywToggleBtn {
-  background: transparent;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 9px;
-  font-size: 12px;
-  font-weight: 650;
-  color: var(--cen-text-muted);
-  cursor: pointer;
-  transition: all 0.16s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-.cenMotywToggleBtn.active {
+  justify-content: center;
+  padding: 8px 4px 6px;
+  border-radius: 10px;
   background: var(--card-bg, #ffffff);
-  color: var(--text, #111827);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  border: 1px solid var(--border);
+  opacity: 0.45;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.cenTrackLantern.is-lit {
+  opacity: 1.0;
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+}
+.cenTrackLantern.is-next {
+  opacity: 0.85;
+  border-color: #f59e0b;
+  border-style: dashed;
+}
+.cenTrackLanternIcon {
+  font-size: 16px;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.cenTrackLantern.is-lit .cenTrackLanternIcon {
+  filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.8));
+}
+.cenTrackLanternNum {
+  font-size: 11px;
   font-weight: 750;
+  color: var(--cen-text);
+  white-space: nowrap;
+}
+.cenTrackLanternPct {
+  font-size: 9.5px;
+  color: var(--cen-text-muted);
 }
 .cenMosaicGrid52 {
   display: grid;
@@ -23999,13 +23716,13 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v609)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v610)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v609</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v610</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v609) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v609</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v610) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v610</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -25785,7 +25502,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:26px;">🚀</span>
         <div>
-          <div id="clModalTitle" style="font-size:18px;font-weight:800;color:var(--text);">JW-Study 5.0 <span class="nwVerBadge" style="margin-left:6px;background:var(--accent);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px;font-weight:750;">v609</span></div>
+          <div id="clModalTitle" style="font-size:18px;font-weight:800;color:var(--text);">JW-Study 5.0 <span class="nwVerBadge" style="margin-left:6px;background:var(--accent);color:#fff;font-size:11px;padding:2px 7px;border-radius:6px;font-weight:750;">v610</span></div>
           <div style="font-size:12px;color:var(--muted);">Historia aktualizacji i stan pamięci podręcznej</div>
         </div>
       </div>
@@ -25797,7 +25514,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
     
     <div style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap;gap:10px;">
       <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;">
-        <span class="cenVerDot">●</span> Stan magazynu offline: <span id="changelogSwStatus" style="font-weight:700;color:var(--accent);">v609 (aktualna)</span>
+        <span class="cenVerDot">●</span> Stan magazynu offline: <span id="changelogSwStatus" style="font-weight:700;color:var(--accent);">v610 (aktualna)</span>
       </div>
       <div style="display:flex;gap:8px;">
         <button type="button" class="btn" id="btnChangelogRefreshSw" style="font-size:12.5px;">Wymuś odświeżenie 🔄</button>
@@ -26250,9 +25967,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v609";
+const APP_BUILD = "v610";
 const APP_BUILD_DATE = "2026-11-12";
-const APP_FULL_VERSION = "5.0 (v609)";
+const APP_FULL_VERSION = "5.0 (v610)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -46092,7 +45809,7 @@ function openSettings(){
        <div class="st-profil-preview-box">
          <div class="st-prev-row"><b>Powitanie na pulpicie:</b> <span id="stPrevGreeting">👋 ${powitanie}, <b>${esc(userName || "Użytkowniku")}</b>!</span></div>
          <div class="st-prev-row"><b>Gratulacje w planie czytania:</b> <span id="stPrevReading">✓ Wspaniale, <b>${esc(userName || "Użytkowniku")}</b>! Oznaczono czytanie jako ukończone.</span></div>
-         <div class="st-prev-row"><b>Owoce Ducha Świętego:</b> <span id="stPrevFruit">🌳 Brawo, <b>${esc(userName || "Użytkowniku")}</b>! Twoje drzewo wydało nowy owoc ducha.</span></div>
+         <div class="st-prev-row"><b>Światło na ścieżce:</b> <span id="stPrevLantern">🏮✨ Brawo, <b>${esc(userName || "Użytkowniku")}</b>! Rozbłysła kolejna latarnia na ścieżce.</span></div>
          <div class="st-prev-row"><b>Kopia zapasowa danych:</b> <span id="stPrevBackup">📦 Kopia notatek użytkownika ${esc(userName || "Użytkownik")}</span></div>
        </div>
      </div>
@@ -46158,9 +45875,9 @@ function openSettings(){
        <div class="st-hint">Ukrywa na chwilę kolumny Biblia, Etykiety i Publikacje. Centrum studium oraz lista notatek zajmują całą szerokość. Po powrocie boczne kolumny zachowują swoje ustawienia.</div>
      </div>
      <div class="st-sec">
-       <div class="st-lbl">Motyw wizualny planu czytania Biblii</div>
-       ${optionGroup("reading_theme", [["sciezka","🏮 Światło na ścieżce (16:9 las)"],["drzewo","🌳 Drzewo wzrostu"]], (typeof _centrPobierzMotywCzytania === "function" ? _centrPobierzMotywCzytania() : "sciezka"))}
-       <div class="st-hint">Wybierz główny motyw wizualizacji postępu w czytaniu Biblii: fotorealistyczną leśną ścieżkę z rozjaśniającym się światłem i lampionami (52 etapy w planie rocznym / 13 etapów w planie 90-dniowym) lub klasyczne drzewo z owocami ducha. W każdej chwili możesz przełączać motyw bezpośrednio w planie czytania.</div>
+       <div class="st-lbl">Wizualizacja planu czytania Biblii</div>
+       <div style="font-size:13px;font-weight:700;color:var(--text);margin:4px 0 6px;">🏮 Światło na ścieżce (16:9 las)</div>
+       <div class="st-hint">Wizualizacja postępu w czytaniu Biblii oparta na Psalmie 119:105 (<i>„Twoje słowo jest lampą dla moich stóp i światłem na mojej drodze”</i>) oraz Przysłów 4:18. Kolejne latarnie rozpalają się wzdłuż leśnego traktu w miarę postępów w czytaniu (52 etapy w planie rocznym / 13 etapów w planie 90-dniowym).</div>
      </div>
      <div class="st-sec">
        <div class="st-lbl">Układ listy notatek</div>
@@ -46325,7 +46042,7 @@ function openSettings(){
     if($("stProfilNameTitle")) $("stProfilNameTitle").textContent = nowe || "Użytkownik";
     if($("stPrevGreeting")) $("stPrevGreeting").innerHTML = `👋 ${pobierzPowitanieUzytkownika(nowe)}, <b>${esc(nowe || "Użytkowniku")}</b>!`;
     if($("stPrevReading")) $("stPrevReading").innerHTML = `✓ Wspaniale, <b>${esc(nowe || "Użytkowniku")}</b>! Oznaczono czytanie jako ukończone.`;
-    if($("stPrevFruit")) $("stPrevFruit").innerHTML = `🌳 Brawo, <b>${esc(nowe || "Użytkowniku")}</b>! Twoje drzewo wydało nowy owoc ducha.`;
+    if($("stPrevLantern")) $("stPrevLantern").innerHTML = `🏮✨ Brawo, <b>${esc(nowe || "Użytkowniku")}</b>! Rozbłysła kolejna latarnia na ścieżce.`;
     if($("stPrevBackup")) $("stPrevBackup").textContent = `📦 Kopia notatek użytkownika ${nowe || "Użytkownik"}`;
     if(typeof rysujCentrum === "function" && document.body.classList.contains("centrum-open")) rysujCentrum();
   };
@@ -46338,7 +46055,7 @@ function openSettings(){
       if($("stProfilNameTitle")) $("stProfilNameTitle").textContent = v || "Użytkownik";
       if($("stPrevGreeting")) $("stPrevGreeting").innerHTML = `👋 ${pobierzPowitanieUzytkownika(v)}, <b>${esc(v || "Użytkowniku")}</b>!`;
       if($("stPrevReading")) $("stPrevReading").innerHTML = `✓ Wspaniale, <b>${esc(v || "Użytkowniku")}</b>! Oznaczono czytanie jako ukończone.`;
-      if($("stPrevFruit")) $("stPrevFruit").innerHTML = `🌳 Brawo, <b>${esc(v || "Użytkowniku")}</b>! Twoje drzewo wydało nowy owoc ducha.`;
+      if($("stPrevLantern")) $("stPrevLantern").innerHTML = `🏮✨ Brawo, <b>${esc(v || "Użytkowniku")}</b>! Rozbłysła kolejna latarnia na ścieżce.`;
       if($("stPrevBackup")) $("stPrevBackup").textContent = `📦 Kopia notatek użytkownika ${v || "Użytkownik"}`;
     };
   }
@@ -52489,7 +52206,7 @@ const CENTR_KLUCZ = KP + "Centrum";        // "auto" albo "lista"
 const CENTR_WLACZONE = KP + "CentrumWl";   // "1" albo "0"
 const CENTR_UKLAD_KLUCZ = KP + "CentrumUklad306";
 const CENTR_WIDOK_KLUCZ = KP + "CentrumWidok308";
-const CENTR_WIDOKI = ["powitanie","centrum","czytanie-chronologiczne","dzien","lista-dni","kalendarz","statystyki","drzewo","moje-plany","studium-osobiste","temat-szczegoly","duchowe-cele","cele","projekty","kolejka","inbox","ostatnie","bezpieczenstwo"];
+const CENTR_WIDOKI = ["powitanie","centrum","czytanie-chronologiczne","dzien","lista-dni","kalendarz","statystyki","sciezka","moje-plany","studium-osobiste","temat-szczegoly","duchowe-cele","cele","projekty","kolejka","inbox","ostatnie","bezpieczenstwo"];
 
 const CEN_MODERN_ICO = {
   clock: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1em;height:1em;max-width:100%;max-height:100%;display:inline-block;vertical-align:middle;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
@@ -57248,731 +56965,17 @@ try {
   _centrZainicjujPetlePrzypomnien();
 } catch(e){}
 
-/* 8. Drzewo Wzrostu Duchowego / Czytania (Psalm 1:3; Galatów 5:22, 23) */
-function _centrPobierzOwoceDucha(totalDni){
-  totalDni = totalDni || 365;
-  const owoce = [
-    {
-      id: "apple",
-      num: 1,
-      name: "Miłość",
-      fruit: "Jabłko",
-      icon: "🍎",
-      color: "#ef4444",
-      x: 240, y: 138, hX: 240, hY: 110,
-      desc: "Symbol troski, ciepła i tego, co daje życie innym. Centralny owoc z sercem w środku, fundament chrześcijańskiej osobowości."
-    },
-    {
-      id: "orange",
-      num: 2,
-      name: "Radość",
-      fruit: "Pomarańcza",
-      icon: "🍊",
-      color: "#f97316",
-      x: 175, y: 155, hX: 175, hY: 135,
-      desc: "Żywy, słoneczny kolor kojarzący się z pogodą ducha, energią i wdzięcznością za prawdę ze Słowa Bożego."
-    },
-    {
-      id: "plum",
-      num: 3,
-      name: "Pokój",
-      fruit: "Śliwka",
-      icon: "🫐",
-      color: "#8b5cf6",
-      x: 305, y: 155, hX: 305, hY: 135,
-      desc: "Łagodna, chłodna barwa fioletu z woskowym nalotem; symbolizuje wewnętrzną harmonię i pokój Boży, który strzeże serca."
-    },
-    {
-      id: "pear",
-      num: 4,
-      name: "Cierpliwość",
-      fruit: "Gruszka",
-      icon: "🍐",
-      color: "#84cc16",
-      x: 128, y: 125, hX: 128, hY: 105,
-      desc: "Owoc, który potrzebuje czasu, by w pełni dojrzeć na słońcu. Pięknie obrazuje cierpliwe czekanie na właściwy moment."
-    },
-    {
-      id: "peach",
-      num: 5,
-      name: "Życzliwość",
-      fruit: "Brzoskwinia",
-      icon: "🍑",
-      color: "#fb923c",
-      x: 352, y: 125, hX: 352, hY: 105,
-      desc: "Aksamitna miękka skórka i delikatne barwy kojarzą się z ciepłem, serdecznością i delikatnym traktowaniem innych."
-    },
-    {
-      id: "lemon",
-      num: 6,
-      name: "Dobroć",
-      fruit: "Cytryna",
-      icon: "🍋",
-      color: "#eab308",
-      x: 200, y: 95, hX: 200, hY: 78,
-      desc: "Symbol dobra, które może przynieść korzyść innym, nawet jeśli wymaga wysiłku. Jasny kolor wnosi świeżość i kontrast."
-    },
-    {
-      id: "fig",
-      num: 7,
-      name: "Wiara",
-      fruit: "Figa",
-      icon: "🫒",
-      color: "#a855f7",
-      x: 280, y: 95, hX: 280, hY: 78,
-      desc: "Owoc z bogatym wnętrzem, które kryje się pod skórką. Symbolizuje głębokie przekonania i niezłomne zaufanie Bogu."
-    },
-    {
-      id: "apricot",
-      num: 8,
-      name: "Łagodność",
-      fruit: "Morela",
-      icon: "🍈",
-      color: "#f59e0b",
-      x: 155, y: 76, hX: 155, hY: 62,
-      desc: "Subtelny kolor i delikatny wygląd pasują do łagodnego usposobienia, spokojnych słów, taktu i pokory."
-    },
-    {
-      id: "pomegranate",
-      num: 9,
-      name: "Panowanie nad sobą",
-      fruit: "Granat",
-      icon: "👑",
-      color: "#e11d48",
-      x: 240, y: 52, hX: 240, hY: 38,
-      desc: "Owoc z mocną skórką chroniącą rubinowe wnętrze. Symbolizuje siłę charakteru, opanowanie i umiejętność kontrolowania swoich reakcji."
-    }
-  ];
+/* Zastąpiono dawny motyw drzewa nowoczesnym „Światło na ścieżce” (Psalm 119:105) */
+function _centrPobierzOwoceDucha(totalDni){ return []; }
+function _centrRysujOwocSvg(){ return ''; }
 
-  let milestones = [];
-  if (totalDni >= 300) {
-    milestones = [7, 21, 45, 90, 140, 190, 245, 305, totalDni];
-  } else if (totalDni >= 180) {
-    milestones = [7, 18, 35, 60, 90, 120, 145, 165, totalDni];
-  } else {
-    milestones = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => Math.max(1, Math.round((i / 9) * totalDni)));
-  }
+function _centrPobierzEtapDrzewa(){ return { name: "", short: "", desc: "" }; }
 
-  return owoce.map((o, idx) => ({
-    ...o,
-    day: milestones[idx] || (idx + 1)
-  }));
-}
+function _centrGenerujDrzewoGrowthSvg(){ return ''; }
 
-function _centrRysujOwocSvg(type, size){
-  size = size || 36;
-  const s = size;
-  if (type === "apple") {
-    // 1. Miłość — Jabłko z serduszkiem w środku
-    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
-      + '<defs><radialGradient id="fruitGradApple" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fca5a5"/><stop offset="40%" stop-color="#ef4444"/><stop offset="90%" stop-color="#b91c1c"/><stop offset="100%" stop-color="#7f1d1d"/></radialGradient></defs>'
-      + '<path d="M 18 8 Q 19 4, 23 2" stroke="#4d2c11" stroke-width="2" stroke-linecap="round"/>'
-      + '<path d="M 20 4 C 25 3, 27 6, 26 8 C 21 8, 20 5, 20 4 Z" fill="#22c55e" stroke="#15803d" stroke-width="0.8"/>'
-      + '<path d="M 18 10 C 13 5, 3 8, 4 19 C 5 28, 14 33, 18 34 C 22 33, 31 28, 32 19 C 33 8, 23 5, 18 10 Z" fill="url(#fruitGradApple)" stroke="#991b1b" stroke-width="1.2"/>'
-      + '<path d="M 18 17 C 16 14, 11 15, 12 20 C 13 24, 18 27, 18 27 C 18 27, 23 24, 24 20 C 25 15, 20 14, 18 17 Z" fill="#fef08a" stroke="#f59e0b" stroke-width="0.9" opacity="0.95"/>'
-      + '<circle cx="11" cy="14" r="2.5" fill="#ffffff" opacity="0.45"/>'
-      + '</svg>';
-  }
-  if (type === "orange") {
-    // 2. Radość — Pomarańcza ze szypułką
-    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
-      + '<defs><radialGradient id="fruitGradOrange" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fed7aa"/><stop offset="35%" stop-color="#fb923c"/><stop offset="85%" stop-color="#ea580c"/><stop offset="100%" stop-color="#9a3412"/></radialGradient></defs>'
-      + '<circle cx="18" cy="20" r="14" fill="url(#fruitGradOrange)" stroke="#c2410c" stroke-width="1.2"/>'
-      + '<path d="M 18 6 Q 18 3, 19 1" stroke="#3f230d" stroke-width="1.8" stroke-linecap="round"/>'
-      + '<polygon points="18,6 15,9 18,8 21,9" fill="#15803d"/>'
-      + '<polygon points="18,6 18,10 20,7 16,7" fill="#22c55e"/>'
-      + '<circle cx="12" cy="14" r="3" fill="#ffffff" opacity="0.35"/>'
-      + '</svg>';
-  }
-  if (type === "plum") {
-    // 3. Pokój — Śliwka z woskowym nalotem i listkiem
-    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
-      + '<defs><radialGradient id="fruitGradPlum" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#ddd6fe"/><stop offset="35%" stop-color="#a855f7"/><stop offset="85%" stop-color="#6b21a8"/><stop offset="100%" stop-color="#3b0764"/></radialGradient></defs>'
-      + '<path d="M 18 7 Q 20 3, 23 1" stroke="#4d2c11" stroke-width="1.8" stroke-linecap="round"/>'
-      + '<path d="M 20 4 C 25 3, 27 6, 25 8 C 21 8, 20 5, 20 4 Z" fill="#16a34a"/>'
-      + '<path d="M 18 8 C 9 9, 7 19, 10 27 C 13 33, 23 34, 26 27 C 29 19, 27 9, 18 8 Z" fill="url(#fruitGradPlum)" stroke="#4c1d95" stroke-width="1.2"/>'
-      + '<path d="M 18 9 Q 19 21, 18 32" stroke="#6d28d9" stroke-width="1" stroke-dasharray="2,2" opacity="0.6"/>'
-      + '<path d="M 12 12 Q 10 20, 13 25" stroke="#c4b5fd" stroke-width="1.8" stroke-linecap="round" opacity="0.45"/>'
-      + '</svg>';
-  }
-  if (type === "pear") {
-    // 4. Cierpliwość — Gruszka złocisto-zielona
-    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
-      + '<defs><radialGradient id="fruitGradPear" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fef08a"/><stop offset="40%" stop-color="#a3e635"/><stop offset="85%" stop-color="#65a30d"/><stop offset="100%" stop-color="#365314"/></radialGradient></defs>'
-      + '<path d="M 18 5 Q 19 2, 22 1" stroke="#4d2c11" stroke-width="1.8" stroke-linecap="round"/>'
-      + '<path d="M 18 5 C 13 5, 12 12, 10 17 C 7 24, 8 32, 18 33 C 28 32, 29 24, 26 17 C 24 12, 23 5, 18 5 Z" fill="url(#fruitGradPear)" stroke="#4d7c0f" stroke-width="1.2"/>'
-      + '<circle cx="13" cy="22" r="3" fill="#ffffff" opacity="0.35"/>'
-      + '</svg>';
-  }
-  if (type === "peach") {
-    // 5. Życzliwość — Brzoskwinia z aksamitnym rumieńcem
-    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
-      + '<defs><radialGradient id="fruitGradPeach" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fed7aa"/><stop offset="40%" stop-color="#fb923c"/><stop offset="85%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#be123c"/></radialGradient></defs>'
-      + '<path d="M 18 6 Q 19 3, 21 1" stroke="#4d2c11" stroke-width="1.8" stroke-linecap="round"/>'
-      + '<path d="M 18 6 C 12 6, 6 12, 7 21 C 8 29, 15 33, 18 33 C 21 33, 28 29, 29 21 C 30 12, 24 6, 18 6 Z" fill="url(#fruitGradPeach)" stroke="#ea580c" stroke-width="1.2"/>'
-      + '<path d="M 18 7 C 19 14, 18 24, 18 32" stroke="#c2410c" stroke-width="1.2" opacity="0.5"/>'
-      + '<circle cx="12" cy="15" r="3" fill="#ffffff" opacity="0.4"/>'
-      + '</svg>';
-  }
-  if (type === "lemon") {
-    // 6. Dobroć — Cytryna z listkami
-    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
-      + '<defs><radialGradient id="fruitGradLemon" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fef9c3"/><stop offset="40%" stop-color="#fde047"/><stop offset="85%" stop-color="#eab308"/><stop offset="100%" stop-color="#854d0e"/></radialGradient></defs>'
-      + '<path d="M 8 18 C 9 10, 27 10, 28 18 C 27 26, 9 26, 8 18 Z" transform="rotate(-30 18 18)" fill="url(#fruitGradLemon)" stroke="#ca8a04" stroke-width="1.2"/>'
-      + '<circle cx="5" cy="22" r="1.5" fill="#ca8a04"/>'
-      + '<circle cx="31" cy="14" r="1.5" fill="#ca8a04"/>'
-      + '<circle cx="16" cy="14" r="2.5" fill="#ffffff" opacity="0.5"/>'
-      + '</svg>';
-  }
-  if (type === "fig") {
-    // 7. Wiara — Figa z rozciętym wnętrzem
-    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
-      + '<defs><radialGradient id="fruitGradFig" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#f5d0fe"/><stop offset="35%" stop-color="#c084fc"/><stop offset="85%" stop-color="#7e22ce"/><stop offset="100%" stop-color="#3b0764"/></radialGradient></defs>'
-      + '<path d="M 18 4 Q 18 1, 19 0" stroke="#4d2c11" stroke-width="1.8"/>'
-      + '<path d="M 18 5 C 14 5, 8 14, 8 22 C 8 29, 14 34, 18 34 C 22 34, 28 29, 28 22 C 28 14, 22 5, 18 5 Z" fill="url(#fruitGradFig)" stroke="#581c87" stroke-width="1.2"/>'
-      + '<ellipse cx="18" cy="23" rx="6" ry="7" fill="#f43f5e" stroke="#fda4af" stroke-width="0.8"/>'
-      + '<circle cx="16" cy="21" r="0.8" fill="#fef08a"/>'
-      + '<circle cx="19" cy="20" r="0.8" fill="#fef08a"/>'
-      + '<circle cx="18" cy="24" r="0.8" fill="#fef08a"/>'
-      + '<circle cx="17" cy="26" r="0.8" fill="#fef08a"/>'
-      + '</svg>';
-  }
-  if (type === "apricot") {
-    // 8. Łagodność — Morela złocista
-    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
-      + '<defs><radialGradient id="fruitGradApricot" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fef3c7"/><stop offset="40%" stop-color="#fbbf24"/><stop offset="85%" stop-color="#d97706"/><stop offset="100%" stop-color="#78350f"/></radialGradient></defs>'
-      + '<path d="M 18 7 Q 19 4, 21 2" stroke="#4d2c11" stroke-width="1.8"/>'
-      + '<circle cx="18" cy="20" r="13" fill="url(#fruitGradApricot)" stroke="#d97706" stroke-width="1.2"/>'
-      + '<path d="M 18 8 Q 19 18, 17 31" stroke="#b45309" stroke-width="1.2" opacity="0.6"/>'
-      + '<circle cx="12" cy="15" r="2.5" fill="#ffffff" opacity="0.45"/>'
-      + '</svg>';
-  }
-  if (type === "pomegranate") {
-    // 9. Panowanie nad sobą — Granat z koroną
-    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 36 36" fill="none" style="display:block;">'
-      + '<defs><radialGradient id="fruitGradPom" cx="35%" cy="35%" r="65%"><stop offset="0%" stop-color="#fecdd3"/><stop offset="40%" stop-color="#f43f5e"/><stop offset="85%" stop-color="#be123c"/><stop offset="100%" stop-color="#881337"/></radialGradient></defs>'
-      + '<polygon points="14,8 18,3 22,8 20,9 18,6 16,9" fill="#9f1239" stroke="#881337" stroke-width="0.8"/>'
-      + '<circle cx="18" cy="21" r="13" fill="url(#fruitGradPom)" stroke="#881337" stroke-width="1.2"/>'
-      + '<path d="M 21 15 C 27 17, 28 25, 23 27 C 20 25, 19 18, 21 15 Z" fill="#fbcfe8" stroke="#be123c" stroke-width="0.8"/>'
-      + '<circle cx="23" cy="19" r="1.3" fill="#be123c"/>'
-      + '<circle cx="25" cy="22" r="1.3" fill="#9f1239"/>'
-      + '<circle cx="22" cy="23" r="1.3" fill="#be123c"/>'
-      + '<circle cx="12" cy="15" r="2.5" fill="#ffffff" opacity="0.4"/>'
-      + '</svg>';
-  }
-  return '';
-}
-
-function _centrPobierzEtapDrzewa(doneCount, totalDni){
-  doneCount = doneCount || 0;
-  totalDni = totalDni || 365;
-  const owoce = _centrPobierzOwoceDucha(totalDni);
-  const zdobyte = owoce.filter(o => doneCount >= o.day).length;
-  if(zdobyte === 9) return { name: "Wspaniałe Drzewo Życia (9/9 owoców)", short: "Drzewo Życia 👑", desc: "Ukończyłeś cały plan czytania! Twoje drzewo w pełni obrodziło we wszystkie 9 owoców ducha." };
-  if(zdobyte >= 7) return { name: "Dojrzałe Drzewo Wiary (" + zdobyte + "/9 owoców)", short: "Dojrzałe Drzewo 🫒", desc: "Głęboko zakorzenione, silne drzewo, na którym dojrzewają najcenniejsze owoce regularnego studium." };
-  if(zdobyte >= 4) return { name: "Rozłożyste Drzewo Cierpliwości (" + zdobyte + "/9 owoców)", short: "Rozłożyste Drzewo 🍐", desc: "Drzewo dynamicznie rozrasta się w koronę, a gałęzie uginają się od kolejnych owoców." };
-  if(zdobyte >= 1) return { name: "Młode Drzewo Miłości (" + zdobyte + "/9 owoców)", short: "Młode Drzewo 🍎", desc: "Pierwsze owoce ducha wyrosły na silnych gałęziach dzięki regularnemu czytaniu Biblii." };
-  if(doneCount >= 1) return { name: "Wschodzący Kiełek", short: "Kiełek 🌱", desc: "Zasiane ziarno wykiełkowało nad strumieniem żywej wody i wypuszcza pierwsze pędy." };
-  return { name: "Zasiane Ziarno", short: "Zasiane Ziarno 🌱", desc: "Rozpocznij czytanie planu, aby Twoje drzewo zaczęło wzrastać i rodzić owoce ducha każdego dnia." };
-}
-
-function _centrGenerujDrzewoGrowthSvg(totalDni, doneCount, curSer, bestSer, animujNowy){
-  totalDni = totalDni || 365;
-  doneCount = doneCount || 0;
-  curSer = curSer || 0;
-  bestSer = bestSer || 0;
-  const pct = totalDni > 0 ? (doneCount / totalDni) : 0;
-  const maturity = Math.min(1.0, doneCount / 180.0);
-
-  // DEFS: Gradienty, Swiatlo, Filtry i Kolory Owocow
-  let defs = '<defs>'
-    + '<linearGradient id="cenSkyGrad" x1="0%" y1="0%" x2="0%" y2="100%">'
-    + '<stop offset="0%" stop-color="#0a1d33"/>'
-    + '<stop offset="26%" stop-color="#12344f"/>'
-    + '<stop offset="56%" stop-color="#184a56"/>'
-    + '<stop offset="80%" stop-color="#24645c"/>'
-    + '<stop offset="100%" stop-color="#467c69"/>'
-    + '</linearGradient>'
-
-    + '<radialGradient id="cenSunAura" cx="50%" cy="50%" r="50%">'
-    + '<stop offset="0%" stop-color="#fef08a" stop-opacity="0.85"/>'
-    + '<stop offset="35%" stop-color="#f59e0b" stop-opacity="0.45"/>'
-    + '<stop offset="70%" stop-color="#d97706" stop-opacity="0.12"/>'
-    + '<stop offset="100%" stop-color="#d97706" stop-opacity="0"/>'
-    + '</radialGradient>'
-
-    + '<linearGradient id="cenTrunkGrad" x1="0%" y1="0%" x2="100%" y2="0%">'
-    + '<stop offset="0%" stop-color="#261406"/>'
-    + '<stop offset="22%" stop-color="#3d200c"/>'
-    + '<stop offset="60%" stop-color="#593014"/>'
-    + '<stop offset="85%" stop-color="#733f1b"/>'
-    + '<stop offset="100%" stop-color="#8a4d22"/>'
-    + '</linearGradient>'
-
-    + '<linearGradient id="cenBranchGrad" x1="0%" y1="100%" x2="100%" y2="0%">'
-    + '<stop offset="0%" stop-color="#2c1607"/>'
-    + '<stop offset="50%" stop-color="#522b11"/>'
-    + '<stop offset="100%" stop-color="#75411c"/>'
-    + '</linearGradient>'
-
-    + '<radialGradient id="cenCanopyDeep" cx="40%" cy="40%" r="60%">'
-    + '<stop offset="0%" stop-color="#065f46"/>'
-    + '<stop offset="60%" stop-color="#064e3b"/>'
-    + '<stop offset="100%" stop-color="#022c22"/>'
-    + '</radialGradient>'
-
-    + '<radialGradient id="cenCanopyMid" cx="35%" cy="35%" r="65%">'
-    + '<stop offset="0%" stop-color="#34d399"/>'
-    + '<stop offset="35%" stop-color="#10b981"/>'
-    + '<stop offset="75%" stop-color="#059669"/>'
-    + '<stop offset="100%" stop-color="#047857"/>'
-    + '</radialGradient>'
-
-    + '<radialGradient id="cenCanopySun" cx="30%" cy="30%" r="70%">'
-    + '<stop offset="0%" stop-color="#bef264"/>'
-    + '<stop offset="35%" stop-color="#84cc16"/>'
-    + '<stop offset="75%" stop-color="#10b981"/>'
-    + '<stop offset="100%" stop-color="#059669" stop-opacity="0"/>'
-    + '</radialGradient>'
-
-    + '<linearGradient id="cenLeafGradA" x1="0%" y1="0%" x2="100%" y2="100%">'
-    + '<stop offset="0%" stop-color="#a7f3d0"/>'
-    + '<stop offset="45%" stop-color="#22c55e"/>'
-    + '<stop offset="100%" stop-color="#15803d"/>'
-    + '</linearGradient>'
-
-    + '<linearGradient id="cenLeafGradB" x1="0%" y1="0%" x2="100%" y2="100%">'
-    + '<stop offset="0%" stop-color="#bef264"/>'
-    + '<stop offset="45%" stop-color="#84cc16"/>'
-    + '<stop offset="100%" stop-color="#4d7c0f"/>'
-    + '</linearGradient>'
-
-    + '<linearGradient id="cenLeafGradC" x1="0%" y1="0%" x2="100%" y2="100%">'
-    + '<stop offset="0%" stop-color="#6ee7b7"/>'
-    + '<stop offset="50%" stop-color="#10b981"/>'
-    + '<stop offset="100%" stop-color="#047857"/>'
-    + '</linearGradient>'
-
-    + '<linearGradient id="cenBankGrad" x1="0%" y1="0%" x2="0%" y2="100%">'
-    + '<stop offset="0%" stop-color="#15803d"/>'
-    + '<stop offset="35%" stop-color="#166534"/>'
-    + '<stop offset="75%" stop-color="#14532d"/>'
-    + '<stop offset="100%" stop-color="#052e16"/>'
-    + '</linearGradient>'
-
-    + '<linearGradient id="cenWaterGrad" x1="0%" y1="0%" x2="100%" y2="0%">'
-    + '<stop offset="0%" stop-color="#0284c7" stop-opacity="0.88"/>'
-    + '<stop offset="35%" stop-color="#0ea5e9" stop-opacity="0.98"/>'
-    + '<stop offset="70%" stop-color="#38bdf8" stop-opacity="0.95"/>'
-    + '<stop offset="100%" stop-color="#0369a1" stop-opacity="0.9"/>'
-    + '</linearGradient>'
-
-    + '<radialGradient id="fruitGradApple" cx="35%" cy="35%" r="65%">'
-    + '<stop offset="0%" stop-color="#fca5a5"/>'
-    + '<stop offset="40%" stop-color="#ef4444"/>'
-    + '<stop offset="90%" stop-color="#b91c1c"/>'
-    + '<stop offset="100%" stop-color="#7f1d1d"/>'
-    + '</radialGradient>'
-    + '<radialGradient id="fruitGradOrange" cx="35%" cy="35%" r="65%">'
-    + '<stop offset="0%" stop-color="#fed7aa"/>'
-    + '<stop offset="35%" stop-color="#fb923c"/>'
-    + '<stop offset="85%" stop-color="#ea580c"/>'
-    + '<stop offset="100%" stop-color="#9a3412"/>'
-    + '</radialGradient>'
-    + '<radialGradient id="fruitGradPlum" cx="35%" cy="35%" r="65%">'
-    + '<stop offset="0%" stop-color="#ddd6fe"/>'
-    + '<stop offset="35%" stop-color="#a855f7"/>'
-    + '<stop offset="85%" stop-color="#6b21a8"/>'
-    + '<stop offset="100%" stop-color="#3b0764"/>'
-    + '</radialGradient>'
-    + '<radialGradient id="fruitGradPear" cx="35%" cy="35%" r="65%">'
-    + '<stop offset="0%" stop-color="#fef08a"/>'
-    + '<stop offset="40%" stop-color="#a3e635"/>'
-    + '<stop offset="85%" stop-color="#65a30d"/>'
-    + '<stop offset="100%" stop-color="#365314"/>'
-    + '</radialGradient>'
-    + '<radialGradient id="fruitGradPeach" cx="35%" cy="35%" r="65%">'
-    + '<stop offset="0%" stop-color="#fed7aa"/>'
-    + '<stop offset="40%" stop-color="#fb923c"/>'
-    + '<stop offset="85%" stop-color="#f43f5e"/>'
-    + '<stop offset="100%" stop-color="#be123c"/>'
-    + '</radialGradient>'
-    + '<radialGradient id="fruitGradLemon" cx="35%" cy="35%" r="65%">'
-    + '<stop offset="0%" stop-color="#fef9c3"/>'
-    + '<stop offset="40%" stop-color="#fde047"/>'
-    + '<stop offset="85%" stop-color="#eab308"/>'
-    + '<stop offset="100%" stop-color="#854d0e"/>'
-    + '</radialGradient>'
-    + '<radialGradient id="fruitGradFig" cx="35%" cy="35%" r="65%">'
-    + '<stop offset="0%" stop-color="#f5d0fe"/>'
-    + '<stop offset="35%" stop-color="#c084fc"/>'
-    + '<stop offset="85%" stop-color="#7e22ce"/>'
-    + '<stop offset="100%" stop-color="#3b0764"/>'
-    + '</radialGradient>'
-    + '<radialGradient id="fruitGradApricot" cx="35%" cy="35%" r="65%">'
-    + '<stop offset="0%" stop-color="#fef3c7"/>'
-    + '<stop offset="40%" stop-color="#fbbf24"/>'
-    + '<stop offset="85%" stop-color="#d97706"/>'
-    + '<stop offset="100%" stop-color="#78350f"/>'
-    + '</radialGradient>'
-    + '<radialGradient id="fruitGradPom" cx="35%" cy="35%" r="65%">'
-    + '<stop offset="0%" stop-color="#fecdd3"/>'
-    + '<stop offset="40%" stop-color="#f43f5e"/>'
-    + '<stop offset="85%" stop-color="#be123c"/>'
-    + '<stop offset="100%" stop-color="#4c0519"/>'
-    + '</radialGradient>'
-
-    + '<filter id="cenBlurSoft">'
-    + '<feGaussianBlur stdDeviation="1.8"/>'
-    + '</filter>'
-    + '</defs>';
-
-  // KRAJOBRAZ: Zlote slonce z animacja oddychania, promienie, wzgorza i pylki swiatla
-  let landscapeSvg = '<!-- Tlo Krajobrazu -->'
-    + '<rect width="480" height="274" fill="url(#cenSkyGrad)"/>'
-    + '<g class="cenSunCore">'
-    + '<circle cx="68" cy="52" r="85" fill="url(#cenSunAura)"/>'
-    + '<circle cx="68" cy="52" r="28" fill="#fef08a" opacity="0.35" filter="url(#cenBlurSoft)"/>'
-    + '<circle cx="68" cy="52" r="14" fill="#fef08a"/>'
-    + '<circle cx="68" cy="52" r="6" fill="#ffffff"/>'
-    + '</g>'
-    + '<g class="cenSunRays">'
-    + '<polygon points="68,52 140,240 210,240 75,52" fill="#fef08a"/>'
-    + '<polygon points="68,52 230,210 300,210 75,52" fill="#fef08a"/>'
-    + '</g>'
-    + '<path d="M 0 242 Q 110 216, 210 236 T 410 224 T 480 238 L 480 274 L 0 274 Z" fill="#0c2f29" opacity="0.75"/>'
-    + '<path d="M 0 254 Q 140 232, 270 252 T 480 246 L 480 274 L 0 274 Z" fill="#0e3d32" opacity="0.9"/>'
-    + '<path d="M 0 274 Q 240 248, 480 274 L 480 286 L 0 286 Z" fill="url(#cenBankGrad)"/>'
-    + '<g class="cenGrassTuft">'
-    + '<path d="M 110 264 Q 113 255, 116 265 M 114 264 Q 117 253, 120 265" stroke="#34d399" stroke-width="1.8" stroke-linecap="round" fill="none"/>'
-    + '<circle cx="135" cy="264" r="2.2" fill="#f43f5e" opacity="0.9"/>'
-    + '</g>'
-    + '<g class="cenGrassTuft" style="animation-delay: 1.5s;">'
-    + '<path d="M 360 265 Q 363 256, 366 266 M 364 265 Q 367 254, 370 266" stroke="#34d399" stroke-width="1.8" stroke-linecap="round" fill="none"/>'
-    + '<circle cx="340" cy="265" r="2.2" fill="#facc15" opacity="0.9"/>'
-    + '<circle cx="295" cy="268" r="2.2" fill="#38bdf8" opacity="0.9"/>'
-    + '</g>'
-    + '<g>'
-    + '<circle cx="170" cy="190" r="1.6" fill="#fef08a" class="cenMote1"/>'
-    + '<circle cx="270" cy="160" r="1.4" fill="#fde047" class="cenMote2"/>'
-    + '<circle cx="220" cy="110" r="1.8" fill="#fef08a" class="cenMote3"/>'
-    + '</g>';
-
-  let treeGraphic = '';
-
-  if (doneCount === 0) {
-    treeGraphic = '<g>'
-      + '<circle cx="240" cy="265" r="32" fill="url(#cenSunAura)" opacity="0.6"/>'
-      + '<circle cx="240" cy="265" r="14" fill="#fbbf24" opacity="0.7" filter="url(#cenBlurSoft)"/>'
-      + '<path d="M 235 268 C 235 261, 240 256, 240 256 C 240 256, 245 261, 245 268 C 245 272, 241 274, 238 274 C 235 274, 235 271, 235 268 Z" fill="#f59e0b" stroke="#78350f" stroke-width="1.2"/>'
-      + '<circle cx="238.5" cy="265" r="1.5" fill="#ffffff" opacity="0.95"/>'
-      + '<rect x="150" y="210" width="180" height="26" rx="13" fill="rgba(15, 23, 42, 0.85)" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1"/>'
-      + '<text x="240" y="227" fill="#fef08a" font-size="11.5px" font-weight="700" text-anchor="middle" letter-spacing="0.5">Zasiane Ziarno Nadziei 🌱</text>'
-      + '</g>';
-  } else if (doneCount < 7) {
-    const sproutH = Math.min(52, 22 + doneCount * 4.8);
-    const topY = 270 - sproutH;
-    treeGraphic = '<g>'
-      + '<circle cx="240" cy="' + topY + '" r="28" fill="url(#cenSunAura)" opacity="0.45"/>'
-      + '<path d="M 240 272 Q 235 280, 230 286 M 240 272 Q 245 280, 250 286" stroke="#5c381e" stroke-width="1.6" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 240 272 Q 237 ' + (272 - sproutH * 0.5) + ', 240 ' + topY + '" stroke="#10b981" stroke-width="3.8" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 240 ' + topY + ' C 224 ' + (topY - 12) + ', 216 ' + (topY + 5) + ', 240 ' + (topY + 7) + ' Z" fill="url(#cenLeafGradA)" stroke="#064e3b" stroke-width="0.9" class="cenLeafRustleA"/>'
-      + '<path d="M 240 ' + topY + ' C 256 ' + (topY - 12) + ', 264 ' + (topY + 5) + ', 240 ' + (topY + 7) + ' Z" fill="url(#cenLeafGradC)" stroke="#064e3b" stroke-width="0.9" class="cenLeafRustleB"/>'
-      + (doneCount >= 3 ? (
-        '<path d="M 240 ' + (topY + 14) + ' C 225 ' + (topY + 6) + ', 218 ' + (topY + 16) + ', 240 ' + (topY + 18) + ' Z" fill="url(#cenLeafGradB)" stroke="#064e3b" stroke-width="0.8" class="cenLeafRustleA"/>'
-        + '<path d="M 240 ' + (topY + 14) + ' C 255 ' + (topY + 6) + ', 262 ' + (topY + 16) + ', 240 ' + (topY + 18) + ' Z" fill="url(#cenLeafGradA)" stroke="#064e3b" stroke-width="0.8" class="cenLeafRustleB"/>'
-      ) : '')
-      + '<circle cx="240" cy="' + (topY - 2) + '" r="2.2" fill="#ffffff" opacity="0.95" filter="url(#cenBlurSoft)"/>'
-      + '</g>';
-  } else {
-    const cScale = Math.min(1.0, 0.52 + maturity * 0.48);
-    const trunkW = 16 + maturity * 14;
-
-    let canopySvg = '<g class="cenCanopyGroup" opacity="' + (0.58 + maturity * 0.42).toFixed(2) + '">';
-    function renderCanopyMass(cx, cy, rx, ry, animClass) {
-      return '<g class="' + (animClass || '') + '">'
-        + '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + (rx * cScale).toFixed(1) + '" ry="' + (ry * cScale).toFixed(1) + '" fill="url(#cenCanopyDeep)" opacity="0.85"/>'
-        + '<ellipse cx="' + (cx - rx * 0.15) + '" cy="' + (cy - ry * 0.15) + '" rx="' + (rx * 0.85 * cScale).toFixed(1) + '" ry="' + (ry * 0.85 * cScale).toFixed(1) + '" fill="url(#cenCanopyMid)" opacity="0.85"/>'
-        + '<ellipse cx="' + (cx - rx * 0.3) + '" cy="' + (cy - ry * 0.3) + '" rx="' + (rx * 0.65 * cScale).toFixed(1) + '" ry="' + (ry * 0.65 * cScale).toFixed(1) + '" fill="url(#cenCanopySun)" opacity="0.75"/>'
-        + '</g>';
-    }
-
-    canopySvg += renderCanopyMass(240, 135, 68, 50, '');
-    canopySvg += renderCanopyMass(160, 145, 58, 44, 'cenLeafRustleA');
-    canopySvg += renderCanopyMass(320, 145, 58, 44, 'cenLeafRustleB');
-    canopySvg += renderCanopyMass(185, 105, 50, 40, 'cenLeafRustleA');
-    canopySvg += renderCanopyMass(295, 105, 50, 40, 'cenLeafRustleB');
-    canopySvg += renderCanopyMass(240, 80, 56, 42, '');
-    canopySvg += renderCanopyMass(125, 185, 42, 32, 'cenLeafRustleA');
-    canopySvg += renderCanopyMass(355, 185, 42, 32, 'cenLeafRustleB');
-    canopySvg += '</g>';
-
-    let trunkSvg = '<!-- Korzenie czerpiace ze strumienia -->'
-      + '<path d="M ' + (240 - trunkW * 0.55).toFixed(1) + ' 272 Q 195 278, 160 288 M 195 282 Q 170 292, 145 296" stroke="url(#cenTrunkGrad)" stroke-width="' + (4.2 + maturity * 2).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M ' + (240 + trunkW * 0.55).toFixed(1) + ' 272 Q 285 278, 320 288 M 285 282 Q 310 292, 335 296" stroke="url(#cenTrunkGrad)" stroke-width="' + (4.2 + maturity * 2).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 240 274 Q 238 288, 242 298" stroke="#3d200c" stroke-width="3.2" stroke-linecap="round" fill="none"/>'
-      + '<!-- Masywny Pien Oliwkowy -->'
-      + '<path d="M ' + (240 - trunkW * 0.65).toFixed(1) + ' 274 C ' + (238 - trunkW * 0.4).toFixed(1) + ' 245, 233 220, 234 196 C 240 195, 246 195, 246 196 C 247 220, ' + (242 + trunkW * 0.4).toFixed(1) + ' 245, ' + (240 + trunkW * 0.65).toFixed(1) + ' 274 Z" fill="url(#cenTrunkGrad)"/>'
-      + '<path d="M ' + (240 - trunkW * 0.62).toFixed(1) + ' 274 C ' + (238 - trunkW * 0.38).toFixed(1) + ' 245, 233 220, 234 196" stroke="#d97706" stroke-width="1.8" fill="none" opacity="0.75"/>'
-      + '<path d="M ' + (240 - trunkW * 0.15).toFixed(1) + ' 274 C ' + (238 - trunkW * 0.05).toFixed(1) + ' 245, 237 220, 238 196" stroke="#261406" stroke-width="1.5" fill="none" opacity="0.6"/>'
-      + '<path d="M ' + (240 + trunkW * 0.25).toFixed(1) + ' 274 C ' + (240 + trunkW * 0.15).toFixed(1) + ' 245, 241 220, 242 196" stroke="#3d200c" stroke-width="1.2" fill="none" opacity="0.5"/>';
-
-    const bW = 1.0 + maturity * 0.35;
-
-    // Architektura galezi z podzialem na animowane grupy
-    let branchLeftSvg = '<g class="cenBranchL">'
-      + '<path d="M 234 196 C 205 186, 175 174, 150 156" stroke="url(#cenTrunkGrad)" stroke-width="' + (7.5 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 234 194 C 205 184, 175 172, 150 154" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6"/>'
-      + '<path d="M 200 182 C 175 186, 150 190, 130 198" stroke="url(#cenBranchGrad)" stroke-width="' + (4.6 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 130 198 Q 115 204, 102 210" stroke="url(#cenBranchGrad)" stroke-width="' + (2.4 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 130 198 Q 120 190, 112 184" stroke="url(#cenBranchGrad)" stroke-width="' + (2.2 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 150 156 C 135 152, 120 148, 105 146" stroke="url(#cenBranchGrad)" stroke-width="' + (4.2 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 105 146 Q 92 142, 82 140" stroke="url(#cenBranchGrad)" stroke-width="' + (2.2 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 105 146 Q 98 155, 92 162" stroke="url(#cenBranchGrad)" stroke-width="' + (2.0 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 150 156 C 146 138, 142 122, 138 108" stroke="url(#cenBranchGrad)" stroke-width="' + (4.0 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 138 108 Q 126 96, 118 88" stroke="url(#cenBranchGrad)" stroke-width="' + (2.2 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 138 108 Q 148 96, 156 86" stroke="url(#cenBranchGrad)" stroke-width="' + (2.0 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '</g>';
-
-    let branchRightSvg = '<g class="cenBranchR">'
-      + '<path d="M 246 196 C 275 186, 305 174, 330 156" stroke="url(#cenTrunkGrad)" stroke-width="' + (7.5 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 246 194 C 275 184, 305 172, 330 154" stroke="#d97706" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>'
-      + '<path d="M 280 182 C 305 186, 330 190, 350 198" stroke="url(#cenBranchGrad)" stroke-width="' + (4.6 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 350 198 Q 365 204, 378 210" stroke="url(#cenBranchGrad)" stroke-width="' + (2.4 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 350 198 Q 360 190, 368 184" stroke="url(#cenBranchGrad)" stroke-width="' + (2.2 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 330 156 C 345 152, 360 148, 375 146" stroke="url(#cenBranchGrad)" stroke-width="' + (4.2 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 375 146 Q 388 142, 398 140" stroke="url(#cenBranchGrad)" stroke-width="' + (2.2 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 375 146 Q 382 155, 388 162" stroke="url(#cenBranchGrad)" stroke-width="' + (2.0 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 330 156 C 334 138, 338 122, 342 108" stroke="url(#cenBranchGrad)" stroke-width="' + (4.0 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 342 108 Q 354 96, 362 88" stroke="url(#cenBranchGrad)" stroke-width="' + (2.2 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 342 108 Q 332 96, 324 86" stroke="url(#cenBranchGrad)" stroke-width="' + (2.0 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '</g>';
-
-    let branchCenterSvg = '<g>'
-      + '<path d="M 240 196 C 239 175, 239 155, 240 136" stroke="url(#cenTrunkGrad)" stroke-width="' + (6.8 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 239 196 C 238 175, 238 155, 239 136" stroke="#d97706" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="0.6"/>'
-      + '<path d="M 240 156 C 224 145, 208 135, 192 125" stroke="url(#cenBranchGrad)" stroke-width="' + (4.2 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 192 125 Q 178 116, 168 108" stroke="url(#cenBranchGrad)" stroke-width="' + (2.2 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 192 125 Q 198 112, 204 100" stroke="url(#cenBranchGrad)" stroke-width="' + (2.0 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 240 156 C 256 145, 272 135, 288 125" stroke="url(#cenBranchGrad)" stroke-width="' + (4.2 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 288 125 Q 302 116, 312 108" stroke="url(#cenBranchGrad)" stroke-width="' + (2.2 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 288 125 Q 282 112, 276 100" stroke="url(#cenBranchGrad)" stroke-width="' + (2.0 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 240 136 C 239 120, 239 105, 240 90" stroke="url(#cenBranchGrad)" stroke-width="' + (4.5 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 240 90 Q 228 78, 218 68" stroke="url(#cenBranchGrad)" stroke-width="' + (2.2 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 240 90 Q 252 78, 262 68" stroke="url(#cenBranchGrad)" stroke-width="' + (2.2 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '<path d="M 240 90 Q 240 75, 240 58" stroke="url(#cenBranchGrad)" stroke-width="' + (2.4 * bW).toFixed(1) + '" stroke-linecap="round" fill="none"/>'
-      + '</g>';
-
-    let branchesSvg = branchLeftSvg + branchRightSvg + branchCenterSvg;
-
-    const leafAnchors = [
-      { x: 240, y: 58, rot: -90, sc: 1.05, g: "A", anim: "A" },
-      { x: 218, y: 68, rot: -135, sc: 1.0, g: "B", anim: "B" },
-      { x: 262, y: 68, rot: -45, sc: 1.0, g: "C", anim: "A" },
-      { x: 232, y: 76, rot: -110, sc: 0.95, g: "A", anim: "B" },
-      { x: 248, y: 76, rot: -70, sc: 0.95, g: "B", anim: "A" },
-      { x: 240, y: 90, rot: -90, sc: 1.0, g: "C", anim: "B" },
-
-      { x: 168, y: 108, rot: -150, sc: 0.95, g: "A", anim: "A" },
-      { x: 204, y: 100, rot: -115, sc: 0.95, g: "B", anim: "B" },
-      { x: 118, y: 88, rot: -140, sc: 0.92, g: "C", anim: "A" },
-      { x: 156, y: 86, rot: -125, sc: 0.92, g: "A", anim: "B" },
-      { x: 138, y: 108, rot: -130, sc: 0.95, g: "B", anim: "A" },
-
-      { x: 312, y: 108, rot: -30, sc: 0.95, g: "A", anim: "B" },
-      { x: 276, y: 100, rot: -65, sc: 0.95, g: "B", anim: "A" },
-      { x: 362, y: 88, rot: -40, sc: 0.92, g: "C", anim: "B" },
-      { x: 324, y: 86, rot: -55, sc: 0.92, g: "A", anim: "A" },
-      { x: 342, y: 108, rot: -50, sc: 0.95, g: "B", anim: "B" },
-
-      { x: 82, y: 140, rot: -170, sc: 0.95, g: "C", anim: "A" },
-      { x: 92, y: 162, rot: -135, sc: 0.92, g: "A", anim: "B" },
-      { x: 105, y: 146, rot: -160, sc: 0.95, g: "B", anim: "A" },
-      { x: 125, y: 150, rot: -150, sc: 0.9, g: "C", anim: "B" },
-
-      { x: 398, y: 140, rot: -10, sc: 0.95, g: "C", anim: "B" },
-      { x: 388, y: 162, rot: -45, sc: 0.92, g: "A", anim: "A" },
-      { x: 375, y: 146, rot: -20, sc: 0.95, g: "B", anim: "B" },
-      { x: 355, y: 150, rot: -30, sc: 0.9, g: "C", anim: "A" },
-
-      { x: 102, y: 210, rot: -160, sc: 0.88, g: "A", anim: "A" },
-      { x: 112, y: 184, rot: -140, sc: 0.88, g: "B", anim: "B" },
-      { x: 130, y: 198, rot: -150, sc: 0.92, g: "C", anim: "A" },
-      { x: 378, y: 210, rot: -20, sc: 0.88, g: "A", anim: "B" },
-      { x: 368, y: 184, rot: -40, sc: 0.88, g: "B", anim: "A" },
-      { x: 350, y: 198, rot: -30, sc: 0.92, g: "C", anim: "B" },
-
-      { x: 192, y: 125, rot: -135, sc: 0.9, g: "A", anim: "A" },
-      { x: 288, y: 125, rot: -45, sc: 0.9, g: "B", anim: "B" },
-      { x: 215, y: 140, rot: -120, sc: 0.88, g: "C", anim: "A" },
-      { x: 265, y: 140, rot: -60, sc: 0.88, g: "A", anim: "B" }
-    ];
-
-    const activeLeavesCount = Math.min(leafAnchors.length * 2.5, Math.max(16, Math.floor(doneCount * 1.6) + 4));
-
-    let leavesSvg = '<!-- Liscie Oliwne z Szypulkami i Szelestem na Wietrze -->';
-    for (let i = 0; i < activeLeavesCount; i++) {
-      const baseAnchor = leafAnchors[i % leafAnchors.length];
-      const isL2 = i >= leafAnchors.length;
-      const isL3 = i >= leafAnchors.length * 2;
-      
-      const jX = isL3 ? Math.sin(i * 7) * 9 : (isL2 ? Math.cos(i * 5) * 6 : 0);
-      const jY = isL3 ? Math.cos(i * 9) * 8 : (isL2 ? Math.sin(i * 6) * 5 : 0);
-      const lx = (baseAnchor.x + jX).toFixed(1);
-      const ly = (baseAnchor.y + jY).toFixed(1);
-      const rot = (baseAnchor.rot + (isL2 ? ((i % 3) * 16 - 16) : 0)).toFixed(1);
-      const sc = (baseAnchor.sc * (isL3 ? 0.78 : (isL2 ? 0.88 : 1.0))).toFixed(2);
-      const gradId = baseAnchor.g === "A" ? "url(#cenLeafGradA)" : (baseAnchor.g === "B" ? "url(#cenLeafGradB)" : "url(#cenLeafGradC)");
-      const isRecent = animujNowy && (i >= activeLeavesCount - 2);
-      const rustleClass = baseAnchor.anim === "A" ? "cenLeafRustleA" : "cenLeafRustleB";
-
-      leavesSvg += '<g transform="translate(' + lx + ',' + ly + ') rotate(' + rot + ') scale(' + sc + ')" class="' + (isRecent ? 'cenDrzewoLeafNew' : rustleClass) + '">'
-        + '<path d="M -2.5 0 L 0 0" stroke="#593014" stroke-width="1.3" stroke-linecap="round"/>'
-        + '<path d="M 0 0 C 12 -8, 22 -4, 27 0 C 22 4, 12 8, 0 0 Z" fill="' + gradId + '" stroke="#064e3b" stroke-width="0.75" opacity="0.96"/>'
-        + '<line x1="0" y1="0" x2="21" y2="0" stroke="#d1fae5" stroke-width="0.7" opacity="0.85"/>'
-        + '</g>';
-    }
-
-    // 9 Owoców Ducha (Galatów 5:22, 23)
-    const spiritualFruits = _centrPobierzOwoceDucha(totalDni);
-
-    let fruitsSvg = '<!-- 9 Owocow Ducha (Gal 5:22) z wahadlowym kolysaniem -->';
-    spiritualFruits.forEach(fm => {
-      const isUnlocked = doneCount >= fm.day;
-      const fDist = fm.y - fm.hY;
-      fruitsSvg += '<g transform="translate(' + fm.x + ',' + fm.y + ')" title="' + fm.num + '. ' + fm.name + ' — ' + fm.fruit + ' (' + (isUnlocked ? 'Zdobyto w Dniu ' + fm.day : 'Odblokowuje się: Dzień ' + fm.day) + ')">'
-        + '<path d="M 0 ' + (-fDist) + ' Q -2 ' + (-fDist * 0.5) + ', 0 0" stroke="#78350f" stroke-width="1.8" fill="none"/>'
-        + '<path d="M -3 -2 Q 0 1, 3 -2" stroke="#15803d" stroke-width="1.2" fill="none"/>'
-        + '<g class="cenFruitSway">'
-        + '<g class="cenDrzewoFruitGlow" style="' + (!isUnlocked ? 'opacity:0.25;filter:grayscale(1);' : '') + '">'
-        + (isUnlocked ? '<circle cx="0" cy="14" r="18" fill="' + fm.color + '" opacity="0.25" filter="url(#cenBlurSoft)"/>' : '')
-        + '<g transform="translate(-16, -2)">'
-        + _centrRysujOwocSvg(fm.id, 32)
-        + '</g>'
-        + '<circle cx="9" cy="22" r="6" fill="' + (isUnlocked ? '#10b981' : '#475569') + '" stroke="#ffffff" stroke-width="1"/>'
-        + '<text x="9" y="24.8" fill="#ffffff" font-size="7px" font-weight="800" text-anchor="middle">' + fm.num + '</text>'
-        + '</g>'
-        + '</g>'
-        + '</g>';
-    });
-
-    treeGraphic = canopySvg + trunkSvg + branchesSvg + leavesSvg + fruitsSvg;
-  }
-
-  let fallenLeafSvg = '';
-  if (curSer === 0 && doneCount > 0) {
-    fallenLeafSvg = '<!-- Opadly lisc -->'
-      + '<g transform="translate(195, 276) rotate(25)">'
-      + '<path d="M 0 0 C 10 -6, 18 -3, 22 0 C 18 3, 10 6, 0 0 Z" fill="#d97706" stroke="#78350f" stroke-width="0.8" opacity="0.85"/>'
-      + '</g>'
-      + '<g transform="translate(285, 278) rotate(-18)">'
-      + '<path d="M 0 0 C 9 -5, 16 -3, 20 0 C 16 3, 9 5, 0 0 Z" fill="#b45309" stroke="#78350f" stroke-width="0.8" opacity="0.75"/>'
-      + '</g>';
-  }
-
-  let riverSvg = '<!-- Strumien Zywej Wody z Animowanymi Refleksami (Psalm 1:3) -->'
-    + '<g transform="translate(0, 274)">'
-    + '<rect width="480" height="66" fill="#02496d"/>'
-    + '<path d="M 0 10 Q 120 2, 240 10 T 480 8 L 480 66 L 0 66 Z" fill="url(#cenWaterGrad)">'
-    + '<animate attributeName="d" '
-    + '  values="M 0 10 Q 120 2, 240 10 T 480 8 L 480 66 L 0 66 Z;'
-    + '          M 0 8 Q 120 16, 240 8 T 480 10 L 480 66 L 0 66 Z;'
-    + '          M 0 10 Q 120 2, 240 10 T 480 8 L 480 66 L 0 66 Z" '
-    + '  dur="7s" repeatCount="indefinite"/>'
-    + '</path>'
-    + '<path d="M 0 0 L 480 0 L 480 8 L 0 8 Z" fill="#7dd3fc" opacity="0.4"/>'
-    + '<ellipse cx="110" cy="18" rx="26" ry="2.5" fill="#ffffff" class="cenSparkle1"/>'
-    + '<ellipse cx="280" cy="26" rx="40" ry="3" fill="#e0f2fe" class="cenSparkle2"/>'
-    + '<ellipse cx="390" cy="16" rx="22" ry="2" fill="#ffffff" class="cenSparkle1"/>'
-    + '</g>';
-
-  return '<svg viewBox="0 0 480 340" class="cenDrzewoSvg">'
-    + defs
-    + landscapeSvg
-    + '<g class="cenDrzewoSway">' + treeGraphic + '</g>'
-    + fallenLeafSvg
-    + riverSvg
-    + '</svg>';
-}
 
 function _centrWidokDrzewoWzrostu(planInfo, dniDone, curSer, bestSer){
-  const totalDni = planInfo.days || 365;
-  const doneCount = dniDone.size;
-  const pctNum = totalDni > 0 ? (doneCount / totalDni) * 100 : 0;
-  const pctStr = pctNum.toFixed(1).replace(".", ",");
-  const etap = _centrPobierzEtapDrzewa(doneCount, totalDni);
-
-  const spiritualFruits = _centrPobierzOwoceDucha(totalDni);
-  const unlockedFruitsCount = spiritualFruits.filter(f => doneCount >= f.day).length;
-  const activeLeavesCount = doneCount > 0 ? Math.min(85, Math.max(16, Math.floor(doneCount * 1.6) + 4)) : 0;
-
-  const nextFruit = spiritualFruits.find(f => doneCount < f.day);
-  let nextStageText = "Osiągnięto wszystkie 9 owoców ducha!";
-  if(nextFruit){
-    const left = nextFruit.day - doneCount;
-    nextStageText = "Kolejny owoc: <b>" + nextFruit.num + ". " + nextFruit.name + " (" + nextFruit.fruit + ")</b> za <b>" + left + (left === 1 ? " dzień" : " dni") + "</b> czytania.";
-  }
-
-  const svgTree = _centrGenerujDrzewoGrowthSvg(totalDni, doneCount, curSer, bestSer, false);
-
-  let fruitsHtml = '';
-  spiritualFruits.forEach(f => {
-    const isUnlocked = doneCount >= f.day;
-    fruitsHtml += '<div class="cenFruitItem ' + (isUnlocked ? 'unlocked' : 'locked') + '" title="' + esc(f.num + '. ' + f.name + ' — ' + f.fruit) + '">'
-      + '<div class="cenFruitIko">' + _centrRysujOwocSvg(f.id, 34) + '</div>'
-      + '<div class="cenFruitInfo">'
-      + '<div class="cenFruitName">'
-      + '<span>' + f.num + '. ' + esc(f.name) + ' — <span style="font-weight:600;opacity:0.85;">' + esc(f.fruit) + '</span></span>'
-      + '<span class="cenFruitBadge ' + (isUnlocked ? 'unlocked' : 'locked') + '">' + (isUnlocked ? ('Zdobyto ✓ (Dzień ' + f.day + ')') : ('Dzień ' + f.day)) + '</span>'
-      + '</div>'
-      + '<div class="cenFruitDesc">' + esc(f.desc) + '</div>'
-      + '</div>'
-      + '</div>';
-  });
-
-  return '<div class="cenDrzewoCard">'
-    + '<div class="cenDrzewoCytatBox">'
-    + '„Będzie jak drzewo zasadzone nad strumieniami, drzewo, które w odpowiednim czasie owocuje, którego liście nie więdną. I wszystko, co robi, przyniesie pomyślność.” — <b>Psalm 1:3</b> <span style="font-size:11px;opacity:0.85;">(Pismo Święte w Przekładzie Nowego Świata — Biblia do studium)</span>'
-    + '</div>'
-    + '<div class="cenDrzewoHeaderRow">'
-    + '<div>'
-    + '<span class="cenHeroTag" style="margin-bottom:4px;">Etap rozwoju</span>'
-    + '<div style="font-size:18px;font-weight:700;color:var(--cen-text);">' + esc(etap.name) + '</div>'
-    + '<div style="font-size:13px;color:var(--cen-text-muted);margin-top:2px;">' + esc(etap.desc) + '</div>'
-    + '</div>'
-    + '<div class="cenDrzewoEtapBadge">' + etap.short + '</div>'
-    + '</div>'
-
-    + '<div class="cenDrzewoStage">'
-    + svgTree
-    + '</div>'
-
-    + '<div style="background:var(--cen-row-bg, rgba(0,0,0,0.03));border:1px solid var(--cen-card-border);border-radius:14px;padding:12px 16px;margin-bottom:8px;">'
-    + '<div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;margin-bottom:6px;">'
-    + '<span style="color:var(--cen-text);font-weight:600;">' + nextStageText + '</span>'
-    + '<span style="color:var(--cen-text-muted);font-weight:600;">' + doneCount + ' / ' + totalDni + ' dni (' + pctStr + '%)</span>'
-    + '</div>'
-    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;background:#10b981;"></div></div>'
-    + '</div>'
-
-    + '<div class="cenDrzewoStatsBar">'
-    + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Ukończone dni</div><div class="cenDrzewoStatBoxVal" style="color:#10b981;">' + doneCount + ' / ' + totalDni + '</div></div>'
-    + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Zielone liście</div><div class="cenDrzewoStatBoxVal" style="color:#34d399;">' + activeLeavesCount + ' liści 🌿</div></div>'
-    + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Owoce ducha</div><div class="cenDrzewoStatBoxVal" style="color:#f59e0b;">' + unlockedFruitsCount + ' / ' + spiritualFruits.length + ' 🍎</div></div>'
-    + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Obecna seria</div><div class="cenDrzewoStatBoxVal" style="color:#fb923c;">' + (curSer > 0 ? (curSer + ' dni 🔥') : 'Dziś') + '</div></div>'
-    + '<div class="cenDrzewoStatBox"><div class="cenDrzewoStatBoxLbl">Najdłuższa seria</div><div class="cenDrzewoStatBoxVal" style="color:#6366f1;">' + (bestSer > 0 ? (bestSer + ' dni 🏆') : '—') + '</div></div>'
-    + '</div>'
-    + '</div>'
-
-    + '<div style="margin-top:24px;">'
-    + '<div class="cenSecHeadTyt" style="display:flex;align-items:center;justify-content:space-between;">'
-    + '<span>🍎 Owoce ducha & Kamienie Milowe</span>'
-    + '<span style="font-size:12px;font-weight:500;color:var(--cen-text-muted);">Galatów 5:22-23</span>'
-    + '</div>'
-    + '<div class="cenFruitGrid">'
-    + fruitsHtml
-    + '</div>'
-    + '</div>';
+  return _centrWidokSciezkaSwiatla(planInfo, dniDone, curSer, bestSer);
 }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -58128,11 +57131,11 @@ function _centrInicjalizujAnimacjeSciezki(){
 }
 
 function _centrPobierzMotywCzytania(){
-  return lsGet(KP + "CentrumMotywCzytania", "sciezka");
+  return "sciezka";
 }
 
 function _centrUstawMotywCzytania(m){
-  lsSet(KP + "CentrumMotywCzytania", m);
+  lsSet(KP + "CentrumMotywCzytania", "sciezka");
   rysujCentrum();
 }
 
@@ -58189,8 +57192,12 @@ function _centrObliczEtapSciezkiSwiatla(planInfo, doneCount){
 
 function _centrGenerujSciezkaSwiatlaHero(planInfo, dniDone, curDzien){
   const doneCount = dniDone.size;
+  const totalDni = planInfo.days || (planInfo.plan ? planInfo.plan.length : 365);
   const etap = _centrObliczEtapSciezkiSwiatla(planInfo, doneCount);
-  const curMotyw = _centrPobierzMotywCzytania();
+  const curSer = (typeof _centrObliczSeriaCzytania === "function") ? _centrObliczSeriaCzytania(planInfo.id) : 0;
+  const bestSer = (typeof _centrObliczNajdluzszaSerie === "function") ? _centrObliczNajdluzszaSerie(planInfo.id) : 0;
+  const planList = planInfo.plan || [];
+  const missedDays = planList.filter(x => x.d < (curDzien || 1) && !dniDone.has(x.d));
 
   let imgA = _CENTR_SCIEZKA_IMGS.night;
   let imgB = _CENTR_SCIEZKA_IMGS.dawn;
@@ -58228,45 +57235,80 @@ function _centrGenerujSciezkaSwiatlaHero(planInfo, dniDone, curDzien){
        + '</g>')
     : '';
 
-  return '<div style="margin-bottom:20px;">'
-    + '<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap;">'
-    + '<div style="display:flex;align-items:center;gap:8px;">'
-    + '<span class="cenHeroTag" style="background:rgba(245,158,11,0.18);border:1px solid rgba(245,158,11,0.4);color:#fbbf24;">🏮 Światło na ścieżce</span>'
-    + '<span style="font-size:12.5px;color:var(--cen-text-muted);font-weight:600;">' + esc(planInfo.name) + '</span>'
+  // Wskaźnik 7 latarni na ścieżce
+  let lanternsRowHtml = '';
+  _CENTR_SCIEZKA_LANTERNS.forEach(l => {
+    const isLit = (l.id <= etap.litCount);
+    const isNext = (l.id === etap.litCount + 1);
+    lanternsRowHtml += '<div class="cenTrackLantern' + (isLit ? ' is-lit' : '') + (isNext ? ' is-next' : '') + '" title="' + esc(l.name) + ' (' + (isLit ? 'Rozpalona' : ('Zabłyśnie przy ' + l.startPct + '% planu')) + ')">'
+      + '<div class="cenTrackLanternIcon">' + (isLit ? '🏮' : '🕯️') + '</div>'
+      + '<div class="cenTrackLanternNum">Latarnia ' + l.id + '</div>'
+      + '<div class="cenTrackLanternPct">' + (isLit ? '✓' : (l.startPct + '%')) + '</div>'
+      + '</div>';
+  });
+
+  return '<div class="cenSciezkaHeroContainer" style="margin-bottom:20px;">'
+    + '<div class="cenSciezkaHeaderRow">'
+    + '<div class="cenSciezkaHeaderTag">'
+    + '<span class="cenSciezkaPillTag">🏮 Światło na ścieżce</span>'
+    + '<span class="cenSciezkaPlanName">' + esc(planInfo.name) + ' • ' + esc(planInfo.duration || (totalDni + ' dni')) + '</span>'
     + '</div>'
-    + '<div class="cenMotywToggleBox">'
-    + '<button type="button" class="cenMotywToggleBtn' + (curMotyw === 'sciezka' ? ' active' : '') + '" data-cakcja="motyw-sciezka" title="Włącz motyw: Światło na ścieżce">🏮 Ścieżka</button>'
-    + '<button type="button" class="cenMotywToggleBtn' + (curMotyw === 'drzewo' ? ' active' : '') + '" data-cakcja="motyw-drzewo" title="Włącz klasyczny motyw: Drzewo wzrostu">🌳 Drzewo</button>'
-    + '</div>'
+    + '<button type="button" class="cenSciezkaSiatkaBtn" data-cwidok="statystyki" data-cstat-tab="sciezka" title="Zobacz pełną siatkę ' + etap.maxWeeks + ' tygodni czytania">'
+    + '🗺️ Siatka ' + etap.maxWeeks + ' tygodni ›'
+    + '</button>'
     + '</div>'
 
+    // 16:9 Scena leśna — CZYSTA OD JAKICHKOLWIEK NAPISÓW CZY ZACIEMNIEŃ
     + '<div class="cenSciezkaHeroStage">'
     + '<img class="cenSciezkaLayer cenSciezkaLayerA" src="' + imgA + '" style="opacity:' + opacityA + ';filter:' + filterA + ';" alt="Ścieżka światła A">'
     + '<img class="cenSciezkaLayer cenSciezkaLayerB" src="' + imgB + '" style="opacity:' + opacityB + ';filter:' + filterB + ';" alt="Ścieżka światła B">'
-
     + '<canvas id="cenSciezkaLightCanvas" width="1365" height="768"></canvas>'
-
     + '<svg class="cenSciezkaSvgLayer" viewBox="0 0 1365 768" preserveAspectRatio="none">'
     + bibleSvg
     + '</svg>'
+    + '</div>'
 
-    + '<div class="cenSciezkaOverlay">'
-    + '<div>'
+    // Karta Postępów i Motywacji POD grafiką (w 100% czytelna na telefonie i komputerze)
+    + '<div class="cenSciezkaProgressCard">'
+    + '<div class="cenSciezkaCardTop">'
+    + '<div class="cenSciezkaStageBadgeBox">'
     + '<span class="cenSciezkaBadge">' + esc(etap.badge) + '</span>'
     + '<div class="cenSciezkaTitle">' + esc(etap.title) + '</div>'
     + '<div class="cenSciezkaDesc">' + esc(etap.desc) + '</div>'
     + '</div>'
-    + '<div class="cenSciezkaMeters">'
-    + '<div class="cenSciezkaMeterItem">'
-    + '<div class="cenSciezkaMeterLbl">Światło w lesie</div>'
-    + '<div class="cenSciezkaMeterVal">' + etap.lightVal + '%</div>'
-    + '</div>'
-    + '<div class="cenSciezkaMeterItem">'
-    + '<div class="cenSciezkaMeterLbl">Zapalonych latarni</div>'
-    + '<div class="cenSciezkaMeterVal">' + etap.litCount + ' z 7</div>'
+    + '<div class="cenSciezkaCytatBox">'
+    + '<div class="cenSciezkaCytatTekst">„Twoje słowo jest lampą dla moich stóp i światłem na mojej drodze.”</div>'
+    + '<div class="cenSciezkaCytatRef">— Psalm 119:105</div>'
     + '</div>'
     + '</div>'
+
+    + '<div class="cenSciezkaProgressRow">'
+    + '<div class="cenSciezkaProgressLabels">'
+    + '<span class="cenSciezkaProgressLbl">Postęp czytania: <b>' + doneCount + ' z ' + totalDni + ' dni</b> (' + etap.progressPct + '%)</span>'
+    + '<span class="cenSciezkaProgressVal" style="color:#d97706;font-weight:700;">Jasność ścieżki: ' + etap.lightVal + '% ☀️</span>'
     + '</div>'
+    + '<div class="cenProgressBar" style="height:10px;border-radius:6px;background:rgba(0,0,0,0.08);">'
+    + '<div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?2:0, etap.progressPct)) + '%;background:linear-gradient(90deg, #d97706, #fbbf24, #fef08a);box-shadow:0 0 10px rgba(251,191,36,0.45);"></div>'
+    + '</div>'
+    + '</div>'
+
+    + '<div class="cenSciezkaTrack">'
+    + '<div class="cenSciezkaTrackHeader">'
+    + '<span>Latarnie na ścieżce</span>'
+    + '<span class="cenSciezkaTrackCount">Rozpalono <b>' + etap.litCount + '</b> z 7 latarni</span>'
+    + '</div>'
+    + '<div class="cenSciezkaTrackItems">'
+    + lanternsRowHtml
+    + '</div>'
+    + '</div>'
+
+    + '<div class="cenPlanStatsGrid">'
+    + '<div class="cenPlanStatTile"><div class="cenPlanStatVal" style="color:#10b981;">' + doneCount + '</div><div class="cenPlanStatLbl">Ukończono dni</div></div>'
+    + '<div class="cenPlanStatTile"><div class="cenPlanStatVal" style="' + (missedDays.length ? 'color:#ef4444;font-weight:700;' : '') + '">' + missedDays.length + '</div><div class="cenPlanStatLbl">Zaległe dni</div></div>'
+    + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + (totalDni - doneCount) + '</div><div class="cenPlanStatLbl">Pozostało dni</div></div>'
+    + '<div class="cenPlanStatTile"><div class="cenPlanStatVal" style="color:#f59e0b;">' + (curSer > 0 ? (curSer + ' dni 🔥') : (bestSer > 0 ? (bestSer + ' dni 🏆') : '0 dni')) + '</div><div class="cenPlanStatLbl">Seria czytania</div></div>'
+    + '</div>'
+
     + '</div>'
     + '</div>';
 }
@@ -58480,8 +57522,22 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v609</span>
+          <span class="cl-ver-num">v610</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">12 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Czysta ilustracja 16:9, dedykowana karta motywacji i pełna eliminacja motywu drzewa</div>
+        <ul class="cl-ver-list">
+          <li><b>Czysta, niczym nieprzysłonięta scena leśna 16:9:</b> Całkowicie usunięto ciemne gradienty i tekstowe nakładki z powierzchni ilustracji. Na telefonach i tabletach dzieło sztuki oraz migoczące płomienie są w 100% odsłonięte i zachowują pełną kinową głębię.</li>
+          <li><b>Dedykowana Karta Postępów i Motywacji pod ilustracją:</b> Wszystkie dane o etapie, inspirujący werset z Psalmu 119:105 (<i>„Twoje słowo jest lampą dla moich stóp i światłem na mojej drodze”</i>), pasek postępu z poziomem jasności (☀️), poziomy wskaźnik 7 latarni na ścieżce oraz kafelki metryk przeniesiono do estetycznej karty umieszczonej bezpośrednio pod obrazem.</li>
+          <li><b>Całkowite usunięcie motywu drzewa z aplikacji:</b> Zgodnie z decyzją projektową trwale wycofano dawny motyw drzewa i owoców ducha z planu czytania. Wyeliminowano przełączniki, zbędne zakładki i ponad 1100 linii nieużywanych stylów i struktur SVG, skupiając całą uwagę na jednolitej, nowoczesnej wizji „Światło na ścieżce”.</li>
+          <li><b>Spójne powiadomienia zapłonu:</b> Po ukończeniu kolejnych fragmentów i zapaleniu nowej latarni użytkownik otrzymuje przejrzyste powiadomienia celebracji drogi (np. <i>🏮✨ Twoje postępy rozjaśniają drogę! Rozbłysła kolejna latarnia na ścieżce (X z 7)!</i>).</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v609</span>
           <span class="cl-ver-date">12 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Kinowa animacja żywego ognia i zapłonu latarni w „Światło na ścieżce”</div>
@@ -58943,20 +57999,19 @@ function renderEkranPowitalny(){
       + '</button>';
   }
 
-  // Obliczenie serii czytania i owocu ducha (Dwa kafelki motywacyjne obok siebie)
+  // Obliczenie serii czytania i etapu ścieżki (Dwa kafelki motywacyjne obok siebie)
   const streakDays = _centrObliczSeriaCzytania(curPlan.id);
   const streakLabel = streakDays > 0 ? (streakDays + (streakDays === 1 ? ' dzień' : ' dni') + ' z rzędu') : 'Rozpocznij dziś serię!';
 
-  const spiritualFruits = _centrPobierzOwoceDucha(totalDni);
-  const nextFruit = spiritualFruits.find(f => doneCount < f.day);
-  const left = nextFruit ? (nextFruit.day - doneCount) : 0;
+  const etapSciezka = (typeof _centrObliczEtapSciezkiSwiatla === "function") ? _centrObliczEtapSciezkiSwiatla(curPlan, doneCount) : null;
+  const latarnieLabel = etapSciezka ? (etapSciezka.litCount + ' z 7 latarni • ' + etapSciezka.lightVal + '% światła') : 'Światło na ścieżce';
 
   const dualStatusBarHtml = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">'
-    + '<div style="background:rgba(5,150,105,0.08);border:1px solid rgba(5,150,105,0.22);border-radius:11px;padding:9px 12px;display:flex;align-items:center;gap:9px;min-width:0;">'
-    + '<span style="font-size:20px;flex-shrink:0;">🌳</span>'
+    + '<div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:11px;padding:9px 12px;display:flex;align-items:center;gap:9px;min-width:0;cursor:pointer;" data-cwidok="statystyki" data-cstat-tab="sciezka" title="Zobacz motyw Światło na ścieżce">'
+    + '<span style="font-size:20px;flex-shrink:0;">🏮</span>'
     + '<div style="min-width:0;">'
-    + '<div style="font-size:11px;font-weight:750;color:#047857;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (nextFruit ? ('Owoc: ' + esc(nextFruit.name)) : 'Owoce Ducha') + '</div>'
-    + '<div style="font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (nextFruit ? (left + (left === 1 ? ' dzień' : ' dni') + ' czytania') : 'Wszystkie 9 owoców! 🎉') + '</div>'
+    + '<div style="font-size:11px;font-weight:750;color:#d97706;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Światło na ścieżce</div>'
+    + '<div style="font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + esc(latarnieLabel) + '</div>'
     + '</div></div>'
     + '<div style="background:rgba(217,119,6,0.08);border:1px solid rgba(217,119,6,0.25);border-radius:11px;padding:9px 12px;display:flex;align-items:center;gap:9px;min-width:0;">'
     + '<span style="font-size:20px;flex-shrink:0;">🔥</span>'
@@ -59248,7 +58303,7 @@ function renderCentrumWidok(){
     + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.clipboard + '</div>'
     + '<div class="cenHeroInfo">'
     + '<div class="cenHeroTyt">Statystyki i postęp</div>'
-    + '<div class="cenHeroOpis">Śledź tempo czytania, ukończone fragmenty, serie dni i drzewo wzrostu.</div>'
+    + '<div class="cenHeroOpis">Śledź tempo czytania, ukończone fragmenty, serie dni i Światło na ścieżce.</div>'
     + '</div></div>'
     + '<div class="cenHeroBottom">'
     + '<div class="cenHeroMetaRow">'
@@ -59276,9 +58331,6 @@ function centrWidokCzytanieChrono(){
   const pctNum = totalDni > 0 ? (doneCount / totalDni) * 100 : 0;
   const pct = pctNum.toFixed(1).replace(".", ",");
   const nastDni = planList.filter(x=>x.d > curDzien && x.d <= curDzien + 3);
-  const owoceDucha = typeof _centrPobierzOwoceDucha === "function" ? _centrPobierzOwoceDucha(totalDni) : [];
-  const odblOwoce = owoceDucha.filter(o => doneCount >= o.day).length;
-  const nastOwoc = owoceDucha.find(o => doneCount < o.day);
   const u = (typeof pobierzNazweUzytkownika === "function") ? pobierzNazweUzytkownika() : "";
 
   return '<div class="cenSubHeader">'
@@ -59294,56 +58346,13 @@ function centrWidokCzytanieChrono(){
     + '<button type="button" class="cenNaglBtnIko" data-cakcja="ustawienia-planu" title="Wybór i ustawienia planów">' + CEN_MODERN_ICO.gear + '</button>'
     + '</div></div>'
 
-    + (_centrPobierzMotywCzytania() === "sciezka"
-        ? _centrGenerujSciezkaSwiatlaHero(planInfo, dniDone, curDzien)
-        : (
-            '<div class="cenHeroCard card-blue" style="margin-bottom:20px;cursor:default;">'
-            + '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap;">'
-            + '<div>'
-            + '<span class="cenHeroTag">' + esc(planInfo.catName || "Plan") + ' • ' + esc(planInfo.duration || (planInfo.days + ' dni')) + '</span>'
-            + '<div class="cenHeroTyt" style="font-size:18px;margin-top:2px;">' + esc(planInfo.name) + '</div>'
-            + '<div class="cenHeroOpis" style="font-size:13px;">' + esc(planInfo.desc) + '</div>'
-            + '</div>'
-            + '<div style="display:flex;align-items:center;gap:8px;">'
-            + '<div class="cenMotywToggleBox">'
-            + '<button type="button" class="cenMotywToggleBtn" data-cakcja="motyw-sciezka" title="Włącz motyw: Światło na ścieżce">🏮 Ścieżka</button>'
-            + '<button type="button" class="cenMotywToggleBtn active" data-cakcja="motyw-drzewo" title="Włącz klasyczny motyw: Drzewo wzrostu">🌳 Drzewo</button>'
-            + '</div>'
-            + '<button type="button" class="cenMiniDrzewoBadge" data-cwidok="statystyki" data-cstat-tab="drzewo" title="Zobacz swoje Drzewo Wzrostu Duchowego i 9 owoców ducha">'
-            + '🌳 Owoce ducha: ' + odblOwoce + '/9'
-            + '</button>'
-            + '</div></div>'
-            + '<div class="cenHeroMetaRow" style="margin-top:10px;">'
-            + '<span class="cenHeroMetaLabel">Postęp czytania</span>'
-            + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> <span style="color:var(--cen-text-muted);font-weight:400;margin-left:4px;">(' + pct + '%)</span></span>'
-            + '</div>'
-            + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;"></div></div>'
-            + '<div class="cenPlanStatsGrid">'
-            + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + doneCount + '</div><div class="cenPlanStatLbl">Ukończono dni</div></div>'
-            + '<div class="cenPlanStatTile"><div class="cenPlanStatVal" style="' + (missedDays.length ? 'color:#ef4444;font-weight:700;' : '') + '">' + missedDays.length + '</div><div class="cenPlanStatLbl">Zaległe dni</div></div>'
-            + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + (totalDni - doneCount) + '</div><div class="cenPlanStatLbl">Pozostało dni</div></div>'
-            + '<div class="cenPlanStatTile"><div class="cenPlanStatVal">' + (planInfo.pace || "~1 rozdz./dzień") + '</div><div class="cenPlanStatLbl">Średnie tempo</div></div>'
-            + '</div></div>'
-            + '<div class="cenFruitPlanBanner" data-cwidok="statystyki" data-cstat-tab="drzewo" title="Zobacz Drzewo Wzrostu Duchowego i owoce ducha">'
-            + '<div class="cenFruitPlanBannerLewo">'
-            + '<div class="cenFruitPlanBannerIko">🌳</div>'
-            + '<div>'
-            + '<div class="cenFruitPlanBannerTyt">' + (u ? ('Owoce ducha w planie czytania — ' + esc(u)) : 'Owoce ducha w Twoim planie (Galatów 5:22, 23)') + '</div>'
-            + '<div class="cenFruitPlanBannerSub">' + odblOwoce + ' z 9 owoców dojrzało • ' + (odblOwoce === 9 ? 'Wszystkie owoce zdobyte! 🌟' : (nastOwoc ? ('Kolejny owoc: <b>' + esc(nastOwoc.name) + ' (' + esc(nastOwoc.fruit) + ')</b> za ' + (nastOwoc.day - doneCount) + ' ' + (nastOwoc.day - doneCount === 1 ? 'dzień' : 'dni') + ' (Dzień ' + nastOwoc.day + ')') : '')) + '</div>'
-            + '</div></div>'
-            + '<div class="cenFruitMiniRow">'
-            + owoceDucha.map(o => '<span class="cenFruitMiniDot ' + (doneCount >= o.day ? 'active' : 'inactive') + '" title="' + esc(o.num + '. ' + o.name + ' (' + o.fruit + ') - Dzień ' + o.day + (doneCount >= o.day ? ' (Dojrzały ✓)' : ' (Jeszcze zablokowany)')) + '">' + (typeof _centrRysujOwocSvg === "function" ? _centrRysujOwocSvg(o.id, 18) : o.icon) + '</span>').join('')
-            + '</div>'
-            + '</div>'
-          )
-      )
+    + _centrGenerujSciezkaSwiatlaHero(planInfo, dniDone, curDzien)
 
     + '<div class="cenChronoAkcjeRow">'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="kalendarz">' + CEN_MODERN_ICO.calendar + '<span>Kalendarz / Siatka</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="lista-dni">' + CEN_MODERN_ICO.list + '<span>Lista dni' + (missedDays.length ? ' (' + missedDays.length + ' ⚠️)' : '') + '</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki">' + CEN_MODERN_ICO.chart + '<span>Statystyki</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki" data-cstat-tab="sciezka">🏮 <span>Ścieżka</span></button>'
-    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki" data-cstat-tab="drzewo">🌱 <span>Drzewo</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cakcja="przypomnienie-planu" title="Przypomnienia o czytaniu Biblii" style="position:relative;">' + (CEN_MODERN_ICO.bell || '🔔') + '<span>Przypomnij' + (_centrCzyPrzypomnienieWlaczone() ? ' •' : '') + '</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="moje-plany">' + CEN_MODERN_ICO.clipboard + '<span>Zmień plan</span></button>'
     + '<button type="button" class="cenChronoAkcjaBtn" data-cakcja="resetuj-postep-planu" title="Wyczyść postęp i zacznij plan od nowa">↺ <span>Od nowa</span></button>'
@@ -59722,17 +58731,12 @@ function centrWidokStatystyki(tab){
     + '<div class="cenTabsRow">'
     + '<button type="button" class="cenTabBtn' + (tab==="ogolny"?' active':'') + '" data-cstat-tab="ogolny">Ogólny</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="sciezka"?' active':'') + '" data-cstat-tab="sciezka">🏮 Światło na ścieżce</button>'
-    + '<button type="button" class="cenTabBtn' + (tab==="drzewo"?' active':'') + '" data-cstat-tab="drzewo">🌳 Drzewo wzrostu</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="ksiegi"?' active':'') + '" data-cstat-tab="ksiegi">Według sekcji</button>'
     + '<button type="button" class="cenTabBtn' + (tab==="serie"?' active':'') + '" data-cstat-tab="serie">Serie dni</button>'
     + '</div>';
 
-  if(tab === "sciezka"){
+  if(tab === "sciezka" || tab === "drzewo"){
     return _nagl + _centrWidokSciezkaSwiatla(planInfo, dniDone, _curSer, _bestSer);
-  }
-
-  if(tab === "drzewo"){
-    return _nagl + _centrWidokDrzewoWzrostu(planInfo, dniDone, _curSer, _bestSer);
   }
 
   if(tab === "ksiegi"){
@@ -62084,12 +61088,9 @@ if($("centrum")){
             if(_etapPrzed && _etapPo && _etapPo.litCount > _etapPrzed.litCount){
               if(typeof _centrWyzwalaczZaplonuLatarni === "function") _centrWyzwalaczZaplonuLatarni(_etapPo.litCount);
             }
-            const fNowy = typeof _centrPobierzOwoceDucha === "function" ? _centrPobierzOwoceDucha(planInfo.days).find(o => o.day === d) : null;
             const _uIm = (typeof userImie === "function") ? userImie() : "";
-            if(_etapPrzed && _etapPo && _etapPo.litCount > _etapPrzed.litCount && _centrPobierzMotywCzytania() === "sciezka"){
+            if(_etapPrzed && _etapPo && _etapPo.litCount > _etapPrzed.litCount){
               toast("🏮✨ Twoje postępy rozjaśniają drogę! Rozbłysła kolejna latarnia na ścieżce (" + _etapPo.litCount + " z 7)!", "ok", 6000);
-            } else if(fNowy){
-              toast("🌳✨ " + (_uIm ? ("Brawo, " + _uIm + "! ") : "Wspaniale! ") + "Twoje drzewo wydało nowy owoc: " + fNowy.name + " (" + fNowy.fruit + ")! 🎉", "ok", 5000);
             } else {
               toast("🎉 " + (_uIm ? ("Świetnie, " + _uIm + "! ") : "Wspaniale! ") + "Ukończono wszystkie fragmenty na Dzień " + d + "!", "ok");
             }
@@ -62139,12 +61140,9 @@ if($("centrum")){
         if(_etapPrzed && _etapPo && _etapPo.litCount > _etapPrzed.litCount){
           if(typeof _centrWyzwalaczZaplonuLatarni === "function") _centrWyzwalaczZaplonuLatarni(_etapPo.litCount);
         }
-        const fNowy = typeof _centrPobierzOwoceDucha === "function" ? _centrPobierzOwoceDucha(_planUk.days).find(o => o.day === d) : null;
         const _uIm = (typeof userImie === "function") ? userImie() : "";
-        if(_etapPrzed && _etapPo && _etapPo.litCount > _etapPrzed.litCount && _centrPobierzMotywCzytania() === "sciezka"){
+        if(_etapPrzed && _etapPo && _etapPo.litCount > _etapPrzed.litCount){
           toast("🏮✨ Twoje postępy rozjaśniają drogę! Rozbłysła kolejna latarnia na ścieżce (" + _etapPo.litCount + " z 7)!", "ok", 6000);
-        } else if(fNowy){
-          toast("🌳✨ " + (_uIm ? ("Brawo, " + _uIm + "! ") : "Wspaniale! ") + "Twoje drzewo wydało nowy owoc: " + fNowy.name + " (" + fNowy.fruit + ")! 🎉", "ok", 5000);
         } else {
           toast("🎉 " + (_uIm ? ("Świetnie, " + _uIm + "! ") : "Wspaniale! ") + "Ukończono czytanie na Dzień " + d + "!", "ok");
         }
@@ -62202,12 +61200,9 @@ if($("centrum")){
               if(_etapPrzed && _etapPo && _etapPo.litCount > _etapPrzed.litCount){
                 if(typeof _centrWyzwalaczZaplonuLatarni === "function") _centrWyzwalaczZaplonuLatarni(_etapPo.litCount);
               }
-              const fNowy = typeof _centrPobierzOwoceDucha === "function" ? _centrPobierzOwoceDucha(planInfo.days).find(o => o.day === d) : null;
               const _uIm = (typeof userImie === "function") ? userImie() : "";
-              if(_etapPrzed && _etapPo && _etapPo.litCount > _etapPrzed.litCount && _centrPobierzMotywCzytania() === "sciezka"){
+              if(_etapPrzed && _etapPo && _etapPo.litCount > _etapPrzed.litCount){
                 toast("🏮✨ Twoje postępy rozjaśniają drogę! Rozbłysła kolejna latarnia na ścieżce (" + _etapPo.litCount + " z 7)!", "ok", 6000);
-              } else if(fNowy){
-                toast("🌳✨ " + (_uIm ? ("Brawo, " + _uIm + "! ") : "Wspaniale! ") + "Twoje drzewo wydało nowy owoc: " + fNowy.name + " (" + fNowy.fruit + ")! 🎉", "ok", 5000);
               } else {
                 toast("🎉 " + (_uIm ? ("Świetnie, " + _uIm + "! ") : "Wspaniale! ") + "Ukończono wszystkie fragmenty na Dzień " + d + "!", "ok");
               }
@@ -62665,13 +61660,7 @@ if($("centrum")){
       // Przełączanie motywu wizualnego czytania
       if(akcja.dataset.cakcja === "motyw-sciezka"){
         _centrUstawMotywCzytania("sciezka");
-        toast("Włączono motyw: 🏮 Światło na ścieżce", "ok");
-        rysujCentrum();
-        return;
-      }
-      if(akcja.dataset.cakcja === "motyw-drzewo"){
-        _centrUstawMotywCzytania("drzewo");
-        toast("Włączono motyw: 🌳 Drzewo wzrostu", "ok");
+        toast("Motyw: 🏮 Światło na ścieżce", "ok");
         rysujCentrum();
         return;
       }
