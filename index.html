@@ -45877,7 +45877,7 @@ function openSettings(){
      <div class="st-sec">
        <div class="st-lbl">Wizualizacja planu czytania Biblii</div>
        <div style="font-size:13px;font-weight:700;color:var(--text);margin:4px 0 6px;">🏮 Światło na ścieżce (16:9 las)</div>
-       <div class="st-hint">Wizualizacja postępu w czytaniu Biblii oparta na Psalmie 119:105 (<i>„Twoje słowo jest lampą dla moich stóp i światłem na mojej drodze”</i>) oraz Przysłów 4:18. Kolejne latarnie rozpalają się wzdłuż leśnego traktu w miarę postępów w czytaniu (52 etapy w planie rocznym / 13 etapów w planie 90-dniowym).</div>
+       <div class="st-hint">Wizualizacja postępu w czytaniu Biblii oparta na Przysłów 4:18 (<i>„Ale ścieżka prawych jest jak jasne poranne światło, które świeci coraz jaśniej, aż nastaje pełnia dnia”</i>) oraz Psalmie 119:105 (<i>„Twoje słowo jest lampą dla moich stóp i światłem na mojej drodze”</i>). Kolejne latarnie rozpalają się wzdłuż leśnego traktu w miarę postępów w czytaniu (52 etapy w planie rocznym / 13 etapów w planie 90-dniowym).</div>
      </div>
      <div class="st-sec">
        <div class="st-lbl">Układ listy notatek</div>
@@ -57181,7 +57181,7 @@ function _centrObliczEtapSciezkiSwiatla(planInfo, doneCount){
   } else {
     badge = "Tydzień " + currentWeek + " z " + maxWeeks + " • FINAŁ (100% — Ukończony Plan)";
     title = "Pełny blask dnia i Otwarta Biblia";
-    desc = "Tryumf światła! Ukończona cała droga przez Pismo Święte. Pełne słońce w zenicie, a u stóp latarni spoczywa otwarta Biblia (Psalm 119:105).";
+    desc = "Tryumf światła! Ukończona cała droga przez Pismo Święte. Pełne słońce w zenicie, a u stóp latarni spoczywa otwarta Biblia (Przysłów 4:18; Psalm 119:105).";
   }
 
   return {
@@ -57276,9 +57276,9 @@ function _centrGenerujSciezkaSwiatlaHero(planInfo, dniDone, curDzien){
     + '<div class="cenSciezkaTitle">' + esc(etap.title) + '</div>'
     + '<div class="cenSciezkaDesc">' + esc(etap.desc) + '</div>'
     + '</div>'
-    + '<div class="cenSciezkaCytatBox">'
-    + '<div class="cenSciezkaCytatTekst">„Twoje słowo jest lampą dla moich stóp i światłem na mojej drodze.”</div>'
-    + '<div class="cenSciezkaCytatRef">— Psalm 119:105</div>'
+    + '<div class="cenSciezkaCytatBox" data-copen-jw="Przysłów 4:18" title="Otwórz w JW Library (nwtsty)" style="cursor:pointer;">'
+    + '<div class="cenSciezkaCytatTekst">„Ale ścieżka prawych jest jak jasne poranne światło, które świeci coraz jaśniej, aż nastaje pełnia dnia.”</div>'
+    + '<div class="cenSciezkaCytatRef">— Przysłów 4:18 <span style="font-weight:400;opacity:0.85;">(NWT) • por. Psalm 119:105 ↗</span></div>'
     + '</div>'
     + '</div>'
 
@@ -57529,7 +57529,7 @@ function pokazChangelogModal(){
         <div class="cl-ver-title">Czysta ilustracja 16:9, dedykowana karta motywacji i pełna eliminacja motywu drzewa</div>
         <ul class="cl-ver-list">
           <li><b>Czysta, niczym nieprzysłonięta scena leśna 16:9:</b> Całkowicie usunięto ciemne gradienty i tekstowe nakładki z powierzchni ilustracji. Na telefonach i tabletach dzieło sztuki oraz migoczące płomienie są w 100% odsłonięte i zachowują pełną kinową głębię.</li>
-          <li><b>Dedykowana Karta Postępów i Motywacji pod ilustracją:</b> Wszystkie dane o etapie, inspirujący werset z Psalmu 119:105 (<i>„Twoje słowo jest lampą dla moich stóp i światłem na mojej drodze”</i>), pasek postępu z poziomem jasności (☀️), poziomy wskaźnik 7 latarni na ścieżce oraz kafelki metryk przeniesiono do estetycznej karty umieszczonej bezpośrednio pod obrazem.</li>
+          <li><b>Dedykowana Karta Postępów i Motywacji pod ilustracją:</b> Wszystkie dane o etapie, inspirujący werset przewodni z Przysłów 4:18 (<i>„Ale ścieżka prawych jest jak jasne poranne światło, które świeci coraz jaśniej, aż nastaje pełnia dnia”</i>) oraz Psalmu 119:105, pasek postępu z poziomem jasności (☀️), poziomy wskaźnik 7 latarni na ścieżce oraz kafelki metryk przeniesiono do estetycznej karty umieszczonej bezpośrednio pod obrazem.</li>
           <li><b>Całkowite usunięcie motywu drzewa z aplikacji:</b> Zgodnie z decyzją projektową trwale wycofano dawny motyw drzewa i owoców ducha z planu czytania. Wyeliminowano przełączniki, zbędne zakładki i ponad 1100 linii nieużywanych stylów i struktur SVG, skupiając całą uwagę na jednolitej, nowoczesnej wizji „Światło na ścieżce”.</li>
           <li><b>Spójne powiadomienia zapłonu:</b> Po ukończeniu kolejnych fragmentów i zapaleniu nowej latarni użytkownik otrzymuje przejrzyste powiadomienia celebracji drogi (np. <i>🏮✨ Twoje postępy rozjaśniają drogę! Rozbłysła kolejna latarnia na ścieżce (X z 7)!</i>).</li>
         </ul>
