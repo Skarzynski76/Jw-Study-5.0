@@ -1,4 +1,11 @@
-## 5.0 — 2026-11-13 (Aktualizacja wydajnościowa — v611)
+## 5.0 — 2026-11-13 (Aktualizacja funkcji — v612)
+
+- **Automatyczna synchronizacja czytania Biblii z Duchowymi Celami i Nawykami:**
+  - **Zaznaczenie fragmentu lub dnia planu natychmiast zalicza nawyk:** W momencie oznaczenia dowolnego przeczytanego fragmentu w planie czytania (w Centrum, w widoku dnia, na liście fragmentów lub po otwarciu w JW Library), aplikacja automatycznie odznacza bieżący dzień jako osiągnięty w module *Duchowe cele i nawyki* (w domyślnym nawyku *„Codzienne czytanie Biblii”* oraz w każdym innym nawyku powiązanym z czytaniem Pisma Świętego).
+  - **Aktualizacja serii i kółka nawyku w czasie rzeczywistym:** Zaznaczenie fragmentu natychmiast powiększa bieżącą serię dni z rzędu (🔥) oraz oznacza dzisiejszy dzień w widoku tygodniowym i miesięcznym nawyków.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v612`.
+
+## 5.0 — 2026-11-13 (Wersja v611)
 
 - **Kompleksowa optymalizacja wydajności, płynności 60 FPS i zużycia baterii:**
   - **Eliminacja synchronicznego I/O z pętli animacji:** Wyciągnięto operacje `localStorage.getItem` (`lsGet`), `JSON.parse` oraz alokację obiektów `Set` poza pętlę `requestAnimationFrame`. Dane postępu czytania są odczytywane jednokrotnie przy wejściu do widoku oraz aktualizowane wyłącznie przy zdarzeniach zaznaczenia dnia, co całkowicie uwolniło główny wątek interfejsu (UI Thread) od mikrozacięć.

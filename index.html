@@ -56401,10 +56401,47 @@ function _centrCzyPrzypomnienieWlaczone(){
   return !!cfg.enabled;
 }
 
+function _centrZsynchronizujCzytanieZNawykami(czyZaznaczono){
+  try {
+    const dzis = _centrFormatujDateISO(new Date());
+    const cele = (typeof _centrPobierzCele === "function") ? _centrPobierzCele() : [];
+    if(!Array.isArray(cele) || !cele.length) return;
+
+    let zmieniono = false;
+    let nawykTytul = "";
+
+    cele.forEach(c => {
+      if(!c || c.type !== "habit") return;
+      const isReadingHabit = (c.id === "cel_domyslny_1") ||
+                             (c.category === "czytanie") ||
+                             (typeof c.title === "string" && (c.title.toLowerCase().includes("czytanie") || c.title.toLowerCase().includes("bibli")));
+      if(isReadingHabit){
+        if(!c.history || typeof c.history !== "object") c.history = {};
+        if(czyZaznaczono){
+          if(!c.history[dzis]){
+            c.history[dzis] = true;
+            zmieniono = true;
+            if(!nawykTytul) nawykTytul = c.title || "Codzienne czytanie Biblii";
+          }
+        }
+      }
+    });
+
+    if(zmieniono){
+      _centrZapiszCele(cele);
+      const _uIm = (typeof userImie === "function") ? userImie() : "";
+      toast("🎯 " + (_uIm ? (_uIm + ", o") : "O") + "dnotowano w nawykach: dzisiejszy dzień w „" + nawykTytul + "” osiągnięty!", "ok", 4000);
+    }
+  } catch(err){
+    console.warn("Błąd synchronizacji czytania z nawykami:", err);
+  }
+}
+
 function _centrOznaczDzisCzytanieUkonczone(){
   try {
     const dzis = _centrFormatujDateISO(new Date());
     lsSet(JW_PLAN_DZIS_UKONCZONO, dzis);
+    _centrZsynchronizujCzytanieZNawykami(true);
   } catch(e){}
 }
 
@@ -61087,7 +61124,10 @@ if($("centrum")){
       const fragi = _centrPobierzUkonczoneFragi();
       const nowChecked = !fragi.has(key);
       if(!nowChecked) fragi.delete(key);
-      else fragi.add(key);
+      else {
+        fragi.add(key);
+        if(typeof _centrOznaczDzisCzytanieUkonczone === "function") _centrOznaczDzisCzytanieUkonczone();
+      }
       _centrZapiszUkonczoneFragi(fragi);
 
       const d = parseInt(fragBtn.dataset.cdzien, 10);
@@ -61376,6 +61416,7 @@ if($("centrum")){
           if(planDay && planDay.f){
             planDay.f.forEach((_, idx) => fragi.add(planInfo.id + "_" + dNr + "_" + idx));
           }
+          if(typeof _centrOznaczDzisCzytanieUkonczone === "function") _centrOznaczDzisCzytanieUkonczone();
           const _uIm = (typeof userImie === "function") ? userImie() : "";
           toast("✓ " + (_uIm ? ("Świetnie, " + _uIm + "! ") : "") + "Oznaczono Dzień " + dNr + " jako przeczytany!", "ok");
         }
