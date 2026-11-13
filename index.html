@@ -57023,17 +57023,35 @@ function _centrInicjalizujAnimacjeSciezki(){
   if(!ctx) return;
   if(!_cenSciezkaStartTime) _cenSciezkaStartTime = performance.now();
 
+  // WYDAJNOŚĆ (v611): Odczytujemy dane planu i liczbę aktywnych latarni RAZ poza pętlą 60 FPS,
+  // zamiast synchronicznie odpytywać localStorage i parsować JSON w każdej klatce.
+  const planInfo = (typeof _centrPobierzPlanData === "function") ? _centrPobierzPlanData(_centrAktywnyPlanId) : null;
+  const dniDone = (typeof _centrPobierzUkonczoneDni === "function") ? _centrPobierzUkonczoneDni(_centrAktywnyPlanId) : new Set();
+  const etap = _centrObliczEtapSciezkiSwiatla(planInfo, dniDone.size);
+  const activeCount = etap ? etap.litCount : 1;
+
+  let lastFrameTime = 0;
+
   function loop(now){
     const canvasEl = document.getElementById("cenSciezkaLightCanvas");
-    if(!canvasEl){
+    // Natychmiast zatrzymaj pętlę, gdy Centrum zostało zamknięte lub element jest niewidoczny
+    if(!canvasEl || !document.body.classList.contains("centrum-open") || canvasEl.offsetParent === null){
       _cenSciezkaAnimId = null;
       return;
     }
 
-    const planInfo = (typeof _centrPobierzPlanData === "function") ? _centrPobierzPlanData(_centrAktywnyPlanId) : null;
-    const dniDone = (typeof _centrPobierzUkonczoneDni === "function") ? _centrPobierzUkonczoneDni(_centrAktywnyPlanId) : new Set();
-    const etap = _centrObliczEtapSciezkiSwiatla(planInfo, dniDone.size);
-    const activeCount = etap ? etap.litCount : 1;
+    // Oszczędzanie baterii: wstrzymaj rysowanie, gdy karta przeglądarki jest w tle
+    if(document.hidden){
+      _cenSciezkaAnimId = requestAnimationFrame(loop);
+      return;
+    }
+
+    // Płynne 60 FPS (min 16ms odstępu między klatkami)
+    if(now - lastFrameTime < 16){
+      _cenSciezkaAnimId = requestAnimationFrame(loop);
+      return;
+    }
+    lastFrameTime = now;
 
     const t = (now - _cenSciezkaStartTime) / 1000.0;
     ctx.clearRect(0, 0, 1365, 768);
@@ -57260,8 +57278,8 @@ function _centrGenerujSciezkaSwiatlaHero(planInfo, dniDone, curDzien){
 
     // 16:9 Scena leśna — CZYSTA OD JAKICHKOLWIEK NAPISÓW CZY ZACIEMNIEŃ
     + '<div class="cenSciezkaHeroStage">'
-    + '<img class="cenSciezkaLayer cenSciezkaLayerA" src="' + imgA + '" style="opacity:' + opacityA + ';filter:' + filterA + ';" alt="Ścieżka światła A">'
-    + '<img class="cenSciezkaLayer cenSciezkaLayerB" src="' + imgB + '" style="opacity:' + opacityB + ';filter:' + filterB + ';" alt="Ścieżka światła B">'
+    + '<img class="cenSciezkaLayer cenSciezkaLayerA" src="' + imgA + '" style="opacity:' + opacityA + ';filter:' + filterA + ';" decoding="async" alt="Ścieżka światła A">'
+    + '<img class="cenSciezkaLayer cenSciezkaLayerB" src="' + imgB + '" style="opacity:' + opacityB + ';filter:' + filterB + ';" decoding="async" alt="Ścieżka światła B">'
     + '<canvas id="cenSciezkaLightCanvas" width="1365" height="768"></canvas>'
     + '<svg class="cenSciezkaSvgLayer" viewBox="0 0 1365 768" preserveAspectRatio="none">'
     + bibleSvg
@@ -57342,7 +57360,7 @@ function _centrWidokSciezkaSwiatla(planInfo, dniDone, curSer, bestSer){
 
     mosaicTilesHtml += '<div class="cenMosaicTile' + (isActive ? ' is-active' : '') + (isDone ? ' is-done' : '') + '" title="Tydzień ' + w + ' z ' + etap.maxWeeks + ' • ' + pct + '% postępu • ' + litCount + ' z 7 latarni">'
       + '<div class="cenMosaicThumb">'
-      + '<img class="cenMosaicImg" src="' + thumbSrc + '" style="filter:' + thumbFilter + ';" alt="Tydzień ' + w + '">'
+      + '<img class="cenMosaicImg" src="' + thumbSrc + '" style="filter:' + thumbFilter + ';" loading="lazy" decoding="async" alt="Tydzień ' + w + '">'
       + '<div class="cenMosaicOverlay">'
       + '<span class="cenMosaicWeek">Tydz. ' + w + '</span>'
       + '<span class="cenMosaicPct">' + pct + '%</span>'

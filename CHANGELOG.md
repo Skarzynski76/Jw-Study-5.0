@@ -1,4 +1,12 @@
-## 5.0 — 2026-11-12 (Aktualizacja bieżąca — v610)
+## 5.0 — 2026-11-13 (Aktualizacja wydajnościowa — v611)
+
+- **Kompleksowa optymalizacja wydajności, płynności 60 FPS i zużycia baterii:**
+  - **Eliminacja synchronicznego I/O z pętli animacji:** Wyciągnięto operacje `localStorage.getItem` (`lsGet`), `JSON.parse` oraz alokację obiektów `Set` poza pętlę `requestAnimationFrame`. Dane postępu czytania są odczytywane jednokrotnie przy wejściu do widoku oraz aktualizowane wyłącznie przy zdarzeniach zaznaczenia dnia, co całkowicie uwolniło główny wątek interfejsu (UI Thread) od mikrozacięć.
+  - **Inteligentne usypianie pętli renderowania:** Animacja Canvas natychmiast zatrzymuje się, gdy Centrum zostaje zamknięte, element jest ukryty (`offsetParent === null`) lub gdy aplikacja przechodzi w tło (`document.hidden`). Zapobiega to drenowaniu baterii i obciążaniu procesora na telefonach i tabletach.
+  - **Lekkie dekodowanie obrazów siatki (Lazy Loading):** Wprowadzono atrybuty `loading="lazy"` oraz `decoding="async"` dla miniatur kafelków 13 i 52 tygodni, eliminując jednoczesne dekodowanie wielu grafik w pamięci VRAM procesora graficznego.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v611`.
+
+## 5.0 — 2026-11-12 (Wersja v610)
 
 - **Czysta ilustracja 16:9, dedykowana karta motywacji i pełna eliminacja motywu drzewa:**
   - **Czysty, niczym nieprzysłonięty kadr 16:9:** Usunięto z powierzchni ilustracji leśnej wszystkie ciemne gradienty i nakładki tekstowe. Na telefonach (np. iPhone) oraz tabletach grafika ścieżki i animowane płomienie latarni są w 100% odsłonięte i w pełni widoczne.
