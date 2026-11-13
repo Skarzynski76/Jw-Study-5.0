@@ -7267,6 +7267,97 @@ body.fs-open #imgHandles { z-index: 100138 !important; }
 #imgBar .ib-lbl { font-size: 11px; color: var(--muted); padding: 0 4px; white-space: nowrap; }
 #imgBar input[type=range] { width: 104px; accent-color: var(--accent); cursor: pointer; }
 
+/* Pływający pasek opcji wklejania (iPadOS style) */
+#pasteOptPill {
+  position: fixed;
+  display: none;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  bottom: 24px;
+  gap: 6px;
+  align-items: center;
+  background: var(--panel);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22), 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 5px 8px 5px 12px;
+  z-index: 10025;
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  pointer-events: none;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+#pasteOptPill.show {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+#pasteOptPill .pop-lbl {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-right: 2px;
+}
+#pasteOptPill .pop-btn {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text);
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  line-height: 1.35;
+}
+#pasteOptPill .pop-btn:hover {
+  background: var(--sel);
+}
+#pasteOptPill .pop-btn.active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+}
+#pasteOptPill .pop-close {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+  cursor: pointer;
+  margin-left: 2px;
+}
+#pasteOptPill .pop-close:hover {
+  background: var(--sel);
+  color: var(--text);
+}
+@media (max-width: 600px) {
+  #pasteOptPill {
+    bottom: 16px;
+    max-width: calc(100vw - 20px);
+    overflow-x: auto;
+    padding: 4px 6px 4px 8px;
+  }
+  #pasteOptPill .pop-lbl span { display: none; }
+}
+
 .editbar .eb-img,
 .editbar .eb-audio-btn,
 .editbar .eb-video-btn,
@@ -24057,6 +24148,13 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
   <button class="ctx-color" data-ctx="color" title="Kolor i podświetlenie">A</button><span class="sep"></span>
   <button data-ctx="link" title="Utwórz link">🔗</button><button data-ctx="quote" title="Zamień w cytat">❝</button><button data-ctx="callout" title="Zamień w blok Ważne">!</button><button data-ctx="painter" title="Malarz formatów">🖌</button>
 </div>
+<div id="pasteOptPill" class="paste-opt-pill" role="toolbar" aria-label="Format wklejania">
+  <span class="pop-lbl">📋 <span>Wklejono:</span></span>
+  <button type="button" class="pop-btn active" data-paste-opt="smart" title="Inteligentne odstępy, zachowuje formatowanie">Dopasuj odstępy</button>
+  <button type="button" class="pop-btn" data-paste-opt="plain" title="Czysty tekst bez obcego formatowania">Tylko tekst</button>
+  <button type="button" class="pop-btn" data-paste-opt="orig" title="Oryginalny format i odstępy">Zachowaj oryginał</button>
+  <button type="button" class="pop-close" data-paste-opt="close" title="Zamknij" aria-label="Zamknij">✕</button>
+</div>
 <div id="slashMenu" class="slash-menu" role="menu" aria-label="Wstawianie elementów" hidden>
   <div class="slash-menu-head">
     <span class="slash-menu-title">Wstaw element</span>
@@ -25967,9 +26065,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v610";
-const APP_BUILD_DATE = "2026-11-12";
-const APP_FULL_VERSION = "5.0 (v610)";
+const APP_BUILD = "v613";
+const APP_BUILD_DATE = "2026-11-13";
+const APP_FULL_VERSION = "5.0 (v613)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -35100,11 +35198,15 @@ function obsluzEnterBezOdstepu(e,ce){
 }
 /* Wklejony tekst pozostaje prosty, ale zachowuje wiersze jako BR zamiast
    tworzonych przez Safari bloków DIV o różnej wysokości. */
-function wstawCzystyTekst(ce,tekst){
+function wstawCzystyTekst(ce,tekst,opcje){
   const sel=getSelection(); if(!sel||!sel.rangeCount)return false;
   const r=sel.getRangeAt(0); if(!ce.contains(r.startContainer))return false;
   r.deleteContents(); const frag=document.createDocumentFragment();
-  String(tekst).replace(/\r\n?/g,"\n").split("\n").forEach((wiersz,i)=>{
+  let t = String(tekst).replace(/\r\n?/g,"\n");
+  if(!opcje || !opcje.zachowajOryginalneOdstepy){
+    t = t.replace(/\n{3,}/g, "\n\n");
+  }
+  t.split("\n").forEach((wiersz,i)=>{
     if(i)frag.appendChild(document.createElement("br"));
     if(wiersz)frag.appendChild(document.createTextNode(wiersz));
   });
@@ -35112,16 +35214,111 @@ function wstawCzystyTekst(ce,tekst){
   const po=document.createRange();po.setStartBefore(zn);po.collapse(true);zn.remove();
   sel.removeAllRanges();sel.addRange(po);return true;
 }
+
 /**
- * Czyści i normalizuje kod HTML wklejany ze schowka (Word, Google Docs, JW Library, strony www).
+ * Normalizuje puste wiersze i odstępy akapitów w edytorze lub fragmencie DOM.
+ * Likwiduje wielokrotne puste linie (3-4 wiersze odstępu) po wklejeniu z ChatGPT lub stron www,
+ * pozostawiając elegancki, czytelny 1 pusty wiersz (max 2 kolejne <br>), a w listach i zwartych akapitach
+ * pojedynczy wiersz.
+ * @param {HTMLElement} ce
+ * @param {Object} [opcje]
+ * @param {boolean} [opcje.kompakt] - jeśli true, usuwa wszystkie puste wiersze (zostawia tylko pojedynczy br)
+ * @returns {number} Liczba usuniętych nadmiarowych przerw/wierszy
+ */
+function normalizujPusteWierszeDOM(ce, opcje){
+  if(!ce) return 0;
+  let zmiany = 0;
+  const kompakt = !!(opcje && opcje.kompakt);
+
+  // 1. Znormalizuj węzły tekstowe (usuń \r, zwiń \n\n+ i usuń \n na styku z <br>)
+  const walker = document.createTreeWalker(ce, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  let tn;
+  while(tn = walker.nextNode()) textNodes.push(tn);
+
+  textNodes.forEach(node => {
+    let val = node.nodeValue;
+    if(!val) return;
+    const st = val;
+    val = val.replace(/\r\n?/g, "\n");
+
+    // Jeśli węzeł sąsiaduje z <br>, usuń zbędny \n na krawędzi (w pre-wrap \n i <br> sumują się w podwójny odstęp)
+    let prev = node.previousSibling;
+    while(prev && prev.nodeType === 3 && !prev.nodeValue) prev = prev.previousSibling;
+    if(prev && prev.nodeName === "BR") {
+      val = val.replace(/^\n+/, "");
+    }
+
+    let next = node.nextSibling;
+    while(next && next.nodeType === 3 && !next.nodeValue) next = next.nextSibling;
+    if(next && next.nodeName === "BR") {
+      val = val.replace(/\n+$/, "");
+    }
+
+    // Zwiń nadmiarowe \n wewnątrz węzła tekstowego: 3+ nowe linie -> max 2 (1 pusta linia)
+    if(kompakt){
+      val = val.replace(/\n{2,}/g, "\n");
+    } else {
+      val = val.replace(/\n{3,}/g, "\n\n");
+    }
+
+    if(val !== st){
+      node.nodeValue = val;
+      zmiany++;
+    }
+  });
+
+  // 2. Przejdź po wszystkich znacznikach <br> i zwiń kolejne <br> (z uwzględnieniem pustych węzłów tekstowych między nimi)
+  const allBrs = Array.from(ce.querySelectorAll("br"));
+  allBrs.forEach(br => {
+    if(!br.parentNode) return;
+    let prev = br.previousSibling;
+    let ilePoprzednichBr = 0;
+    const pustePomiedzy = [];
+
+    while(prev){
+      if(prev.nodeName === "BR"){
+        ilePoprzednichBr++;
+      } else if(prev.nodeType === 3 && !prev.nodeValue.trim()){
+        pustePomiedzy.push(prev);
+      } else {
+        break;
+      }
+      prev = prev.previousSibling;
+    }
+
+    const maxDozwolone = kompakt ? 1 : 2;
+    if(ilePoprzednichBr >= maxDozwolone){
+      br.remove();
+      pustePomiedzy.forEach(p => { if(p.parentNode) p.remove(); });
+      zmiany++;
+    }
+  });
+
+  // 3. Usuń początkowe i końcowe <br> w edytorze
+  while(ce.firstChild && (ce.firstChild.nodeName === "BR" || (ce.firstChild.nodeType === 3 && !ce.firstChild.nodeValue.trim()))){
+    ce.removeChild(ce.firstChild);
+    zmiany++;
+  }
+  while(ce.lastChild && (ce.lastChild.nodeName === "BR" || (ce.lastChild.nodeType === 3 && !ce.lastChild.nodeValue.trim()))){
+    ce.removeChild(ce.lastChild);
+    zmiany++;
+  }
+
+  return zmiany;
+}
+
+/**
+ * Czyści i normalizuje kod HTML wklejany ze schowka (Word, Google Docs, JW Library, strony www, ChatGPT).
  * Zachowuje formatowanie bogate (pogrubienie, kursywa, podkreślenie, przekreślenie, wyróżnienia,
  * odnośniki, listy, tabele, cytaty, nagłówki, bezpieczne kolory tekstu i tła), eliminując
  * skrypty, ramki, niepożądane style blokujące i obcą typografię.
  * @param {string} rawHtml
  * @param {string} [plainText]
+ * @param {Object} [opcje]
  * @returns {string}
  */
-function oczyscWklejanyHtml(rawHtml, plainText){
+function oczyscWklejanyHtml(rawHtml, plainText, opcje){
   if(!rawHtml || typeof rawHtml !== "string" || !rawHtml.trim()){
     return "";
   }
@@ -35174,7 +35371,15 @@ function oczyscWklejanyHtml(rawHtml, plainText){
     let ch = cel.lastChild;
     while(ch){
       if(ch.nodeType === 1 && ch.tagName === "BR") brCount++;
-      else if(ch.nodeType === 3 && !ch.nodeValue.trim()){}
+      else if(ch.nodeType === 3 && !ch.nodeValue.trim()){
+        const nls = (ch.nodeValue.match(/\n/g) || []).length;
+        brCount += nls;
+      }
+      else if(ch.nodeType === 3){
+        const m = ch.nodeValue.match(/\n+$/);
+        if(m) brCount += m[0].length;
+        break;
+      }
       else break;
       ch = ch.previousSibling;
     }
@@ -35191,6 +35396,11 @@ function oczyscWklejanyHtml(rawHtml, plainText){
         let val = node.nodeValue;
         if(val){
           if(typeof naprawMojibake === "function") val = naprawMojibake(val);
+          // Pomiń białe znaki będące wcięciami/nowymi liniami bezpośrednio między elementami blokowymi
+          const pTag = (node.parentNode && node.parentNode.tagName) ? node.parentNode.tagName.toUpperCase() : "";
+          if(/^(DIV|BODY|SECTION|ARTICLE|MAIN|UL|OL|TABLE|TBODY|TR)$/.test(pTag) && !val.trim()){
+            return;
+          }
           target.appendChild(document.createTextNode(val));
         }
         return;
@@ -35413,12 +35623,16 @@ function oczyscWklejanyHtml(rawHtml, plainText){
 
   walk(root, dst);
 
-  // Usuń początkowe i końcowe znaczniki <br>
-  while(dst.firstChild && (dst.firstChild.tagName === "BR" || (dst.firstChild.nodeType === 3 && !dst.firstChild.nodeValue.trim()))){
-    dst.removeChild(dst.firstChild);
-  }
-  while(dst.lastChild && (dst.lastChild.tagName === "BR" || (dst.lastChild.nodeType === 3 && !dst.lastChild.nodeValue.trim()))){
-    dst.removeChild(dst.lastChild);
+  // Normalizacja odstępów w wynikowym drzewie dst
+  if(!opcje || !opcje.zachowajOryginalneOdstepy){
+    normalizujPusteWierszeDOM(dst, opcje);
+  } else {
+    while(dst.firstChild && (dst.firstChild.tagName === "BR" || (dst.firstChild.nodeType === 3 && !dst.firstChild.nodeValue.trim()))){
+      dst.removeChild(dst.firstChild);
+    }
+    while(dst.lastChild && (dst.lastChild.tagName === "BR" || (dst.lastChild.nodeType === 3 && !dst.lastChild.nodeValue.trim()))){
+      dst.removeChild(dst.lastChild);
+    }
   }
 
   const wynik = dst.innerHTML.trim();
@@ -35428,8 +35642,121 @@ function oczyscWklejanyHtml(rawHtml, plainText){
   return wynik;
 }
 
+let _biezacyWklejonyFragment = null;
+let _pastePillTimer = null;
+
+function posprzatajMarkeryWklejania(){
+  if(_biezacyWklejonyFragment){
+    try{
+      if(_biezacyWklejonyFragment.markerStart && _biezacyWklejonyFragment.markerStart.parentNode){
+        _biezacyWklejonyFragment.markerStart.remove();
+      }
+      if(_biezacyWklejonyFragment.markerEnd && _biezacyWklejonyFragment.markerEnd.parentNode){
+        _biezacyWklejonyFragment.markerEnd.remove();
+      }
+    }catch(_){}
+    _biezacyWklejonyFragment = null;
+  }
+}
+
+function zamknijPasekOpcjiWklejania(){
+  const pill = $("pasteOptPill");
+  if(pill){
+    pill.classList.remove("show");
+    setTimeout(()=>{
+      if(!pill.classList.contains("show")) pill.style.display = "none";
+    }, 220);
+  }
+  if(_pastePillTimer){
+    clearTimeout(_pastePillTimer);
+    _pastePillTimer = null;
+  }
+  posprzatajMarkeryWklejania();
+}
+
+function pokazPasekOpcjiWklejania(fragInfo){
+  const pill = $("pasteOptPill");
+  if(!pill) return;
+  if(_pastePillTimer) clearTimeout(_pastePillTimer);
+
+  pill.querySelectorAll(".pop-btn").forEach(b => {
+    const opt = b.dataset.pasteOpt;
+    if(opt === fragInfo.aktywny) b.classList.add("active");
+    else b.classList.remove("active");
+  });
+
+  pill.style.display = "flex";
+  void pill.offsetWidth;
+  pill.classList.add("show");
+
+  _pastePillTimer = setTimeout(()=>{
+    zamknijPasekOpcjiWklejania();
+  }, 7000);
+}
+
+function przelaczFormatWklejania(nowyTryb){
+  if(!_biezacyWklejonyFragment) return;
+  const { ce, markerStart, markerEnd, smartHtml, plainHtml, origHtml, aktywny } = _biezacyWklejonyFragment;
+  if(nowyTryb === aktywny) return;
+  if(!markerStart || !markerEnd || !markerStart.parentNode || !markerEnd.parentNode){
+    zamknijPasekOpcjiWklejania();
+    return;
+  }
+
+  let htmlDoWstawienia = smartHtml;
+  let komunikat = "Dopasowano odstępy";
+  if(nowyTryb === "plain"){
+    htmlDoWstawienia = plainHtml;
+    komunikat = "Zastosowano czysty tekst";
+  } else if(nowyTryb === "orig"){
+    htmlDoWstawienia = origHtml;
+    komunikat = "Przywrócono oryginalne odstępy";
+  }
+
+  if(typeof histZapisz === "function") histZapisz(ce);
+
+  const parent = markerStart.parentNode;
+  let cur = markerStart.nextSibling;
+  while(cur && cur !== markerEnd){
+    const next = cur.nextSibling;
+    cur.remove();
+    cur = next;
+  }
+
+  const tpl = document.createElement("template");
+  tpl.innerHTML = htmlDoWstawienia;
+  const nowyFrag = tpl.content;
+  parent.insertBefore(nowyFrag, markerEnd);
+
+  _biezacyWklejonyFragment.aktywny = nowyTryb;
+
+  const pill = $("pasteOptPill");
+  if(pill){
+    pill.querySelectorAll(".pop-btn").forEach(b => {
+      if(b.dataset.pasteOpt === nowyTryb) b.classList.add("active");
+      else b.classList.remove("active");
+    });
+  }
+
+  if(typeof histZapisz === "function") histZapisz(ce);
+  commitLiveEdit(ce);
+  if(ce.id === "nnContent"){
+    if(typeof updateNnContentEmptyState === "function") updateNnContentEmptyState();
+    if(typeof updateNnMetrics === "function") updateNnMetrics();
+    if(typeof triggerNnAutosave === "function") triggerNnAutosave();
+  }
+  try{ ce.dispatchEvent(new Event("input", {bubbles: true})); }catch(_){}
+
+  toast(komunikat);
+
+  if(_pastePillTimer) clearTimeout(_pastePillTimer);
+  _pastePillTimer = setTimeout(()=>{
+    zamknijPasekOpcjiWklejania();
+  }, 7000);
+}
+
 /** Wstawia sformatowany, oczyszczony fragment HTML na pozycji kursora w edytowanej notatce. */
-function wstawSformatowanyHtml(ce, html){
+function wstawSformatowanyHtml(ce, html, opcjeWariantow){
   if(!ce || !html) return false;
   ce.focus();
   const sel = getSelection();
@@ -35442,10 +35769,21 @@ function wstawSformatowanyHtml(ce, html){
   }
   r.deleteContents();
 
+  posprzatajMarkeryWklejania();
+
+  const id = Date.now();
+  const markerStart = document.createComment("jw-ps-" + id);
+  const markerEnd = document.createComment("jw-pe-" + id);
+
   const tpl = document.createElement("template");
   tpl.innerHTML = html;
   const frag = tpl.content;
   if(!frag || !frag.childNodes.length) return false;
+
+  if(opcjeWariantow){
+    frag.insertBefore(markerStart, frag.firstChild);
+    frag.appendChild(markerEnd);
+  }
 
   // Jeśli wklejamy elementy blokowe, a kursor jest wewnątrz stylu liniowego (np. <b>), rozbij styl
   const maBloki = frag.querySelector && frag.querySelector("h1, h2, h3, h4, h5, h6, ul, ol, table, blockquote, figure");
@@ -35468,6 +35806,21 @@ function wstawSformatowanyHtml(ce, html){
   zn.remove();
   sel.removeAllRanges();
   sel.addRange(po);
+
+  if(opcjeWariantow && markerStart.parentNode && markerEnd.parentNode){
+    _biezacyWklejonyFragment = {
+      ce,
+      id,
+      markerStart,
+      markerEnd,
+      smartHtml: opcjeWariantow.smartHtml || html,
+      plainHtml: opcjeWariantow.plainHtml || html,
+      origHtml: opcjeWariantow.origHtml || html,
+      aktywny: opcjeWariantow.aktywny || "smart"
+    };
+    pokazPasekOpcjiWklejania(_biezacyWklejonyFragment);
+  }
+
   return true;
 }
 
@@ -35829,7 +36182,8 @@ function openEbPop(kind, btn, bar){
     pop.innerHTML =
       `<div class="dd-lbl">Styl akapitu</div>`+ poz("blok", BLOK_STYLE, teraz)+
       `<div class="dd-sep"></div><div class="dd-lbl">${IE_INTER}Interlinia</div>`+ poz("lh", INTERLINIE, lhTeraz)+
-      `<div class="dd-sep"></div><div class="dd-lbl">${IE_ODSTEP}Odstęp przed i po akapicie</div>`+ poz("pm", ODSTEPY, pmTeraz);
+      `<div class="dd-sep"></div><div class="dd-lbl">${IE_ODSTEP}Odstęp przed i po akapicie</div>`+ poz("pm", ODSTEPY, pmTeraz)+
+      `<div class="dd-sep"></div><div data-narz="empty-lines">↕ Usuń nadmiar pustych wierszy</div>`;
   } else if(kind==="media"){
     pop.innerHTML =
       `<div class="dd-lbl">Multimedia i nagrania</div>
@@ -36179,9 +36533,21 @@ function porzadkujPolskiTekst(ce,tylkoWiersze){
       if(nowy!==st){node.nodeValue=nowy;zmiany++;}
     });
   }
-  /* Zachowujemy najwyżej jeden pusty wiersz, czyli dwa kolejne BR. */
-  Array.from(ce.querySelectorAll("br")).forEach(br=>{let p=br.previousSibling,ile=0;while(p&&p.nodeName==="BR"){ile++;p=p.previousSibling;}if(ile>=2){br.remove();zmiany++;}});
-  commitLiveEdit(ce);if(typeof histZapisz==="function")histZapisz(ce);toast(zmiany?"Uporządkowano tekst":"Tekst nie wymagał zmian");
+  /* Normalizuj odstępy akapitów i puste wiersze (usuwa wielokrotne linie po wklejeniu) */
+  const usuniete = typeof normalizujPusteWierszeDOM === "function" ? normalizujPusteWierszeDOM(ce) : 0;
+  zmiany += usuniete;
+  commitLiveEdit(ce);
+  if(ce.id === "nnContent"){
+    if(typeof updateNnContentEmptyState === "function") updateNnContentEmptyState();
+    if(typeof updateNnMetrics === "function") updateNnMetrics();
+    if(typeof triggerNnAutosave === "function") triggerNnAutosave();
+  }
+  if(typeof histZapisz==="function") histZapisz(ce);
+  if(tylkoWiersze){
+    toast(zmiany ? `Usunięto nadmiar pustych wierszy (${zmiany})` : "Odstępy w tekście są już prawidłowe");
+  } else {
+    toast(zmiany ? "Uporządkowano tekst" : "Tekst nie wymagał zmian");
+  }
 }
 
 /* Dyskretna autokorekta podczas pisania: polskie cudzysłowy, podwójna spacja
@@ -38309,45 +38675,78 @@ document.addEventListener("paste", async e=>{
 
   if(!txt && !rawHtml) return;
 
-  // Shift+Paste (lub brak HTML w schowku) -> wklej jako czysty tekst
-  const wymusCzystyTekst = e.shiftKey || !rawHtml.trim();
+  e.preventDefault();
+  if(typeof histZapisz === "function") histZapisz(ce);
 
-  let wstawionoHtml = false;
-  if(!wymusCzystyTekst && typeof oczyscWklejanyHtml === "function" && typeof wstawSformatowanyHtml === "function"){
-    const cleanHtml = oczyscWklejanyHtml(rawHtml, txt);
-    if(cleanHtml && cleanHtml.trim()){
-      e.preventDefault();
-      if(typeof histZapisz === "function") histZapisz(ce);
-      wstawionoHtml = wstawSformatowanyHtml(ce, cleanHtml);
-      if(wstawionoHtml){
-        if(typeof histZapisz === "function") histZapisz(ce);
-        commitLiveEdit(ce);
-        if(ce.id === "nnContent"){
-          if(typeof updateNnContentEmptyState === "function") updateNnContentEmptyState();
-          if(typeof updateNnMetrics === "function") updateNnMetrics();
-          if(typeof triggerNnAutosave === "function") triggerNnAutosave();
-        }
-        try{ ce.dispatchEvent(new Event("input", {bubbles: true})); }catch(_){}
-        return;
-      }
+  // Przygotuj warianty wklejania:
+  // 1. Czysty tekst (plainHtml)
+  const zrodloTekstu = txt || (typeof htmlToPlain === "function" ? htmlToPlain(rawHtml) : rawHtml.replace(/<[^>]+>/g, ""));
+  let cleanTxt = String(zrodloTekstu).replace(/\r\n?/g, "\n").replace(/\n{3,}/g, "\n\n");
+  const plainHtml = cleanTxt.split("\n").map(esc).join("<br>");
+
+  // 2. Inteligentny HTML (smartHtml) i Oryginalny (origHtml)
+  let smartHtml = "";
+  let origHtml = "";
+  if(rawHtml && rawHtml.trim() && typeof oczyscWklejanyHtml === "function"){
+    smartHtml = oczyscWklejanyHtml(rawHtml, txt, { zachowajOryginalneOdstepy: false });
+    origHtml = oczyscWklejanyHtml(rawHtml, txt, { zachowajOryginalneOdstepy: true }) || rawHtml;
+  }
+  if(!smartHtml){
+    smartHtml = plainHtml;
+    origHtml = String(zrodloTekstu).replace(/\r\n?/g, "\n").split("\n").map(esc).join("<br>");
+  }
+
+  const wymusCzystyTekst = e.shiftKey;
+  const domyslnyHtml = wymusCzystyTekst ? plainHtml : smartHtml;
+  const domyslnyTryb = wymusCzystyTekst ? "plain" : "smart";
+
+  const wstawiono = typeof wstawSformatowanyHtml === "function" && wstawSformatowanyHtml(ce, domyslnyHtml, {
+    smartHtml,
+    plainHtml,
+    origHtml,
+    aktywny: domyslnyTryb
+  });
+
+  if(!wstawiono){
+    if(typeof wstawCzystyTekst === "function"){
+      wstawCzystyTekst(ce, cleanTxt);
+    } else {
+      document.execCommand("insertText", false, cleanTxt);
     }
   }
 
-  // Wklejanie czystego tekstu (jako domyślne lub niezawodny fallback)
-  if(txt !== ""){
-    e.preventDefault();
-    if(typeof histZapisz === "function") histZapisz(ce);
-    if(!wstawCzystyTekst(ce, txt)) document.execCommand("insertText", false, txt);
-    if(typeof histZapisz === "function") histZapisz(ce);
-    commitLiveEdit(ce);
-    if(ce.id === "nnContent"){
-      if(typeof updateNnContentEmptyState === "function") updateNnContentEmptyState();
-      if(typeof updateNnMetrics === "function") updateNnMetrics();
-      if(typeof triggerNnAutosave === "function") triggerNnAutosave();
-    }
-    try{ ce.dispatchEvent(new Event("input", {bubbles: true})); }catch(_){}
+  if(typeof histZapisz === "function") histZapisz(ce);
+  commitLiveEdit(ce);
+  if(ce.id === "nnContent"){
+    if(typeof updateNnContentEmptyState === "function") updateNnContentEmptyState();
+    if(typeof updateNnMetrics === "function") updateNnMetrics();
+    if(typeof triggerNnAutosave === "function") triggerNnAutosave();
   }
+  try{ ce.dispatchEvent(new Event("input", {bubbles: true})); }catch(_){}
 });
+/* Obsługa zdarzeń pływającego paska opcji wklejania */
+(function setupPasteOptPill(){
+  const bind = ()=>{
+    const pill = $("pasteOptPill");
+    if(!pill) return;
+    pill.addEventListener("pointerdown", e=>{
+      const b = e.target.closest("[data-paste-opt]");
+      if(b){
+        e.preventDefault();
+        const opt = b.dataset.pasteOpt;
+        if(opt === "close") zamknijPasekOpcjiWklejania();
+        else przelaczFormatWklejania(opt);
+      }
+    });
+  };
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind);
+  else bind();
+})();
+document.addEventListener("keydown", e=>{
+  if(_biezacyWklejonyFragment && !e.target.closest("#pasteOptPill")){
+    zamknijPasekOpcjiWklejania();
+  }
+}, true);
 /* PRZECIĄGNIJ plik obrazu z pulpitu na edytowaną notatkę (komputer) */
 document.addEventListener("dragover", e=>{
   const ce = e.target && e.target.closest && e.target.closest('.ncontent[contenteditable="true"]');

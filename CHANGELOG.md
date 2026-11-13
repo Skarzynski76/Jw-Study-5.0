@@ -1,3 +1,15 @@
+## 5.0 — 2026-11-13 (Formatowanie wklejania i normalizacja odstępów — v613)
+
+- **Inteligentne wklejanie tekstu i eliminacja wielokrotnych pustych linii (ChatGPT / web):**
+  - **Rozwiązanie problemu wielokrotnych pustych linii:** Zlikwidowano przyczynę powstawania 3–4 wierszy przerw między akapitami i punktami (np. przy wklejaniu list i myśli z ChatGPT). Oczyszczanie kodu HTML nie powiela już znaczników `<br>` przy elementach blokowych `<p>`/`<div>`, ignoruje białe znaki wcięć między blokami oraz inteligentnie uwzględnia styl `white-space: pre-wrap` edytora.
+  - **Pływający pasek opcji wklejania w stylu iPadOS (`#pasteOptPill`):** Po wklejeniu tekstu w notatce pojawia się elegancki, półprzezroczysty pasek w stylu iPadOS/Notion z możliwością wyboru formatu jednym dotknięciem:
+    - **„Dopasuj odstępy” (Domyślne / aktywne):** Zachowuje bogate formatowanie (pogrubienia, kursywy, kolory, odnośniki), redukując nadmiarowe puste linie do optymalnego, czytelnego 1 wiersza odstępu między akapitami.
+    - **„Tylko tekst”:** Natychmiast usuwa wszelkie obce formatowanie i style źródłowe, pozostawiając czysty tekst z optymalnymi interliniami dopasowanymi do czcionki notatki.
+    - **„Zachowaj oryginał”:** Pozwala przywrócić układ 1:1 ze źródła zewnętrznego, jeśli użytkownik tego wymaga.
+    - Pasek automatycznie znika po 7 sekundach lub natychmiast po rozpoczęciu pisania.
+  - **Udoskonalone narzędzie „Usuń nadmiar pustych wierszy” (`normalizujPusteWierszeDOM`):** Funkcja w menu `⋯ Więcej` oraz `Treść ⌄` (Styl akapitu) usuwa teraz wszystkie skumulowane puste wiersze i zbędne znaczniki `<br>` z istniejącej, otwartej notatki, informując o liczbie zlikwidowanych przerw.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v613`.
+
 ## 5.0 — 2026-11-13 (Aktualizacja funkcji — v612)
 
 - **Automatyczna synchronizacja czytania Biblii z Duchowymi Celami i Nawykami:**
