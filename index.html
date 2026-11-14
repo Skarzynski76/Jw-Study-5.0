@@ -2823,61 +2823,99 @@ html[data-theme="dark"] .cenHeroTag {
   max-height: 12px !important;
   flex-shrink: 0;
 }
-/* TYDZIEŃ NAWYKÓW */
+/* TYDZIEŃ NAWYKÓW — Styl Apple Fitness Rings (iPadOS) */
 .cenCelWeekRow {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+  gap: 4px;
   margin-bottom: 14px;
+  background: color-mix(in srgb, var(--cen-card-bg, #ffffff) 65%, var(--cen-btn-bg, #f1f5f9));
+  border: 1px solid var(--cen-card-border);
+  border-radius: 18px;
+  padding: 10px 4px;
 }
 .cenCelDayBtn {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 6px 2px;
-  border-radius: 10px;
-  border: 1px solid var(--cen-card-border);
-  background: var(--cen-btn-bg);
+  padding: 4px 2px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
   cursor: pointer;
-  transition: all 0.14s ease;
-  gap: 2px;
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 3px;
+  min-height: 44px;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .cenCelDayBtn:hover {
-  border-color: var(--cel-color, #3b82f6);
-  transform: translateY(-2px);
+  background: rgba(148, 163, 184, 0.14);
+  transform: translateY(-1px);
 }
-.cenCelDayBtn.today {
-  border: 1.5px solid var(--cel-color, #3b82f6);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.18);
-}
-.cenCelDayBtn.future {
-  opacity: 0.72;
-}
-.cenCelDayBtn.future:hover {
-  opacity: 1;
-}
-.cenCelDayBtn.done {
-  background: var(--cel-color, #3b82f6);
-  border-color: var(--cel-color, #3b82f6);
-  color: #ffffff;
-}
-.cenCelDayBtn.done .cenCelDayLbl, .cenCelDayBtn.done .cenCelDayNum {
-  color: #ffffff;
+.cenCelDayBtn:active {
+  transform: scale(0.94);
 }
 .cenCelDayLbl {
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   color: var(--cen-text-muted);
+  line-height: 1;
+}
+.cenCelDayBtn.today .cenCelDayLbl {
+  color: var(--cel-color, #2563eb);
+  font-weight: 800;
+}
+.cenCelRingCircle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  border: 2px solid transparent;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 2px 0;
+  background: transparent;
+  color: var(--cen-text-muted);
+}
+.cenCelDayBtn.done .cenCelRingCircle {
+  background: var(--cel-color, #2563eb);
+  color: #ffffff;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--cel-color, #2563eb) 35%, transparent);
+}
+.cenCelDayBtn.today:not(.done) .cenCelRingCircle {
+  border: 2.5px solid var(--cel-color, #2563eb);
+  color: var(--cel-color, #2563eb);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cel-color, #2563eb) 18%, transparent);
+}
+.cenCelDayBtn.today.done .cenCelRingCircle {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cel-color, #2563eb) 25%, transparent), 0 4px 12px color-mix(in srgb, var(--cel-color, #2563eb) 35%, transparent);
+}
+.cenCelDayBtn.future:not(.done):not(.today) .cenCelRingCircle {
+  border: 1.5px dashed rgba(148, 163, 184, 0.35);
+  color: var(--cen-text-muted);
+  opacity: 0.65;
+}
+.cenCelDayBtn.rest .cenCelRingCircle {
+  background: rgba(148, 163, 184, 0.08);
+  border: 1.5px solid transparent;
+  color: var(--cen-text-muted);
+  opacity: 0.6;
 }
 .cenCelDayNum {
   font-size: 12px;
   font-weight: 600;
   color: var(--cen-text);
-}
-.cenCelDayIko {
-  font-size: 9.5px;
   line-height: 1;
+}
+.cenCelDayBtn.today .cenCelDayNum {
+  color: var(--cel-color, #2563eb);
+  font-weight: 800;
 }
 /* CEL LICZBOWY ROW */
 .cenCelNumWrap {
@@ -20606,76 +20644,96 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
 .cenHabitDaysRow {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+  gap: 4px;
   margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  padding: 8px 4px;
+  background: color-mix(in srgb, var(--panel, #ffffff) 65%, var(--bg, #f1f5f9));
+  border: 1px solid var(--border);
+  border-radius: 16px;
 }
 .cenHabitDayBtn {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 5px 2px 4px 2px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--panel, #ffffff) 80%, var(--bg, #f8fafc));
+  padding: 3px 2px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
   min-width: 0;
   user-select: none;
   font-family: inherit;
   outline: none;
+  gap: 2px;
 }
 .cenHabitDayBtn:hover {
-  border-color: var(--accent, #059669);
+  background: rgba(148, 163, 184, 0.14);
   transform: translateY(-1px);
 }
-.cenHabitDayBtn.today {
-  border: 1.5px solid var(--accent, #059669);
-  background: color-mix(in srgb, var(--accent, #059669) 10%, var(--panel, #ffffff));
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent, #059669) 25%, transparent);
-}
-.cenHabitDayBtn.done {
-  background: #059669 !important;
-  border-color: #059669 !important;
-  color: #ffffff !important;
-}
-.cenHabitDayBtn.done .cenHabitDayLbl,
-.cenHabitDayBtn.done .cenHabitDayNum,
-.cenHabitDayBtn.done .cenHabitDayIko {
-  color: #ffffff !important;
-}
-.cenHabitDayBtn.future {
-  opacity: 0.65;
-}
-.cenHabitDayBtn.future:hover {
-  opacity: 0.95;
+.cenHabitDayBtn:active {
+  transform: scale(0.94);
 }
 .cenHabitDayLbl {
   font-size: 9.5px;
-  font-weight: 750;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
   color: var(--muted);
   line-height: 1;
+}
+.cenHabitDayBtn.today .cenHabitDayLbl {
+  color: var(--accent, #059669);
+  font-weight: 800;
+}
+.cenHabitRingCircle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11.5px;
+  font-weight: 700;
+  border: 2px solid transparent;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  margin: 1px 0;
+  background: transparent;
+  color: var(--muted);
+}
+.cenHabitDayBtn.done .cenHabitRingCircle {
+  background: var(--accent, #059669);
+  color: #ffffff;
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--accent, #059669) 35%, transparent);
+}
+.cenHabitDayBtn.today:not(.done) .cenHabitRingCircle {
+  border: 2px solid var(--accent, #059669);
+  color: var(--accent, #059669);
+  box-shadow: 0 0 0 2.5px color-mix(in srgb, var(--accent, #059669) 20%, transparent);
+}
+.cenHabitDayBtn.today.done .cenHabitRingCircle {
+  box-shadow: 0 0 0 2.5px color-mix(in srgb, var(--accent, #059669) 25%, transparent), 0 3px 10px color-mix(in srgb, var(--accent, #059669) 35%, transparent);
+}
+.cenHabitDayBtn.future:not(.done):not(.today) .cenHabitRingCircle {
+  border: 1.5px dashed rgba(148, 163, 184, 0.35);
+  color: var(--muted);
+  opacity: 0.65;
+}
+.cenHabitDayBtn.rest .cenHabitRingCircle {
+  background: rgba(148, 163, 184, 0.08);
+  border: 1.5px solid transparent;
+  color: var(--muted);
+  opacity: 0.6;
 }
 .cenHabitDayNum {
-  font-size: 11.5px;
-  font-weight: 750;
+  font-size: 11px;
+  font-weight: 600;
   color: var(--text);
-  line-height: 1.2;
-  margin-top: 2px;
-}
-.cenHabitDayIko {
-  font-size: 9.5px;
-  font-weight: 800;
   line-height: 1;
-  margin-top: 2px;
-  color: var(--muted);
 }
-.cenHabitDayBtn.today:not(.done) .cenHabitDayIko {
+.cenHabitDayBtn.today .cenHabitDayNum {
   color: var(--accent, #059669);
+  font-weight: 800;
 }
 
 /* Myśl biblijna na zakończenie */
@@ -26065,9 +26123,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v613";
-const APP_BUILD_DATE = "2026-11-13";
-const APP_FULL_VERSION = "5.0 (v613)";
+const APP_BUILD = "v614";
+const APP_BUILD_DATE = "2026-11-14";
+const APP_FULL_VERSION = "5.0 (v614)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -54366,10 +54424,17 @@ function _centrKartaCeluHtml(c){
     const isTodayDone = !!(c.history && c.history[todayStr]);
 
     const weekButtonsHtml = weekProgress.days.map(d => {
-      return '<button type="button" class="cenCelDayBtn' + (d.isToday ? ' today' : '') + (d.isDone ? ' done' : '') + (d.isFuture ? ' future' : '') + '" data-cel-habit-day="' + c.id + '" data-date="' + d.dateStr + '" title="' + d.dateStr + (d.isToday ? ' (Dzisiaj)' : '') + (d.isDone ? ' — Wykonano' : '') + '">'
+      const ringContent = d.isDone ? '✓' : (d.isToday ? '●' : (isDaily ? '○' : '—'));
+      const dayClasses = 'cenCelDayBtn'
+        + (d.isToday ? ' today' : '')
+        + (d.isDone ? ' done' : '')
+        + (d.isFuture ? ' future' : '')
+        + (!isDaily && !d.isDone && !d.isToday ? ' rest' : '');
+      const tooltip = d.dateStr + ' (' + d.dayName + ')' + (d.isDone ? ' — Wykonano ✓ (kliknij aby cofnąć)' : (d.isToday ? ' — Dzisiaj (kliknij aby zaliczyć)' : ' — Kliknij aby zaliczyć'));
+      return '<button type="button" class="' + dayClasses + '" data-cel-habit-day="' + c.id + '" data-date="' + d.dateStr + '" title="' + tooltip + '">'
         + '<span class="cenCelDayLbl">' + d.dayName + '</span>'
+        + '<span class="cenCelRingCircle">' + ringContent + '</span>'
         + '<span class="cenCelDayNum">' + d.dayNum + '</span>'
-        + '<span class="cenCelDayIko">' + (d.isDone ? '✓' : (d.isToday ? '•' : '○')) + '</span>'
         + '</button>';
     }).join('');
 
@@ -58557,16 +58622,19 @@ function renderEkranPowitalny(){
           if(c.type === 'habit'){
             const weekP = _centrObliczPostepTygodniowyNawyku(c);
             const pctHabit = weekP.target > 0 ? Math.round((weekP.doneThisWeek / weekP.target) * 100) : 0;
+            const isD = (c.habitTarget === 7 || !c.habitTarget);
             const daysButtons = weekP.days.map(d => {
+              const ringContent = d.isDone ? '✓' : (d.isToday ? '●' : (isD ? '○' : '—'));
               const cls = 'cenHabitDayBtn'
                 + (d.isDone ? ' done' : '')
                 + (d.isToday ? ' today' : '')
-                + (d.isFuture ? ' future' : '');
+                + (d.isFuture ? ' future' : '')
+                + (!isD && !d.isDone && !d.isToday ? ' rest' : '');
               const tooltip = d.dateStr + ' (' + d.dayName + ')' + (d.isDone ? ' — Wykonano ✓ (kliknij aby cofnąć)' : (d.isToday ? ' — Dzisiaj (kliknij aby zaliczyć)' : ' — Kliknij aby zaliczyć'));
               return '<button type="button" class="' + cls + '" data-cel-habit-day="' + c.id + '" data-date="' + d.dateStr + '" title="' + tooltip + '">'
-                + '<span class="cenHabitDayLbl"' + (d.isToday ? ' style="color:var(--accent);font-weight:800;"' : '') + '>' + (d.isToday ? 'DZIŚ' : d.dayName) + '</span>'
+                + '<span class="cenHabitDayLbl">' + (d.isToday ? 'DZIŚ' : d.dayName) + '</span>'
+                + '<span class="cenHabitRingCircle">' + ringContent + '</span>'
                 + '<span class="cenHabitDayNum">' + d.dayNum + '</span>'
-                + '<span class="cenHabitDayIko">' + (d.isDone ? '✓' : (d.isToday ? '•' : '○')) + '</span>'
                 + '</button>';
             }).join('');
             return '<div class="cenGoalMiniItem">'

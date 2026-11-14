@@ -1,3 +1,15 @@
+## 5.0 — 2026-11-14 (Nowy kalendarz nawyków Apple Fitness Rings — v614)
+
+- **Nowy, przejrzysty kalendarz nawyków w stylu Apple Fitness / Streaks (iPadOS):**
+  - **Eliminacja ciasnych, przeładowanych ramek:** Zastąpiono kanciaste klocki z trzema linijkami tekstu harmonijnymi, okrągłymi pierścieniami aktywności (Apple Activity Rings).
+  - **Przejrzysta hierarchia dnia:** 
+    - Na górze: czytelny skrót dnia tygodnia (`Pn`, `Wt`, itd.).
+    - W centrum: gładki pierścień aktywności — zaliczone dni są wypełnione soczystym kolorem motywu z białą fajeczką `✓`, a bieżący dzień (`DZIŚ`) wyróżnia się wyrazistą, pulsującą obwódką i wskaźnikiem aktywności `●`.
+    - Na dole: czytelny numer dnia miesiąca.
+  - **Brak mylących „pustych dni” dla nawyków tygodniowych:** Dla nawyków wykonywanych np. 2 razy w tygodniu dni wolne nie straszą pustymi kółkami sugerującymi niewykonanie, lecz mają neutralny znacznik `—`.
+  - **Spójność w całej aplikacji:** Nowy design pierścieni wprowadzono zarówno w pełnym widoku *Duchowe cele i nawyki*, jak i w kafelkach rutyny na *Pulpicie powitalnym*.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v614`.
+
 ## 5.0 — 2026-11-13 (Formatowanie wklejania i normalizacja odstępów — v613)
 
 - **Inteligentne wklejanie tekstu i eliminacja wielokrotnych pustych linii (ChatGPT / web):**
