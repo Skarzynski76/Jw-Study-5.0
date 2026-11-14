@@ -1,3 +1,21 @@
+## 5.0 — 2026-11-14 (Nowy pulpit powitalny Apple Editorial — v615)
+
+- **Uporządkowanie i przejrzystość okien Pulpitu powitalnego (Apple Editorial):**
+  - **Eliminacja „pudełek w pudełkach”:** Zlikwidowano zagnieżdżone, szare i przerywane ramki oraz krzykliwe nagłówki wielkimi literami w karcie czytania i skarbnicy myśli duchowych.
+  - **Czysta karta fragmentu Słowa Bożego na dziś:**
+    - Pojedynczy, harmonijny wiersz z delikatnym obwiedzeniem w stylu Apple Editorial, zawierający subtelną etykietę, duży i czytelny tytuł fragmentu (np. *Rzymian 5–7*), opis oraz charakterystyczny fioletowy przycisk *JW Library 📖*.
+  - **Zintegrowany pasek motywacji w 1 dyskretnej linii:**
+    - Dwa krzykliwe żółte klocki zastąpiono pojedynczą, zgrabną poziomą belką łączącą serię czytania (🔥) oraz latarnie na ścieżce (🏮), która jest klikalna i prowadzi do wizualizacji ścieżki.
+  - **Elegancki stan ukończenia dnia:**
+    - Zastąpiono wielki, toporny zielony przycisk subtelnym banerem sukcesu (*🎉 Zrealizowano na dziś!*) z dyskretnym odnośnikiem *Cofnij zaliczenie*.
+  - **Dyskretny podgląd jutrzejszego czytania:**
+    - Zastąpiono podwójną przerywaną ramkę lekkim, zintegrowanym jednowierszowym paskiem na dole karty z odnośnikiem *Czytaj z wyprzedzeniem ➔*.
+  - **Nowa, harmonijna Karta Skarbnicy Myśli Duchowych:**
+    - Usunięto pustą białą plamę; wysokość i proporcje karty idealnie współgrają z kartą czytania.
+    - Elegancka typografia cytatu (Georgia / New York) z subtelnym znakiem cudzysłowu w tle i etykietą folderu (📁).
+    - Spójny przycisk akcji *Otwórz pełną notatkę 📖* w barwie akcentu aplikacji oraz lekki przycisk *Następna myśl ↻*.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v615`.
+
 ## 5.0 — 2026-11-14 (Nowy kalendarz nawyków Apple Fitness Rings — v614)
 
 - **Nowy, przejrzysty kalendarz nawyków w stylu Apple Fitness / Streaks (iPadOS):**
