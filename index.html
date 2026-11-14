@@ -2799,22 +2799,27 @@ html[data-theme="dark"] .cenHeroTag {
 .cenCelVerseBtn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  background: rgba(59, 130, 246, 0.08);
-  border: 1px solid rgba(59, 130, 246, 0.22);
-  color: #2563eb;
-  font-weight: 600;
+  gap: 6px;
+  background: linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+  font-weight: 700;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 6px;
+  padding: 4px 9px;
+  border-radius: 7px;
   font-size: 11px;
-  transition: all 0.14s ease;
+  box-shadow: 0 2px 8px rgba(109, 40, 217, 0.28) !important;
+  transition: all 0.15s ease;
   white-space: nowrap;
   flex-shrink: 0;
 }
 .cenCelVerseBtn:hover {
-  background: rgba(59, 130, 246, 0.16);
+  background: linear-gradient(135deg, #581c87 0%, #7c3aed 100%) !important;
+  box-shadow: 0 4px 12px rgba(109, 40, 217, 0.42) !important;
   transform: translateY(-1px);
+}
+.cenCelVerseBtn:active {
+  transform: translateY(0);
 }
 .cenCelVerseBtn svg {
   width: 12px !important;
@@ -2822,6 +2827,7 @@ html[data-theme="dark"] .cenHeroTag {
   max-width: 12px !important;
   max-height: 12px !important;
   flex-shrink: 0;
+  fill: currentColor;
 }
 /* TYDZIEŃ NAWYKÓW — Styl Apple Fitness Rings (iPadOS) */
 .cenCelWeekRow {
