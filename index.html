@@ -26234,9 +26234,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v616";
+const APP_BUILD = "v617";
 const APP_BUILD_DATE = "2026-11-14";
-const APP_FULL_VERSION = "5.0 (v614)";
+const APP_FULL_VERSION = "5.0 (v617)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -31396,47 +31396,147 @@ const SECCOLORS = ["#cfe3d6","#cfdcea","#dcd4ea","#f0dcc6","#eed6dd","#cfe4e2","
    żeby ciemny tekst czytało się na nich bez wysiłku. Kolor napisu i tak liczy
    czytelnyTekst(), więc dobór barwy nie decyduje już o czytelności. */
 const TAGCOLORS = ["#e8c86a","#dcb08a","#e0a89a","#c9b6d8","#a9c4e4","#9fd0c7","#b6d9a8","#efb7c4","#c2c8d0"];
-/* pastelowe kompozycje: 31 zgranych, wyważonych odcieni na całą kompozycję kolumn i belek */
-const PASTELS = [
-  /* Fiolety i lilia */
-  ["Lawenda","#b9a9d6"],
-  ["Wrzos","#be9ec7"],
-  ["Śliwka","#9a83ab"],
-  ["Jagoda","#9586b3"],
-  /* Błękity i woda */
-  ["Błękit","#a6c3e0"],
-  ["Lazurowy","#82cae2"],
-  ["Indygo","#8a9ecc"],
-  ["Morski","#7ec2be"],
-  ["Turkus","#72c4b8"],
-  /* Zielenie i natura */
-  ["Mięta","#9ed3c2"],
-  ["Szałwia","#b7c9a8"],
-  ["Pistacja","#b5d692"],
-  ["Szmaragd","#7fb89d"],
-  ["Oliwka","#a2b57a"],
-  ["Mech","#8eab80"],
-  /* Słońce, złoto i piasek */
-  ["Bursztyn","#e5be63"],
-  ["Miód","#e6cb76"],
-  ["Piasek","#dccfae"],
-  ["Wanilia","#ebdca0"],
-  /* Ciepłe brązy i ziemia */
-  ["Brzoskwinia","#e8b894"],
-  ["Koral","#e89988"],
-  ["Karmel","#c79e75"],
-  ["Cynamon","#bd826b"],
-  ["Terakota","#c99179"],
-  /* Róże i owoce */
-  ["Róż","#e2adc0"],
-  ["Malina","#d9889d"],
-  ["Żurawina","#ce7c8d"],
-  /* Neutralne i minerały */
-  ["Kaszmir","#beb4a8"],
-  ["Kamień","#abb3b8"],
-  ["Stal","#97a8b8"],
-  ["Grafit","#b9bec6"]
+/**
+ * 14 wyrazistych, szlachetnych kompozycji kolorystycznych na całą aplikację.
+ * Każdy motyw definiuje spójny kolor przewodni, ciemny odcień bazowy, gradient nagłówka
+ * oraz aksamitne tła akcentujące, które harmonijnie rozlewają się po całym interfejsie.
+ */
+const THEMES_KOMPOZYCJE = [
+  {
+    id: "sapphire",
+    name: "Królewski Szafir",
+    accent: "#1e40af",
+    dark: "#172554",
+    light: "rgba(30, 64, 175, 0.09)",
+    gradient: "linear-gradient(135deg, #172554 0%, #1e40af 55%, #2563eb 100%)",
+    desc: "Głęboki granat szafiru i krystaliczny błękit"
+  },
+  {
+    id: "emerald",
+    name: "Szmaragd Leśny",
+    accent: "#047857",
+    dark: "#064e3b",
+    light: "rgba(4, 120, 87, 0.09)",
+    gradient: "linear-gradient(135deg, #064e3b 0%, #047857 55%, #059669 100%)",
+    desc: "Czysta zieleń cedrów i dolin"
+  },
+  {
+    id: "amethyst",
+    name: "Głęboki Ametyst",
+    accent: "#6d28d9",
+    dark: "#3b0764",
+    light: "rgba(109, 40, 217, 0.09)",
+    gradient: "linear-gradient(135deg, #3b0764 0%, #581c87 55%, #6d28d9 100%)",
+    desc: "Dojrzała purpura i aksamitny fiolet"
+  },
+  {
+    id: "amber",
+    name: "Ciepły Bursztyn",
+    accent: "#b45309",
+    dark: "#78350f",
+    light: "rgba(180, 83, 9, 0.09)",
+    gradient: "linear-gradient(135deg, #78350f 0%, #92400e 55%, #b45309 100%)",
+    desc: "Miód, pergamin i skarbnica"
+  },
+  {
+    id: "terracotta",
+    name: "Aksamitna Terakota",
+    accent: "#c2410c",
+    dark: "#7c2d12",
+    light: "rgba(194, 65, 12, 0.09)",
+    gradient: "linear-gradient(135deg, #7c2d12 0%, #9a3412 55%, #c2410c 100%)",
+    desc: "Ciepła palona glina i koral"
+  },
+  {
+    id: "midnight",
+    name: "Północny Granat",
+    accent: "#1e3a8a",
+    dark: "#020617",
+    light: "rgba(30, 58, 138, 0.10)",
+    gradient: "linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e3a8a 100%)",
+    desc: "Spokój nocy, wysokie skupienie"
+  },
+  {
+    id: "lagoon",
+    name: "Morski Petrol",
+    accent: "#0f766e",
+    dark: "#134e48",
+    light: "rgba(15, 118, 110, 0.09)",
+    gradient: "linear-gradient(135deg, #134e48 0%, #0f766e 55%, #115e59 100%)",
+    desc: "Głęboki morski petrol i laguna"
+  },
+  {
+    id: "ruby",
+    name: "Rubin Burgundzki",
+    accent: "#991b1b",
+    dark: "#450a0a",
+    light: "rgba(153, 27, 27, 0.09)",
+    gradient: "linear-gradient(135deg, #450a0a 0%, #7f1d1d 55%, #991b1b 100%)",
+    desc: "Dostojny wytrawny szkarłat"
+  },
+  {
+    id: "titanium",
+    name: "Tytan & Slate Pro",
+    accent: "#334155",
+    dark: "#0f172a",
+    light: "rgba(51, 65, 85, 0.10)",
+    gradient: "linear-gradient(135deg, #0f172a 0%, #1e293b 55%, #334155 100%)",
+    desc: "Minimalizm iPad Pro Space Gray"
+  },
+  {
+    id: "rose",
+    name: "Aksamitny Karmin",
+    accent: "#9f1239",
+    dark: "#4c0519",
+    light: "rgba(159, 18, 57, 0.09)",
+    gradient: "linear-gradient(135deg, #4c0519 0%, #881337 55%, #9f1239 100%)",
+    desc: "Śliwkowy róż i różane drewno"
+  },
+  {
+    id: "olive",
+    name: "Oliwka Galaad",
+    accent: "#4d7c0f",
+    dark: "#365314",
+    light: "rgba(77, 124, 15, 0.09)",
+    gradient: "linear-gradient(135deg, #365314 0%, #4d7c0f 55%, #65a30d 100%)",
+    desc: "Drzewo oliwne, ciepła zieleń"
+  },
+  {
+    id: "cobalt",
+    name: "Królewski Kobalt",
+    accent: "#4338ca",
+    dark: "#312e81",
+    light: "rgba(67, 56, 202, 0.09)",
+    gradient: "linear-gradient(135deg, #312e81 0%, #4338ca 55%, #4f46e5 100%)",
+    desc: "Indygo i głęboki kobalt"
+  },
+  {
+    id: "sienna",
+    name: "Palona Siena",
+    accent: "#78350f",
+    dark: "#451a03",
+    light: "rgba(120, 53, 15, 0.09)",
+    gradient: "linear-gradient(135deg, #451a03 0%, #78350f 55%, #92400e 100%)",
+    desc: "Skórzane oprawy starych ksiąg"
+  },
+  {
+    id: "arctic",
+    name: "Arktyczny Błękit",
+    accent: "#0284c7",
+    dark: "#0c4a6e",
+    light: "rgba(2, 132, 199, 0.09)",
+    gradient: "linear-gradient(135deg, #0c4a6e 0%, #0284c7 55%, #0369a1 100%)",
+    desc: "Krystaliczna świeżość i lód"
+  }
 ];
+
+function pobierzMotyw(c){
+  if(!c || c === "reset") return null;
+  const lc = String(c).toLowerCase().trim();
+  return THEMES_KOMPOZYCJE.find(t => t.accent.toLowerCase() === lc || t.id.toLowerCase() === lc) || null;
+}
+
+const PASTELS = THEMES_KOMPOZYCJE.map(t => [t.name, t.accent]);
 /**
  * Gotowa kompozycja — jeden kolor na CAŁY interfejs.
  *
@@ -31561,24 +31661,69 @@ function buildColorCSS(){
   }
 
   if(cfg.ui){
-    const baza    = desat(cfg.ui, .18);
-    const akcent  = akcentCzytelny(baza);
-    const akcent2 = shade(baza, -.22);
-    const tekst   = czytelnyTekst(akcent);
-    const slaby   = czytelnyTekstSlaby(akcent);
-    css += `:root{--accent:${akcent}!important;--accent2:${akcent2}!important}`;
+    const motyw = (typeof pobierzMotyw === "function") ? pobierzMotyw(cfg.ui) : null;
+    let akcent, akcent2, grad, dark, light;
+    if(motyw){
+      akcent = motyw.accent;
+      grad = motyw.gradient;
+      dark = motyw.dark;
+      light = motyw.light;
+      akcent2 = shade(akcent, -.2);
+    } else {
+      const baza = desat(cfg.ui, .18);
+      akcent = akcentCzytelny(baza);
+      akcent2 = shade(baza, -.22);
+      grad = `linear-gradient(135deg, ${shade(akcent,-.18)} 0%, ${akcent} 55%, ${shade(akcent,.14)} 100%)`;
+      dark = shade(akcent, -.3);
+      light = hexA(akcent, 0.1);
+    }
+    const tekst = czytelnyTekst(akcent);
+    const slaby = czytelnyTekstSlaby(akcent);
+
+    css += `:root{--accent:${akcent}!important;--accent2:${akcent2}!important;--th-accent:${akcent}!important;--th-accent-dark:${dark}!important;--th-accent-light:${light}!important;--th-accent-gradient:${grad}!important}`;
+
+    /* 1. GÓRNY PASEK APLIKACJI (HEADER) — Szlachetny gradient z miękkim cieniem */
     css += `header, html[data-theme="dark"] header, html[data-theme="oled"] header, html[data-theme="sepia"] header, html[data-theme="sage"] header{`+
-           `background:${akcent}!important;background:linear-gradient(135deg, ${shade(akcent,-.15)} 0%, ${akcent} 55%, ${shade(akcent,.12)} 100%)!important;`+
-           `box-shadow:0 4px 18px -2px ${hexA(akcent,.35)}!important}`;
+           `background:${akcent}!important;background:${grad}!important;`+
+           `box-shadow:0 4px 18px -2px ${hexA(akcent,.38)}!important}`;
     css += `.brand-name{color:${tekst}!important}`;
     css += `.brand-name .ver,.brand-sub{color:${slaby}!important}`;
     css += `header .btn{color:${tekst}!important;border-color:${hexA(tekst,.25)}!important;background:${hexA(tekst,.12)}!important}`;
     css += `header .btn:hover{background:${hexA(tekst,.22)}!important}`;
-    css += `header .btn.primary{background:${tekst}!important;color:${akcent}!important}`;
+    css += `header .btn.primary{background:${tekst}!important;color:${akcent}!important;font-weight:700!important}`;
     css += `header .fontctl button{color:${tekst}!important}`;
     css += `#mobileTabs button.on{background:${akcent}!important;border-color:${akcent}!important;color:${tekst}!important}`;
-    css += `.sidebar-new-btn{background:${akcent}!important;box-shadow:0 2px 8px ${hexA(akcent,.3)}!important}`;
-    css += `.sidebar-nav-item.active{color:${akcent}!important;background:${hexA(akcent,.14)}!important}`;
+
+    /* 2. PANEL BOCZNY (SIDEBAR) */
+    css += `.sidebar-new-btn{background:${grad}!important;box-shadow:0 3px 12px ${hexA(akcent,.38)}!important}`;
+    css += `.sidebar-nav-item.active{color:${akcent}!important;background:${hexA(akcent,.12)}!important;font-weight:700!important}`;
+    css += `.sidebar-nav-item.active .s-icon{color:${akcent}!important}`;
+    css += `.sidebar-icon-btn.active{color:${akcent}!important;background:${hexA(akcent,.12)}!important}`;
+    css += `.sidebar-nav-pill{background:${akcent}!important;color:#ffffff!important}`;
+
+    /* 3. PULPIT STUDIUM & CENTRUM */
+    css += `.cenWelcomeTag.tag-blue{background:${hexA(akcent,.12)}!important;color:${akcent}!important;border:1px solid ${hexA(akcent,.25)}!important}`;
+    css += `.cenBtnOpenGem{background:${grad}!important;color:#ffffff!important;box-shadow:0 3px 10px ${hexA(akcent,.32)}!important;border:none!important}`;
+    css += `.cenBtnOpenGem:hover{box-shadow:0 5px 15px ${hexA(akcent,.45)}!important;transform:translateY(-1px)}`;
+    css += `.cenGemTagFolder{color:${akcent}!important;background:${hexA(akcent,.10)}!important}`;
+    css += `.cenPortionRow:hover{border-color:${hexA(akcent,.4)}!important}`;
+    css += `.cenHabitRingCircle.today{border-color:${akcent}!important;color:${akcent}!important;box-shadow:0 0 0 2.5px ${hexA(akcent,.2)}!important}`;
+    css += `.cenHabitDayBtn.done .cenHabitRingCircle{background:${akcent}!important;color:#ffffff!important;box-shadow:0 3px 10px ${hexA(akcent,.35)}!important}`;
+    css += `.cenHabitDayBtn.today .cenHabitDayLbl{color:${akcent}!important;font-weight:700!important}`;
+    css += `.cenHabitDayBtn.today .cenHabitDayNum{color:${akcent}!important;font-weight:700!important}`;
+
+    /* 4. DUCHOWE CELE I NAWYKI */
+    css += `.cenCeleFilterPill.active, .cenTabBtn.active{background:${akcent}!important;color:#ffffff!important;border-color:${akcent}!important}`;
+    css += `.cenCeleActionBtn.primary, .cenBtnNewGoal, .cenBtnSzablony{background:${grad}!important;color:#ffffff!important;box-shadow:0 3px 10px ${hexA(akcent,.32)}!important;border:none!important}`;
+
+    /* 5. PRZYCISKI I FORMULARZE W CAŁEJ APLIKACJI */
+    css += `.btn.primary{background:${akcent}!important;color:#ffffff!important;border-color:transparent!important}`;
+    css += `.btn.primary:hover{background:${shade(akcent,-.12)}!important}`;
+    css += `:focus-visible{outline-color:${akcent}!important}`;
+    css += `::selection{background:${hexA(akcent,.28)}}`;
+
+    /* 6. GWARANCJA FIOLETU DLA JW LIBRARY (NIEZMIENNY W CAŁEJ APLIKACJI) */
+    css += `.cenBtnJwLib, .cenFragBtnJW[data-copen-jw], .cenCelVerseBtn{background:linear-gradient(135deg, #4c1d95 0%, #6d28d9 100%)!important;color:#ffffff!important;border:1px solid rgba(255,255,255,0.2)!important}`;
   }
   return css;
 }
@@ -31591,8 +31736,8 @@ function applyColors(){
     const th = document.documentElement.dataset.theme || (typeof themeMode !== "undefined" ? themeMode : "light");
     const isDarkish = th === "dark" || th === "oled";
     if(!isDarkish && cfg.ui){
-      const baza = desat(cfg.ui, .18);
-      const akcent = akcentCzytelny(baza);
+      const motyw = (typeof pobierzMotyw === "function") ? pobierzMotyw(cfg.ui) : null;
+      const akcent = motyw ? motyw.accent : akcentCzytelny(desat(cfg.ui, .18));
       document.documentElement.style.backgroundColor = akcent;
       if(!document.body.classList.contains("fs-open") && typeof updateMetaThemeColor === "function"){
         updateMetaThemeColor(akcent);
@@ -46173,15 +46318,14 @@ function optionGroup(group, options, current){
  * i nie powinny być w dwóch miejscach naraz.
  */
 function kompozycjeHtml(){
-  const teraz = typeof biezacaKompozycja==="function" ? biezacaKompozycja() : "";
-  return PASTELS.map(([nm,c])=>{
-    const wybrana = teraz===c;
-    const tlo = shade(desat(c,.18), -.42);
-    return `<button class="st-kafel${wybrana?" on":""}" data-komp="${c}" `+
-           `style="background:${tlo};color:${czytelnyTekst(tlo)}">${esc(nm)}`+
+  const teraz = (typeof biezacaKompozycja==="function" ? biezacaKompozycja() : "").toLowerCase().trim();
+  return THEMES_KOMPOZYCJE.map(t=>{
+    const wybrana = teraz === t.accent.toLowerCase() || teraz === t.id.toLowerCase();
+    return `<button type="button" class="st-kafel${wybrana?" on":""}" data-komp="${t.accent}" `+
+           `style="background:${t.gradient};color:#ffffff;box-shadow:0 3px 10px rgba(0,0,0,0.2);border:1.5px solid ${wybrana?'#ffffff':'rgba(255,255,255,0.2)'};font-weight:600;" title="${esc(t.desc)}">${esc(t.name)}`+
            (wybrana?'<span class="st-ptak">✓</span>':"")+`</button>`;
   }).join("") +
-  `<button class="st-kafel st-kafel-domyslny${teraz?"":" on"}" data-komp="reset">Domyślna`+
+  `<button type="button" class="st-kafel st-kafel-domyslny${teraz?"":" on"}" data-komp="reset" style="background:#134e38;color:#ffffff;border:1.5px solid ${teraz?'rgba(255,255,255,0.2)':'#ffffff'};font-weight:600;" title="Domyślny butelkowy szmaragd JW Study">Domyślna`+
   (teraz?"":'<span class="st-ptak">✓</span>')+`</button>`;
 }
 
@@ -58152,8 +58296,22 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v610</span>
+          <span class="cl-ver-num">v617</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">14 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">14 wyrazistych motywów kolorystycznych i pełna spójność koloru przewodniego w całej aplikacji</div>
+        <ul class="cl-ver-list">
+          <li><b>Koniec z mdłymi, zlewającymi się pastelami:</b> Zastąpiono 31 wyblakłych, trudnych do odróżnienia odcieni 14 aksamitnymi, szlachetnymi kompozycjami (m.in. Królewski Szafir, Szmaragd Leśny, Głęboki Ametyst, Ciepły Bursztyn, Aksamitna Terakota, Północny Granat, Morski Petrol, Rubin Burgundzki, Tytan & Slate Pro, Aksamitny Karmin, Oliwka Galaad, Królewski Kobalt, Palona Siena, Arktyczny Błękit).</li>
+          <li><b>Kolor przewodni obecny w całym interfejsie:</b> Barwa wybrana przez użytkownika harmonijnie rozlewa się po całej aplikacji — od szlachetnego gradientu nagłówka i aktywnego paska bocznego, przez pierścienie nawyków i cele, po przyciski akcji, paski postępu, plakietki i karty.</li>
+          <li><b>Prawdziwe kafelki podglądu w Ustawieniach:</b> Kafelki motywów w oknie Ustawień prezentują rzeczywiste, nasycone gradienty i białe, czytelne podpisy zamiast monotonnych, szarych prostokątów.</li>
+          <li><b>Nienaruszalna ikona JW Library:</b> Wszystkie przyciski odsyłające do wersetów i materiałów w aplikacji JW Library zachowują swój rozpoznawalny, elegancki fioletowy gradient.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v610</span>
           <span class="cl-ver-date">12 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Czysta ilustracja 16:9, dedykowana karta motywacji i pełna eliminacja motywu drzewa</div>

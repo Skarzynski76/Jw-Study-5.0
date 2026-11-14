@@ -1,3 +1,32 @@
+## 5.0 — 2026-11-14 (14 wyrazistych motywów kolorystycznych i pełna spójność koloru przewodniego — v617)
+
+- **14 szlachetnych, zrównoważonych kompozycji kolorystycznych (zastąpienie zlewających się pasteli):**
+  - **Diagnoza problemu:** Dotychczasowa paleta 31 pastelowych kolorów była mdła, a po nałożeniu automatycznego przyciemniania odcienie zlewały się w monotonne, szaro-brunatne prostokąty, nieodróżnialne od siebie. Ponadto kolor przewodni nie przechodził na resztę widoków aplikacji (pulpit, cele, nawyki, przyciski).
+  - **14 wyrazistych, unikalnych motywów:** Wyselekcjonowano i wyśrodkowano 14 aksamitnych motywów o szlachetnym kontraście i nasyceniu:
+    1. *Królewski Szafir* (głęboki szafir i krystaliczny błękit)
+    2. *Szmaragd Leśny* (czysta zieleń cedrów i dolin)
+    3. *Głęboki Ametyst* (dojrzała purpura i aksamitny fiolet)
+    4. *Ciepły Bursztyn* (miód, pergamin i skarbnica)
+    5. *Aksamitna Terakota* (ciepła palona glina i koral)
+    6. *Północny Granat* (spokój nocy, wysokie skupienie)
+    7. *Morski Petrol* (głęboki skandynawski morski i laguna)
+    8. *Rubin Burgundzki* (dostojny wytrawny szkarłat)
+    9. *Tytan & Slate Pro* (minimalizm iPad Pro Space Gray)
+    10. *Aksamitny Karmin* (śliwkowy róż i różane drewno)
+    11. *Oliwka Galaad* (drzewo oliwne, ciepła zieleń)
+    12. *Królewski Kobalt* (indygo i głęboki kobalt)
+    13. *Palona Siena* (skórzane oprawy starych ksiąg)
+    14. *Arktyczny Błękit* (krystaliczna świeżość i lód)
+  - **Promieniowanie koloru przewodniego na cały interfejs:**
+    - **Pasek górny:** elegancki, płynny gradient z aksamitnym cieniem i krystalicznie białym tekstem oraz przyciskami ze szklistym tłem.
+    - **Pasek boczny:** aktywna pozycja menu oraz przycisk nowej notatki (＋) przyjmują gradient i kolor motywu.
+    - **Pulpit powitalny i czytanie:** plakietki, podświetlenia fragmentów przy najechaniu oraz przycisk otwierania notatki w Skarbnicy Myśli Duchowych współgrają z kolorem motywu.
+    - **Nawyki i cele:** pierścienie aktywności na dzisiaj i wykonane dni oraz paski postępu przyjmują kolor motywu.
+    - **Formularze i kontrolki:** przyciski akcji (primary), przełączniki zakładek i obwiednie fokusa zachowują pełną spójność.
+  - **Rzeczywisty podgląd w Ustawieniach:** Kafelki w oknie Ustawienia → Wygląd renderują prawdziwe gradienty motywów z białymi podpisami i odznaczeniem wybranej opcji.
+  - **Nienaruszalność przycisków JW Library:** Wszystkie odsyłacze do JW Library bezwzględnie zachowują oryginalny fioletowy gradient (`#4c1d95` ➔ `#6d28d9`).
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v617`.
+
 ## 5.0 — 2026-11-14 (Płynne skalowanie pierścieni nawyków przy 3+ celach — v616)
 
 - **Elastyczne, responsywne skalowanie tygodnia nawyków (likwidacja wychodzenia Niedzieli poza ramkę):**
