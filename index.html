@@ -2720,7 +2720,7 @@ html[data-theme="dark"] .cenHeroTag {
   background: var(--cen-card-bg);
   border: 1.5px solid var(--cen-card-border);
   border-radius: 20px;
-  padding: clamp(16px, 2vw, 22px);
+  padding: clamp(14px, 1.8vw, 20px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -2728,6 +2728,8 @@ html[data-theme="dark"] .cenHeroTag {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
+  min-width: 0;
+  box-sizing: border-box;
 }
 .cenCelCard:hover {
   transform: translateY(-3px);
@@ -2832,30 +2834,39 @@ html[data-theme="dark"] .cenHeroTag {
 /* TYDZIEŃ NAWYKÓW — Styl Apple Fitness Rings (iPadOS) */
 .cenCelWeekRow {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(1px, 0.4vw, 4px);
   margin-bottom: 14px;
   background: color-mix(in srgb, var(--cen-card-bg, #ffffff) 65%, var(--cen-btn-bg, #f1f5f9));
   border: 1px solid var(--cen-card-border);
-  border-radius: 18px;
-  padding: 10px 4px;
+  border-radius: 16px;
+  padding: 8px clamp(2px, 0.5vw, 5px);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 .cenCelDayBtn {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4px 2px;
-  border-radius: 12px;
+  padding: 3px 1px;
+  border-radius: 10px;
   border: none;
   background: transparent;
   cursor: pointer;
   transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
-  gap: 3px;
-  min-height: 44px;
+  gap: 2px;
+  min-height: 40px;
   user-select: none;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 .cenCelDayBtn:hover {
   background: rgba(148, 163, 184, 0.14);
@@ -2865,42 +2876,48 @@ html[data-theme="dark"] .cenHeroTag {
   transform: scale(0.94);
 }
 .cenCelDayLbl {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: clamp(8.5px, 1.1vw, 10.5px);
+  font-weight: 700;
   color: var(--cen-text-muted);
   line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
 }
 .cenCelDayBtn.today .cenCelDayLbl {
   color: var(--cel-color, #2563eb);
   font-weight: 800;
 }
 .cenCelRingCircle {
-  width: 34px;
-  height: 34px;
+  width: 100%;
+  max-width: 32px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: clamp(10px, 1.2vw, 12.5px);
   font-weight: 700;
   border: 2px solid transparent;
   transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-  margin: 2px 0;
+  margin: 1px auto;
   background: transparent;
   color: var(--cen-text-muted);
+  box-sizing: border-box;
 }
 .cenCelDayBtn.done .cenCelRingCircle {
   background: var(--cel-color, #2563eb);
   color: #ffffff;
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--cel-color, #2563eb) 35%, transparent);
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--cel-color, #2563eb) 35%, transparent);
 }
 .cenCelDayBtn.today:not(.done) .cenCelRingCircle {
-  border: 2.5px solid var(--cel-color, #2563eb);
+  border: 2px solid var(--cel-color, #2563eb);
   color: var(--cel-color, #2563eb);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cel-color, #2563eb) 18%, transparent);
+  box-shadow: 0 0 0 2.5px color-mix(in srgb, var(--cel-color, #2563eb) 18%, transparent);
 }
 .cenCelDayBtn.today.done .cenCelRingCircle {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cel-color, #2563eb) 25%, transparent), 0 4px 12px color-mix(in srgb, var(--cel-color, #2563eb) 35%, transparent);
+  box-shadow: 0 0 0 2.5px color-mix(in srgb, var(--cel-color, #2563eb) 25%, transparent), 0 3px 10px color-mix(in srgb, var(--cel-color, #2563eb) 35%, transparent);
 }
 .cenCelDayBtn.future:not(.done):not(.today) .cenCelRingCircle {
   border: 1.5px dashed rgba(148, 163, 184, 0.35);
@@ -2914,7 +2931,7 @@ html[data-theme="dark"] .cenHeroTag {
   opacity: 0.6;
 }
 .cenCelDayNum {
-  font-size: 12px;
+  font-size: clamp(9.5px, 1.2vw, 11.5px);
   font-weight: 600;
   color: var(--cen-text);
   line-height: 1;
@@ -5658,7 +5675,8 @@ body.centrum-open .cenProjActiveBar {
     border-radius: 16px;
   }
   .cenCelWeekRow {
-    gap: 4px;
+    gap: 2px;
+    padding: 6px 2px;
   }
   .cenNaglModern h1, .cenNaglModern .cenTytGlowny {
     font-size: 16px;
@@ -20705,41 +20723,52 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
 }
 .cenGoalsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 14px;
   margin-top: 12px;
 }
 .cenGoalMiniItem {
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 14px;
   background: color-mix(in srgb, var(--bg, #f8fafc) 60%, var(--panel, #ffffff));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 .cenHabitDaysRow {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(1px, 0.4vw, 4px);
   margin-top: 10px;
-  padding: 8px 4px;
+  padding: 6px clamp(2px, 0.5vw, 5px);
   background: color-mix(in srgb, var(--panel, #ffffff) 65%, var(--bg, #f1f5f9));
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 14px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 .cenHabitDayBtn {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3px 2px;
-  border-radius: 10px;
+  padding: 2px 1px;
+  border-radius: 8px;
   border: none;
   background: transparent;
   cursor: pointer;
   transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
   min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
   user-select: none;
   font-family: inherit;
   outline: none;
@@ -20753,30 +20782,35 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   transform: scale(0.94);
 }
 .cenHabitDayLbl {
-  font-size: 9.5px;
-  font-weight: 700;
+  font-size: clamp(8px, 1vw, 9.5px);
+  font-weight: 750;
   text-transform: uppercase;
   color: var(--muted);
   line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
 }
 .cenHabitDayBtn.today .cenHabitDayLbl {
   color: var(--accent, #059669);
   font-weight: 800;
 }
 .cenHabitRingCircle {
-  width: 28px;
-  height: 28px;
+  width: 100%;
+  max-width: 26px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 11.5px;
+  font-size: clamp(9px, 1.1vw, 11px);
   font-weight: 700;
   border: 2px solid transparent;
   transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-  margin: 1px 0;
+  margin: 1px auto;
   background: transparent;
   color: var(--muted);
+  box-sizing: border-box;
 }
 .cenHabitDayBtn.done .cenHabitRingCircle {
   background: var(--accent, #059669);
@@ -20803,7 +20837,7 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   opacity: 0.6;
 }
 .cenHabitDayNum {
-  font-size: 11px;
+  font-size: clamp(9px, 1.1vw, 10.5px);
   font-weight: 600;
   color: var(--text);
   line-height: 1;
@@ -26200,7 +26234,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v615";
+const APP_BUILD = "v616";
 const APP_BUILD_DATE = "2026-11-14";
 const APP_FULL_VERSION = "5.0 (v614)";
 window.APP_VERSION = APP_VERSION;
@@ -54841,7 +54875,7 @@ function centrWidokCele(tab, cat, q){
           + '<button type="button" class="btn" data-cakcja="nowy-cel">+ Własny cel</button>'
           + (cele.length === 0 ? '<button type="button" class="btn" data-cakcja="import-cele">' + CEN_MODERN_ICO.upload + ' Przywróć z kopii JSON</button>' : '')
           + '</div></div>'
-        : '<div class="cenPlanGrid" style="grid-template-columns:repeat(auto-fill, minmax(310px, 1fr));gap:16px;">'
+        : '<div class="cenPlanGrid" style="grid-template-columns:repeat(auto-fill, minmax(min(100%, 320px), 1fr));gap:16px;">'
           + filtered.map(c => _centrKartaCeluHtml(c)).join('')
           + '</div>')
     + '</div>';
@@ -61576,7 +61610,7 @@ if($("centrum")){
             + '<div style="font-size:16px;font-weight:700;color:var(--cen-text);margin-bottom:6px;">Brak pasujących celów</div>'
             + '<div style="font-size:13px;color:var(--cen-text-muted);margin-bottom:18px;">Spróbuj wpisać inną frazę lub wyczyść wyszukiwanie.</div>'
             + '</div>'
-          : '<div class="cenPlanGrid" style="grid-template-columns:repeat(auto-fill, minmax(310px, 1fr));gap:16px;">'
+          : '<div class="cenPlanGrid" style="grid-template-columns:repeat(auto-fill, minmax(min(100%, 320px), 1fr));gap:16px;">'
             + filtered.map(c => _centrKartaCeluHtml(c)).join('')
             + '</div>');
       }

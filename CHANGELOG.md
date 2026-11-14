@@ -1,3 +1,12 @@
+## 5.0 — 2026-11-14 (Płynne skalowanie pierścieni nawyków przy 3+ celach — v616)
+
+- **Elastyczne, responsywne skalowanie tygodnia nawyków (likwidacja wychodzenia Niedzieli poza ramkę):**
+  - **Przyczyna problemu:** Sztywna szerokość pierścieni (34px) oraz domyślna minimalna szerokość kolumn CSS Grid `1fr` powodowały, że przy 3 lub więcej nawykach obok siebie (węższe kolumny na iPadzie) suma szerokości 7 dni przekraczała szerokość kafelka, wypychając 7. kolumnę (*Nd – Niedziela*) poza prawy brzeg ramki.
+  - **Płynne dopasowanie pierścieni (`repeat(7, minmax(0, 1fr))` + `aspect-ratio: 1/1`):** Pierścienie aktywności są teraz w pełni elastyczne (`max-width: 32px`, `width: 100%`, zachowanie idealnego koła), a kolumny mogą swobodnie zwężać się do dostępnej przestrzeni bez wypychania czegokolwiek poza ramkę.
+  - **Responsywne odstępy i typografia (`clamp`):** Odstępy między dniami tygodnia, padding oraz rozmiar czcionek etykiet i numerów dni adaptują się płynnie do szerokości kafelka.
+  - **Zastosowano spójnie:** Zarówno w pełnym widoku *Duchowe cele i nawyki*, jak i w kafelkach na *Pulpicie powitalnym*.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v616`.
+
 ## 5.0 — 2026-11-14 (Nowy pulpit powitalny Apple Editorial — v615)
 
 - **Uporządkowanie i przejrzystość okien Pulpitu powitalnego (Apple Editorial):**
