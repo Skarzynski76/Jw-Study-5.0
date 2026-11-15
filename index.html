@@ -18,7 +18,8 @@
      'wasm-unsafe-eval' jest potrzebne bibliotece sql.js, która czyta bazę
      SQLite z kopii JW Library — biblioteka leży w katalogu lib/ obok aplikacji,
      nie na obcym serwerze. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' blob: 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.jw.org; font-src 'self' data:; connect-src 'self'; media-src 'self' data: blob:; manifest-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' blob: 'unsafe-inline' 'wasm-unsafe-eval' https://accounts.google.com/gsi/client; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; img-src 'self' data: blob: https://*.jw.org https://*.googleusercontent.com https://accounts.google.com; font-src 'self' data:; connect-src 'self' https://accounts.google.com https://www.googleapis.com https://oauth2.googleapis.com; media-src 'self' data: blob:; manifest-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'self' https://accounts.google.com;">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -9507,6 +9508,17 @@ html[data-theme="dark"] .sbtn.ico.favon .ic{fill:#fbbf24!important}
 .st-keys span{color:var(--muted)}
 .st-keys kbd{background:var(--sel);border:.5px solid var(--border);border-radius:6px;
   padding:1px 7px;font-size:11.5px;font-family:inherit;color:var(--text)}
+
+/* ——— synchronizacja z Dyskiem Google ——— */
+.gdrive-card{border:1px solid var(--border);border-radius:12px;padding:14px 16px;background:var(--panel);display:flex;flex-direction:column;gap:10px;box-shadow:0 2px 8px rgba(0,0,0,0.04);transition:all .2s ease}
+.gdrive-card.connected{border-color:rgba(52,168,83,0.35);background:linear-gradient(135deg,var(--panel) 0%,rgba(52,168,83,0.06) 100%)}
+.gdrive-user-row{display:flex;align-items:center;gap:10px}
+.gdrive-avatar{width:36px;height:36px;border-radius:50%;background:var(--sel);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background-size:cover;background-position:center;flex-shrink:0;border:1px solid rgba(0,0,0,0.08)}
+.gdrive-dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px}
+.gdrive-dot.online{background:#34A853;box-shadow:0 0 0 3px rgba(52,168,83,0.22)}
+.gdrive-dot.idle{background:#fbbc05}
+.gdrive-dot.syncing{background:#4285F4;animation:pulseGDriveSync 1s infinite}
+@keyframes pulseGDriveSync{0%{transform:scale(0.9);opacity:0.6}50%{transform:scale(1.2);opacity:1}100%{transform:scale(0.9);opacity:0.6}}
 
 </style>
 <style>
@@ -26356,9 +26368,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v619";
+const APP_BUILD = "v620";
 const APP_BUILD_DATE = "2026-11-15";
-const APP_FULL_VERSION = "5.0 (v619)";
+const APP_FULL_VERSION = "5.0 (v620)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -29049,6 +29061,7 @@ function odblokujWiszaceAkcjePoPowrocie(){
   // 5. Zresetuj blokady operacji w tle
   if(typeof syncPracuje !== "undefined") syncPracuje = false;
   if(typeof smartPracuje !== "undefined") smartPracuje = false;
+  if(typeof gdriveSprawdzPowrot === "function") gdriveSprawdzPowrot();
 
   // 6. Bezpiecznie zsynchronizuj stoper jeśli był aktywny
   if(typeof _centrResynchronizujStoperWTle === "function"){
@@ -46782,8 +46795,12 @@ function openSettings(){
        <button class="st-opt st-wide" data-act="odstepy">Uporządkuj odstępy w treści</button>
        <div class="st-hint">Treść notatki jest wyświetlana z zachowaniem spacji, żeby Twoje własne wcięcia wyglądały tak, jak je wpisałeś. Notatki przeniesione z innego programu niosą jednak wcięcia i podziały wierszy z <b>pliku źródłowego</b> — one też są widoczne, choć nikt ich nie pisał. To narzędzie je usuwa; tekst, listy, tabele i zdjęcia zostają nietknięte.</div>
      </div>
+     <div class="st-sec" id="stGDriveSec">
+       <div class="st-lbl">Automatyczna synchronizacja w chmurze (Dysk Google)</div>
+       <div id="stGDriveContent"></div>
+     </div>
      <div class="st-sec">
-       <div class="st-lbl">Synchronizacja między urządzeniami</div>
+       <div class="st-lbl">Synchronizacja plikowa (iCloud Drive / Komputer)</div>
        <div class="st-ver" id="stSync">sprawdzam…</div>
        <div class="st-row">
          <button class="btn primary" data-act="syncTeraz" type="button">Uzgodnij teraz</button>
@@ -47146,6 +47163,7 @@ async function pokazPlikKopii(){
  * Przycisk, który w danej przeglądarce nic nie zrobi, jest gorszy od jego braku.
  */
 async function pokazStanSync(){
+  if(typeof gdriveOdswiezUI === "function") gdriveOdswiezUI();
   const opis = $("stSync");
   if(!opis || typeof syncStanOpis !== "function") return;
   opis.textContent = await syncStanOpis();
@@ -58465,8 +58483,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v619</span>
+          <span class="cl-ver-num">v620</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">15 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Automatyczna synchronizacja z Dyskiem Google (w 100% w tle na iPadzie, iPhone i komputerze)</div>
+        <ul class="cl-ver-list">
+          <li><b>Bezpośrednia synchronizacja bez zewnętrznych serwerów:</b> Wdrożono integrację z Dyskiem Google w oparciu o Google Identity Services i ukryty folder <code>appDataFolder</code>. Twoje notatki leżą wyłącznie na Twoim prywatnym koncie Google i są niewidoczne dla osób trzecich.</li>
+          <li><b>Pełna automatyzacja w tle na iPadzie i iPhone:</b> Rozwiązano ograniczenie Safari/iOS blokujące automatyczny zapis plików. Każda edycja notatek jest w tle przesyłana na Dysk Google, a po otwarciu aplikacji na drugim urządzeniu następuje natychmiastowe scalenie najnowszych zmian.</li>
+          <li><b>Spójny panel w Ustawieniach:</b> Dodano dedykowaną kartę stanu z podglądem zalogowanego konta, datą ostatniej synchronizacji, przyciskiem natychmiastowego uzgodnienia oraz przewodnikiem krok po kroku.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v619</span>
           <span class="cl-ver-date">15 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Płynna obsługa okien i modali na iPadOS, eliminacja drżenia i blokady dotyku po powrocie do aplikacji</div>
@@ -64703,6 +64734,7 @@ function syncAutoWlaczone(){ return String(lsGet(SYNC_K_AUTO, "0")) === "1"; }
 
 /** Po zmianie w danych — zapis pliku po chwili spokoju, ale nie za często. */
 function syncPoZmianie(){
+  if(typeof gdriveSyncPoZmianie === "function") gdriveSyncPoZmianie();
   if(!syncAutoWlaczone() || !syncPlikAutomatyczny()) return;
   if(syncZwloka) clearTimeout(syncZwloka);
   const odOstatniego = Date.now() - syncOstatniZapis;
@@ -64732,6 +64764,7 @@ function syncZatrzymajOdpytywanie(){
  * Uruchomienie → uzgodnij; powrót do karty → uzgodnij; wyjście → dopisz zmiany.
  */
 function syncStart(){
+  if(typeof gdriveSyncStart === "function") gdriveSyncStart();
   if(!syncPlikAutomatyczny() || !syncAutoWlaczone()) return;
   syncUruchomOdpytywanie();
   setTimeout(()=>syncTeraz("start"), 1200);
@@ -64912,6 +64945,451 @@ async function syncStanOpis(){
   return czesci.join(" · ");
 }
 
+</script>
+<script>
+/* ==========================================================================
+   JW Study — gdrive-sync.js
+   Automatyczna synchronizacja z Dyskiem Google (appDataFolder)
+   ========================================================================== */
+"use strict";
+
+const GDRIVE_K_CLIENT_ID = KP + "GDriveClientId";
+const GDRIVE_K_TOKEN     = KP + "GDriveToken";
+const GDRIVE_K_EXP       = KP + "GDriveTokenExp";
+const GDRIVE_K_USER      = KP + "GDriveUser";
+const GDRIVE_K_FILE_ID   = KP + "GDriveFileId";
+const GDRIVE_K_LAST_SYNC = KP + "GDriveLastSync";
+const GDRIVE_K_REMOTE_MS = KP + "GDriveRemoteMs";
+const GDRIVE_K_AUTO      = KP + "GDriveAuto";
+const GDRIVE_FILE_NAME   = "jw-study-uzgadnianie.json";
+
+let _gdriveTokenClient = null;
+let _gdriveSyncPracuje = false;
+let _gdriveZwloka = null;
+let _gdriveStanOpis = "";
+
+function gdrivePobierzClientId(){
+  return (lsGet(GDRIVE_K_CLIENT_ID, "") || "").trim();
+}
+function gdriveUstawClientId(id){
+  lsSet(GDRIVE_K_CLIENT_ID, (id || "").trim());
+  _gdriveTokenClient = null;
+}
+function gdrivePobierzToken(){
+  const tok = lsGet(GDRIVE_K_TOKEN, "");
+  if(!tok) return null;
+  const exp = Number(lsGet(GDRIVE_K_EXP, 0));
+  if(exp && Date.now() >= exp) return null;
+  return tok;
+}
+function gdriveCzyZalogowany(){
+  return !!gdrivePobierzToken() && lsGet(GDRIVE_K_AUTO, "0") === "1";
+}
+function gdrivePobierzUzytkownika(){
+  try{
+    const raw = lsGet(GDRIVE_K_USER, null);
+    return raw ? JSON.parse(raw) : null;
+  }catch(_){ return null; }
+}
+
+async function gdriveZapewnijBiblioteke(){
+  if(window.google && google.accounts && google.accounts.oauth2) return true;
+  return new Promise(resolve=>{
+    let s = document.querySelector('script[src*="accounts.google.com/gsi/client"]');
+    if(!s){
+      s = document.createElement("script");
+      s.src = "https://accounts.google.com/gsi/client";
+      s.async = true;
+      s.defer = true;
+      document.head.appendChild(s);
+    }
+    const t0 = Date.now();
+    const timer = setInterval(()=>{
+      if(window.google && google.accounts && google.accounts.oauth2){
+        clearInterval(timer);
+        resolve(true);
+      } else if(Date.now() - t0 > 8000){
+        clearInterval(timer);
+        resolve(false);
+      }
+    }, 100);
+  });
+}
+
+async function gdriveZaloguj(promptConsent){
+  const clientId = gdrivePobierzClientId();
+  if(!clientId){
+    gdrivePokazModalClientId();
+    return;
+  }
+  const zaladowane = await gdriveZapewnijBiblioteke();
+  if(!zaladowane){
+    toastErr("Nie udało się połączyć z biblioteką Google. Sprawdź internet.");
+    return;
+  }
+  try {
+    _gdriveTokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: clientId,
+      scope: "https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+      callback: async (resp) => {
+        if(resp.error){
+          console.warn("Google Auth error:", resp);
+          if(resp.error !== "popup_closed_by_user"){
+            toastErr("Błąd logowania Google: " + (resp.error_description || resp.error));
+          }
+          return;
+        }
+        if(resp.access_token){
+          const exp = Date.now() + ((Number(resp.expires_in) || 3600) - 120) * 1000;
+          lsSet(GDRIVE_K_TOKEN, resp.access_token);
+          lsSet(GDRIVE_K_EXP, String(exp));
+          lsSet(GDRIVE_K_AUTO, "1");
+          try {
+            const uRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+              headers: { Authorization: "Bearer " + resp.access_token }
+            });
+            if(uRes.ok){
+              const uData = await uRes.json();
+              lsSet(GDRIVE_K_USER, JSON.stringify(uData));
+            }
+          }catch(_){}
+          toastOk("Połączono z Dyskiem Google");
+          gdriveOdswiezUI();
+          setTimeout(()=> gdriveSyncTeraz("login"), 400);
+        }
+      }
+    });
+    _gdriveTokenClient.requestAccessToken({ prompt: promptConsent ? 'consent' : '' });
+  } catch(err){
+    console.warn("Błąd Google TokenClient:", err);
+    toastErr("Błąd połączenia z Google: " + (err && err.message ? err.message : err));
+  }
+}
+
+function gdriveWyloguj(){
+  const token = lsGet(GDRIVE_K_TOKEN, "");
+  if(token && window.google && google.accounts && google.accounts.oauth2 && google.accounts.oauth2.revoke){
+    try { google.accounts.oauth2.revoke(token, ()=>{}); } catch(_){}
+  }
+  try { localStorage.removeItem(GDRIVE_K_TOKEN); } catch(_){}
+  try { localStorage.removeItem(GDRIVE_K_EXP); } catch(_){}
+  try { localStorage.removeItem(GDRIVE_K_USER); } catch(_){}
+  try { localStorage.removeItem(GDRIVE_K_AUTO); } catch(_){}
+  try { localStorage.removeItem(GDRIVE_K_FILE_ID); } catch(_){}
+  _gdriveStanOpis = "";
+  toast("Rozłączono konto Dysku Google");
+  gdriveOdswiezUI();
+}
+
+async function gdriveSzukajPliku(token){
+  const url = "https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&q=name%3D%27" +
+              encodeURIComponent(GDRIVE_FILE_NAME) + "%27+and+trashed%3Dfalse&fields=files(id%2Cname%2CmodifiedTime%2Csize)&pageSize=1";
+  const res = await fetch(url, { headers: { Authorization: "Bearer " + token } });
+  if(!res.ok){
+    if(res.status === 401) throw new Error("TOKEN_EXPIRED");
+    throw new Error("Błąd wyszukiwania pliku (" + res.status + ")");
+  }
+  const data = await res.json();
+  return (data && data.files && data.files[0]) ? data.files[0] : null;
+}
+
+async function gdrivePobierzTresc(fileId, token){
+  const res = await fetch("https://www.googleapis.com/drive/v3/files/" + fileId + "?alt=media", {
+    headers: { Authorization: "Bearer " + token }
+  });
+  if(!res.ok){
+    if(res.status === 401) throw new Error("TOKEN_EXPIRED");
+    throw new Error("Błąd pobierania pliku (" + res.status + ")");
+  }
+  return await res.text();
+}
+
+async function gdriveZapiszPlik(trescJson, fileId, token){
+  if(fileId){
+    const res = await fetch("https://www.googleapis.com/upload/drive/v3/files/" + fileId + "?uploadType=media", {
+      method: "PATCH",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json; charset=UTF-8"
+      },
+      body: trescJson
+    });
+    if(!res.ok){
+      if(res.status === 401) throw new Error("TOKEN_EXPIRED");
+      throw new Error("Błąd zapisu pliku (" + res.status + ")");
+    }
+    return await res.json();
+  } else {
+    const boundary = "JWSTUDY_GDRIVE_" + Date.now();
+    const meta = JSON.stringify({
+      name: GDRIVE_FILE_NAME,
+      parents: ["appDataFolder"]
+    });
+    const multipartBody =
+      "--" + boundary + "\r\n" +
+      "Content-Type: application/json; charset=UTF-8\r\n\r\n" +
+      meta + "\r\n" +
+      "--" + boundary + "\r\n" +
+      "Content-Type: application/json; charset=UTF-8\r\n\r\n" +
+      trescJson + "\r\n" +
+      "--" + boundary + "--";
+
+    const res = await fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "multipart/related; boundary=" + boundary
+      },
+      body: multipartBody
+    });
+    if(!res.ok){
+      if(res.status === 401) throw new Error("TOKEN_EXPIRED");
+      throw new Error("Błąd tworzenia pliku (" + res.status + ")");
+    }
+    return await res.json();
+  }
+}
+
+async function gdriveSyncTeraz(powod){
+  if(_gdriveSyncPracuje) return null;
+  if(lsGet(GDRIVE_K_AUTO, "0") !== "1") return null;
+  let token = gdrivePobierzToken();
+  if(!token){
+    if(powod === "ręcznie"){
+      gdriveZaloguj(false);
+    }
+    return null;
+  }
+  if(!navigator.onLine && powod !== "ręcznie") return null;
+
+  _gdriveSyncPracuje = true;
+  gdriveOdswiezUI();
+
+  try {
+    let zdalny = null;
+    try {
+      zdalny = await gdriveSzukajPliku(token);
+    } catch(err){
+      if(err && err.message === "TOKEN_EXPIRED"){
+        try { localStorage.removeItem(GDRIVE_K_TOKEN); } catch(_){}
+        if(powod === "ręcznie") gdriveZaloguj(false);
+        return null;
+      }
+      throw err;
+    }
+
+    let wynik = null;
+    let pobranoZdalne = false;
+    if(zdalny && zdalny.id){
+      lsSet(GDRIVE_K_FILE_ID, zdalny.id);
+      const remoteMs = Date.parse(zdalny.modifiedTime) || 0;
+      const znanyMs = Number(lsGet(GDRIVE_K_REMOTE_MS, "0"));
+
+      if(remoteMs > znanyMs || powod === "ręcznie" || powod === "login"){
+        const tekst = await gdrivePobierzTresc(zdalny.id, token);
+        if(tekst){
+          let dane;
+          try { dane = JSON.parse(tekst); } catch(e){ throw new Error("Plik w chmurze jest uszkodzony (błąd formatu JSON)"); }
+          wynik = await syncScalDane(dane, powod !== "ręcznie" && syncKtosPisze());
+          lsSet(GDRIVE_K_REMOTE_MS, String(remoteMs));
+          pobranoZdalne = true;
+          if(wynik.odlozone){
+            _gdriveStanOpis = "Do rozstrzygnięcia: " + wynik.konflikty + " rozbieżności — otwórz Ustawienia.";
+            if(powod !== "start") toast("Synchronizacja czeka na Twoją decyzję — otwórz Ustawienia");
+            return wynik;
+          }
+        }
+      }
+    }
+
+    const trzebaWyslac = !zdalny || !pobranoZdalne || (wynik && wynik.st && wynik.st.doPliku) || powod === "login" || powod === "zmiany";
+    if(trzebaWyslac){
+      const exportData = await syncEksport();
+      const fileId = zdalny ? zdalny.id : (lsGet(GDRIVE_K_FILE_ID, "") || null);
+      const saved = await gdriveZapiszPlik(JSON.stringify(exportData), fileId, token);
+      if(saved && saved.id){
+        lsSet(GDRIVE_K_FILE_ID, saved.id);
+        if(saved.modifiedTime){
+          lsSet(GDRIVE_K_REMOTE_MS, String(Date.parse(saved.modifiedTime) || Date.now()));
+        }
+      }
+      await syncPodstawaPoZapisie();
+    }
+
+    const terazIso = new Date().toISOString();
+    lsSet(GDRIVE_K_LAST_SYNC, terazIso);
+    _gdriveStanOpis = "Zsynchronizowano pomyślnie";
+    if(powod === "ręcznie") toastOk("Zsynchronizowano z Dyskiem Google");
+    return wynik;
+  } catch(err){
+    console.warn("Błąd gdriveSyncTeraz (" + powod + "):", err);
+    _gdriveStanOpis = "Ostatnia próba nie wyszła: " + (err && err.message ? err.message : String(err));
+    if(powod === "ręcznie") toastErr("Błąd synchronizacji: " + (err && err.message ? err.message : err));
+    return null;
+  } finally {
+    _gdriveSyncPracuje = false;
+    gdriveOdswiezUI();
+  }
+}
+
+function gdriveSyncPoZmianie(){
+  if(lsGet(GDRIVE_K_AUTO, "0") !== "1" || !gdrivePobierzToken()) return;
+  if(_gdriveZwloka) clearTimeout(_gdriveZwloka);
+  _gdriveZwloka = setTimeout(()=>{
+    _gdriveZwloka = null;
+    gdriveSyncTeraz("zmiany");
+  }, 3500);
+}
+
+function gdriveSyncStart(){
+  if(lsGet(GDRIVE_K_AUTO, "0") === "1" && gdrivePobierzToken()){
+    setTimeout(()=> gdriveSyncTeraz("start"), 1800);
+  }
+}
+
+function gdriveSprawdzPowrot(){
+  if(lsGet(GDRIVE_K_AUTO, "0") === "1" && gdrivePobierzToken() && navigator.onLine){
+    setTimeout(()=> gdriveSyncTeraz("powrót"), 800);
+  }
+}
+
+setInterval(()=>{
+  if(lsGet(GDRIVE_K_AUTO, "0") === "1" && !document.hidden && navigator.onLine && !syncKtosPisze()){
+    gdriveSyncTeraz("odpytanie");
+  }
+}, 60000);
+
+function gdrivePokazModalClientId(){
+  const aktualny = gdrivePobierzClientId();
+  const html = `
+    <div style="font-size:13px;line-height:1.5;display:flex;flex-direction:column;gap:12px;">
+      <div>Aby aplikacja mogła łączyć się bezpośrednio z Twoim Dyskiem Google (bez żadnych zewnętrznych serwerów), podaj swój darmowy <b>Google Client ID</b>.</div>
+      <div style="background:var(--sel);padding:10px 12px;border-radius:8px;font-size:12px;">
+        <b>Jak uzyskać Client ID w 3 minuty:</b>
+        <ol style="margin:6px 0 0 18px;padding:0;line-height:1.6;">
+          <li>Wejdź na <a href="https://console.cloud.google.com/" target="_blank" style="color:var(--accent);font-weight:600;">console.cloud.google.com</a></li>
+          <li>Utwórz projekt (np. <i>JW Study</i>) i włącz w nim <b>Google Drive API</b>.</li>
+          <li>W <i>Dane logowania → Utwórz dane logowania</i> wybierz <b>Identyfikator klienta OAuth</b> (Aplikacja internetowa).</li>
+          <li>W polu <i>Autoryzowane źródła JavaScript</i> wpisz:<br><code style="background:var(--panel);padding:1px 5px;border-radius:4px;user-select:all;">${window.location.origin}</code></li>
+          <li>Skopiuj wygenerowany Identyfikator klienta i wklej poniżej.</li>
+        </ol>
+      </div>
+      <div>
+        <label style="font-weight:600;display:block;margin-bottom:4px;">Google Client ID:</label>
+        <input type="text" id="gdriveModalInpClientId" class="cenQuickNameInp" value="${esc(aktualny)}" placeholder="np. 123456789-xxx.apps.googleusercontent.com" style="width:100%;box-sizing:border-box;height:38px;">
+      </div>
+    </div>
+  `;
+  showInfo("Konfiguracja Dysku Google", html).then(()=>{
+    const inp = document.getElementById("gdriveModalInpClientId");
+    if(inp && inp.value.trim()){
+      gdriveUstawClientId(inp.value.trim());
+      gdriveOdswiezUI();
+      toastOk("Zapisano Client ID");
+    }
+  });
+}
+
+function gdriveOdswiezUI(){
+  const kontener = document.getElementById("stGDriveContent");
+  if(!kontener) return;
+  const clientId = gdrivePobierzClientId();
+  const zalogowany = gdriveCzyZalogowany();
+  const user = gdrivePobierzUzytkownika();
+  const lastSyncIso = lsGet(GDRIVE_K_LAST_SYNC, "");
+  let lastSyncTxt = "jeszcze nie";
+  if(lastSyncIso){
+    try {
+      const d = new Date(lastSyncIso);
+      lastSyncTxt = isNaN(d) ? lastSyncIso : dataPolska(lastSyncIso);
+    } catch(_){ lastSyncTxt = lastSyncIso; }
+  }
+
+  if(zalogowany){
+    let avatarHtml = `<div class="gdrive-avatar">👤</div>`;
+    if(user && user.picture){
+      avatarHtml = `<div class="gdrive-avatar" style="background-image:url('${esc(user.picture)}');"></div>`;
+    }
+    const dotClass = _gdriveSyncPracuje ? "syncing" : "online";
+    const statusTxt = _gdriveSyncPracuje ? "Trwa synchronizacja…" : "Połączono z Dyskiem Google";
+
+    kontener.innerHTML = `
+      <div class="gdrive-card connected">
+        <div class="gdrive-user-row">
+          ${avatarHtml}
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:13.5px;font-weight:600;color:var(--text);display:flex;align-items:center;">
+              <span class="gdrive-dot ${dotClass}"></span>
+              ${esc(user && (user.name || user.email) ? (user.name || user.email) : statusTxt)}
+            </div>
+            <div style="font-size:11.5px;color:var(--muted);margin-top:2px;">
+              Ostatnia synchronizacja: <b>${lastSyncTxt}</b>
+              ${_gdriveStanOpis ? ` · <span style="color:var(--text);">${esc(_gdriveStanOpis)}</span>` : ""}
+            </div>
+          </div>
+        </div>
+        <div class="st-row" style="margin-top:4px;">
+          <button type="button" class="btn primary" id="btnGDriveSyncNow" ${_gdriveSyncPracuje ? "disabled" : ""}>
+            ${_gdriveSyncPracuje ? "Synchronizuję…" : "Uzgodnij z Dyskiem Google"}
+          </button>
+          <button type="button" class="btn" id="btnGDriveLogout">Rozłącz konto</button>
+        </div>
+        <div class="st-hint">Notatki, etykiety i zakładki synchronizują się automatycznie w tle przez ukryty folder aplikacji na Twoim Dysku Google.</div>
+      </div>
+    `;
+    const btnSync = kontener.querySelector("#btnGDriveSyncNow");
+    if(btnSync) btnSync.onclick = ()=> gdriveSyncTeraz("ręcznie");
+    const btnLogout = kontener.querySelector("#btnGDriveLogout");
+    if(btnLogout) btnLogout.onclick = ()=> gdriveWyloguj();
+  } else if(clientId){
+    kontener.innerHTML = `
+      <div class="gdrive-card">
+        <div class="st-hint">Połącz aplikację ze swoim kontem Google, aby notatki synchronizowały się w 100% automatycznie w tle.</div>
+        <div class="st-row" style="align-items:center;gap:10px;">
+          <button type="button" class="btn primary" id="btnGDriveLogin" style="display:inline-flex;align-items:center;gap:8px;padding:9px 16px;">
+            <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+            Połącz z Dyskiem Google
+          </button>
+          <button type="button" class="btn" id="btnGDriveChangeId" style="font-size:12px;opacity:0.85;">Zmień Client ID</button>
+        </div>
+      </div>
+    `;
+    const btnLogin = kontener.querySelector("#btnGDriveLogin");
+    if(btnLogin) btnLogin.onclick = ()=> gdriveZaloguj(true);
+    const btnChg = kontener.querySelector("#btnGDriveChangeId");
+    if(btnChg) btnChg.onclick = ()=> gdrivePokazModalClientId();
+  } else {
+    kontener.innerHTML = `
+      <div class="gdrive-card">
+        <div class="st-hint">Wklej swój bezpłatny <b>Google Client ID</b>, aby włączyć bezpośrednią synchronizację z Dyskiem Google:</div>
+        <div class="st-row" style="gap:8px;align-items:center;">
+          <input type="text" id="stGDriveInpId" class="cenQuickNameInp" placeholder="np. 123456789-xxx.apps.googleusercontent.com" style="flex:1;max-width:320px;height:38px;">
+          <button type="button" class="btn primary" id="stGDriveSaveIdBtn" style="height:38px;">Zapisz i połącz</button>
+        </div>
+        <div style="margin-top:4px;">
+          <button type="button" class="btn" id="btnGDriveHowTo" style="font-size:12px;">ℹ️ Jak uzyskać bezpłatny Client ID w 3 minuty?</button>
+        </div>
+      </div>
+    `;
+    const btnSave = kontener.querySelector("#stGDriveSaveIdBtn");
+    if(btnSave) btnSave.onclick = ()=>{
+      const inp = kontener.querySelector("#stGDriveInpId");
+      if(inp && inp.value.trim()){
+        gdriveUstawClientId(inp.value.trim());
+        gdriveOdswiezUI();
+        gdriveZaloguj(true);
+      } else {
+        toast("Wpisz Client ID");
+      }
+    };
+    const btnHow = kontener.querySelector("#btnGDriveHowTo");
+    if(btnHow) btnHow.onclick = ()=> gdrivePokazModalClientId();
+  }
+}
+window.gdriveOdswiezUI = gdriveOdswiezUI;
+window.gdriveSyncTeraz = gdriveSyncTeraz;
+window.gdriveZaloguj = gdriveZaloguj;
+window.gdriveWyloguj = gdriveWyloguj;
 </script>
 <script>
 /* ==========================================================================

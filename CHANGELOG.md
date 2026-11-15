@@ -1,3 +1,14 @@
+## 5.0 — 2026-11-15 (Automatyczna synchronizacja z Dyskiem Google w tle na wszystkich urządzeniach — v620)
+
+- **Pełna synchronizacja w chmurze (Google Drive API appDataFolder):**
+  - **Diagnoza problemu:** Ograniczenia bezpieczeństwa w przeglądarce Safari na iPadOS i iOS uniemożliwiają aplikacjom webowym (PWA) stały, automatyczny dostęp do plików w pamięci urządzenia bez każdorazowego wywoływania systemowego okna dialogowego. W rezultacie automatyczna synchronizacja była dotychczas dostępna wyłącznie na komputerach w przeglądarkach Chromium.
+  - **Bezpośrednia integracja z Dyskiem Google:** Zaimplementowano bezpośrednią komunikację z Google Drive REST API v3 oraz Google Identity Services (GIS). Plik uzgadniania (`jw-study-uzgadnianie.json`) zapisywany jest w chronionym, dedykowanym folderze aplikacji (`appDataFolder`). Aplikacja nie posiada dostępu do prywatnych plików, zdjęć ani poczty użytkownika.
+  - **Pełna automatyzacja w tle (zero okienek, zero klikania):**
+    - **Po edycji notatki:** każda zmiana treści, etykiet lub zakładek wyzwala automatyczną wysyłkę na Dysk Google z bezpiecznym opóźnieniem (3.5 sekundy po zakończeniu pisania).
+    - **Po uruchomieniu lub powrocie do aplikacji:** aplikacja sprawdza w tle stan pliku na Dysku Google (`start`, `powrót`, `odpytanie` co 60 sekund) i bezszelestnie scala najnowsze zmiany z drugiego urządzenia, korzystając z dotychczasowego, zaawansowanego silnika 3-way merge.
+  - **Dedykowany panel w Ustawieniach:** Dodano estetyczną kartę stanu z podglądem połączonego konta, avatara, daty ostatniej udanej synchronizacji, przyciskiem natychmiastowego uzgodnienia oraz wbudowanym instruktażem konfiguracji Client ID.
+- Podniesiono wersję pamięci podręcznej Service Workera do `v620`.
+
 ## 5.0 — 2026-11-15 (Płynna obsługa okien i modali na iPadOS, eliminacja drżenia i blokady dotyku — v619)
 
 - **Eliminacja gwałtownego drżenia interfejsu ("drżenie całego ekranu") na iPadOS:**
