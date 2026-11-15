@@ -245,7 +245,7 @@ select,button,input{font-family:inherit}
   --cen-radial-bg: rgba(0, 0, 0, 0.08);
 }
 
-html[data-theme="dark"] {
+html[data-theme="dark"], html[data-theme="oled"] {
   --cen-bg: #0d1217;
   --cen-card-bg: #151d28;
   --cen-card-border: rgba(255, 255, 255, 0.08);
@@ -288,6 +288,54 @@ html[data-theme="dark"] {
   --cen-tab-hover-bg: rgba(255, 255, 255, 0.06);
   --cen-input-bg: #151d28;
   --cen-input-border: rgba(255, 255, 255, 0.12);
+  --cen-input-color: #ffffff;
+  --cen-sec-head: #94a3b8;
+  --cen-radial-bg: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="oled"] {
+  --cen-bg: #000000;
+  --cen-card-bg: #0a0a0c;
+  --cen-card-border: rgba(255, 255, 255, 0.1);
+  --cen-card-border-hover: rgba(255, 255, 255, 0.25);
+  --cen-text: #f3f4f6;
+  --cen-text-sub: #cbd5e1;
+  --cen-text-muted: #94a3b8;
+  --cen-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+  --cen-card-shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.9);
+  --cen-btn-bg: rgba(255, 255, 255, 0.06);
+  --cen-btn-border: rgba(255, 255, 255, 0.12);
+  --cen-btn-color: #94a3b8;
+  --cen-btn-hover-bg: rgba(255, 255, 255, 0.14);
+  --cen-btn-hover-color: #ffffff;
+  --cen-zadanie-bg: linear-gradient(135deg, #0e141d 0%, #05080c 100%);
+  --cen-zadanie-border: rgba(255, 255, 255, 0.12);
+  --cen-zadanie-tyt: #ffffff;
+  --cen-zadanie-podtyt: #94a3b8;
+  --cen-zadanie-iko-bg: rgba(255, 255, 255, 0.08);
+  --cen-zadanie-iko-border: rgba(255, 255, 255, 0.15);
+  --cen-zadanie-iko-color: var(--accent, #60a5fa);
+  --cen-banner-bg: #0a0a0c;
+  --cen-banner-border: rgba(255, 255, 255, 0.08);
+  --cen-banner-tyt: #ffffff;
+  --cen-banner-sub: #64748b;
+  --cen-banner-iko-bg: rgba(255, 255, 255, 0.05);
+  --cen-progress-track: rgba(255, 255, 255, 0.1);
+  --cen-cal-grid-bg: #0a0a0c;
+  --cen-cal-cell-bg: rgba(255, 255, 255, 0.03);
+  --cen-cal-cell-hover: rgba(255, 255, 255, 0.08);
+  --cen-cal-cell-active: rgba(255, 255, 255, 0.18);
+  --cen-cal-cell-border: rgba(255, 255, 255, 0.2);
+  --cen-cal-day-color: #ffffff;
+  --cen-frag-check-border: rgba(255, 255, 255, 0.25);
+  --cen-frag-check-bg: rgba(255, 255, 255, 0.03);
+  --cen-tabs-bg: #0a0a0c;
+  --cen-tabs-border: rgba(255, 255, 255, 0.08);
+  --cen-tab-color: #94a3b8;
+  --cen-tab-hover-color: #ffffff;
+  --cen-tab-hover-bg: rgba(255, 255, 255, 0.08);
+  --cen-input-bg: #0a0a0c;
+  --cen-input-border: rgba(255, 255, 255, 0.15);
   --cen-input-color: #ffffff;
   --cen-sec-head: #94a3b8;
   --cen-radial-bg: rgba(255, 255, 255, 0.08);
@@ -673,7 +721,7 @@ html[data-theme="dark"] .cenHeroMetaVal.val-orange { color: #fb923c; }
 }
 
 .cenZadanieBtn {
-  background: #2563eb;
+  background: var(--th-accent-gradient, var(--accent, #2563eb));
   color: #ffffff;
   border: none;
   padding: 11px 24px;
@@ -685,15 +733,15 @@ html[data-theme="dark"] .cenHeroMetaVal.val-orange { color: #fb923c; }
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent, #2563eb) 35%, transparent);
   transition: all 0.16s ease;
   white-space: nowrap;
   flex-shrink: 0;
 }
 .cenZadanieBtn:hover {
-  background: #1d4ed8;
+  filter: brightness(1.1);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--accent, #2563eb) 45%, transparent);
 }
 
 /* DOLNA BELKA FUNKCJI (FEATURES BANNER) */
@@ -1012,7 +1060,7 @@ html[data-theme="dark"] .cenChronoAkcjaBtn svg {
   max-width: 440px;
   padding: 12px 24px;
   border-radius: 12px;
-  background: #10b981;
+  background: var(--th-accent-gradient, var(--accent, #10b981));
   color: #ffffff;
   border: 1.5px solid transparent;
   font-size: 14.5px;
@@ -1022,7 +1070,7 @@ html[data-theme="dark"] .cenChronoAkcjaBtn svg {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.22);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--accent, #10b981) 28%, transparent);
   transition: all 0.16s ease;
   text-align: center;
 }
@@ -1032,23 +1080,24 @@ html[data-theme="dark"] .cenChronoAkcjaBtn svg {
   flex-shrink: 0;
 }
 .cenDzienUkonczBtn:hover {
-  background: #059669;
+  filter: brightness(1.1);
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.32);
+  box-shadow: 0 6px 16px color-mix(in srgb, var(--accent, #10b981) 38%, transparent);
 }
 .cenDzienUkonczBtn.done {
-  background: rgba(16, 185, 129, 0.12);
-  color: #059669;
-  border-color: rgba(16, 185, 129, 0.35);
-  box-shadow: none;
+  background: color-mix(in srgb, var(--accent, #10b981) 14%, transparent) !important;
+  color: var(--accent, #059669) !important;
+  border-color: color-mix(in srgb, var(--accent, #10b981) 35%, transparent) !important;
+  box-shadow: none !important;
 }
-html[data-theme="dark"] .cenDzienUkonczBtn.done {
-  background: rgba(16, 185, 129, 0.18);
-  color: #34d399;
-  border-color: rgba(16, 185, 129, 0.45);
+html[data-theme="dark"] .cenDzienUkonczBtn.done,
+html[data-theme="oled"] .cenDzienUkonczBtn.done {
+  background: color-mix(in srgb, var(--accent, #10b981) 20%, transparent) !important;
+  color: var(--accent2, #34d399) !important;
+  border-color: color-mix(in srgb, var(--accent, #10b981) 45%, transparent) !important;
 }
 .cenDzienUkonczBtn.done:hover {
-  background: rgba(16, 185, 129, 0.22);
+  background: color-mix(in srgb, var(--accent, #10b981) 22%, transparent) !important;
 }
 
 /* ==========================================================================
@@ -1873,9 +1922,9 @@ html[data-theme="dark"] .cenSciezkaBadge {
   justify-content: center;
   padding: 8px 4px 6px;
   border-radius: 10px;
-  background: var(--card-bg, #ffffff);
-  border: 1px solid var(--border);
-  opacity: 0.45;
+  background: var(--cen-card-bg, var(--panel, #ffffff));
+  border: 1px solid var(--cen-card-border, var(--border));
+  opacity: 0.55;
   transition: all 0.2s ease;
   position: relative;
 }
@@ -1886,9 +1935,33 @@ html[data-theme="dark"] .cenSciezkaBadge {
   box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
 }
 .cenTrackLantern.is-next {
-  opacity: 0.85;
+  opacity: 0.9;
+  background: var(--cen-card-bg, var(--panel, #ffffff));
   border-color: #f59e0b;
   border-style: dashed;
+}
+html[data-theme="dark"] .cenTrackLantern,
+html[data-theme="oled"] .cenTrackLantern {
+  background: #0a0a0c !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+html[data-theme="dark"] .cenTrackLantern.is-lit,
+html[data-theme="oled"] .cenTrackLantern.is-lit {
+  background: rgba(245, 158, 11, 0.16) !important;
+  border-color: rgba(245, 158, 11, 0.5) !important;
+}
+html[data-theme="dark"] .cenTrackLantern.is-next,
+html[data-theme="oled"] .cenTrackLantern.is-next {
+  background: #0f141c !important;
+  border-color: #f59e0b !important;
+}
+html[data-theme="dark"] .cenTrackLanternNum,
+html[data-theme="oled"] .cenTrackLanternNum {
+  color: #f3f4f6 !important;
+}
+html[data-theme="dark"] .cenTrackLanternPct,
+html[data-theme="oled"] .cenTrackLanternPct {
+  color: #94a3b8 !important;
 }
 .cenTrackLanternIcon {
   font-size: 16px;
@@ -19606,6 +19679,34 @@ html[data-theme="oled"] #colNotes {
 html[data-theme="oled"] #centrum, html[data-theme="oled"] main {
   background: #000000 !important;
 }
+html[data-theme="oled"] .cenCentrumShell {
+  background: #000000 !important;
+}
+html[data-theme="oled"] .cenCard,
+html[data-theme="oled"] .cenZadanieCard {
+  background: linear-gradient(135deg, #0e131b 0%, #05080c 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7) !important;
+}
+html[data-theme="oled"] .cenZadanieTyt {
+  color: #ffffff !important;
+}
+html[data-theme="oled"] .cenZadaniePodtyt {
+  color: #94a3b8 !important;
+}
+html[data-theme="oled"] .cenZadanieIko {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: var(--accent, #60a5fa) !important;
+}
+html[data-theme="oled"] .cenRowItem {
+  background: #0a0a0c !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+html[data-theme="oled"] .cenRowItem:hover {
+  background: #111620 !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
 html[data-theme="oled"] .pill.ks {
   background: rgba(245, 158, 11, 0.14) !important;
   color: #fbbf24 !important;
@@ -20549,7 +20650,7 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
 .cenBtnCompleteDay {
   width: 100%;
   padding: 13px 20px;
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  background: var(--th-accent-gradient, var(--accent, #059669));
   color: #ffffff;
   border: none;
   border-radius: 14px;
@@ -20560,22 +20661,25 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.22);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--accent, #059669) 25%, transparent);
   transition: all 0.15s ease;
 }
 .cenBtnCompleteDay:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.32);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--accent, #059669) 35%, transparent);
+  filter: brightness(1.08);
 }
 .cenBtnCompleteDay.is-past-due {
-  background: linear-gradient(135deg, #b45309 0%, #059669 100%);
+  background: linear-gradient(135deg, #b45309 0%, var(--accent, #059669) 100%);
   box-shadow: 0 4px 14px rgba(180, 83, 9, 0.22);
 }
 .cenBtnCompleteDay.is-past-due:hover {
   box-shadow: 0 6px 18px rgba(180, 83, 9, 0.32);
 }
 .cenBtnCompleteDay.done {
-  background: #0f766e;
+  background: color-mix(in srgb, var(--accent, #059669) 20%, transparent);
+  color: var(--accent, #059669);
+  border: 1px solid color-mix(in srgb, var(--accent, #059669) 40%, transparent);
 }
 
 /* Podgląd jutrzejszego czytania - subtelny pasek dolny */
@@ -26234,9 +26338,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v617";
-const APP_BUILD_DATE = "2026-11-14";
-const APP_FULL_VERSION = "5.0 (v617)";
+const APP_BUILD = "v618";
+const APP_BUILD_DATE = "2026-11-15";
+const APP_FULL_VERSION = "5.0 (v618)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -31711,6 +31815,15 @@ function buildColorCSS(){
     css += `.cenHabitDayBtn.done .cenHabitRingCircle{background:${akcent}!important;color:#ffffff!important;box-shadow:0 3px 10px ${hexA(akcent,.35)}!important}`;
     css += `.cenHabitDayBtn.today .cenHabitDayLbl{color:${akcent}!important;font-weight:700!important}`;
     css += `.cenHabitDayBtn.today .cenHabitDayNum{color:${akcent}!important;font-weight:700!important}`;
+
+    /* 3a. PRZYCISKI CZYTANIA I UKOŃCZENIA DNIA */
+    css += `.cenZadanieBtn{background:${grad}!important;color:#ffffff!important;box-shadow:0 4px 14px ${hexA(akcent,.35)}!important;border:none!important}`;
+    css += `.cenBtnCompleteDay:not(.is-past-due){background:${grad}!important;color:#ffffff!important;box-shadow:0 4px 14px ${hexA(akcent,.32)}!important;border:none!important}`;
+    css += `.cenDzienUkonczBtn:not(.done){background:${grad}!important;color:#ffffff!important;box-shadow:0 4px 14px ${hexA(akcent,.32)}!important;border:none!important}`;
+    css += `.cenTrackLantern.is-lit{background:${hexA(akcent,.16)}!important;border-color:${hexA(akcent,.5)}!important;box-shadow:0 2px 8px ${hexA(akcent,.25)}!important}`;
+    if(isDarkish){
+      css += `html[data-theme="dark"] .cenZadanieCard, html[data-theme="oled"] .cenZadanieCard{background:linear-gradient(135deg, color-mix(in srgb, #0e131b 90%, ${akcent} 10%) 0%, #05080c 100%)!important;border-color:color-mix(in srgb, rgba(255,255,255,0.12) 80%, ${akcent} 20%)!important}`;
+    }
 
     /* 4. DUCHOWE CELE I NAWYKI */
     css += `.cenCeleFilterPill.active, .cenTabBtn.active{background:${akcent}!important;color:#ffffff!important;border-color:${akcent}!important}`;
@@ -58296,8 +58409,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v617</span>
+          <span class="cl-ver-num">v618</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">15 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Naprawa podświetlenia karty w trybie OLED oraz spójny kolor motywu dla przycisków oznaczania czytania</div>
+        <ul class="cl-ver-list">
+          <li><b>Czysta czerń w trybie OLED (brak rażącego białego okna):</b> Zdefiniowano dedykowane zmienne i style dla <code>data-theme="oled"</code> w module Centrum Studium. Karta bieżącego zadania („Czytanie na dziś”) oraz kafelki etapów ścieżki posiadają teraz głębokie, eleganckie ciemne tło (<code>#0a0a0c</code>) zamiast jasnoniebieskiego/białego rozbłysku.</li>
+          <li><b>Przyciski czytania w barwach aktywnego motywu:</b> Przyciski <i>„Oznacz jako przeczytane na dziś”</i> (ekran powitalny), <i>„📖 Oznacz Dzień X jako przeczytany”</i> (widok dnia) oraz <i>„Otwórz dzień ›”</i> automatycznie przyjmują nasycony gradient i kolor wybranego motywu kolorystycznego.</li>
+          <li><b>Dopasowanie kafelków latarni na ścieżce:</b> Nierozpalone jeszcze latarnie nie świecą już na biało w trybach ciemnym i OLED, lecz wtapiają się w estetyczną czerń interfejsu z zachowaniem czytelnych etykiet i numerów.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v617</span>
           <span class="cl-ver-date">14 listopada 2026</span>
         </div>
         <div class="cl-ver-title">14 wyrazistych motywów kolorystycznych i pełna spójność koloru przewodniego w całej aplikacji</div>

@@ -1,3 +1,13 @@
+## 5.0 — 2026-11-15 (Czysta czerń w trybie OLED i spójny kolor motywu dla przycisków czytania — v618)
+
+- **Eliminacja białego podświetlenia karty czytania w trybie OLED:**
+  - **Diagnoza problemu:** W trybie OLED (`data-theme="oled"`) zmienne modułu Centrum Studium (`--cen-zadanie-bg`, `--cen-card-bg` itp.) nie były przypisane do selektora OLED, przez co karta *„Czytanie na dziś”* (`.cenZadanieCard`) przyjmowała jasny gradient z `:root` (`linear-gradient(135deg, #f0f7ff, #e0e7ff)`), świecąc rażącym białym tłem pośród głębokiej czerni.
+  - **Głęboka czerń OLED (`#000000` / `#0a0a0c`):** Zdefiniowano pełny zestaw zmiennych Centrum dla trybu OLED. Karta bieżącego zadania oraz kafelki planu posiadają teraz aksamitne, ciemne tło (`linear-gradient(135deg, #0e131b, #05080c)`), perfekcyjnie komponujące się z ekranami OLED i iPadOS.
+  - **Dopasowanie kafelków latarni na ścieżce:** Nierozpalone jeszcze latarnie nie świecą już na biało w trybach Dark i OLED, lecz wtapiają się w ciemne tło (`#0a0a0c`) z zachowaniem pełnej czytelności.
+- **Przyciski oznaczania czytania w kolorze aktywnego motywu:**
+  - Przyciski *„Oznacz jako przeczytane na dziś”* (`.cenBtnCompleteDay` na pulpicie powitalnym), *„📖 Oznacz Dzień X jako przeczytany”* (`.cenDzienUkonczBtn` w widoku dnia) oraz *„Otwórz dzień ›”* (`.cenZadanieBtn`) przyjmują teraz dynamicznie gradient i kolor wybranego motywu kolorystycznego zamiast sztywnych zieleni/błękitów.
+  - Podniesiono wersję pamięci podręcznej Service Workera do `v618`.
+
 ## 5.0 — 2026-11-14 (14 wyrazistych motywów kolorystycznych i pełna spójność koloru przewodniego — v617)
 
 - **14 szlachetnych, zrównoważonych kompozycji kolorystycznych (zastąpienie zlewających się pasteli):**
