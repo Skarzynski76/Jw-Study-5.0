@@ -1,3 +1,15 @@
+## 5.0 — 2026-11-15 (Płynna obsługa okien i modali na iPadOS, eliminacja drżenia i blokady dotyku — v619)
+
+- **Eliminacja gwałtownego drżenia interfejsu ("drżenie całego ekranu") na iPadOS:**
+  - **Diagnoza problemu:** Podczas obniżania okna lub przeciągania górnej krawędzi w trybie Stage Manager / Split View na iPadzie, WebKit generował ciągłe zdarzenia `visualViewport` oraz `resize` z częstotliwością 120Hz (ProMotion). Synchroniczne wywoływanie `window.scrollTo(0, 0)` wewnątrz procedur obsługi viewportu (`syncH`, `kbOdswiez`) wchodziło w natychmiastowy konflikt z silnikiem kompozycji iPadOS, wywołując pętlę niekontrolowanego drżenia widoku.
+  - **Eliminacja konfliktów przewijania i debounce bezczynności:** Zlikwidowano natychmiastowe wymuszanie pozycji scrolla podczas aktywnych zdarzeń geometrii okna. Przywracanie pozycji `(0, 0)` zostało odroczone do 250ms po ustaniu ruchu palca/okna i jest aktywowane tylko przy rzeczywistym przesunięciu i braku otwartych modali.
+  - **Uziemienie nadmiernego przewijania (overscroll-behavior):** Do stylów bazowych `html, body` dodano `overscroll-behavior: none !important; -webkit-overscroll-behavior: none !important;`, co zapobiega niekontrolowanemu odbijaniu i rozchwianiu ramki okna Safari/PWA.
+- **Optymalizacja gestów pull-to-dismiss oraz czyszczenie stanu po powrocie z innych aplikacji:**
+  - **Koniec z przypadkowym chwytaniem nagłówków:** Usunięto generyczne znaczniki `h1, h2, h3, h4` z listy aktywatorów gestu pull-to-dismiss. Zamykanie gestem w dół jest dozwolone wyłącznie ze specjalnego uchwytu (`.modal-drag-handle`) lub dedykowanych belek nagłówkowych na ekranach dotykowych przy `scrollTop <= 0`.
+  - **Zwiększenie progu aktywacji i sprzętowa akceleracja:** Podniesiono próg aktywacji gestu ciągnięcia w dół do zdecydowanego ruchu pionowego (`diffY > 12 && diffY > Math.abs(diffX) * 1.5`), a same transformacje modalne spięto z pętlą renderowania przeglądarki (`requestAnimationFrame` + `translate3d`), eliminując obciążenie procesora i layout thrashing.
+  - **Automatyczne zwalnianie chwytów (`posprzatajGestyModali`):** Wdrożono globalną funkcję sprzątającą podłączoną pod `visibilitychange`, `pageshow`, `focus`, `blur` oraz `odblokujWiszaceAkcjePoPowrocie()`. Po powrocie do aplikacji (np. po przełączeniu z JW Library lub powrocie z tła) wszelkie wiszące punkty dotyku są natychmiast usuwane, gwarantując 100% responsywność interfejsu.
+- Podniesiono wersję pamięci podręcznej Service Workera do `v619`.
+
 ## 5.0 — 2026-11-15 (Czysta czerń w trybie OLED i spójny kolor motywu dla przycisków czytania — v618)
 
 - **Eliminacja białego podświetlenia karty czytania w trybie OLED:**

@@ -132,7 +132,7 @@ html[data-reader-theme="sage"] {
   background-color: #eaf1ec;
   color-scheme: light;
 }
-html,body{height:100%;height:var(--appWysokosc, 100dvh);margin:0;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{height:100%;height:var(--appWysokosc, 100dvh);margin:0;-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior:none !important;-webkit-overscroll-behavior:none !important}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;touch-action:manipulation}
 header{width:100%;flex-shrink:0;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:9px 16px;padding-left:max(16px, calc(16px + env(safe-area-inset-left, 0px)));padding-right:max(16px, calc(16px + env(safe-area-inset-right, 0px)));padding-top:max(9px, calc(9px + env(safe-area-inset-top, 0px)));padding-bottom:9px;background:linear-gradient(135deg,#134e38 0%,#1a5c43 55%,#206d50 100%);border-bottom:1px solid rgba(0,0,0,.15);box-shadow:0 4px 18px -2px rgba(10,35,25,.22);flex-wrap:wrap;position:relative;z-index:20;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;isolation:isolate}
 .brand-name{color:#fff!important}
@@ -24057,9 +24057,27 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
       if(isIPad) document.documentElement.classList.add('ipad-standalone');
       if(isIPhone) document.documentElement.classList.add('iphone-standalone');
     }
+    var _appH = -1;
+    var _syncHRaf = 0;
+    var _scrollNormTimeout = null;
     var syncH = function(){
-      document.documentElement.style.setProperty('--appWysokosc', window.innerHeight + 'px');
-      if(window.scrollY !== 0) window.scrollTo(0, 0);
+      if(_syncHRaf) return;
+      _syncHRaf = requestAnimationFrame(function(){
+        _syncHRaf = 0;
+        var h = window.innerHeight;
+        if(Math.abs(h - _appH) >= 1){
+          _appH = h;
+          document.documentElement.style.setProperty('--appWysokosc', h + 'px');
+        }
+      });
+      // Nie wywołuj window.scrollTo(0, 0) synchronicznie w trakcie przeciągania/resizowania okna (Stage Manager),
+      // gdyż powoduje to gwałtowne drżenie okna (walka compositora WebKit z pozycją scrolla).
+      clearTimeout(_scrollNormTimeout);
+      _scrollNormTimeout = setTimeout(function(){
+        if(window.scrollY !== 0 && !document.querySelector('.overlay.show, #modalFs.show')){
+          window.scrollTo(0, 0);
+        }
+      }, 250);
     };
     syncH();
     window.addEventListener('resize', syncH, {passive: true});
@@ -26338,9 +26356,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v618";
+const APP_BUILD = "v619";
 const APP_BUILD_DATE = "2026-11-15";
-const APP_FULL_VERSION = "5.0 (v618)";
+const APP_FULL_VERSION = "5.0 (v619)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -29020,6 +29038,8 @@ function odblokujWiszaceAkcjePoPowrocie(){
   // 3. Posprzątaj wiszące operacje gestów i chwytu
   if(typeof posprzatajChwyt === "function") posprzatajChwyt();
   if(typeof imgDragSprzataj === "function") imgDragSprzataj(false);
+  if(typeof posprzatajGestyModali === "function") posprzatajGestyModali();
+  if(typeof koniecRysika === "function") koniecRysika();
 
   // 4. Odśwież połączenie z bazą IndexedDB na wypadek zerwania w tle przez iOS
   if(typeof idbGetDB === "function"){
@@ -45308,6 +45328,8 @@ document.addEventListener("keydown", e => {
   let lastDragEndTime = 0;
   let moveBound = false;
   let backdropPointerDownTarget = null;
+  let _dragRaf = 0;
+  let currentDiffY = 0;
 
   function bindTouchMove(){
     if(!moveBound){
@@ -45323,6 +45345,29 @@ document.addEventListener("keydown", e => {
     }
   }
 
+  function posprzatajGestyModali(){
+    unbindTouchMove();
+    if(_dragRaf){
+      cancelAnimationFrame(_dragRaf);
+      _dragRaf = 0;
+    }
+    if(activeModal){
+      activeModal.style.transform = "";
+      activeModal.style.transition = "";
+    }
+    if(activeOverlay){
+      activeOverlay.style.transition = "";
+      activeOverlay.style.opacity = "";
+      activeOverlay.style.backgroundColor = "";
+    }
+    activeOverlay = null;
+    activeModal = null;
+    isDragging = false;
+    canPullDismiss = false;
+    backdropPointerDownTarget = null;
+  }
+  window.posprzatajGestyModali = posprzatajGestyModali;
+
   // Śledzenie elementu pointerdown dla bezpiecznego zamykania tłem
   document.addEventListener("pointerdown", (e)=>{
     backdropPointerDownTarget = e.target;
@@ -45331,52 +45376,45 @@ document.addEventListener("keydown", e => {
   document.addEventListener("touchstart", (e)=>{
     backdropPointerDownTarget = e.target;
     if(e.touches.length !== 1){
-      unbindTouchMove();
-      canPullDismiss = false;
+      posprzatajGestyModali();
       return;
     }
 
     const otwarte = [...document.querySelectorAll(".overlay.show")];
     if(!otwarte.length){
-      unbindTouchMove();
-      canPullDismiss = false;
+      posprzatajGestyModali();
       return;
     }
 
     // Gest może dotyczyć WYŁĄCZNIE najwyższego aktualnie otwartego okna modalnego
     const topOv = otwarte[otwarte.length - 1];
     if(!topOv || topOv.dataset.lockClose === "1" || topOv.id === "modalFs"){
-      unbindTouchMove();
-      canPullDismiss = false;
+      posprzatajGestyModali();
       return;
     }
 
     const modal = topOv.querySelector(".modal, .askbox, .fsmodal, .import-box, [class*='modal']");
     if(!modal || modal.classList.contains("fsmodal")){
-      unbindTouchMove();
-      canPullDismiss = false;
+      posprzatajGestyModali();
       return;
     }
 
     const touch = e.touches[0];
     const target = e.target;
     if(!target){
-      unbindTouchMove();
-      canPullDismiss = false;
+      posprzatajGestyModali();
       return;
     }
 
     // Dotknięcie tła poza oknem modalnym — nie rozpoczynaj gestu ciągnięcia okna
     if(target === topOv || !modal.contains(target)){
-      unbindTouchMove();
-      canPullDismiss = false;
+      posprzatajGestyModali();
       return;
     }
 
     // Mini-okna dialogowe (askModal, msgModal) nie podlegają gestowi pull-to-dismiss
     if(modal.classList.contains("askbox") || topOv.id === "askModal" || topOv.id === "msgModal"){
-      unbindTouchMove();
-      canPullDismiss = false;
+      posprzatajGestyModali();
       return;
     }
 
@@ -45386,16 +45424,16 @@ document.addEventListener("keydown", e => {
     );
 
     const isHandle = !!target.closest(".modal-drag-handle");
-    const isHeader = !!target.closest(".nn-head, .smart-head, .modal-head, .import-title, .cenGoalHeader, .bezp-head, .gran-header, .hb-head, h1, h2, h3, h4");
+    // Nagłówek okna — TYLKO dedykowane belki nagłówkowe, NIGDY generyczne h1, h2, h3, h4!
+    const isHeader = !!target.closest(".nn-head, .smart-head, .modal-head, .import-title, .cenGoalHeader, .bezp-head, .gran-header, .hb-head");
 
     // Jeśli dotknięto elementu interaktywnego, a nie jest to dedykowany uchwyt — zablokuj pull-to-dismiss
     if(isInteractive && !isHandle){
-      unbindTouchMove();
-      canPullDismiss = false;
+      posprzatajGestyModali();
       return;
     }
 
-    // Gest zamykania dozwolony wyłącznie z uchwytu (.modal-drag-handle) LUB nagłówka na telefonach/tabletach, gdy treść jest na samej górze
+    // Gest zamykania dozwolony wyłącznie z uchwytu (.modal-drag-handle) LUB dedykowanego nagłówka na telefonach/tabletach, gdy treść jest na samej górze (scrollTop <= 0)
     const isSmallScreen = window.innerWidth <= 768;
     if(isHandle || (isSmallScreen && isHeader && modal.scrollTop <= 0)){
       activeOverlay = topOv;
@@ -45407,14 +45445,13 @@ document.addEventListener("keydown", e => {
       canPullDismiss = true;
       bindTouchMove();
     } else {
-      unbindTouchMove();
-      canPullDismiss = false;
+      posprzatajGestyModali();
     }
   }, { passive: true });
 
   function onTouchMove(e){
     if(!canPullDismiss || !activeModal || e.touches.length !== 1){
-      unbindTouchMove();
+      posprzatajGestyModali();
       return;
     }
     const touch = e.touches[0];
@@ -45422,18 +45459,16 @@ document.addEventListener("keydown", e => {
     const diffX = touch.clientX - startX;
 
     if(!isDragging){
-      // Przed aktywacją: sprawdzamy czy intencją jest ruch w dół i wyraźnie pionowy
-      if(diffY > 6 && diffY > Math.abs(diffX) * 1.2){
+      // Przed aktywacją: sprawdzamy czy intencją jest ruch w dół i wyraźnie pionowy (min 12px, kąt min 1.5x)
+      if(diffY > 12 && diffY > Math.abs(diffX) * 1.5){
         if(activeModal.scrollTop > 0){
-          canPullDismiss = false;
-          unbindTouchMove();
+          posprzatajGestyModali();
           return;
         }
         isDragging = true;
-      } else if(diffY < -6 || Math.abs(diffX) > Math.abs(diffY)){
+      } else if(diffY < -8 || Math.abs(diffX) > Math.abs(diffY)){
         // Przewijanie w górę lub w bok — gest to naturalne przewijanie, nie pull-to-dismiss
-        canPullDismiss = false;
-        unbindTouchMove();
+        posprzatajGestyModali();
         return;
       } else {
         // Zbyt małe przesunięcie, oczekujemy na zdecydowany kierunek
@@ -45443,26 +45478,37 @@ document.addEventListener("keydown", e => {
 
     // Gdy przeciąganie w dół jest aktywne:
     if(e.cancelable) e.preventDefault();
+    currentDiffY = diffY;
 
-    const translateY = Math.max(0, diffY);
-    activeModal.style.transform = `translateY(${translateY}px)`;
-    activeModal.style.transition = "none";
-    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-    const baseAlpha = isDark ? 0.75 : 0.46;
-    const rgb = isDark ? "8, 12, 16" : "15, 23, 19";
-    const opacityFactor = Math.max(0.1, 1 - translateY / 400);
-    activeOverlay.style.backgroundColor = `rgba(${rgb}, ${baseAlpha * opacityFactor})`;
+    if(!_dragRaf){
+      _dragRaf = requestAnimationFrame(()=>{
+        _dragRaf = 0;
+        if(!isDragging || !activeModal || !activeOverlay) return;
+        const translateY = Math.max(0, currentDiffY);
+        activeModal.style.transform = `translate3d(0, ${translateY}px, 0)`;
+        activeModal.style.transition = "none";
+        const isDark = document.documentElement.getAttribute("data-theme") === "dark" || document.documentElement.getAttribute("data-theme") === "oled";
+        const baseAlpha = isDark ? 0.75 : 0.46;
+        const rgb = isDark ? "0, 0, 0" : "15, 23, 19";
+        const opacityFactor = Math.max(0.1, 1 - translateY / 400);
+        activeOverlay.style.backgroundColor = `rgba(${rgb}, ${baseAlpha * opacityFactor})`;
+      });
+    }
   }
 
   function finishGesture(e){
     unbindTouchMove();
+    if(_dragRaf){
+      cancelAnimationFrame(_dragRaf);
+      _dragRaf = 0;
+    }
     if(!activeModal) {
       isDragging = false;
       canPullDismiss = false;
       return;
     }
     const touch = (e && e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0] : null;
-    const diffY = touch ? (touch.clientY - startY) : 0;
+    const diffY = touch ? (touch.clientY - startY) : currentDiffY;
     const dt = Math.max(1, Date.now() - startTime);
     const velocity = diffY / dt;
 
@@ -45471,7 +45517,7 @@ document.addEventListener("keydown", e => {
       // Próg zamykania: przeciągnięcie > 85px LUB szybki gest w dół (> 0.35 px/ms przy diffY > 25px)
       if(diffY > 85 || (velocity > 0.35 && diffY > 25)){
         activeModal.style.transition = "transform 0.22s cubic-bezier(0.32, 1, 0.23, 1), opacity 0.22s ease";
-        activeModal.style.transform = "translateY(100%)";
+        activeModal.style.transform = "translate3d(0, 100%, 0)";
         activeOverlay.style.transition = "opacity 0.22s ease";
         activeOverlay.style.opacity = "0";
         const ovToClose = activeOverlay;
@@ -45518,8 +45564,10 @@ document.addEventListener("keydown", e => {
   document.addEventListener("touchcancel", finishGesture, { passive: true });
   window.addEventListener("touchend", finishGesture, { passive: true });
   window.addEventListener("touchcancel", finishGesture, { passive: true });
-  window.addEventListener("pointercancel", finishGesture);
-  window.addEventListener("blur", finishGesture);
+  window.addEventListener("pointercancel", posprzatajGestyModali);
+  window.addEventListener("blur", posprzatajGestyModali);
+  window.addEventListener("pageshow", posprzatajGestyModali);
+  document.addEventListener("visibilitychange", ()=>{ if(document.hidden) posprzatajGestyModali(); });
 
   // Obsługa kliknięcia/tapnięcia w tło (backdrop tap)
   document.addEventListener("click", (e)=>{
@@ -47530,6 +47578,7 @@ function kbWysokosc(){
 }
 let _kbOstatnia = -1;
 let _kbVvRaf = 0;
+let _kbScrollTimeout = null;
 function kbOdswiez(){
   const h = kbWysokosc();
   if(h !== _kbOstatnia){
@@ -47542,7 +47591,12 @@ function kbOdswiez(){
       if(hb) hb.style.display = "none";
       document.body.classList.remove("ma-zaznaczenie");
     } else {
-      if(window.scrollY !== 0 && !document.querySelector("#modalFs.show, .modal.show")) window.scrollTo(0, 0);
+      clearTimeout(_kbScrollTimeout);
+      _kbScrollTimeout = setTimeout(()=>{
+        if(window.scrollY !== 0 && !document.querySelector("#modalFs.show, .overlay.show, .modal.show")){
+          window.scrollTo(0, 0);
+        }
+      }, 250);
     }
     if(typeof fsGuid !== "undefined" && fsGuid && typeof zmierzNhead === "function") zmierzNhead();
   }
@@ -51111,6 +51165,8 @@ function koniecRysika(){
 document.addEventListener("touchend", koniecRysika);
 document.addEventListener("touchcancel", koniecRysika);
 window.addEventListener("blur", koniecRysika);
+window.addEventListener("pointercancel", koniecRysika);
+document.addEventListener("visibilitychange", ()=>{ if(document.hidden) koniecRysika(); });
 
 </script>
 <script>
@@ -58409,8 +58465,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v618</span>
+          <span class="cl-ver-num">v619</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">15 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Płynna obsługa okien i modali na iPadOS, eliminacja drżenia i blokady dotyku po powrocie do aplikacji</div>
+        <ul class="cl-ver-list">
+          <li><b>Eliminacja drżenia okna i pętli 120Hz na iPadOS:</b> Usunięto synchroniczne wywołania <code>window.scrollTo(0, 0)</code> z nasłuchów <code>visualViewport</code> oraz <code>resize</code>, które podczas obniżania okna w Stage Manager / Split View walczyły z silnikiem kompozycji WebKit. Przewijanie do góry jest teraz bezpiecznie odraczane do stanu bezczynności (250ms).</li>
+          <li><b>Ochrona przed przypadkowym zamykaniem i optymalizacja RAF:</b> Gest pull-to-dismiss został ściśle ograniczony do dedykowanych uchwytów i nagłówków (wykluczono zwykłe nagłówki treści <code>h1-h4</code>). Przesunięcia modali są synchronizowane z odświeżaniem ekranu (<code>requestAnimationFrame</code> i sprzętowe <code>translate3d</code>).</li>
+          <li><b>Automatyczne czyszczenie wiszących gestów po powrocie:</b> Wprowadzono globalną procedurę <code>posprzatajGestyModali()</code> uruchamianą przy <code>visibilitychange</code>, <code>pageshow</code>, <code>focus</code> i <code>blur</code>, dzięki czemu powrót z innej aplikacji (np. JW Library) lub paska wielozadaniowości natychmiast odblokowuje dotyk i eliminuje jakiekolwiek zawieszenia interfejsu.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v618</span>
           <span class="cl-ver-date">15 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Naprawa podświetlenia karty w trybie OLED oraz spójny kolor motywu dla przycisków oznaczania czytania</div>
