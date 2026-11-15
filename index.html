@@ -23700,6 +23700,105 @@ body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy:5"]:not([hidden
   }
 }
 
+/* Tryb 12 ostatnich notatek po kliknięciu Notatek */
+.ostatnie12-banner {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  background: var(--panel) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  padding: 10px 14px !important;
+  margin: 2px 0 10px 0 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  animation: bwPokaz 0.18s ease-out !important;
+}
+.ostatnie12-banner .o12-content {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-width: 0 !important;
+}
+.ostatnie12-banner .o12-icon {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 10px !important;
+  background: color-mix(in srgb, var(--accent) 14%, transparent) !important;
+  color: var(--accent) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+.ostatnie12-banner .o12-icon svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+.ostatnie12-banner .o12-info {
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+}
+.ostatnie12-banner .o12-title {
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  color: var(--text) !important;
+  line-height: 1.25 !important;
+}
+.ostatnie12-banner .o12-sub {
+  font-size: 11.5px !important;
+  color: var(--muted) !important;
+  line-height: 1.25 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.ostatnie12-banner .o12-btn-all {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 7px 14px !important;
+  border-radius: 10px !important;
+  font-size: 12.5px !important;
+  font-weight: 650 !important;
+  background: var(--accent) !important;
+  color: #fff !important;
+  border: 1px solid var(--accent) !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  transition: all 0.15s ease !important;
+}
+.ostatnie12-banner .o12-btn-all:hover {
+  opacity: 0.92 !important;
+  transform: translateY(-1px) !important;
+}
+.ostatnie12-banner .o12-btn-all svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+.o12-bottom-wrapper {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+@media (max-width: 600px) {
+  .ostatnie12-banner {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    padding: 10px 12px !important;
+  }
+  .ostatnie12-banner .o12-btn-all {
+    justify-content: center !important;
+    width: 100% !important;
+  }
+}
+
 /* 6. Płynne zwijanie kolumn na tabletach i telefonach */
 @media (max-width: 900px) {
   #glowna {
@@ -26368,9 +26467,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v621";
+const APP_BUILD = "v622";
 const APP_BUILD_DATE = "2026-11-15";
-const APP_FULL_VERSION = "5.0 (v621)";
+const APP_FULL_VERSION = "5.0 (v622)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -26447,6 +26546,8 @@ function domyslnyVisibleCount(){
 /* Pierwsza porcja mieści kilka notatek, oszczędzając pamięć urządzenia.
    Pozostałe dochodzą automatycznie w tle przy przewijaniu. */
 let visibleCount = domyslnyVisibleCount();
+let trybOstatnie12 = true;
+window.trybOstatnie12 = trybOstatnie12;
 let expandedBook = null;
 let idb = null;
 /**
@@ -32568,7 +32669,11 @@ function renderNotes(){
   if(typeof odslonPaski==="function") odslonPaski();
   let _base = baseNotes();                 // jeden przebieg dla listy i dla liczników
   let arr = sortNotes(filteredNotes(_base));
-  let countsTxt = arr.length + (arr.length===1?" notatka":(arr.length%10>=2&&arr.length%10<=4&&(arr.length%100<12||arr.length%100>14))?" notatki":" notatek");
+  let totalCount = arr.length;
+  let is12Mode = !!trybOstatnie12 && !query && (!filt || (filt.tag==="all" && filt.book==="all" && !filt.ch && filt.pub==="all")) && (typeof quickFilter==="undefined" || quickFilter==="all");
+  let countsTxt = is12Mode
+    ? ("12 ostatnich notatek · " + totalCount + " łącznie")
+    : (arr.length + (arr.length===1?" notatka":(arr.length%10>=2&&arr.length%10<=4&&(arr.length%100<12||arr.length%100>14))?" notatki":" notatek"));
   renderQuickFilters(_base);
   if(typeof odswiezPrzyciskWszystkie==="function") odswiezPrzyciskWszystkie();
   if(typeof odswiezPasekProjektu==="function") odswiezPasekProjektu();
@@ -32580,48 +32685,98 @@ function renderNotes(){
 
   if(_moreObserver){ _moreObserver.disconnect(); _moreObserver = null; }   // stary obserwator do kosza
 
-
   if(arr.length===0){
     _cardCache.clear();
     el.replaceChildren(emptyStateEl());
     fsNavList=[];
     return;
   }
-  /* Belki z nazwą grupy zniknęły (v2.16).
-     Przy sortowaniu wg publikacji wstawiały się nad listą nagłówki z nazwą
-     wydania. W układzie kafelkowym przykrywały karteczki, a w liście
-     powtarzały to, co i tak widać w kolumnie po lewej: gdzie się właśnie
-     jest. Dwa źródła tej samej informacji, z których jedno zabierało miejsce. */
+
   const wanted = [];
   const keep = new Set();
-  arr.slice(0,visibleCount).forEach(n=>{
+
+  if(is12Mode){
+    const banner = document.createElement("div");
+    banner.className = "ostatnie12-banner";
+    banner.innerHTML = `
+      <div class="o12-content">
+        <div class="o12-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="o12-info">
+          <span class="o12-title">12 ostatnich notatek</span>
+          <span class="o12-sub">Szybki dostęp do ostatnio zmienionych notatek</span>
+        </div>
+      </div>
+      <button type="button" class="btn o12-btn-all" title="Pokaż wszystkie notatki (${totalCount})">
+        <span>Pokaż wszystkie (${totalCount})</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    `;
+    const btnAll = banner.querySelector(".o12-btn-all");
+    if(btnAll){
+      btnAll.onclick = (e) => {
+        e.preventDefault();
+        trybOstatnie12 = false;
+        renderAll();
+        if(typeof toastOk === "function") toastOk("Pokazano wszystkie notatki (" + totalCount + ")");
+      };
+    }
+    wanted.push(banner);
+  }
+
+  const limitSlice = is12Mode ? 12 : visibleCount;
+  arr.slice(0, limitSlice).forEach(n=>{
     keep.add(n.g);
     wanted.push(noteCardFor(n));
   });
-  const wiecejKart=arr.length > visibleCount;
-  const wiecejWIndeksie=!!query && searchWasLimited && !searchInProgress && !wiecejKart;
-  if(wiecejKart || wiecejWIndeksie){
+
+  if(is12Mode && totalCount > 12){
     const more = document.createElement("div");
-    more.className = "more-cards-wrapper";
-    more.style.cssText = "text-align:center;padding:14px";
-    more.innerHTML = wiecejKart
-      ? `<button class="btn btn-load-more">Pokaż więcej (${arr.length-visibleCount})</button>`
-      : `<button class="btn btn-load-more">Wczytaj dalsze wyniki</button>`;
-    const dalej=()=>{
-      if(wiecejKart){
-        const krok = (typeof window !== "undefined" && window.innerWidth <= 768) ? 15 : 30;
-        visibleCount += krok;
-        renderNotes();
-      }
-      else if(typeof doladujWynikiSzukania==="function") doladujWynikiSzukania();
-    };
-    more.querySelector("button").onclick = dalej;
+    more.className = "more-cards-wrapper o12-bottom-wrapper";
+    more.style.cssText = "grid-column:1/-1;width:100%;text-align:center;padding:18px 12px 28px;";
+    more.innerHTML = `
+      <button type="button" class="btn primary btn-load-all-notes" style="padding:10px 24px;border-radius:12px;font-weight:650;font-size:13.5px;box-shadow:0 3px 10px rgba(0,0,0,0.12);display:inline-flex;align-items:center;gap:8px;cursor:pointer;">
+        <span>Pokaż wszystkie notatki (${totalCount})</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    `;
+    const btnBottomAll = more.querySelector(".btn-load-all-notes");
+    if(btnBottomAll){
+      btnBottomAll.onclick = (e) => {
+        e.preventDefault();
+        trybOstatnie12 = false;
+        renderAll();
+        if(typeof toastOk === "function") toastOk("Pokazano wszystkie notatki (" + totalCount + ")");
+      };
+    }
     wanted.push(more);
-    if(typeof IntersectionObserver !== "undefined"){
-      _moreObserver = new IntersectionObserver(es=>{
-        if(es[0].isIntersecting){ _moreObserver.disconnect(); _moreObserver=null; dalej(); }
-      }, { root: el, rootMargin: "350px" });
-      _moreObserver.observe(more);
+  } else {
+    const wiecejKart=arr.length > visibleCount;
+    const wiecejWIndeksie=!!query && searchWasLimited && !searchInProgress && !wiecejKart;
+    if(wiecejKart || wiecejWIndeksie){
+      const more = document.createElement("div");
+      more.className = "more-cards-wrapper";
+      more.style.cssText = "grid-column:1/-1;width:100%;text-align:center;padding:14px";
+      more.innerHTML = wiecejKart
+        ? `<button class="btn btn-load-more">Pokaż więcej (${arr.length-visibleCount})</button>`
+        : `<button class="btn btn-load-more">Wczytaj dalsze wyniki</button>`;
+      const dalej=()=>{
+        if(wiecejKart){
+          const krok = (typeof window !== "undefined" && window.innerWidth <= 768) ? 15 : 30;
+          visibleCount += krok;
+          renderNotes();
+        }
+        else if(typeof doladujWynikiSzukania==="function") doladujWynikiSzukania();
+      };
+      more.querySelector("button").onclick = dalej;
+      wanted.push(more);
+      if(typeof IntersectionObserver !== "undefined"){
+        _moreObserver = new IntersectionObserver(es=>{
+          if(es[0].isIntersecting){ _moreObserver.disconnect(); _moreObserver=null; dalej(); }
+        }, { root: el, rootMargin: "350px" });
+        _moreObserver.observe(more);
+      }
     }
   }
   if(!el._lazyScrollBound){
@@ -45779,6 +45934,17 @@ function mobileShow(id){
 document.querySelectorAll("#mobileTabs button").forEach(b => {
   b.onclick = () => {
     const p = b.dataset.p;
+    if (p === "colNotes") {
+      trybOstatnie12 = true;
+      if(typeof filt !== "undefined"){
+        filt.tag = "all"; filt.book = "all"; filt.ch = null; filt.pub = "all";
+      }
+      if(typeof quickFilter !== "undefined") quickFilter = "all";
+      const qInput = document.getElementById("search");
+      if(qInput) qInput.value = "";
+      if(typeof query !== "undefined") query = "";
+      renderAll();
+    }
     mobileShow(p);
   };
 });
@@ -46025,6 +46191,7 @@ function komunikatKrotkiegoSzukania(raw){
   box.innerHTML='<span class="ssInfo">Wpisz co najmniej 3 znaki — pojedyncza litera nie przeszukuje całej bazy.</span>';
 }
 function uruchomWyszukiwanie(raw){
+  trybOstatnie12 = false;
   const poprzednie=query;
   const bylo=!!query;
   parseQuery(raw);
@@ -46246,6 +46413,7 @@ $("search").addEventListener("keydown", e=>{
   } else if(e.key==="Escape"){ hideSearchSug(); }
 });
 $("sortSel").addEventListener("change",e=>{
+  trybOstatnie12 = false;
   sortMode=e.target.value;
   lsSet(KP+"Sort", sortMode);
   renderNotes();
@@ -49703,6 +49871,7 @@ setInterval(()=>{
 /** Co dokładnie zawęża w tej chwili listę. Pusta lista = widać wszystko. */
 function czynneZawezenia(){
   const co = [];
+  if(trybOstatnie12 && !query && (!filt || (filt.tag==="all" && filt.book==="all" && !filt.ch && filt.pub==="all")) && (typeof quickFilter==="undefined" || quickFilter==="all")) co.push("12 ostatnich");
   if(query) co.push("szukanie");
   if(filt.tag && filt.tag!=="all") co.push("etykieta");
   if(filt.book && filt.book!=="all") co.push("księga");
@@ -49713,6 +49882,7 @@ function czynneZawezenia(){
 }
 /** Czyści wszystkie zawężenia naraz i wraca do pełnej listy. */
 function pokazWszystkieNotatki(){
+  trybOstatnie12 = false;
   if(!czynneZawezenia().length) return;
   query = "";
   const pole = $("search");
@@ -58483,8 +58653,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v621</span>
+          <span class="cl-ver-num">v622</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">15 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Szybki start: 12 ostatnich notatek po kliknięciu „Notatki” z łatwym przejściem do wszystkich</div>
+        <ul class="cl-ver-list">
+          <li><b>Błyskawiczny dostęp do bieżących notatek:</b> Kliknięcie w opcję <i>„Notatki”</i> w nawigacji bocznej lub na pasku mobilnym otwiera widok 12 ostatnio edytowanych notatek. Dzięki temu interfejs ładuje się natychmiast i pozwala od razu kontynuować ostatnie studium bez konieczności przewijania tysięcy pozycji.</li>
+          <li><b>Elegancki baner i płynne przejście do pełnej bazy:</b> U góry listy notatek pojawił się estetyczny baner z licznikiem oraz przyciskiem <i>„Pokaż wszystkie”</i>. Przycisk na dole listy oraz w górnym pasku pozwala w każdej chwili jednym kliknięciem odsłonić pełną bazę wszystkich notatek.</li>
+          <li><b>Automatyczny powrót do pełnego wyszukiwania:</b> Wpisanie dowolnej frazy w polu wyszukiwania lub kliknięcie etykiety/publikacji natychmiast przeszukuje całą bazę notatek.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v621</span>
           <span class="cl-ver-date">15 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Gotowy klucz Google Client ID w aplikacji — jedno kliknięcie do włączenia synchronizacji</div>
@@ -59194,7 +59377,7 @@ function renderEkranPowitalny(){
     + scriptureHtml
     + '<div style="display:flex;align-items:center;justify-content:center;gap:14px;margin:28px 0 16px 0;flex-wrap:wrap;">'
     + '<button type="button" class="btn primary" data-cwidok="centrum" style="font-size:14px;padding:10px 22px;border-radius:12px;font-weight:750;box-shadow:0 4px 12px rgba(37,99,235,0.2);">Przejdź do Pulpitu Studium ➔</button>'
-    + '<button type="button" class="btn" data-cakcja="lista" style="font-size:14px;padding:10px 20px;border-radius:12px;font-weight:600;">Otwórz wszystkie notatki 📖</button>'
+    + '<button type="button" class="btn" data-cakcja="lista" style="font-size:14px;padding:10px 20px;border-radius:12px;font-weight:600;">Otwórz notatki (12 ostatnich) 📖</button>'
     + '</div>';
 }
 
@@ -62623,7 +62806,17 @@ if($("centrum")){
         rysujCentrum();
         return;
       }
-      if(akcja.dataset.cakcja === "lista") centrumSchowaj();
+      if(akcja.dataset.cakcja === "lista") {
+        trybOstatnie12 = true;
+        if(typeof filt !== "undefined"){
+          filt.tag = "all"; filt.book = "all"; filt.ch = null; filt.pub = "all";
+        }
+        if(typeof quickFilter !== "undefined") quickFilter = "all";
+        const qInput = document.getElementById("search");
+        if(qInput) qInput.value = "";
+        if(typeof query !== "undefined") query = "";
+        centrumSchowaj();
+      }
       if(akcja.dataset.cakcja === "menu-centrum"){
         centrMenuOtwarte=!centrMenuOtwarte; rysujCentrum();
       }
@@ -67138,10 +67331,19 @@ document.querySelector(".searchHelp").appendChild(helpMore);
 
   if (navNotes) {
     navNotes.addEventListener("click", () => {
+      trybOstatnie12 = true;
+      if(typeof filt !== "undefined"){
+        filt.tag = "all"; filt.book = "all"; filt.ch = null; filt.pub = "all";
+      }
+      if(typeof quickFilter !== "undefined") quickFilter = "all";
+      const qInput = document.getElementById("search");
+      if(qInput) qInput.value = "";
+      if(typeof query !== "undefined") query = "";
       closeCentrumIfOpen();
       if (typeof mobileShow === "function" && window.innerWidth <= 900) {
         mobileShow("colNotes");
       }
+      renderAll();
       const noteList = document.getElementById("noteList");
       if (noteList) noteList.scrollTo({ top: 0, behavior: "smooth" });
       updateSidebarActiveStates();

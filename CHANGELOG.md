@@ -1,3 +1,13 @@
+## 5.0 — 2026-11-15 (Tryb 12 ostatnich notatek po kliknięciu „Notatki” i szybki start — v622)
+
+- **Szybki start: 12 ostatnich notatek po przejściu do Notatek:**
+  - **Przebieg i cel:** Aplikacja domyślnie uruchamia się w Centrum Studium (pulpit powitalny). Kliknięcie opcji *„Notatki”* w nawigacji bocznej lub na dolnym pasku zakładek nie zalewa już użytkownika pełną bazą tysięcy notatek naraz, lecz natychmiast wyświetla **12 ostatnio edytowanych notatek**.
+  - **Błyskawiczna wydajność:** Dzięki ograniczeniu pierwszej partii do 12 kart interfejs przełącza się w ułamku sekundy, oszczędzając pamięć i baterię (szczególnie na iPadzie i telefonach).
+  - **Elegancki baner stanu z natychmiastowym przejściem do całości:** U góry listy notatek umieszczono nowoczesny, dopasowany do motywu baner informujący o 12 ostatnich notatkach wraz z przyciskiem *„Pokaż wszystkie (X)”*.
+  - **Przycisk pełnej bazy na dole listy:** Na dole partii 12 notatek znajduje się wyraźny przycisk pozwalający rozwinąć całą bazę notatek ze standardowym przewijaniem.
+  - **Płynna integracja z filtrami i szukaniem:** Wpisanie zapytania w wyszukiwarce lub wybór etykiety/publikacji automatycznie wyłącza tryb 12 notatek i przeszukuje pełną bazę. Przycisk *„Wszystkie notatki”* w górnym pasku pozwala w każdej chwili wrócić do kompletnego widoku.
+- Podniesiono wersję pamięci podręcznej Service Workera do `v622`.
+
 ## 5.0 — 2026-11-15 (Wbudowany identyfikator Google Client ID dla wszystkich użytkowników — v621)
 
 - **Wbudowany na stałe Google Client ID (`166477124593-...`):**
