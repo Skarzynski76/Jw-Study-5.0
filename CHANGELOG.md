@@ -1,3 +1,11 @@
+## 5.0 — 2026-11-15 (Wbudowany identyfikator Google Client ID dla wszystkich użytkowników — v621)
+
+- **Wbudowany na stałe Google Client ID (`166477124593-...`):**
+  - Wygenerowany przez twórcę identyfikator klienta Google OAuth został wpisany jako domyślny w kodzie aplikacji.
+  - Żaden użytkownik nie musi już wchodzić do Google Cloud Console ani konfigurować technicznych identyfikatorów — w Ustawieniach od razu widoczny jest bezpośredni, gotowy przycisk *„Połącz z Dyskiem Google”*.
+  - Każdy użytkownik loguje się na własny adres e-mail, a notatki zapisują się w jego prywatnym folderze aplikacji (`appDataFolder`) bez mieszania danych między osobami.
+- Podniesiono wersję pamięci podręcznej Service Workera do `v621`.
+
 ## 5.0 — 2026-11-15 (Automatyczna synchronizacja z Dyskiem Google w tle na wszystkich urządzeniach — v620)
 
 - **Pełna synchronizacja w chmurze (Google Drive API appDataFolder):**

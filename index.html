@@ -26368,9 +26368,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v620";
+const APP_BUILD = "v621";
 const APP_BUILD_DATE = "2026-11-15";
-const APP_FULL_VERSION = "5.0 (v620)";
+const APP_FULL_VERSION = "5.0 (v621)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -58483,8 +58483,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v620</span>
+          <span class="cl-ver-num">v621</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">15 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Gotowy klucz Google Client ID w aplikacji — jedno kliknięcie do włączenia synchronizacji</div>
+        <ul class="cl-ver-list">
+          <li><b>Wbudowany domyślny Client ID:</b> Wpisano na stałe zweryfikowany identyfikator klienta Google OAuth dla domeny aplikacji. Każdy użytkownik na dowolnym urządzeniu (iPad, iPhone, komputer) widzi teraz bezpośredni przycisk <i>„Połącz z Dyskiem Google”</i> bez konieczności wpisywania jakichkolwiek kluczy czy konfiguracji.</li>
+          <li><b>Bezpieczeństwo prywatnych danych:</b> Każdy użytkownik łączy się wyłącznie ze swoim prywatnym kontem Gmail/Google Drive. Notatki nie mieszają się i są przechowywane w odseparowanym, ukrytym folderze aplikacji.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v620</span>
           <span class="cl-ver-date">15 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Automatyczna synchronizacja z Dyskiem Google (w 100% w tle na iPadzie, iPhone i komputerze)</div>
@@ -64962,6 +64974,7 @@ const GDRIVE_K_LAST_SYNC = KP + "GDriveLastSync";
 const GDRIVE_K_REMOTE_MS = KP + "GDriveRemoteMs";
 const GDRIVE_K_AUTO      = KP + "GDriveAuto";
 const GDRIVE_FILE_NAME   = "jw-study-uzgadnianie.json";
+const GDRIVE_DEFAULT_CLIENT_ID = "166477124593-tfcc6htjhgmljfa9ttm482cjph2ijj39.apps.googleusercontent.com";
 
 let _gdriveTokenClient = null;
 let _gdriveSyncPracuje = false;
@@ -64969,7 +64982,7 @@ let _gdriveZwloka = null;
 let _gdriveStanOpis = "";
 
 function gdrivePobierzClientId(){
-  return (lsGet(GDRIVE_K_CLIENT_ID, "") || "").trim();
+  return (lsGet(GDRIVE_K_CLIENT_ID, GDRIVE_DEFAULT_CLIENT_ID) || GDRIVE_DEFAULT_CLIENT_ID).trim();
 }
 function gdriveUstawClientId(id){
   lsSet(GDRIVE_K_CLIENT_ID, (id || "").trim());
