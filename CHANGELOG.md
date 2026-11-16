@@ -1,3 +1,16 @@
+## 5.0 — 2026-11-16 (Zintegrowany pasek boczny z przełącznikiem segmentowym — Wariant 1 & rozmyty pasek Apple iOS — v629)
+
+- **Wariant 1: Zintegrowany pasek boczny z przełącznikiem segmentowym (Styl Apple Notes / iPadOS):**
+  - Trzy równolegle otwarte kolumny (Biblia, Etykiety, Publikacje), które zabierały ponad 55% szerokości ekranu iPada, zostały zastąpione jednym zwartym paskiem bocznym.
+  - Na górze paska dodano natywny przełącznik segmentowy Apple: `[ 🏷 Etykiety ]` | `[ 📖 Biblia ]` | `[ 📚 Publikacje ]`.
+  - Notatki zyskały aż **75% szerokości ekranu**, a karty notatek mają teraz pełną przestrzeń i czytelność.
+- **Pasek górny z efektem rozmycia (Frosted Glass / Liquid Blur):**
+  - Zgodnie z estetyką Apple iOS/iPadOS, pasek górny otrzymał półprzezroczysty gradient z głębokim efektem `backdrop-filter: blur(28px) saturate(190%)`.
+  - Wyszukiwarka i elementy nawigacji zyskały matowe wykończenie ze szkła.
+- **1 poziomy wiersz szybkich filtrów:**
+  - Zlikwidowano 4 rzędy pastylek filtrujących zabierające przestrzeń pionową — zastąpiono je jednym płynnym, przewijanym dotykowo wierszem chipów.
+- Podniesiono wersję pamięci podręcznej Service Workera do `v629`.
+
 ## 5.0 — 2026-11-16 (Autentyczne nagranie leśnego ambientu w planie czytania — v628)
 
 - **Podpięcie autentycznego nagrania leśnego (`./public/audio/las-ambient.mp3`):**

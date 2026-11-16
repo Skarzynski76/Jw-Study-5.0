@@ -135,7 +135,7 @@ html[data-reader-theme="sage"] {
 }
 html,body{height:100%;height:var(--appWysokosc, 100dvh);margin:0;-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior:none !important;-webkit-overscroll-behavior:none !important}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;touch-action:manipulation}
-header{width:100%;flex-shrink:0;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:9px 16px;padding-left:max(16px, calc(16px + env(safe-area-inset-left, 0px)));padding-right:max(16px, calc(16px + env(safe-area-inset-right, 0px)));padding-top:max(9px, calc(9px + env(safe-area-inset-top, 0px)));padding-bottom:9px;background:linear-gradient(135deg,#134e38 0%,#1a5c43 55%,#206d50 100%);border-bottom:1px solid rgba(0,0,0,.15);box-shadow:0 4px 18px -2px rgba(10,35,25,.22);flex-wrap:wrap;position:relative;z-index:20;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;isolation:isolate}
+header{width:100%;flex-shrink:0;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:9px 16px;padding-left:max(16px, calc(16px + env(safe-area-inset-left, 0px)));padding-right:max(16px, calc(16px + env(safe-area-inset-right, 0px)));padding-top:max(9px, calc(9px + env(safe-area-inset-top, 0px)));padding-bottom:9px;background:linear-gradient(135deg,rgba(19,78,56,0.82) 0%,rgba(26,92,67,0.80) 55%,rgba(32,109,80,0.78) 100%);border-bottom:1px solid rgba(255,255,255,.16);box-shadow:0 4px 20px -2px rgba(10,35,25,.22);flex-wrap:wrap;position:relative;z-index:20;-webkit-backdrop-filter:blur(28px) saturate(190%)!important;backdrop-filter:blur(28px) saturate(190%)!important;isolation:isolate}
 .brand-name{color:#fff!important}
 .brand-name .ver{color:rgba(255,255,255,.6)!important}
 .brand-sub{color:rgba(255,255,255,.72)!important}
@@ -19344,12 +19344,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Nagłówek aplikacji */
+/* Nagłówek aplikacji — Rozmyte szkło frosted glass w stylu Apple iOS / iPadOS */
 header {
-  background-color: var(--accent, #1b6348) !important;
-  background: linear-gradient(135deg, #134e38 0%, #1a5c43 55%, #206d50 100%) !important;
+  background-color: rgba(19, 78, 56, 0.78) !important;
+  background: linear-gradient(135deg, rgba(16, 68, 48, 0.82) 0%, rgba(26, 92, 67, 0.80) 55%, rgba(32, 109, 80, 0.78) 100%) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.16) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
 }
 .brand-name {
   color: #ffffff !important;
@@ -19487,8 +19489,148 @@ header #search,
   color: #ffffff !important;
 }
 
-/* Szybkie filtry */
+/* ══════════════════════════════════════════════════════════════════════
+   WARIANT 1: ZINTEGROWANY PASEK BOCZNY Z PRZEŁĄCZNIKIEM (Styl Apple Notes)
+   ══════════════════════════════════════════════════════════════════════ */
+.sidebar-navi {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 295px;
+  min-width: 240px;
+  max-width: 480px;
+  height: 100% !important;
+  background: var(--bg) !important;
+  border-right: 1px solid var(--border) !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar-navi.collapsed {
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 0 !important;
+  border-right: none !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+.sidebar-seg-bar {
+  padding: 10px 12px 8px 12px !important;
+  background: var(--panel) !important;
+  border-bottom: 1px solid var(--border) !important;
+  flex-shrink: 0 !important;
+}
+
+.sidebar-seg-ctrl {
+  display: flex !important;
+  background: rgba(0, 0, 0, 0.06) !important;
+  border-radius: 12px !important;
+  padding: 3px !important;
+  gap: 3px !important;
+  position: relative !important;
+}
+html[data-theme="dark"] .sidebar-seg-ctrl {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+html[data-theme="oled"] .sidebar-seg-ctrl {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.sidebar-seg-ctrl .seg-btn {
+  flex: 1 1 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  padding: 7px 4px !important;
+  border-radius: 9px !important;
+  border: none !important;
+  background: transparent !important;
+  color: var(--muted) !important;
+  font-size: 12.5px !important;
+  font-weight: 550 !important;
+  cursor: pointer !important;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  white-space: nowrap !important;
+  user-select: none !important;
+}
+
+.sidebar-seg-ctrl .seg-btn:hover {
+  color: var(--text) !important;
+}
+
+.sidebar-seg-ctrl .seg-btn.on {
+  background: var(--panel, #ffffff) !important;
+  color: var(--accent) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0,0,0,0.12) !important;
+}
+html[data-theme="dark"] .sidebar-seg-ctrl .seg-btn.on {
+  background: #1e293b !important;
+  color: #34d399 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
+}
+html[data-theme="oled"] .sidebar-seg-ctrl .seg-btn.on {
+  background: #111827 !important;
+  color: #34d399 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45) !important;
+}
+
+.sidebar-navi-content {
+  flex: 1 1 0 !important;
+  display: flex !important;
+  min-height: 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.sidebar-navi-content .col {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 100% !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  height: 100% !important;
+}
+
+@media (max-width: 768px) {
+  .sidebar-navi {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-right: none !important;
+    display: none !important;
+  }
+  .sidebar-navi.mshow {
+    display: flex !important;
+  }
+  #resizerSidebarNavi {
+    display: none !important;
+  }
+}
+
+/* Szybkie filtry — 1 poziomy wiersz (koniec z 4 rzędami pastylek) */
+#quickFilters {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none !important;
+  gap: 6px !important;
+  padding: 6px 14px 6px 14px !important;
+  align-items: center !important;
+}
+#quickFilters::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
 #quickFilters .qf {
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
   border-radius: 999px !important;
   padding: 5px 14px !important;
   font-size: 12.5px !important;
@@ -19642,12 +19784,16 @@ html[data-theme="dark"] {
   --accent2: #34d399 !important;
 }
 html[data-theme="dark"] header {
-  background: #11171e !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+  background: rgba(14, 20, 26, 0.80) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
 }
 html[data-theme="sepia"] header {
-  background: linear-gradient(135deg, #574020 0%, #75552b 55%, #8c6735 100%) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15) !important;
+  background: rgba(87, 64, 32, 0.82) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
 }
 html[data-theme="dark"] .ncard {
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -22040,14 +22186,16 @@ body.mobile-sidebar-open .sidebar-close-btn,
     min-height: 52px;
     padding: max(8px, calc(8px + env(safe-area-inset-top, 0px))) 14px 8px 14px;
     gap: 8px;
-    background-color: var(--accent, #1b6348) !important;
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
+    background-color: rgba(19, 78, 56, 0.78) !important;
+    background: linear-gradient(135deg, rgba(16, 68, 48, 0.82) 0%, rgba(26, 92, 67, 0.80) 55%, rgba(32, 109, 80, 0.78) 100%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+    backdrop-filter: blur(28px) saturate(190%) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16) !important;
     isolation: isolate;
   }
 }
 
-/* Blokowanie przeźroczystości od góry przy przewijaniu/status barze iOS */
+/* Tło status baru iOS z efektem rozmycia */
 header::before {
   content: "";
   position: absolute;
@@ -22056,16 +22204,22 @@ header::before {
   right: -100px;
   height: 160px;
   background: inherit;
+  -webkit-backdrop-filter: inherit;
+  backdrop-filter: inherit;
   pointer-events: none;
   z-index: -1;
 }
 html[data-theme="dark"] header {
-  background: #0d1217 !important;
-  background-color: #0d1217 !important;
+  background: rgba(13, 18, 23, 0.80) !important;
+  background-color: rgba(13, 18, 23, 0.80) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
 }
 html[data-theme="oled"] header {
-  background: #000000 !important;
-  background-color: #000000 !important;
+  background: rgba(0, 0, 0, 0.82) !important;
+  background-color: rgba(0, 0, 0, 0.82) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
 }
 html.is-ios, html.is-ipad, html.is-iphone {
   background-color: var(--accent, #134e38);
@@ -22087,6 +22241,8 @@ html.ipad-standalone header, body.ipad-standalone header {
   box-sizing: border-box !important;
   gap: 8px !important;
   row-gap: 8px !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
 }
 
 html.is-ipad header .btn,
@@ -24430,30 +24586,49 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 </div>
 
 <main id="glowna">
-  <div class="col" id="colBooks">
-    <h2><span class="colTitleTxt">Biblia</span></h2>
-    <div class="list" id="bookList"></div>
-  </div>
-  <div class="colResizer" data-c="colBooks" title="Przeciągnij, aby zmienić szerokość"></div>
-  <div class="col" id="colTags">
-    <div id="tagPanel">
-      <h2><span class="colTitleTxt">Etykiety</span><button class="kolPlus" id="btnTagPlus" title="Dodaj etykietę albo sekcję" aria-label="Dodaj etykietę albo sekcję"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h2>
-      <div class="tagBtns">
-        <button id="btnNewTag" title="Utwórz nową etykietę"><svg class="ic tb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="tb-txt">Nowa etykieta</span></button>
-        <button id="btnNewSec" title="Grupuj etykiety w sekcje, np. Kongresy"><svg class="ic tb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 7.4A1.6 1.6 0 0 1 5.1 5.8h3.7l1.9 2.1h8.2a1.6 1.6 0 0 1 1.6 1.6v8.1a1.6 1.6 0 0 1-1.6 1.6H5.1a1.6 1.6 0 0 1-1.6-1.6z"/></svg><span class="tb-txt">Nowa sekcja</span></button>
+  <!-- WARIANT 1: Zintegrowany pasek boczny z przełącznikiem segmentowym (Styl Apple Notes / iPadOS) -->
+  <aside id="sidebarNavi" class="sidebar-navi">
+    <div id="sidebarSegmentedBar" class="sidebar-seg-bar">
+      <div class="sidebar-seg-ctrl" role="tablist" aria-label="Nawigacja biblioteki">
+        <button type="button" class="seg-btn on" id="segBtnTags" data-target="colTags" role="tab" aria-selected="true" title="Etykiety i kategorie">
+          <span class="seg-ic">🏷</span>
+          <span class="seg-txt">Etykiety</span>
+        </button>
+        <button type="button" class="seg-btn" id="segBtnBooks" data-target="colBooks" role="tab" aria-selected="false" title="Księgi biblijne">
+          <span class="seg-ic">📖</span>
+          <span class="seg-txt">Biblia</span>
+        </button>
+        <button type="button" class="seg-btn" id="segBtnPubs" data-target="colPubs" role="tab" aria-selected="false" title="Publikacje i artykuły">
+          <span class="seg-ic">📚</span>
+          <span class="seg-txt">Publikacje</span>
+        </button>
       </div>
-      <div class="list" id="tagList"></div>
     </div>
-  </div>
-  <div class="colResizer" data-c="colTags" title="Przeciągnij, aby zmienić szerokość"></div>
-  <div class="col" id="colPubs">
-    <div id="pubPanel">
-      <h2 class="pubTitle"><span class="colTitleTxt">Publikacje</span><span class="pubActs"><span id="pubReset" class="pubReset" style="display:none" title="Przywróć domyślną kolejność">↺</span></span></h2>
-      <nav class="pubSciezka" id="pubSciezka" aria-label="Gdzie jesteś w publikacjach"></nav>
-      <div class="list" id="pubList"></div>
+    <div id="sidebarNaviContent" class="sidebar-navi-content">
+      <div class="col" id="colTags">
+        <div id="tagPanel">
+          <h2><span class="colTitleTxt">Etykiety</span><button class="kolPlus" id="btnTagPlus" title="Dodaj etykietę albo sekcję" aria-label="Dodaj etykietę albo sekcję"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h2>
+          <div class="tagBtns">
+            <button id="btnNewTag" title="Utwórz nową etykietę"><svg class="ic tb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="tb-txt">Nowa etykieta</span></button>
+            <button id="btnNewSec" title="Grupuj etykiety w sekcje, np. Kongresy"><svg class="ic tb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 7.4A1.6 1.6 0 0 1 5.1 5.8h3.7l1.9 2.1h8.2a1.6 1.6 0 0 1 1.6 1.6v8.1a1.6 1.6 0 0 1-1.6 1.6H5.1a1.6 1.6 0 0 1-1.6-1.6z"/></svg><span class="tb-txt">Nowa sekcja</span></button>
+          </div>
+          <div class="list" id="tagList"></div>
+        </div>
+      </div>
+      <div class="col" id="colBooks" style="display:none;">
+        <h2><span class="colTitleTxt">Biblia</span></h2>
+        <div class="list" id="bookList"></div>
+      </div>
+      <div class="col" id="colPubs" style="display:none;">
+        <div id="pubPanel">
+          <h2 class="pubTitle"><span class="colTitleTxt">Publikacje</span><span class="pubActs"><span id="pubReset" class="pubReset" style="display:none" title="Przywróć domyślną kolejność">↺</span></span></h2>
+          <nav class="pubSciezka" id="pubSciezka" aria-label="Gdzie jesteś w publikacjach"></nav>
+          <div class="list" id="pubList"></div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="colResizer" data-c="colPubs" title="Przeciągnij, aby zmienić szerokość"></div>
+  </aside>
+  <div class="colResizer" data-c="sidebarNavi" id="resizerSidebarNavi" title="Przeciągnij, aby zmienić szerokość paska"></div>
   <div class="col mshow" id="colNotes">
     <!-- Jeden pasek zamiast czterech.
          Wcześniej nad listą stały jeden pod drugim: ukryte kolumny, „Widok",
@@ -26545,9 +26720,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v628";
+const APP_BUILD = "v629";
 const APP_BUILD_DATE = "2026-11-16";
-const APP_FULL_VERSION = "5.0 (v628)";
+const APP_FULL_VERSION = "5.0 (v629)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -45998,17 +46173,30 @@ function mobileShow(id){
     }
   }
 
-  const cols = ["colBooks", "colTags", "colPubs", "colNotes"];
-  cols.forEach(c => {
-    const el = $(c);
-    if(el){
-      const isTarget = (c === id);
-      el.classList.toggle("mshow", isTarget);
-      if(isTarget && c !== "colNotes"){
-        el.classList.remove("collapsed");
-      }
+  const sb = $("sidebarNavi");
+  if(id === "colNotes"){
+    if(sb) sb.classList.remove("mshow");
+    const cn = $("colNotes"); if(cn) cn.classList.add("mshow");
+  } else if(id === "colBooks" || id === "colTags" || id === "colPubs"){
+    if(sb) {
+      sb.classList.add("mshow");
+      sb.classList.remove("collapsed");
     }
-  });
+    const cn = $("colNotes"); if(cn) cn.classList.remove("mshow");
+    if(typeof aktywujSegmentSidebar === "function") aktywujSegmentSidebar(id);
+  } else {
+    const cols = ["colBooks", "colTags", "colPubs", "colNotes"];
+    cols.forEach(c => {
+      const el = $(c);
+      if(el){
+        const isTarget = (c === id);
+        el.classList.toggle("mshow", isTarget);
+        if(isTarget && c !== "colNotes"){
+          el.classList.remove("collapsed");
+        }
+      }
+    });
+  }
 
   if(id === "colBooks" && typeof renderBooks === "function") renderBooks();
   if(id === "colTags" && typeof renderTags === "function") renderTags();
@@ -46062,26 +46250,103 @@ function opiszStrzalkeKolumny(id){
   b.setAttribute("aria-expanded", zwinieta ? "false" : "true");
 }
 
+/* ── Nawigacja segmentowa paska bocznego (Wariant 1 — styl Apple Notes) ── */
+function getActiveSidebarSeg(){
+  const onBtn = document.querySelector("#sidebarSegmentedBar .seg-btn.on");
+  return onBtn ? onBtn.dataset.target : "colTags";
+}
+
+function aktywujSegmentSidebar(targetId){
+  if(!targetId) targetId = "colTags";
+  const segBtns = document.querySelectorAll("#sidebarSegmentedBar .seg-btn");
+  segBtns.forEach(b => {
+    const isTarget = (b.dataset.target === targetId);
+    b.classList.toggle("on", isTarget);
+    b.setAttribute("aria-selected", isTarget ? "true" : "false");
+  });
+
+  const cols = ["colTags", "colBooks", "colPubs"];
+  cols.forEach(cId => {
+    const el = document.getElementById(cId);
+    if(el){
+      if(cId === targetId){
+        el.style.display = "flex";
+        el.classList.remove("collapsed");
+      } else {
+        el.style.display = "none";
+      }
+    }
+  });
+
+  try { lsSet(KP + "ActiveSidebarSeg", targetId); } catch(_){}
+
+  if(targetId === "colBooks" && typeof renderBooks === "function") renderBooks();
+  if(targetId === "colTags" && typeof renderTags === "function") renderTags();
+  if(targetId === "colPubs" && typeof renderPubPanel === "function") renderPubPanel();
+  if(typeof updateSidebarActiveStates === "function") updateSidebarActiveStates();
+}
+
+function initSidebarSegmentedControl(){
+  const segBtns = document.querySelectorAll("#sidebarSegmentedBar .seg-btn");
+  segBtns.forEach(b => {
+    b.addEventListener("click", () => {
+      aktywujSegmentSidebar(b.dataset.target);
+    });
+  });
+
+  let savedSeg = "colTags";
+  try {
+    const s = lsGet(KP + "ActiveSidebarSeg", "colTags");
+    if(s && (s === "colTags" || s === "colBooks" || s === "colPubs")) savedSeg = s;
+  } catch(_){}
+
+  aktywujSegmentSidebar(savedSeg);
+}
+
 function setCollapsed(id, on){
+  if(id === "sidebarNavi"){
+    const sb = $("sidebarNavi");
+    if(sb){
+      sb.classList.toggle("collapsed", on);
+      const rz = $("resizerSidebarNavi");
+      if(rz) rz.style.display = on ? "none" : "";
+    }
+    odswiezMenuKolumn();
+    if(typeof updateSidebarActiveStates === "function") updateSidebarActiveStates();
+    return;
+  }
+
+  if(id === "colTags" || id === "colBooks" || id === "colPubs"){
+    if(!on){
+      aktywujSegmentSidebar(id);
+      const sb = $("sidebarNavi");
+      if(sb && sb.classList.contains("collapsed")){
+        sb.classList.remove("collapsed");
+        const rz = $("resizerSidebarNavi");
+        if(rz) rz.style.display = "";
+      }
+    } else {
+      const cur = getActiveSidebarSeg();
+      if(cur === id){
+        const sb = $("sidebarNavi");
+        if(sb){
+          sb.classList.add("collapsed");
+          const rz = $("resizerSidebarNavi");
+          if(rz) rz.style.display = "none";
+        }
+      }
+    }
+    odswiezMenuKolumn();
+    if(typeof updateSidebarActiveStates === "function") updateSidebarActiveStates();
+    return;
+  }
+
   const col = $(id); if(!col) return;
   col.classList.toggle("collapsed", on);
   opiszStrzalkeKolumny(id);
-  try{
-    lsSet(KP+"Cols", JSON.stringify({
-      t: $("colTags") ? $("colTags").classList.contains("collapsed") : false,
-      b: $("colBooks") ? $("colBooks").classList.contains("collapsed") : false,
-      p: $("colPubs") ? $("colPubs").classList.contains("collapsed") : false
-    }));
-  }catch(e){}
   odswiezMenuKolumn();
   odswiezUkryteKolumny();
   if(typeof updateSidebarActiveStates === "function") updateSidebarActiveStates();
-  
-  if(!on){
-    if(id === "colPubs" && typeof renderPubPanel === "function") renderPubPanel();
-    if(id === "colBooks" && typeof renderBooks === "function") renderBooks();
-    if(id === "colTags" && typeof renderTags === "function") renderTags();
-  }
 }
 
 function odswiezUkryteKolumny(){
@@ -46199,7 +46464,11 @@ if(typeof ResizeObserver !== "undefined"){
 function applyColWidths(){
   try{
     const w = JSON.parse(localStorage.getItem(KP+"Widths")||"{}");
-    const min = 150, max = Math.min(560, Math.max(160, innerWidth - 340));
+    const min = 220, max = Math.min(560, Math.max(220, innerWidth - 340));
+    const sb = $("sidebarNavi");
+    if(sb && w["sidebarNavi"]){
+      sb.style.width = Math.max(min, Math.min(max, w["sidebarNavi"])) + "px";
+    }
     ["colBooks","colTags","colPubs"].forEach(id=>{
       const c = $(id); if(!c) return;
       c.style.minWidth = "0";
@@ -46211,6 +46480,8 @@ function applyColWidths(){
 
 function saveColWidths(){
   const szer = {};
+  const sb = $("sidebarNavi");
+  if(sb) szer["sidebarNavi"] = parseInt(sb.style.width) || sb.offsetWidth;
   ["colBooks","colTags","colPubs"].forEach(id=>{
     const c = $(id); if(!c) return;
     szer[id] = parseInt(c.style.width) || c.offsetWidth;
@@ -46219,6 +46490,7 @@ function saveColWidths(){
 }
 
 applyColWidths();
+if(typeof initSidebarSegmentedControl === "function") initSidebarSegmentedControl();
 
 /* przycisk „Kolumny" w pasku górnym */
 if($("btnCols")) $("btnCols").onclick = e=>{
@@ -58964,8 +59236,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v628</span>
+          <span class="cl-ver-num">v629</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">16 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Zintegrowany pasek boczny z przełącznikiem segmentowym (Wariant 1) oraz rozmyty pasek górny Apple frosted glass</div>
+        <ul class="cl-ver-list">
+          <li><b>Pasek boczny w stylu Apple Notes (Wariant 1):</b> Zamiast 3 otwartych naraz kolumn pochłaniających ponad połowę ekranu, wprowadzono elegancki panel boczny z przełącznikiem segmentowym (<i>Etykiety</i> | <i>Biblia</i> | <i>Publikacje</i>). Notatki zyskały aż 75% szerokości ekranu iPada.</li>
+          <li><b>Pasek górny z efektem rozmycia (Frosted Glass / Liquid Blur):</b> Górny pasek aplikacji zyskał nowoczesne półprzezroczyste tło z głębokim rozmyciem <code>backdrop-filter</code> charakterystycznym dla Apple iPadOS.</li>
+          <li><b>1 poziomy wiersz szybkich filtrów:</b> Zlikwidowano 4 rzędy pastylek nad notatkami — filtry są teraz estetycznie ułożone w jednym, płynnie przewijanym dotykowo wierszu.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v628</span>
           <span class="cl-ver-date">16 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Autentyczne nagranie leśnego ambientu (prawdziwy śpiew ptaków i wiatr) w planie czytania</div>
@@ -67574,17 +67859,18 @@ document.querySelector(".searchHelp").appendChild(helpMore);
     const tabCentrum = document.getElementById("tabMobileCentrum");
     if (tabCentrum) tabCentrum.classList.toggle("on", isCentrumOpen);
 
-    const tagsCol = document.getElementById("colTags");
+    const sb = document.getElementById("sidebarNavi");
+    const sbVisible = sb && !sb.classList.contains("collapsed") && !isCentrumOpen;
+    const activeSeg = (typeof getActiveSidebarSeg === "function") ? getActiveSidebarSeg() : "colTags";
+
     const navTags = document.getElementById("navItemTags");
-    if (navTags && tagsCol) navTags.classList.toggle("active", !tagsCol.classList.contains("collapsed") && !isCentrumOpen);
+    if (navTags) navTags.classList.toggle("active", sbVisible && activeSeg === "colTags");
 
-    const booksCol = document.getElementById("colBooks");
     const navBooks = document.getElementById("navItemBooks");
-    if (navBooks && booksCol) navBooks.classList.toggle("active", !booksCol.classList.contains("collapsed") && !isCentrumOpen);
+    if (navBooks) navBooks.classList.toggle("active", sbVisible && activeSeg === "colBooks");
 
-    const pubsCol = document.getElementById("colPubs");
     const navPubs = document.getElementById("navItemPubs");
-    if (navPubs && pubsCol) navPubs.classList.toggle("active", !pubsCol.classList.contains("collapsed") && !isCentrumOpen);
+    if (navPubs) navPubs.classList.toggle("active", sbVisible && activeSeg === "colPubs");
 
     const navNotes = document.getElementById("navItemNotes");
     if (navNotes) {
@@ -67750,15 +68036,17 @@ document.querySelector(".searchHelp").appendChild(helpMore);
 
   if (navTags) {
     navTags.addEventListener("click", () => {
-      const isCentrum = document.body.classList.contains("centrum-open");
       closeCentrumIfOpen();
-      const colEl = document.getElementById("colTags");
-      const isCollapsed = colEl ? colEl.classList.contains("collapsed") : false;
-      const targetState = isCentrum ? false : !isCollapsed;
-      if (typeof setCollapsed === "function") {
-        setCollapsed("colTags", targetState);
+      const sb = document.getElementById("sidebarNavi");
+      const isSbCollapsed = sb ? sb.classList.contains("collapsed") : false;
+      const curSeg = (typeof getActiveSidebarSeg === "function") ? getActiveSidebarSeg() : "colTags";
+      if(isSbCollapsed || curSeg !== "colTags"){
+        if(typeof aktywujSegmentSidebar === "function") aktywujSegmentSidebar("colTags");
+        if(sb) sb.classList.remove("collapsed");
+      } else {
+        if(sb) sb.classList.add("collapsed");
       }
-      if (typeof mobileShow === "function" && window.innerWidth <= 900 && !targetState) {
+      if (typeof mobileShow === "function" && window.innerWidth <= 900) {
         mobileShow("colTags");
       }
       updateSidebarActiveStates();
@@ -67767,15 +68055,17 @@ document.querySelector(".searchHelp").appendChild(helpMore);
 
   if (navBooks) {
     navBooks.addEventListener("click", () => {
-      const isCentrum = document.body.classList.contains("centrum-open");
       closeCentrumIfOpen();
-      const colEl = document.getElementById("colBooks");
-      const isCollapsed = colEl ? colEl.classList.contains("collapsed") : false;
-      const targetState = isCentrum ? false : !isCollapsed;
-      if (typeof setCollapsed === "function") {
-        setCollapsed("colBooks", targetState);
+      const sb = document.getElementById("sidebarNavi");
+      const isSbCollapsed = sb ? sb.classList.contains("collapsed") : false;
+      const curSeg = (typeof getActiveSidebarSeg === "function") ? getActiveSidebarSeg() : "colTags";
+      if(isSbCollapsed || curSeg !== "colBooks"){
+        if(typeof aktywujSegmentSidebar === "function") aktywujSegmentSidebar("colBooks");
+        if(sb) sb.classList.remove("collapsed");
+      } else {
+        if(sb) sb.classList.add("collapsed");
       }
-      if (typeof mobileShow === "function" && window.innerWidth <= 900 && !targetState) {
+      if (typeof mobileShow === "function" && window.innerWidth <= 900) {
         mobileShow("colBooks");
       }
       updateSidebarActiveStates();
@@ -67784,15 +68074,17 @@ document.querySelector(".searchHelp").appendChild(helpMore);
 
   if (navPubs) {
     navPubs.addEventListener("click", () => {
-      const isCentrum = document.body.classList.contains("centrum-open");
       closeCentrumIfOpen();
-      const colEl = document.getElementById("colPubs");
-      const isCollapsed = colEl ? colEl.classList.contains("collapsed") : false;
-      const targetState = isCentrum ? false : !isCollapsed;
-      if (typeof setCollapsed === "function") {
-        setCollapsed("colPubs", targetState);
+      const sb = document.getElementById("sidebarNavi");
+      const isSbCollapsed = sb ? sb.classList.contains("collapsed") : false;
+      const curSeg = (typeof getActiveSidebarSeg === "function") ? getActiveSidebarSeg() : "colTags";
+      if(isSbCollapsed || curSeg !== "colPubs"){
+        if(typeof aktywujSegmentSidebar === "function") aktywujSegmentSidebar("colPubs");
+        if(sb) sb.classList.remove("collapsed");
+      } else {
+        if(sb) sb.classList.add("collapsed");
       }
-      if (typeof mobileShow === "function" && window.innerWidth <= 900 && !targetState) {
+      if (typeof mobileShow === "function" && window.innerWidth <= 900) {
         mobileShow("colPubs");
       }
       updateSidebarActiveStates();
@@ -67801,18 +68093,15 @@ document.querySelector(".searchHelp").appendChild(helpMore);
 
   if (navCols) {
     navCols.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const dd = document.getElementById("dropdown");
-      if (dd && dd.style.display === "block" && dd.dataset.rodzaj === "kolumny") {
-        dd.style.display = "none";
-        return;
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
       }
-      if (typeof otworzMenuKolumn === "function") {
-        otworzMenuKolumn(navCols);
-      } else {
-        const btnC = document.getElementById("btnCols");
-        if (btnC) btnC.click();
+      const sb = document.getElementById("sidebarNavi");
+      if (sb) {
+        sb.classList.toggle("collapsed");
       }
+      updateSidebarActiveStates();
     });
   }
 
