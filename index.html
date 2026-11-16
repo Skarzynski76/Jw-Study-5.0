@@ -26545,9 +26545,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v627";
+const APP_BUILD = "v628";
 const APP_BUILD_DATE = "2026-11-16";
-const APP_FULL_VERSION = "5.0 (v627)";
+const APP_FULL_VERSION = "5.0 (v628)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -58219,16 +58219,13 @@ let _cenSciezkaStartTime = null;
 const _cenSciezkaIgnitionStates = {};
 
 /* ══════════════════════════════════════════════════════════════════════
-   🌲 KOJĄCE DŹWIĘKI LASU (AMBIENT WEB AUDIO DLA ŚCIEŻKI ŚWIATŁA)
-   Syntetyczny generator wiatru w koronach sosen i subtelnego śpiewu ptaków
+   🌲 KOJĄCE DŹWIĘKI LASU (NATURALNY AMBIENT AUDIO)
+   Autentyczne leśne nagranie: śpiew ptaków, szelest liści i powiew wiatru
    ══════════════════════════════════════════════════════════════════════ */
+let _cenForestAudioEl = null;
+let _cenForestFadeInterval = null;
 let _cenForestAudioState = {
   active: false,
-  ctx: null,
-  masterGain: null,
-  windSource: null,
-  windGain: null,
-  birdTimer: null,
   wasActiveBeforeHidden: false
 };
 
@@ -58236,146 +58233,68 @@ function _centrCzyDzwiekSciezkiWlaczony(){
   return lsGet(KP + "CentrumSciezkaAudio", "0") === "1";
 }
 
+function _centrFadeAudio(targetVol, durationMs, onComplete){
+  if(!_cenForestAudioEl) return;
+  if(_cenForestFadeInterval){ clearInterval(_cenForestFadeInterval); _cenForestFadeInterval = null; }
+  const startVol = _cenForestAudioEl.volume;
+  const startTime = performance.now();
+  _cenForestFadeInterval = setInterval(()=>{
+    const elapsed = performance.now() - startTime;
+    const t = Math.min(1, elapsed / durationMs);
+    _cenForestAudioEl.volume = Math.max(0, Math.min(1, startVol + (targetVol - startVol) * t));
+    if(t >= 1){
+      clearInterval(_cenForestFadeInterval);
+      _cenForestFadeInterval = null;
+      if(onComplete) onComplete();
+    }
+  }, 25);
+}
+
 function _centrZatrzymajDzwiekSciezki(immediate){
-  if(_cenForestAudioState.birdTimer){
-    clearTimeout(_cenForestAudioState.birdTimer);
-    _cenForestAudioState.birdTimer = null;
-  }
-  if(!_cenForestAudioState.active || !_cenForestAudioState.masterGain) return;
-  const ctx = _cenForestAudioState.ctx;
-  if(ctx && ctx.state !== "closed"){
-    try {
-      const now = ctx.currentTime;
-      if(immediate){
-        _cenForestAudioState.masterGain.gain.setValueAtTime(0.0001, now);
-      } else {
-        _cenForestAudioState.masterGain.gain.cancelScheduledValues(now);
-        _cenForestAudioState.masterGain.gain.setValueAtTime(_cenForestAudioState.masterGain.gain.value, now);
-        _cenForestAudioState.masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.6);
-      }
-    } catch(_){}
-  }
-  setTimeout(()=>{
-    try {
-      if(_cenForestAudioState.windSource){
-        _cenForestAudioState.windSource.stop();
-        _cenForestAudioState.windSource.disconnect();
-      }
-    } catch(_){}
-    _cenForestAudioState.windSource = null;
+  if(!_cenForestAudioEl){
     _cenForestAudioState.active = false;
     _centrZaktualizujPrzyciskAudioSciezki(false);
-  }, immediate ? 50 : 650);
+    return;
+  }
+  if(immediate){
+    if(_cenForestFadeInterval){ clearInterval(_cenForestFadeInterval); _cenForestFadeInterval = null; }
+    _cenForestAudioEl.pause();
+    _cenForestAudioState.active = false;
+    _centrZaktualizujPrzyciskAudioSciezki(false);
+  } else {
+    _centrFadeAudio(0, 500, ()=>{
+      if(_cenForestAudioEl){
+        _cenForestAudioEl.pause();
+      }
+      _cenForestAudioState.active = false;
+      _centrZaktualizujPrzyciskAudioSciezki(false);
+    });
+  }
 }
 
 function _centrUruchomDzwiekSciezki(){
   try {
-    if(_cenForestAudioState.active) return;
-    const ctx = (typeof cenGetAudioContext === "function") ? cenGetAudioContext() : null;
-    if(!ctx) return;
-    if(ctx.state === "suspended"){
-      ctx.resume().catch(()=>{});
+    if(!_cenForestAudioEl){
+      _cenForestAudioEl = new Audio('./public/audio/las-ambient.mp3');
+      _cenForestAudioEl.loop = true;
+      _cenForestAudioEl.preload = "auto";
     }
-
-    _cenForestAudioState.ctx = ctx;
-    _cenForestAudioState.active = true;
-
-    // Główny wzmacniacz z łagodnym wejściem (fade-in 1.2s)
-    const now = ctx.currentTime;
-    const master = ctx.createGain();
-    master.gain.setValueAtTime(0.0001, now);
-    master.gain.exponentialRampToValueAtTime(0.28, now + 1.2);
-    master.connect(ctx.destination);
-    _cenForestAudioState.masterGain = master;
-
-    // 1. SZUM WIATRU W KORONACH SOSEN (Różowy szum Kelleta + filtr dolnoprzepustowy + LFO)
-    const bufferSize = Math.max(ctx.sampleRate * 4, 88200);
-    const noiseBuf = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-    const data = noiseBuf.getChannelData(0);
-    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
-    for(let i = 0; i < bufferSize; i++){
-      const white = Math.random() * 2 - 1;
-      b0 = 0.99886 * b0 + white * 0.0555179;
-      b1 = 0.99332 * b1 + white * 0.0750759;
-      b2 = 0.96900 * b2 + white * 0.1538520;
-      b3 = 0.86650 * b3 + white * 0.3104856;
-      b4 = 0.55000 * b4 + white * 0.5329522;
-      b5 = -0.7616 * b5 - white * 0.0168980;
-      data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.075;
-      b6 = white * 0.115926;
+    _cenForestAudioEl.volume = 0;
+    const playPromise = _cenForestAudioEl.play();
+    if(playPromise !== undefined){
+      playPromise.then(()=>{
+        _cenForestAudioState.active = true;
+        _centrFadeAudio(0.60, 1000);
+        _centrZaktualizujPrzyciskAudioSciezki(true);
+      }).catch(err=>{
+        console.warn("Autoplay wstrzymany przez przeglądarkę (wymaga kliknięcia):", err);
+        _cenForestAudioState.active = false;
+        _centrZaktualizujPrzyciskAudioSciezki(false);
+      });
     }
-
-    const noiseSrc = ctx.createBufferSource();
-    noiseSrc.buffer = noiseBuf;
-    noiseSrc.loop = true;
-    _cenForestAudioState.windSource = noiseSrc;
-
-    // Filtr modelujący szum leśnego wiatru (low-pass ~460Hz z rezonansem)
-    const filter = ctx.createBiquadFilter();
-    filter.type = "lowpass";
-    filter.frequency.setValueAtTime(460, now);
-    filter.Q.setValueAtTime(1.8, now);
-
-    // LFO symulujące naturalne porywy wiatru co 8-12 sekund
-    const lfo = ctx.createOscillator();
-    lfo.frequency.setValueAtTime(0.11, now);
-    lfo.connect(filter.frequency);
-    lfo.start(now);
-
-    const windGain = ctx.createGain();
-    windGain.gain.setValueAtTime(0.85, now);
-    _cenForestAudioState.windGain = windGain;
-
-    noiseSrc.connect(filter);
-    filter.connect(windGain);
-    windGain.connect(master);
-    noiseSrc.start(now);
-
-    // 2. TREL LEŚNYCH PTAKÓW (Subtelne ćwierkanie co losowe kilka sekund)
-    function zaplanujTrelPtaka(){
-      if(!_cenForestAudioState.active) return;
-      const delay = 4500 + Math.random() * 8500;
-      _cenForestAudioState.birdTimer = setTimeout(()=>{
-        if(!_cenForestAudioState.active) return;
-        _centrZagrajTrelPtaka(ctx, master);
-        zaplanujTrelPtaka();
-      }, delay);
-    }
-    zaplanujTrelPtaka();
-    _centrZaktualizujPrzyciskAudioSciezki(true);
   } catch(e){
-    console.warn("Błąd uruchamiania dźwięków lasu:", e);
+    console.warn("Błąd odtwarzania audio:", e);
   }
-}
-
-function _centrZagrajTrelPtaka(ctx, dest){
-  try {
-    if(!ctx || ctx.state === "closed" || !dest) return;
-    const now = ctx.currentTime;
-    const nuty = [
-      { f1: 3100 + Math.random() * 400, f2: 3600 + Math.random() * 500, dur: 0.08, delay: 0 },
-      { f1: 3500 + Math.random() * 300, f2: 2900 + Math.random() * 300, dur: 0.10, delay: 0.13 },
-      { f1: 3800 + Math.random() * 400, f2: 3300 + Math.random() * 300, dur: 0.11, delay: 0.28 }
-    ];
-
-    nuty.forEach(n => {
-      const tStart = now + n.delay;
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(n.f1, tStart);
-      osc.frequency.exponentialRampToValueAtTime(n.f2, tStart + n.dur);
-
-      gain.gain.setValueAtTime(0.0001, tStart);
-      gain.gain.exponentialRampToValueAtTime(0.065, tStart + n.dur * 0.25);
-      gain.gain.exponentialRampToValueAtTime(0.0001, tStart + n.dur);
-
-      osc.connect(gain);
-      gain.connect(dest);
-      osc.start(tStart);
-      osc.stop(tStart + n.dur + 0.02);
-    });
-  } catch(_){}
 }
 
 function _centrPrzelaczDzwiekSciezki(){
@@ -58386,7 +58305,7 @@ function _centrPrzelaczDzwiekSciezki(){
   } else {
     lsSet(KP + "CentrumSciezkaAudio", "1");
     _centrUruchomDzwiekSciezki();
-    toast("Włączono kojące dźwięki lasu (wiatr i ptaki) 🌲 🔊", "ok");
+    toast("Włączono kojące dźwięki lasu (autentyczne nagranie) 🌲 🔊", "ok");
   }
 }
 
@@ -58405,7 +58324,7 @@ function _centrZaktualizujPrzyciskAudioSciezki(gra){
 if(typeof document !== "undefined"){
   document.addEventListener("visibilitychange", () => {
     if(document.hidden){
-      if(typeof _centrZatrzymajDzwiekSciezki === "function" && _cenForestAudioState.active){
+      if(_cenForestAudioEl && !_cenForestAudioEl.paused){
         _cenForestAudioState.wasActiveBeforeHidden = true;
         _centrZatrzymajDzwiekSciezki(true);
       }
@@ -59045,8 +58964,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v627</span>
+          <span class="cl-ver-num">v628</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">16 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Autentyczne nagranie leśnego ambientu (prawdziwy śpiew ptaków i wiatr) w planie czytania</div>
+        <ul class="cl-ver-list">
+          <li><b>Prawdziwe nagranie natury:</b> Zastąpiono syntetyczny szum bogatym, autentycznym 4-minutowym nagraniem leśnym ze śpiewem prawdziwych ptaków i szelestem drzew.</li>
+          <li><b>Pełna praca offline:</b> Plik audio został zintegrowany z pamięcią podręczną Service Workera, dzięki czemu działa bez połączenia z internetem na iPadzie i telefonie.</li>
+          <li><b>Płynny start i wyciszanie:</b> Dźwięk narasta łagodnie (fade-in), zapętla się płynnie i natychmiast cichnie po zablokowaniu ekranu lub wyjściu ze sceny leśnej.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v627</span>
           <span class="cl-ver-date">16 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Kojące dźwięki lasu i motywujące przygasanie latarni przy zaniedbaniu czytania (Światło na ścieżce)</div>

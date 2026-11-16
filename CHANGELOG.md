@@ -1,3 +1,11 @@
+## 5.0 — 2026-11-16 (Autentyczne nagranie leśnego ambientu w planie czytania — v628)
+
+- **Podpięcie autentycznego nagrania leśnego (`./public/audio/las-ambient.mp3`):**
+  - Zastąpiono syntetyczny szum bogatym, 4-minutowym naturalnym nagraniem leśnym ze śpiewem prawdziwych ptaków i szumem drzew.
+  - Plik został dodany do pamięci podręcznej Service Workera (`sw.js`), co zapewnia natychmiastowe działanie w trybie offline.
+  - Zaimplementowano łagodną regulację głośności (fade-in przy uruchomieniu, fade-out przy wyłączeniu) oraz automatyczną pauzę przy zmianie karty lub wygaszeniu ekranu.
+- Podniesiono wersję pamięci podręcznej Service Workera do `v628`.
+
 ## 5.0 — 2026-11-16 (Kojące dźwięki lasu i motywujące przygasanie latarni — v627)
 
 - **Kojący leśny ambient audio (Web Audio API):**

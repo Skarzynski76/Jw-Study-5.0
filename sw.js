@@ -1,6 +1,6 @@
 /* JW Study — Service Worker (Obsługa trybu offline) */
 const CACHE_PREFIX = 'jwstudy-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + 'v627';
+const CACHE = CACHE_PREFIX + 'v628';
 
 const CORE = [
   './index.html',
@@ -18,6 +18,7 @@ const CORE = [
   './public/images/bible-journey/forest-night.webp',
   './public/images/bible-journey/forest-dawn.webp',
   './public/images/bible-journey/forest-morning.webp',
+  './public/audio/las-ambient.mp3',
   './lib/jszip.min.js',
   './lib/sql-wasm.js',
   './lib/sql-wasm.wasm',
