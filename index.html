@@ -20142,6 +20142,24 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   color: var(--accent, #256b52);
   font-weight: 650;
 }
+.sidebar-nav-badge {
+  margin-left: auto;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--sel, rgba(0, 0, 0, 0.08));
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+#appContainer.sidebar-collapsed .sidebar-nav-badge {
+  display: none !important;
+}
 .sidebar-footer {
   margin-top: auto;
   padding-top: 12px;
@@ -24263,6 +24281,11 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M9 4.5v15M15 4.5v15"/></svg>
         <span>Kolumny</span>
       </button>
+      <button class="sidebar-nav-item" id="navItemTrash" title="Kosz (usunięte notatki na 30 dni)">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+        <span>Kosz</span>
+        <span class="sidebar-nav-badge" id="sidebarTrashBadge" style="display:none">0</span>
+      </button>
     </nav>
     <div class="sidebar-footer">
       <button class="sidebar-nav-item" id="navItemMenu" title="Menu Plik">
@@ -26467,9 +26490,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v623";
+const APP_BUILD = "v624";
 const APP_BUILD_DATE = "2026-11-16";
-const APP_FULL_VERSION = "5.0 (v623)";
+const APP_FULL_VERSION = "5.0 (v624)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -33243,6 +33266,7 @@ function renderAll(){
   renderTags(); renderBooks(); renderNotes();
   if(typeof renderPubPanel === "function") renderPubPanel();
   if(typeof updateUnifiedTabsBadges === "function") updateUnifiedTabsBadges();
+  if(typeof updateSidebarTrashBadge === "function") updateSidebarTrashBadge();
   /* Centrum studium albo lista — nigdy oba i nigdy żadne. Decyzja zapada TU,
      po każdej zmianie filtrów, bo tylko wtedy jest pewne, że stan filtrów
      i widok kolumny się nie rozjadą. */
@@ -35253,6 +35277,19 @@ function zapomnijNotatke(g){
   if(typeof workerUsunNotatke==="function") workerUsunNotatke(g);
   if(typeof wersjeUsun === "function") wersjeUsun(g);
 }
+function updateSidebarTrashBadge(){
+  const b = document.getElementById("sidebarTrashBadge");
+  if(!b) return;
+  const count = (typeof trashList === "function") ? trashList().length : 0;
+  if(count > 0){
+    b.textContent = count;
+    b.style.display = "inline-flex";
+  } else {
+    b.style.display = "none";
+  }
+}
+window.updateSidebarTrashBadge = updateSidebarTrashBadge;
+
 function trashList(){ return notes.filter(n=>n.del); }
 function daysLeft(n){ if(!n.delAt) return TRASH_DAYS; const passed=(Date.now()-new Date(n.delAt).getTime())/86400000; return Math.max(0, Math.ceil(TRASH_DAYS-passed)); }
 function purgeOldTrash(){
@@ -35266,24 +35303,26 @@ function purgeOldTrash(){
     keep.push(n);
   });
   if(removed){ notes=keep; bumpDirty(); }
+  updateSidebarTrashBadge();
 }
 function restoreNote(n){
   n.del=false; delete n.delAt;
   if(deletedGuids.includes(n.g)){ deletedGuids = deletedGuids.filter(x=>x!==n.g); saveDeletedGuids(); }
-  markDirty(n); renderAll(); renderTrash(); toast("Notatka przywrócona");
+  markDirty(n); renderAll(); renderTrash(); updateSidebarTrashBadge(); toast("Notatka przywrócona");
 }
 function purgeNote(n){
   const i=notes.indexOf(n);
   if(i>=0){ notes.splice(i,1); zapomnijNotatke(n.g); }
-  bumpDirty(); renderTrash(); toast("Usunięto na stałe");
+  bumpDirty(); renderTrash(); updateSidebarTrashBadge(); toast("Usunięto na stałe");
 }
 async function emptyTrash(){
   const list=trashList(); if(!list.length){ toast("Kosz jest pusty"); return; }
   if(!(await askConfirm("Opróżnić kosz?", "Wszystkie notatki z kosza ("+list.length+") zostaną usunięte <b>na stałe</b>. Tej operacji nie można cofnąć.", {okLabel:"Usuń na stałe", danger:true}))) return;
   list.forEach(n=>{ const i=notes.indexOf(n); if(i>=0) notes.splice(i,1); zapomnijNotatke(n.g); });
-  bumpDirty(); renderTrash(); renderAll(); toast("Kosz opróżniony");
+  bumpDirty(); renderTrash(); renderAll(); updateSidebarTrashBadge(); toast("Kosz opróżniony");
 }
 function renderTrash(){
+  updateSidebarTrashBadge();
   const el=$("trashList"); if(!el) return;
   const list=trashList().sort((a,b)=>(b.delAt||"").localeCompare(a.delAt||""));
   if(!list.length){ el.innerHTML=`<div class="trash-empty">Kosz jest pusty</div>`; return; }
@@ -58660,8 +58699,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v623</span>
+          <span class="cl-ver-num">v624</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">16 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Kosz bezpośrednio w bocznym menu z dynamicznym licznikiem usuniętych notatek</div>
+        <ul class="cl-ver-list">
+          <li><b>Bezpośredni dostęp z paska bocznego:</b> Do głównego menu nawigacyjnego dodano pozycję <i>„Kosz”</i> z dedykowaną ikoną kosza. Nie trzeba już szukać kosza w ustawieniach czy menu zaawansowanym.</li>
+          <li><b>Licznik notatek w czasie rzeczywistym:</b> Obok nazwy wyświetla się czytelny wskaźnik liczby notatek oczekujących na usunięcie (przechowywanych przez 30 dni). Licznik znika automatycznie, gdy kosz jest pusty.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v623</span>
           <span class="cl-ver-date">16 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Pełne scalanie celów, planów czytania i nawyków w automatycznej synchronizacji w chmurze</div>
@@ -67188,6 +67239,7 @@ document.querySelector(".searchHelp").appendChild(helpMore);
   const navBooks = document.getElementById("navItemBooks");
   const navPubs = document.getElementById("navItemPubs");
   const navCols = document.getElementById("navItemCols");
+  const navTrash = document.getElementById("navItemTrash");
   const navMenu = document.getElementById("navItemMenu");
   const navSync = document.getElementById("navItemSync");
   const navTheme = document.getElementById("navItemTheme");
@@ -67450,6 +67502,17 @@ document.querySelector(".searchHelp").appendChild(helpMore);
       } else {
         const btnC = document.getElementById("btnCols");
         if (btnC) btnC.click();
+      }
+    });
+  }
+
+  if (navTrash) {
+    navTrash.addEventListener("click", () => {
+      if (typeof openTrash === "function") {
+        openTrash();
+      } else {
+        if (typeof renderTrash === "function") renderTrash();
+        if (typeof openModal === "function") openModal("modalTrash");
       }
     });
   }

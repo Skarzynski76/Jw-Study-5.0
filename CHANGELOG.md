@@ -1,3 +1,11 @@
+## 5.0 — 2026-11-16 (Kosz bezpośrednio w bocznym menu z dynamicznym licznikiem usuniętych notatek — v624)
+
+- **Dedykowany element „Kosz” w głównym menu bocznym (`#modernSidebar`):**
+  - Dodano stałą pozycję *„Kosz”* z ikoną kosza na śmieci tuż pod pozycją *„Kolumny”*.
+  - Kliknięcie natychmiast otwiera okno kosza z możliwością przywrócenia notatek lub ich trwałego usunięcia (30 dni retencji).
+  - Dodano dynamiczny wskaźnik badge z liczbą aktualnie usuniętych notatek, aktualizowany w czasie rzeczywistym przy usuwaniu, przywracaniu i czyszczeniu kosza.
+- Podniesiono wersję pamięci podręcznej Service Workera do `v624`.
+
 ## 5.0 — 2026-11-16 (Automatyczna synchronizacja celów, planów czytania i nawyków w chmurze — v623)
 
 - **Włączenie modułu Centrum Studium do automatycznej synchronizacji Google Drive:**
