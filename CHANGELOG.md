@@ -1,3 +1,15 @@
+## 5.0 — 2026-11-16 (Kojące dźwięki lasu i motywujące przygasanie latarni — v627)
+
+- **Kojący leśny ambient audio (Web Audio API):**
+  - Do leśnej sceny postępu czytania Biblii (*Światło na ścieżce*, Psalm 119:105) dodano syntetyczny, naturalny szum wiatru w koronach sosen oraz subtelny, kojący śpiew leśnych ptaków.
+  - Moduł waży **0 KB transferu** i działa w 100% offline.
+  - W prawym górnym rogu sceny umieszczono dyskretny przycisk przełączania (🌲 🔈/🔊 *Dźwięki lasu*). Dźwięk wycisza się automatycznie po wyjściu z aplikacji lub zablokowaniu ekranu i pamięta preferencje użytkownika.
+- **Motywujące przygasanie latarni przy zaniedbaniu czytania (Wariant A):**
+  - Gdy użytkownik opuści 2 lub więcej dni czytania, płomienie latarni na ścieżce stopniowo przygasają, tląc się jako mały, cichy knot świecy.
+  - Oznaczenie dzisiejszego czytania natychmiast wyzwala rozbłysk zapłonu, przywracając pełny, ciepły blask latarni na całej ścieżce.
+  - W karcie postępów wyświetla się ciepły, motywujący baner zachęcający do przeczytania dzisiejszego fragmentu.
+- Podniesiono wersję pamięci podręcznej Service Workera do `v627`.
+
 ## 5.0 — 2026-11-16 (Przywrócenie klasycznego czytnika i edytora pełnoekranowego — v626)
 
 - **Wycofanie eksperymentalnego układu arkusika (v625):**

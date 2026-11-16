@@ -1807,6 +1807,61 @@ html[data-theme="dark"] .cenSciezkaPillTag {
   font-weight: 650;
   color: var(--cen-text-muted);
 }
+.cenSciezkaActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.cenSciezkaAudioBtn {
+  background: var(--cen-row-bg, rgba(0,0,0,0.05));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--cen-text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5.5px;
+  transition: all 0.16s ease;
+  user-select: none;
+}
+.cenSciezkaAudioBtn:hover {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #059669;
+}
+.cenSciezkaAudioBtn.is-playing {
+  background: rgba(16, 185, 129, 0.16);
+  border-color: rgba(16, 185, 129, 0.5);
+  color: #059669;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.22);
+}
+html[data-theme="dark"] .cenSciezkaAudioBtn.is-playing,
+html[data-theme="oled"] .cenSciezkaAudioBtn.is-playing {
+  color: #34d399;
+  border-color: rgba(52, 211, 153, 0.6);
+}
+.cenSciezkaDimBanner {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 14px;
+  margin: 12px 0 6px;
+  border-radius: 12px;
+  background: rgba(245, 158, 11, 0.10);
+  border: 1px solid rgba(245, 158, 11, 0.32);
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--cen-text);
+  animation: cenPulseGlow 3s ease-in-out infinite;
+}
+@keyframes cenPulseGlow {
+  0%, 100% { opacity: 0.95; }
+  50% { opacity: 0.75; }
+}
 .cenSciezkaSiatkaBtn {
   background: var(--cen-row-bg, rgba(0,0,0,0.05));
   border: 1px solid var(--border);
@@ -26490,9 +26545,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v626";
+const APP_BUILD = "v627";
 const APP_BUILD_DATE = "2026-11-16";
-const APP_FULL_VERSION = "5.0 (v626)";
+const APP_FULL_VERSION = "5.0 (v627)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -58163,14 +58218,253 @@ let _cenSciezkaAnimId = null;
 let _cenSciezkaStartTime = null;
 const _cenSciezkaIgnitionStates = {};
 
+/* ══════════════════════════════════════════════════════════════════════
+   🌲 KOJĄCE DŹWIĘKI LASU (AMBIENT WEB AUDIO DLA ŚCIEŻKI ŚWIATŁA)
+   Syntetyczny generator wiatru w koronach sosen i subtelnego śpiewu ptaków
+   ══════════════════════════════════════════════════════════════════════ */
+let _cenForestAudioState = {
+  active: false,
+  ctx: null,
+  masterGain: null,
+  windSource: null,
+  windGain: null,
+  birdTimer: null,
+  wasActiveBeforeHidden: false
+};
+
+function _centrCzyDzwiekSciezkiWlaczony(){
+  return lsGet(KP + "CentrumSciezkaAudio", "0") === "1";
+}
+
+function _centrZatrzymajDzwiekSciezki(immediate){
+  if(_cenForestAudioState.birdTimer){
+    clearTimeout(_cenForestAudioState.birdTimer);
+    _cenForestAudioState.birdTimer = null;
+  }
+  if(!_cenForestAudioState.active || !_cenForestAudioState.masterGain) return;
+  const ctx = _cenForestAudioState.ctx;
+  if(ctx && ctx.state !== "closed"){
+    try {
+      const now = ctx.currentTime;
+      if(immediate){
+        _cenForestAudioState.masterGain.gain.setValueAtTime(0.0001, now);
+      } else {
+        _cenForestAudioState.masterGain.gain.cancelScheduledValues(now);
+        _cenForestAudioState.masterGain.gain.setValueAtTime(_cenForestAudioState.masterGain.gain.value, now);
+        _cenForestAudioState.masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.6);
+      }
+    } catch(_){}
+  }
+  setTimeout(()=>{
+    try {
+      if(_cenForestAudioState.windSource){
+        _cenForestAudioState.windSource.stop();
+        _cenForestAudioState.windSource.disconnect();
+      }
+    } catch(_){}
+    _cenForestAudioState.windSource = null;
+    _cenForestAudioState.active = false;
+    _centrZaktualizujPrzyciskAudioSciezki(false);
+  }, immediate ? 50 : 650);
+}
+
+function _centrUruchomDzwiekSciezki(){
+  try {
+    if(_cenForestAudioState.active) return;
+    const ctx = (typeof cenGetAudioContext === "function") ? cenGetAudioContext() : null;
+    if(!ctx) return;
+    if(ctx.state === "suspended"){
+      ctx.resume().catch(()=>{});
+    }
+
+    _cenForestAudioState.ctx = ctx;
+    _cenForestAudioState.active = true;
+
+    // Główny wzmacniacz z łagodnym wejściem (fade-in 1.2s)
+    const now = ctx.currentTime;
+    const master = ctx.createGain();
+    master.gain.setValueAtTime(0.0001, now);
+    master.gain.exponentialRampToValueAtTime(0.28, now + 1.2);
+    master.connect(ctx.destination);
+    _cenForestAudioState.masterGain = master;
+
+    // 1. SZUM WIATRU W KORONACH SOSEN (Różowy szum Kelleta + filtr dolnoprzepustowy + LFO)
+    const bufferSize = Math.max(ctx.sampleRate * 4, 88200);
+    const noiseBuf = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = noiseBuf.getChannelData(0);
+    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+    for(let i = 0; i < bufferSize; i++){
+      const white = Math.random() * 2 - 1;
+      b0 = 0.99886 * b0 + white * 0.0555179;
+      b1 = 0.99332 * b1 + white * 0.0750759;
+      b2 = 0.96900 * b2 + white * 0.1538520;
+      b3 = 0.86650 * b3 + white * 0.3104856;
+      b4 = 0.55000 * b4 + white * 0.5329522;
+      b5 = -0.7616 * b5 - white * 0.0168980;
+      data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.075;
+      b6 = white * 0.115926;
+    }
+
+    const noiseSrc = ctx.createBufferSource();
+    noiseSrc.buffer = noiseBuf;
+    noiseSrc.loop = true;
+    _cenForestAudioState.windSource = noiseSrc;
+
+    // Filtr modelujący szum leśnego wiatru (low-pass ~460Hz z rezonansem)
+    const filter = ctx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.setValueAtTime(460, now);
+    filter.Q.setValueAtTime(1.8, now);
+
+    // LFO symulujące naturalne porywy wiatru co 8-12 sekund
+    const lfo = ctx.createOscillator();
+    lfo.frequency.setValueAtTime(0.11, now);
+    lfo.connect(filter.frequency);
+    lfo.start(now);
+
+    const windGain = ctx.createGain();
+    windGain.gain.setValueAtTime(0.85, now);
+    _cenForestAudioState.windGain = windGain;
+
+    noiseSrc.connect(filter);
+    filter.connect(windGain);
+    windGain.connect(master);
+    noiseSrc.start(now);
+
+    // 2. TREL LEŚNYCH PTAKÓW (Subtelne ćwierkanie co losowe kilka sekund)
+    function zaplanujTrelPtaka(){
+      if(!_cenForestAudioState.active) return;
+      const delay = 4500 + Math.random() * 8500;
+      _cenForestAudioState.birdTimer = setTimeout(()=>{
+        if(!_cenForestAudioState.active) return;
+        _centrZagrajTrelPtaka(ctx, master);
+        zaplanujTrelPtaka();
+      }, delay);
+    }
+    zaplanujTrelPtaka();
+    _centrZaktualizujPrzyciskAudioSciezki(true);
+  } catch(e){
+    console.warn("Błąd uruchamiania dźwięków lasu:", e);
+  }
+}
+
+function _centrZagrajTrelPtaka(ctx, dest){
+  try {
+    if(!ctx || ctx.state === "closed" || !dest) return;
+    const now = ctx.currentTime;
+    const nuty = [
+      { f1: 3100 + Math.random() * 400, f2: 3600 + Math.random() * 500, dur: 0.08, delay: 0 },
+      { f1: 3500 + Math.random() * 300, f2: 2900 + Math.random() * 300, dur: 0.10, delay: 0.13 },
+      { f1: 3800 + Math.random() * 400, f2: 3300 + Math.random() * 300, dur: 0.11, delay: 0.28 }
+    ];
+
+    nuty.forEach(n => {
+      const tStart = now + n.delay;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(n.f1, tStart);
+      osc.frequency.exponentialRampToValueAtTime(n.f2, tStart + n.dur);
+
+      gain.gain.setValueAtTime(0.0001, tStart);
+      gain.gain.exponentialRampToValueAtTime(0.065, tStart + n.dur * 0.25);
+      gain.gain.exponentialRampToValueAtTime(0.0001, tStart + n.dur);
+
+      osc.connect(gain);
+      gain.connect(dest);
+      osc.start(tStart);
+      osc.stop(tStart + n.dur + 0.02);
+    });
+  } catch(_){}
+}
+
+function _centrPrzelaczDzwiekSciezki(){
+  if(_cenForestAudioState.active){
+    lsSet(KP + "CentrumSciezkaAudio", "0");
+    _centrZatrzymajDzwiekSciezki(false);
+    toast("Wyciszono dźwięki lasu 🔈");
+  } else {
+    lsSet(KP + "CentrumSciezkaAudio", "1");
+    _centrUruchomDzwiekSciezki();
+    toast("Włączono kojące dźwięki lasu (wiatr i ptaki) 🌲 🔊", "ok");
+  }
+}
+
+function _centrZaktualizujPrzyciskAudioSciezki(gra){
+  const btn = document.getElementById("cenSciezkaAudioBtn");
+  if(!btn) return;
+  if(gra){
+    btn.classList.add("is-playing");
+    btn.innerHTML = '🌲 <span id="cenSciezkaAudioIcon">🔊</span> <span class="cenSciezkaAudioTxt">Dźwięki lasu (wł.)</span>';
+  } else {
+    btn.classList.remove("is-playing");
+    btn.innerHTML = '🌲 <span id="cenSciezkaAudioIcon">🔈</span> <span class="cenSciezkaAudioTxt">Dźwięki lasu</span>';
+  }
+}
+
+if(typeof document !== "undefined"){
+  document.addEventListener("visibilitychange", () => {
+    if(document.hidden){
+      if(typeof _centrZatrzymajDzwiekSciezki === "function" && _cenForestAudioState.active){
+        _cenForestAudioState.wasActiveBeforeHidden = true;
+        _centrZatrzymajDzwiekSciezki(true);
+      }
+    } else {
+      if(_cenForestAudioState.wasActiveBeforeHidden && document.body.classList.contains("centrum-open")){
+        _cenForestAudioState.wasActiveBeforeHidden = false;
+        if(typeof _centrUruchomDzwiekSciezki === "function") _centrUruchomDzwiekSciezki();
+      }
+    }
+  });
+}
+
+/* Obliczanie dni bez czytania dla Wariantu A (przygasanie lamp) */
+function _centrObliczDniBezCzytania(planId){
+  try {
+    const plan = (typeof _centrPobierzPlanData === "function") ? _centrPobierzPlanData(planId || _centrAktywnyPlanId || "chrono") : null;
+    if(!plan) return 0;
+    const doneSet = (typeof _centrPobierzUkonczoneDni === "function") ? _centrPobierzUkonczoneDni(plan.id) : new Set();
+    const startDate = (typeof _centrPobierzPlanStartDate === "function") ? _centrPobierzPlanStartDate(plan.id) : new Date();
+    const now = new Date();
+    now.setHours(0,0,0,0);
+    const diffDays = Math.round((now.getTime() - startDate.getTime()) / 86400000);
+    const todayDay = Math.max(1, Math.min(plan.days || 365, diffDays + 1));
+
+    const dzisISO = (typeof _centrFormatujDateISO === "function") ? _centrFormatujDateISO(now) : now.toISOString().slice(0,10);
+    const dzisOznaczono = (lsGet(JW_PLAN_DZIS_UKONCZONO, "") === dzisISO);
+    if(doneSet.has(todayDay) || dzisOznaczono) return 0;
+
+    let daysMissed = 0;
+    for(let d = todayDay; d >= 1; d--){
+      if(doneSet.has(d)) break;
+      daysMissed++;
+    }
+    return daysMissed;
+  } catch(e){
+    return 0;
+  }
+}
+window._centrObliczDniBezCzytania = _centrObliczDniBezCzytania;
+
 function _centrWyzwalaczZaplonuLatarni(id){
   _cenSciezkaIgnitionStates[id] = performance.now();
 }
+
+function _centrWyzwalaczZaplonuWszystkichLatarni(){
+  const now = performance.now();
+  _CENTR_SCIEZKA_LANTERNS.forEach(l => {
+    _cenSciezkaIgnitionStates[l.id] = now + (l.id * 70);
+  });
+}
+window._centrWyzwalaczZaplonuWszystkichLatarni = _centrWyzwalaczZaplonuWszystkichLatarni;
 
 function _centrZatrzymajAnimacjeSciezki(){
   if(_cenSciezkaAnimId){
     cancelAnimationFrame(_cenSciezkaAnimId);
     _cenSciezkaAnimId = null;
+  }
+  if(typeof _centrZatrzymajDzwiekSciezki === "function"){
+    _centrZatrzymajDzwiekSciezki(false);
   }
 }
 
@@ -58182,30 +58476,36 @@ function _centrInicjalizujAnimacjeSciezki(){
   if(!ctx) return;
   if(!_cenSciezkaStartTime) _cenSciezkaStartTime = performance.now();
 
-  // WYDAJNOŚĆ (v611): Odczytujemy dane planu i liczbę aktywnych latarni RAZ poza pętlą 60 FPS,
-  // zamiast synchronicznie odpytywać localStorage i parsować JSON w każdej klatce.
+  // WYDAJNOŚĆ (v611): Odczytujemy dane planu i liczbę aktywnych latarni RAZ poza pętlą 60 FPS
   const planInfo = (typeof _centrPobierzPlanData === "function") ? _centrPobierzPlanData(_centrAktywnyPlanId) : null;
   const dniDone = (typeof _centrPobierzUkonczoneDni === "function") ? _centrPobierzUkonczoneDni(_centrAktywnyPlanId) : new Set();
   const etap = _centrObliczEtapSciezkiSwiatla(planInfo, dniDone.size);
   const activeCount = etap ? etap.litCount : 1;
+  const dimFactor = (etap && typeof etap.dimFactor === "number") ? etap.dimFactor : 1.0;
+
+  // Auto-odtwarzanie dźwięków lasu, jeśli użytkownik je wcześniej włączył
+  if(typeof _centrCzyDzwiekSciezkiWlaczony === "function" && _centrCzyDzwiekSciezkiWlaczony()){
+    setTimeout(()=>{
+      if(document.body.classList.contains("centrum-open") && !_cenForestAudioState.active){
+        _centrUruchomDzwiekSciezki();
+      }
+    }, 250);
+  }
 
   let lastFrameTime = 0;
 
   function loop(now){
     const canvasEl = document.getElementById("cenSciezkaLightCanvas");
-    // Natychmiast zatrzymaj pętlę, gdy Centrum zostało zamknięte lub element jest niewidoczny
     if(!canvasEl || !document.body.classList.contains("centrum-open") || canvasEl.offsetParent === null){
       _cenSciezkaAnimId = null;
       return;
     }
 
-    // Oszczędzanie baterii: wstrzymaj rysowanie, gdy karta przeglądarki jest w tle
     if(document.hidden){
       _cenSciezkaAnimId = requestAnimationFrame(loop);
       return;
     }
 
-    // Płynne 60 FPS (min 16ms odstępu między klatkami)
     if(now - lastFrameTime < 16){
       _cenSciezkaAnimId = requestAnimationFrame(loop);
       return;
@@ -58238,15 +58538,20 @@ function _centrInicjalizujAnimacjeSciezki(){
       const posY = l.y + driftY;
       const flameFlicker = 1.0 + mainWave + microFlicker;
 
-      const rCore = (l.rCore || 15) * flameFlicker * (1.0 + igniteBoost * 0.5);
-      const rAura = (l.rAura || 60) * (1.0 + mainWave * 0.6) * (1.0 + igniteBoost * 0.85);
+      // Zastosowanie Wariantu A: płomień i aura przygasają proporcjonalnie do dni zaległości
+      const effectiveCoreDim = dimFactor;
+      const effectiveAuraDim = (0.30 + 0.70 * dimFactor);
+
+      const rCore = (l.rCore || 15) * flameFlicker * (1.0 + igniteBoost * 0.5) * effectiveCoreDim;
+      const rAura = (l.rAura || 60) * (1.0 + mainWave * 0.6) * (1.0 + igniteBoost * 0.85) * effectiveAuraDim;
 
       // Światło na ziemi pod latarnią
       const groundGlowY = l.y + (l.groundY || 20);
       const groundGrad = ctx.createRadialGradient(posX, groundGlowY, 0, posX, groundGlowY, rAura * 0.9);
-      groundGrad.addColorStop(0, 'rgba(251, 191, 36, ' + ((0.50 + igniteBoost * 0.40) * flameFlicker).toFixed(3) + ')');
-      groundGrad.addColorStop(0.4, 'rgba(245, 158, 11, ' + (0.24 + igniteBoost * 0.22).toFixed(3) + ')');
-      groundGrad.addColorStop(0.75, 'rgba(217, 119, 6, ' + (0.08 + igniteBoost * 0.10).toFixed(3) + ')');
+      const groundAlpha = (0.50 + igniteBoost * 0.40) * flameFlicker * effectiveAuraDim;
+      groundGrad.addColorStop(0, 'rgba(251, 191, 36, ' + groundAlpha.toFixed(3) + ')');
+      groundGrad.addColorStop(0.4, 'rgba(245, 158, 11, ' + ((0.24 + igniteBoost * 0.22) * effectiveAuraDim).toFixed(3) + ')');
+      groundGrad.addColorStop(0.75, 'rgba(217, 119, 6, ' + ((0.08 + igniteBoost * 0.10) * effectiveAuraDim).toFixed(3) + ')');
       groundGrad.addColorStop(1, 'rgba(180, 83, 9, 0)');
       ctx.fillStyle = groundGrad;
       ctx.beginPath();
@@ -58255,9 +58560,10 @@ function _centrInicjalizujAnimacjeSciezki(){
 
       // Szeroka poświata wokół klosza
       const auraGrad = ctx.createRadialGradient(posX, posY, 0, posX, posY, rAura);
-      auraGrad.addColorStop(0, 'rgba(251, 191, 36, ' + ((0.42 + igniteBoost * 0.35) * flameFlicker).toFixed(3) + ')');
-      auraGrad.addColorStop(0.35, 'rgba(245, 158, 11, ' + (0.20 + igniteBoost * 0.20).toFixed(3) + ')');
-      auraGrad.addColorStop(0.70, 'rgba(217, 119, 6, ' + (0.07 + igniteBoost * 0.08).toFixed(3) + ')');
+      const auraAlpha = (0.42 + igniteBoost * 0.35) * flameFlicker * effectiveAuraDim;
+      auraGrad.addColorStop(0, 'rgba(251, 191, 36, ' + auraAlpha.toFixed(3) + ')');
+      auraGrad.addColorStop(0.35, 'rgba(245, 158, 11, ' + ((0.20 + igniteBoost * 0.20) * effectiveAuraDim).toFixed(3) + ')');
+      auraGrad.addColorStop(0.70, 'rgba(217, 119, 6, ' + ((0.07 + igniteBoost * 0.08) * effectiveAuraDim).toFixed(3) + ')');
       auraGrad.addColorStop(1, 'rgba(180, 83, 9, 0)');
       ctx.fillStyle = auraGrad;
       ctx.beginPath();
@@ -58266,11 +58572,19 @@ function _centrInicjalizujAnimacjeSciezki(){
 
       // Wnętrze klosza - żywy, rozżarzony rdzeń płomienia świecy (smukły kształt)
       const coreGrad = ctx.createRadialGradient(posX, posY - 2, 0, posX, posY - 2, rCore);
-      coreGrad.addColorStop(0, 'rgba(255, 255, 255, ' + (0.98 + igniteBoost * 0.02).toFixed(3) + ')');
-      coreGrad.addColorStop(0.25, 'rgba(254, 240, 138, ' + ((0.88 + igniteBoost * 0.10) * flameFlicker).toFixed(3) + ')');
-      coreGrad.addColorStop(0.55, 'rgba(251, 191, 36, ' + ((0.65 + igniteBoost * 0.25) * flameFlicker).toFixed(3) + ')');
-      coreGrad.addColorStop(0.85, 'rgba(234, 88, 12, ' + (0.22 + igniteBoost * 0.15).toFixed(3) + ')');
-      coreGrad.addColorStop(1, 'rgba(234, 88, 12, 0)');
+      if(dimFactor < 0.7){
+        // Gdy przygasa, rdzeń staje się bursztynowo-czerwonawy jak dogasający płomyk
+        coreGrad.addColorStop(0, 'rgba(254, 240, 138, ' + (0.92 * effectiveCoreDim).toFixed(3) + ')');
+        coreGrad.addColorStop(0.35, 'rgba(245, 158, 11, ' + (0.78 * effectiveCoreDim).toFixed(3) + ')');
+        coreGrad.addColorStop(0.75, 'rgba(220, 38, 38, ' + (0.45 * effectiveCoreDim).toFixed(3) + ')');
+        coreGrad.addColorStop(1, 'rgba(185, 28, 28, 0)');
+      } else {
+        coreGrad.addColorStop(0, 'rgba(255, 255, 255, ' + (0.98 + igniteBoost * 0.02).toFixed(3) + ')');
+        coreGrad.addColorStop(0.25, 'rgba(254, 240, 138, ' + ((0.88 + igniteBoost * 0.10) * flameFlicker).toFixed(3) + ')');
+        coreGrad.addColorStop(0.55, 'rgba(251, 191, 36, ' + ((0.65 + igniteBoost * 0.25) * flameFlicker).toFixed(3) + ')');
+        coreGrad.addColorStop(0.85, 'rgba(234, 88, 12, ' + (0.22 + igniteBoost * 0.15).toFixed(3) + ')');
+        coreGrad.addColorStop(1, 'rgba(234, 88, 12, 0)');
+      }
       ctx.fillStyle = coreGrad;
       ctx.beginPath();
       ctx.ellipse(posX, posY - 2, rCore * 0.75, rCore * 1.15, 0, 0, Math.PI * 2);
@@ -58294,7 +58608,7 @@ function _centrInicjalizujAnimacjeSciezki(){
         const moteSeed = l.id * 7 + m;
         const mx = l.x + Math.sin(t * 1.5 + moteSeed) * (l.rAura * 0.55);
         const my = l.y - ((t * 22 + moteSeed * 35) % (l.rAura * 0.95));
-        const alpha = Math.sin(((t * 22 + moteSeed * 35) % (l.rAura * 0.95)) / (l.rAura * 0.95) * Math.PI) * 0.65;
+        const alpha = Math.sin(((t * 22 + moteSeed * 35) % (l.rAura * 0.95)) / (l.rAura * 0.95) * Math.PI) * 0.65 * (0.4 + 0.6 * dimFactor);
         ctx.fillStyle = 'rgba(254, 240, 138, ' + Math.max(0, alpha).toFixed(3) + ')';
         ctx.beginPath();
         ctx.arc(mx, my, 1.1, 0, Math.PI * 2);
@@ -58330,6 +58644,19 @@ function _centrObliczEtapSciezkiSwiatla(planInfo, doneCount){
   });
   const lightVal = Math.round(8 + (progressPct / 100) * 92);
 
+  // WARIANT A: Płomień przygasa przy zaniedbaniu czytania (subtelne tlenie się)
+  const daysMissed = (planInfo && planInfo.id) ? _centrObliczDniBezCzytania(planInfo.id) : 0;
+  let dimFactor = 1.0;
+  if(daysMissed >= 4){
+    dimFactor = 0.38; // 4+ dni: płomień cicho się tli
+  } else if(daysMissed === 3){
+    dimFactor = 0.55; // 3 dni: wyraźne przygaśnięcie
+  } else if(daysMissed === 2){
+    dimFactor = 0.75; // 2 dni: lekkie przygaśnięcie
+  } else {
+    dimFactor = 1.0;  // 0-1 dzień: pełny, ciepły blask
+  }
+
   let badge = "Tydzień " + currentWeek + " z " + maxWeeks + " • " + progressPct + "% Planu";
   let title = "Pierwszy lampion w mroku nocy";
   let desc = "Gęsty leśny mrok. Pierwsza drewniano-metalowa latarnia tli się ciepłym światłem, rozjaśniając drogę pod stopami.";
@@ -58363,6 +58690,7 @@ function _centrObliczEtapSciezkiSwiatla(planInfo, doneCount){
 
   return {
     totalDays, is90Days, maxWeeks, currentWeek, progressPct, litCount, lightVal, badge, title, desc,
+    daysMissed, dimFactor,
     isCompleted: progressPct >= 100
   };
 }
@@ -58424,15 +58752,31 @@ function _centrGenerujSciezkaSwiatlaHero(planInfo, dniDone, curDzien){
       + '</div>';
   });
 
+  const dimBannerHtml = (etap.dimFactor < 1.0)
+    ? ('<div class="cenSciezkaDimBanner">'
+       + '<span style="font-size:18px;">🕯️</span>'
+       + '<span>Płomień latarni przygasa z powodu <b>' + etap.daysMissed + ' ' + (etap.daysMissed === 1 ? 'dnia' : (etap.daysMissed < 5 ? 'dni' : 'dni')) + ' bez czytania</b>. Przeczytaj dzisiejszy fragment, aby ścieżka rozbłysła na nowo pełnym ciepłym światłem!</span>'
+       + '</div>')
+    : '';
+
+  const jasnoscWartosc = Math.round(etap.lightVal * (0.35 + 0.65 * etap.dimFactor));
+  const flameStatusIco = (etap.dimFactor < 0.5 ? ' 🕯️ (Tli się)' : (etap.dimFactor < 0.9 ? ' 🕯️ (Przygasa)' : ' ☀️'));
+  const flameStatusCol = (etap.dimFactor < 0.7 ? '#f59e0b' : '#d97706');
+
   return '<div class="cenSciezkaHeroContainer" style="margin-bottom:20px;">'
     + '<div class="cenSciezkaHeaderRow">'
     + '<div class="cenSciezkaHeaderTag">'
     + '<span class="cenSciezkaPillTag">🏮 Światło na ścieżce</span>'
     + '<span class="cenSciezkaPlanName">' + esc(planInfo.name) + ' • ' + esc(planInfo.duration || (totalDni + ' dni')) + '</span>'
     + '</div>'
+    + '<div class="cenSciezkaActions">'
+    + '<button type="button" class="cenSciezkaAudioBtn' + (_cenForestAudioState.active ? ' is-playing' : '') + '" id="cenSciezkaAudioBtn" onclick="_centrPrzelaczDzwiekSciezki()" title="Włącz lub wycisz kojący ambient leśny (wiatr w koronach drzew, ptaki)">'
+    + '🌲 <span id="cenSciezkaAudioIcon">' + (_cenForestAudioState.active ? '🔊' : '🔈') + '</span> <span class="cenSciezkaAudioTxt">' + (_cenForestAudioState.active ? 'Dźwięki lasu (wł.)' : 'Dźwięki lasu') + '</span>'
+    + '</button>'
     + '<button type="button" class="cenSciezkaSiatkaBtn" data-cwidok="statystyki" data-cstat-tab="sciezka" title="Zobacz pełną siatkę ' + etap.maxWeeks + ' tygodni czytania">'
     + '🗺️ Siatka ' + etap.maxWeeks + ' tygodni ›'
     + '</button>'
+    + '</div>'
     + '</div>'
 
     // 16:9 Scena leśna — CZYSTA OD JAKICHKOLWIEK NAPISÓW CZY ZACIEMNIEŃ
@@ -58444,6 +58788,8 @@ function _centrGenerujSciezkaSwiatlaHero(planInfo, dniDone, curDzien){
     + bibleSvg
     + '</svg>'
     + '</div>'
+
+    + dimBannerHtml
 
     // Karta Postępów i Motywacji POD grafiką (w 100% czytelna na telefonie i komputerze)
     + '<div class="cenSciezkaProgressCard">'
@@ -58462,7 +58808,7 @@ function _centrGenerujSciezkaSwiatlaHero(planInfo, dniDone, curDzien){
     + '<div class="cenSciezkaProgressRow">'
     + '<div class="cenSciezkaProgressLabels">'
     + '<span class="cenSciezkaProgressLbl">Postęp czytania: <b>' + doneCount + ' z ' + totalDni + ' dni</b> (' + etap.progressPct + '%)</span>'
-    + '<span class="cenSciezkaProgressVal" style="color:#d97706;font-weight:700;">Jasność ścieżki: ' + etap.lightVal + '% ☀️</span>'
+    + '<span class="cenSciezkaProgressVal" style="color:' + flameStatusCol + ';font-weight:700;">Jasność ścieżki: ' + jasnoscWartosc + '%' + flameStatusIco + '</span>'
     + '</div>'
     + '<div class="cenProgressBar" style="height:10px;border-radius:6px;background:rgba(0,0,0,0.08);">'
     + '<div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?2:0, etap.progressPct)) + '%;background:linear-gradient(90deg, #d97706, #fbbf24, #fef08a);box-shadow:0 0 10px rgba(251,191,36,0.45);"></div>'
@@ -58699,8 +59045,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v626</span>
+          <span class="cl-ver-num">v627</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">16 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Kojące dźwięki lasu i motywujące przygasanie latarni przy zaniedbaniu czytania (Światło na ścieżce)</div>
+        <ul class="cl-ver-list">
+          <li><b>Kojące dźwięki lasu (Ambient Web Audio):</b> Do sceny leśnej dodano nastrojowy, syntetyczny ambient wiatru w koronach sosen i subtelnego śpiewu leśnych ptaków. Moduł działa w 100% offline (0 KB pobierania), posiada dyskretny przycisk włączania/wyciszania (🌲 🔈/🔊) i wycisza się automatycznie po wyjściu z aplikacji lub zablokowaniu ekranu.</li>
+          <li><b>Motywujące przygasanie latarni (Wariant A):</b> Gdy nie czytasz Biblii przez 2 lub więcej dni, płomienie latarni na ścieżce subtelnie przygasają do małego, bursztynowo-czerwonego płomyka (tlenie się). Przeczytanie dzisiejszego fragmentu natychmiast rozświetla latarnie pełnym, ciepłym blaskiem.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v626</span>
           <span class="cl-ver-date">16 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Przywrócenie klasycznego czytnika i edytora pełnoekranowego</div>
@@ -62403,6 +62761,14 @@ if($("centrum")){
       return;
     }
 
+    // 2b. Przełączenie kojących dźwięków lasu
+    const audioBtn = ev.target.closest("#cenSciezkaAudioBtn");
+    if(audioBtn){
+      ev.preventDefault();
+      if(typeof _centrPrzelaczDzwiekSciezki === "function") _centrPrzelaczDzwiekSciezki();
+      return;
+    }
+
     // 3. Ukończenie / odznaczenie dnia
     const dzienUkonczBtn = ev.target.closest("[data-cdzien-ukoncz]");
     if(dzienUkonczBtn){
@@ -62432,13 +62798,14 @@ if($("centrum")){
           _centrZapiszUkonczoneFragi(fragi);
         }
         const _etapPo = (typeof _centrObliczEtapSciezkiSwiatla === "function") ? _centrObliczEtapSciezkiSwiatla(_planUk, dni.size) : null;
-        if(_etapPrzed && _etapPo && _etapPo.litCount > _etapPrzed.litCount){
+        if(_etapPrzed && _etapPo && _etapPrzed.dimFactor < 1.0 && _etapPo.dimFactor >= 1.0){
+          if(typeof _centrWyzwalaczZaplonuWszystkichLatarni === "function") _centrWyzwalaczZaplonuWszystkichLatarni();
+          toast("🏮✨ Płomień na ścieżce rozbłysł na nowo pełnym światłem! Wspaniale, że wracasz do regularnego czytania!", "ok", 6000);
+        } else if(_etapPrzed && _etapPo && _etapPo.litCount > _etapPrzed.litCount){
           if(typeof _centrWyzwalaczZaplonuLatarni === "function") _centrWyzwalaczZaplonuLatarni(_etapPo.litCount);
-        }
-        const _uIm = (typeof userImie === "function") ? userImie() : "";
-        if(_etapPrzed && _etapPo && _etapPo.litCount > _etapPrzed.litCount){
           toast("🏮✨ Twoje postępy rozjaśniają drogę! Rozbłysła kolejna latarnia na ścieżce (" + _etapPo.litCount + " z 7)!", "ok", 6000);
         } else {
+          const _uIm = (typeof userImie === "function") ? userImie() : "";
           toast("🎉 " + (_uIm ? ("Świetnie, " + _uIm + "! ") : "Wspaniale! ") + "Ukończono czytanie na Dzień " + d + "!", "ok");
         }
         if(d < _planUk.days){
