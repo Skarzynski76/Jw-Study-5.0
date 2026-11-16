@@ -19585,6 +19585,8 @@ html[data-theme="oled"] .sidebar-seg-ctrl .seg-btn.on {
   min-height: 0 !important;
   position: relative !important;
   overflow: hidden !important;
+  height: 100% !important;
+  width: 100% !important;
 }
 
 .sidebar-navi-content .col {
@@ -19597,15 +19599,45 @@ html[data-theme="oled"] .sidebar-seg-ctrl .seg-btn.on {
   height: 100% !important;
 }
 
-@media (max-width: 768px) {
+.sidebar-navi-content .col.mshow,
+.sidebar-navi-content .col:not([style*="display: none"]):not([style*="display:none"]) {
+  display: flex !important;
+  flex: 1 1 100% !important;
+  height: 100% !important;
+  width: 100% !important;
+  min-height: 0 !important;
+}
+
+@media (max-width: 900px) {
+  /* Na telefonie przełącznik wewnątrz paska jest ukryty, bo u góry jest już pasek mobileTabs */
+  #sidebarSegmentedBar {
+    display: none !important;
+  }
   .sidebar-navi {
     width: 100% !important;
     max-width: 100% !important;
+    flex: 1 1 100% !important;
+    height: 100% !important;
     border-right: none !important;
     display: none !important;
   }
   .sidebar-navi.mshow {
     display: flex !important;
+    flex: 1 1 100% !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+  .sidebar-navi-content {
+    flex: 1 1 100% !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+  .sidebar-navi-content .col.mshow {
+    display: flex !important;
+    flex: 1 1 100% !important;
+    height: 100% !important;
+    width: 100% !important;
+    min-height: 0 !important;
   }
   #resizerSidebarNavi {
     display: none !important;
@@ -26720,9 +26752,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v629";
+const APP_BUILD = "v630";
 const APP_BUILD_DATE = "2026-11-16";
-const APP_FULL_VERSION = "5.0 (v629)";
+const APP_FULL_VERSION = "5.0 (v630)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -46174,15 +46206,20 @@ function mobileShow(id){
   }
 
   const sb = $("sidebarNavi");
+  const cn = $("colNotes");
+
   if(id === "colNotes"){
     if(sb) sb.classList.remove("mshow");
-    const cn = $("colNotes"); if(cn) cn.classList.add("mshow");
+    if(cn) cn.classList.add("mshow");
+    ["colBooks", "colTags", "colPubs"].forEach(c => {
+      const el = $(c); if(el) el.classList.remove("mshow");
+    });
   } else if(id === "colBooks" || id === "colTags" || id === "colPubs"){
     if(sb) {
       sb.classList.add("mshow");
       sb.classList.remove("collapsed");
     }
-    const cn = $("colNotes"); if(cn) cn.classList.remove("mshow");
+    if(cn) cn.classList.remove("mshow");
     if(typeof aktywujSegmentSidebar === "function") aktywujSegmentSidebar(id);
   } else {
     const cols = ["colBooks", "colTags", "colPubs", "colNotes"];
@@ -46265,6 +46302,10 @@ function aktywujSegmentSidebar(targetId){
     b.setAttribute("aria-selected", isTarget ? "true" : "false");
   });
 
+  const isMobile = window.innerWidth <= 900;
+  const sb = $("sidebarNavi");
+  const sbIsMshow = sb && sb.classList.contains("mshow");
+
   const cols = ["colTags", "colBooks", "colPubs"];
   cols.forEach(cId => {
     const el = document.getElementById(cId);
@@ -46272,8 +46313,12 @@ function aktywujSegmentSidebar(targetId){
       if(cId === targetId){
         el.style.display = "flex";
         el.classList.remove("collapsed");
+        if(!isMobile || sbIsMshow){
+          el.classList.add("mshow");
+        }
       } else {
         el.style.display = "none";
+        el.classList.remove("mshow");
       }
     }
   });
@@ -59236,8 +59281,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v629</span>
+          <span class="cl-ver-num">v630</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">16 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Naprawa widoku etykiet, biblii i publikacji na telefonie (mobile)</div>
+        <ul class="cl-ver-list">
+          <li><b>Pełna widoczność na telefonie:</b> Naprawiono brak wyświetlania zawartości etykiet, ksiąg biblijnych i publikacji po kliknięciu w zakładki na smartfonie. Kolumny wewnątrz paska otrzymują teraz pełne style mobilne i wypełniają cały ekran.</li>
+          <li><b>Czysty interfejs na telefonie:</b> Ukryto zdublowany przełącznik segmentowy na telefonach — na smartfonach za nawigację odpowiada wyłącznie górny pasek zakładek.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v629</span>
           <span class="cl-ver-date">16 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Zintegrowany pasek boczny z przełącznikiem segmentowym (Wariant 1) oraz rozmyty pasek górny Apple frosted glass</div>

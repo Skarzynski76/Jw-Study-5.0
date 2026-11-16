@@ -1,3 +1,10 @@
+## 5.0 — 2026-11-16 (Naprawa widoku etykiet, biblii i publikacji na telefonie — v630)
+
+- **Poprawka wyświetlania na telefonie (mobile <= 900px):**
+  - Naprawiono problem pustego ekranu po kliknięciu „Etykiety”, „Biblia” lub „Publikacje” na smartfonie — kolumny wewnątrz zintegrowanego paska otrzymują teraz właściwą klasę `.mshow` i wypełniają całą dostępną przestrzeń ekranu.
+  - Ukryto zdublowany pasek przełącznika segmentowego na telefonach — na smartfonach rolę przełącznika pełni wyłącznie czytelny pasek zakładek u góry.
+- Podniesiono wersję pamięci podręcznej Service Workera do `v630`.
+
 ## 5.0 — 2026-11-16 (Zintegrowany pasek boczny z przełącznikiem segmentowym — Wariant 1 & rozmyty pasek Apple iOS — v629)
 
 - **Wariant 1: Zintegrowany pasek boczny z przełącznikiem segmentowym (Styl Apple Notes / iPadOS):**
