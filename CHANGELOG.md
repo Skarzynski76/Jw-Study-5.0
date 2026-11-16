@@ -1,3 +1,15 @@
+## 5.0 — 2026-11-16 (Nowy, szlachetny wygląd edytora i czytnika pełnoekranowego — iPadOS Studio — v625)
+
+- **Arkusik dokumentu (Paper Sheet Canvas) w widoku pełnoekranowym (`#modalFs`):**
+  - Notatka prezentuje się w formie eleganckiego, wycentrowanego arkusza (szerokość 820 px z miękkim cieniem i promieniami 20 px), wzorowanego na natywnych aplikacjach Apple Notes i Craft. Tekst nie „pływa” już w próżni na białym ekranie, a optymalna szerokość kolumny tekstu zapobiega zmęczeniu oczu.
+- **Płynnie dokowany pasek formatowania w trybie edycji:**
+  - Pasek formatowania z bogatym tekstem (`.editbar`) nie przecina już tytułu i treści notatki. Zamiast tego dokuje się jako zaokrąglona, szklana kapsułka u dołu ekranu (idealnie nad klawiaturą ekranową iPada), dając pełną przestrzeń na swobodne pisanie.
+- **Zintegrowana szklana belka i akcentowany przycisk „Gotowe / Zamknij”:**
+  - Wprowadzono górną szklaną belkę z efektem rozmycia tła oraz ujednolicony przycisk akcji zmieniający dynamicznie stan z *„Zamknij”* na *„Gotowe”* podczas edycji.
+- **Ergonomiczne ułożenie bocznego panelu narzędzi:**
+  - Pasek narzędzi z wersetami, spisem treści i historią (`.fs-inspector-rail`) przylega teraz bezpośrednio do prawej krawędzi arkusza notatki, zamiast uciekać na kraniec monitora.
+- Podniesiono wersję pamięci podręcznej Service Workera do `v625`.
+
 ## 5.0 — 2026-11-16 (Kosz bezpośrednio w bocznym menu z dynamicznym licznikiem usuniętych notatek — v624)
 
 - **Dedykowany element „Kosz” w głównym menu bocznym (`#modernSidebar`):**
