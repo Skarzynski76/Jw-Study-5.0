@@ -26467,9 +26467,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v622";
-const APP_BUILD_DATE = "2026-11-15";
-const APP_FULL_VERSION = "5.0 (v622)";
+const APP_BUILD = "v623";
+const APP_BUILD_DATE = "2026-11-16";
+const APP_FULL_VERSION = "5.0 (v623)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -53826,10 +53826,10 @@ function _centrPobierzUkonczoneDni(planId){
   return new Set();
 }
 
-function _centrZapiszUkonczoneDni(set, planId){
+function _centrZapiszUkonczoneDni(set, planId, pominDirty){
   planId = planId || _centrAktywnyPlanId || "chrono";
   lsSet(KP + "CentrumDniDone_" + planId, JSON.stringify(Array.from(set)));
-  if(typeof bumpDirty === "function") bumpDirty();
+  if(!pominDirty && typeof bumpDirty === "function") bumpDirty();
 }
 
 function _centrPobierzUkonczoneFragi(){
@@ -57309,7 +57309,7 @@ function _centrImportDanych(centrumData, tryb){
           const num = Number(d);
           if(!isNaN(num) && num > 0) curSet.add(num);
         });
-        _centrZapiszUkonczoneDni(curSet, planId);
+        _centrZapiszUkonczoneDni(curSet, planId, true);
         st.dniMerged += (curSet.size - staryRozmiar);
       }
     });
@@ -57356,7 +57356,7 @@ function _centrImportDanych(centrumData, tryb){
   // 4. Duchowe cele i nawyki
   if(Array.isArray(centrumData.cele) && centrumData.cele.length){
     if(isReplace){
-      _centrZapiszCele(centrumData.cele);
+      _centrZapiszCele(centrumData.cele, true);
       st.celeMerged = centrumData.cele.length;
     } else {
       const curCele = _centrPobierzCele();
@@ -57367,15 +57367,22 @@ function _centrImportDanych(centrumData, tryb){
         if(!istniejacy){
           curCele.push(incC);
           dodanoCele++;
-        } else if(incC.history && typeof incC.history === "object" && istniejacy.type === "habit"){
-          // Połącz historię nawyku
-          if(!istniejacy.history || typeof istniejacy.history !== "object") istniejacy.history = {};
-          Object.keys(incC.history).forEach(dataK => {
-            if(incC.history[dataK]) istniejacy.history[dataK] = true;
-          });
+        } else {
+          if(incC.history && typeof incC.history === "object" && istniejacy.type === "habit"){
+            if(!istniejacy.history || typeof istniejacy.history !== "object") istniejacy.history = {};
+            Object.keys(incC.history).forEach(dataK => {
+              if(incC.history[dataK]) istniejacy.history[dataK] = true;
+            });
+          }
+          if(typeof incC.currentValue === "number" && incC.currentValue > (istniejacy.currentValue || 0)){
+            istniejacy.currentValue = incC.currentValue;
+          }
+          if(incC.completed && !istniejacy.completed){
+            istniejacy.completed = true;
+          }
         }
       });
-      _centrZapiszCele(curCele);
+      _centrZapiszCele(curCele, true);
       st.celeMerged = dodanoCele;
     }
   }
@@ -58653,8 +58660,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v622</span>
+          <span class="cl-ver-num">v623</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">16 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Pełne scalanie celów, planów czytania i nawyków w automatycznej synchronizacji w chmurze</div>
+        <ul class="cl-ver-list">
+          <li><b>Synchronizacja celów i postępów:</b> Do automatycznej synchronizacji w tle z Dyskiem Google włączono moduł Centrum Studium — w tym duchowe cele, postęp planów czytania Biblii oraz historię nawyków.</li>
+          <li><b>Bezpieczne łączenie bez utraty danych:</b> Zaliczone dni w planach czytania oraz odhaczone nawyki łączą się jako suma (unia) z obu urządzeń. Jeśli na iPadzie zaliczysz dzień czytania, a na komputerze odhaczysz nawyk — oba urządzenia zaktualizują się o oba osiągnięcia.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v622</span>
           <span class="cl-ver-date">15 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Szybki start: 12 ostatnich notatek po kliknięciu „Notatki” z łatwym przejściem do wszystkich</div>
@@ -64000,6 +64019,7 @@ async function syncEksport(){
     urzadzenie: syncNazwaUrzadzenia(),
     kolejnosc: syncKolejnoscDoPliku(),
     historia: await syncHistoriaDoPliku(),
+    centrum: (typeof _centrEksportDanych === "function" ? _centrEksportDanych() : null),
     notes: notes.map(syncNotatkaDoPliku)
   };
   opisy.forEach(o=>{ dane[o.rodzaj] = o.lista().map(o.wyjscie); });
@@ -64688,6 +64708,12 @@ async function syncScalDane(dane, bezPytania){
   const st = await syncZastosuj(plan);
   st.pierwsze = plan.notatki.pierwsze;
   st.sporow = konflikty.length;
+
+  let stCentrum = null;
+  if(dane.centrum && typeof _centrImportDanych === "function"){
+    stCentrum = _centrImportDanych(dane.centrum, "merge");
+  }
+
   /* Czy plik trzeba przepisać. Nasza wersja obroniona w sporze też musi tam
      trafić — inaczej drugie urządzenie zapytałoby o to samo jeszcze raz. */
   st.doPliku = plan.notatki.doPliku
@@ -64697,9 +64723,10 @@ async function syncScalDane(dane, bezPytania){
   /* Cokolwiek weszło do naszych danych? Tylko wtedy warto przerysowywać ekran —
      przy ośmiu tysiącach notatek pełne przerysowanie to grubo ponad sto
      milisekund, a uzgadnianie zagląda do pliku samo, w tle. */
+  const cosCentrum = stCentrum ? (stCentrum.dniMerged + stCentrum.fragiMerged + stCentrum.tematyMerged + stCentrum.celeMerged) : 0;
   const cosWeszlo = st.notatekNowych + st.notatekZmienionych + st.drobiazgow
     + st.etykietNowych + st.etykietZmienionych + st.etykietUsunietych
-    + st.innych + st.wersji + (st.kolejnosc ? 1 : 0);
+    + st.innych + st.wersji + (st.kolejnosc ? 1 : 0) + cosCentrum;
   if(cosWeszlo){
     if(typeof sortTags === "function") sortTags();
     if(typeof renderAll === "function") renderAll();

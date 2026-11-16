@@ -1,3 +1,10 @@
+## 5.0 — 2026-11-16 (Automatyczna synchronizacja celów, planów czytania i nawyków w chmurze — v623)
+
+- **Włączenie modułu Centrum Studium do automatycznej synchronizacji Google Drive:**
+  - **Bezpieczne łączenie postępów:** Do pliku synchronizacji (`jw-study-uzgadnianie.json`) dodano sekcję `centrum`, zawierającą cele duchowe, ukończone dni planów czytania Biblii oraz historię nawyków.
+  - **Inteligentne scalanie bez nadpisywania:** Zaliczenia dni czytania Biblii oraz odznaczenia nawyków łączą się na zasadzie sumy zbiorów (unii) — jeśli na iPadzie oznaczysz przeczytany dzień, a na komputerze zrealizujesz nawyk, po zsynchronizowaniu oba urządzenia będą miały kompletny stan obu aktywności.
+- Podniesiono wersję pamięci podręcznej Service Workera do `v623`.
+
 ## 5.0 — 2026-11-15 (Tryb 12 ostatnich notatek po kliknięciu „Notatki” i szybki start — v622)
 
 - **Szybki start: 12 ostatnich notatek po przejściu do Notatek:**
