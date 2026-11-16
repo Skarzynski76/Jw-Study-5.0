@@ -6175,73 +6175,24 @@ html[data-theme="dark"] .pill.par{background:rgba(72,192,141,.12);color:var(--ac
 /* notatka na pełnym ekranie */
 #modalFs:not(.show){display:none!important}
 #modalFs{position:fixed;inset:0;z-index:10000;width:100%;max-width:100%;height:100%;height:100vh;height:var(--appWysokosc, 100%);max-height:100%;max-height:var(--appWysokosc, 100%);padding:0;margin:0;border:none;border-radius:0;box-shadow:none;background:var(--bg);isolation:isolate;overflow:hidden}
-#modalFs::before{
-  content:"";
-  position:fixed;
-  top:0;left:0;right:0;
-  height:calc(54px + env(safe-area-inset-top, 0px));
-  background:color-mix(in srgb, var(--bg) 82%, transparent);
-  -webkit-backdrop-filter:blur(20px) saturate(180%);
-  backdrop-filter:blur(20px) saturate(180%);
-  border-bottom:1px solid color-mix(in srgb, var(--border) 60%, transparent);
-  z-index:10035;
-  pointer-events:none;
-}
-#modalFs .fsmodal{
-  position:fixed;inset:0;width:100%;max-width:100%;height:100%;height:100vh;height:var(--appWysokosc, 100%);max-height:100%;max-height:var(--appWysokosc, 100%);
-  padding:calc(56px + env(safe-area-inset-top,0px)) clamp(14px, 3.5vw, 36px) calc(90px + env(safe-area-inset-bottom,0px)) clamp(14px, 3.5vw, 36px);
-  margin:0;box-sizing:border-box;border-radius:0;border:none;box-shadow:none;background:var(--bg);color:var(--text);overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;
-}
+#modalFs .fsmodal{position:fixed;inset:0;width:100%;max-width:100%;height:100%;height:100vh;height:var(--appWysokosc, 100%);max-height:100%;max-height:var(--appWysokosc, 100%);padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) calc(14px + env(safe-area-inset-bottom,0px)) env(safe-area-inset-left,0px);margin:0;box-sizing:border-box;border-radius:0;border:none;box-shadow:none;background:var(--bg);color:var(--text);overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .fsCloseInline{display:none}
 #fsWrap .drag,
 #fsWrap .wysUchwyt{display:none!important}
-#fsWrap{
-  width:100%;
-  max-width:clamp(740px, 82vw, 860px);
-  margin:0 auto;
-  min-height:0;
-  display:flex;
-  flex-direction:column;
-}
-#fsWrap .ncard{
-  margin:0 auto 32px;
-  width:100%;
-  box-sizing:border-box;
-  min-height:calc(var(--appWysokosc, 100%) - 160px);
-  overflow:visible;
-  border:1px solid color-mix(in srgb, var(--border) 75%, transparent);
-  border-radius:20px;
-  box-shadow:0 12px 36px -8px rgba(0, 0, 0, 0.07), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
-  background:var(--panel);
-  color:var(--text);
-  display:flex;
-  flex-direction:column;
-  padding:clamp(28px, 4vw, 48px) clamp(24px, 4.5vw, 56px);
-  transition:box-shadow .2s ease, border-color .2s ease;
-}
-@media (max-width:680px){
-  #modalFs .fsmodal{
-    padding:calc(52px + env(safe-area-inset-top,0px)) 10px calc(80px + env(safe-area-inset-bottom,0px)) 10px!important;
-  }
-  #fsWrap .ncard{
-    border-radius:14px!important;
-    padding:22px 16px!important;
-    margin-bottom:18px!important;
-  }
-}
-#fsWrap .nhead{position:static;padding-right:0;border-radius:0;background:transparent;border-bottom:1px solid color-mix(in srgb, var(--border) 60%, transparent);margin-bottom:22px;padding-bottom:16px;}
-#fsWrap .ncontent{font-size:var(--fsNoteFs, calc(var(--noteFs,14px) + 2.5px));line-height:1.75;flex:1 0 auto}
+#fsWrap .ncard{margin:0;min-height:calc(var(--appWysokosc, 100%) - 84px);overflow:visible;border:none;border-radius:0;box-shadow:none;background:transparent;color:var(--text);display:flex;flex-direction:column}
+#fsWrap .nhead{position:static;padding-right:clamp(4px, 2vw, 20px);border-radius:0;background:transparent;border-bottom:0}
+#fsWrap{min-height:0}
+#fsWrap .ncontent{font-size:var(--fsNoteFs, calc(var(--noteFs,14px) + 3px));line-height:1.7;flex:1 0 auto}
 #fsWrap .ntools{margin-top:auto}
-#fsWrap .ntitle{font-size:clamp(24px, 3.2vw, 32px);font-weight:850;letter-spacing:-0.025em;line-height:1.22;margin-top:4px;margin-bottom:12px;font-family:var(--readFont,inherit)}
-#fsWrap .ncontent h1{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 2.5px)) + 8px);font-weight:800;letter-spacing:-0.02em;margin:28px 0 12px;}
-#fsWrap .ncontent h2{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 2.5px)) + 5px);font-weight:750;letter-spacing:-0.015em;margin:24px 0 10px;}
-#fsWrap .ncontent h3{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 2.5px)) + 2px);font-weight:700;margin:20px 0 8px;}
-#fsWrap .ncontent h4{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 2.5px)) + 1px);font-weight:700;margin:18px 0 6px;}
-#fsWrap .ncontent h5, #fsWrap .ncontent h6{font-size:var(--fsNoteFs, calc(var(--noteFs,14px) + 2.5px))}
-/* pełny ekran: wygodna szerokość czytania */
-#fsWrap .ncontent,#fsWrap .nmeta2,#fsWrap .chips{width:100%;margin-left:0;margin-right:0}
-#fsWrap .ncontent{line-height:var(--noteLh,1.75);font-family:var(--noteFont,var(--readFont,inherit));text-align:var(--readAlign,left);hyphens:var(--readHyphens,manual);-webkit-hyphens:var(--readHyphens,manual);text-justify:inter-word}
-#fsWrap .ncontent blockquote{margin:16px 0;padding:12px 20px;border-left:3.5px solid var(--accent);background:color-mix(in srgb, var(--accent) 7%, transparent);border-radius:0 12px 12px 0;font-style:italic;}
+#fsWrap .ntitle{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 3px)) + 3px)}
+#fsWrap .ncontent h1{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 3px)) + 8px)}
+#fsWrap .ncontent h2{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 3px)) + 5px)}
+#fsWrap .ncontent h3{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 3px)) + 2px)}
+#fsWrap .ncontent h4{font-size:calc(var(--fsNoteFs, calc(var(--noteFs,14px) + 3px)) + 1px)}
+#fsWrap .ncontent h5, #fsWrap .ncontent h6{font-size:var(--fsNoteFs, calc(var(--noteFs,14px) + 3px))}
+/* pełny ekran: wygodna szerokość czytania + przyklejona belka tytułu */
+#fsWrap .ncontent,#fsWrap .nmeta2,#fsWrap .chips{max-width:var(--fsMax,760px);margin-left:auto;margin-right:auto}
+#fsWrap .ncontent{line-height:var(--noteLh,1.7);font-family:var(--noteFont,var(--readFont,inherit));text-align:var(--readAlign,left);hyphens:var(--readHyphens,manual);-webkit-hyphens:var(--readHyphens,manual);text-justify:inter-word}
 #fsWrap .ntitle{font-family:var(--readFont,inherit)}
 /* pasek postępu czytania */
 #fsProg{position:fixed;top:0;left:0;height:3px;background:var(--accent);width:100%;z-index:10040;border-radius:0 2px 2px 0;
@@ -13017,33 +12968,33 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
    dokumentu i ma się przewijać razem z treścią.
    ============================================================ */
 #fsWrap .nhead{ position:static!important; }
-/* Przycisk zamknięcia czytnika (✕ Zamknij / Gotowe) oraz pełnego ekranu — zoptymalizowane pod iPad Split View, Mac i Mobile */
+/* Przycisk zamknięcia czytnika (✕ Zamknij) oraz pełnego ekranu — zoptymalizowane pod iPad Split View, Mac i Mobile */
 #modalFs #fsClose,
 #modalFs > #fsClose,
 #modalFs .fsmodal > #fsClose{
   display:inline-flex!important; position:fixed!important;
-  top:max(9px, calc(7px + env(safe-area-inset-top, 0px)))!important;
-  right:max(16px, calc(12px + env(safe-area-inset-right, 0px)))!important;
+  top:max(14px, calc(10px + env(safe-area-inset-top, 0px)))!important;
+  right:max(14px, calc(10px + env(safe-area-inset-right, 0px)))!important;
   z-index:10045!important;
   height:36px!important;
-  padding:0 16px 0 13px!important;
-  border-radius:9999px!important;
+  padding:0 14px 0 11px!important;
+  border-radius:18px!important;
   align-items:center!important; justify-content:center!important;
   gap:6px!important;
-  border:none!important;
-  background:var(--accent)!important;
-  color:#ffffff!important;
-  font-size:13.5px!important; font-weight:650!important; line-height:1!important; cursor:pointer!important;
-  box-shadow:0 3px 12px color-mix(in srgb, var(--accent) 35%, transparent)!important;
+  border:1px solid var(--border)!important;
+  background:color-mix(in srgb, var(--panel, #ffffff) 92%, transparent)!important;
+  color:var(--text)!important;
+  font-size:13px!important; font-weight:650!important; line-height:1!important; cursor:pointer!important;
+  box-shadow:0 4px 16px rgba(0,0,0,.12), 0 1px 3px rgba(0,0,0,.05)!important;
   opacity:1!important; pointer-events:auto!important; visibility:visible!important;
   transform:none!important;
   box-sizing:border-box!important;
   -webkit-backdrop-filter:blur(16px) saturate(180%)!important;
   backdrop-filter:blur(16px) saturate(180%)!important;
-  transition:all .15s ease!important;
+  transition:background .15s ease, color .15s ease, transform .14s ease, border-color .15s ease!important;
 }
 #modalFs #fsClose .ic{
-  width:14px!important; height:14px!important; stroke-width:2.4!important; flex-shrink:0!important;
+  width:14px!important; height:14px!important; stroke-width:2.3!important; flex-shrink:0!important;
 }
 #modalFs #fsClose .fsCloseTxt{
   letter-spacing:-0.01em!important; white-space:nowrap!important;
@@ -13051,27 +13002,27 @@ html[data-theme="dark"] .ncard.wlasneTlo .ntools{ background:rgba(0,0,0,.18); }
 #modalFs #fsClose:hover,
 #modalFs > #fsClose:hover,
 #modalFs .fsmodal > #fsClose:hover{
-  opacity:0.92!important;
-  transform:scale(1.02)!important;
+  background:var(--sel)!important; color:var(--accent)!important;
+  border-color:color-mix(in srgb, var(--accent) 30%, var(--border))!important;
 }
 #modalFs #fsClose:active,
 #modalFs > #fsClose:active,
-#modalFs .fsmodal > #fsClose:active{ transform:scale(.95)!important; }
+#modalFs .fsmodal > #fsClose:active{ transform:scale(.94)!important; }
 
 #modalFs #fsFull,
 #modalFs > #fsFull,
 #modalFs .fsmodal > #fsFull{
   display:inline-flex!important; position:fixed!important;
-  top:max(9px, calc(7px + env(safe-area-inset-top, 0px)))!important;
-  right:max(122px, calc(116px + env(safe-area-inset-right, 0px)))!important;
+  top:max(14px, calc(10px + env(safe-area-inset-top, 0px)))!important;
+  right:max(122px, calc(118px + env(safe-area-inset-right, 0px)))!important;
   z-index:10045!important;
   width:36px!important; height:36px!important; border-radius:50%!important;
   align-items:center!important; justify-content:center!important;
-  border:1px solid color-mix(in srgb, var(--border) 70%, transparent)!important;
+  border:1px solid var(--border)!important;
   background:color-mix(in srgb, var(--panel, #ffffff) 92%, transparent)!important;
   color:var(--text)!important;
   font-size:15px!important; line-height:1!important; cursor:pointer!important;
-  box-shadow:0 2px 8px rgba(0,0,0,.06)!important;
+  box-shadow:0 4px 16px rgba(0,0,0,.12), 0 1px 3px rgba(0,0,0,.05)!important;
   box-sizing:border-box!important;
   opacity:1!important; pointer-events:auto!important; visibility:visible!important;
   transform:none!important;
@@ -16995,54 +16946,32 @@ body.fs-open #colorMenu{
   transition:opacity .22s cubic-bezier(.2,0,0,1), transform .24s cubic-bezier(.2,0,0,1), background .15s ease!important;
 }
 
-/* W EDYCJI pasek formatowania staje się dokowanym panelem u dołu ekranu (iPadOS keyboard accessory),
-   natomiast narzędzia karty (stan zapisu, etykiety, usuń) znajdują się naturalnie na dole arkusza notatki. */
-#fsWrap .ncard.editing .editbar{
-  position:fixed!important;
-  bottom:max(16px, calc(10px + env(safe-area-inset-bottom, 0px)))!important;
-  left:50%!important;
-  transform:translateX(-50%)!important;
-  z-index:10050!important;
-  width:auto!important;
-  max-width:min(94vw, 780px)!important;
-  background:color-mix(in srgb, var(--panel, #ffffff) 94%, transparent)!important;
-  -webkit-backdrop-filter:blur(24px) saturate(190%)!important;
-  backdrop-filter:blur(24px) saturate(190%)!important;
-  border:1px solid color-mix(in srgb, var(--border) 80%, transparent)!important;
-  border-radius:9999px!important;
-  box-shadow:0 16px 45px -8px rgba(0, 0, 0, 0.22), 0 4px 14px -2px rgba(0, 0, 0, 0.08)!important;
-  padding:5px 12px!important;
-  gap:5px!important;
-  margin:0!important;
-  overflow-x:auto!important;
-  scrollbar-width:none!important;
-}
-#fsWrap .ncard.editing .editbar::-webkit-scrollbar{ display:none!important; }
-#fsWrap .ncard.editing .ncontent{ padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))!important; }
-
+/* W EDYCJI ten sam dok zostaje przypisany do dolnej krawędzi okna. Nie pływa
+   już w połowie tekstu po zmianie wysokości visualViewport. Gdy klawiatura jest
+   widoczna, znika całkowicie; po jej schowaniu wraca razem z „Zapisz”. */
 #fsWrap .ncard.editing .ntools,
 #modalFs #fsWrap .ncard.editing .ntools{
-  position:static!important;
-  left:auto!important;
+  position:fixed!important;
+  left:50%!important;
   right:auto!important;
-  bottom:auto!important;
+  bottom:calc(14px + env(safe-area-inset-bottom,0px))!important;
   top:auto!important;
-  transform:none!important;
-  z-index:auto!important;
-  width:100%!important;
-  max-width:100%!important;
+  transform:translateX(-50%)!important;
+  z-index:10020!important;
+  width:max-content!important;
+  max-width:calc(100% - 24px)!important;
+  max-width:min(calc(100% - 24px), calc(100vw - 24px))!important;
   overflow-x:auto!important;
   -webkit-overflow-scrolling:touch!important;
   scrollbar-width:none!important;
-  margin:32px 0 0 0!important;
-  padding:14px 0 0 0!important;
-  border:none!important;
-  border-top:1px solid color-mix(in srgb, var(--border) 60%, transparent)!important;
-  border-radius:0!important;
-  background:transparent!important;
-  -webkit-backdrop-filter:none!important;
-  backdrop-filter:none!important;
-  box-shadow:none!important;
+  margin:0!important;
+  padding:6px 14px!important;
+  border:1px solid var(--border)!important;
+  border-radius:18px!important;
+  background:color-mix(in srgb,var(--panel) 98%,transparent)!important;
+  -webkit-backdrop-filter:blur(10px) saturate(1.05)!important;
+  backdrop-filter:blur(10px) saturate(1.05)!important;
+  box-shadow:0 7px 22px rgba(18,30,24,.16),0 1px 0 rgba(255,255,255,.45) inset!important;
   display:flex!important;
   align-items:center!important;
   opacity:1!important;
@@ -18996,7 +18925,7 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
 /* Boczny panel narzędzi w stylu macOS / iPadOS dla #modalFs */
 .fs-inspector-rail {
   position: fixed;
-  right: max(16px, calc(50vw - 440px - 58px));
+  right: max(18px, calc(env(safe-area-inset-right, 0px) + 16px));
   top: 50%;
   transform: translateY(-50%);
   z-index: 10040;
@@ -19005,17 +18934,12 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   gap: 8px;
   padding: 8px 6px;
   border-radius: 18px;
-  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  background: color-mix(in srgb, var(--panel) 82%, transparent);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid color-mix(in srgb, var(--border) 60%, rgba(255, 255, 255, 0.3));
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
   transition: opacity 0.25s ease, transform 0.25s ease;
-}
-@media (max-width: 980px) {
-  .fs-inspector-rail {
-    right: max(10px, env(safe-area-inset-right, 10px));
-  }
 }
 @media (max-width: 768px) {
   .fs-inspector-rail {
@@ -26566,9 +26490,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v625";
+const APP_BUILD = "v626";
 const APP_BUILD_DATE = "2026-11-16";
-const APP_FULL_VERSION = "5.0 (v625)";
+const APP_FULL_VERSION = "5.0 (v626)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -33629,8 +33553,6 @@ async function copyNoteContent(n, cont){
 function renderFs(){
   const n = notes.find(x=>x.g===fsGuid);
   if(!n || n.del){ closeFs(); return; }
-  const closeTxt = document.querySelector("#modalFs #fsClose .fsCloseTxt");
-  if(closeTxt) closeTxt.textContent = "Zamknij";
   const w = $("fsWrap");
   w.innerHTML = "";
   const card = noteCard(n);
@@ -34291,8 +34213,6 @@ function wskazNaLiscie(g){
   _wskazTimer = setTimeout(zdejmijWskazanie, 1200);
 }
 function closeFs(fromPopstate){
-  const closeTxt = document.querySelector("#modalFs #fsClose .fsCloseTxt");
-  if(closeTxt) closeTxt.textContent = "Zamknij";
   /* Zamknięcie czytnika w trakcie edycji jest traktowane jak przerwana sesja:
      nie zatwierdzamy notatki, ale zachowujemy jej bieżący szkic awaryjny. */
   if(typeof szkicFlushKarty==="function") szkicFlushKarty();
@@ -40681,8 +40601,6 @@ function toggleEdit(card,n){
   const btn = card.querySelector('[data-act="edit"]');
   if(!editing){
     card.classList.add("editing");
-    const fsCloseEl = document.querySelector("#modalFs #fsClose .fsCloseTxt");
-    if(fsCloseEl) fsCloseEl.textContent = "Gotowe";
     $("modalFs")?.classList.remove("dok-schowany");
     contEl.querySelectorAll(".qhl").forEach(s=>{ s.replaceWith(...s.childNodes); });
     contEl.querySelectorAll("a.jwl-ref.auto").forEach(a=>{ a.replaceWith(document.createTextNode(a.textContent)); });
@@ -40728,8 +40646,6 @@ function toggleEdit(card,n){
     btn.innerHTML=ICO.save+'<span class="sbtnTxt">Zapisywanie…</span>';
     btn.classList.add("saveon"); btn.title="Trwa zapisywanie zmian";
     card.classList.remove("editing");
-    const fsCloseEl = document.querySelector("#modalFs #fsClose .fsCloseTxt");
-    if(fsCloseEl) fsCloseEl.textContent = "Zamknij";
     hideImgBar();
     card.querySelector(".editbar")?.remove();
     if(typeof zmierzNhead==="function") zmierzNhead();   // belka wraca na swoje miejsce
@@ -58783,16 +58699,13 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v625</span>
+          <span class="cl-ver-num">v626</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">16 listopada 2026</span>
         </div>
-        <div class="cl-ver-title">Nowy, szlachetny wygląd edytora i czytnika pełnoekranowego (iPadOS Studio Design)</div>
+        <div class="cl-ver-title">Przywrócenie klasycznego czytnika i edytora pełnoekranowego</div>
         <ul class="cl-ver-list">
-          <li><b>Arkusik dokumentu (Paper Sheet Canvas):</b> Notatka w widoku pełnoekranowym zyskała elegancką formę wycentrowanego arkusza (szerokość 820 px z miękkim cieniem i zaokrągleniami). Tekst nie „unosi się już w próżni”, a długość linii jest zoptymalizowana pod kątem ergonomii czytania.</li>
-          <li><b>Dokowany pasek formatowania w trybie edycji:</b> Pasek formatowania nie rozcina już tytułu od tekstu. Zamiast tego dokuje się jako nowoczesna, pływająca pigułka u dołu ekranu (w zasięgu kciuków na iPadzie), odsłaniając czystą przestrzeń do pisania.</li>
-          <li><b>Szklana belka i przycisk „Gotowe / Zamknij”:</b> U góry wprowadzono spójną belkę ze szklanym rozmyciem oraz wyraźnym, akcentowanym przyciskiem zakończenia edycji.</li>
-          <li><b>Ergonomiczne rozmieszczenie narzędzi i wersetów:</b> Boczny pasek narzędzi (wersety, historia, spis treści) przylega teraz bezpośrednio do krawędzi arkusza notatki.</li>
+          <li><b>Czysty pełny ekran:</b> Przywrócono sprawdzony, pełnoekranowy widok notatki i edytora bez sztucznych marginesów, pływającego bocznego doku i rozpraszających elementów.</li>
         </ul>
       </div>
 
