@@ -135,7 +135,7 @@ html[data-reader-theme="sage"] {
 }
 html,body{height:100%;height:var(--appWysokosc, 100dvh);margin:0;-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior:none !important;-webkit-overscroll-behavior:none !important}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;touch-action:manipulation}
-header{width:100%;flex-shrink:0;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:9px 16px;padding-left:max(16px, calc(16px + env(safe-area-inset-left, 0px)));padding-right:max(16px, calc(16px + env(safe-area-inset-right, 0px)));padding-top:max(9px, calc(9px + env(safe-area-inset-top, 0px)));padding-bottom:9px;background:linear-gradient(135deg,rgba(19,78,56,0.82) 0%,rgba(26,92,67,0.80) 55%,rgba(32,109,80,0.78) 100%);border-bottom:1px solid rgba(255,255,255,.16);box-shadow:0 4px 20px -2px rgba(10,35,25,.22);flex-wrap:wrap;position:relative;z-index:20;-webkit-backdrop-filter:blur(28px) saturate(190%)!important;backdrop-filter:blur(28px) saturate(190%)!important;isolation:isolate}
+header{width:100%;flex-shrink:0;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:9px 16px;padding-left:max(16px, calc(16px + env(safe-area-inset-left, 0px)));padding-right:max(16px, calc(16px + env(safe-area-inset-right, 0px)));padding-top:max(9px, calc(9px + env(safe-area-inset-top, 0px)));padding-bottom:9px;background:linear-gradient(135deg,#134e38 0%,#1a5c43 55%,#206d50 100%);border-bottom:1px solid rgba(0,0,0,.18);box-shadow:0 4px 18px -2px rgba(10,35,25,.22);flex-wrap:wrap;position:relative;z-index:20;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;isolation:isolate}
 .brand-name{color:#fff!important}
 .brand-name .ver{color:rgba(255,255,255,.6)!important}
 .brand-sub{color:rgba(255,255,255,.72)!important}
@@ -19344,14 +19344,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Nagłówek aplikacji — Rozmyte szkło frosted glass w stylu Apple iOS / iPadOS */
+/* Nagłówek aplikacji — 100% solidne, ostre krycie bez rozmywania */
 header {
-  background-color: rgba(19, 78, 56, 0.78) !important;
-  background: linear-gradient(135deg, rgba(16, 68, 48, 0.82) 0%, rgba(26, 92, 67, 0.80) 55%, rgba(32, 109, 80, 0.78) 100%) !important;
+  background-color: var(--accent, #1b6348) !important;
+  background: linear-gradient(135deg, #134e38 0%, #1a5c43 55%, #206d50 100%) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.16) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.16) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
-  backdrop-filter: blur(28px) saturate(190%) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  opacity: 1 !important;
 }
 .brand-name {
   color: #ffffff !important;
@@ -19816,16 +19817,16 @@ html[data-theme="dark"] {
   --accent2: #34d399 !important;
 }
 html[data-theme="dark"] header {
-  background: rgba(14, 20, 26, 0.80) !important;
+  background: #11171e !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
-  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
 }
 html[data-theme="sepia"] header {
-  background: rgba(87, 64, 32, 0.82) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
-  backdrop-filter: blur(28px) saturate(190%) !important;
+  background: linear-gradient(135deg, #574020 0%, #75552b 55%, #8c6735 100%) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
 }
 html[data-theme="dark"] .ncard {
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -22218,16 +22219,17 @@ body.mobile-sidebar-open .sidebar-close-btn,
     min-height: 52px;
     padding: max(8px, calc(8px + env(safe-area-inset-top, 0px))) 14px 8px 14px;
     gap: 8px;
-    background-color: rgba(19, 78, 56, 0.78) !important;
-    background: linear-gradient(135deg, rgba(16, 68, 48, 0.82) 0%, rgba(26, 92, 67, 0.80) 55%, rgba(32, 109, 80, 0.78) 100%) !important;
-    -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
-    backdrop-filter: blur(28px) saturate(190%) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.16) !important;
+    background-color: var(--accent, #1b6348) !important;
+    background: linear-gradient(135deg, #134e38 0%, #1a5c43 55%, #206d50 100%) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.18) !important;
+    opacity: 1 !important;
     isolation: isolate;
   }
 }
 
-/* Tło status baru iOS z efektem rozmycia */
+/* Tło status baru iOS — 100% solidne krycie (brak prześwitywania i rozmyć) */
 header::before {
   content: "";
   position: absolute;
@@ -22236,22 +22238,22 @@ header::before {
   right: -100px;
   height: 160px;
   background: inherit;
-  -webkit-backdrop-filter: inherit;
-  backdrop-filter: inherit;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
   pointer-events: none;
   z-index: -1;
 }
 html[data-theme="dark"] header {
-  background: rgba(13, 18, 23, 0.80) !important;
-  background-color: rgba(13, 18, 23, 0.80) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
-  backdrop-filter: blur(28px) saturate(190%) !important;
+  background: #0d1217 !important;
+  background-color: #0d1217 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
 }
 html[data-theme="oled"] header {
-  background: rgba(0, 0, 0, 0.82) !important;
-  background-color: rgba(0, 0, 0, 0.82) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
-  backdrop-filter: blur(28px) saturate(190%) !important;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
 }
 html.is-ios, html.is-ipad, html.is-iphone {
   background-color: var(--accent, #134e38);
@@ -22273,8 +22275,9 @@ html.ipad-standalone header, body.ipad-standalone header {
   box-sizing: border-box !important;
   gap: 8px !important;
   row-gap: 8px !important;
-  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
-  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  opacity: 1 !important;
 }
 
 html.is-ipad header .btn,
@@ -26752,9 +26755,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v630";
+const APP_BUILD = "v631";
 const APP_BUILD_DATE = "2026-11-16";
-const APP_FULL_VERSION = "5.0 (v630)";
+const APP_FULL_VERSION = "5.0 (v631)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -59281,8 +59284,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v630</span>
+          <span class="cl-ver-num">v631</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">16 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">100% solidne, ostre krycie paska górnego bez rozmyć i prześwitywania</div>
+        <ul class="cl-ver-list">
+          <li><b>Koniec z rozmyciem paska górnego:</b> Całkowicie wyłączono półprzezroczystość i filtry <code>backdrop-filter: blur</code> w nagłówku. Pasek górny ma teraz w 100% pełne, nasycone, stabilne i ostre tło we wszystkich motywach (jasny, ciemny, OLED, sepia, szałwiowy).</li>
+          <li><b>Brak prześwitywania notatek:</b> Przewijane pod paskiem karty notatek nie tworzą już nieczytelnego rozmycia ani zamglenia za przyciskami i polem wyszukiwania.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v630</span>
           <span class="cl-ver-date">16 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Naprawa widoku etykiet, biblii i publikacji na telefonie (mobile)</div>

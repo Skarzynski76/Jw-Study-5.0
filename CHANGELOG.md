@@ -1,3 +1,11 @@
+## 5.0 — 2026-11-16 (100% pełne i ostre krycie paska górnego bez rozmywania — v631)
+
+- **Przywrócenie w 100% litego, ostrego krycia paska górnego:**
+  - Całkowicie wyłączono półprzezroczystość i filtry `backdrop-filter: blur(...)` w nagłówku aplikacji we wszystkich motywach kolorystycznych (jasny, ciemny, OLED, sepia, szałwiowy).
+  - Wyeliminowano efekt „zamglonego szkła / mlecznego rozmycia”, dzięki czemu karty notatek i tekst przesuwający się pod paskiem nie prześwitują ani nie powodują zamazania przycisków i wyszukiwarki.
+  - Pasek górny zachowuje teraz czysty, nasycony i ostry wygląd znany ze standardowych aplikacji iOS/iPadOS.
+- Podniesiono wersję pamięci podręcznej Service Workera do `v631`.
+
 ## 5.0 — 2026-11-16 (Naprawa widoku etykiet, biblii i publikacji na telefonie — v630)
 
 - **Poprawka wyświetlania na telefonie (mobile <= 900px):**
