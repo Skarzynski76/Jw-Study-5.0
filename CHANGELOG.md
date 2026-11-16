@@ -1,3 +1,11 @@
+## 5.0 — 2026-11-16 (Całkowita likwidacja systemowej mgły Apple na iPadzie — v632)
+
+- **Definitywna eliminacja systemowej mgły i rozmycia na iPadOS/iOS:**
+  - Przywrócono meta tag `<meta name="apple-mobile-web-app-status-bar-style" content="default">` (zamiast `black-translucent`), co wyłącza wymuszoną przez silnik Apple taflę rozmycia (frosted glass) nakładaną na górny pasek stanu.
+  - Zlikwidowano białą plamę i rozmycie w lewym górnym rogu ekranu iPada poprzez zintegrowanie paska stanu nad dockiem bocznym (`#modernSidebar::before`) w tym samym, pełnym kolorze motywu (`#134e38`).
+  - Zastąpiono skośny, dwutonowy gradient nagłówka jednolitym, głębokim kolorem o 100% kryciu.
+- Podniesiono wersję pamięci podręcznej Service Workera do `v632`.
+
 ## 5.0 — 2026-11-16 (100% pełne i ostre krycie paska górnego bez rozmywania — v631)
 
 - **Przywrócenie w 100% litego, ostrego krycia paska górnego:**

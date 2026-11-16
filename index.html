@@ -23,7 +23,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="JW-Study 5.0">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#134e38">
@@ -135,7 +135,7 @@ html[data-reader-theme="sage"] {
 }
 html,body{height:100%;height:var(--appWysokosc, 100dvh);margin:0;-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior:none !important;-webkit-overscroll-behavior:none !important}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;touch-action:manipulation}
-header{width:100%;flex-shrink:0;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:9px 16px;padding-left:max(16px, calc(16px + env(safe-area-inset-left, 0px)));padding-right:max(16px, calc(16px + env(safe-area-inset-right, 0px)));padding-top:max(9px, calc(9px + env(safe-area-inset-top, 0px)));padding-bottom:9px;background:linear-gradient(135deg,#134e38 0%,#1a5c43 55%,#206d50 100%);border-bottom:1px solid rgba(0,0,0,.18);box-shadow:0 4px 18px -2px rgba(10,35,25,.22);flex-wrap:wrap;position:relative;z-index:20;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;isolation:isolate}
+header{width:100%;flex-shrink:0;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:9px 16px;padding-left:max(16px, calc(16px + env(safe-area-inset-left, 0px)));padding-right:max(16px, calc(16px + env(safe-area-inset-right, 0px)));padding-top:max(9px, calc(9px + env(safe-area-inset-top, 0px)));padding-bottom:9px;background:#134e38;background:linear-gradient(180deg,#114632 0%,#16563e 100%);border-bottom:1px solid rgba(0,0,0,.18);box-shadow:0 4px 18px -2px rgba(10,35,25,.22);flex-wrap:wrap;position:relative;z-index:20;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;isolation:isolate}
 .brand-name{color:#fff!important}
 .brand-name .ver{color:rgba(255,255,255,.6)!important}
 .brand-sub{color:rgba(255,255,255,.72)!important}
@@ -19346,8 +19346,8 @@ body {
 
 /* Nagłówek aplikacji — 100% solidne, ostre krycie bez rozmywania */
 header {
-  background-color: var(--accent, #1b6348) !important;
-  background: linear-gradient(135deg, #134e38 0%, #1a5c43 55%, #206d50 100%) !important;
+  background-color: var(--accent, #134e38) !important;
+  background: linear-gradient(180deg, #114632 0%, #16563e 100%) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.16) !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.18) !important;
   -webkit-backdrop-filter: none !important;
@@ -22219,8 +22219,8 @@ body.mobile-sidebar-open .sidebar-close-btn,
     min-height: 52px;
     padding: max(8px, calc(8px + env(safe-area-inset-top, 0px))) 14px 8px 14px;
     gap: 8px;
-    background-color: var(--accent, #1b6348) !important;
-    background: linear-gradient(135deg, #134e38 0%, #1a5c43 55%, #206d50 100%) !important;
+    background-color: var(--accent, #134e38) !important;
+    background: linear-gradient(180deg, #114632 0%, #16563e 100%) !important;
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
     border-bottom: 1px solid rgba(0, 0, 0, 0.18) !important;
@@ -22234,8 +22234,8 @@ header::before {
   content: "";
   position: absolute;
   top: -160px;
-  left: -100px;
-  right: -100px;
+  left: 0;
+  right: 0;
   height: 160px;
   background: inherit;
   -webkit-backdrop-filter: none !important;
@@ -22593,6 +22593,46 @@ html.is-ipad header .searchwrap #btnSearchTools {
 html.ipad-standalone #modernSidebar, body.ipad-standalone #modernSidebar,
 html.is-ipad #modernSidebar, body.is-ipad #modernSidebar {
   padding-top: max(48px, calc(40px + env(safe-area-inset-top, 0px))) !important;
+  position: relative !important;
+}
+
+/* Wypełnienie obszaru status baru Apple nad lewym dockiem — eliminuje białą mgłę w lewym rogu ekranu iPada */
+html.ipad-standalone #modernSidebar::before,
+html.is-ipad #modernSidebar::before,
+body.ipad-standalone #modernSidebar::before,
+body.is-ipad #modernSidebar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: max(42px, calc(34px + env(safe-area-inset-top, 0px)));
+  background: var(--accent, #134e38);
+  pointer-events: none;
+  z-index: 10;
+}
+html[data-theme="dark"].ipad-standalone #modernSidebar::before,
+html[data-theme="dark"].is-ipad #modernSidebar::before,
+body[data-theme="dark"].ipad-standalone #modernSidebar::before,
+body[data-theme="dark"].is-ipad #modernSidebar::before {
+  background: #0d1217;
+}
+html[data-theme="oled"].ipad-standalone #modernSidebar::before,
+html[data-theme="oled"].is-ipad #modernSidebar::before,
+body[data-theme="oled"].ipad-standalone #modernSidebar::before,
+body[data-theme="oled"].is-ipad #modernSidebar::before {
+  background: #000000;
+}
+html[data-theme="sepia"].ipad-standalone #modernSidebar::before,
+html[data-theme="sepia"].is-ipad #modernSidebar::before,
+body[data-theme="sepia"].ipad-standalone #modernSidebar::before,
+body[data-theme="sepia"].is-ipad #modernSidebar::before {
+  background: #574020;
+}
+
+#modernSidebar .sidebar-brand {
+  position: relative;
+  z-index: 12;
 }
 
 /* ══════════════ ULTRA-KOMPAKTOWY GÓRNY PASEK DLA IPHONE I EKRANÓW MOBILNYCH ══════════════ */
@@ -26755,9 +26795,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v631";
+const APP_BUILD = "v632";
 const APP_BUILD_DATE = "2026-11-16";
-const APP_FULL_VERSION = "5.0 (v631)";
+const APP_FULL_VERSION = "5.0 (v632)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -59284,8 +59324,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v631</span>
+          <span class="cl-ver-num">v632</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">16 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Całkowita likwidacja systemowej mgły Apple na iPadzie (status-bar-style default)</div>
+        <ul class="cl-ver-list">
+          <li><b>Wyłączenie systemowego rozmycia iOS/iPadOS:</b> Przywrócono tryb <code>apple-mobile-web-app-status-bar-style="default"</code>, co definitywnie wyłącza generowaną przez WebKit/Apple półprzezroczystą taflę rozmycia (frosted glass) nad aplikacją.</li>
+          <li><b>Jednolite tło nad lewym dockiem:</b> Pasek stanu nad lewym menu bocznym ma teraz ten sam głęboki kolor co nagłówek, likwidując białą plamę i rozmycie w lewym górnym rogu ekranu.</li>
+          <li><b>Jednolity, głęboki kolor paska:</b> Zastąpiono skośny gradient stabilnym, równomiernym kolorem o pełnym kryciu.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v631</span>
           <span class="cl-ver-date">16 listopada 2026</span>
         </div>
         <div class="cl-ver-title">100% solidne, ostre krycie paska górnego bez rozmyć i prześwitywania</div>
