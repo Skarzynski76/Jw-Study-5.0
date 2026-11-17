@@ -24103,6 +24103,126 @@ body:not(.centrum-open) #noteList.v-tablica[style*="--kolTablicy:5"]:not([hidden
   }
 }
 
+/* Domyślnie na iPadzie i komputerze pomocniczy podgląd jest ukryty, by nie zmieniać układu innych urządzeń */
+.o12-snippet-fallback {
+  display: none;
+}
+
+/* Dedykowany, obszerny podgląd kilkunastu linii tekstu dla 12 ostatnich notatek na iPhone i telefonach */
+@media (max-width: 768px) {
+  html:not(.is-ipad) #noteList .ncard.ostatnie12-card,
+  html.is-iphone #noteList .ncard.ostatnie12-card,
+  body.is-iphone #noteList .ncard.ostatnie12-card {
+    min-height: 120px !important;
+    padding: 13px 15px 15px !important;
+    margin-bottom: 13px !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    border: 1px solid color-mix(in srgb, var(--border) 78%, var(--accent) 22%) !important;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+    background: var(--panel) !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+  }
+  html:not(.is-ipad) #noteList .ncard.ostatnie12-card .nhead,
+  html.is-iphone #noteList .ncard.ostatnie12-card .nhead,
+  body.is-iphone #noteList .ncard.ostatnie12-card .nhead {
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+  html:not(.is-ipad) #noteList .ncard.ostatnie12-card .ntitle,
+  html.is-iphone #noteList .ncard.ostatnie12-card .ntitle,
+  body.is-iphone #noteList .ncard.ostatnie12-card .ntitle {
+    font-size: 15.5px !important;
+    font-weight: 700 !important;
+    line-height: 1.35 !important;
+    color: var(--text) !important;
+    -webkit-line-clamp: 3 !important;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    word-break: break-word !important;
+  }
+  html:not(.is-ipad) #noteList .ncard.ostatnie12-card .nmeta2,
+  html.is-iphone #noteList .ncard.ostatnie12-card .nmeta2,
+  body.is-iphone #noteList .ncard.ostatnie12-card .nmeta2 {
+    margin: 2px 0 0 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+  html:not(.is-ipad) #noteList .ncard.ostatnie12-card .ncontent,
+  html.is-iphone #noteList .ncard.ostatnie12-card .ncontent,
+  body.is-iphone #noteList .ncard.ostatnie12-card .ncontent {
+    display: block !important;
+    margin: 4px 0 0 0 !important;
+    padding: 0 !important;
+    font-size: 13.5px !important;
+    line-height: 1.55 !important;
+    color: var(--text) !important;
+    opacity: 0.94 !important;
+    max-height: 23em !important; /* widoczne ok. 14-16 linii tekstu na karcie */
+    overflow: hidden !important;
+    word-break: break-word !important;
+    white-space: pre-wrap !important;
+    -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 24px), transparent) !important;
+    mask-image: linear-gradient(180deg, #000 calc(100% - 24px), transparent) !important;
+  }
+  html:not(.is-ipad) #noteList .ncard.ostatnie12-card .ncontent img,
+  html.is-iphone #noteList .ncard.ostatnie12-card .ncontent img,
+  body.is-iphone #noteList .ncard.ostatnie12-card .ncontent img {
+    max-height: 160px !important;
+    border-radius: 10px !important;
+    margin: 6px 0 !important;
+  }
+  html:not(.is-ipad) #noteList .ncard.ostatnie12-card .o12-snippet-fallback,
+  html.is-iphone #noteList .ncard.ostatnie12-card .o12-snippet-fallback,
+  body.is-iphone #noteList .ncard.ostatnie12-card .o12-snippet-fallback {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+    margin-top: 4px !important;
+  }
+  html:not(.is-ipad) #noteList .ncard.ostatnie12-card .o12-snippet-ref,
+  html.is-iphone #noteList .ncard.ostatnie12-card .o12-snippet-ref,
+  body.is-iphone #noteList .ncard.ostatnie12-card .o12-snippet-ref {
+    display: inline-flex !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: var(--accent) !important;
+    background: color-mix(in srgb, var(--accent) 12%, transparent) !important;
+    padding: 3px 9px !important;
+    border-radius: 7px !important;
+    width: fit-content !important;
+  }
+  html:not(.is-ipad) #noteList .ncard.ostatnie12-card .o12-snippet-title,
+  html.is-iphone #noteList .ncard.ostatnie12-card .o12-snippet-title,
+  body.is-iphone #noteList .ncard.ostatnie12-card .o12-snippet-title {
+    font-size: 13.5px !important;
+    line-height: 1.5 !important;
+    color: var(--text) !important;
+    opacity: 0.9 !important;
+    font-style: italic !important;
+  }
+  html:not(.is-ipad) #noteList .ncard.ostatnie12-card .chips,
+  html.is-iphone #noteList .ncard.ostatnie12-card .chips,
+  body.is-iphone #noteList .ncard.ostatnie12-card .chips {
+    margin: 4px 0 0 0 !important;
+  }
+  html:not(.is-ipad) #noteList .ncard.ostatnie12-card .ntools,
+  html.is-iphone #noteList .ncard.ostatnie12-card .ntools,
+  body.is-iphone #noteList .ncard.ostatnie12-card .ntools {
+    margin-top: 4px !important;
+    padding: 4px 0 0 0 !important;
+    border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent) !important;
+  }
+}
+
 /* 6. Płynne zwijanie kolumn na tabletach i telefonach */
 @media (max-width: 900px) {
   #glowna {
@@ -26795,9 +26915,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v635";
+const APP_BUILD = "v636";
 const APP_BUILD_DATE = "2026-11-17";
-const APP_FULL_VERSION = "5.0 (v635)";
+const APP_FULL_VERSION = "5.0 (v636)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -33031,6 +33151,11 @@ function renderNotes(){
   const wanted = [];
   const keep = new Set();
 
+  if(!is12Mode){
+    const prev12 = el.querySelectorAll(".ostatnie12-card");
+    if(prev12 && prev12.length) prev12.forEach(c => c.classList.remove("ostatnie12-card"));
+  }
+
   if(is12Mode){
     const banner = document.createElement("div");
     banner.className = "ostatnie12-banner";
@@ -33064,7 +33189,11 @@ function renderNotes(){
   const limitSlice = is12Mode ? 12 : visibleCount;
   arr.slice(0, limitSlice).forEach(n=>{
     keep.add(n.g);
-    wanted.push(noteCardFor(n));
+    const card = noteCardFor(n);
+    if(card && card.classList){
+      card.classList.toggle("ostatnie12-card", !!is12Mode);
+    }
+    wanted.push(card);
   });
 
   if(is12Mode && totalCount > 12){
@@ -33474,9 +33603,19 @@ function noteCard(n){
     `<span class="searchSnippets">${fragmenty.filter(Boolean).map(s=>`<span class="searchSnippet">${hilite(esc(s))}</span>`).join("")}</span>`+
     (ileTraf?`<span class="searchHits">${ileTraf}</span>`:"")+`</div>`:"";
   const cHtml = contentHtml(n);
+  let fallbackHtml = "";
+  if(!cHtml){
+    const ref = (typeof refLabel === "function") ? refLabel(n) : "";
+    const pub = n.ks ? (typeof pubFullName === "function" ? pubFullName(n.ks) : n.ks) : (n.pub || "");
+    const info = [ref, pub].filter(Boolean).join(" · ");
+    const snippetT = (n.t && n.t.length > 35) ? n.t : "";
+    if(info || snippetT){
+      fallbackHtml = `<div class="o12-snippet-fallback">${info ? `<span class="o12-snippet-ref">${esc(info)}</span>` : ""}${snippetT ? `<div class="o12-snippet-title">${esc(snippetT)}</div>` : ""}</div>`;
+    }
+  }
   d.innerHTML = noteCardHead(n) + noteCardMeta(n) + noteCardChips(n) + match +
                 (typeof htmlPaskaPowtorki==="function" ? htmlPaskaPowtorki(n) : "") +
-                `<div class="ncontent">${cHtml}</div>` +
+                `<div class="ncontent">${cHtml || fallbackHtml}</div>` +
                 `<div class="wysUchwyt" title="Przeciągnij, aby zmienić wysokość notatki (dwuklik = jak w widoku)"></div>` +
                 noteCardTools(n);
   const _contEl = d.querySelector(".ncontent");
@@ -59345,8 +59484,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v635</span>
+          <span class="cl-ver-num">v636</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">17 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Pełny podgląd kilkunastu linii tekstu dla 12 ostatnich notatek na iPhone</div>
+        <ul class="cl-ver-list">
+          <li><b>Kilkanaście linii tekstu na karcie:</b> Na telefonie iPhone w widoku 12 ostatnich notatek karty nie zbijają się już w wąskie, jedno-linijkowe paski. Każda notatka prezentuje obszerny, czytelny fragment treści (~14-16 linii tekstu z delikatnym zanikaniem u dołu).</li>
+          <li><b>Inteligentny podgląd notatek biblijnych i zakładek:</b> W przypadku notatek z krótką lub pustą treścią karta wyświetla elegancką pigułkę z odnośnikiem i pełne rozwinięcie myśli, zapewniając natychmiastową czytelność.</li>
+          <li><b>Bezpieczeństwo innych urządzeń:</b> Zmiany dotyczą wyłącznie widoku 12 notatek na telefonach i iPhone — układ, siatka i kafelki na iPadzie oraz komputerach pozostały w 100% nienaruszone.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v635</span>
           <span class="cl-ver-date">17 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Automatyczne, ciche odświeżanie sesji Dysku Google w tle</div>
