@@ -26915,9 +26915,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v636";
+const APP_BUILD = "v637";
 const APP_BUILD_DATE = "2026-11-17";
-const APP_FULL_VERSION = "5.0 (v636)";
+const APP_FULL_VERSION = "5.0 (v637)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -29976,7 +29976,6 @@ async function boot(){
   renderAll();
   if(typeof centrWlaczone !== "undefined" && centrWlaczone && typeof centrCosWybrane === "function" && !centrCosWybrane()){
     if(typeof centrumPokaz === "function") centrumPokaz("powitanie");
-    if(window.innerWidth <= 900 && typeof mobileShow === "function") mobileShow("colNotes");
   }
   // Przy stylu paska `default` iPadOS sam rezerwuje miejsce na pasek stanu.
   // Nie dokładamy stałych pikseli: na iPadOS 27 tworzyły drugi, pusty pas.
@@ -46371,6 +46370,8 @@ function mobileShow(id){
         el.classList.toggle("mshow", c === "colNotes");
       }
     });
+    const sb = $("sidebarNavi");
+    if(sb) sb.classList.remove("mshow");
     if (typeof setCollapsed === "function") {
       setCollapsed("colBooks", true);
       setCollapsed("colTags", true);
@@ -46393,7 +46394,7 @@ function mobileShow(id){
   }
 
   // Kliknięcie w zakładkę kolumny: zwija Centrum i otwiera kolumnę
-  if (typeof centrumSchowaj === "function") {
+  if (id !== "centrum" && id !== "colNotes" && typeof centrumSchowaj === "function") {
     const isCentrum = (typeof centrumWidoczne === "function" && centrumWidoczne()) ||
                       document.body.classList.contains("centrum-open");
     if (isCentrum) {
@@ -46458,6 +46459,7 @@ document.querySelectorAll("#mobileTabs button").forEach(b => {
       const qInput = document.getElementById("search");
       if(qInput) qInput.value = "";
       if(typeof query !== "undefined") query = "";
+      if (typeof centrumSchowaj === "function") centrumSchowaj();
       renderAll();
     }
     mobileShow(p);
@@ -46500,7 +46502,11 @@ function aktywujSegmentSidebar(targetId){
 
   const isMobile = window.innerWidth <= 900;
   const sb = $("sidebarNavi");
-  const sbIsMshow = sb && sb.classList.contains("mshow");
+
+  if(isMobile && sb){
+    sb.classList.add("mshow");
+    sb.classList.remove("collapsed");
+  }
 
   const cols = ["colTags", "colBooks", "colPubs"];
   cols.forEach(cId => {
@@ -46509,9 +46515,7 @@ function aktywujSegmentSidebar(targetId){
       if(cId === targetId){
         el.style.display = "flex";
         el.classList.remove("collapsed");
-        if(!isMobile || sbIsMshow){
-          el.classList.add("mshow");
-        }
+        el.classList.add("mshow");
       } else {
         el.style.display = "none";
         el.classList.remove("mshow");
@@ -59484,8 +59488,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v636</span>
+          <span class="cl-ver-num">v637</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">17 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Stabilność widoku Dom (Centrum Studium) i naprawa przełączania zakładek</div>
+        <ul class="cl-ver-list">
+          <li><b>Koniec z samoczynnym przełączaniem widoku Dom:</b> Usunięto błąd zapętlenia stanu kolumn, przez który aplikacja po wejściu do „Domu” (Centrum Studium / Pulpit studium) potrafiła samoczynnie wyrzucać użytkownika z powrotem do listy notatek przy klikaniu w zakładki lub podczas synchronizacji w tle.</li>
+          <li><b>Płynna i stabilna nawigacja w Centrum:</b> Przełączanie między zakładkami w Domu (np. Ekran powitalny, Pulpit studium, Cele i nawyki, Projekty) działa błyskawicznie i stabilnie, zachowując wybrany stan.</li>
+          <li><b>Niezawodne wyświetlanie zakładek na telefonie:</b> Wyeliminowano problem pustego ekranu przy przełączaniu segmentów (Biblia, Etykiety, Publikacje) na telefonie, gwarantując natychmiastowe wyświetlanie wybranej sekcji.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v636</span>
           <span class="cl-ver-date">17 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Pełny podgląd kilkunastu linii tekstu dla 12 ostatnich notatek na iPhone</div>
@@ -63044,9 +63061,19 @@ function centrumPokaz(docelowyWidok){
     setCollapsed("colTags", true);
     setCollapsed("colPubs", true);
   }
-  if(typeof mobileShow === "function"){
-    mobileShow("colNotes");
-  }
+  const sb = $("sidebarNavi"), cn = $("colNotes");
+  if(sb) sb.classList.remove("mshow");
+  if(cn) cn.classList.add("mshow");
+  ["colBooks", "colTags", "colPubs"].forEach(c => {
+    const el = $(c); if(el) el.classList.remove("mshow");
+  });
+  document.querySelectorAll("#mobileTabs button").forEach(b => {
+    if (b.dataset.p === "centrum") {
+      b.classList.add("on");
+    } else if (b.dataset.p !== "menu") {
+      b.classList.remove("on");
+    }
+  });
   
   const c = $("centrum"), l = $("noteList");
   if(c){
