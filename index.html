@@ -26795,9 +26795,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v634";
+const APP_BUILD = "v635";
 const APP_BUILD_DATE = "2026-11-17";
-const APP_FULL_VERSION = "5.0 (v634)";
+const APP_FULL_VERSION = "5.0 (v635)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -59345,8 +59345,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v634</span>
+          <span class="cl-ver-num">v635</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">17 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Automatyczne, ciche odświeżanie sesji Dysku Google w tle</div>
+        <ul class="cl-ver-list">
+          <li><b>Koniec z wylogowywaniem co 60 minut:</b> Aplikacja nie traci już statusu połączenia z Dyskiem Google po upływie 1-godzinnego tokena ani po aktualizacjach. Połączenie i konto użytkownika są stale aktywne.</li>
+          <li><b>Ciche odświeżanie tokena (Silent Refresh):</b> Gdy token wygaśnie, aplikacja w tle automatycznie odnawia dostęp w Google bez wyświetlania zbędnych okien autoryzacji czy pytania o zgody.</li>
+          <li><b>Nieprzerwana synchronizacja w tle:</b> Synchronizacja przy otwarciu aplikacji, powrocie do karty oraz po edycji notatek działa płynnie i niezauważalnie bez konieczności ponownego łączenia.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v634</span>
           <span class="cl-ver-date">17 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Trwałe usunięcie sztucznego tekstu „Brak dodatkowej treści” z notatek</div>
@@ -66015,6 +66028,7 @@ const GDRIVE_FILE_NAME   = "jw-study-uzgadnianie.json";
 const GDRIVE_DEFAULT_CLIENT_ID = "166477124593-tfcc6htjhgmljfa9ttm482cjph2ijj39.apps.googleusercontent.com";
 
 let _gdriveTokenClient = null;
+let _gdriveTokenPromise = null;
 let _gdriveSyncPracuje = false;
 let _gdriveZwloka = null;
 let _gdriveStanOpis = "";
@@ -66025,6 +66039,7 @@ function gdrivePobierzClientId(){
 function gdriveUstawClientId(id){
   lsSet(GDRIVE_K_CLIENT_ID, (id || "").trim());
   _gdriveTokenClient = null;
+  _gdriveTokenPromise = null;
 }
 function gdrivePobierzToken(){
   const tok = lsGet(GDRIVE_K_TOKEN, "");
@@ -66034,7 +66049,7 @@ function gdrivePobierzToken(){
   return tok;
 }
 function gdriveCzyZalogowany(){
-  return !!gdrivePobierzToken() && lsGet(GDRIVE_K_AUTO, "0") === "1";
+  return lsGet(GDRIVE_K_AUTO, "0") === "1" && (!!lsGet(GDRIVE_K_USER, "") || !!lsGet(GDRIVE_K_TOKEN, ""));
 }
 function gdrivePobierzUzytkownika(){
   try{
@@ -66067,53 +66082,113 @@ async function gdriveZapewnijBiblioteke(){
   });
 }
 
+/**
+ * Zapewnia ważny token dostępu Google OAuth.
+ * Jeśli token wygasł (lub wkrótce wygaśnie), w tle bez pytania użytkownika (silent refresh)
+ * pobiera nowy token przez Google Identity Services.
+ */
+async function gdriveZapewnijWaznyToken(wymus = false, interaktywne = false){
+  const clientId = gdrivePobierzClientId();
+  if(!clientId) return null;
+
+  // Jeśli mamy jeszcze ważny token i nie wymuszono odświeżenia — użyj go
+  const obecny = lsGet(GDRIVE_K_TOKEN, "");
+  const exp = Number(lsGet(GDRIVE_K_EXP, 0));
+  if(obecny && (!exp || Date.now() < exp) && !wymus){
+    return obecny;
+  }
+
+  // Jeśli synchronizacja nie jest włączona i nie jest to akcja interaktywna, nic nie rób
+  if(lsGet(GDRIVE_K_AUTO, "0") !== "1" && !interaktywne){
+    return null;
+  }
+  if(!navigator.onLine && !interaktywne) return null;
+
+  // Jeśli trwa już ciche odświeżanie tokena, podepnij się pod tę samą obietnicę
+  if(_gdriveTokenPromise){
+    return await _gdriveTokenPromise;
+  }
+
+  const zaladowane = await gdriveZapewnijBiblioteke();
+  if(!zaladowane) return null;
+
+  _gdriveTokenPromise = new Promise((resolve)=>{
+    let skonczone = false;
+    const zakoncz = (tok)=>{
+      if(skonczone) return;
+      skonczone = true;
+      _gdriveTokenPromise = null;
+      resolve(tok || null);
+    };
+
+    const timer = setTimeout(()=>{
+      zakoncz(null);
+    }, 14000);
+
+    try {
+      const client = google.accounts.oauth2.initTokenClient({
+        client_id: clientId,
+        scope: "https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+        callback: async (resp) => {
+          clearTimeout(timer);
+          if(resp && resp.error){
+            console.warn("Google Auth refresh error:", resp.error, resp.error_description);
+            if(interaktywne && resp.error !== "popup_closed_by_user"){
+              toastErr("Błąd logowania Google: " + (resp.error_description || resp.error));
+            }
+            return zakoncz(null);
+          }
+          if(resp && resp.access_token){
+            const nowyExp = Date.now() + ((Number(resp.expires_in) || 3600) - 120) * 1000;
+            lsSet(GDRIVE_K_TOKEN, resp.access_token);
+            lsSet(GDRIVE_K_EXP, String(nowyExp));
+            lsSet(GDRIVE_K_AUTO, "1");
+
+            if(!lsGet(GDRIVE_K_USER, "")){
+              try {
+                const uRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+                  headers: { Authorization: "Bearer " + resp.access_token }
+                });
+                if(uRes.ok){
+                  const uData = await uRes.json();
+                  lsSet(GDRIVE_K_USER, JSON.stringify(uData));
+                }
+              }catch(_){}
+            }
+            gdriveOdswiezUI();
+            return zakoncz(resp.access_token);
+          }
+          zakoncz(null);
+        },
+        error_callback: (err) => {
+          clearTimeout(timer);
+          console.warn("Google Auth error_callback:", err);
+          zakoncz(null);
+        }
+      });
+      _gdriveTokenClient = client;
+      client.requestAccessToken({ prompt: interaktywne ? (wymus ? 'consent' : '') : '' });
+    } catch(err){
+      clearTimeout(timer);
+      console.warn("Błąd initTokenClient:", err);
+      zakoncz(null);
+    }
+  });
+
+  return await _gdriveTokenPromise;
+}
+
 async function gdriveZaloguj(promptConsent){
   const clientId = gdrivePobierzClientId();
   if(!clientId){
     gdrivePokazModalClientId();
     return;
   }
-  const zaladowane = await gdriveZapewnijBiblioteke();
-  if(!zaladowane){
-    toastErr("Nie udało się połączyć z biblioteką Google. Sprawdź internet.");
-    return;
-  }
-  try {
-    _gdriveTokenClient = google.accounts.oauth2.initTokenClient({
-      client_id: clientId,
-      scope: "https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
-      callback: async (resp) => {
-        if(resp.error){
-          console.warn("Google Auth error:", resp);
-          if(resp.error !== "popup_closed_by_user"){
-            toastErr("Błąd logowania Google: " + (resp.error_description || resp.error));
-          }
-          return;
-        }
-        if(resp.access_token){
-          const exp = Date.now() + ((Number(resp.expires_in) || 3600) - 120) * 1000;
-          lsSet(GDRIVE_K_TOKEN, resp.access_token);
-          lsSet(GDRIVE_K_EXP, String(exp));
-          lsSet(GDRIVE_K_AUTO, "1");
-          try {
-            const uRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-              headers: { Authorization: "Bearer " + resp.access_token }
-            });
-            if(uRes.ok){
-              const uData = await uRes.json();
-              lsSet(GDRIVE_K_USER, JSON.stringify(uData));
-            }
-          }catch(_){}
-          toastOk("Połączono z Dyskiem Google");
-          gdriveOdswiezUI();
-          setTimeout(()=> gdriveSyncTeraz("login"), 400);
-        }
-      }
-    });
-    _gdriveTokenClient.requestAccessToken({ prompt: promptConsent ? 'consent' : '' });
-  } catch(err){
-    console.warn("Błąd Google TokenClient:", err);
-    toastErr("Błąd połączenia z Google: " + (err && err.message ? err.message : err));
+  const token = await gdriveZapewnijWaznyToken(true, true);
+  if(token){
+    toastOk("Połączono z Dyskiem Google");
+    gdriveOdswiezUI();
+    setTimeout(()=> gdriveSyncTeraz("login"), 400);
   }
 }
 
@@ -66122,6 +66197,7 @@ function gdriveWyloguj(){
   if(token && window.google && google.accounts && google.accounts.oauth2 && google.accounts.oauth2.revoke){
     try { google.accounts.oauth2.revoke(token, ()=>{}); } catch(_){}
   }
+  _gdriveTokenPromise = null;
   try { localStorage.removeItem(GDRIVE_K_TOKEN); } catch(_){}
   try { localStorage.removeItem(GDRIVE_K_EXP); } catch(_){}
   try { localStorage.removeItem(GDRIVE_K_USER); } catch(_){}
@@ -66204,10 +66280,12 @@ async function gdriveZapiszPlik(trescJson, fileId, token){
 async function gdriveSyncTeraz(powod){
   if(_gdriveSyncPracuje) return null;
   if(lsGet(GDRIVE_K_AUTO, "0") !== "1") return null;
-  let token = gdrivePobierzToken();
+
+  // Ciche odświeżenie tokena, jeśli wygasł
+  let token = await gdriveZapewnijWaznyToken(false, powod === "ręcznie");
   if(!token){
     if(powod === "ręcznie"){
-      gdriveZaloguj(false);
+      gdriveZaloguj(true);
     }
     return null;
   }
@@ -66222,11 +66300,16 @@ async function gdriveSyncTeraz(powod){
       zdalny = await gdriveSzukajPliku(token);
     } catch(err){
       if(err && err.message === "TOKEN_EXPIRED"){
-        try { localStorage.removeItem(GDRIVE_K_TOKEN); } catch(_){}
-        if(powod === "ręcznie") gdriveZaloguj(false);
-        return null;
+        token = await gdriveZapewnijWaznyToken(true, powod === "ręcznie");
+        if(token){
+          zdalny = await gdriveSzukajPliku(token);
+        } else {
+          if(powod === "ręcznie") gdriveZaloguj(true);
+          return null;
+        }
+      } else {
+        throw err;
       }
-      throw err;
     }
 
     let wynik = null;
@@ -66237,7 +66320,21 @@ async function gdriveSyncTeraz(powod){
       const znanyMs = Number(lsGet(GDRIVE_K_REMOTE_MS, "0"));
 
       if(remoteMs > znanyMs || powod === "ręcznie" || powod === "login"){
-        const tekst = await gdrivePobierzTresc(zdalny.id, token);
+        let tekst = null;
+        try {
+          tekst = await gdrivePobierzTresc(zdalny.id, token);
+        } catch(err){
+          if(err && err.message === "TOKEN_EXPIRED"){
+            token = await gdriveZapewnijWaznyToken(true, powod === "ręcznie");
+            if(token){
+              tekst = await gdrivePobierzTresc(zdalny.id, token);
+            } else {
+              throw err;
+            }
+          } else {
+            throw err;
+          }
+        }
         if(tekst){
           let dane;
           try { dane = JSON.parse(tekst); } catch(e){ throw new Error("Plik w chmurze jest uszkodzony (błąd formatu JSON)"); }
@@ -66257,7 +66354,21 @@ async function gdriveSyncTeraz(powod){
     if(trzebaWyslac){
       const exportData = await syncEksport();
       const fileId = zdalny ? zdalny.id : (lsGet(GDRIVE_K_FILE_ID, "") || null);
-      const saved = await gdriveZapiszPlik(JSON.stringify(exportData), fileId, token);
+      let saved = null;
+      try {
+        saved = await gdriveZapiszPlik(JSON.stringify(exportData), fileId, token);
+      } catch(err){
+        if(err && err.message === "TOKEN_EXPIRED"){
+          token = await gdriveZapewnijWaznyToken(true, powod === "ręcznie");
+          if(token){
+            saved = await gdriveZapiszPlik(JSON.stringify(exportData), fileId, token);
+          } else {
+            throw err;
+          }
+        } else {
+          throw err;
+        }
+      }
       if(saved && saved.id){
         lsSet(GDRIVE_K_FILE_ID, saved.id);
         if(saved.modifiedTime){
@@ -66284,7 +66395,7 @@ async function gdriveSyncTeraz(powod){
 }
 
 function gdriveSyncPoZmianie(){
-  if(lsGet(GDRIVE_K_AUTO, "0") !== "1" || !gdrivePobierzToken()) return;
+  if(lsGet(GDRIVE_K_AUTO, "0") !== "1") return;
   if(_gdriveZwloka) clearTimeout(_gdriveZwloka);
   _gdriveZwloka = setTimeout(()=>{
     _gdriveZwloka = null;
@@ -66293,13 +66404,13 @@ function gdriveSyncPoZmianie(){
 }
 
 function gdriveSyncStart(){
-  if(lsGet(GDRIVE_K_AUTO, "0") === "1" && gdrivePobierzToken()){
+  if(lsGet(GDRIVE_K_AUTO, "0") === "1"){
     setTimeout(()=> gdriveSyncTeraz("start"), 1800);
   }
 }
 
 function gdriveSprawdzPowrot(){
-  if(lsGet(GDRIVE_K_AUTO, "0") === "1" && gdrivePobierzToken() && navigator.onLine){
+  if(lsGet(GDRIVE_K_AUTO, "0") === "1" && navigator.onLine){
     setTimeout(()=> gdriveSyncTeraz("powrót"), 800);
   }
 }
@@ -66441,6 +66552,8 @@ window.gdriveOdswiezUI = gdriveOdswiezUI;
 window.gdriveSyncTeraz = gdriveSyncTeraz;
 window.gdriveZaloguj = gdriveZaloguj;
 window.gdriveWyloguj = gdriveWyloguj;
+window.gdriveZapewnijWaznyToken = gdriveZapewnijWaznyToken;
+window.gdriveCzyZalogowany = gdriveCzyZalogowany;
 </script>
 <script>
 /* ==========================================================================
