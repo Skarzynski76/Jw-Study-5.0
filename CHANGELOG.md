@@ -1,3 +1,12 @@
+## 5.0 — 2026-11-17 (Naprawa automatycznego zaznaczania własnych nawyków — v633)
+
+- **Ochrona własnych nawyków użytkownika (np. „Czytanie TG”):**
+  - Naprawiono zbyt szeroki filtr w funkcji automatycznej synchronizacji czytania z nawykami (`_centrZsynchronizujCzytanieZNawykami`), który traktował każdy nawyk z wyrazem „czytanie” w tytule lub kategorii jako nawyk czytania Biblii.
+  - Własne cele i nawyki użytkownika (takie jak *„Czytanie TG”*, *„Czytanie książki”*, *„Studium osobiste”*) nie są już nigdy automatycznie oznaczane jako ukończone.
+  - Wyłączono przedwczesne oznaczanie ukończenia dnia przy zaznaczeniu pojedynczego fragmentu.
+  - Wycofanie oznaczenia dnia w planie czytania Biblii poprawnie odznacza również dzień w domyślnym nawyku czytania Biblii.
+- Podniesiono wersję pamięci podręcznej Service Workera do `v633`.
+
 ## 5.0 — 2026-11-16 (Całkowita likwidacja systemowej mgły Apple na iPadzie — v632)
 
 - **Definitywna eliminacja systemowej mgły i rozmycia na iPadOS/iOS:**

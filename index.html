@@ -26795,9 +26795,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v632";
-const APP_BUILD_DATE = "2026-11-16";
-const APP_FULL_VERSION = "5.0 (v632)";
+const APP_BUILD = "v633";
+const APP_BUILD_DATE = "2026-11-17";
+const APP_FULL_VERSION = "5.0 (v633)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -57949,16 +57949,23 @@ function _centrZsynchronizujCzytanieZNawykami(czyZaznaczono){
 
     cele.forEach(c => {
       if(!c || c.type !== "habit") return;
-      const isReadingHabit = (c.id === "cel_domyslny_1") ||
-                             (c.category === "czytanie") ||
-                             (typeof c.title === "string" && (c.title.toLowerCase().includes("czytanie") || c.title.toLowerCase().includes("bibli")));
-      if(isReadingHabit){
+      // Synchronizujemy WYŁĄCZNIE domyślny nawyk czytania Biblii ("cel_domyslny_1") lub nawyki jawnie dotyczące czytania Biblii.
+      // NIGDY nie dotykamy własnych nawyków użytkownika (np. „Czytanie TG”, „Czytanie książki”, „Studium osobiste” itp.)!
+      const isBibleReadingHabit = (c.id === "cel_domyslny_1") ||
+                                  (c.autoSyncBible === true) ||
+                                  (typeof c.title === "string" && (c.title.trim().toLowerCase() === "codzienne czytanie biblii" || c.title.trim().toLowerCase() === "czytanie biblii"));
+      if(isBibleReadingHabit){
         if(!c.history || typeof c.history !== "object") c.history = {};
         if(czyZaznaczono){
           if(!c.history[dzis]){
             c.history[dzis] = true;
             zmieniono = true;
             if(!nawykTytul) nawykTytul = c.title || "Codzienne czytanie Biblii";
+          }
+        } else {
+          if(c.history[dzis]){
+            delete c.history[dzis];
+            zmieniono = true;
           }
         }
       }
@@ -59324,8 +59331,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v632</span>
+          <span class="cl-ver-num">v633</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">17 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Naprawa automatycznego zaznaczania własnych nawyków (np. „Czytanie TG”)</div>
+        <ul class="cl-ver-list">
+          <li><b>Ochrona własnych nawyków użytkownika:</b> Naprawiono błąd, przez który nawyki stworzone samodzielnie przez użytkownika (np. <i>„Czytanie TG”</i>, <i>„Czytanie książki”</i> itp.) były samoczynnie oznaczane jako ukończone przy czytaniu Biblii. Automatyczna synchronizacja dotyczy teraz wyłącznie wbudowanego celu czytania Biblii.</li>
+          <li><b>Brak przedwczesnego oznaczania:</b> Pojedyncze zaznaczenie fragmentu w planie czytania nie wywołuje już automatycznego zaliczenia całego dnia ani nawyku.</li>
+          <li><b>Spójne cofanie zaliczenia:</b> Wycofanie oznaczenia dnia w planie czytania poprawnie odznacza również dzień w nawyku czytania Biblii.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v632</span>
           <span class="cl-ver-date">16 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Całkowita likwidacja systemowej mgły Apple na iPadzie (status-bar-style default)</div>
@@ -63061,10 +63081,7 @@ if($("centrum")){
       const fragi = _centrPobierzUkonczoneFragi();
       const nowChecked = !fragi.has(key);
       if(!nowChecked) fragi.delete(key);
-      else {
-        fragi.add(key);
-        if(typeof _centrOznaczDzisCzytanieUkonczone === "function") _centrOznaczDzisCzytanieUkonczone();
-      }
+      else fragi.add(key);
       _centrZapiszUkonczoneFragi(fragi);
 
       const d = parseInt(fragBtn.dataset.cdzien, 10);
@@ -63123,6 +63140,7 @@ if($("centrum")){
         dni.delete(d);
         _centrZapiszUkonczoneDni(dni, _centrAktywnyPlanId);
         try { lsRem(JW_PLAN_DZIS_UKONCZONO); } catch(e){}
+        if(typeof _centrZsynchronizujCzytanieZNawykami === "function") _centrZsynchronizujCzytanieZNawykami(false);
         if(planDay){
           const fragi = _centrPobierzUkonczoneFragi();
           planDay.f.forEach((_, idx) => fragi.delete(_centrAktywnyPlanId + "_" + d + "_" + idx));
@@ -63353,6 +63371,8 @@ if($("centrum")){
 
         if(dni.has(dNr)){
           dni.delete(dNr);
+          try { lsRem(JW_PLAN_DZIS_UKONCZONO); } catch(e){}
+          if(typeof _centrZsynchronizujCzytanieZNawykami === "function") _centrZsynchronizujCzytanieZNawykami(false);
           if(planDay && planDay.f){
             planDay.f.forEach((_, idx) => fragi.delete(planInfo.id + "_" + dNr + "_" + idx));
           }
