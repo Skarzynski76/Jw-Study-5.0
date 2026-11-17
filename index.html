@@ -30187,32 +30187,34 @@ async function pokazNowaWersje(nowy){
   if(document.getElementById("nowaWersja")) return;
   let nowaVer = "";
   try {
-    const res = await fetch("WERSJA?t=" + Date.now());
+    const res = await fetch("WERSJA?t=" + Date.now(), { cache: "no-store" });
     if(res.ok) nowaVer = (await res.text()).trim();
   } catch(e) {}
-  const verTxt = nowaVer ? ` do <b>v${esc(nowaVer)}</b>` : "";
-  const verBadge = nowaVer ? `<span class="nwVerBadge">v${esc(nowaVer)}</span>` : `<span class="nwVerBadge">NOWA</span>`;
+  const nowaEtykieta = nowaVer ? (nowaVer.startsWith("v") || nowaVer.includes("(") ? nowaVer : "v" + nowaVer) : "NOWA";
+  const verTxt = nowaVer ? ` do <b>${esc(nowaEtykieta)}</b>` : "";
+  const verBadge = `<span class="nwVerBadge">${esc(nowaEtykieta)}</span>`;
+  const mojaWersja = (typeof APP_FULL_VERSION !== "undefined" && APP_FULL_VERSION) ? APP_FULL_VERSION : ((typeof APP_BUILD !== "undefined" && APP_BUILD) ? APP_BUILD : ("v" + APP_VERSION));
 
   const pasek = document.createElement("div");
   pasek.id = "nowaWersja";
-  pasek.innerHTML = verBadge + `<span>Dostępna aktualizacja${verTxt} (Twoja: v${APP_VERSION}). Przed aktualizacją warto zapisać kopię.</span>` +
+  pasek.innerHTML = verBadge + `<span>Dostępna aktualizacja${verTxt} (Twoja: ${esc(mojaWersja)}). Przed aktualizacją warto zapisać kopię.</span>` +
                     '<button type="button" id="nwOdswiez">Aktualizuj</button>' +
                     '<button type="button" id="nwPozniej" aria-label="Zamknij">✕</button>';
   document.body.appendChild(pasek);
   pasek.querySelector("#nwOdswiez").onclick = async ()=>{
     const dirty = +(lsGet(KP+"Dirty", 0)||0);
     let decyzja;
-    const tytul = nowaVer ? `Zaktualizować aplikację do v${nowaVer}?` : "Zaktualizować aplikację?";
+    const tytul = nowaVer ? `Zaktualizować aplikację do ${nowaEtykieta}?` : "Zaktualizować aplikację?";
     if(dirty>0){
       decyzja = await askChoice(tytul,
-        `Obecna wersja: <b>v${APP_VERSION}</b> ➔ Nowa wersja: <b>v${nowaVer || 'najnowsza'}</b>.<br>Masz <b>${dirty} niezapisanych w kopii zmian</b>. Kopia daje dodatkowe bezpieczeństwo.`, [
+        `Obecna wersja: <b>${esc(mojaWersja)}</b> ➔ Nowa wersja: <b>${esc(nowaEtykieta)}</b>.<br>Masz <b>${dirty} niezapisanych w kopii zmian</b>. Kopia daje dodatkowe bezpieczeństwo.`, [
           {label:"Zrób kopię i aktualizuj", value:"kopia", style:"primary"},
           {label:"Aktualizuj bez kopii", value:"teraz"},
           {label:"Anuluj", value:"nie"}
         ]);
     }else{
       decyzja = await askChoice(tytul,
-        `Obecna wersja: <b>v${APP_VERSION}</b> ➔ Nowa wersja: <b>v${nowaVer || 'najnowsza'}</b>.<br>Aplikacja przeładuje się po Twojej zgodzie.`, [
+        `Obecna wersja: <b>${esc(mojaWersja)}</b> ➔ Nowa wersja: <b>${esc(nowaEtykieta)}</b>.<br>Aplikacja przeładuje się po Twojej zgodzie.`, [
           {label:"Aktualizuj teraz", value:"teraz", style:"primary"},
           {label:"Później", value:"nie"}
         ]);
