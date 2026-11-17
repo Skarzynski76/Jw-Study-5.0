@@ -26915,9 +26915,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v637";
+const APP_BUILD = "v638";
 const APP_BUILD_DATE = "2026-11-17";
-const APP_FULL_VERSION = "5.0 (v637)";
+const APP_FULL_VERSION = "5.0 (v638)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -55043,6 +55043,7 @@ function _centrPrzelaczCelUkonczony(celId){
   if(c){
     c.completed = !c.completed;
     c.completedAt = c.completed ? Date.now() : null;
+    c.modified = Date.now();
     _centrZapiszCele(cele);
     if(c.completed){
       cenCelebration();
@@ -55069,6 +55070,7 @@ function _centrZmienLicznikCelu(celId, delta){
       c.completed = false;
       c.completedAt = null;
     }
+    c.modified = Date.now();
     _centrZapiszCele(cele);
     if(!prevCompleted && c.completed){
       cenCelebration();
@@ -55093,6 +55095,7 @@ function _centrPrzelaczKrokCelu(celId, stepIdx){
     const allDone = c.steps.length > 0 && c.steps.every(s => s.done);
     c.completed = allDone;
     c.completedAt = allDone ? Date.now() : null;
+    c.modified = Date.now();
     _centrZapiszCele(cele);
     if(!prevCompleted && allDone){
       cenCelebration();
@@ -55116,6 +55119,7 @@ function _centrPrzelaczDzienNawyku(celId, dateStr){
     const willBeDone = !c.history[dateStr];
     if(!willBeDone) delete c.history[dateStr];
     else c.history[dateStr] = true;
+    c.modified = Date.now();
     _centrZapiszCele(cele);
 
     if(willBeDone){
@@ -57979,17 +57983,30 @@ function _centrImportDanych(centrumData, tryb){
           curCele.push(incC);
           dodanoCele++;
         } else {
-          if(incC.history && typeof incC.history === "object" && istniejacy.type === "habit"){
-            if(!istniejacy.history || typeof istniejacy.history !== "object") istniejacy.history = {};
-            Object.keys(incC.history).forEach(dataK => {
-              if(incC.history[dataK]) istniejacy.history[dataK] = true;
-            });
-          }
-          if(typeof incC.currentValue === "number" && incC.currentValue > (istniejacy.currentValue || 0)){
-            istniejacy.currentValue = incC.currentValue;
-          }
-          if(incC.completed && !istniejacy.completed){
-            istniejacy.completed = true;
+          const localMod = Number(istniejacy.modified || 0);
+          const incMod = Number(incC.modified || 0);
+          if(incMod > localMod){
+            if(incC.history && typeof incC.history === "object" && istniejacy.type === "habit"){
+              istniejacy.history = { ...incC.history };
+            }
+            if(typeof incC.currentValue === "number") istniejacy.currentValue = incC.currentValue;
+            if(incC.completed !== undefined) istniejacy.completed = !!incC.completed;
+            istniejacy.modified = incMod;
+          } else if(localMod > incMod){
+            // Lokalny stan jest nowszy (np. użytkownik odznaczył dzień na tym urządzeniu) — zachowaj lokalny stan
+          } else {
+            if(incC.history && typeof incC.history === "object" && istniejacy.type === "habit"){
+              if(!istniejacy.history || typeof istniejacy.history !== "object") istniejacy.history = {};
+              Object.keys(incC.history).forEach(dataK => {
+                if(incC.history[dataK]) istniejacy.history[dataK] = true;
+              });
+            }
+            if(typeof incC.currentValue === "number" && incC.currentValue > (istniejacy.currentValue || 0)){
+              istniejacy.currentValue = incC.currentValue;
+            }
+            if(incC.completed && !istniejacy.completed){
+              istniejacy.completed = true;
+            }
           }
         }
       });
@@ -58116,12 +58133,14 @@ function _centrZsynchronizujCzytanieZNawykami(czyZaznaczono){
         if(czyZaznaczono){
           if(!c.history[dzis]){
             c.history[dzis] = true;
+            c.modified = Date.now();
             zmieniono = true;
             if(!nawykTytul) nawykTytul = c.title || "Codzienne czytanie Biblii";
           }
         } else {
           if(c.history[dzis]){
             delete c.history[dzis];
+            c.modified = Date.now();
             zmieniono = true;
           }
         }
@@ -59488,8 +59507,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v637</span>
+          <span class="cl-ver-num">v638</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">17 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Inteligentna synchronizacja nawyków i ochrona przed starymi wersjami w chmurze</div>
+        <ul class="cl-ver-list">
+          <li><b>Znaczniki czasu dla nawyków i celów:</b> Każde zaznaczenie lub odznaczenie dnia w nawyku zapisuje dokładny znacznik czasu (timestamp). Dzięki temu odznaczenie błędnie zaliczonego dnia nie zostanie już nadpisane przez starszą kopię z Dysku Google.</li>
+          <li><b>Ochrona przed niezaaktualizowanymi urządzeniami:</b> Urządzenia ze starszą wersją aplikacji nie mogą już nadpisywać lokalnie odznaczonych nawyków podczas synchronizacji w chmurze.</li>
+          <li><b>Pełna niezależność własnych nawyków:</b> Nawyki użytkownika (np. <i>„Czytanie TG”</i>) pozostają w 100% pod kontrolą użytkownika.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v637</span>
           <span class="cl-ver-date">17 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Stabilność widoku Dom (Centrum Studium) i naprawa przełączania zakładek</div>
