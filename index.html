@@ -26795,9 +26795,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v633";
+const APP_BUILD = "v634";
 const APP_BUILD_DATE = "2026-11-17";
-const APP_FULL_VERSION = "5.0 (v633)";
+const APP_FULL_VERSION = "5.0 (v634)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -29371,7 +29371,9 @@ function szkicKlucz(g){ return "draft:"+g; }
 function szkicDane(card,n){
   const t=card && card.querySelector(".ntitle"), c=card && card.querySelector(".ncontent");
   if(!t||!c||!n) return null;
-  return {g:n.g,t:t.textContent.trim(),h:c.innerHTML,ts:new Date().toISOString(),baseMo:n.mo||""};
+  let h = c.innerHTML;
+  if(c.textContent.trim() === "Brak dodatkowej treści") h = "";
+  return {g:n.g,t:t.textContent.trim(),h:h,ts:new Date().toISOString(),baseMo:n.mo||""};
 }
 function szkicAnuluj(g){
   const timer=_szkicTimery.get(g); if(timer) clearTimeout(timer);
@@ -32887,7 +32889,13 @@ function hilite(html){
     return html;
   }
 }
-function contentHtml(n){ return hilite(n.h ? n.h : esc(n.c||"")); }
+function contentHtml(n){
+  if(n){
+    if(n.c && n.c.trim() === "Brak dodatkowej treści") return "";
+    if(n.h && (n.h.trim() === '<span style="color:var(--muted);font-style:italic">Brak dodatkowej treści</span>' || n.h.trim() === "Brak dodatkowej treści")) return "";
+  }
+  return hilite(n.h ? n.h : esc(n.c||""));
+}
 function emptyStateEl(){
   const q=(query||"").trim();
   const wrap=document.createElement("div"); wrap.className="emptyState";
@@ -33468,7 +33476,7 @@ function noteCard(n){
   const cHtml = contentHtml(n);
   d.innerHTML = noteCardHead(n) + noteCardMeta(n) + noteCardChips(n) + match +
                 (typeof htmlPaskaPowtorki==="function" ? htmlPaskaPowtorki(n) : "") +
-                `<div class="ncontent">${cHtml || '<span style="color:var(--muted);font-style:italic">Brak dodatkowej treści</span>'}</div>` +
+                `<div class="ncontent">${cHtml}</div>` +
                 `<div class="wysUchwyt" title="Przeciągnij, aby zmienić wysokość notatki (dwuklik = jak w widoku)"></div>` +
                 noteCardTools(n);
   const _contEl = d.querySelector(".ncontent");
@@ -33987,7 +33995,7 @@ function renderFs(){
     const st = ceCont && typeof readStats==="function" ? readStats(ceCont) : null;
     const metaTxt = document.createElement("span");
     metaTxt.className = "fs-badge fs-badge-meta";
-    metaTxt.innerHTML = `🕒 ${esc(moDate || "Dziś")}${st ? ` · ⏱ ${st.mins} min · ${st.words} słów` : ""}`;
+    metaTxt.innerHTML = `🕒 ${esc(moDate || "Dziś")}${st && st.words > 0 ? ` · ⏱ ${st.mins} min · ${st.words} słów` : ""}`;
     ribbon.appendChild(metaTxt);
 
     const titleEl = nh.querySelector(".ntitle");
@@ -34153,9 +34161,10 @@ addEventListener("resize", ()=>{
 
 /* ===== licznik słów i czasu czytania ===== */
 function readStats(el){
-  const txt=(el.textContent||"").trim();
+  let txt=(el && el.textContent||"").trim();
+  if(txt === "Brak dodatkowej treści") txt = "";
   const words = txt ? (txt.match(/[\p{L}\p{N}][\p{L}\p{N}'’-]*/gu)||[]).length : 0;
-  return {words, mins: Math.max(1, Math.round(words/200))};
+  return {words, mins: words ? Math.max(1, Math.round(words/200)) : 0};
 }
 /* ===== zakładki wewnątrz notatki ===== */
 function readerMarks(n){
@@ -40910,6 +40919,9 @@ function toggleEdit(card,n){
     contEl.querySelectorAll(".qhl").forEach(s=>{ s.replaceWith(...s.childNodes); });
     contEl.querySelectorAll("a.jwl-ref.auto").forEach(a=>{ a.replaceWith(document.createTextNode(a.textContent)); });
     titleEl.querySelectorAll(".qhl").forEach(s=>{ s.replaceWith(...s.childNodes); });
+    if(contEl && (contEl.textContent.trim() === "Brak dodatkowej treści" || contEl.innerHTML.includes("Brak dodatkowej treści"))){
+      contEl.innerHTML = "";
+    }
     /* Ustawiamy i własność, i atrybut. W przeglądarce jedno pociąga drugie, ale
      opieramy się na atrybucie w kilku miejscach — rysik po nim rozpoznaje, że
      ma nie przechwytywać zaznaczania — więc zapisujemy go wprost, zamiast
@@ -40964,8 +40976,10 @@ function toggleEdit(card,n){
     /* Numery przypisów liczą się z kolejności odsyłaczy — musi to się stać
        PRZED odczytaniem treści, inaczej do bazy trafiłyby stare numery. */
     if(typeof przPrzenumeruj==="function") przPrzenumeruj(contEl);
-    const clean = sanitize(contEl.innerHTML);
-    n.h = clean; n.c = htmlToPlain(clean);
+    let clean = sanitize(contEl.innerHTML);
+    let plain = htmlToPlain(clean);
+    if(plain.trim() === "Brak dodatkowej treści"){ clean = ""; plain = ""; }
+    n.h = clean; n.c = plain;
     n.ed=true; n.mo=new Date().toISOString();
     ustawStanZapisu(contEl,"saving"); bumpDirty();
     const zapisAkcja = Promise.race([
@@ -59331,8 +59345,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v633</span>
+          <span class="cl-ver-num">v634</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">17 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Trwałe usunięcie sztucznego tekstu „Brak dodatkowej treści” z notatek</div>
+        <ul class="cl-ver-list">
+          <li><b>Koniec z uciążliwym usuwaniem tekstu:</b> Całkowicie wyeliminowano wstawianie sztucznego napisu <i>„Brak dodatkowej treści”</i> do treści notatek bez tekstu głównego. Przy tworzeniu i edycji notatka jest od razu czysta i gotowa do pisania.</li>
+          <li><b>Elegancki placeholder CSS:</b> Pusta notatka wyświetla w czytniku delikatną, nienachalną podpowiedź <i>„Zacznij pisać…”</i> jako regułę CSS, która nie stanowi treści dokumentu i znika sama w chwili rozpoczęcia pisania.</li>
+          <li><b>Prawidłowy licznik słów:</b> Pusta notatka nie nalicza już fałszywych 3 słów w metadanych nagłówka.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v633</span>
           <span class="cl-ver-date">17 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Naprawa automatycznego zaznaczania własnych nawyków (np. „Czytanie TG”)</div>

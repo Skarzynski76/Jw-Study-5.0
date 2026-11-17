@@ -1,3 +1,12 @@
+## 5.0 — 2026-11-17 (Trwałe usunięcie tekstu „Brak dodatkowej treści” — v634)
+
+- **Całkowita likwidacja sztucznego tekstu w nowo tworzonych i edytowanych notatkach:**
+  - Usunięto wstawianie napisu `Brak dodatkowej treści` do kart i edytora notatek. Notatki bez treści głównej są od razu całkowicie czyste i gotowe do pisania.
+  - W czytniku pełnoekranowym (`#fsWrap`) pusta notatka wyświetla delikatną podpowiedź *„Zacznij pisać…”* generowaną czysto przez CSS (`:empty::before`), która nie trafia do treści dokumentu i natychmiast znika przy wpisywaniu tekstu.
+  - Wprowadzono automatyczne oczyszczanie tego napisu przy otwieraniu i edycji starszych notatek, które mogły mieć go wcześniej zapisany.
+  - Naprawiono naliczanie słów w nagłówku notatki (pusta notatka nie wyświetla już fałszywych *„3 słów”*).
+- Podniesiono wersję pamięci podręcznej Service Workera do `v634`.
+
 ## 5.0 — 2026-11-17 (Naprawa automatycznego zaznaczania własnych nawyków — v633)
 
 - **Ochrona własnych nawyków użytkownika (np. „Czytanie TG”):**
