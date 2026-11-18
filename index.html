@@ -10309,12 +10309,11 @@ html[data-theme="dark"] #modalFs[data-reader-theme="app"] .fsmodal{ background:#
 }
 #fsWrap .ntitle{
   color:var(--text);
-  /* Tytuł rósł razem z szerokością okna i na pełnym ekranie wyglądał ciężko.
-     Teraz zależy tylko od ustawionej wielkości pisma i ma wąski zakres. */
-  font-size:clamp(19px, calc(var(--fsNoteFs, 17px) + 4px), 25px);
-  font-weight:600;
+  /* Tytuł dyskretny i elegancki — zależy od ustawionej wielkości pisma notatki */
+  font-size:clamp(18px, calc(var(--fsNoteFs, 16px) + 3px), 21px);
+  font-weight:650;
   line-height:1.28;
-  letter-spacing:-.022em;
+  letter-spacing:-.015em;
   text-wrap:balance;
 }
 /* Wiersz źródła pod tytułem: cichy, jednolity, bez kolorowych pigułek. */
@@ -13361,10 +13360,10 @@ html:not(.kb-open) #modalFs #fsWrap .ncard.editing .ncontent {
   padding-right: clamp(16px, 4.5vw, 42px) !important;
 }
 
-/* Nagłówek notatki w trybie czytania — symetryczny, elegancki, editorial Hero Header */
+/* Nagłówek notatki w trybie czytania — symetryczny, elegancki, dyskretny Hero Header */
 #modalFs #fsWrap .ncard:not(.editing) .nhead {
   padding-top: max(84px, calc(72px + env(safe-area-inset-top, 0px))) !important;
-  padding-bottom: clamp(12px, 2vh, 18px) !important;
+  padding-bottom: clamp(8px, 1.5vh, 12px) !important;
   padding-left: clamp(16px, 3.5vw, 32px) !important;
   padding-right: clamp(16px, 3.5vw, 32px) !important;
   max-width: var(--fsMax, 960px) !important;
@@ -13376,13 +13375,13 @@ html:not(.kb-open) #modalFs #fsWrap .ncard.editing .ncontent {
 }
 
 #modalFs #fsWrap .ncard:not(.editing) .ntitle {
-  font-size: clamp(26px, calc(var(--fsNoteFs, 16px) + 12px), 38px) !important;
-  font-weight: 800 !important;
-  line-height: 1.18 !important;
-  letter-spacing: -0.03em !important;
+  font-size: clamp(18px, calc(var(--fsNoteFs, 16px) + 3px), 21px) !important;
+  font-weight: 650 !important;
+  line-height: 1.28 !important;
+  letter-spacing: -0.015em !important;
   color: var(--text) !important;
   margin-top: 2px !important;
-  margin-bottom: 8px !important;
+  margin-bottom: 6px !important;
   text-wrap: balance !important;
 }
 
@@ -14588,7 +14587,7 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
 #fsWrap .ncard.editing .nhead,
 #modalFs #fsWrap .ncard.editing .nhead {
   padding-top: max(84px, calc(72px + env(safe-area-inset-top, 0px))) !important;
-  padding-bottom: 16px !important;
+  padding-bottom: 10px !important;
   padding-left: clamp(16px, 3.5vw, 32px) !important;
   padding-right: clamp(16px, 3.5vw, 32px) !important;
   max-width: var(--fsMax, 960px) !important;
@@ -14614,18 +14613,18 @@ html[data-theme="dark"] #noteList.v-tablica .ncard.wydUbrana .wydDzialanie:hover
   box-sizing: border-box !important;
   flex: 1 1 100% !important;
   display: block !important;
-  padding: 4px 0 8px 0 !important;
+  padding: 3px 0 6px 0 !important;
   border: none !important;
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
   outline: none !important;
   color: var(--text) !important;
-  font-size: clamp(26px, calc(var(--fsNoteFs, 16px) + 12px), 38px) !important;
-  font-weight: 800 !important;
-  line-height: 1.18 !important;
-  letter-spacing: -0.03em !important;
-  min-height: 44px !important;
+  font-size: clamp(18px, calc(var(--fsNoteFs, 16px) + 3px), 21px) !important;
+  font-weight: 650 !important;
+  line-height: 1.28 !important;
+  letter-spacing: -0.015em !important;
+  min-height: 32px !important;
   word-break: break-word !important;
   overflow-wrap: break-word !important;
   white-space: pre-wrap !important;
@@ -26915,9 +26914,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v639";
+const APP_BUILD = "v640";
 const APP_BUILD_DATE = "2026-11-18";
-const APP_FULL_VERSION = "5.0 (v639)";
+const APP_FULL_VERSION = "5.0 (v640)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -59572,8 +59571,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v639</span>
+          <span class="cl-ver-num">v640</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">18 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Dyskretna i elegancka typografia tytułu notatki w czytniku i edytorze</div>
+        <ul class="cl-ver-list">
+          <li><b>Dyskretny i zrównoważony nagłówek:</b> Rozmiar tytułu notatki na pełnym ekranie został zredukowany z przytłaczających 26–38px (waga 800) do eleganckiego formatu ok. 18–21px (waga 650, semibold). Wygląda lekko, nowocześnie i nie dominuje nad treścią.</li>
+          <li><b>Więcej miejsca na notatkę:</b> Zmniejszenie gabarytów i marginesów nagłówka sprawia, że treść zaczyna się znacznie wyżej na ekranie (above the fold) — od razu po otwarciu widać więcej tekstu do czytania i pisania.</li>
+          <li><b>Proporcjonalne skalowanie (A- / A+):</b> Wielkość tytułu harmonijnie podąża za rozmiarem tekstu notatki, zachowując idealne proporcje na iPhone, iPad i komputerze.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v639</span>
           <span class="cl-ver-date">18 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Usprawnienia edytora: automatyczny zapis przy wyjściu, wspólny bufor Cofnij i ultralekkie zdjęcia</div>
