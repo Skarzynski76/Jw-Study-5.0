@@ -21912,35 +21912,6 @@ html[data-theme="sepia"] .sidebar-float-trigger {
 .sidebar-close-btn {
   display: none !important;
 }
-.sidebar-brand-settings-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
-  background: color-mix(in srgb, var(--sel) 80%, transparent);
-  border: 1px solid var(--border);
-  color: var(--text);
-  cursor: pointer;
-  padding: 0;
-  margin-left: auto;
-  margin-right: 6px;
-  transition: all 0.15s ease;
-  flex-shrink: 0;
-}
-.sidebar-brand-settings-btn:hover {
-  background: var(--sel);
-  color: var(--accent);
-  transform: rotate(30deg);
-}
-.sidebar-brand-settings-btn:active {
-  transform: scale(0.92) rotate(30deg);
-}
-.sidebar-brand-settings-btn .ic {
-  width: 17px;
-  height: 17px;
-}
 
 .mobile-menu-ver-badge {
   position: absolute;
@@ -21972,6 +21943,7 @@ body.mobile-sidebar-open .sidebar-close-btn,
 
 @media (max-width: 900px) {
   .mobile-menu-btn {
+    position: relative !important;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
@@ -24700,17 +24672,14 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v642)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v643)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v642</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v643</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v642) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v642</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v643) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v643</small></span>
       </div>
-      <button type="button" class="sidebar-brand-settings-btn" id="sidebarBrandSettingsBtn" title="Ustawienia aplikacji" aria-label="Ustawienia">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.5V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-      </button>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -24791,7 +24760,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v642</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v643</span>
   </button>
   <div class="searchwrap">
     <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -26986,9 +26955,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v642";
+const APP_BUILD = "v643";
 const APP_BUILD_DATE = "2026-11-18";
-const APP_FULL_VERSION = "5.0 (v642)";
+const APP_FULL_VERSION = "5.0 (v643)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -59656,8 +59625,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v642</span>
+          <span class="cl-ver-num">v643</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">18 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Naprawa układu paska (docka) na iPadzie — przywrócono czysty, wycentrowany nagłówek paska bocznego</div>
+        <ul class="cl-ver-list">
+          <li><b>Czysty i nienaruszony dock na iPadzie:</b> Usunięto niepotrzebną drugą ikonę koła zębatego z nagłówka paska bocznego. Logo JW-Study oraz plakietka wersji są znowu idealnie wycentrowane i nie są ściskane ani przycinane na krawędzi ekranu.</li>
+          <li><b>Ustawienia na swoim właściwym miejscu:</b> Dostęp do Ustawień na iPadzie i komputerze odbywa się klasycznie poprzez ikonę ⚙️ na dole paska bocznego.</li>
+          <li><b>Pełna wygoda na telefonie:</b> Na iPhone powiększony dolny margines bezpieczeństwa w wysuwanym menu gwarantuje, że dolny przycisk Ustawień nie chowa się pod belką gestów ani paskiem Safari.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v642</span>
           <span class="cl-ver-date">18 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Optymalizacja Safari/iPhone: eliminacja okna podręcznego w tle, aktualna wersja i wygodne Ustawienia</div>
@@ -68618,7 +68600,7 @@ document.querySelector(".searchHelp").appendChild(helpMore);
   const sidebarBrand = document.getElementById("sidebarBrand") || document.querySelector(".sidebar-brand");
   if (sidebarBrand) {
     sidebarBrand.addEventListener("click", (e) => {
-      if (e.target && e.target.closest("#sidebarCloseBtn, #sidebarBrandSettingsBtn")) return;
+      if (e.target && e.target.closest("#sidebarCloseBtn")) return;
       if (e.target && e.target.closest("#sidebarBrandVer, #sidebarMiniVer, .sidebar-ver-tag")) {
         e.stopPropagation();
         if (typeof pokazChangelogModal === "function") pokazChangelogModal();
@@ -68626,21 +68608,6 @@ document.querySelector(".searchHelp").appendChild(helpMore);
       }
       if (window.innerWidth > 768) {
         toggleSidebar();
-      }
-    });
-  }
-
-  // Obsługa przycisku Ustawień na samej górze paska bocznego (obok logo, wygodnego na telefonie)
-  const sidebarBrandSettingsBtn = document.getElementById("sidebarBrandSettingsBtn");
-  if (sidebarBrandSettingsBtn) {
-    sidebarBrandSettingsBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleMobileSidebar(false);
-      const btnS = document.getElementById("btnSettings");
-      if (btnS) {
-        btnS.click();
-      } else if (typeof openSettings === "function") {
-        openSettings();
       }
     });
   }
