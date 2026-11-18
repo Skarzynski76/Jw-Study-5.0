@@ -18976,14 +18976,17 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   font-size: 12.5px;
 }
 
-/* Boczny panel narzędzi w stylu macOS / iPadOS dla #modalFs */
-.fs-inspector-rail {
+/* Boczny panel narzędzi (#fsInspectorRail) w stylu macOS / iPadOS dla #modalFs:
+   wyświetlany WYŁĄCZNIE w trybie edycji tekstu (.editing / .is-editing).
+   W trybie czytnika jest całkowicie ukryty, dzięki czemu nie koliduje z kontrolkami i nie zasłania tekstu. */
+.fs-inspector-rail,
+#fsInspectorRail {
+  display: none !important;
   position: fixed;
   right: max(18px, calc(env(safe-area-inset-right, 0px) + 16px));
   top: 50%;
   transform: translateY(-50%);
   z-index: 10040;
-  display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 8px 6px;
@@ -18995,8 +18998,27 @@ html[data-theme="dark"] .fs-badge-verse{background:color-mix(in srgb,#f59e0b 18%
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
+
+#modalFs.is-editing .fs-inspector-rail,
+#modalFs.is-editing #fsInspectorRail,
+#modalFs:has(.ncard.editing) .fs-inspector-rail,
+#modalFs:has(.ncard.editing) #fsInspectorRail {
+  display: flex !important;
+}
+
+/* Wyskakujące okienka szyny narzędzi (.fs-rail-pop) — również wyłącznie w trybie edycji */
+.fs-rail-pop {
+  display: none !important;
+}
+
+#modalFs.is-editing .fs-rail-pop:not([hidden]),
+#modalFs:has(.ncard.editing) .fs-rail-pop:not([hidden]) {
+  display: flex !important;
+}
+
 @media (max-width: 768px) {
-  .fs-inspector-rail {
+  .fs-inspector-rail,
+  #fsInspectorRail {
     display: none !important;
   }
 }
@@ -26914,9 +26936,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v640";
+const APP_BUILD = "v641";
 const APP_BUILD_DATE = "2026-11-18";
-const APP_FULL_VERSION = "5.0 (v640)";
+const APP_FULL_VERSION = "5.0 (v641)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -33959,7 +33981,8 @@ function openFs(n, fromPopstate){
   }
   delete window._skadOtwartoGuid;
   fsGuid = n.g;
-  $("modalFs").classList.remove("dok-schowany","pow-open");
+  $("modalFs").classList.remove("dok-schowany","pow-open","is-editing");
+  if(typeof closeFsRailPops === "function") closeFsRailPops();
   document.body.classList.add("fs-open");
   applyReaderTheme();
   renderFs(); openModal("modalFs", fromPopstate);
@@ -34691,7 +34714,7 @@ function closeFs(fromPopstate){
   if(typeof schowajPoprzedniaNotatke === "function") schowajPoprzedniaNotatke();
   pilnujNhead(null);
   if(typeof _zmierzNheadRaf !== "undefined" && _zmierzNheadRaf){ cancelAnimationFrame(_zmierzNheadRaf); _zmierzNheadRaf = 0; }
-  $("modalFs").classList.remove("dok-schowany","pow-open","is-fullscreen");
+  $("modalFs").classList.remove("dok-schowany","pow-open","is-fullscreen","is-editing");
   $("modalFs")?.querySelector(".fsmodal")?.classList.remove("is-fullscreen");
   if(typeof updateFsFullBtn==="function") updateFsFullBtn(false);
   if(typeof updateFsBackFixed === "function") updateFsBackFixed();
@@ -41117,6 +41140,7 @@ function toggleEdit(card,n){
   const btn = card.querySelector('[data-act="edit"]');
   if(!editing){
     card.classList.add("editing");
+    $("modalFs")?.classList.add("is-editing");
     $("modalFs")?.classList.remove("dok-schowany");
     contEl.querySelectorAll(".qhl").forEach(s=>{ s.replaceWith(...s.childNodes); });
     contEl.querySelectorAll("a.jwl-ref.auto").forEach(a=>{ a.replaceWith(document.createTextNode(a.textContent)); });
@@ -41165,6 +41189,8 @@ function toggleEdit(card,n){
     btn.innerHTML=ICO.save+'<span class="sbtnTxt">Zapisywanie…</span>';
     btn.classList.add("saveon"); btn.title="Trwa zapisywanie zmian";
     card.classList.remove("editing");
+    $("modalFs")?.classList.remove("is-editing");
+    if(typeof closeFsRailPops === "function") closeFsRailPops();
     hideImgBar();
     card.querySelector(".editbar")?.remove();
     if(typeof zmierzNhead==="function") zmierzNhead();   // belka wraca na swoje miejsce
@@ -41206,6 +41232,7 @@ function toggleEdit(card,n){
       delete card.dataset.saving;
       btn.disabled=false;
       card.classList.add("editing");
+      $("modalFs")?.classList.add("is-editing");
       titleEl.contentEditable="true"; contEl.contentEditable="true";
       titleEl.setAttribute("contenteditable","true"); contEl.setAttribute("contenteditable","true");
       if(!card.querySelector(".editbar")) card.insertBefore(buildEditbar(n),contEl);
@@ -59571,8 +59598,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v640</span>
+          <span class="cl-ver-num">v641</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">18 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Czysty tryb czytnika bez kolizji przycisków — boczna szyna narzędzi widoczna tylko podczas edycji</div>
+        <ul class="cl-ver-list">
+          <li><b>Boczny pasek narzędzi tylko w edycji:</b> Pływająca boczna szyna (z Historią wersji, Wersetami, Statystykami, Szukaniem i Koszem) pojawia się teraz wyłącznie wtedy, gdy aktywnie edytujesz treść notatki.</li>
+          <li><b>Eliminacja kolizji przycisków w czytniku:</b> Podczas spokojnego czytania boczny pasek jest całkowicie schowany. Nie koliduje już z przyciskami w prawym górnym rogu ekranu, nie dubluje funkcji i nie zasłania tekstu ani suwaka przewijania.</li>
+          <li><b>Spokojna, czysta lektura (Zen Reader):</b> W trybie czytnika masz do dyspozycji wyłącznie czysty tekst oraz minimalistyczne przyciski sterujące (Wróć i Zamknij).</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v640</span>
           <span class="cl-ver-date">18 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Dyskretna i elegancka typografia tytułu notatki w czytniku i edytorze</div>
