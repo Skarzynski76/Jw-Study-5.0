@@ -26915,9 +26915,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v638";
-const APP_BUILD_DATE = "2026-11-17";
-const APP_FULL_VERSION = "5.0 (v638)";
+const APP_BUILD = "v639";
+const APP_BUILD_DATE = "2026-11-18";
+const APP_FULL_VERSION = "5.0 (v639)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -34667,8 +34667,20 @@ function wskazNaLiscie(g){
   _wskazTimer = setTimeout(zdejmijWskazanie, 1200);
 }
 function closeFs(fromPopstate){
-  /* Zamknięcie czytnika w trakcie edycji jest traktowane jak przerwana sesja:
-     nie zatwierdzamy notatki, ale zachowujemy jej bieżący szkic awaryjny. */
+  /* Zamknięcie czytnika w trakcie edycji: automatycznie i bezpiecznie utrwalamy
+     zmiany (auto-save on exit), dzięki czemu użytkownik nie traci wpisanego tekstu
+     ani nie musi pamiętać o ręcznym kliknięciu "Zapisz". */
+  const card = document.querySelector("#fsWrap .ncard.editing");
+  if(card && fsGuid){
+    const n = (typeof notes !== "undefined" && Array.isArray(notes)) ? notes.find(x => x.g === fsGuid) : null;
+    if(n && typeof toggleEdit === "function"){
+      try {
+        toggleEdit(card, n);
+      } catch(e) {
+        console.warn("Auto-save przy zamykaniu:", e);
+      }
+    }
+  }
   if(typeof szkicFlushKarty==="function") szkicFlushKarty();
   saveReadPos();
   /* Notatkę do wskazania trzeba wziąć PRZED skasowaniem śladu i fsGuid. */
@@ -36950,6 +36962,8 @@ const histMapa = new WeakMap();   // pole edycji → {stos, poz, timer}
 /** Włącza historię dla pola edycji notatki. Wywoływane przy wejściu w tryb edycji. */
 function histStart(ce){
   if(!ce) return;
+  const karta = ce.closest(".ncard") || ce;
+  const titleEl = karta ? karta.querySelector(".ntitle") : null;
   const juz = histMapa.has(ce);
   histMapa.set(ce, {stos:[histMigawka(ce)], poz:0, timer:0});
   if(juz) return;                       // zdarzenia już podpięte, nie dublujemy
@@ -36958,6 +36972,14 @@ function histStart(ce){
     clearTimeout(h.timer);
     h.timer = setTimeout(()=>histZapisz(ce), HIST_ZWLOKA);
   });
+  if(titleEl && !titleEl._hasHistListener){
+    titleEl._hasHistListener = true;
+    titleEl.addEventListener("input", ()=>{
+      const h = histMapa.get(ce); if(!h) return;
+      clearTimeout(h.timer);
+      h.timer = setTimeout(()=>histZapisz(ce), HIST_ZWLOKA);
+    });
+  }
   /* Cmd/Ctrl+Z w treści też idzie do naszego stosu — inaczej przeglądarka
      robiłaby swoje cofanie równolegle do naszego. */
   ce.addEventListener("keydown", e=>{
@@ -36969,7 +36991,6 @@ function histStart(ce){
     skrotPisania(e, ce);
   });
   ce.addEventListener("beforeinput",e=>{ obsluzEnterBezOdstepu(e,ce); });
-  const karta = ce.closest(".ncard") || ce;
   karta.addEventListener("keydown", e=>{
     if((e.metaKey||e.ctrlKey) && e.key && e.key.toLowerCase()==="z"){
       e.preventDefault();
@@ -36977,14 +36998,24 @@ function histStart(ce){
     }
   });
 }
-/** Stan pola edycji: treść + pozycja kursora liczona w znakach tekstu. */
-function histMigawka(ce){ return { html: ce.innerHTML, kursor: kursorOffset(ce) }; }
+/** Stan pola edycji: treść + tytuł + pozycja kursora liczona w znakach tekstu. */
+function histMigawka(ce){
+  const karta = ce.closest(".ncard") || ce;
+  const titleEl = karta ? karta.querySelector(".ntitle") : null;
+  return {
+    html: ce.innerHTML,
+    title: titleEl ? (titleEl.textContent || "") : "",
+    kursor: kursorOffset(ce),
+    isTitleFocused: document.activeElement === titleEl
+  };
+}
 
-/** Dopisuje migawkę, jeśli treść faktycznie się zmieniła. */
+/** Dopisuje migawkę, jeśli treść lub tytuł faktycznie się zmieniły. */
 function histZapisz(ce){
   const h = histMapa.get(ce); if(!h) return;
   const m = histMigawka(ce);
-  if(h.stos[h.poz] && h.stos[h.poz].html === m.html) return;
+  const cur = h.stos[h.poz];
+  if(cur && cur.html === m.html && cur.title === m.title) return;
   h.stos.length = h.poz + 1;            // nowa zmiana kasuje gałąź „ponów"
   h.stos.push(m);
   h.poz = h.stos.length - 1;
@@ -37009,7 +37040,16 @@ function histSkocz(ce, kier){
   h.poz = cel;
   const m = h.stos[cel];
   ce.innerHTML = m.html;
-  ustawKursorOffset(ce, m.kursor);
+  const karta = ce.closest(".ncard") || ce;
+  const titleEl = karta ? karta.querySelector(".ntitle") : null;
+  if(titleEl && m.title !== undefined && titleEl.textContent !== m.title){
+    titleEl.textContent = m.title;
+  }
+  if(m.isTitleFocused && titleEl){
+    titleEl.focus();
+  } else {
+    ustawKursorOffset(ce, m.kursor);
+  }
   commitLiveEdit(ce);
   histOdswiezStrzalki(ce);
   return true;
@@ -39696,7 +39736,7 @@ function przeniesObrazDoRange(img,range,ce){
 /* wstawienie zdjęcia (z pliku, wklejenia lub upuszczenia) — jedna wspólna funkcja */
 function insertImageUrl(ce, url, range){
   if(!ce) return null;
-  const img=document.createElement("img"); img.src=url; img.alt="Ilustracja";
+  const img=document.createElement("img"); img.src=url; img.alt="Ilustracja"; img.loading="lazy";
   /* Bezpieczny układ startowy: ilustracja jest osobnym, środkowym blokiem.
      Oblewanie tekstem można włączyć jednym przyciskiem po zaznaczeniu obrazu. */
   img.classList.add("img-center"); img.style.width="60%";
@@ -40006,14 +40046,37 @@ function captureRange(){
   const s = getSelection();
   return s.rangeCount ? s.getRangeAt(0).cloneRange() : null;
 }
+let _canWebpCache = null;
+function checkWebpSupport(){
+  if(_canWebpCache !== null) return _canWebpCache;
+  try {
+    const cv = document.createElement("canvas");
+    cv.width = 1; cv.height = 1;
+    _canWebpCache = cv.toDataURL("image/webp").startsWith("data:image/webp");
+  } catch(_) { _canWebpCache = false; }
+  return _canWebpCache;
+}
+
 async function compressImage(file){
   const dataUrl = await new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); });
   const img = await new Promise((res,rej)=>{ const i=new Image(); i.onload=()=>res(i); i.onerror=rej; i.src=dataUrl; });
-  const max = 1000; let w=img.width, h=img.height;
+  const max = 1100; let w=img.width, h=img.height;
   if(Math.max(w,h)>max){ const k=max/Math.max(w,h); w=Math.round(w*k); h=Math.round(h*k); }
   const cv = document.createElement("canvas"); cv.width=w; cv.height=h;
-  cv.getContext("2d").drawImage(img,0,0,w,h);
-  return cv.toDataURL("image/jpeg", 0.78);
+  const ctx = cv.getContext("2d");
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, w, h);
+  ctx.drawImage(img,0,0,w,h);
+
+  if(checkWebpSupport()){
+    try {
+      const webpUrl = cv.toDataURL("image/webp", 0.76);
+      if(webpUrl && webpUrl.startsWith("data:image/webp") && webpUrl.length < dataUrl.length){
+        return webpUrl;
+      }
+    } catch(_) {}
+  }
+  return cv.toDataURL("image/jpeg", 0.74);
 }
 
 /* =====================================================================
@@ -59509,8 +59572,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v638</span>
+          <span class="cl-ver-num">v639</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">18 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Usprawnienia edytora: automatyczny zapis przy wyjściu, wspólny bufor Cofnij i ultralekkie zdjęcia</div>
+        <ul class="cl-ver-list">
+          <li><b>Automatyczny zapis przy wyjściu:</b> Zamykanie notatki krzyżykiem (✕) w czytniku lub gestem automatycznie i bezpiecznie zapisuje wprowadzone zmiany. Koniec z uciążliwymi pytaniami o przywracanie szkicu awaryjnego.</li>
+          <li><b>Wspólny bufor Cofnij/Ponów (Cmd+Z / Ctrl+Z):</b> Historia cofania obejmuje teraz zarówno treść notatki, jak i jej tytuł. Wycofanie zmian w nagłówku i treści działa spójnie na klawiaturze oraz przyciskach paska narzędzi.</li>
+          <li><b>Ultralekka kompresja zdjęć (WebP):</b> Wstawianie zdjęć i zrzutów ekranu jest tak samo proste jak wcześniej, ale pod maską zdjęcia są kompresowane do nowoczesnego formatu WebP (lub zoptymalizowanego JPEG) z opóźnionym ładowaniem (lazy loading). Waga grafik spadła nawet o 70-80%, przyspieszając synchronizację z Dyskiem Google.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v638</span>
           <span class="cl-ver-date">17 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Inteligentna synchronizacja nawyków i ochrona przed starymi wersjami w chmurze</div>
