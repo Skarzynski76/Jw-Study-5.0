@@ -21912,6 +21912,52 @@ html[data-theme="sepia"] .sidebar-float-trigger {
 .sidebar-close-btn {
   display: none !important;
 }
+.sidebar-brand-settings-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--sel) 80%, transparent);
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto;
+  margin-right: 6px;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+.sidebar-brand-settings-btn:hover {
+  background: var(--sel);
+  color: var(--accent);
+  transform: rotate(30deg);
+}
+.sidebar-brand-settings-btn:active {
+  transform: scale(0.92) rotate(30deg);
+}
+.sidebar-brand-settings-btn .ic {
+  width: 17px;
+  height: 17px;
+}
+
+.mobile-menu-ver-badge {
+  position: absolute;
+  bottom: -3px;
+  right: -5px;
+  background: var(--accent, #10b981);
+  color: #ffffff !important;
+  font-size: 8.5px;
+  font-weight: 750;
+  padding: 1px 3.5px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.28);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  line-height: 1;
+  pointer-events: none;
+  letter-spacing: -0.02em;
+}
 body.mobile-sidebar-open .sidebar-close-btn,
 #appContainer.mobile-sidebar-open .sidebar-close-btn {
   display: inline-flex !important;
@@ -21969,7 +22015,7 @@ body.mobile-sidebar-open .sidebar-close-btn,
     transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.25, 1), box-shadow 0.25s ease !important;
     background: var(--panel, #ffffff) !important;
     box-shadow: none !important;
-    padding: max(16px, calc(10px + env(safe-area-inset-top, 0px))) 14px max(16px, calc(10px + env(safe-area-inset-bottom, 0px))) 14px !important;
+    padding: max(16px, calc(10px + env(safe-area-inset-top, 0px))) 14px max(74px, calc(env(safe-area-inset-bottom, 0px) + 64px)) 14px !important;
     display: flex !important;
     flex-direction: column !important;
     overflow-y: auto !important;
@@ -22912,7 +22958,7 @@ body[data-theme="sepia"].is-ipad #modernSidebar::before {
 html.is-iphone #modernSidebar, body.is-iphone #modernSidebar,
 html.iphone-standalone #modernSidebar, body.iphone-standalone #modernSidebar {
   padding-top: max(14px, calc(env(safe-area-inset-top, 0px) + 10px)) !important;
-  padding-bottom: max(14px, calc(env(safe-area-inset-bottom, 0px) + 10px)) !important;
+  padding-bottom: max(74px, calc(env(safe-area-inset-bottom, 0px) + 64px)) !important;
 }
 
 /* ══════════════ OCHRONA OKIEN FUNKCJI I MENU PRZED ROZMYCIEM I DOPASOWANIE DO EKRANÓW MOBILNYCH ══════════════ */
@@ -24654,14 +24700,17 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v610)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v642)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v610</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v642</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v610) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v610</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v642) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v642</small></span>
       </div>
+      <button type="button" class="sidebar-brand-settings-btn" id="sidebarBrandSettingsBtn" title="Ustawienia aplikacji" aria-label="Ustawienia">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.5V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -24742,6 +24791,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v642</span>
   </button>
   <div class="searchwrap">
     <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -26936,9 +26986,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v641";
+const APP_BUILD = "v642";
 const APP_BUILD_DATE = "2026-11-18";
-const APP_FULL_VERSION = "5.0 (v641)";
+const APP_FULL_VERSION = "5.0 (v642)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -59551,11 +59601,15 @@ async function zbadajWersjeCache(){
   try {
     if(window.caches){
       const keys = await caches.keys();
+      let maxNum = -1;
       for(const k of keys){
         const m = k.match(/v(\d+)/i);
-        if(m && m[0]){
-          swBuild = m[0].toLowerCase();
-          break;
+        if(m && m[1]){
+          const num = parseInt(m[1], 10);
+          if(num > maxNum){
+            maxNum = num;
+            swBuild = "v" + num;
+          }
         }
       }
     }
@@ -59574,6 +59628,10 @@ async function zbadajWersjeCache(){
   const brandVer = document.getElementById("sidebarBrandVer");
   if(brandVer){
     brandVer.innerHTML = 'v5.0 <small class="sidebar-ver-tag">' + APP_BUILD + '</small>';
+  }
+  const mobileVer = document.getElementById("mobileMenuVerBadge");
+  if(mobileVer){
+    mobileVer.textContent = APP_BUILD;
   }
   const clStatus = document.getElementById("changelogSwStatus");
   if(clStatus){
@@ -59598,8 +59656,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v641</span>
+          <span class="cl-ver-num">v642</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">18 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Optymalizacja Safari/iPhone: eliminacja okna podręcznego w tle, aktualna wersja i wygodne Ustawienia</div>
+        <ul class="cl-ver-list">
+          <li><b>Koniec z komunikatem „Ta witryna próbuje otworzyć okno podręczne”:</b> Automatyczna synchronizacja Dysku Google w tle nigdy nie wywołuje już ukrytych żądań autoryzacji blokowanych przez restrykcje Safari/iOS. Logowanie następuje wyłącznie po celowym kliknięciu przycisku przez użytkownika.</li>
+          <li><b>Aktualna wersja zawsze widoczna na telefonie:</b> Na telefonie przycisk menu hamburger [≡] zyskał dyskretną plakietkę z aktualną kompilacją (v642), a w nagłówku menu bocznego zawsze widać dokładną wersję i status pamięci offline. Kliknięcie w wersję otwiera historię zmian z opcją wymuszenia odświeżenia.</li>
+          <li><b>Łatwy dostęp do Ustawień na iPhone:</b> Dodano dedykowany przycisk koła zębatego (⚙️) na samej górze wysuwanego menu obok logo oraz zwiększono dolny margines bezpieczeństwa, dzięki czemu dolny przycisk Ustawień nie ucieka poza ekran pod belkę gestów iPhone’a.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v641</span>
           <span class="cl-ver-date">18 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Czysty tryb czytnika bez kolizji przycisków — boczna szyna narzędzi widoczna tylko podczas edycji</div>
@@ -66439,6 +66510,18 @@ async function gdriveZapewnijWaznyToken(wymus = false, interaktywne = false){
     return obecny;
   }
 
+  // Jeśli token wygasł i to NIE JEST interaktywna akcja użytkownika (np. start, timer, tło):
+  // na Safari/iOS (i innych silnikach z blokadą ciasteczek stron trzecich) próba odświeżenia w tle
+  // powoduje natychmiastowe otwarcie okna popup i systemowy alert "Ta witryna próbuje otworzyć okno podręczne".
+  // W tle nigdy nie wywołujemy requestAccessToken() — odnowienie następuje tylko po kliknięciu użytkownika.
+  if(!interaktywne){
+    if(!obecny || (exp && Date.now() >= exp)){
+      _gdriveStanOpis = "Wymaga odnowienia sesji (kliknij Synchronizuj)";
+      if(typeof gdriveOdswiezUI === "function") gdriveOdswiezUI();
+      return null;
+    }
+  }
+
   // Jeśli synchronizacja nie jest włączona i nie jest to akcja interaktywna, nic nie rób
   if(lsGet(GDRIVE_K_AUTO, "0") !== "1" && !interaktywne){
     return null;
@@ -68535,7 +68618,7 @@ document.querySelector(".searchHelp").appendChild(helpMore);
   const sidebarBrand = document.getElementById("sidebarBrand") || document.querySelector(".sidebar-brand");
   if (sidebarBrand) {
     sidebarBrand.addEventListener("click", (e) => {
-      if (e.target && e.target.closest("#sidebarCloseBtn")) return;
+      if (e.target && e.target.closest("#sidebarCloseBtn, #sidebarBrandSettingsBtn")) return;
       if (e.target && e.target.closest("#sidebarBrandVer, #sidebarMiniVer, .sidebar-ver-tag")) {
         e.stopPropagation();
         if (typeof pokazChangelogModal === "function") pokazChangelogModal();
@@ -68543,6 +68626,21 @@ document.querySelector(".searchHelp").appendChild(helpMore);
       }
       if (window.innerWidth > 768) {
         toggleSidebar();
+      }
+    });
+  }
+
+  // Obsługa przycisku Ustawień na samej górze paska bocznego (obok logo, wygodnego na telefonie)
+  const sidebarBrandSettingsBtn = document.getElementById("sidebarBrandSettingsBtn");
+  if (sidebarBrandSettingsBtn) {
+    sidebarBrandSettingsBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleMobileSidebar(false);
+      const btnS = document.getElementById("btnSettings");
+      if (btnS) {
+        btnS.click();
+      } else if (typeof openSettings === "function") {
+        openSettings();
       }
     });
   }
