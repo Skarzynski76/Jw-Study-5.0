@@ -19630,6 +19630,206 @@ html[data-theme="oled"] .sidebar-seg-ctrl .seg-btn.on {
   min-height: 0 !important;
 }
 
+/* Nowoczesne nagłówki i szukajki kolumn paska bocznego (Etykiety, Biblia, Publikacje) */
+.sidebarColHeader {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 8px 12px 6px 12px !important;
+  flex-shrink: 0 !important;
+}
+.sidebarColHeader h2 {
+  margin: 0 !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  color: var(--text) !important;
+  letter-spacing: -0.01em !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+.sidebarColHeaderActs {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+.sidebarSearchBox {
+  position: relative !important;
+  margin: 2px 10px 8px 10px !important;
+  flex-shrink: 0 !important;
+}
+.sidebarSearchBox input {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 7px 28px 7px 30px !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--border) !important;
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  font-size: 12.5px !important;
+  outline: none !important;
+  transition: all 0.16s ease !important;
+}
+.sidebarSearchBox input:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 2px var(--sel) !important;
+  background: var(--bg) !important;
+}
+.sidebarSearchIcon {
+  position: absolute !important;
+  left: 9px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  font-size: 12px !important;
+  opacity: 0.55 !important;
+  pointer-events: none !important;
+}
+.sidebarSearchClear {
+  position: absolute !important;
+  right: 7px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  width: 18px !important;
+  height: 18px !important;
+  padding: 0 !important;
+  border-radius: 999px !important;
+  border: none !important;
+  background: var(--border) !important;
+  color: var(--muted) !important;
+  font-size: 10px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.sidebarSearchClear:hover {
+  background: var(--accent) !important;
+  color: #fff !important;
+}
+
+/* Przełącznik widoku Biblii (Lista / Kafelki) */
+.segViewSwitch {
+  display: inline-flex !important;
+  background: rgba(0, 0, 0, 0.06) !important;
+  border-radius: 8px !important;
+  padding: 2px !important;
+  gap: 2px !important;
+}
+html[data-theme="dark"] .segViewSwitch {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+.bViewBtn {
+  border: none !important;
+  background: transparent !important;
+  color: var(--muted) !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 3px 8px !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+}
+.bViewBtn.on {
+  background: var(--panel, #ffffff) !important;
+  color: var(--accent) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+}
+html[data-theme="dark"] .bViewBtn.on {
+  background: #1e293b !important;
+  color: #34d399 !important;
+}
+
+/* Kafelki siatki Biblii (styl JW Library) */
+.bibleGridContainer {
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 5px !important;
+  padding: 6px 10px 16px 10px !important;
+}
+.bGridTile {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 6px 2px !important;
+  border-radius: 9px !important;
+  border: 1px solid var(--border) !important;
+  background: var(--panel) !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease !important;
+}
+.bGridTile:hover {
+  transform: scale(1.04) !important;
+  border-color: var(--accent) !important;
+  background: var(--sel) !important;
+}
+.bGridTile.on {
+  border-color: var(--accent) !important;
+  background: var(--accent) !important;
+  color: #ffffff !important;
+}
+.bGridAbbr {
+  font-size: 12px !important;
+  font-weight: 750 !important;
+  letter-spacing: -0.01em !important;
+  line-height: 1.1 !important;
+}
+.bGridCnt {
+  font-size: 9.5px !important;
+  opacity: 0.75 !important;
+  font-family: var(--font-mono, monospace) !important;
+}
+.bGridTile.on .bGridCnt {
+  opacity: 0.9 !important;
+  color: #ffffff !important;
+}
+.bGridDivider {
+  grid-column: 1 / -1 !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  color: var(--muted) !important;
+  padding: 8px 2px 2px 2px !important;
+  border-bottom: 1px solid var(--border) !important;
+  margin-bottom: 2px !important;
+}
+
+/* Szybkie pigułki publikacji */
+.pubQuickBar {
+  display: flex !important;
+  gap: 5px !important;
+  padding: 0 10px 6px 10px !important;
+  overflow-x: auto !important;
+}
+.pubQuickPill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 4px 9px !important;
+  border-radius: 999px !important;
+  border: 1px solid var(--border) !important;
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  font-size: 11px !important;
+  font-weight: 550 !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  transition: all 0.14s ease !important;
+}
+.pubQuickPill:hover {
+  background: var(--sel) !important;
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+}
+.pubQuickPill.on {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12) !important;
+}
+
 @media (max-width: 900px) {
   /* Na telefonie przełącznik wewnątrz paska jest ukryty, bo u góry jest już pasek mobileTabs */
   #sidebarSegmentedBar {
@@ -24672,13 +24872,13 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v645)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v646)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v645</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v646</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v645) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v645</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v646) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v646</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -24760,7 +24960,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v645</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v646</span>
   </button>
   <div class="searchwrap">
     <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -24842,8 +25042,18 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
     <div id="sidebarNaviContent" class="sidebar-navi-content">
       <div class="col" id="colTags">
         <div id="tagPanel">
-          <h2><span class="colTitleTxt">Etykiety</span><button class="kolPlus" id="btnTagPlus" title="Dodaj etykietę albo sekcję" aria-label="Dodaj etykietę albo sekcję"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h2>
-          <div class="tagBtns">
+          <div class="sidebarColHeader">
+            <h2><span class="colTitleTxt">Etykiety</span></h2>
+            <div class="sidebarColHeaderActs">
+              <button class="kolPlus" id="btnTagPlus" title="Dodaj folder lub etykietę" aria-label="Dodaj folder lub etykietę"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+            </div>
+          </div>
+          <div class="sidebarSearchBox" id="boxTagSearch">
+            <span class="sidebarSearchIcon">🔍</span>
+            <input type="text" id="tagSearchInput" placeholder="Filtruj etykiety..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            <button type="button" class="sidebarSearchClear" id="btnTagSearchClear" title="Wyczyść filtr" style="display:none;">✕</button>
+          </div>
+          <div class="tagBtns" style="display:none;">
             <button id="btnNewTag" title="Utwórz nową etykietę"><svg class="ic tb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span class="tb-txt">Nowa etykieta</span></button>
             <button id="btnNewSec" title="Grupuj etykiety w sekcje, np. Kongresy"><svg class="ic tb-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 7.4A1.6 1.6 0 0 1 5.1 5.8h3.7l1.9 2.1h8.2a1.6 1.6 0 0 1 1.6 1.6v8.1a1.6 1.6 0 0 1-1.6 1.6H5.1a1.6 1.6 0 0 1-1.6-1.6z"/></svg><span class="tb-txt">Nowa sekcja</span></button>
           </div>
@@ -24851,12 +25061,39 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
         </div>
       </div>
       <div class="col" id="colBooks" style="display:none;">
-        <h2><span class="colTitleTxt">Biblia</span></h2>
+        <div class="sidebarColHeader">
+          <h2><span class="colTitleTxt">Biblia</span></h2>
+          <div class="sidebarColHeaderActs">
+            <div class="segViewSwitch" id="bibleViewSwitch">
+              <button type="button" class="bViewBtn on" id="btnBibleViewList" title="Widok listy kanonicznej">Lista</button>
+              <button type="button" class="bViewBtn" id="btnBibleViewGrid" title="Kafelki skrótów (styl JW Library)">Kafelki</button>
+            </div>
+          </div>
+        </div>
+        <div class="sidebarSearchBox" id="boxBookSearch">
+          <span class="sidebarSearchIcon">🔍</span>
+          <input type="text" id="bookSearchInput" placeholder="Filtruj księgi (np. 1ko, rdz, ps)..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+          <button type="button" class="sidebarSearchClear" id="btnBookSearchClear" title="Wyczyść filtr" style="display:none;">✕</button>
+        </div>
         <div class="list" id="bookList"></div>
       </div>
       <div class="col" id="colPubs" style="display:none;">
         <div id="pubPanel">
-          <h2 class="pubTitle"><span class="colTitleTxt">Publikacje</span><span class="pubActs"><span id="pubReset" class="pubReset" style="display:none" title="Przywróć domyślną kolejność">↺</span></span></h2>
+          <div class="sidebarColHeader">
+            <h2 class="pubTitle"><span class="colTitleTxt">Publikacje</span></h2>
+            <div class="sidebarColHeaderActs">
+              <span id="pubReset" class="pubReset" style="display:none" title="Przywróć domyślną kolejność">↺</span>
+            </div>
+          </div>
+          <div class="sidebarSearchBox" id="boxPubSearch">
+            <span class="sidebarSearchIcon">🔍</span>
+            <input type="text" id="pubSearchInput" placeholder="Szukaj publikacji (np. lff, mwb, w)..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+            <button type="button" class="sidebarSearchClear" id="btnPubSearchClear" title="Wyczyść filtr" style="display:none;">✕</button>
+          </div>
+          <div class="pubQuickBar" id="pubQuickBar">
+            <button type="button" class="pubQuickPill" id="pillPubMwb" data-qpub="mwb" title="Życie i służba (program zebrań)">📌 Życie i służba</button>
+            <button type="button" class="pubQuickPill" id="pillPubW" data-qpub="w" title="Strażnica (wydanie do studium)">📌 Strażnica</button>
+          </div>
           <nav class="pubSciezka" id="pubSciezka" aria-label="Gdzie jesteś w publikacjach"></nav>
           <div class="list" id="pubList"></div>
         </div>
@@ -26955,9 +27192,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v645";
+const APP_BUILD = "v646";
 const APP_BUILD_DATE = "2026-11-19";
-const APP_FULL_VERSION = "5.0 (v645)";
+const APP_FULL_VERSION = "5.0 (v646)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -30588,6 +30825,16 @@ function renderPubPanel(){
   const rst=$("pubReset");
   rysujSciezkePub();
   const grip = '<span class="pubDrag" title="Przeciągnij: zmień kolejność lub dodaj do Mojej zakładki">'+IC_GRIP+'</span>';
+
+  const pubQuery = ($("pubSearchInput") ? $("pubSearchInput").value : "").trim();
+  const pubQueryNorm = norm(pubQuery);
+
+  // Synchronizacja aktywnych pigułek szybkiego wyboru
+  const pillMwb = $("pillPubMwb");
+  const pillW = $("pillPubW");
+  if(pillMwb) pillMwb.classList.toggle("on", pubView.cat === "mwb" && !pubView.year);
+  if(pillW) pillW.classList.toggle("on", pubView.cat === "w" && !pubView.year);
+
   /* Publikacja, w kontekście której jesteśmy. Liczona RAZ na przerysowanie panelu —
      wcześniej wołana w pętli po publikacjach, czyli przy każdym renderowaniu tyle razy,
      ile publikacji, a każde wywołanie przeglądało wszystkie notatki. */
@@ -30601,8 +30848,17 @@ function renderPubPanel(){
     // POZIOM 1: kategorie
     const cats={};
     base.forEach(n=>{ const c=pubCatOf(n); if(!cats[c.id]) cats[c.id]={name:c.name,byYear:c.byYear,cnt:0}; cats[c.id].cnt++; });
-    const keys=applyPubOrder(Object.keys(cats).sort((a,b)=>cats[b].cnt-cats[a].cnt || cats[a].name.localeCompare(cats[b].name,"pl")));
-    if(!keys.length && !html){ el.innerHTML='<div class="pubEmpty">Brak notatek z publikacji</div>'; if(rst) rst.style.display="none"; return; }
+    let keys=applyPubOrder(Object.keys(cats).sort((a,b)=>cats[b].cnt-cats[a].cnt || cats[a].name.localeCompare(cats[b].name,"pl")));
+    if(pubQueryNorm){
+      keys = keys.filter(id => norm(cats[id].name).includes(pubQueryNorm) || norm(id).includes(pubQueryNorm));
+    }
+    if(!keys.length && !html){
+      el.innerHTML= pubQueryNorm
+        ? `<div class="secEmpty" style="padding:16px 12px;text-align:center;">Brak kategorii pasujących do „${esc(pubQuery)}”</div>`
+        : '<div class="pubEmpty">Brak notatek z publikacji</div>';
+      if(rst) rst.style.display="none";
+      return;
+    }
     keys.forEach(id=>{
       html+=`<div class="item pubCat pubMove" data-cat="${id}" data-ord="${id}" data-pubref="cat:${id}" data-pubreflabel="${esc(cats[id].name)}">${grip}<span class="nm">${esc(cats[id].name)}</span><span class="arr">›</span><span class="cnt">${cats[id].cnt}</span></div>`;
     });
@@ -30613,14 +30869,28 @@ function renderPubPanel(){
     if(cat.byYear){
       const years={};
       inCat.forEach(n=>{ const y=pubYearOf(n)||"—"; years[y]=(years[y]||0)+1; });
-      applyPubOrder(Object.keys(years).sort((a,b)=>b.localeCompare(a))).forEach(y=>{
+      let yKeys = applyPubOrder(Object.keys(years).sort((a,b)=>b.localeCompare(a)));
+      if(pubQueryNorm){
+        yKeys = yKeys.filter(y => norm(y).includes(pubQueryNorm) || (y==="—" && norm("Bez rocznika").includes(pubQueryNorm)));
+      }
+      if(!yKeys.length){
+        html += `<div class="secEmpty" style="padding:16px 12px;text-align:center;">Brak roczników pasujących do „${esc(pubQuery)}”</div>`;
+      }
+      yKeys.forEach(y=>{
         const yl=(y==="—"?"Bez rocznika":y)+" — "+cat.name;
         html+=`<div class="item pubYear pubMove" data-year="${esc(y)}" data-ord="${esc(y)}" data-pubref="year:${esc(pubView.cat)}:${esc(y)}" data-pubreflabel="${esc(yl)}">${grip}<span class="nm">${y==="—"?"Bez rocznika":y}</span><span class="cnt">${years[y]}</span></div>`;
       });
     } else {
       const items={};
       inCat.forEach(n=>{ const k=pubKeyOf(n); items[k]=(items[k]||0)+1; });
-      applyPubOrder(Object.keys(items).sort((a,b)=>items[b]-items[a])).forEach(k=>{
+      let pKeys = applyPubOrder(Object.keys(items).sort((a,b)=>items[b]-items[a]));
+      if(pubQueryNorm){
+        pKeys = pKeys.filter(k => norm(pubKeyLabel(k)).includes(pubQueryNorm) || norm(k).includes(pubQueryNorm));
+      }
+      if(!pKeys.length){
+        html += `<div class="secEmpty" style="padding:16px 12px;text-align:center;">Brak pozycji pasujących do „${esc(pubQuery)}”</div>`;
+      }
+      pKeys.forEach(k=>{
         const wKs = String(k).split("|")[0];
         const act=String(filt.pub)==="pub:"+k || (String(filt.pub).indexOf("ptb:")===0 && ksKontekst===wKs);
         html+=`<div class="item pubPick pubMove${String(filt.pub)==="pub:"+k?" active":""}" data-key="${esc(k)}" data-ord="${esc(k)}" data-pubref="pub:${esc(k)}" data-pubreflabel="${esc(pubKeyLabel(k))}">${grip}<span class="nm">${esc(pubKeyLabel(k))}</span><span class="cnt">${items[k]}</span></div>`;
@@ -30633,13 +30903,25 @@ function renderPubPanel(){
     const inYear = base.filter(n=>pubCatOf(n).id===pubView.cat && (pubYearOf(n)||"—")===pubView.year);
     const items={};
     inYear.forEach(n=>{ const k=pubKeyOf(n); items[k]=(items[k]||0)+1; });
-    const keys=applyPubOrder(Object.keys(items).sort((a,b)=>{
+    let keys=applyPubOrder(Object.keys(items).sort((a,b)=>{
       const ia=+(String(a).split("|")[1]||0), ib=+(String(b).split("|")[1]||0);
       return ia-ib;
     }));
+    if(pubQueryNorm){
+      keys = keys.filter(k=>{
+        const itn=String(k).split("|")[1];
+        const lbl= itn ? issueLabel(itn) : pubKeyLabel(k);
+        return norm(lbl).includes(pubQueryNorm) || norm(k).includes(pubQueryNorm);
+      });
+    }
     // cały rocznik jednym kliknięciem — zawsze na górze, nie przenosi się
     const yKey="year:"+pubView.cat+":"+pubView.year;
-    html+=`<div class="item pubPick${String(filt.pub)==="pub:"+yKey?" active":""}" data-key="${esc(yKey)}" data-pubref="year:${esc(pubView.cat)}:${esc(pubView.year)}" data-pubreflabel="Cały rocznik ${esc(pubView.year)}"><span class="nm">Cały rocznik ${esc(pubView.year)}</span><span class="cnt">${inYear.length}</span></div>`;
+    if(!pubQueryNorm || norm("Cały rocznik " + pubView.year).includes(pubQueryNorm)){
+      html+=`<div class="item pubPick${String(filt.pub)==="pub:"+yKey?" active":""}" data-key="${esc(yKey)}" data-pubref="year:${esc(pubView.cat)}:${esc(pubView.year)}" data-pubreflabel="Cały rocznik ${esc(pubView.year)}"><span class="nm">Cały rocznik ${esc(pubView.year)}</span><span class="cnt">${inYear.length}</span></div>`;
+    }
+    if(!keys.length && pubQueryNorm){
+      html += `<div class="secEmpty" style="padding:16px 12px;text-align:center;">Brak wydań pasujących do „${esc(pubQuery)}”</div>`;
+    }
     keys.forEach(k=>{
       const itn=String(k).split("|")[1];
       const lbl= itn ? issueLabel(itn) : pubKeyLabel(k);
@@ -31900,25 +32182,38 @@ function renderTags(){
   const counts = {}; let untagged=0;
   base.forEach(n=>{ if(!n.tg.length)untagged++; n.tg.forEach(t=>counts[t]=(counts[t]||0)+1); });
   const el = $("tagList");
+
+  const tagSearchInp = $("tagSearchInput");
+  const tagQuery = tagSearchInp ? tagSearchInp.value.trim() : "";
+  const tagQueryNorm = tagQuery ? norm(tagQuery) : "";
+
   /* „Bez etykiety" pokazujemy tylko wtedy, gdy takie notatki istnieją — albo gdy
-     ten filtr jest właśnie włączony, bo inaczej nie dałoby się go wyłączyć.
-     Pozycja z zerem uczy omijać wzrokiem miejsce, w którym czasem coś jest. */
+     ten filtr jest właśnie włączony, bo inaczej nie dałoby się go wyłączyć. */
   let html = tagItem("all","Wszystkie",base.length);
   if(untagged || String(filt.tag)==="none") html += tagItem("none","Bez etykiety",untagged);
+
+  let anyMatch = false;
+
   // ——— SEKCJE (grupy etykiet) ———
   const secs = sections.slice().sort((a,b)=>(a.ord??0)-(b.ord??0));
   secs.forEach(s=>{
-    const inside = tags.filter(t=>t.sec===s.id);
-    const sum = inside.reduce((a,t)=>a+(counts[t.id]||0),0);
+    const insideAll = tags.filter(t=>t.sec===s.id);
+    const sum = insideAll.reduce((a,t)=>a+(counts[t.id]||0),0);
+    const secMatches = tagQueryNorm ? norm(s.name).includes(tagQueryNorm) : true;
+    const inside = tagQueryNorm 
+      ? (secMatches ? insideAll : insideAll.filter(t=>norm(t.name).includes(tagQueryNorm)))
+      : insideAll;
+
+    if(tagQueryNorm && !secMatches && !inside.length) return;
+    anyMatch = true;
+
     // kolor napisu dobierany do tła sekcji — inaczej jasny pastel + biel = nic nie widać
-    /* Pasek bierze wybrany kolor w całości — z pastelowej palety wygląda spokojnie,
-       a kolor napisu liczy czytelnyTekst(), więc pozostaje czytelny przy każdym odcieniu. */
     const kol = (typeof kolorBezpieczny==="function" && kolorBezpieczny(s.color)) ? s.color : "";
     const sc = kol
       ? ` style="--secBg:${kol};--secLine:${shade(kol,-.28)};`+
         `--secFg:${czytelnyTekst(kol)};--secFg2:${czytelnyTekstSlaby(kol)}"`
       : "";
-    const isOpen = s.open === true;
+    const isOpen = tagQueryNorm ? true : (s.open === true);
     html += `<div class="secHead${isOpen?"":" closed"}" data-sec="${s.id}"${sc}>
       <span class="secArr">${isOpen?"▾":"▸"}</span>
       <span class="secName">${esc(s.name)}</span>
@@ -31940,10 +32235,19 @@ function renderTags(){
       luzne.forEach(t=>{ html += tagItem(t.id,t.name,counts[t.id]||0,true,t.color,true,s.id); });
     }
   });
+
   // ——— ETYKIETY POZA SEKCJAMI ———
-  const loose = tags.filter(t=>!t.sec || !sections.some(s=>s.id===t.sec));
-  html += '<div class="divider">Moje etykiety</div>';
-  loose.forEach(t=>{ html += tagItem(t.id,t.name,counts[t.id]||0,true,t.color,false,undefined); });
+  const looseAll = tags.filter(t=>!t.sec || !sections.some(s=>s.id===t.sec));
+  const loose = tagQueryNorm ? looseAll.filter(t=>norm(t.name).includes(tagQueryNorm)) : looseAll;
+  if(loose.length || (!tagQueryNorm && looseAll.length)){
+    if(sections.length > 0) html += '<div class="divider" style="font-weight:700;letter-spacing:0.04em;text-transform:uppercase;font-size:11px;color:var(--muted);padding:10px 4px 4px 4px;border-top:1px solid var(--border);margin-top:6px;">Moje etykiety</div>';
+    loose.forEach(t=>{ html += tagItem(t.id,t.name,counts[t.id]||0,true,t.color,false,undefined); });
+    if(loose.length) anyMatch = true;
+  }
+
+  if(tagQueryNorm && !anyMatch){
+    html += `<div class="secEmpty" style="padding:16px 12px;text-align:center;">Brak etykiet pasujących do „${esc(tagQuery)}”</div>`;
+  }
   // gdy nic się nie zmieniło, nie ruszamy DOM — inaczej gubimy m.in. stan przewijania
   const changed = setHtml(el, html);
   renderPubPanel();
@@ -32569,6 +32873,7 @@ function tagMenu(e, t){
   const pal=(c)=>{ const s=(c||"")===(t.color||""); return `<span class="pal ${c?"":"pal-none"} ${s?"sel":""}" data-pc="${c||""}" style="${c?`background:${c}`:''}" title="${c||"Bez koloru"}">${c?"":"✕"}</span>`; };
   dd.innerHTML =
     `<div data-tm="ren">${ICO.edit}Zmień nazwę</div>
+     <div data-tm="scal">${ICO.copy}Połącz / scal z inną etykietą…</div>
      <div class="dd-lbl">Kolor zakładki</div>
      <div class="palrow">${pal("")}${TAGCOLORS.map(c=>pal(c)).join("")}</div>
      <div class="dd-sep"></div>
@@ -32612,6 +32917,7 @@ function tagMenu(e, t){
     dd.style.display = "none";
     if(m==="wyslij") wyslijEtykiete(t.id);
     else if(m==="ren") renameTag(t.id);
+    else if(m==="scal") scalEtykiete(t.id);
     else if(m==="up") moveTag(t.id,-1);
     else if(m==="down") moveTag(t.id,1);
     else if(m==="top") moveTag(t.id,"top");
@@ -32700,6 +33006,82 @@ async function renameTag(id){
   sortTags();
   saveTags(); renderAll(); toast("Zmieniono nazwę zakładki");
 }
+async function scalEtykiete(sourceTagId){
+  const src = tags.find(x=>x.id===sourceTagId);
+  if(!src) return;
+  const inne = tags.filter(x=>x.id!==sourceTagId).sort((a,b)=>a.name.localeCompare(b.name, "pl"));
+  if(!inne.length){
+    toast("Nie ma innej etykiety, z którą można by scalić tę etykietę.");
+    return;
+  }
+  const cnt = notes.filter(n=>!n.del && n.tg && n.tg.includes(src.id)).length;
+  const optionsHtml = inne.map(t=>`<option value="${t.id}">${esc(t.name)}</option>`).join("");
+  const bodyHtml = `
+    <p style="margin:0 0 10px;font-size:13.5px;color:var(--text);line-height:1.45;">
+      Wybierz etykietę docelową, do której zostaną przeniesione wszystkie notatki z etykiety <b>„${esc(src.name)}”</b> (${cnt} ${cnt===1?"notatka":cnt<5?"notatki":"notatek"}).
+    </p>
+    <div style="margin:12px 0 6px;">
+      <label style="font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:5px;">Etykieta docelowa:</label>
+      <select id="modalMergeSelect" style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:var(--panel);color:var(--text);font-size:13.5px;box-sizing:border-box;">
+        ${optionsHtml}
+      </select>
+    </div>
+    <p style="margin:10px 0 0;font-size:11.5px;color:var(--muted);line-height:1.35;">
+      Dotychczasowa etykieta „${esc(src.name)}” zostanie usunięta, a jej notatki zyskają wybraną etykietę (duplikaty w notatkach zostaną połączone).
+    </p>
+  `;
+  let targetId = inne[0].id;
+  setTimeout(()=>{
+    const sel = $("modalMergeSelect");
+    if(sel) sel.onchange = (e)=>{ targetId = +e.target.value; };
+  }, 20);
+
+  const choice = await askChoice("Scalanie etykiet", bodyHtml, [
+    {label:"Scal etykiety", value:"merge", style:"primary"},
+    {label:"Anuluj", value:"cancel", style:"default"}
+  ]);
+  if(choice!=="merge") return;
+  const selEl = $("modalMergeSelect");
+  if(selEl && selEl.value) targetId = +selEl.value;
+  const dest = tags.find(x=>x.id===targetId);
+  if(!dest) return;
+
+  const affected = [];
+  const notesBefore = notes.filter(n=>n.tg && n.tg.includes(src.id)).map(cloneNote);
+  const u = {
+    type: "tagBundle",
+    tags: cloneTags(),
+    notes: notesBefore,
+    deletedTagNames: deepCopy(deletedTagNames),
+    label: "scalenie etykiety „"+src.name+"” z „"+dest.name+"”"
+  };
+  pushUndo(u);
+
+  if(src.name && !deletedTagNames.includes(src.name)) deletedTagNames.push(src.name);
+  if(src.orig && !deletedTagNames.includes(src.orig)) deletedTagNames.push(src.orig);
+  saveDeletedTags();
+
+  tags = tags.filter(x=>x.id!==src.id);
+  notes.forEach(n=>{
+    if(n.tg && n.tg.includes(src.id)){
+      n.tg = n.tg.filter(x=>x!==src.id);
+      if(!n.tg.includes(dest.id)) n.tg.push(dest.id);
+      n.tgd = true;
+      n.m = Date.now();
+      affected.push(n);
+    }
+  });
+
+  if(idb){
+    idbDelKey("tags", src.id).catch(()=>{});
+    if(affected.length) idbBulkChunked("notes", affected).catch(e=>reportSaveError(e,"notatki"));
+  }
+  bumpDirty();
+  saveTags();
+  if(filt.tag===src.id){ filt.tag=dest.id; persistFilt(); }
+  renderAll();
+  toast(`Scalono „${src.name}” z „${dest.name}” (${affected.length} zaktualizowanych notatek)`);
+}
 
 </script>
 <script>
@@ -32709,23 +33091,140 @@ async function renameTag(id){
    ========================================================================== */
 "use strict";
 /* ================= KOLUMNA 2: KSIĘGI + ROZDZIAŁY ================= */
+const BOOK_ABBR = [
+  "",
+  "Rdz","Wj","Kpł","Lb","Pwt","Joz","Sdz","Rut","1Sm","2Sm",
+  "1Kl","2Kl","1Kn","2Kn","Ezd","Ne","Est","Hi","Ps","Prz",
+  "Kzn","PnP","Iz","Jer","Lam","Ez","Dn","Oz","Jl","Am",
+  "Abd","Jon","Mi","Nah","Hab","Sof","Agg","Zach","Mal",
+  "Mt","Mk","Łk","J","Dz","Rz","1Ko","2Ko","Ga","Ef",
+  "Flp","Kol","1Ts","2Ts","1Tm","2Tm","Tt","Flm","Hbr","Jk",
+  "1Pt","2Pt","1J","2J","3J","Jud","Obj"
+];
+
+function bookMatchesQuery(i, qNorm){
+  if(!qNorm) return true;
+  if(norm(BOOKS[i]||"").includes(qNorm)) return true;
+  if(BOOK_ABBR[i] && norm(BOOK_ABBR[i]).includes(qNorm)) return true;
+  const sig = (typeof SIGLA_KSIAG !== "undefined") ? SIGLA_KSIAG[i] : null;
+  if(sig && sig.some(s=>norm(s).includes(qNorm) || qNorm.includes(norm(s)))) return true;
+  return false;
+}
+
 function renderBooks(){
   const base = notes.filter(n=>!n.del && noteMatchesTag(n,filt.tag) && noteMatchesPub(n,filt.pub) && noteMatchesQuery(n));
   const counts = {}; let pubs=0;
   base.forEach(n=>{ if(n.b)counts[n.b]=(counts[n.b]||0)+1; else pubs++; });
   const el = $("bookList");
-  let html = bookItem("all","Wszystkie",base.length,false);
-  html += '<div class="divider">Pisma Hebrajskie i Aramejskie</div>';
-  for(let i=1;i<=39;i++) html += bookBlock(i, counts[i]||0, base);
-  html += '<div class="divider">Chrześcijańskie Pisma Greckie</div>';
-  for(let i=40;i<=66;i++) html += bookBlock(i, counts[i]||0, base);
-  html += '<div class="divider">Pozostałe</div>';
-  html += bookItem(0,"Publikacje / inne",pubs,false);
+  if(!el) return;
+
+  const bQuery = ($("bookSearchInput") ? $("bookSearchInput").value : "").trim();
+  const bQueryNorm = norm(bQuery);
+  const viewMode = lsGet(KP + "BibleViewMode", "list");
+
+  // Synchronizacja przycisków przełącznika widoku
+  const bListBtn = $("btnBibleViewList");
+  const bGridBtn = $("btnBibleViewGrid");
+  if(bListBtn && bGridBtn){
+    bListBtn.classList.toggle("on", viewMode === "list");
+    bGridBtn.classList.toggle("on", viewMode === "grid");
+  }
+
+  let html = "";
+  if(viewMode === "grid"){
+    html += '<div class="bibleGridContainer">';
+    if(!bQueryNorm){
+      html += `<div class="bGridTile ${filt.book==='all'?'on':''}" data-k="all" title="Wszystkie księgi" style="grid-column: 1 / -1; padding: 7px 4px;">
+        <span class="bGridAbbr">Wszystkie (${base.length})</span>
+      </div>`;
+    }
+    let hebrTiles = "";
+    for(let i=1;i<=39;i++){
+      if(bookMatchesQuery(i, bQueryNorm)){
+        const cnt = counts[i]||0;
+        const act = filt.book===i;
+        hebrTiles += `<div class="bGridTile ${act?'on':''} ${cnt?'':'zero'}" data-k="${i}" title="${esc(BOOKS[i])} (${cnt})">
+          <span class="bGridAbbr">${BOOK_ABBR[i]}</span>
+          <span class="bGridCnt">${cnt}</span>
+        </div>`;
+      }
+    }
+    if(hebrTiles){
+      html += `<div class="bGridDivider" style="border-top:none; margin-top:0;">Pisma Hebrajskie (1–39)</div>` + hebrTiles;
+    }
+    let grekTiles = "";
+    for(let i=40;i<=66;i++){
+      if(bookMatchesQuery(i, bQueryNorm)){
+        const cnt = counts[i]||0;
+        const act = filt.book===i;
+        grekTiles += `<div class="bGridTile ${act?'on':''} ${cnt?'':'zero'}" data-k="${i}" title="${esc(BOOKS[i])} (${cnt})">
+          <span class="bGridAbbr">${BOOK_ABBR[i]}</span>
+          <span class="bGridCnt">${cnt}</span>
+        </div>`;
+      }
+    }
+    if(grekTiles){
+      html += `<div class="bGridDivider">Pisma Greckie (40–66)</div>` + grekTiles;
+    }
+    if(!hebrTiles && !grekTiles && bQueryNorm){
+      html += `<div style="grid-column:1 / -1; padding:16px 12px; text-align:center; color:var(--muted); font-size:12.5px;">Brak ksiąg pasujących do „${esc(bQuery)}”</div>`;
+    }
+    // Rozdziały wybranej księgi w widoku siatki
+    if(typeof expandedBook==="number" && expandedBook>0 && counts[expandedBook]>0){
+      const expB = expandedBook;
+      const chs = {};
+      base.forEach(n=>{ if(n.b===expB && n.ch) chs[n.ch]=(chs[n.ch]||0)+1; });
+      const keys = Object.keys(chs).map(Number).sort((a,b)=>a-b);
+      if(keys.length){
+        html += `<div style="grid-column: 1 / -1; margin-top: 10px; padding: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px;">
+          <div style="font-size:12px; font-weight:700; margin-bottom:6px; color:var(--text); display:flex; justify-content:space-between; align-items:center;">
+            <span>${esc(BOOKS[expB])} — Rozdziały:</span>
+            <span style="font-size:10.5px; color:var(--muted); font-weight:normal;">Wybierz rozdział</span>
+          </div>
+          <div class="chwrap" style="padding:0;">` +
+          keys.map(c=>`<span class="chip-ch ${filt.book===expB && filt.ch===c?"active":""}" data-b="${expB}" data-ch="${c}" title="${chs[c]} notatek">${c}</span>`).join("") +
+          `</div>
+        </div>`;
+      }
+    }
+    html += '</div>';
+  } else {
+    // Widok listy kanonicznej
+    if(!bQueryNorm){
+      html += bookItem("all","Wszystkie",base.length,false);
+    }
+    let hebrHtml = "";
+    for(let i=1;i<=39;i++){
+      if(bookMatchesQuery(i, bQueryNorm)){
+        hebrHtml += bookBlock(i, counts[i]||0, base);
+      }
+    }
+    if(hebrHtml){
+      html += '<div class="divider">Pisma Hebrajskie i Aramejskie</div>' + hebrHtml;
+    }
+    let grekHtml = "";
+    for(let i=40;i<=66;i++){
+      if(bookMatchesQuery(i, bQueryNorm)){
+        grekHtml += bookBlock(i, counts[i]||0, base);
+      }
+    }
+    if(grekHtml){
+      html += '<div class="divider">Chrześcijańskie Pisma Greckie</div>' + grekHtml;
+    }
+    if(!bQueryNorm){
+      html += '<div class="divider">Pozostałe</div>';
+      html += bookItem(0,"Publikacje / inne",pubs,false);
+    } else if(!hebrHtml && !grekHtml){
+      html += `<div class="secEmpty" style="padding:16px 12px;text-align:center;">Brak ksiąg pasujących do „${esc(bQuery)}”</div>`;
+    }
+  }
+
   if(!setHtml(el, html)) return;   // lista ksiąg zmienia się rzadko — zwykle nie ma czego przepisywać
-  el.querySelectorAll(".item").forEach(it=>{
+
+  el.querySelectorAll(".item, .bGridTile").forEach(it=>{
     it.onclick = ()=>{
       const raw = it.dataset.k;
-      const k = raw==="all" ? "all" : (raw.indexOf("pub:")===0 ? raw : +raw);
+      const k = raw==="all" ? "all" : (raw && raw.indexOf("pub:")===0 ? raw : +raw);
       wlaczZawezenieWynikow();
       if(typeof k==="number" && k>0){
         expandedBook = (expandedBook===k && filt.book===k) ? null : k;
@@ -46656,6 +47155,95 @@ function initSidebarSegmentedControl(){
   } catch(_){}
 
   aktywujSegmentSidebar(savedSeg);
+  initSidebarSearchEvents();
+}
+
+function initSidebarSearchEvents(){
+  // 1. Etykiety szukajka
+  const tagInp = $("tagSearchInput");
+  const tagClr = $("btnTagSearchClear");
+  if(tagInp){
+    tagInp.oninput = ()=>{
+      if(tagClr) tagClr.style.display = tagInp.value ? "inline-flex" : "none";
+      renderTags();
+    };
+  }
+  if(tagClr && tagInp){
+    tagClr.onclick = ()=>{
+      tagInp.value = "";
+      tagClr.style.display = "none";
+      renderTags();
+      tagInp.focus();
+    };
+  }
+
+  // 2. Biblia szukajka i przełącznik widoku
+  const bookInp = $("bookSearchInput");
+  const bookClr = $("btnBookSearchClear");
+  if(bookInp){
+    bookInp.oninput = ()=>{
+      if(bookClr) bookClr.style.display = bookInp.value ? "inline-flex" : "none";
+      renderBooks();
+    };
+  }
+  if(bookClr && bookInp){
+    bookClr.onclick = ()=>{
+      bookInp.value = "";
+      bookClr.style.display = "none";
+      renderBooks();
+      bookInp.focus();
+    };
+  }
+  const btnBList = $("btnBibleViewList");
+  const btnBGrid = $("btnBibleViewGrid");
+  if(btnBList){
+    btnBList.onclick = ()=>{
+      lsSet(KP + "BibleViewMode", "list");
+      btnBList.classList.add("on");
+      if(btnBGrid) btnBGrid.classList.remove("on");
+      renderBooks();
+    };
+  }
+  if(btnBGrid){
+    btnBGrid.onclick = ()=>{
+      lsSet(KP + "BibleViewMode", "grid");
+      btnBGrid.classList.add("on");
+      if(btnBList) btnBList.classList.remove("on");
+      renderBooks();
+    };
+  }
+
+  // 3. Publikacje szukajka i pigułki
+  const pubInp = $("pubSearchInput");
+  const pubClr = $("btnPubSearchClear");
+  if(pubInp){
+    pubInp.oninput = ()=>{
+      if(pubClr) pubClr.style.display = pubInp.value ? "inline-flex" : "none";
+      renderPubPanel();
+    };
+  }
+  if(pubClr && pubInp){
+    pubClr.onclick = ()=>{
+      pubInp.value = "";
+      pubClr.style.display = "none";
+      renderPubPanel();
+      pubInp.focus();
+    };
+  }
+  const pillMwb = $("pillPubMwb");
+  if(pillMwb){
+    pillMwb.onclick = ()=>{
+      pubView = (pubView.cat === "mwb" && !pubView.year) ? {cat:null, year:null} : {cat:"mwb", year:null};
+      renderPubPanel();
+    };
+  }
+  const pillW = $("pillPubW");
+  if(pillW){
+    pillW.onclick = ()=>{
+      pubView = (pubView.cat === "w" && !pubView.year) ? {cat:null, year:null} : {cat:"w", year:null};
+      renderPubPanel();
+    };
+  }
 }
 
 function setCollapsed(id, on){
@@ -59625,8 +60213,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v645</span>
+          <span class="cl-ver-num">v646</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">19 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Nowa organizacja i elegancki wygląd zakładek: Etykiety, Biblia i Publikacje</div>
+        <ul class="cl-ver-list">
+          <li><b>Wyszukiwarki na żywo we wszystkich 3 kolumnach:</b> Natychmiastowe filtrowanie etykiet, ksiąg biblijnych oraz publikacji bez konieczności mozolnego przewijania.</li>
+          <li><b>Etykiety w zwijanym drzewie folderów:</b> Zwijane grupy tematyczne, intuicyjny przycisk [+] do tworzenia folderów i etykiet oraz opcja <i>„Połącz / scal z inną etykietą…”</i> w menu ⋯ do bezpiecznego łączenia duplikatów.</li>
+          <li><b>Nowy widok Biblii: Lista kanoniczna i Kafelki:</b> Możliwość przełączania między zwijaną listą Pism Hebrajskich i Greckich a zwartą siatką skrótów ze stylem oficjalnej aplikacji JW Library.</li>
+          <li><b>Publikacje w 4 logicznych działach:</b> Zorganizowany podział na Zebrania Chrześcijańskie, Podręczniki studium, Czasopisma i Narzędzia badawcze oraz szybkie pigułki do bieżących materiałów zebrań.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v645</span>
           <span class="cl-ver-date">19 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Prawdziwy Auto-Sync w chmurze: natychmiastowe wysyłanie przy wyjściu i błyskawiczne pobieranie na urządzeniach</div>
