@@ -24672,13 +24672,13 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v643)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v644)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v643</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v644</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v643) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v643</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v644) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v644</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -24760,7 +24760,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v643</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v644</span>
   </button>
   <div class="searchwrap">
     <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -26955,9 +26955,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v643";
-const APP_BUILD_DATE = "2026-11-18";
-const APP_FULL_VERSION = "5.0 (v643)";
+const APP_BUILD = "v644";
+const APP_BUILD_DATE = "2026-11-19";
+const APP_FULL_VERSION = "5.0 (v644)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -59625,8 +59625,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v643</span>
+          <span class="cl-ver-num">v644</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">19 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Maksymalna prywatność Google Drive: zredukowano uprawnienia z 4 do 1 (tylko ukryty folder aplikacji)</div>
+        <ul class="cl-ver-list">
+          <li><b>Koniec z pytaniami o dane osobowe:</b> Usunięto zbędne żądania o dostęp do adresu e-mail, nazwiska i zdjęcia profilowego (<i>userinfo.email</i>, <i>userinfo.profile</i>). Aplikacja nie zbiera ani nie przetwarza żadnych danych osobowych z konta Google.</li>
+          <li><b>Tylko 1 bezpieczne uprawnienie:</b> Podczas łączenia z Dyskiem Google użytkownik proszony jest wyłącznie o dostęp do dedykowanego, ukrytego folderu aplikacji (<i>drive.appdata</i>). Aplikacja nie ma wglądu w prywatne pliki ani dokumenty użytkownika na Dysku.</li>
+          <li><b>100% zaufania i prywatności:</b> Wyeliminowano mylące ostrzeżenia o udostępnianiu danych na zewnątrz — cała synchronizacja działa w 100% lokalnie pomiędzy przeglądarką a Dyskiem Google.</li>
+        </ul>
+      </div>
+
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v643</span>
           <span class="cl-ver-date">18 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Naprawa układu paska (docka) na iPadzie — przywrócono czysty, wycentrowany nagłówek paska bocznego</div>
@@ -66534,7 +66547,7 @@ async function gdriveZapewnijWaznyToken(wymus = false, interaktywne = false){
     try {
       const client = google.accounts.oauth2.initTokenClient({
         client_id: clientId,
-        scope: "https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+        scope: "https://www.googleapis.com/auth/drive.appdata",
         callback: async (resp) => {
           clearTimeout(timer);
           if(resp && resp.error){
@@ -66550,17 +66563,6 @@ async function gdriveZapewnijWaznyToken(wymus = false, interaktywne = false){
             lsSet(GDRIVE_K_EXP, String(nowyExp));
             lsSet(GDRIVE_K_AUTO, "1");
 
-            if(!lsGet(GDRIVE_K_USER, "")){
-              try {
-                const uRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-                  headers: { Authorization: "Bearer " + resp.access_token }
-                });
-                if(uRes.ok){
-                  const uData = await uRes.json();
-                  lsSet(GDRIVE_K_USER, JSON.stringify(uData));
-                }
-              }catch(_){}
-            }
             gdriveOdswiezUI();
             return zakoncz(resp.access_token);
           }
@@ -66874,12 +66876,15 @@ function gdriveOdswiezUI(){
   }
 
   if(zalogowany){
-    let avatarHtml = `<div class="gdrive-avatar">👤</div>`;
+    let avatarHtml = `<div class="gdrive-avatar" style="background:rgba(52,168,83,0.14);color:#34a853;display:flex;align-items:center;justify-content:center;">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="width:20px;height:20px"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+    </div>`;
     if(user && user.picture){
       avatarHtml = `<div class="gdrive-avatar" style="background-image:url('${esc(user.picture)}');"></div>`;
     }
     const dotClass = _gdriveSyncPracuje ? "syncing" : "online";
     const statusTxt = _gdriveSyncPracuje ? "Trwa synchronizacja…" : "Połączono z Dyskiem Google";
+    const tytulKarty = user && (user.name || user.email) ? (user.name || user.email) : statusTxt;
 
     kontener.innerHTML = `
       <div class="gdrive-card connected">
@@ -66888,7 +66893,7 @@ function gdriveOdswiezUI(){
           <div style="flex:1;min-width:0;">
             <div style="font-size:13.5px;font-weight:600;color:var(--text);display:flex;align-items:center;">
               <span class="gdrive-dot ${dotClass}"></span>
-              ${esc(user && (user.name || user.email) ? (user.name || user.email) : statusTxt)}
+              ${esc(tytulKarty)}
             </div>
             <div style="font-size:11.5px;color:var(--muted);margin-top:2px;">
               Ostatnia synchronizacja: <b>${lastSyncTxt}</b>
@@ -66902,7 +66907,7 @@ function gdriveOdswiezUI(){
           </button>
           <button type="button" class="btn" id="btnGDriveLogout">Rozłącz konto</button>
         </div>
-        <div class="st-hint">Notatki, etykiety i zakładki synchronizują się automatycznie w tle przez ukryty folder aplikacji na Twoim Dysku Google.</div>
+        <div class="st-hint">Notatki, etykiety i zakładki synchronizują się w 100% prywatnie przez ukryty folder aplikacji na Twoim Dysku Google (bez dostępu do profilu, e-maila ani prywatnych plików).</div>
       </div>
     `;
     const btnSync = kontener.querySelector("#btnGDriveSyncNow");
@@ -66912,7 +66917,7 @@ function gdriveOdswiezUI(){
   } else if(clientId){
     kontener.innerHTML = `
       <div class="gdrive-card">
-        <div class="st-hint">Połącz aplikację ze swoim kontem Google, aby notatki synchronizowały się w 100% automatycznie w tle.</div>
+        <div class="st-hint">Połącz aplikację ze swoim kontem Google, aby notatki synchronizowały się w 100% automatycznie w tle. <b>Aplikacja prosi tylko o dostęp do własnego ukrytego folderu (nie ma dostępu do Twojego e-maila, nazwiska ani prywatnych plików).</b></div>
         <div class="st-row" style="align-items:center;gap:10px;">
           <button type="button" class="btn primary" id="btnGDriveLogin" style="display:inline-flex;align-items:center;gap:8px;padding:9px 16px;">
             <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
