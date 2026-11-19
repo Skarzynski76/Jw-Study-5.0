@@ -43,6 +43,7 @@ self.addEventListener('message', e=>{
 });
 
 self.addEventListener('install', e=>{
+  self.skipWaiting();
   e.waitUntil(caches.open(CACHE).then(async c=>{
     // Główny dokument index.html
     try{

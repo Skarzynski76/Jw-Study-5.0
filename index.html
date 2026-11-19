@@ -30520,26 +30520,50 @@ let _przeladowano = false;
 function przejeloObsluge(bylaObsluga){
   if(!bylaObsluga) return false;   // pierwsze uruchomienie — nie ma czego odświeżać
   if(_przeladowano) return false;
+  try {
+    const lastReload = parseInt(sessionStorage.getItem("jw_update_time") || "0", 10);
+    if(Date.now() - lastReload < 15000) return false;
+  } catch(_) {}
   // Jeśli użytkownik ma otwartą edycję notatki, czytnik lub modal, nie przeładowuj strony bez jego wiedzy!
   if(document.querySelector(".ncard.editing, #modalFs.show, .modal.show")){
     return false;
   }
   _przeladowano = true;
+  try { sessionStorage.setItem("jw_update_time", String(Date.now())); } catch(_) {}
   location.reload();
   return true;
 }
 /** Pasek z informacją o nowej wersji. Aktualizacja rusza dopiero po zgodzie. */
 async function pokazNowaWersje(nowy){
   if(document.getElementById("nowaWersja")) return;
+
+  // Zabezpieczenie przed zapętleniem powiadomień: nie pokazuj paska częściej niż raz na 20 sekund
+  try {
+    const lastReload = parseInt(sessionStorage.getItem("jw_update_time") || "0", 10);
+    if(Date.now() - lastReload < 20000) return;
+  } catch(_) {}
+
   let nowaVer = "";
   try {
     const res = await fetch("WERSJA?t=" + Date.now(), { cache: "no-store" });
     if(res.ok) nowaVer = (await res.text()).trim();
   } catch(e) {}
+
+  const mojaWersja = (typeof APP_FULL_VERSION !== "undefined" && APP_FULL_VERSION) ? APP_FULL_VERSION : ((typeof APP_BUILD !== "undefined" && APP_BUILD) ? APP_BUILD : ("v" + APP_VERSION));
+
+  // Krytyczna weryfikacja: jeśli wersja na serwerze jest taka sama jak bieżąca lub starsza — NIE POKAZUJ PASKA!
+  if(nowaVer){
+    const vClean = nowaVer.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const mojaClean = mojaWersja.toLowerCase().replace(/[^a-z0-9]/g, "");
+    const bldClean = (typeof APP_BUILD !== "undefined" ? APP_BUILD : "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    if(vClean === mojaClean || mojaClean.includes(vClean) || (bldClean && bldClean === vClean)){
+      return;
+    }
+  }
+
   const nowaEtykieta = nowaVer ? (nowaVer.startsWith("v") || nowaVer.includes("(") ? nowaVer : "v" + nowaVer) : "NOWA";
   const verTxt = nowaVer ? ` do <b>${esc(nowaEtykieta)}</b>` : "";
   const verBadge = `<span class="nwVerBadge">${esc(nowaEtykieta)}</span>`;
-  const mojaWersja = (typeof APP_FULL_VERSION !== "undefined" && APP_FULL_VERSION) ? APP_FULL_VERSION : ((typeof APP_BUILD !== "undefined" && APP_BUILD) ? APP_BUILD : ("v" + APP_VERSION));
 
   const pasek = document.createElement("div");
   pasek.id = "nowaWersja";
@@ -30568,9 +30592,23 @@ async function pokazNowaWersje(nowy){
     if(decyzja==="nie") return;
     if(decyzja==="kopia") await exportJson();
     
+    try { sessionStorage.setItem("jw_update_time", String(Date.now())); } catch(_) {}
+
     // Wizualne potwierdzenie dla użytkownika
     pasek.innerHTML = '<span class="nwVerBadge">AKTUALIZACJA</span><span>Wgrywanie nowej wersji i restartowanie…</span>';
     
+    let reloaded = false;
+    const doReload = ()=>{
+      if(!reloaded){
+        reloaded = true;
+        location.reload();
+      }
+    };
+
+    if(navigator.serviceWorker){
+      navigator.serviceWorker.addEventListener("controllerchange", doReload, { once: true });
+    }
+
     // Wyślij sygnał aktywacji do nowego Service Workera
     try {
       if(nowy && typeof nowy.postMessage === "function") nowy.postMessage("SKIP_WAITING");
@@ -30584,16 +30622,12 @@ async function pokazNowaWersje(nowy){
       }
     } catch(err){}
 
-    // Na iPadOS/iOS zdarzenie controllerchange bywa tłumione przez Safari.
-    // Dajemy 500ms na normalne przejęcie, po czym wykonujemy bezpośrednie przeładowanie.
-    setTimeout(()=>{
-      if(!_przeladowano){
-        _przeladowano = true;
-        location.reload();
-      }
-    }, 500);
+    setTimeout(doReload, 1000);
   };
-  pasek.querySelector("#nwPozniej").onclick = ()=>pasek.remove();
+  pasek.querySelector("#nwPozniej").onclick = ()=>{
+    try { sessionStorage.setItem("jw_update_time", String(Date.now())); } catch(_) {}
+    pasek.remove();
+  };
 }
 
 /**
