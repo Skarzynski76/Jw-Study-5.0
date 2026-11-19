@@ -19707,6 +19707,75 @@ html[data-theme="oled"] .sidebar-seg-ctrl .seg-btn.on {
   color: #fff !important;
 }
 
+/* Styl sekcji i nagłówków folderów w kolumnie Etykiety */
+.tagGroupHeader {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 8px 4px 5px 4px !important;
+  margin-top: 8px !important;
+  border-top: 1px solid var(--border) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  color: var(--muted) !important;
+}
+.tagGroupTitle {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+}
+.tagGroupBtn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  padding: 2px 7px !important;
+  border-radius: 6px !important;
+  border: 1px solid var(--border) !important;
+  background: var(--sel) !important;
+  color: var(--accent) !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  transition: all 0.14s ease !important;
+}
+.tagGroupBtn:hover {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border-color: var(--accent) !important;
+}
+.secFolderIco {
+  font-size: 12.5px !important;
+  margin-right: 4px !important;
+  flex-shrink: 0 !important;
+}
+.btnWdrozFolderyProj {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  width: calc(100% - 8px) !important;
+  margin: 8px 4px !important;
+  padding: 8px 10px !important;
+  border-radius: 9px !important;
+  border: 1px dashed var(--accent) !important;
+  background: var(--sel) !important;
+  color: var(--accent) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  text-align: center !important;
+  transition: all 0.15s ease !important;
+}
+.btnWdrozFolderyProj:hover {
+  background: var(--accent) !important;
+  color: #ffffff !important;
+  border-style: solid !important;
+}
+
 /* Przełącznik widoku Biblii (Lista / Kafelki) */
 .segViewSwitch {
   display: inline-flex !important;
@@ -32192,10 +32261,28 @@ function renderTags(){
   let html = tagItem("all","Wszystkie",base.length);
   if(untagged || String(filt.tag)==="none") html += tagItem("none","Bez etykiety",untagged);
 
+  // ——— NAGŁÓWEK: FOLDERY TEMATYCZNE ———
+  html += `
+    <div class="tagGroupHeader">
+      <span class="tagGroupTitle"><span class="secFolderIco">📁</span> Foldery tematyczne</span>
+      <button type="button" class="tagGroupBtn" id="btnGroupAddSec" title="Utwórz nowy folder tematyczny">+ Nowy folder</button>
+    </div>
+  `;
+
   let anyMatch = false;
 
   // ——— SEKCJE (grupy etykiet) ———
   const secs = sections.slice().sort((a,b)=>(a.ord??0)-(b.ord??0));
+  if(!secs.length && !tagQueryNorm){
+    html += `
+      <div class="secEmpty" style="padding:10px 8px;text-align:center;">
+        Nie masz jeszcze folderów tematycznych.<br>
+        <button type="button" class="btnWdrozFolderyProj" id="btnWdrozSugerowaneFoldery">
+          <span>✨</span> Utwórz foldery z projektu (Jehowa, Życie, Służba, Zbiory)
+        </button>
+      </div>
+    `;
+  }
   secs.forEach(s=>{
     const insideAll = tags.filter(t=>t.sec===s.id);
     const sum = insideAll.reduce((a,t)=>a+(counts[t.id]||0),0);
@@ -32216,9 +32303,10 @@ function renderTags(){
     const isOpen = tagQueryNorm ? true : (s.open === true);
     html += `<div class="secHead${isOpen?"":" closed"}" data-sec="${s.id}"${sc}>
       <span class="secArr">${isOpen?"▾":"▸"}</span>
+      <span class="secFolderIco">📁</span>
       <span class="secName">${esc(s.name)}</span>
       <span class="secCnt" title="${esc(opisSekcji(s, inside.length, sum))}">${licznikSekcji(s, sum)}</span>
-      <span class="secMore" title="Opcje sekcji">${IC_DOTS}</span></div>`;
+      <span class="secMore" title="Opcje folderu">${IC_DOTS}</span></div>`;
     if(isOpen){
       // zakładki sekcji nad etykietami — to one porządkują jej zawartość
       if(typeof secTabRowsHtml==="function") html += secTabRowsHtml(s.id);
@@ -32227,7 +32315,7 @@ function renderTags(){
       const luzne = inside.filter(t=>!(t.stb && wZakladkach.has(t.stb)));
       const przypisane = inside.filter(t=>t.stb && wZakladkach.has(t.stb));
       if(!inside.length && !(typeof secTabsFor==="function" && secTabsFor(s.id).length))
-        html += `<div class="secEmpty">Pusta — dodaj zakładkę przez ⋯ przy nazwie sekcji albo przenieś tu etykiety</div>`;
+        html += `<div class="secEmpty">Pusty folder — kliknij ⋯ przy nazwie, aby dodać podetykietę lub przenieś tu etykiety</div>`;
       // etykiety przypisane do zakładek rysujemy pod swoją zakładką, wcięte
       przypisane.forEach(t=>{
         html += tagItem(t.id,t.name,counts[t.id]||0,true,t.color,true,s.id).replace('class="item ','class="item wZakladce ');
@@ -32236,13 +32324,21 @@ function renderTags(){
     }
   });
 
-  // ——— ETYKIETY POZA SEKCJAMI ———
+  // ——— ETYKIETY POZA SEKCJAMI (ZBIORY / POZOSTAŁE) ———
   const looseAll = tags.filter(t=>!t.sec || !sections.some(s=>s.id===t.sec));
   const loose = tagQueryNorm ? looseAll.filter(t=>norm(t.name).includes(tagQueryNorm)) : looseAll;
-  if(loose.length || (!tagQueryNorm && looseAll.length)){
-    if(sections.length > 0) html += '<div class="divider" style="font-weight:700;letter-spacing:0.04em;text-transform:uppercase;font-size:11px;color:var(--muted);padding:10px 4px 4px 4px;border-top:1px solid var(--border);margin-top:6px;">Moje etykiety</div>';
+  
+  html += `
+    <div class="tagGroupHeader">
+      <span class="tagGroupTitle"><span class="secFolderIco">🔖</span> Zbiory i etykiety (${looseAll.length})</span>
+      <button type="button" class="tagGroupBtn" id="btnGroupAddTag" title="Utwórz nową etykietę">+ Nowa etykieta</button>
+    </div>
+  `;
+  if(loose.length){
     loose.forEach(t=>{ html += tagItem(t.id,t.name,counts[t.id]||0,true,t.color,false,undefined); });
-    if(loose.length) anyMatch = true;
+    anyMatch = true;
+  } else if(!looseAll.length && !tagQueryNorm){
+    html += `<div class="secEmpty" style="padding:6px 10px;">Brak luźnych etykiet (wszystkie uporządkowane w folderach)</div>`;
   }
 
   if(tagQueryNorm && !anyMatch){
@@ -32252,6 +32348,13 @@ function renderTags(){
   const changed = setHtml(el, html);
   renderPubPanel();
   if(!changed) return;        // ten sam HTML → te same węzły i te same podpięte zdarzenia
+
+  const btnAddSec = el.querySelector("#btnGroupAddSec");
+  if(btnAddSec) btnAddSec.onclick = e => { e.stopPropagation(); createSection(); };
+  const btnAddTag = el.querySelector("#btnGroupAddTag");
+  if(btnAddTag) btnAddTag.onclick = e => { e.stopPropagation(); $("btnNewTag").click(); };
+  const btnWdroz = el.querySelector("#btnWdrozSugerowaneFoldery");
+  if(btnWdroz) btnWdroz.onclick = e => { e.stopPropagation(); wdrozSugerowaneFoldery(); };
   /* Przenoszenie etykiet i zakładek obsługuje 34-chwytanie.js — nasłuchuje na
      dokumencie, więc nie trzeba niczego podpinać po przerysowaniu listy. */
   // obsługa nagłówków sekcji
@@ -32338,6 +32441,46 @@ let dragTagId = null;
 let sections = [];
 function saveSections(){ if(idb) idbPut("meta", sections, "sections").catch(e=>reportSaveError(e,"sekcje")); }
 function nextSecId(){ return nastepnyNumer(sections); }
+async function wdrozSugerowaneFoldery(){
+  const potw = await askConfirm(
+    "Utworzyć foldery z projektu?",
+    "Aplikacja utworzy 4 foldery tematyczne z projektu graficznego:<br><br><b>📁 Jehowa</b><br><b>📁 Życie chrześcijańskie</b><br><b>📁 Służba</b><br><b>📁 Zbiory podręczne</b><br><br>Twoje pasujące etykiety (np. <i>Jehow — Przymioty</i>, <i>Szybkie notatki</i>, <i>Złote myśli</i>) zostaną automatycznie do nich przypisane. Żadna notatka nie ulegnie skasowaniu.",
+    { okLabel: "Utwórz foldery" }
+  );
+  if(!potw) return;
+
+  const folderyDef = [
+    { name: "Jehowa", color: "#10b981", tagMatches: ["jehow", "bog", "stworz", "imie jehowy"] },
+    { name: "Życie chrześcijańskie", color: "#0284c7", tagMatches: ["modlitw", "praworzad", "malzenstw", "rodzin", "wychow", "przebacz", "zaufan", "depresj"] },
+    { name: "Służba", color: "#d97706", tagMatches: ["sluzb", "gloszen", "wstep", "zebran", "zbiork"] },
+    { name: "Zbiory podręczne", color: "#8b5cf6", tagMatches: ["szybkie", "zlote", "ciekawostk", "do wykorz"] }
+  ];
+
+  pushUndo({ type: "tags", label: "utworzenie folderów tematycznych", tags: cloneTags() });
+
+  let dodano = 0;
+  folderyDef.forEach(fd => {
+    let s = sections.find(x => norm(x.name) === norm(fd.name));
+    if(!s){
+      s = { id: nextSecId(), name: fd.name, color: fd.color, ord: sections.length, open: true };
+      sections.push(s);
+      dodano++;
+    }
+    tags.forEach(t => {
+      if(!t.sec){
+        const nm = norm(t.name);
+        if(fd.tagMatches.some(m => nm.includes(m))){
+          t.sec = s.id;
+        }
+      }
+    });
+  });
+
+  saveSections();
+  saveTags();
+  renderTags();
+  toast(`Utworzono foldery tematyczne (${dodano} nowych) i uporządkowano etykiety!`);
+}
 async function createSection(){
   const name = await askText({title:"Nowa sekcja", placeholder:"np. Kongresy", okLabel:"Utwórz",
     hint:"Sekcja grupuje etykiety — potem przeniesiesz je przez menu ⋯ przy etykiecie."});
@@ -32955,15 +33098,19 @@ if($("btnTagPlus")) $("btnTagPlus").onclick = e=>{
   if(dd.style.display==="block" && dd.dataset.rodzaj==="tagPlus"){ dd.style.display="none"; return; }
   dd.dataset.rodzaj = "tagPlus";
   dd.innerHTML =
-    '<div data-plus="tag">' + ICO.tag + 'Nowa etykieta</div>' +
-    '<div data-plus="sec">' + ICO.bookmark + 'Nowa sekcja</div>';
+    '<div data-plus="sec">📁 Nowy folder tematyczny</div>' +
+    '<div data-plus="tag">🏷️ Nowa etykieta</div>' +
+    '<div class="dd-sep"></div>' +
+    '<div data-plus="sug">✨ Utwórz foldery z projektu (Jehowa, Życie, Służba, Zbiory)</div>';
   dd.style.display = "block";
   if(typeof oznaczPozycjeMenu==="function") oznaczPozycjeMenu(dd);
   placeDropdown(dd, $("btnTagPlus"));
   dd.onclick = ev=>{
     const it = ev.target.closest("[data-plus]"); if(!it) return;
     dd.style.display = "none";
-    $(it.dataset.plus==="tag" ? "btnNewTag" : "btnNewSec").click();
+    if(it.dataset.plus==="tag") $("btnNewTag").click();
+    else if(it.dataset.plus==="sec") $("btnNewSec").click();
+    else if(it.dataset.plus==="sug") wdrozSugerowaneFoldery();
   };
 };
 
