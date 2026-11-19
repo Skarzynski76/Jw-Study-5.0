@@ -19707,96 +19707,33 @@ html[data-theme="oled"] .sidebar-seg-ctrl .seg-btn.on {
   color: #fff !important;
 }
 
-/* Kaskadowe drzewo etykiet i podfolderów */
-.treeBranch {
-  margin-left: 15px !important;
-  padding-left: 4px !important;
-  border-left: 2px solid var(--secLine, var(--border)) !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 2px !important;
-  margin-top: 2px !important;
-  margin-bottom: 3px !important;
-  position: relative !important;
-}
-.secTreeBranch {
-  margin-top: 3px !important;
-  margin-bottom: 6px !important;
-}
-.item.treeItem {
-  margin-bottom: 1px !important;
-}
-.item.hasChildren {
-  font-weight: 600 !important;
-}
-.tagArr {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 16px !important;
-  height: 20px !important;
-  font-size: 11px !important;
-  color: var(--muted) !important;
-  cursor: pointer !important;
-  user-select: none !important;
-  flex-shrink: 0 !important;
-  transition: transform .12s ease, color .12s ease !important;
-  border-radius: 4px !important;
-}
-.tagArr:hover {
-  color: var(--text) !important;
-  background: rgba(0,0,0,0.06) !important;
-}
-.item.active .tagArr {
-  color: #fff !important;
-}
-.item.active .tagArr:hover {
-  background: rgba(255,255,255,0.2) !important;
-}
-.tagArrSpacer {
-  width: 16px !important;
-  height: 20px !important;
-  display: inline-block !important;
-  flex-shrink: 0 !important;
-}
-.tagFolderIco {
-  font-size: 13.5px !important;
-  line-height: 1 !important;
-  margin-right: 4px !important;
-  flex-shrink: 0 !important;
-}
-.secFolderIco {
-  font-size: 13.5px !important;
-  line-height: 1 !important;
-  margin-right: 4px !important;
-  flex-shrink: 0 !important;
-}
+/* --- FOLDERY ORGANIZACYJNE I KASKADOWE DRZEWO ETYKIET --- */
+.folderHead,
 .secHead {
   display: flex !important;
   align-items: center !important;
-  gap: 6px !important;
-  margin: 5px 0 2px !important;
-  padding: 7px 10px !important;
-  border-radius: 8px !important;
+  gap: 8px !important;
+  margin: 6px 0 2px 0 !important;
+  padding: 8px 10px !important;
+  border-radius: 9px !important;
   cursor: pointer !important;
   background: var(--secBg, var(--panel)) !important;
   color: var(--secFg, var(--text)) !important;
-  border: 0.5px solid var(--border) !important;
-  font-size: 13px !important;
+  border: 1px solid var(--border) !important;
+  font-size: 13.5px !important;
   font-weight: 600 !important;
-  box-shadow: 0 1px 2px rgba(0,0,0,.04) !important;
+  user-select: none !important;
   transition: all .12s ease !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,.03) !important;
   text-transform: none !important;
   letter-spacing: normal !important;
 }
+.folderHead:hover,
 .secHead:hover {
   filter: brightness(0.97) !important;
   border-color: var(--accent2) !important;
 }
-.secHead.active {
-  border-color: var(--accent) !important;
-  box-shadow: 0 0 0 1.5px var(--accent) !important;
-}
+.folderArr,
 .secArr {
   font-size: 11px !important;
   width: 14px !important;
@@ -19808,37 +19745,157 @@ html[data-theme="oled"] .sidebar-seg-ctrl .seg-btn.on {
   opacity: .75 !important;
   border-radius: 4px !important;
 }
+.folderArr:hover,
 .secArr:hover {
   opacity: 1 !important;
   background: rgba(0,0,0,0.06) !important;
 }
+.folderIco,
+.secFolderIco {
+  font-size: 15px !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+}
+.folderName,
 .secName {
   flex: 1 !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
 }
-.secCnt {
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  opacity: .85 !important;
-  background: rgba(0,0,0,.06) !important;
-  color: inherit !important;
-  padding: 1px 7px !important;
-  border-radius: 999px !important;
-  letter-spacing: 0 !important;
-}
+.folderMore,
 .secMore {
   opacity: .5 !important;
   font-size: 15px !important;
-  padding: 0 2px !important;
+  padding: 0 4px !important;
   cursor: pointer !important;
   flex-shrink: 0 !important;
   line-height: 1 !important;
 }
+.folderHead:hover .folderMore,
 .secHead:hover .secMore {
   opacity: 1 !important;
 }
+
+/* Kaskada w drzewie — WYRAŹNE ODSUNIĘCIE W PRAWO (22px) Z PIONOWĄ LINIĄ */
+.treeBranch {
+  margin-left: 22px !important;
+  padding-left: 8px !important;
+  border-left: 2px solid var(--secLine, var(--border)) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+  margin-top: 3px !important;
+  margin-bottom: 6px !important;
+  position: relative !important;
+}
+.treeBranch.subBranch {
+  margin-left: 20px !important;
+  padding-left: 8px !important;
+  border-left: 2px solid var(--border) !important;
+  margin-top: 2px !important;
+  margin-bottom: 4px !important;
+}
+
+/* PODFOLDER W FOLDERZE (Poziom 1+) — czysta funkcja organizacyjna, bez licznika! */
+.subfolderHead {
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  margin: 2px 0 !important;
+  padding: 6px 10px !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  user-select: none !important;
+  transition: all .12s ease !important;
+}
+.subfolderHead:hover {
+  background: var(--sel) !important;
+  border-color: var(--accent2) !important;
+}
+.subfolderArr {
+  font-size: 10.5px !important;
+  width: 13px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: .75 !important;
+  flex-shrink: 0 !important;
+}
+.subfolderIco {
+  font-size: 14px !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+}
+.subfolderName {
+  flex: 1 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+.subfolderMore {
+  opacity: .5 !important;
+  font-size: 14px !important;
+  padding: 0 4px !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  line-height: 1 !important;
+}
+.subfolderHead:hover .subfolderMore {
+  opacity: 1 !important;
+}
+
+/* ETYKIETY W DRZEWIE (Z LICZBĄ NOTATEK) */
+#colTags .item.tagItem,
+#colTags .item.stbItem {
+  margin-left: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 7px 10px !important;
+  border-radius: 8px !important;
+  color: var(--text) !important;
+  background: var(--panel) !important;
+  border: 0.5px solid var(--border) !important;
+  box-shadow: none !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  transition: all .12s ease !important;
+}
+#colTags .item.tagItem:hover,
+#colTags .item.stbItem:hover {
+  background: var(--sel) !important;
+  border-color: var(--accent2) !important;
+}
+#colTags .item.tagItem.active,
+#colTags .item.stbItem.active {
+  background: var(--accent) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  border-color: transparent !important;
+  box-shadow: 0 2px 6px rgba(27,99,72,.3) !important;
+}
+#colTags .item.tagItem.active .cnt,
+#colTags .item.stbItem.active .cnt {
+  color: #e6f4ea !important;
+  background: rgba(255,255,255,0.25) !important;
+}
+.tagIco {
+  font-size: 13px !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+  opacity: .85 !important;
+}
+#colTags .item.tagItem.active .tagIco,
+#colTags .item.stbItem.active .tagIco {
+  opacity: 1 !important;
+}
+
 
 /* Przełącznik widoku Biblii (Lista / Kafelki) */
 .segViewSwitch {
@@ -25005,13 +25062,13 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v647)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v648)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v647</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v648</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v647) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v647</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v648) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v648</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -25093,7 +25150,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v647</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v648</span>
   </button>
   <div class="searchwrap">
     <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -27325,9 +27382,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v647";
+const APP_BUILD = "v648";
 const APP_BUILD_DATE = "2026-11-19";
-const APP_FULL_VERSION = "5.0 (v647)";
+const APP_FULL_VERSION = "5.0 (v648)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -32409,39 +32466,35 @@ function renderTreeTagNode(t, level, counts, baseNotes, activeKey, queryNorm, ma
   const active = String(activeKey) === String(t.id);
   const bezpieczny = (typeof kolorBezpieczny === "function" && kolorBezpieczny(t.color)) ? t.color : "";
   
-  // Strzałka rozwijania kaskady
-  const arrHtml = hasChildren
-    ? `<span class="tagArr" data-tag-toggle="${t.id}" title="${isOpen ? 'Zwiń podfolder' : 'Rozwiń podfolder'}">${isOpen ? '▾' : '▸'}</span>`
-    : `<span class="tagArrSpacer"></span>`;
-    
-  // Ikona: folder gdy ma podetykiety, kropka koloru gdy pojedyncza etykieta
-  let iconHtml = "";
+  let html = "";
   if(hasChildren){
-    iconHtml = `<span class="tagFolderIco" title="Folder z podetykietami">${isOpen ? "📂" : "📁"}</span>`;
-  } else {
-    iconHtml = bezpieczny
-      ? `<span class="tgdot" style="background:${bezpieczny}"></span>`
-      : `<span class="tgdot none"></span>`;
-  }
-  
-  const uchwyt = '<span class="dragOrd" title="Przeciągnij: zmień kolejność lub zagnieźdź w innym folderze">'+IC_GRIP+'</span>';
-  const moreBtn = '<span class="more" title="Opcje etykiety">'+IC_DOTS+'</span>';
-  
-  let html = `<div class="item treeItem ${active ? "active" : ""} ${cnt ? "" : "zero"} ${hasChildren ? "hasChildren" : ""}" data-k="${t.id}" data-droppable="1" data-ord="${t.id}">
-    ${arrHtml}${uchwyt}${iconHtml}<span class="nm" title="${esc(t.name)}">${esc(t.name)}</span>${moreBtn}<span class="cnt">${cnt}</span>
-  </div>`;
-  
-  // Jeśli rozwinięty i ma podetykiety: renderuj je kaskadowo z marginesem
-  if(hasChildren && isOpen){
-    let childrenHtml = "";
-    children.forEach(ch => {
-      childrenHtml += renderTreeTagNode(ch, level + 1, counts, baseNotes, activeKey, queryNorm, matchingSet, parentSet);
-    });
-    if(childrenHtml){
-      html += `<div class="treeBranch" data-branch-for="${t.id}">
-        ${childrenHtml}
-      </div>`;
+    // PODFOLDER W DRZEWIE — funkcja czysto organizacyjna, BRAK LICZNIKA NOTATEK!
+    html += `
+      <div class="subfolderHead" data-tag-folder="${t.id}" data-level="${level}">
+        <span class="subfolderArr" data-tag-toggle="${t.id}">${isOpen ? "▾" : "▸"}</span>
+        <span class="subfolderIco">📁</span>
+        <span class="subfolderName" title="${esc(t.name)}">${esc(t.name)}</span>
+        <span class="more" data-k="${t.id}" title="Opcje folderu">${IC_DOTS}</span>
+      </div>
+    `;
+    if(isOpen){
+      let childrenHtml = "";
+      children.forEach(ch => {
+        childrenHtml += renderTreeTagNode(ch, level + 1, counts, baseNotes, activeKey, queryNorm, matchingSet, parentSet);
+      });
+      if(childrenHtml){
+        html += `<div class="treeBranch subBranch" data-branch-for="${t.id}">${childrenHtml}</div>`;
+      }
     }
+  } else {
+    // ETYKIETA — zawiera notatki, MA IKONĘ 🏷️ I LICZBĘ NOTATEK!
+    const uchwyt = '<span class="dragOrd" title="Przeciągnij: zmień kolejność lub zagnieźdź w innym folderze">'+IC_GRIP+'</span>';
+    const dot = bezpieczny ? `<span class="tgdot" style="background:${bezpieczny}"></span>` : `<span class="tagIco">🏷️</span>`;
+    html += `
+      <div class="item treeItem tagItem ${active ? "active" : ""} ${cnt ? "" : "zero"}" data-k="${t.id}" data-droppable="1" data-ord="${t.id}" data-level="${level}">
+        ${uchwyt}${dot}<span class="nm" title="${esc(t.name)}">${esc(t.name)}</span><span class="more" title="Opcje etykiety">${IC_DOTS}</span><span class="cnt">${cnt}</span>
+      </div>
+    `;
   }
   return html;
 }
@@ -32479,20 +32532,18 @@ function renderTags(){
 
   let anyMatch = false;
 
-  // ——— SEKCJE (GŁÓWNE FOLDERY TEMATYCZNE) ———
+  // ——— FOLDERY GŁÓWNE (SEKCJE) ———
   const secs = sections.slice().sort((a,b)=>(a.ord??0)-(b.ord??0));
   secs.forEach(s=>{
-    const allInside = tags.filter(t => isTagInSec(t, s.id));
-    const secTagIds = new Set(allInside.map(t => t.id));
-    let sum = 0;
-    for(let i=0; i<base.length; i++){
-      if(base[i].tg && base[i].tg.some(id => secTagIds.has(+id))) sum++;
-    }
+    const sTabs = (typeof secTabsFor==="function") ? secTabsFor(s.id) : [];
+    const insideTags = tags.filter(t => t.sec === s.id);
     
+    // Sprawdzenie dopasowania wyszukiwarki
     const secMatches = tagQueryNorm ? norm(s.name).includes(tagQueryNorm) : true;
-    const hasMatchingChild = tagQueryNorm ? allInside.some(t => norm(t.name).includes(tagQueryNorm)) : false;
+    const tabMatches = tagQueryNorm ? sTabs.some(z => norm(z.name).includes(tagQueryNorm)) : false;
+    const tagMatches = tagQueryNorm ? insideTags.some(t => norm(t.name).includes(tagQueryNorm)) : false;
     
-    if(tagQueryNorm && !secMatches && !hasMatchingChild) return;
+    if(tagQueryNorm && !secMatches && !tabMatches && !tagMatches) return;
     anyMatch = true;
 
     const kol = (typeof kolorBezpieczny==="function" && kolorBezpieczny(s.color)) ? s.color : "";
@@ -32501,45 +32552,78 @@ function renderTags(){
         `--secFg:${czytelnyTekst(kol)};--secFg2:${czytelnyTekstSlaby(kol)}"`
       : "";
     const isOpen = tagQueryNorm ? true : (s.open === true);
-    const isSecActive = String(filt.tag) === ("sec:" + s.id);
-    
-    html += `<div class="secHead${isOpen?"":" closed"}${isSecActive?" active":""}" data-sec="${s.id}"${sc}>
-      <span class="secArr" data-sec-toggle="${s.id}" title="${isOpen?'Zwiń folder':'Rozwiń folder'}">${isOpen?"▾":"▸"}</span>
-      <span class="secFolderIco">📁</span>
-      <span class="secName">${esc(s.name)}</span>
-      <span class="secCnt" title="${esc(opisSekcji(s, allInside.length, sum))}">${sum}</span>
-      <span class="secMore" title="Opcje folderu">${IC_DOTS}</span>
+
+    // Folder to element CZYSTO ORGANIZACYJNY:
+    // BRAK LICZNIKA NOTATEK (żadnych zer ani mylących cyfr)!
+    html += `<div class="secHead folderHead${isOpen?"":" closed"}" data-sec="${s.id}"${sc}>
+      <span class="secArr folderArr" data-sec-toggle="${s.id}" title="${isOpen?'Zwiń folder':'Rozwiń folder'}">${isOpen?"▾":"▸"}</span>
+      <span class="secFolderIco folderIco">📁</span>
+      <span class="secName folderName">${esc(s.name)}</span>
+      <span class="secMore folderMore" title="Opcje folderu">${IC_DOTS}</span>
     </div>`;
 
     if(isOpen){
-      // zakładki sekcji nad etykietami — zachowujemy kompatybilność
-      if(typeof secTabRowsHtml==="function") html += secTabRowsHtml(s.id);
-      const wZakladkach = typeof secTabsFor==="function"
-        ? new Set(secTabsFor(s.id).map(z=>z.id)) : new Set();
+      let branchHtml = "";
 
-      const insideRoots = tags.filter(t => t.sec === s.id && !t.parent);
-      const luzne = insideRoots.filter(t=>!(t.stb && wZakladkach.has(t.stb)));
-      const przypisane = insideRoots.filter(t=>t.stb && wZakladkach.has(t.stb));
+      // 1. Zakładki i podfoldery secTabs w tym folderze
+      sTabs.forEach(z => {
+        const subTags = insideTags.filter(t => t.stb === z.id && !t.parent);
+        const zMatches = tagQueryNorm ? norm(z.name).includes(tagQueryNorm) : true;
+        const subTagsMatch = tagQueryNorm ? subTags.some(t => norm(t.name).includes(tagQueryNorm)) : false;
+        if(tagQueryNorm && !zMatches && !subTagsMatch) return;
 
-      let secTreeHtml = "";
-      przypisane.sort(cmpTags).forEach(t => {
-        secTreeHtml += renderTreeTagNode(t, 2, counts, base, filt.tag, tagQueryNorm, matching, visibleParents);
+        if(subTags.length > 0){
+          // Jeśli z zawiera etykiety: jest KOLEJNYM FOLDEREM W FOLDERZE (odsuniętym w prawo)!
+          const isZOpen = tagQueryNorm ? true : (z.open === true);
+          branchHtml += `
+            <div class="subfolderHead" data-stb-folder="${z.id}">
+              <span class="subfolderArr" data-stb-toggle="${z.id}">${isZOpen?"▾":"▸"}</span>
+              <span class="subfolderIco">📁</span>
+              <span class="subfolderName" title="${esc(z.name)}">${esc(z.name)}</span>
+              <span class="subfolderMore" data-stb-more="${z.id}" title="Opcje podfolderu">${IC_DOTS}</span>
+            </div>
+          `;
+          if(isZOpen){
+            let subBranchHtml = "";
+            subTags.forEach(t => {
+              subBranchHtml += renderTreeTagNode(t, 2, counts, base, filt.tag, tagQueryNorm, matching, visibleParents);
+            });
+            // Etykiety w podfolderze: odsunięte o kolejne 20px w prawo!
+            branchHtml += `<div class="treeBranch subBranch" data-stb-branch="${z.id}">${subBranchHtml}</div>`;
+          }
+        } else {
+          // Jeśli z nie ma etykiet: jest bezpośrednio ETYKIETĄ z notatkami!
+          const akt = String(filt.tag) === ("stb:" + z.id);
+          const ile = (typeof secTabCount==="function") ? secTabCount(z.id) : 0;
+          branchHtml += `
+            <div class="item stbItem tagItem${akt?" active":""}${ile?"":" zero"}" data-stb="${z.id}">
+              <span class="tagIco">🏷️</span>
+              <span class="nm" title="${esc(z.name)}">${esc(z.name)}</span>
+              <span class="more stbMore" data-stb-more="${z.id}" title="Opcje">${IC_DOTS}</span>
+              <span class="cnt">${ile}</span>
+            </div>
+          `;
+        }
       });
+
+      // 2. Etykiety bezpośrednio w sekcji (nieprzypisane do secTabs i bez parent)
+      const luzne = insideTags.filter(t => !t.stb && !t.parent);
       luzne.sort(cmpTags).forEach(t => {
-        secTreeHtml += renderTreeTagNode(t, 1, counts, base, filt.tag, tagQueryNorm, matching, visibleParents);
+        branchHtml += renderTreeTagNode(t, 1, counts, base, filt.tag, tagQueryNorm, matching, visibleParents);
       });
 
-      if(!insideRoots.length && !(typeof secTabsFor==="function" && secTabsFor(s.id).length)){
-        secTreeHtml += `<div class="secEmpty">Pusty folder — kliknij ⋯ przy nazwie, aby dodać etykietę</div>`;
+      if(!sTabs.length && !luzne.length){
+        branchHtml += `<div class="secEmpty">Pusty folder — kliknij ⋯ przy nazwie, aby dodać etykietę lub podfolder</div>`;
       }
 
+      // WSZYSTKO WEWNĄTRZ FOLDERU JEST WYRAŹNIE ODSUNIĘTE W PRAWO O 22px Z PIONOWĄ LINIĄ!
       html += `<div class="treeBranch secTreeBranch" data-sec-branch="${s.id}" style="${kol ? `border-left-color:${kol};` : ''}">
-        ${secTreeHtml}
+        ${branchHtml}
       </div>`;
     }
   });
 
-  // ——— ETYKIETY POZA SEKCJAMI (KORZENIE GŁÓWNE) ———
+  // ——— ETYKIETY POZA FOLDERAMI ———
   const looseRoots = tags.filter(t => (!t.sec || !sections.some(s => s.id === t.sec)) && !t.parent);
   looseRoots.sort(cmpTags).forEach(t => {
     const rendered = renderTreeTagNode(t, 0, counts, base, filt.tag, tagQueryNorm, matching, visibleParents);
@@ -32557,11 +32641,69 @@ function renderTags(){
   renderPubPanel();
   if(!changed) return;
 
-  // Obsługa rozwijania/zwijania podgałęzi (.tagArr)
-  el.querySelectorAll(".tagArr").forEach(btn => {
+  // Obsługa rozwijania/zwijania podfolderów secTabs oraz tagów-folderów
+  el.querySelectorAll("[data-stb-toggle], .subfolderHead").forEach(elSub => {
+    elSub.onclick = e => {
+      if(e.target.closest(".subfolderMore, .more")) return;
+      const zId = +(elSub.dataset.stbFolder || elSub.dataset.stbToggle);
+      if(zId){
+        const z = secTabs.find(x => x.id === zId);
+        if(z){
+          z.open = !z.open;
+          if(typeof saveSecTabs==="function") saveSecTabs();
+          renderTags();
+          return;
+        }
+      }
+      const tagFolderId = +elSub.dataset.tagFolder;
+      if(tagFolderId){
+        const tg = tags.find(x => x.id === tagFolderId);
+        if(tg){
+          tg.open = !tg.open;
+          saveTags();
+          renderTags();
+        }
+      }
+    };
+  });
+  el.querySelectorAll("[data-stb-more]").forEach(btn => {
     btn.onclick = e => {
       e.stopPropagation();
-      const tid = +btn.dataset.tagToggle;
+      const zId = +btn.dataset.stbMore;
+      const z = secTabs.find(x => x.id === zId);
+      if(z && typeof secTabMenu==="function") secTabMenu(e, z);
+    };
+  });
+
+  // Obsługa nagłówków folderów głównych (.secHead / .folderHead)
+  el.querySelectorAll(".secHead, .folderHead").forEach(h => {
+    const sid = +h.dataset.sec;
+    h.onclick = e => {
+      if(e.target.closest(".secMore, .folderMore")){
+        const s = sections.find(x => x.id === sid);
+        if(s) sectionMenu(e, s);
+        return;
+      }
+      // KLIKNIĘCIE W FOLDER: CZYSTA FUNKCJA ORGANIZACYJNA, TYLKO ROZWIJA / ZWIJA!
+      toggleSection(sid);
+    };
+    h.ondragover = e => { if(dragTagId!=null){ e.preventDefault(); h.classList.add("dropTarget"); } };
+    h.ondragleave = () => h.classList.remove("dropTarget");
+    h.ondrop = e => {
+      e.preventDefault();
+      h.classList.remove("dropTarget");
+      if(dragTagId!=null){
+        setTagSection(dragTagId, sid);
+        dragTagId = null;
+      }
+    };
+  });
+
+  // Obsługa rozwijania podgałęzi etykiet (.tagArr)
+  el.querySelectorAll(".tagArr, [data-tag-toggle]").forEach(btn => {
+    btn.onclick = e => {
+      e.stopPropagation();
+      const tid = +(btn.dataset.tagToggle || btn.dataset.tagFolder);
       const tg = tags.find(x => x.id === tid);
       if(tg){
         tg.open = !tg.open;
@@ -32571,101 +32713,33 @@ function renderTags(){
     };
   });
 
-  // Obsługa nagłówków sekcji (folderów głównych)
-  el.querySelectorAll(".secHead").forEach(h=>{
-    const sid=+h.dataset.sec;
-    h.onclick = e=>{
-      if(e.target.closest(".secMore")){
-        const s=sections.find(x=>x.id===sid);
-        if(s) sectionMenu(e,s);
-        return;
-      }
-      if(e.target.closest(".secArr") || e.target.closest(".secFolderIco")){
-        toggleSection(sid);
-        return;
-      }
-      // Kliknięcie w pasek sekcji: filtruje po sekcji i otwiera jeśli była zwinięta
-      const s = sections.find(x=>x.id===sid);
-      if(s && !s.open){
-        s.open = true;
-        saveSections();
-      }
-      filt.tag = (String(filt.tag) === ("sec:" + sid)) ? "all" : ("sec:" + sid);
+  // Obsługa kliknięcia w etykietę secTab (.stbItem) -> FILTRUJE NOTATKI!
+  el.querySelectorAll(".stbItem").forEach(it => {
+    const id = +it.dataset.stb;
+    it.onclick = e => {
+      if(e.target.closest(".more, .stbMore")) return;
+      wlaczZawezenieWynikow();
+      filt.tag = String(filt.tag) === ("stb:" + id) ? "all" : ("stb:" + id);
       persistFilt();
       renderAll();
-      if(innerWidth<=900 && typeof mobileShow==="function") mobileShow("colNotes");
-    };
-    // upuszczenie etykiety na sekcję
-    h.ondragover = e=>{ if(dragTagId!=null){ e.preventDefault(); h.classList.add("dropTarget"); } };
-    h.ondragleave = ()=> h.classList.remove("dropTarget");
-    h.ondrop = e=>{
-      e.preventDefault();
-      h.classList.remove("dropTarget");
-      if(dragTagId!=null){
-        setTagSection(dragTagId, sid);
-        dragTagId=null;
-      }
+      if(innerWidth <= 900 && typeof mobileShow==="function") mobileShow("colNotes");
     };
   });
 
-  // Zakładki sekcji (stbItem)
-  el.querySelectorAll(".stbItem").forEach(it=>{
-    const id = +it.dataset.stb;
-    it.onclick = e=>{
+  // Obsługa kliknięcia w etykietę z tags (.item.treeItem) -> FILTRUJE NOTATKI!
+  el.querySelectorAll(".item.treeItem").forEach(it => {
+    it.onclick = e => {
       if(e.target.closest(".more")){
-        const z = secTabs.find(x=>x.id===id);
-        if(z) secTabMenu(e, z);
-        return;
-      }
-      if(e.target.closest(".dragOrd")) return;
-      wlaczZawezenieWynikow();
-      filt.tag = String(filt.tag)==="stb:"+id ? "all" : "stb:"+id;
-      persistFilt(); renderAll();
-      if(innerWidth<=900 && typeof mobileShow==="function") mobileShow("colNotes");
-    };
-    it.ondragover = e=>{ if(dragTagId!=null){ e.preventDefault(); it.classList.add("dropTarget"); } };
-    it.ondragleave = ()=> it.classList.remove("dropTarget");
-    it.ondrop = e=>{
-      e.preventDefault(); it.classList.remove("dropTarget");
-      if(dragTagId!=null){
-        const t = tags.find(x=>x.id===dragTagId);
-        if(t) setTagSecTab(t, id);
-        dragTagId = null;
-      }
-    };
-  });
-
-  // Obsługa pozycji etykiet (.item)
-  el.querySelectorAll(".item").forEach(it=>{
-    if(it.classList.contains("stbItem")) return;
-    it.onclick = e=>{
-      if(e.target.closest(".more")){
-        const t = tags.find(x=>x.id===+it.dataset.k);
+        const t = tags.find(x => x.id === +it.dataset.k);
         if(t) tagMenu(e, t);
         return;
       }
-      if(e.target.closest(".tagArr")) return; // obsłużone przez dedykowany listener .tagArr
+      if(e.target.closest(".tagArr, [data-tag-toggle]")) return;
       if(e.target.closest(".dragOrd")) return;
 
       const key = it.dataset.k;
       const tagId = (key==="all" || key==="none") ? key : +key;
       if(typeof centrumSchowaj==="function") centrumSchowaj();
-
-      if(typeof tagId === "number"){
-        const tg = tags.find(x=>x.id===tagId);
-        // Jeśli etykieta ma podetykiety i była zwinięta — rozwiń ją automatycznie
-        if(tg && tags.some(c=>c.parent===tg.id) && !tg.open){
-          tg.open = true;
-          saveTags();
-        }
-        const descIds = getAllTagDescendantIds(tagId);
-        const maWogole = notes.some(n=>!n.del && n.tg && n.tg.some(id=>descIds.has(+id)));
-        const maWBiezacym = notes.some(n=>!n.del && n.tg && n.tg.some(id=>descIds.has(+id)) && noteMatchesBook(n, filt.book) && noteMatchesCh(n) && noteMatchesPub(n, filt.pub) && (!query || noteMatchesQuery(n)));
-        if(maWogole && !maWBiezacym){
-          filt.book="all"; filt.ch=null; filt.pub="all";
-          if(typeof expandedBook!=="undefined") expandedBook=null;
-        }
-      }
 
       wlaczZawezenieWynikow();
       filt.tag = tagId;
@@ -32689,7 +32763,6 @@ function renderTags(){
         e.preventDefault();
         it.classList.remove("dropTarget");
         if(dragTagId!=null && dragTagId !== +it.dataset.k){
-          // Upuszczenie etykiety na inną etykietę: zagnieżdża ją jako podetykietę!
           const source = tags.find(x=>x.id===dragTagId);
           const target = tags.find(x=>x.id===+it.dataset.k);
           if(source && target){
@@ -32712,6 +32785,8 @@ function renderTags(){
     }
   });
 }
+
+
 let dragTagId = null;
 /* ================= SEKCJE ETYKIET =================
    Sekcja grupuje etykiety (np. „Kongresy" → Kongres 2019, 2020…).
@@ -60763,7 +60838,7 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v647</span>
+          <span class="cl-ver-num">v648</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">19 listopada 2026</span>
         </div>
