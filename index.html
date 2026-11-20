@@ -25062,9 +25062,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v648)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v649)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v648</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v649</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
@@ -25150,7 +25150,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v648</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v649</span>
   </button>
   <div class="searchwrap">
     <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -27382,9 +27382,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v648";
+const APP_BUILD = "v649";
 const APP_BUILD_DATE = "2026-11-19";
-const APP_FULL_VERSION = "5.0 (v648)";
+const APP_FULL_VERSION = "5.0 (v649)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -32792,7 +32792,10 @@ let dragTagId = null;
    Sekcja grupuje etykiety (np. „Kongresy" → Kongres 2019, 2020…).
    Etykieta należy do sekcji przez pole t.sec (id sekcji). */
 let sections = [];
-function saveSections(){ if(idb) idbPut("meta", sections, "sections").catch(e=>reportSaveError(e,"sekcje")); }
+function saveSections(dirty = true){
+  if(idb) idbPut("meta", sections, "sections").catch(e=>reportSaveError(e,"sekcje"));
+  if(dirty && typeof bumpDirty === "function") bumpDirty();
+}
 function nextSecId(){ return nastepnyNumer(sections); }
 async function wdrozSugerowaneFoldery(){
   const potw = await askConfirm(
@@ -32840,13 +32843,14 @@ async function createSection(){
   if(!name || !name.trim()) return;
   const nm=name.trim();
   if(sections.some(s=>s.name===nm)){ toast("Sekcja o tej nazwie już istnieje"); return; }
-  sections.push({id:nextSecId(), name:nm, ord:sections.length, open:true});
-  saveSections(); renderTags();
+  const uid = (typeof syncNowyUid === "function") ? syncNowyUid() : (Date.now().toString(36) + Math.random().toString(36).slice(2,8));
+  sections.push({id:nextSecId(), uid, name:nm, ord:sections.length, open:true});
+  saveSections(true); renderTags();
   toast("Utworzono sekcję „"+nm+"”");
 }
 function toggleSection(id){
   const s=sections.find(x=>x.id===id); if(!s) return;
-  s.open = !s.open; saveSections(); renderTags();
+  s.open = !s.open; saveSections(false); renderTags();
 }
 async function renameSection(id){
   const s=sections.find(x=>x.id===id); if(!s) return;
@@ -49879,8 +49883,9 @@ let secTabs = [];
    krawędzi) — wyglądała jak niedokończony kwadrat. Teraz zwykły, zamknięty kształt. */
 const IC_ZAKLADKA = svgIc('<path d="M6 4h12a1 1 0 0 1 1 1v15l-7-4-7 4V5a1 1 0 0 1 1-1z"/>');
 
-function saveSecTabs(){
+function saveSecTabs(dirty = true){
   if(idb) idbPut("meta", secTabs, "secTabs").catch(e=>reportSaveError(e,"zakładki sekcji"));
+  if(dirty && typeof bumpDirty === "function") bumpDirty();
 }
 async function loadSecTabs(){
   try{
@@ -49958,8 +49963,9 @@ async function createSecTab(secId){
   if(!nazwa || !nazwa.trim()) return;
   const nm = nazwa.trim();
   if(secTabsFor(secId).some(z=>z.name===nm)){ toast("Taka zakładka już tu jest"); return; }
-  secTabs.push({id:nextSecTabId(), sec:secId, name:nm, ord:secTabsFor(secId).length});
-  saveSecTabs(); renderTags();
+  const uid = (typeof syncNowyUid === "function") ? syncNowyUid() : (Date.now().toString(36) + Math.random().toString(36).slice(2,8));
+  secTabs.push({id:nextSecTabId(), uid, sec:secId, name:nm, ord:secTabsFor(secId).length});
+  saveSecTabs(true); renderTags();
   toastOk("Utworzono zakładkę „"+nm+"”");
 }
 async function renameSecTab(id){
@@ -60838,8 +60844,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v648</span>
+          <span class="cl-ver-num">v649</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">20 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Niezawodna synchronizacja folderów i etykiet z Dyskiem Google (iPad, iPhone, Mac)</div>
+        <ul class="cl-ver-list">
+          <li><b>Automatyczny zapis i synchronizacja folderów:</b> Każde utworzenie, zmiana nazwy czy przesunięcie folderu od razu powiadamia mechanizm synchronizacji Google Drive (wcześniej foldery zapisywały się tylko lokalnie na danym urządzeniu).</li>
+          <li><b>Pełna synchronizacja hierarchii etykiet:</b> Dodano obsługę przenoszenia powiązań podfolderów (rodzic–dziecko) w protokole uzgadniania w chmurze — podfoldery i zagnieżdżone etykiety zachowują swoje relacje na wszystkich urządzeniach.</li>
+          <li><b>Gwarantowane wysyłanie przy ręcznym uzgadnianiu:</b> Kliknięcie „Uzgodnij z Dyskiem Google” natychmiast wysyła aktualny stan lokalny do chmury i pobiera najświeższe dane z innych urządzeń.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v648</span>
           <span class="cl-ver-date">19 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Nowa organizacja i elegancki wygląd zakładek: Etykiety, Biblia i Publikacje</div>
@@ -66369,6 +66387,7 @@ function syncListy(){
       kluczP: p=> "n:" + norm(p.name),
       wyjscie: t=> ({uid:t.uid, name:t.name, color:t.color, ord:t.ord, orig:t.orig,
                      cproj:t.cproj===true ? true : undefined,
+                     parentUid: syncUidPo("tags", t.parent),
                      secUid: syncUidPo("sections", t.sec), stbUid: syncUidPo("secTabs", t.stb)}),
       wejscie: (p, id)=> {
         const t = {id, uid:p.uid, name:p.name};
@@ -66376,11 +66395,13 @@ function syncListy(){
         if(p.ord !== undefined) t.ord = p.ord;
         if(p.orig) t.orig = p.orig;
         if(p.cproj === true) t.cproj = true;
+        if(p.parentUid) t._pendingParentUid = p.parentUid;
+        else if("parentUid" in p && !p.parentUid) delete t.parent;
         const sek = daj("sections", p.secUid); if(sek !== undefined) t.sec = sek;
         const zak = daj("secTabs",  p.stbUid); if(zak !== undefined) t.stb = zak;
         return t;
       },
-      podpis: p=> [p.name||"", p.color||"", p.ord??"", p.secUid||"", p.stbUid||"", p.cproj?1:0].join(""),
+      podpis: p=> [p.name||"", p.color||"", p.ord??"", p.parentUid||"", p.secUid||"", p.stbUid||"", p.cproj?1:0].join(""),
       opis: p=> "Etykieta „" + (p.name||"") + "”"
     },
     {
@@ -66434,6 +66455,7 @@ function syncUidPo(rodzaj, id){
   if(id === undefined || id === null) return "";
   const lista = rodzaj === "sections" ? (typeof sections!=="undefined" ? sections : [])
               : rodzaj === "secTabs"  ? (typeof secTabs !=="undefined" ? secTabs  : [])
+              : rodzaj === "tags"     ? (typeof tags    !=="undefined" ? tags     : [])
               : [];
   const r = lista.find(x=>x && x.id === id);
   return (r && r.uid) ? r.uid : "";
@@ -66977,6 +66999,16 @@ async function syncZastosuj(plan){
       ruszone = true;
       if(o.rodzaj === "tags") st.etykietNowych++; else st.innych++;
     });
+    if(o.rodzaj === "tags"){
+      lista.forEach(t=>{
+        if(t && t._pendingParentUid){
+          const parId = o._mapa[t._pendingParentUid];
+          if(parId !== undefined) t.parent = parId;
+          else delete t.parent;
+          delete t._pendingParentUid;
+        }
+      });
+    }
     if(ruszone) o.zapis();
   }
 
@@ -67998,7 +68030,7 @@ async function gdriveSyncTeraz(powod){
       }
     }
 
-    const trzebaWyslac = !zdalny || !pobranoZdalne || (wynik && wynik.st && wynik.st.doPliku) || powod === "login" || powod === "zmiany";
+    const trzebaWyslac = !zdalny || !pobranoZdalne || (wynik && wynik.st && wynik.st.doPliku) || powod === "login" || powod === "zmiany" || powod === "ręcznie";
     if(trzebaWyslac){
       const exportData = await syncEksport();
       const fileId = zdalny ? zdalny.id : (lsGet(GDRIVE_K_FILE_ID, "") || null);
@@ -68024,6 +68056,7 @@ async function gdriveSyncTeraz(powod){
         }
       }
       await syncPodstawaPoZapisie();
+      if(typeof clearDirty === "function") clearDirty();
     }
 
     const terazIso = new Date().toISOString();
@@ -68048,6 +68081,7 @@ async function gdriveSyncTeraz(powod){
 
 function gdriveSyncPoZmianie(){
   if(lsGet(GDRIVE_K_AUTO, "0") !== "1") return;
+  if(_gdriveSyncPracuje) return;
   if(_gdriveZwloka) clearTimeout(_gdriveZwloka);
   _gdriveZwloka = setTimeout(()=>{
     _gdriveZwloka = null;
