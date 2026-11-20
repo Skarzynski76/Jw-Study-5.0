@@ -20039,6 +20039,14 @@ html[data-theme="dark"] .bViewBtn.on {
     height: 100% !important;
     width: 100% !important;
   }
+  /* Żelazne zabezpieczenie: na telefonach i ekranach mobilnych sidebarNavi i colNotes NIGDY nie nakładają się na siebie */
+  .sidebar-navi.mshow ~ #colNotes,
+  #sidebarNavi.mshow ~ #colNotes {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
   .sidebar-navi-content {
     flex: 1 1 100% !important;
     height: 100% !important;
@@ -25062,9 +25070,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v649)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v650)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v649</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v650</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
@@ -25150,7 +25158,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v649</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v650</span>
   </button>
   <div class="searchwrap">
     <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -27382,9 +27390,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v649";
+const APP_BUILD = "v650";
 const APP_BUILD_DATE = "2026-11-19";
-const APP_FULL_VERSION = "5.0 (v649)";
+const APP_FULL_VERSION = "5.0 (v650)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -47644,7 +47652,10 @@ function mobileShow(id){
   const cn = $("colNotes");
 
   if(id === "colNotes"){
-    if(sb) sb.classList.remove("mshow");
+    if(sb){
+      sb.classList.remove("mshow");
+      sb.classList.add("collapsed");
+    }
     if(cn) cn.classList.add("mshow");
     ["colBooks", "colTags", "colPubs"].forEach(c => {
       const el = $(c); if(el) el.classList.remove("mshow");
@@ -47655,7 +47666,7 @@ function mobileShow(id){
       sb.classList.remove("collapsed");
     }
     if(cn) cn.classList.remove("mshow");
-    if(typeof aktywujSegmentSidebar === "function") aktywujSegmentSidebar(id);
+    if(typeof aktywujSegmentSidebar === "function") aktywujSegmentSidebar(id, true);
   } else {
     const cols = ["colBooks", "colTags", "colPubs", "colNotes"];
     cols.forEach(c => {
@@ -47729,7 +47740,7 @@ function getActiveSidebarSeg(){
   return onBtn ? onBtn.dataset.target : "colTags";
 }
 
-function aktywujSegmentSidebar(targetId){
+function aktywujSegmentSidebar(targetId, forceMobileShow = false){
   if(!targetId) targetId = "colTags";
   const segBtns = document.querySelectorAll("#sidebarSegmentedBar .seg-btn");
   segBtns.forEach(b => {
@@ -47740,10 +47751,18 @@ function aktywujSegmentSidebar(targetId){
 
   const isMobile = window.innerWidth <= 900;
   const sb = $("sidebarNavi");
+  const cn = $("colNotes");
 
   if(isMobile && sb){
-    sb.classList.add("mshow");
-    sb.classList.remove("collapsed");
+    if(forceMobileShow){
+      sb.classList.add("mshow");
+      sb.classList.remove("collapsed");
+      if(cn) cn.classList.remove("mshow");
+    } else {
+      sb.classList.remove("mshow");
+      sb.classList.add("collapsed");
+      if(cn) cn.classList.add("mshow");
+    }
   }
 
   const cols = ["colTags", "colBooks", "colPubs"];
@@ -47773,7 +47792,7 @@ function initSidebarSegmentedControl(){
   const segBtns = document.querySelectorAll("#sidebarSegmentedBar .seg-btn");
   segBtns.forEach(b => {
     b.addEventListener("click", () => {
-      aktywujSegmentSidebar(b.dataset.target);
+      aktywujSegmentSidebar(b.dataset.target, true);
     });
   });
 
@@ -47783,7 +47802,7 @@ function initSidebarSegmentedControl(){
     if(s && (s === "colTags" || s === "colBooks" || s === "colPubs")) savedSeg = s;
   } catch(_){}
 
-  aktywujSegmentSidebar(savedSeg);
+  aktywujSegmentSidebar(savedSeg, false);
   initSidebarSearchEvents();
 }
 
@@ -48063,6 +48082,9 @@ function saveColWidths(){
 
 applyColWidths();
 if(typeof initSidebarSegmentedControl === "function") initSidebarSegmentedControl();
+if(window.innerWidth <= 900 && typeof mobileShow === "function"){
+  mobileShow("colNotes");
+}
 
 /* przycisk „Kolumny" w pasku górnym */
 if($("btnCols")) $("btnCols").onclick = e=>{
@@ -60844,8 +60866,19 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v649</span>
+          <span class="cl-ver-num">v650</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">20 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Naprawa widoku mobilnego na telefonie: brak nakładania się zakładek i notatek</div>
+        <ul class="cl-ver-list">
+          <li><b>Prawidłowy start na telefonach:</b> Wyeliminowano błąd, przez który przy uruchomieniu aplikacji na telefonie pasek boczny (Etykiety) i lista Notatek otwierały się jednocześnie dzieląc ekran na pół.</li>
+          <li><b>Czyste przełączanie pełnoekranowe:</b> Na telefonie aplikacja zawsze startuje w pełnym widoku Notatek, a otwarcie Etykiet, Biblii lub Publikacji zajmuje cały ekran i płynnie wraca do notatek po wybraniu elementu.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v649</span>
           <span class="cl-ver-date">20 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Niezawodna synchronizacja folderów i etykiet z Dyskiem Google (iPad, iPhone, Mac)</div>
