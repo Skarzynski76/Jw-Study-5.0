@@ -6005,6 +6005,69 @@ main{flex:1;display:flex;min-height:0;gap:12px;padding:12px;background:var(--bg)
 .secHead:hover{filter:brightness(1.07)}
 .secHead:active{transform:translateY(1px)}
 .secHead.dropTarget{outline:2px dashed #fff;outline-offset:-3px}
+
+/* ——— Podmenu Organizacja (Ulubione & Ostatnio używane) w kolumnie Etykiety ——— */
+.tagSubmenuCard {
+  margin: 6px 6px 12px;
+  background: var(--panel, #ffffff);
+  border: 1px solid var(--border, #e5e5ea);
+  border-radius: 13px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+.tagSubmenuRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.tagSubmenuRow:not(:last-child) {
+  border-bottom: 1px solid color-mix(in srgb, var(--border, #e5e5ea) 60%, transparent);
+}
+.tagSubmenuRow:hover {
+  background: color-mix(in srgb, var(--accent, #1b6348) 7%, var(--panel, #ffffff));
+}
+.tagSubmenuRow:active {
+  background: color-mix(in srgb, var(--accent, #1b6348) 12%, var(--panel, #ffffff));
+}
+.tagSubmenuRow.active {
+  background: color-mix(in srgb, var(--accent, #1b6348) 14%, var(--panel, #ffffff));
+  color: var(--accent, #1b6348);
+}
+.tagSubmenuIco {
+  font-size: 15px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+}
+.tagSubmenuTitle {
+  flex: 1;
+  font-size: 13.5px;
+  font-weight: 550;
+  color: var(--text, #1d1d1f);
+}
+.tagSubmenuRow.active .tagSubmenuTitle {
+  color: var(--accent, #1b6348);
+  font-weight: 650;
+}
+.tagSubmenuCnt {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted, #8e8e93);
+  padding: 1px 6px;
+  border-radius: 8px;
+}
+.tagSubmenuRow.active .tagSubmenuCnt {
+  color: var(--accent, #1b6348);
+  background: color-mix(in srgb, var(--accent, #1b6348) 14%, transparent);
+}
+
 .secArr{font-size:10px;width:11px;flex-shrink:0;opacity:.85}
 .secName{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .secCnt{font-size:10.5px;font-weight:600;opacity:.85;background:rgba(255,255,255,.22);padding:2px 8px;border-radius:999px;letter-spacing:0}
@@ -25070,9 +25133,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v652)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v653)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v652</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v653</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
@@ -25158,7 +25221,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v652</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v653</span>
   </button>
   <div class="searchwrap">
     <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -25906,6 +25969,21 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <!-- Wybór pliku uzgadniania. Poza oknem różnic, bo naciskany jest wtedy, gdy
      to okno jest jeszcze zamknięte. -->
 <input type="file" id="syncPlikInput" accept="" style="display:none">
+
+<div class="overlay" id="modalKolejnoscFolderow">
+  <div class="modal" style="max-width:480px;width:92vw;">
+    <div class="modal-head" style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border);">
+      <div class="modal-title" style="font-weight:700;font-size:16px;color:var(--text);display:flex;align-items:center;gap:8px;">
+        <span>📁</span> Kolejność folderów
+      </div>
+      <button type="button" class="modal-close" style="background:none;border:none;font-size:18px;cursor:pointer;color:var(--muted);padding:4px 8px;" onclick="closeModal('modalKolejnoscFolderow')">✕</button>
+    </div>
+    <div class="modal-body" id="bodyKolejnoscFolderow" style="max-height:60vh;overflow-y:auto;padding:14px;"></div>
+    <div class="modal-foot" style="display:flex;justify-content:flex-end;padding:12px 18px;border-top:1px solid var(--border);">
+      <button type="button" class="btn primary" onclick="closeModal('modalKolejnoscFolderow')">Gotowe</button>
+    </div>
+  </div>
+</div>
 
 <div class="overlay" id="modalPrzeniesZbiorczo">
   <div class="modal">
@@ -27386,9 +27464,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v652";
+const APP_BUILD = "v653";
 const APP_BUILD_DATE = "2026-11-19";
-const APP_FULL_VERSION = "5.0 (v652)";
+const APP_FULL_VERSION = "5.0 (v653)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -32299,11 +32377,29 @@ window.pokazMenuSzybkichProjektow = pokazMenuSzybkichProjektow;
  * @param {Note} n
  * @returns {boolean}
  */
+function pobierzOstatnioUzywaneNotatki(){
+  const cutoff = Date.now() - 30 * 86400000;
+  const zOstatnichDni = notes.filter(n => !n.del && (typeof laTime === "function" ? laTime(n) : 0) > cutoff);
+  if(zOstatnichDni.length >= 8) return zOstatnichDni;
+  return notes.filter(n => !n.del && (typeof laTime === "function" ? laTime(n) : 0) > 0)
+              .sort((a,b) => (typeof laTime === "function" ? (laTime(b) - laTime(a)) : 0))
+              .slice(0, 24);
+}
+
+function czyNotatkaOstatnioUzywana(n){
+  if(!n || n.del) return false;
+  const cutoff = Date.now() - 30 * 86400000;
+  if(typeof laTime === "function" && laTime(n) > cutoff) return true;
+  const recentList = pobierzOstatnioUzywaneNotatki();
+  return recentList.some(x => x.g === n.g);
+}
+
 function matchesQuick(n){
   if(quickFilter==="all") return true;
   if(quickFilter==="proj") return noteIsProject(n);
   if(quickFilter==="pin") return !!n.pin;
   if(quickFilter==="fav") return !!n.fav;
+  if(quickFilter==="recent") return czyNotatkaOstatnioUzywana(n);
   if(quickFilter==="untagged") return !n.tg || n.tg.length===0;
   if(quickFilter==="img") return /<img/i.test(n.h||"");
   if(quickFilter==="audio") return /(?:<audio|data-audio)/i.test(n.h||"") || (Array.isArray(n.audios)&&n.audios.length>0);
@@ -32560,6 +32656,7 @@ function renderTreeTagNode(t, level, counts, baseNotes, activeKey, queryNorm, ma
 }
 
 function renderTags(){
+  if(typeof normalizujKolejnoscSekcji === "function") normalizujKolejnoscSekcji();
   const base = notes.filter(n=>!n.del && noteMatchesBook(n,filt.book) && noteMatchesCh(n) && noteMatchesPub(n,filt.pub) && noteMatchesQuery(n));
   const counts = {}; let untagged=0;
   base.forEach(n=>{ if(!n.tg.length)untagged++; n.tg.forEach(t=>counts[t]=(counts[t]||0)+1); });
@@ -32586,9 +32683,36 @@ function renderTags(){
     });
   }
 
+  let html = "";
+
+  // 1. Podmenu Organizacja (Ulubione & Ostatnio używane)
+  if(!tagQueryNorm){
+    const favCount = notes.filter(n => !n.del && n.fav).length;
+    const recentNotes = (typeof pobierzOstatnioUzywaneNotatki === "function") ? pobierzOstatnioUzywaneNotatki() : [];
+    const recentCount = recentNotes.length;
+    const isFavActive = (quickFilter === "fav");
+    const isRecentActive = (quickFilter === "recent");
+
+    html += `
+      <div class="tagSubmenuCard" id="tagSubmenuCard">
+        <div class="tagSubmenuRow${isFavActive ? " active" : ""}" data-subact="fav" title="Pokaż ulubione notatki">
+          <span class="tagSubmenuIco">⭐</span>
+          <span class="tagSubmenuTitle">Ulubione</span>
+          <span class="tagSubmenuCnt">${favCount}</span>
+        </div>
+        <div class="tagSubmenuRow${isRecentActive ? " active" : ""}" data-subact="recent" title="Pokaż ostatnio używane notatki">
+          <span class="tagSubmenuIco">🕒</span>
+          <span class="tagSubmenuTitle">Ostatnio używane</span>
+          <span class="tagSubmenuCnt">${recentCount}</span>
+        </div>
+      </div>
+    `;
+  }
+
   /* „Wszystkie” i „Bez etykiety” */
-  let html = tagItem("all","Wszystkie",base.length);
-  if(untagged || String(filt.tag)==="none") html += tagItem("none","Bez etykiety",untagged);
+  const isAllActive = (String(filt.tag) === "all" && quickFilter !== "fav" && quickFilter !== "recent");
+  html += tagItem("all", "Wszystkie", base.length, false, "", false, null, isAllActive);
+  if(untagged || String(filt.tag)==="none") html += tagItem("none", "Bez etykiety", untagged);
 
   let anyMatch = false;
 
@@ -32735,6 +32859,29 @@ function renderTags(){
     };
   });
 
+  // Obsługa kliknięcia w podmenu Organizacja (.tagSubmenuRow)
+  el.querySelectorAll(".tagSubmenuRow").forEach(row => {
+    row.onclick = e => {
+      e.stopPropagation();
+      const act = row.dataset.subact;
+      if(act === "fav"){
+        quickFilter = (quickFilter === "fav") ? "all" : "fav";
+      } else if(act === "recent"){
+        quickFilter = (quickFilter === "recent") ? "all" : "recent";
+        if(quickFilter === "recent"){
+          sortMode = "recent";
+          const sel = $("sortSel");
+          if(sel && [...sel.options].some(o=>o.value === "recent")){ sel.value = "recent"; lsSet(KP + "Sort", "recent"); }
+        }
+      }
+      filt.tag = "all";
+      if(typeof persistFilt === "function") persistFilt();
+      if(typeof centrumSchowaj === "function") centrumSchowaj();
+      renderAll();
+      if(innerWidth <= 900 && typeof mobileShow === "function") mobileShow("colNotes");
+    };
+  });
+
   // Obsługa nagłówków folderów głównych (.secHead / .folderHead)
   el.querySelectorAll(".secHead, .folderHead").forEach(h => {
     const sid = +h.dataset.sec;
@@ -32803,6 +32950,9 @@ function renderTags(){
 
       wlaczZawezenieWynikow();
       filt.tag = tagId;
+      if(key === "all" || quickFilter === "fav" || quickFilter === "recent"){
+        quickFilter = "all";
+      }
       persistFilt();
       renderAll();
       if(typeof mobileShow==="function") mobileShow("colNotes");
@@ -32926,15 +33076,111 @@ async function deleteSection(id){
   sections = sections.filter(x=>x.id!==id);
   saveSections(); saveTags(); renderTags(); toast("Usunięto sekcję");
 }
-function moveSection(id, dir){
-  sections.forEach((s,i)=>{ if(s.ord===undefined) s.ord=i; });
-  sections.sort((a,b)=>a.ord-b.ord);
-  const i=sections.findIndex(s=>s.id===id); if(i<0) return;
-  const j=i+dir; if(j<0||j>=sections.length) return;
-  const t=sections[i].ord; sections[i].ord=sections[j].ord; sections[j].ord=t;
-  sections.sort((a,b)=>a.ord-b.ord);
-  saveSections(); renderTags();
+function normalizujKolejnoscSekcji(){
+  if(!Array.isArray(sections) || !sections.length) return;
+  sections.sort((a,b) => {
+    const oa = (a.ord !== undefined && a.ord !== null) ? Number(a.ord) : 0;
+    const ob = (b.ord !== undefined && b.ord !== null) ? Number(b.ord) : 0;
+    if(oa !== ob) return oa - ob;
+    return (a.id || 0) - (b.id || 0);
+  });
+  let changed = false;
+  sections.forEach((s, idx) => {
+    if(s.ord !== idx){
+      s.ord = idx;
+      changed = true;
+    }
+  });
+  if(changed){
+    saveSections(true);
+  }
 }
+
+function moveSection(id, dir){
+  normalizujKolejnoscSekcji();
+  const i = sections.findIndex(s => s.id === id);
+  if(i < 0) return;
+  const j = i + dir;
+  if(j < 0 || j >= sections.length) return;
+
+  const item = sections.splice(i, 1)[0];
+  sections.splice(j, 0, item);
+  sections.forEach((s, idx) => { s.ord = idx; });
+
+  saveSections(true);
+  renderTags();
+  if(typeof rysujMape === "function") rysujMape();
+}
+
+function moveSectionToEdge(id, edge){
+  normalizujKolejnoscSekcji();
+  const i = sections.findIndex(s => s.id === id);
+  if(i < 0) return;
+  const item = sections.splice(i, 1)[0];
+  if(edge === "top") sections.unshift(item);
+  else sections.push(item);
+  sections.forEach((s, idx) => { s.ord = idx; });
+
+  saveSections(true);
+  renderTags();
+  if(typeof rysujMape === "function") rysujMape();
+  toast(edge === "top" ? `Przeniesiono „${item.name}” na samą górę` : `Przeniesiono „${item.name}” na sam dół`);
+}
+
+function otworzModalKolejnosciFolderow(){
+  normalizujKolejnoscSekcji();
+  renderModalKolejnosciFolderow();
+  openModal("modalKolejnoscFolderow");
+}
+
+function renderModalKolejnosciFolderow(){
+  const body = $("bodyKolejnoscFolderow");
+  if(!body) return;
+  if(!sections.length){
+    body.innerHTML = '<div style="padding:24px;text-align:center;color:var(--muted);">Brak utworzonych folderów</div>';
+    return;
+  }
+  let html = '<div style="display:flex;flex-direction:column;gap:6px;">';
+  sections.forEach((s, i) => {
+    const isFirst = (i === 0);
+    const isLast = (i === sections.length - 1);
+    const kol = s.color || "";
+    html += `
+      <div class="sec-reorder-row" style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;background:var(--sel);border:1px solid color-mix(in srgb, var(--border) 60%, transparent);">
+        <span style="font-size:18px;">📁</span>
+        <span style="flex:1;font-weight:600;font-size:13.5px;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+          ${kol ? `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${kol};margin-right:6px;"></span>` : ''}
+          ${esc(s.name)}
+        </span>
+        <div style="display:flex;align-items:center;gap:5px;">
+          <button type="button" class="btn small" data-sec-reorder-act="up" data-sec-id="${s.id}" title="Przesuń wyżej"${isFirst?' disabled style="opacity:0.35;cursor:default;"':''}>▲</button>
+          <button type="button" class="btn small" data-sec-reorder-act="down" data-sec-id="${s.id}" title="Przesuń niżej"${isLast?' disabled style="opacity:0.35;cursor:default;"':''}>▼</button>
+          <button type="button" class="btn small" data-sec-reorder-act="top" data-sec-id="${s.id}" title="Na samą górę"${isFirst?' disabled style="opacity:0.35;cursor:default;"':''}>⏫</button>
+          <button type="button" class="btn small" data-sec-reorder-act="bottom" data-sec-id="${s.id}" title="Na sam dół"${isLast?' disabled style="opacity:0.35;cursor:default;"':''}>⏬</button>
+        </div>
+      </div>
+    `;
+  });
+  html += '</div>';
+  body.innerHTML = html;
+
+  body.querySelectorAll("[data-sec-reorder-act]").forEach(btn => {
+    btn.onclick = e => {
+      e.stopPropagation();
+      const act = btn.dataset.secReorderAct;
+      const sId = +btn.dataset.secId;
+      if(act === "up") moveSection(sId, -1);
+      else if(act === "down") moveSection(sId, 1);
+      else if(act === "top") moveSectionToEdge(sId, "top");
+      else if(act === "bottom") moveSectionToEdge(sId, "bottom");
+      renderModalKolejnosciFolderow();
+    };
+  });
+}
+window.otworzModalKolejnosciFolderow = otworzModalKolejnosciFolderow;
+window.moveSection = moveSection;
+window.moveSectionToEdge = moveSectionToEdge;
+window.normalizujKolejnoscSekcji = normalizujKolejnoscSekcji;
 function setTagSection(tagId, secId){
   const t=tags.find(x=>x.id===tagId); if(!t) return;
   if(secId===null) delete t.sec; else t.sec=secId;
@@ -32959,6 +33205,9 @@ function sectionMenu(e, s){
      <div class="dd-sep"></div>
      <div data-sm="up">${upI}Przesuń w górę</div>
      <div data-sm="down">${downI}Przesuń w dół</div>
+     <div data-sm="top">⏫ Na samą górę</div>
+     <div data-sm="bottom">⏬ Na sam dół</div>
+     <div data-sm="reorder">↕️ Kolejność folderów…</div>
      <div class="dd-sep"></div>
      <div data-sm="eksport">${ICO.copy}Eksportuj / Wyślij folder…</div>
      <div class="dd-sep"></div>
@@ -32978,6 +33227,9 @@ function sectionMenu(e, s){
     else if(a==="tab") createSecTab(s.id);
     else if(a==="up") moveSection(s.id,-1);
     else if(a==="down") moveSection(s.id,1);
+    else if(a==="top") moveSectionToEdge(s.id, "top");
+    else if(a==="bottom") moveSectionToEdge(s.id, "bottom");
+    else if(a==="reorder") otworzModalKolejnosciFolderow();
     else if(a==="eksport") eksportujSekcje(s.id);
     else if(a==="del") deleteSection(s.id);
   };
@@ -33409,8 +33661,8 @@ function openColorMenu(e, tryb){
   cm.style.left=Math.max(_ob.lewo+8, Math.min(r.right-w, _ob.prawo-w-8))+"px";
   cm.style.top=Math.max(_ob.gora+8, Math.min(r.bottom+6, _ob.dol-h-8))+"px";
 }
-function tagItem(key,name,cnt,user,color,inSection,secId){
-  const active = String(filt.tag)===String(key);
+function tagItem(key,name,cnt,user,color,inSection,secId,customActive){
+  const active = (customActive !== undefined) ? !!customActive : (String(filt.tag)===String(key));
   /* Druga linia obrony: kolor sprawdzamy także przy rysowaniu, bo w bazie mogą
      leżeć dane zapisane przez starszą wersję, sprzed kontroli przy wczytywaniu. */
   const bezpieczny = (typeof kolorBezpieczny==="function" && kolorBezpieczny(color)) ? color : "";
@@ -33635,7 +33887,9 @@ if($("btnTagPlus")) $("btnTagPlus").onclick = e=>{
   dd.dataset.rodzaj = "tagPlus";
   dd.innerHTML =
     '<div data-plus="tag">🏷️ Nowa etykieta</div>' +
-    '<div data-plus="sec">📁 Nowy folder tematyczny</div>';
+    '<div data-plus="sec">📁 Nowy folder tematyczny</div>' +
+    '<div class="dd-sep"></div>' +
+    '<div data-plus="reorder">↕️ Kolejność folderów…</div>';
   dd.style.display = "block";
   if(typeof oznaczPozycjeMenu==="function") oznaczPozycjeMenu(dd);
   placeDropdown(dd, $("btnTagPlus"));
@@ -33644,6 +33898,7 @@ if($("btnTagPlus")) $("btnTagPlus").onclick = e=>{
     dd.style.display = "none";
     if(it.dataset.plus==="tag") $("btnNewTag").click();
     else if(it.dataset.plus==="sec") $("btnNewSec").click();
+    else if(it.dataset.plus==="reorder") otworzModalKolejnosciFolderow();
   };
 };
 
@@ -61066,8 +61321,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v652</span>
+          <span class="cl-ver-num">v653</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">21 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Płynna zmiana kolejności folderów oraz podmenu Ulubione i Ostatnio używane</div>
+        <ul class="cl-ver-list">
+          <li><b>Płynne przesuwanie folderów:</b> Wyeliminowano błąd blokowania folderów podczas przesuwania w dół (naprawiono kolizje zdublowanych numerów porządkowych <i>ord</i>). Każdy folder można teraz swobodnie przesunąć na samą górę, w dół lub na dowolną pozycję.</li>
+          <li><b>Nowe narzędzie kolejności folderów:</b> Dodano w menu folderu opcje <i>„Na samą górę”</i>, <i>„Na sam dół”</i> oraz dedykowane okno <i>„Kolejność folderów…”</i> do szybkiego przestawiania folderów strzałkami.</li>
+          <li><b>Podmenu Organizacja w kolumnie Etykiety:</b> Na samej górze kolumny Etykiety dodano estetyczną kartę z dwiema pozycjami: <b>⭐ Ulubione</b> oraz <b>🕒 Ostatnio używane</b> z licznikami notatek i bezpośrednim filtrowaniem jednym dotknięciem.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v652</span>
           <span class="cl-ver-date">21 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Naprawa usuwania celów duchowych i synchronizacji między urządzeniami</div>
