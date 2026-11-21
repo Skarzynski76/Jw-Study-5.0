@@ -25070,9 +25070,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v651)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v652)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v651</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v652</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
@@ -25158,7 +25158,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v651</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v652</span>
   </button>
   <div class="searchwrap">
     <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -27386,9 +27386,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v651";
+const APP_BUILD = "v652";
 const APP_BUILD_DATE = "2026-11-19";
-const APP_FULL_VERSION = "5.0 (v651)";
+const APP_FULL_VERSION = "5.0 (v652)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -56295,14 +56295,93 @@ const _centrKategorieMap = {
   inne: { name: "Osobiste", icon: "🎯", color: "#06b6d4" }
 };
 
+/* Obsługa usuniętych celów duchowych (tombstones) zapobiegająca ich zmartwychwstaniu podczas synchronizacji */
+function _centrPobierzUsunieteCele(){
+  const raw = lsGet(KP + "CentrumCeleDeleted_v1", null) || lsGet("jw_centr_cele_deleted_v1", null);
+  if(!raw) return [];
+  try {
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  } catch(e){ return []; }
+}
+
+function _centrZapiszUsunieteCele(delArr){
+  if(!Array.isArray(delArr)) return;
+  const json = JSON.stringify(delArr);
+  lsSet(KP + "CentrumCeleDeleted_v1", json);
+  lsSet("jw_centr_cele_deleted_v1", json);
+}
+
+function _centrPobierzUsunieteCeleSet(){
+  const arr = _centrPobierzUsunieteCele();
+  const set = new Set();
+  arr.forEach(item => {
+    if(!item) return;
+    if(typeof item === "string"){
+      set.add(item);
+      set.add(item.toLowerCase().trim());
+    } else if(typeof item === "object"){
+      if(item.id) set.add(item.id);
+      if(item.title){
+        set.add(item.title);
+        set.add(item.title.toLowerCase().trim());
+      }
+    }
+  });
+  return set;
+}
+
+function _centrDodajDoUsunietychCelow(cel){
+  if(!cel) return;
+  const delList = _centrPobierzUsunieteCele();
+  const id = typeof cel === "string" ? cel : cel.id;
+  const title = typeof cel === "string" ? "" : (cel.title || "");
+  const normTitle = title.toLowerCase().trim();
+  
+  const juzJest = delList.some(d => {
+    const dId = typeof d === "string" ? d : d.id;
+    const dTitle = typeof d === "string" ? (d || "").toLowerCase().trim() : (d.title || "").toLowerCase().trim();
+    return (id && dId && id === dId) || (normTitle && dTitle && normTitle === dTitle);
+  });
+  if(!juzJest){
+    delList.push({
+      id: id || ("cel_del_" + Date.now()),
+      title: title,
+      ts: Date.now()
+    });
+    _centrZapiszUsunieteCele(delList);
+  }
+}
+
+function _centrUsunZUsunietychCelow(celId, celTitle){
+  const delList = _centrPobierzUsunieteCele();
+  const normTitle = (celTitle || "").toLowerCase().trim();
+  const clean = delList.filter(d => {
+    const dId = typeof d === "string" ? d : d.id;
+    const dTitle = typeof d === "string" ? (d || "").toLowerCase().trim() : (d.title || "").toLowerCase().trim();
+    if(celId && dId && celId === dId) return false;
+    if(normTitle && dTitle && normTitle === dTitle) return false;
+    return true;
+  });
+  if(clean.length !== delList.length){
+    _centrZapiszUsunieteCele(clean);
+  }
+}
+
 function _centrPobierzCele(){
   const raw = lsGet(KP + "CentrumCele_v1", null) || lsGet("jw_centr_cele_v1", null);
-  if(raw){
+  if(raw !== null && raw !== undefined){
     try {
       const arr = JSON.parse(raw);
-      if(Array.isArray(arr) && arr.length){
+      if(Array.isArray(arr)){
         let changed = false;
-        arr.forEach(c => {
+        const delSet = _centrPobierzUsunieteCeleSet();
+        let filtArr = arr;
+        if(delSet.size > 0){
+          filtArr = arr.filter(c => c && !delSet.has(c.id) && !delSet.has((c.title||"").toLowerCase().trim()));
+          if(filtArr.length !== arr.length) changed = true;
+        }
+        filtArr.forEach(c => {
           if(c && c.type === "habit"){
             if(!c.habitTarget){
               c.habitTarget = (c.id === "cel_domyslny_3" ? 2 : 7);
@@ -56321,11 +56400,12 @@ function _centrPobierzCele(){
             if(c.habitAutoRenew === undefined){ c.habitAutoRenew = true; changed = true; }
           }
         });
-        if(changed) _centrZapiszCele(arr, true);
-        return arr;
+        if(changed) _centrZapiszCele(filtArr, true);
+        return filtArr;
       }
     } catch(e){}
   }
+  const delSet = _centrPobierzUsunieteCeleSet();
   const domyslne = [
     {
       id: "cel_domyslny_1",
@@ -56383,7 +56463,7 @@ function _centrPobierzCele(){
       created: Date.now(),
       completed: false
     }
-  ];
+  ].filter(c => !delSet.has(c.id) && !delSet.has((c.title||"").toLowerCase().trim()));
   _centrZapiszCele(domyslne, true);
   return domyslne;
 }
@@ -56397,6 +56477,7 @@ function _centrZapiszCele(cele, pominDirty){
 }
 
 function _centrDodajLubEdytujCel(dane){
+  if(dane) _centrUsunZUsunietychCelow(dane.id, dane.title);
   const cele = _centrPobierzCele();
   if(dane.id){
     const idx = cele.findIndex(c => c.id === dane.id);
@@ -56445,10 +56526,18 @@ function _centrDodajLubEdytujCel(dane){
 }
 
 function _centrUsunCel(celId){
-  const cele = _centrPobierzCele().filter(c => c.id !== celId);
-  _centrZapiszCele(cele);
+  const cele = _centrPobierzCele();
+  const cDoUsuniecia = cele.find(x => x.id === celId || (x.title && x.title === celId));
+  const tytul = cDoUsuniecia ? cDoUsuniecia.title : "";
+  const filtered = cele.filter(c => c.id !== celId && (!tytul || c.title !== tytul));
+
+  if(cDoUsuniecia || celId){
+    _centrDodajDoUsunietychCelow(cDoUsuniecia || { id: celId, title: tytul });
+  }
+
+  _centrZapiszCele(filtered);
   try {
-    if(typeof _centrStoperStan !== "undefined" && _centrStoperStan && _centrStoperStan.celId === celId){
+    if(typeof _centrStoperStan !== "undefined" && _centrStoperStan && (_centrStoperStan.celId === celId || _centrStoperStan.celId === (cDoUsuniecia && cDoUsuniecia.id))){
       if(typeof _centrZatrzymajIUkryjStoper === "function") _centrZatrzymajIUkryjStoper();
       if(typeof closeModal === "function") closeModal("modalCelTimer");
     }
@@ -59291,12 +59380,15 @@ function _centrEksportDanych(){
     }
   } catch(e){}
 
+  const celeDeletedArr = (typeof _centrPobierzUsunieteCele === "function") ? _centrPobierzUsunieteCele() : [];
+
   return {
     dni: dniMap,
     fragi: fragiArr,
     tematy: tematyArr,
     plany: planyArr,
     cele: celeArr,
+    celeDeleted: celeDeletedArr,
     aktywnyPlan: lsGet(KP + "CentrumAktywnyPlan", null),
     curDay: lsGet(KP + "CentrumCurDay", null),
     curTemat: lsGet(KP + "CentrumCurTemat", null),
@@ -59309,8 +59401,8 @@ function _centrEksportDanych(){
 }
 
 function _centrImportDanych(centrumData, tryb){
-  if(!centrumData || typeof centrumData !== "object") return { dniMerged: 0, fragiMerged: 0, tematyMerged: 0, celeMerged: 0 };
-  const st = { dniMerged: 0, fragiMerged: 0, tematyMerged: 0, celeMerged: 0 };
+  if(!centrumData || typeof centrumData !== "object") return { dniMerged: 0, fragiMerged: 0, tematyMerged: 0, celeMerged: 0, doPliku: false };
+  const st = { dniMerged: 0, fragiMerged: 0, tematyMerged: 0, celeMerged: 0, doPliku: false };
   const isReplace = (tryb === "replace");
 
   // 1. Ukończone dni we wszystkich planach czytania
@@ -59386,20 +59478,58 @@ function _centrImportDanych(centrumData, tryb){
     }
   }
 
-  // 4. Duchowe cele i nawyki
-  if(Array.isArray(centrumData.cele) && centrumData.cele.length){
+  // 4. Duchowe cele i nawyki — obsługa synchronizacji oraz trwałego usuwania (tombstones)
+  if(Array.isArray(centrumData.celeDeleted) && centrumData.celeDeleted.length){
+    const localDel = _centrPobierzUsunieteCele();
+    let zmienionoDel = false;
+    centrumData.celeDeleted.forEach(incDel => {
+      if(!incDel) return;
+      const incId = (typeof incDel === "string") ? incDel : incDel.id;
+      const incTitle = (typeof incDel === "string") ? incDel : (incDel.title || "");
+      const normIncTitle = (incTitle || "").toLowerCase().trim();
+      const istnieje = localDel.some(d => {
+        const dId = (typeof d === "string") ? d : d.id;
+        const dTitle = (typeof d === "string") ? (d || "").toLowerCase().trim() : (d.title || "").toLowerCase().trim();
+        return (incId && dId && incId === dId) || (normIncTitle && dTitle && normIncTitle === dTitle);
+      });
+      if(!istnieje){
+        localDel.push(typeof incDel === "object" ? incDel : { id: incId, title: incTitle, ts: Date.now() });
+        zmienionoDel = true;
+      }
+    });
+    if(zmienionoDel){
+      _centrZapiszUsunieteCele(localDel);
+    }
+  }
+
+  const delCeleSet = _centrPobierzUsunieteCeleSet();
+
+  if(Array.isArray(centrumData.cele)){
     if(isReplace){
-      _centrZapiszCele(centrumData.cele, true);
-      st.celeMerged = centrumData.cele.length;
+      const czyste = centrumData.cele.filter(c => c && !delCeleSet.has(c.id) && !delCeleSet.has((c.title||"").toLowerCase().trim()));
+      _centrZapiszCele(czyste, true);
+      st.celeMerged = czyste.length;
     } else {
-      const curCele = _centrPobierzCele();
+      let curCele = _centrPobierzCele();
+      const przedFiltrem = curCele.length;
+      curCele = curCele.filter(c => c && !delCeleSet.has(c.id) && !delCeleSet.has((c.title||"").toLowerCase().trim()));
+      let usunietoZlokalnych = (przedFiltrem !== curCele.length);
+
       let dodanoCele = 0;
       centrumData.cele.forEach(incC => {
         if(!incC || !incC.title) return;
-        const istniejacy = curCele.find(c => (incC.id && c.id === incC.id) || (c.title && c.title.toLowerCase() === incC.title.toLowerCase()));
+        const normIncTitle = incC.title.toLowerCase().trim();
+        // Sprawdź czy cel nie został usunięty na tym lub innym urządzeniu!
+        if(delCeleSet.has(incC.id) || delCeleSet.has(normIncTitle)){
+          st.doPliku = true; // Zdalny plik w chmurze ma stary usunięty cel — trzeba go nadpisać bez niego
+          return;
+        }
+
+        const istniejacy = curCele.find(c => (incC.id && c.id === incC.id) || (c.title && c.title.toLowerCase().trim() === normIncTitle));
         if(!istniejacy){
           curCele.push(incC);
           dodanoCele++;
+          st.doPliku = true;
         } else {
           const localMod = Number(istniejacy.modified || 0);
           const incMod = Number(incC.modified || 0);
@@ -59411,7 +59541,7 @@ function _centrImportDanych(centrumData, tryb){
             if(incC.completed !== undefined) istniejacy.completed = !!incC.completed;
             istniejacy.modified = incMod;
           } else if(localMod > incMod){
-            // Lokalny stan jest nowszy (np. użytkownik odznaczył dzień na tym urządzeniu) — zachowaj lokalny stan
+            st.doPliku = true;
           } else {
             if(incC.history && typeof incC.history === "object" && istniejacy.type === "habit"){
               if(!istniejacy.history || typeof istniejacy.history !== "object") istniejacy.history = {};
@@ -59428,7 +59558,10 @@ function _centrImportDanych(centrumData, tryb){
           }
         }
       });
-      _centrZapiszCele(curCele, true);
+      if(dodanoCele > 0 || usunietoZlokalnych){
+        _centrZapiszCele(curCele, true);
+        if(usunietoZlokalnych) st.doPliku = true;
+      }
       st.celeMerged = dodanoCele;
     }
   }
@@ -60933,8 +61066,19 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v651</span>
+          <span class="cl-ver-num">v652</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">21 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Naprawa usuwania celów duchowych i synchronizacji między urządzeniami</div>
+        <ul class="cl-ver-list">
+          <li><b>Trwałe usuwanie celów duchowych:</b> Usunięty cel lub nawyk (np. <i>Przygotowanie do zebrań z wyprzedzeniem</i>) nie wraca już po synchronizacji z Dyskiem Google lub iCloud. Wprowadzono listę wycofanych celów (tombstones), która blokuje automatyczne przywracanie usuniętych pozycji.</li>
+          <li><b>Bezpieczna synchronizacja celów:</b> Usunięcie celu na jednym urządzeniu (np. iPadzie) natychmiast aktualizuje plik w chmurze i usuwa ten sam cel z drugiego urządzenia (np. iPhone'a).</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v651</span>
           <span class="cl-ver-date">20 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Przełącznik autokorekty w Ustawieniach i uporządkowanie narzędzi edycji</div>
@@ -67340,7 +67484,8 @@ async function syncScalDane(dane, bezPytania){
   st.doPliku = plan.notatki.doPliku
     + opisy.reduce((s2, o)=> s2 + ((plan.listy[o.rodzaj] || {}).doPliku || 0), 0)
     + (plan.rozstrzygniete || []).filter(x=>x.wybor !== "zdalna").length
-    + ((k && (k.typ === "konflikt" || k.typ === "doPliku")) ? 1 : 0);
+    + ((k && (k.typ === "konflikt" || k.typ === "doPliku")) ? 1 : 0)
+    + ((stCentrum && stCentrum.doPliku) ? 1 : 0);
   /* Cokolwiek weszło do naszych danych? Tylko wtedy warto przerysowywać ekran —
      przy ośmiu tysiącach notatek pełne przerysowanie to grubo ponad sto
      milisekund, a uzgadnianie zagląda do pliku samo, w tle. */
