@@ -1,6 +1,6 @@
 /* JW Study — Service Worker (Obsługa trybu offline) */
 const CACHE_PREFIX = 'jwstudy-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + 'v653';
+const CACHE = CACHE_PREFIX + 'v654';
 
 const CORE = [
   './index.html',

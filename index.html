@@ -25133,9 +25133,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v653)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v654)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v653</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v654</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
@@ -25221,7 +25221,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v653</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v654</span>
   </button>
   <div class="searchwrap">
     <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -27464,9 +27464,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v653";
-const APP_BUILD_DATE = "2026-11-19";
-const APP_FULL_VERSION = "5.0 (v653)";
+const APP_BUILD = "v654";
+const APP_BUILD_DATE = "2026-11-21";
+const APP_FULL_VERSION = "5.0 (v654)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -30072,6 +30072,7 @@ window.createNote = createNote;
  */
 function saveNote(n){
   if(typeof slad === "function") slad("zapis notatki: " + ((n && (n.t || n.g)) || "bez tytułu").slice(0, 40));
+  if(typeof uniewaznijCacheOstatnioUzywanych === "function") uniewaznijCacheOstatnioUzywanych();
   /* Skorowidz rzadkich słów opisuje stan sprzed zmiany — po zapisie notatki
      przestaje być prawdziwy. Kasujemy go tutaj, w jednym miejscu, przez które
      przechodzi każdy zapis; wyliczy się od nowa dopiero wtedy, gdy będzie
@@ -32377,21 +32378,89 @@ window.pokazMenuSzybkichProjektow = pokazMenuSzybkichProjektow;
  * @param {Note} n
  * @returns {boolean}
  */
-function pobierzOstatnioUzywaneNotatki(){
-  const cutoff = Date.now() - 30 * 86400000;
-  const zOstatnichDni = notes.filter(n => !n.del && (typeof laTime === "function" ? laTime(n) : 0) > cutoff);
-  if(zOstatnichDni.length >= 8) return zOstatnichDni;
-  return notes.filter(n => !n.del && (typeof laTime === "function" ? laTime(n) : 0) > 0)
-              .sort((a,b) => (typeof laTime === "function" ? (laTime(b) - laTime(a)) : 0))
-              .slice(0, 24);
+let _cachedRecent25List = null;
+let _cachedRecent25Set = null;
+let _cachedRecent25Ts = 0;
+let _cachedRecent25Len = 0;
+
+function uniewaznijCacheOstatnioUzywanych(){
+  _cachedRecent25List = null;
+  _cachedRecent25Set = null;
+  _cachedRecent25Ts = 0;
+  _cachedRecent25Len = 0;
+}
+
+function _pomocnikCzasuNotatki(n){
+  if(!n) return 0;
+  if(typeof laTime === "function"){
+    const t = laTime(n);
+    if(t) return t;
+  }
+  const s = n.la || n.mo || n.cr || "";
+  if(!s) return 0;
+  if(typeof toTime === "function") return toTime(s);
+  const ms = Date.parse(s);
+  return isFinite(ms) ? ms : 0;
+}
+
+function _pomocnikCzasuModyfikacji(n){
+  if(!n) return 0;
+  if(typeof moTime === "function"){
+    const t = moTime(n);
+    if(t) return t;
+  }
+  const s = n.mo || n.cr || "";
+  if(!s) return 0;
+  if(typeof toTime === "function") return toTime(s);
+  const ms = Date.parse(s);
+  return isFinite(ms) ? ms : 0;
+}
+
+/**
+ * Zwraca listę maksymalnie 25 ostatnio używanych / edytowanych / otwieranych notatek.
+ * Wynik jest memoizowany w pamięci podręcznej (_cachedRecent25List / _cachedRecent25Set),
+ * co zapobiega zablokowaniu wątku UI podczas filtrowania tysięcy notatek (O(1) lookup).
+ * @param {number} [limit=25]
+ * @returns {Note[]}
+ */
+function pobierzOstatnioUzywaneNotatki(limit = 25){
+  const now = Date.now();
+  if(_cachedRecent25List && (now - _cachedRecent25Ts < 2000) && _cachedRecent25Len === notes.length){
+    return _cachedRecent25List;
+  }
+  const cand = [];
+  for(let i = 0; i < notes.length; i++){
+    const n = notes[i];
+    if(!n || n.del) continue;
+    cand.push(n);
+  }
+  cand.sort((a, b) => {
+    const ta = _pomocnikCzasuNotatki(a);
+    const tb = _pomocnikCzasuNotatki(b);
+    if(!ta && tb) return 1;
+    if(ta && !tb) return -1;
+    if(tb !== ta) return tb - ta;
+    const ma = _pomocnikCzasuModyfikacji(a);
+    const mb = _pomocnikCzasuModyfikacji(b);
+    if(mb !== ma) return mb - ma;
+    return (b.g || "").localeCompare(a.g || "");
+  });
+
+  const top = cand.slice(0, limit);
+  _cachedRecent25List = top;
+  _cachedRecent25Set = new Set(top.map(n => n.g));
+  _cachedRecent25Ts = now;
+  _cachedRecent25Len = notes.length;
+  return top;
 }
 
 function czyNotatkaOstatnioUzywana(n){
-  if(!n || n.del) return false;
-  const cutoff = Date.now() - 30 * 86400000;
-  if(typeof laTime === "function" && laTime(n) > cutoff) return true;
-  const recentList = pobierzOstatnioUzywaneNotatki();
-  return recentList.some(x => x.g === n.g);
+  if(!n || n.del || !n.g) return false;
+  const now = Date.now();
+  if(!_cachedRecent25Set || (now - _cachedRecent25Ts >= 2000) || _cachedRecent25Len !== notes.length){
+    pobierzOstatnioUzywaneNotatki(25);
+  }
+  return _cachedRecent25Set ? _cachedRecent25Set.has(n.g) : false;
 }
 
 function matchesQuick(n){
@@ -32688,7 +32757,7 @@ function renderTags(){
   // 1. Podmenu Organizacja (Ulubione & Ostatnio używane)
   if(!tagQueryNorm){
     const favCount = notes.filter(n => !n.del && n.fav).length;
-    const recentNotes = (typeof pobierzOstatnioUzywaneNotatki === "function") ? pobierzOstatnioUzywaneNotatki() : [];
+    const recentNotes = (typeof pobierzOstatnioUzywaneNotatki === "function") ? pobierzOstatnioUzywaneNotatki(25) : [];
     const recentCount = recentNotes.length;
     const isFavActive = (quickFilter === "fav");
     const isRecentActive = (quickFilter === "recent");
@@ -32700,7 +32769,7 @@ function renderTags(){
           <span class="tagSubmenuTitle">Ulubione</span>
           <span class="tagSubmenuCnt">${favCount}</span>
         </div>
-        <div class="tagSubmenuRow${isRecentActive ? " active" : ""}" data-subact="recent" title="Pokaż ostatnio używane notatki">
+        <div class="tagSubmenuRow${isRecentActive ? " active" : ""}" data-subact="recent" title="Pokaż ostatnio używane notatki (25 notatek)">
           <span class="tagSubmenuIco">🕒</span>
           <span class="tagSubmenuTitle">Ostatnio używane</span>
           <span class="tagSubmenuCnt">${recentCount}</span>
@@ -32867,13 +32936,19 @@ function renderTags(){
       if(act === "fav"){
         quickFilter = (quickFilter === "fav") ? "all" : "fav";
       } else if(act === "recent"){
-        quickFilter = (quickFilter === "recent") ? "all" : "recent";
         if(quickFilter === "recent"){
+          quickFilter = "all";
+          sortMode = "new";
+          const sel = $("sortSel");
+          if(sel && [...sel.options].some(o=>o.value === "new")){ sel.value = "new"; lsSet(KP + "Sort", "new"); }
+        } else {
+          quickFilter = "recent";
           sortMode = "recent";
           const sel = $("sortSel");
           if(sel && [...sel.options].some(o=>o.value === "recent")){ sel.value = "recent"; lsSet(KP + "Sort", "recent"); }
         }
       }
+      if(typeof uniewaznijCacheOstatnioUzywanych === "function") uniewaznijCacheOstatnioUzywanych();
       filt.tag = "all";
       if(typeof persistFilt === "function") persistFilt();
       if(typeof centrumSchowaj === "function") centrumSchowaj();
@@ -32927,14 +33002,17 @@ function renderTags(){
       if(e.target.closest(".more, .stbMore")) return;
       wlaczZawezenieWynikow();
       filt.tag = String(filt.tag) === ("stb:" + id) ? "all" : ("stb:" + id);
+      if(quickFilter === "fav" || quickFilter === "recent"){
+        quickFilter = "all";
+      }
       persistFilt();
       renderAll();
       if(innerWidth <= 900 && typeof mobileShow==="function") mobileShow("colNotes");
     };
   });
 
-  // Obsługa kliknięcia w etykietę z tags (.item.treeItem) -> FILTRUJE NOTATKI!
-  el.querySelectorAll(".item.treeItem").forEach(it => {
+  // Obsługa kliknięcia w etykietę z tags lub Wszystkie/Bez etykiety -> FILTRUJE NOTATKI!
+  el.querySelectorAll(".item[data-k]").forEach(it => {
     it.onclick = e => {
       if(e.target.closest(".more")){
         const t = tags.find(x => x.id === +it.dataset.k);
@@ -61321,8 +61399,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v653</span>
+          <span class="cl-ver-num">v654</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">21 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Błyskawiczne działanie „Ostatnio używane” i limit 25 notatek</div>
+        <ul class="cl-ver-list">
+          <li><b>Ograniczenie do 25 notatek:</b> Zgodnie z dyspozycją filtr <i>„Ostatnio używane”</i> wyświetla dokładnie 25 najbardziej aktualnych notatek (ostatnio edytowanych lub otwieranych).</li>
+          <li><b>Usunięcie blokowania kolumny:</b> Zoptymalizowano mechanizm wyznaczania notatek do złożoności O(1) dzięki pamięci podręcznej Set. Wyeliminowano kosztowne, wielokrotne skanowanie bazy 12 000 notatek w pętli renderowania, dzięki czemu kliknięcie działa natychmiastowo bez zacinania.</li>
+          <li><b>Płynna nawigacja i reset filtrów:</b> Ponowne kliknięcie „Ostatnio używane” lub wybór innej etykiety płynnie przełącza widok i przywraca domyślne sortowanie.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v653</span>
           <span class="cl-ver-date">21 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Płynna zmiana kolejności folderów oraz podmenu Ulubione i Ostatnio używane</div>
