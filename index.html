@@ -25074,6 +25074,347 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
   color: #93c5fd;
 }
 
+/* ══════════════ v655: ERGONOMIA DOTYKU (44PT), FIZYKA SPRĘŻYNY I ZWARTY PASEK LISTY ══════════════ */
+
+/* 1. Odchudzenie i uporządkowanie belek nad listą notatek (#pasekListy) */
+#pasekListy {
+  display: grid !important;
+  grid-template-columns: auto auto 1fr auto !important;
+  align-items: center !important;
+  gap: 3px 8px !important;
+  padding: 5px 12px 5px !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--border, rgba(0,0,0,0.08)) 70%, transparent) !important;
+  background: color-mix(in srgb, var(--panel, #fff) 98%, var(--accent, #1b6348) 2%) !important;
+  box-sizing: border-box !important;
+}
+#pasekProjektu {
+  grid-column: 1 / -1 !important;
+}
+#ukryteKolumny {
+  grid-column: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+#ukryteKolumny[hidden] {
+  display: none !important;
+}
+.ukLbl {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: var(--muted) !important;
+  opacity: 0.8 !important;
+}
+.ukChip {
+  font-size: 11px !important;
+  padding: 2px 8px !important;
+  border-radius: 999px !important;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, var(--accent)) !important;
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  cursor: pointer !important;
+  line-height: 1.4 !important;
+  height: 22px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  transition: all 0.12s ease !important;
+}
+.ukChip:hover {
+  background: color-mix(in srgb, var(--accent) 8%, var(--panel)) !important;
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+}
+.ukChip.ukAll {
+  background: color-mix(in srgb, var(--accent) 10%, var(--panel)) !important;
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+  font-weight: 600 !important;
+}
+
+#viewBar {
+  grid-column: 2 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.vb-group {
+  display: inline-flex !important;
+  align-items: center !important;
+  background: var(--sel, #f1f5f9) !important;
+  padding: 2px !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--border) !important;
+  gap: 2px !important;
+}
+.vb {
+  border: none !important;
+  background: transparent !important;
+  padding: 3px 7px !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--muted) !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+  transition: all 0.12s ease !important;
+}
+.vb.on {
+  background: var(--panel) !important;
+  color: var(--accent) !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
+  font-weight: 600 !important;
+}
+#rozmiarTablicy, #kolTablicy {
+  height: 24px !important;
+  padding: 1px 6px !important;
+  font-size: 11.5px !important;
+  border-radius: 6px !important;
+  border: 1px solid var(--border) !important;
+  background: var(--panel) !important;
+  color: var(--text) !important;
+}
+
+#searchStatus {
+  grid-column: 3 !important;
+  font-size: 11px !important;
+  color: var(--muted) !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+#counts {
+  grid-column: 4 !important;
+  justify-self: end !important;
+  white-space: nowrap !important;
+  font-size: 11.5px !important;
+  font-weight: 550 !important;
+  color: var(--muted) !important;
+  letter-spacing: -0.01em !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#quickFilters {
+  grid-column: 1 / -1 !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none !important;
+  gap: 5px !important;
+  padding: 2px 1px 3px !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+}
+#quickFilters::-webkit-scrollbar {
+  display: none !important;
+}
+.qf {
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  height: 29px !important;
+  padding: 0 11px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  border-radius: 999px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: var(--panel) !important;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent) !important;
+  color: var(--text) !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1), 
+              background 0.12s ease, 
+              color 0.12s ease, 
+              border-color 0.12s ease,
+              box-shadow 0.12s ease !important;
+}
+.qf:hover {
+  background: color-mix(in srgb, var(--accent) 7%, var(--panel)) !important;
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border)) !important;
+}
+.qf:active {
+  transform: scale(0.96) !important;
+}
+.qf.on {
+  background: var(--accent) !important;
+  color: #ffffff !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 2px 7px color-mix(in srgb, var(--accent) 26%, transparent) !important;
+  font-weight: 600 !important;
+}
+.qf.on .qf-n {
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+}
+.qf .qf-n {
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  background: color-mix(in srgb, var(--border) 60%, transparent) !important;
+  color: var(--muted) !important;
+  padding: 1px 5px !important;
+  border-radius: 999px !important;
+  margin-left: 4px !important;
+}
+
+/* 2. Strefy dotyku 44pt dla przycisków opcji ⋯ w drzewie folderów i etykiet */
+.folderMore,
+.secMore,
+.subfolderMore,
+.stbMore,
+.item .more {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  padding: 0 4px !important;
+  border-radius: 8px !important;
+  touch-action: manipulation !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  transition: background 0.12s ease, opacity 0.12s ease, transform 0.08s ease !important;
+}
+.folderMore::before,
+.secMore::before,
+.subfolderMore::before,
+.stbMore::before,
+.item .more::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px -8px !important;
+  z-index: 2 !important;
+}
+.folderMore:hover,
+.secMore:hover,
+.subfolderMore:hover,
+.stbMore:hover,
+.item .more:hover {
+  opacity: 1 !important;
+  background: rgba(0, 0, 0, 0.07) !important;
+  color: var(--accent) !important;
+}
+.folderMore:active,
+.secMore:active,
+.subfolderMore:active,
+.stbMore:active,
+.item .more:active {
+  transform: scale(0.92) !important;
+  background: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Rozszerzone strefy dotyku dla strzałek rozwijania folderów i etykiet */
+.folderArr,
+.secArr,
+.subfolderArr,
+.tagArr {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 26px !important;
+  min-height: 28px !important;
+  border-radius: 6px !important;
+  touch-action: manipulation !important;
+  flex-shrink: 0 !important;
+  cursor: pointer !important;
+  transition: background 0.12s ease, opacity 0.12s ease, transform 0.08s ease !important;
+}
+.folderArr::before,
+.secArr::before,
+.subfolderArr::before,
+.tagArr::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px -6px !important;
+  z-index: 2 !important;
+}
+.folderArr:hover,
+.secArr:hover,
+.subfolderArr:hover,
+.tagArr:hover {
+  opacity: 1 !important;
+  background: rgba(0, 0, 0, 0.06) !important;
+}
+.folderArr:active,
+.secArr:active,
+.subfolderArr:active,
+.tagArr:active {
+  transform: scale(0.90) !important;
+}
+
+/* 3. Sprężysta fizyka Apple (:active) dla kart, nagłówków i wierszy */
+.ncard {
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.15s ease,
+              background 0.15s ease !important;
+}
+.ncard:active:not(.editing) {
+  transform: scale(0.988) !important;
+}
+
+.tagSubmenuRow {
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.12s ease,
+              color 0.12s ease !important;
+}
+.tagSubmenuRow:active {
+  transform: scale(0.985) !important;
+}
+
+.folderHead:active,
+.secHead:active,
+.subfolderHead:active {
+  transform: scale(0.99) !important;
+  transition: transform 0.08s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.item.tagItem:active,
+.item.stbItem:active {
+  transform: scale(0.985) !important;
+  transition: transform 0.08s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Motywy ciemne: dopasowanie podświetlenia dotykowego */
+html[data-theme="dark"] .folderMore:hover,
+html[data-theme="dark"] .secMore:hover,
+html[data-theme="dark"] .subfolderMore:hover,
+html[data-theme="dark"] .stbMore:hover,
+html[data-theme="dark"] .item .more:hover,
+html[data-theme="oled"] .folderMore:hover,
+html[data-theme="oled"] .secMore:hover,
+html[data-theme="oled"] .subfolderMore:hover,
+html[data-theme="oled"] .stbMore:hover,
+html[data-theme="oled"] .item .more:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+
+html[data-theme="dark"] .folderArr:hover,
+html[data-theme="dark"] .secArr:hover,
+html[data-theme="dark"] .subfolderArr:hover,
+html[data-theme="dark"] .tagArr:hover,
+html[data-theme="oled"] .folderArr:hover,
+html[data-theme="oled"] .secArr:hover,
+html[data-theme="oled"] .subfolderArr:hover,
+html[data-theme="oled"] .tagArr:hover {
+  background: rgba(255, 255, 255, 0.10) !important;
+}
+
 </style>
 <script>
 (function(){
@@ -25133,9 +25474,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v654)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v655)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v654</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v655</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
@@ -25221,7 +25562,7 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v654</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v655</span>
   </button>
   <div class="searchwrap">
     <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -27464,9 +27805,9 @@ html[data-theme="oled"] .plan-rem-active-plan-badge {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v654";
-const APP_BUILD_DATE = "2026-11-21";
-const APP_FULL_VERSION = "5.0 (v654)";
+const APP_BUILD = "v655";
+const APP_BUILD_DATE = "2026-11-22";
+const APP_FULL_VERSION = "5.0 (v655)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -32614,7 +32955,13 @@ function renderQuickFilters(base){
     if(k==="powtorka" || k==="cenq" || k==="ceni" || k==="audio" || k==="questions" || k==="links") b.hidden = !c && quickFilter!==k;
     const label = b.dataset.lbl || b.textContent.replace(/\s*\d+$/,"").trim();
     setHtml(b, esc(label) + (k!=="all" && c ? ` <span class="qf-n">${c}</span>` : ""));
-    b.onclick = ()=>{ quickFilter = (quickFilter===k && k!=="all") ? "all" : k; renderNotes(); };
+    b.onclick = ()=>{ 
+      quickFilter = (quickFilter===k && k!=="all") ? "all" : k; 
+      renderNotes(); 
+      if(b && typeof b.scrollIntoView === "function"){
+        b.scrollIntoView({behavior:"smooth", inline:"nearest", block:"nearest"});
+      }
+    };
   });
 }
 
@@ -61399,8 +61746,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v654</span>
+          <span class="cl-ver-num">v655</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">22 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Odchudzenie belek nad notatkami, strefy dotyku 44pt i fizyka sprężyny Apple</div>
+        <ul class="cl-ver-list">
+          <li><b>Odchudzenie i uporządkowanie belek:</b> Górny pasek listy notatek został skonsolidowany do zwięzłego, 2-poziomowego układu. Pasek szybkich filtrów zyskał formę płynnie przewijanej poziomo kapsuły (Capsule Bar). Zyskano blisko 80 px dodatkowej przestrzeni pionowej na treść notatek na iPadzie i telefonie.</li>
+          <li><b>Strefy dotyku 44pt (Apple HIG):</b> Przycisk opcji <i>⋯</i> oraz strzałki rozwijania folderów i etykiet otrzymały rozszerzone, bezpieczne bufory dotykowe (min. 44×44 pt). Wyeliminowano problem przypadkowego rozwijania/zwijania folderu przy próbie otwarcia jego menu.</li>
+          <li><b>Fizyka sprężyny i mikro-reakcje (:active):</b> Karty notatek, wiersze podmenu oraz kafelki zyskały dotykowe mikro-ugięcie (skalowanie 0.985 z krzywą sprężynową Apple), dając natywne poczucie responsywności interfejsu.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v654</span>
           <span class="cl-ver-date">21 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Błyskawiczne działanie „Ostatnio używane” i limit 25 notatek</div>
