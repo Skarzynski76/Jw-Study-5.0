@@ -8989,12 +8989,101 @@ html[data-theme="dark"] .pill.date {
   font-size: 11.5px !important;
   font-weight: 500 !important;
 }
+/* ══════════════ SPÓJNA SEMANTYKA KOLORYSTYCZNA ETYKIET I ODNOŚNIKÓW (v656) ══════════════ */
+.refbtn:not(.assign):not(.edref),
+.pill.ref,
+.nref {
+  background: rgba(37, 99, 235, 0.08) !important;
+  color: #1d4ed8 !important;
+  border: 1px solid rgba(37, 99, 235, 0.22) !important;
+  font-weight: 550 !important;
+}
+.refbtn:not(.assign):not(.edref):hover {
+  background: rgba(37, 99, 235, 0.15) !important;
+  border-color: rgba(37, 99, 235, 0.38) !important;
+}
+html[data-theme="dark"] .refbtn:not(.assign):not(.edref),
+html[data-theme="dark"] .pill.ref,
+html[data-theme="dark"] .nref,
+html[data-theme="oled"] .refbtn:not(.assign):not(.edref),
+html[data-theme="oled"] .pill.ref,
+html[data-theme="oled"] .nref {
+  background: rgba(59, 130, 246, 0.16) !important;
+  color: #93c5fd !important;
+  border: 1px solid rgba(59, 130, 246, 0.28) !important;
+}
+html[data-theme="sepia"] .refbtn:not(.assign):not(.edref),
+html[data-theme="sepia"] .pill.ref,
+html[data-theme="sepia"] .nref {
+  background: rgba(30, 64, 175, 0.09) !important;
+  color: #1e40af !important;
+  border: 1px solid rgba(30, 64, 175, 0.22) !important;
+}
+
+.pill.ks,
+.pill.issue,
+.pill.par {
+  background: rgba(217, 119, 6, 0.09) !important;
+  color: #b45309 !important;
+  border: 1px solid rgba(217, 119, 6, 0.24) !important;
+  font-weight: 550 !important;
+}
 html[data-theme="dark"] .pill.ks,
-html[data-theme="dark"] .pill.ref {
-  background: transparent !important;
-  color: #94a3b8 !important;
-  border: none !important;
-  font-size: 12px !important;
+html[data-theme="dark"] .pill.issue,
+html[data-theme="dark"] .pill.par,
+html[data-theme="oled"] .pill.ks,
+html[data-theme="oled"] .pill.issue,
+html[data-theme="oled"] .pill.par {
+  background: rgba(245, 158, 11, 0.15) !important;
+  color: #fcd34d !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+}
+html[data-theme="sepia"] .pill.ks,
+html[data-theme="sepia"] .pill.issue,
+html[data-theme="sepia"] .pill.par {
+  background: rgba(180, 83, 9, 0.11) !important;
+  color: #92400e !important;
+  border: 1px solid rgba(180, 83, 9, 0.25) !important;
+}
+
+.qf[data-qf="questions"],
+.chip-study {
+  background: rgba(147, 51, 234, 0.09) !important;
+  color: #7e22ce !important;
+  border: 1px solid rgba(147, 51, 234, 0.22) !important;
+}
+html[data-theme="dark"] .chip-study,
+html[data-theme="oled"] .chip-study {
+  background: rgba(168, 85, 247, 0.16) !important;
+  color: #d8b4fe !important;
+  border: 1px solid rgba(168, 85, 247, 0.28) !important;
+}
+
+/* Zwiększony kontrast nagłówka (WCAG AAA) */
+header #sortSel {
+  background: rgba(255, 255, 255, 0.22) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.38) !important;
+  font-weight: 550 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.2) inset !important;
+}
+header #sortSel:hover, header #sortSel:focus {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.55) !important;
+}
+header .searchwrap {
+  background: rgba(255, 255, 255, 0.22) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 0 rgba(255, 255, 255, 0.15) inset !important;
+}
+header #search {
+  color: #ffffff !important;
+}
+header #search::placeholder {
+  color: rgba(255, 255, 255, 0.78) !important;
+}
+header #btnSearchTools {
+  color: rgba(255, 255, 255, 0.85) !important;
 }
 html[data-theme="dark"] .chip {
   background: rgba(16, 185, 129, 0.14) !important;
@@ -25415,6 +25504,299 @@ html[data-theme="oled"] .tagArr:hover {
   background: rgba(255, 255, 255, 0.10) !important;
 }
 
+/* ==========================================================================
+   JW Study v656 — Zintegrowany panel Wygląd i Kolory, Centrum Sync i Nawigacja
+   ========================================================================== */
+
+/* 1. Zintegrowany panel Wygląd i Kolory */
+#colorMenu {
+  position: fixed;
+  display: none;
+  z-index: 100020 !important;
+  min-width: 290px;
+  max-width: min(390px, calc(100vw - 20px));
+  max-height: min(600px, calc(100vh - 60px));
+  overflow-y: auto;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22), 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 14px;
+  box-sizing: border-box;
+  animation: wejscieMenu var(--dur-szybko) var(--ease);
+}
+html[data-theme="dark"] #colorMenu, html[data-theme="oled"] #colorMenu {
+  background: #161e26 !important;
+  box-shadow: 0 20px 48px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.08);
+}
+.wm-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+.wm-title {
+  font-size: 14.5px;
+  font-weight: 650;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.wm-close-btn {
+  background: var(--sel);
+  border: none;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s ease;
+}
+.wm-close-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+.wm-sec-block {
+  margin-bottom: 13px;
+}
+.wm-sec-title {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 7px;
+}
+.wm-theme-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+.wm-theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 9px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.14s ease;
+}
+.wm-theme-btn:hover {
+  background: var(--sel);
+  border-color: var(--accent);
+}
+.wm-theme-btn.on {
+  background: color-mix(in srgb, var(--accent) 12%, var(--panel));
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 650;
+}
+.wm-theme-btn .wm-t-ik {
+  display: flex;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+.wm-theme-btn .wm-t-ik svg {
+  width: 15px;
+  height: 15px;
+}
+.wm-theme-btn .wm-t-lbl {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wm-theme-btn .wm-ptak {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 12.5px;
+}
+.wm-komp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+.wm-komp-btn {
+  height: 36px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(255,255,255,0.22);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 0 4px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: transform 0.12s ease, border-color 0.12s ease;
+}
+.wm-komp-btn:hover {
+  transform: translateY(-1px);
+  border-color: #ffffff;
+}
+.wm-komp-btn.on {
+  border-color: #ffffff;
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.wm-komp-btn .wm-k-ptak {
+  font-weight: 700;
+  font-size: 11px;
+}
+.wm-adv-details {
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  margin-top: 6px;
+}
+.wm-adv-summary {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  padding: 4px 0;
+}
+.wm-adv-summary:hover {
+  color: var(--accent);
+}
+.wm-adv-content {
+  padding-top: 10px;
+}
+
+/* 2. Dioda statusu synchronizacji w pasku bocznym */
+.sync-status-dot {
+  position: absolute;
+  top: -2px;
+  right: -3px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1.5px solid var(--sidebar-bg, #0f3d2c);
+  background: #f59e0b;
+  transition: all 0.3s ease;
+}
+.sync-status-dot.sync-green {
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.7);
+}
+.sync-status-dot.sync-yellow {
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.7);
+}
+.sync-status-dot.sync-red {
+  background: #ef4444;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.7);
+}
+.sync-status-dot.sync-active {
+  animation: syncPulseDot 1.2s infinite ease-in-out;
+}
+@keyframes syncPulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.7; }
+}
+
+/* 3. Modal Centrum Synchronizacji i Kopii */
+.sync-modal {
+  max-width: 540px !important;
+  width: calc(100vw - 28px) !important;
+  max-height: calc(100vh - 40px) !important;
+  border-radius: 20px !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+  background: var(--panel) !important;
+  color: var(--text) !important;
+}
+.sync-modal-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.sync-modal-head-ic {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 14%, var(--panel));
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.sync-card-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  transition: all 0.15s ease;
+}
+.sync-card-tit {
+  font-size: 13.5px;
+  font-weight: 650;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.sync-card-sub {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.48;
+  margin-bottom: 10px;
+}
+.sync-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/* 4. Nawigacja powrotu do notatek z Centrum Studium */
+#btnHeaderWrocDoNotatek:not([hidden]) {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  background: #ffffff !important;
+  color: var(--accent) !important;
+  border: 1.5px solid #ffffff !important;
+  font-weight: 650 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
+  transition: all 0.15s ease !important;
+}
+#btnHeaderWrocDoNotatek:not([hidden]):hover {
+  background: #f0fdf4 !important;
+  transform: translateY(-1px);
+}
+body.centrum-open header #sortSel {
+  display: none !important;
+}
+body.centrum-open #btnHeaderCentrum {
+  display: none !important;
+}
+
 </style>
 <script>
 (function(){
@@ -25474,13 +25856,13 @@ html[data-theme="oled"] .tagArr:hover {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v655)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v656)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v655</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v656</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v648) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v648</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v656) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v656</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -25539,9 +25921,12 @@ html[data-theme="oled"] .tagArr:hover {
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.5 7.4A1.6 1.6 0 0 1 5.1 5.8h3.7l1.9 2.1h8.2a1.6 1.6 0 0 1 1.6 1.6v8.1a1.6 1.6 0 0 1-1.6 1.6H5.1a1.6 1.6 0 0 1-1.6-1.6z"/></svg>
         <span>Plik</span>
       </button>
-      <button class="sidebar-nav-item" id="navItemSync" title="Kopia zapasowa i synchronizacja">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-        <span>Kopia zapasowa</span>
+      <button class="sidebar-nav-item" id="navItemSync" title="Centrum synchronizacji i kopii">
+        <span class="sidebar-sync-icon-wrap" style="position:relative;display:inline-flex;align-items:center;justify-content:center;">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          <span class="sync-status-dot" id="sidebarSyncDot" title="Status synchronizacji"></span>
+        </span>
+        <span>Synchronizacja</span>
       </button>
       <button class="sidebar-nav-item" id="navItemTheme" title="Zmień motyw">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
@@ -25562,7 +25947,7 @@ html[data-theme="oled"] .tagArr:hover {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v655</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v656</span>
   </button>
   <div class="searchwrap">
     <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -25571,7 +25956,8 @@ html[data-theme="oled"] .tagArr:hover {
     <button id="btnSearchTools" type="button" aria-label="Inteligentne wyszukiwanie i instrukcja" title="Inteligentne wyszukiwanie">⌄</button>
   </div>
   <button class="btn" id="btnWszystkie" hidden title="Wróć do wszystkich notatek — czyści szukanie, etykietę, księgę i szybki filtr (0)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5L4 12l5 7"/><path d="M4 12h9a6 6 0 0 1 0 12"/></svg> <span class="bwTxt">Wszystkie notatki</span></button>
-  <button class="btn" id="btnHeaderCentrum" hidden title="Wróć do Centrum Studium"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right:5px;"><path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M10 20v-5.5h4V20"/></svg> <span class="bwTxt">Centrum</span></button>
+  <button class="btn" id="btnHeaderCentrum" hidden title="Centrum Studium"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right:5px;"><path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M10 20v-5.5h4V20"/></svg> <span class="bwTxt">Centrum</span></button>
+  <button class="btn primary cenWrocDoNotatekBtn" id="btnHeaderWrocDoNotatek" hidden title="Wróć do listy notatek"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px;margin-right:4px;vertical-align:-1.5px;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Notatki</span></button>
   <select id="sortSel" aria-label="Kolejność notatek na liście" title="Kolejność notatek na liście">
     <optgroup label="Według zmiany">
       <option value="new">Ostatnio zmienione</option>
@@ -25767,6 +26153,7 @@ html[data-theme="oled"] .tagArr:hover {
       <button type="button" class="qf qf-proj is-hidden" id="qfProjekty" data-qf="proj" data-lbl="Projekty" hidden>Projekty</button>
       <button class="qf" data-qf="pin">Przypięte</button>
       <button class="qf" data-qf="fav">Ulubione</button>
+      <button class="qf" data-qf="recent" data-lbl="Ostatnie" title="25 ostatnio używanych / edytowanych notatek">Ostatnie</button>
       <button class="qf" data-qf="untagged">Bez etykiety</button>
       <button class="qf" data-qf="img">Ze zdjęciem</button>
       <button class="qf" data-qf="audio" title="Notatki z nagraniami audio" hidden>🎙️ Audio</button>
@@ -26678,6 +27065,23 @@ html[data-theme="oled"] .tagArr:hover {
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- CENTRUM SYNCHRONIZACJI I KOPII (v656) -->
+<div class="overlay" id="modalCentrumSync" aria-hidden="true">
+  <div class="modal sync-modal" role="dialog" aria-modal="true" aria-labelledby="syncModalTit">
+    <div class="sync-modal-head">
+      <div class="sync-modal-head-ic">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      </div>
+      <div style="flex:1;">
+        <h3 id="syncModalTit" style="margin:0;font-size:17px;font-weight:700;color:var(--text);">Centrum Synchronizacji i Kopii</h3>
+        <div style="font-size:12.5px;color:var(--muted);margin-top:2px;">Wszystkie Twoje notatki na telefonie, tablecie i komputerze.</div>
+      </div>
+      <button class="modal-close" type="button" data-zamknij="modalCentrumSync" aria-label="Zamknij">✕</button>
+    </div>
+    <div class="sync-modal-body" id="syncModalBody"></div>
   </div>
 </div>
 
@@ -27805,9 +28209,9 @@ html[data-theme="oled"] .tagArr:hover {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v655";
-const APP_BUILD_DATE = "2026-11-22";
-const APP_FULL_VERSION = "5.0 (v655)";
+const APP_BUILD = "v656";
+const APP_BUILD_DATE = "2026-11-23";
+const APP_FULL_VERSION = "5.0 (v656)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -32880,12 +33284,13 @@ function renderQuickFilters(base){
   const projTagSet = typeof getProjectTagIdsSet === "function" ? getProjectTagIdsSet() : new Set();
   const maProjekty = projTagSet && projTagSet.size > 0;
   const curProj = typeof aktywnyProjektTag === "function" ? aktywnyProjektTag() : null;
-  const cnt={ all: base.length, proj:0, pin:0, fav:0, untagged:0, img:0, audio:0, questions:0, links:0, week:0, powtorka:0, cenq:0, ceni:0 };
+  const cnt={ all: base.length, proj:0, pin:0, fav:0, recent:0, untagged:0, img:0, audio:0, questions:0, links:0, week:0, powtorka:0, cenq:0, ceni:0 };
   for(let i=0;i<base.length;i++){
     const n=base[i];
     if(maProjekty && noteIsProject(n, projTagSet)) cnt.proj++;
     if(n.pin) cnt.pin++;
     if(n.fav) cnt.fav++;
+    if(typeof czyNotatkaOstatnioUzywana === "function" && czyNotatkaOstatnioUzywana(n)) cnt.recent++;
     if(!n.tg || !n.tg.length) cnt.untagged++;
     if(n.h && n.h.indexOf("<img")>=0) cnt.img++;
     if(n.h && (n.h.indexOf("<audio")>=0 || n.h.indexOf("data-audio")>=0 || (Array.isArray(n.audios)&&n.audios.length))) cnt.audio++;
@@ -32956,7 +33361,13 @@ function renderQuickFilters(base){
     const label = b.dataset.lbl || b.textContent.replace(/\s*\d+$/,"").trim();
     setHtml(b, esc(label) + (k!=="all" && c ? ` <span class="qf-n">${c}</span>` : ""));
     b.onclick = ()=>{ 
+      const wlaczam = (quickFilter !== k);
       quickFilter = (quickFilter===k && k!=="all") ? "all" : k; 
+      if(k === "recent" && wlaczam){
+        if(typeof sortMode !== "undefined") sortMode = "recent";
+        const sel = $("sortSel");
+        if(sel && [...sel.options].some(o=>o.value === "recent")){ sel.value = "recent"; lsSet(KP + "Sort", "recent"); }
+      }
       renderNotes(); 
       if(b && typeof b.scrollIntoView === "function"){
         b.scrollIntoView({behavior:"smooth", inline:"nearest", block:"nearest"});
@@ -34061,6 +34472,10 @@ function applyColors(){
  * @param {Object} e  obiekt z polem target — element, przy którym ma się pojawić menu
  */
 function openColorMenu(e, tryb){
+  if(typeof otworzPanelWygladu === "function"){
+    otworzPanelWygladu(e && (e.target || e));
+    return;
+  }
   tryb = tryb || "kolumny";
   const cm=$("colorMenu"); const cfg=loadColorCfg();
   const sw=(target,c)=>{
@@ -37260,53 +37675,163 @@ const MOTYWY = [
   ["sage",  "Szałwia (Kojąca Zieleń)","leaf"],
   ["auto",  "Jak w systemie",         "monitor"]
 ];
-function otworzMenuMotywu(przycisk){
-  const m = $("motywMenu"); if(!m) return;
-  m.innerHTML = '<div class="cm-title">Jasność ekranu</div>' +
-    MOTYWY.map(([v, nazwa, ik])=>
-      '<button type="button" class="mm-opt' + (themeMode===v ? ' on' : '') + '" data-motyw="' + v + '">' +
-        '<span class="mm-ik">' + (ICO[ik]||"") + '</span>' +
-        '<span class="mm-nm">' + nazwa + '</span>' +
-      '</button>').join("") +
-    '<div class="cm-note">Jasność i kolor działają razem: kolor interfejsu ' +
-    'ustawia paleta obok, gotowe kompozycje — Ustawienia.</div>';
-  m.style.display = "block";
-  /* Położenie liczone tak samo jak przy palecie: pod przyciskiem, ale nigdy
-     poza widocznym obszarem — na telefonie z klawiaturą albo w oknie dzielonym
-     „pod przyciskiem" może być już za krawędzią ekranu. */
-  const r = przycisk.getBoundingClientRect();
-  const w = m.offsetWidth || 260, h = m.offsetHeight || 240;
-  const ob = (typeof widocznyObszar==="function") ? widocznyObszar()
-           : {lewo:0, gora:0, prawo:innerWidth, dol:innerHeight};
-  m.style.left = Math.max(ob.lewo+8, Math.min(r.right-w, ob.prawo-w-8)) + "px";
-  m.style.top  = Math.max(ob.gora+8, Math.min(r.bottom+6, ob.dol-h-8)) + "px";
-  const wybrany = m.querySelector(".mm-opt.on") || m.querySelector(".mm-opt");
-  if(wybrany) wybrany.focus();
-}
-$("btnTheme").onclick = ()=>{
-  const m = $("motywMenu");
-  if(m && m.style.display === "block"){ m.style.display = "none"; return; }
-  otworzMenuMotywu($("btnTheme"));
-};
-$("motywMenu").addEventListener("click", e=>{
-  const b = e.target.closest(".mm-opt"); if(!b) return;
-  setTheme(b.dataset.motyw);
-  $("motywMenu").style.display = "none";
-  const nm = {light:"dzień", sepia:"sepia", dark:"noc", oled:"OLED czerń", sage:"szałwia", auto:"jak w systemie"};
-  toast("Jasność: " + nm[themeMode]);
-});
-/* Strzałkami po liście, Escape zamyka — okienko z czterema wyborami bez obsługi
-   klawiatury byłoby jedynym takim w tej aplikacji. */
-$("motywMenu").addEventListener("keydown", e=>{
-  const opcje = [...$("motywMenu").querySelectorAll(".mm-opt")];
-  const i = opcje.indexOf(document.activeElement);
-  if(e.key === "Escape"){ e.stopPropagation(); $("motywMenu").style.display="none"; $("btnTheme").focus(); return; }
-  if(e.key === "ArrowDown" || e.key === "ArrowUp"){
-    e.preventDefault();
-    const j = i < 0 ? 0 : (i + (e.key==="ArrowDown" ? 1 : -1) + opcje.length) % opcje.length;
-    opcje[j].focus();
+function otworzPanelWygladu(triggerEl){
+  const cm = $("colorMenu"); if(!cm) return;
+  const mm = $("motywMenu"); if(mm) mm.style.display = "none";
+
+  if(cm.style.display === "block" && triggerEl && (triggerEl === cm._lastTrigger || (triggerEl.target && triggerEl.target === cm._lastTrigger))){
+    cm.style.display = "none";
+    cm._lastTrigger = null;
+    return;
   }
-});
+  
+  const trigger = (triggerEl && triggerEl.target) ? triggerEl.target : (triggerEl || $("btnColors") || $("btnTheme") || document.body);
+  cm._lastTrigger = trigger;
+
+  const cfg = (typeof loadColorCfg === "function") ? loadColorCfg() : {};
+  const terazKomp = (typeof biezacaKompozycja === "function" ? biezacaKompozycja() : "").toLowerCase().trim();
+
+  // 1. Jasność ekranu (tryby)
+  const motywyHtml = MOTYWY.map(([v, nazwa, ik]) => {
+    const isAkt = (themeMode === v);
+    return `<button type="button" class="wm-theme-btn${isAkt ? ' on' : ''}" data-motyw="${v}">` +
+      `<span class="wm-t-ik">${ICO[ik]||""}</span>` +
+      `<span class="wm-t-lbl">${esc(nazwa)}</span>` +
+      (isAkt ? '<span class="wm-ptak">✓</span>' : '') +
+    `</button>`;
+  }).join("");
+
+  // 2. Kompozycje na całą aplikację
+  const kompozycjeList = [
+    { id: "reset", name: "Domyślna", color: "#134e38", grad: "linear-gradient(135deg, #064e3b, #134e38)" },
+    { id: "sapphire", name: "Szafir", color: "#1e40af", grad: "linear-gradient(135deg, #172554, #1e40af, #2563eb)" },
+    { id: "emerald", name: "Szmaragd", color: "#047857", grad: "linear-gradient(135deg, #064e3b, #047857, #059669)" },
+    { id: "amethyst", name: "Ametyst", color: "#6d28d9", grad: "linear-gradient(135deg, #3b0764, #581c87, #6d28d9)" },
+    { id: "amber", name: "Bursztyn", color: "#b45309", grad: "linear-gradient(135deg, #78350f, #92400e, #b45309)" },
+    { id: "terracotta", name: "Terakota", color: "#c2410c", grad: "linear-gradient(135deg, #7c2d12, #9a3412, #c2410c)" },
+    { id: "midnight", name: "Północ", color: "#1e3a8a", grad: "linear-gradient(135deg, #020617, #0f172a, #1e3a8a)" },
+    { id: "slate", name: "Grafit", color: "#334155", grad: "linear-gradient(135deg, #0f172a, #334155, #475569)" }
+  ];
+
+  const kompGridHtml = kompozycjeList.map(k => {
+    const isAkt = (k.id === "reset" && !terazKomp) || (terazKomp && (terazKomp === k.color.toLowerCase() || terazKomp === k.id.toLowerCase()));
+    return `<button type="button" class="wm-komp-btn${isAkt ? ' on' : ''}" data-komp="${k.color}" style="background:${k.grad};" title="${esc(k.name)}">` +
+      `<span>${esc(k.name)}</span>` +
+      (isAkt ? '<span class="wm-k-ptak">✓</span>' : '') +
+    `</button>`;
+  }).join("");
+
+  // 3. Kolory poszczególnych kolumn (Zaawansowane)
+  const sw = (target, c) => {
+    const sel = c === null ? !cfg[target] : cfg[target] === c;
+    return `<span class="cm-sw ${c===null?"cm-none":""} ${sel?"sel":""}" data-pc="${c||""}" style="${c===null?"":`background:${desat(c,.4)}`}" title="${c||"Domyślny"}">${c===null?"✕":""}</span>`;
+  };
+  const sec = (target, label) => `<div class="cm-sec"><div class="cm-lbl">${label}</div><div class="cm-row" data-target="${target}">` +
+    sw(target, null) + (typeof TAGCOLORS !== "undefined" ? TAGCOLORS : []).map(c => sw(target, c)).join("") + `</div></div>`;
+  const kolumnyHtml = sec("colBooks","Kolumna „Biblia”") +
+                      sec("colTags","Kolumna „Etykiety”") +
+                      sec("colPubs","Kolumna „Publikacje”") +
+                      sec("colNotes","Tło kolumny „Notatki”") +
+                      sec("nhead","Belka każdej notatki");
+
+  cm.innerHTML = `
+    <div class="wm-head">
+      <div class="wm-title">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        Wygląd i Kolory
+      </div>
+      <button type="button" class="wm-close-btn" id="btnZamknijWyglad" aria-label="Zamknij panel">✕</button>
+    </div>
+
+    <div class="wm-sec-block">
+      <div class="wm-sec-title">Jasność ekranu</div>
+      <div class="wm-theme-grid">
+        ${motywyHtml}
+      </div>
+    </div>
+
+    <div class="wm-sec-block">
+      <div class="wm-sec-title">Kolor przewodni (kompozycja)</div>
+      <div class="wm-komp-grid">
+        ${kompGridHtml}
+      </div>
+    </div>
+
+    <details class="wm-adv-details">
+      <summary class="wm-adv-summary">Zaawansowane: kolory pojedynczych kolumn ▾</summary>
+      <div class="wm-adv-content">
+        ${kolumnyHtml}
+      </div>
+    </details>
+  `;
+
+  cm.style.display = "block";
+
+  cm.onclick = (e) => {
+    if(e.target.closest("#btnZamknijWyglad")){
+      cm.style.display = "none";
+      cm._lastTrigger = null;
+      return;
+    }
+    const tBtn = e.target.closest(".wm-theme-btn");
+    if(tBtn){
+      const m = tBtn.dataset.motyw;
+      setTheme(m);
+      otworzPanelWygladu(trigger);
+      const nm = {light:"dzień", sepia:"sepia", dark:"noc", oled:"OLED czerń", sage:"szałwia", auto:"jak w systemie"};
+      toast("Jasność: " + (nm[themeMode]||m));
+      return;
+    }
+    const kBtn = e.target.closest(".wm-komp-btn");
+    if(kBtn){
+      const k = kBtn.dataset.komp;
+      applyPreset(k);
+      otworzPanelWygladu(trigger);
+      toast("Zastosowano kompozycję");
+      return;
+    }
+    const swEl = e.target.closest(".cm-sw");
+    if(swEl){
+      const row = swEl.closest(".cm-row");
+      if(!row) return;
+      const target = row.dataset.target;
+      const color = swEl.dataset.pc || null;
+      const curCfg = loadColorCfg();
+      if(color === null) delete curCfg[target];
+      else curCfg[target] = color;
+      saveColorCfg(curCfg);
+      applyColors();
+      row.querySelectorAll(".cm-sw").forEach(s => s.classList.remove("sel"));
+      swEl.classList.add("sel");
+      toast("Zapisano kolor " + target);
+      return;
+    }
+  };
+
+  const r = (trigger && trigger.getBoundingClientRect) ? trigger.getBoundingClientRect() : {left:20, bottom:60, right:200, top:20};
+  const w = cm.offsetWidth || 340, h = cm.offsetHeight || 440;
+  const _ob = (typeof widocznyObszar==="function") ? widocznyObszar() : {lewo:0, gora:0, prawo:innerWidth, dol:innerHeight};
+  
+  cm.style.left = Math.max(_ob.lewo+8, Math.min(r.left, _ob.prawo-w-8)) + "px";
+  if(r.bottom + h + 10 <= _ob.dol){
+    cm.style.top = (r.bottom + 6) + "px";
+  } else {
+    cm.style.top = Math.max(_ob.gora+8, _ob.dol - h - 12) + "px";
+  }
+}
+window.otworzPanelWygladu = otworzPanelWygladu;
+
+function otworzMenuMotywu(przycisk){
+  otworzPanelWygladu(przycisk);
+}
+window.otworzMenuMotywu = otworzMenuMotywu;
+
+$("btnTheme").onclick = ()=>{
+  otworzPanelWygladu($("btnTheme"));
+};
+$("btnColors").onclick = ()=>{
+  otworzPanelWygladu($("btnColors"));
+};
 applyTheme();
 /* ustawienia czytania: interlinia + czcionka + wyrównanie */
 const LHS=[1.45,1.72,2.05];
@@ -37503,6 +38028,7 @@ function updateBackupBadge(){
   b.title = (lb ? ("Ostatnia kopia: "+lb+(days!=null?" ("+days+" dni temu)":"")) : "Nie zrobiono jeszcze kopii")
     + (dirty>0 ? (" · zmian od kopii: "+dirty) : " · brak nowych zmian")
     + " — kliknij, aby otworzyć Centrum bezpieczeństwa danych";
+  if(typeof odswiezWskaznikSync === "function") odswiezWskaznikSync();
 }
 /* PRZY ZAMYKANIU JUŻ NIE PYTAMY.
 
@@ -54531,7 +55057,7 @@ document.addEventListener("click", e=>{
    otwartym okienku zamknęłoby je i natychmiast otworzyło z powrotem. */
 const OKIENKA = [
   {id:"dropdown",  wyjatki:["#btnMenu", "#btnCols", "#navItemMenu", "#navItemCols", '[data-act="more"]', '[data-act="exp"]', ".more", ".secMore", ".more-btn", ".qf-proj-arr", "#qfProjekty"]},
-  {id:"colorMenu", wyjatki:["#btnColors", "#btnSettings", "#navItemColors", "#navItemSettings"]},
+  {id:"colorMenu", wyjatki:["#btnColors", "#btnTheme", "#btnSettings", "#navItemColors", "#navItemTheme", "#navItemSettings"]},
   {id:"motywMenu", wyjatki:["#btnTheme", "#navItemTheme"]},
   {id:"readPop",   wyjatki:["[data-readbtn]"]},
   {id:"ebPop",     wyjatki:["[data-pop]"]}
@@ -61746,8 +62272,22 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v655</span>
+          <span class="cl-ver-num">v656</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">23 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Zintegrowany panel Wygląd i Kolory, Centrum Synchronizacji z diodą statusu oraz spójna nawigacja</div>
+        <ul class="cl-ver-list">
+          <li><b>Filtr „Ostatnie” w szybkich filtrach:</b> Dodano kapsułę <i>„Ostatnie”</i> do paska szybkiego filtrowania notatek. Zapewnia to pełną symetrię z podmenu w kolumnie Etykiety i natychmiastowy dostęp do 25 ostatnio używanych notatek.</li>
+          <li><b>Semantyka kolorystyczna kart i kontrast nagłówka:</b> Wprowadzono czytelny kod barwny metadanych: wersety biblijne (szafirowy błękit), publikacje (ciepły pergaminowy bursztyn), etykiety (szmaragd) i pytania studyjne (ametystowy fiolet). Zwiększono kontrast selektora sortowania i wyszukiwarki do standardu WCAG AAA.</li>
+          <li><b>Zintegrowany panel „Wygląd i Kolory”:</b> Połączono rozproszone dotąd opcje jasności ekranu, gotowych kompozycji oraz kolorów kolumn w jeden nowoczesny panel otwierany pod ikonami Motyw i Kolory.</li>
+          <li><b>Centrum Synchronizacji i dioda statusu:</b> Na ikonie synchronizacji w pasku bocznym dodano żywy wskaźnik statusu (🟢 zsynchronizowano / 🟡 zmiany oczekują na wysłanie / 🔴 brak chmury). Dedykowane okno łączy Dysk Google, synchronizację plikową (iCloud Drive) oraz kopię bezpieczeństwa.</li>
+          <li><b>Dwukierunkowa nawigacja Centrum Studium:</b> W Centrum Studium dodano widoczny przycisk powrotu <i>„← Notatki”</i>, schowano zbędny selektor sortowania notatek, a w nagłówku listy notatek dodano bezpośredni przycisk przejścia do Centrum Studium.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v655</span>
           <span class="cl-ver-date">22 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Odchudzenie belek nad notatkami, strefy dotyku 44pt i fizyka sprężyny Apple</div>
@@ -66992,6 +67532,7 @@ window.wrocDoCentrumProjektow = wrocDoCentrumProjektow;
 function odswiezPasekProjektu(){
   const bar = $("pasekProjektu");
   const btnH = $("btnHeaderCentrum");
+  const btnWroc = $("btnHeaderWrocDoNotatek");
   const curProj = typeof aktywnyProjektTag === "function" ? aktywnyProjektTag() : null;
   const cWidoczne = typeof centrumWidoczne === "function" ? centrumWidoczne() : false;
 
@@ -67018,15 +67559,25 @@ function odswiezPasekProjektu(){
     }
   }
 
+  if(btnWroc){
+    btnWroc.hidden = !cWidoczne;
+  }
+
   if(btnH){
-    btnH.hidden = !pokaz;
-    if(pokaz){
-      const kol = curProj.color || "var(--accent)";
-      btnH.style.setProperty("--proj-kol", kol);
-      btnH.classList.add("cenProjBtnActive");
-      btnH.title = "Wróć do Centrum Studium — Projekt „" + (curProj.name || "") + "”";
+    if(cWidoczne){
+      btnH.hidden = true;
     } else {
-      btnH.classList.remove("cenProjBtnActive");
+      btnH.hidden = false;
+      if(curProj){
+        const kol = curProj.color || "var(--accent)";
+        btnH.style.setProperty("--proj-kol", kol);
+        btnH.classList.add("cenProjBtnActive");
+        btnH.title = "Wróć do Centrum Studium — Projekt „" + (curProj.name || "") + "”";
+      } else {
+        btnH.style.removeProperty("--proj-kol");
+        btnH.classList.remove("cenProjBtnActive");
+        btnH.title = "Przejdź do Centrum Studium";
+      }
     }
   }
 
@@ -67039,9 +67590,19 @@ document.addEventListener("click", ev => {
   const t = ev.target;
   if(!t || !t.closest) return;
 
+  if(t.closest("#btnHeaderWrocDoNotatek")){
+    ev.preventDefault();
+    if(typeof centrumSchowaj === "function") centrumSchowaj();
+    return;
+  }
+
   if(t.closest("#btnProjWrocCentrum") || t.closest("#btnHeaderCentrum")){
     ev.preventDefault();
-    wrocDoCentrumProjektow();
+    if(typeof aktywnyProjektTag === "function" && aktywnyProjektTag()){
+      wrocDoCentrumProjektow();
+    } else {
+      if(typeof centrumPokaz === "function") centrumPokaz();
+    }
     return;
   }
 
@@ -69228,6 +69789,207 @@ window.gdriveZaloguj = gdriveZaloguj;
 window.gdriveWyloguj = gdriveWyloguj;
 window.gdriveZapewnijWaznyToken = gdriveZapewnijWaznyToken;
 window.gdriveCzyZalogowany = gdriveCzyZalogowany;
+
+/* ══════════════ CENTRUM SYNCHRONIZACJI I WSKAŹNIK STATUSU (v656) ══════════════ */
+function odswiezWskaznikSync(){
+  const dot = document.getElementById("sidebarSyncDot");
+  if(!dot) return;
+  const isGdrive = (typeof gdriveCzyZalogowany === "function") && gdriveCzyZalogowany();
+  const dirty = +(lsGet(KP + "Dirty", 0) || 0);
+  const isWorking = (typeof _gdriveSyncPracuje !== "undefined") && _gdriveSyncPracuje;
+
+  dot.classList.remove("sync-green", "sync-yellow", "sync-red", "sync-active");
+  
+  if(isWorking){
+    dot.classList.add("sync-yellow", "sync-active");
+    dot.title = "Trwa synchronizacja…";
+  } else if(isGdrive){
+    if(dirty > 0){
+      dot.classList.add("sync-yellow");
+      dot.title = "Dysk Google połączony (" + dirty + " zmian oczekuje na zapis)";
+    } else {
+      dot.classList.add("sync-green");
+      dot.title = "Dysk Google: wszystko zsynchronizowane ✓";
+    }
+  } else if(window._syncFileHandle){
+    if(dirty > 0){
+      dot.classList.add("sync-yellow");
+      dot.title = "Plik powiązany (" + dirty + " zmian oczekuje)";
+    } else {
+      dot.classList.add("sync-green");
+      dot.title = "Plik uzgadniania: zsynchronizowany ✓";
+    }
+  } else {
+    if(dirty > 50){
+      dot.classList.add("sync-red");
+      dot.title = "Brak chmury — zrób kopię zapasową!";
+    } else {
+      dot.classList.add("sync-yellow");
+      dot.title = "Lokalna pamięć podręczna — połącz Dysk Google lub utwórz kopię";
+    }
+  }
+}
+window.odswiezWskaznikSync = odswiezWskaznikSync;
+
+function otworzCentrumSynchronizacji(){
+  if(typeof openModal === "function") openModal("modalCentrumSync");
+  odswiezCentrumSyncUI();
+}
+window.otworzCentrumSynchronizacji = otworzCentrumSynchronizacji;
+
+function odswiezCentrumSyncUI(){
+  const body = $("syncModalBody");
+  if(!body) return;
+
+  const zalogowany = (typeof gdriveCzyZalogowany === "function") && gdriveCzyZalogowany();
+  const user = (typeof gdrivePobierzUzytkownika === "function") ? gdrivePobierzUzytkownika() : null;
+  const lastSyncIso = lsGet(GDRIVE_K_LAST_SYNC, "");
+  let lastSyncTxt = "jeszcze nie";
+  if(lastSyncIso){
+    try {
+      lastSyncTxt = (typeof dataPolska === "function") ? dataPolska(lastSyncIso) : lastSyncIso;
+    } catch(_){ lastSyncTxt = lastSyncIso; }
+  }
+
+  const dirty = +(lsGet(KP + "Dirty", 0) || 0);
+  const lb = lsGet(KP + "LastBk", null);
+  const nCnt = Array.isArray(notes) ? notes.filter(n=>!n.del).length : 0;
+  const tCnt = Array.isArray(tags) ? tags.length : 0;
+
+  let gdriveHtml = "";
+  if(zalogowany){
+    const userTxt = user && (user.name || user.email) ? (user.name || user.email) : "Połączono";
+    gdriveHtml = `
+      <div class="sync-card-block" style="border-left: 3px solid #10b981;">
+        <div class="sync-card-tit">
+          <span style="color:#10b981;font-size:15px;">●</span> Dysk Google: Aktywny i połączony
+        </div>
+        <div class="sync-card-sub">
+          Konto: <b>${esc(userTxt)}</b><br>
+          Ostatnia synchronizacja: <b>${lastSyncTxt}</b>
+          ${dirty > 0 ? `<br><span style="color:#f59e0b;font-weight:600;">Oczekujące zmiany do wysłania: ${dirty}</span>` : `<br><span style="color:#10b981;">Wszystkie notatki są aktualne w chmurze ✓</span>`}
+        </div>
+        <div class="sync-card-actions">
+          <button type="button" class="btn primary" id="cenSyncGdriveNow">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;margin-right:4px;"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            Synchronizuj z Google teraz
+          </button>
+          <button type="button" class="btn" id="cenSyncGdriveLogout">Rozłącz konto</button>
+        </div>
+      </div>
+    `;
+  } else {
+    gdriveHtml = `
+      <div class="sync-card-block">
+        <div class="sync-card-tit">
+          <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>
+          Automatyczna chmura w tle (Dysk Google)
+        </div>
+        <div class="sync-card-sub">
+          Automatycznie synchronizuje notatki między iPadem, iPhonem i komputerem. Aplikacja korzysta z prywatnego folderu aplikacji na Twoim Dysku Google.
+        </div>
+        <div class="sync-card-actions">
+          <button type="button" class="btn primary" id="cenSyncGdriveLogin">🔑 Połącz z Dyskiem Google</button>
+        </div>
+      </div>
+    `;
+  }
+
+  body.innerHTML = `
+    ${gdriveHtml}
+
+    <div class="sync-card-block">
+      <div class="sync-card-tit">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Synchronizacja z plikiem (iCloud Drive / OneDrive)
+      </div>
+      <div class="sync-card-sub">
+        Uzgadnianie za pomocą wspólnego pliku <code>notatki.json</code> w folderze iCloud Drive lub OneDrive.
+      </div>
+      <div class="sync-card-actions">
+        <button type="button" class="btn" id="cenSyncFileLoad">📥 Wczytaj zmiany z pliku</button>
+        <button type="button" class="btn" id="cenSyncFileSave">📤 Wyślij zmiany do pliku</button>
+      </div>
+    </div>
+
+    <div class="sync-card-block">
+      <div class="sync-card-tit">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Trwała kopia zapasowa (Offline)
+      </div>
+      <div class="sync-card-sub">
+        W bazie znajduje się <b>${nCnt}</b> notatek i <b>${tCnt}</b> etykiet.<br>
+        Ostatnia utworzona kopia: <b>${lb || "brak"}</b>.
+      </div>
+      <div class="sync-card-actions">
+        <button type="button" class="btn" id="cenSyncMakeBk">💾 Pobierz kopię (.json)</button>
+        <button type="button" class="btn" id="cenSyncRestoreBk">Restauruj lub scal kopię…</button>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:14px;">
+      <button type="button" class="btn" id="cenSyncGoBezp">🛡️ Zaawansowane centrum bezpieczeństwa</button>
+      <button type="button" class="btn" data-zamknij="modalCentrumSync">Gotowe</button>
+    </div>
+  `;
+
+  const btnSyncNow = body.querySelector("#cenSyncGdriveNow");
+  if(btnSyncNow) btnSyncNow.onclick = () => {
+    closeModal("modalCentrumSync");
+    if(typeof gdriveSyncTeraz === "function") gdriveSyncTeraz("ręcznie");
+  };
+
+  const btnLogout = body.querySelector("#cenSyncGdriveLogout");
+  if(btnLogout) btnLogout.onclick = () => {
+    if(typeof gdriveWyloguj === "function") gdriveWyloguj();
+    odswiezCentrumSyncUI();
+    odswiezWskaznikSync();
+  };
+
+  const btnLogin = body.querySelector("#cenSyncGdriveLogin");
+  if(btnLogin) btnLogin.onclick = () => {
+    closeModal("modalCentrumSync");
+    if(typeof gdriveZaloguj === "function") gdriveZaloguj(true);
+  };
+
+  const btnFileLoad = body.querySelector("#cenSyncFileLoad");
+  if(btnFileLoad) btnFileLoad.onclick = () => {
+    closeModal("modalCentrumSync");
+    if(typeof syncWczytajZPliku === "function") syncWczytajZPliku();
+    else if(typeof syncUzgodnijTeraz === "function") syncUzgodnijTeraz();
+  };
+
+  const btnFileSave = body.querySelector("#cenSyncFileSave");
+  if(btnFileSave) btnFileSave.onclick = () => {
+    closeModal("modalCentrumSync");
+    if(typeof syncZapiszDoPliku === "function") syncZapiszDoPliku();
+    else if(typeof syncUzgodnijTeraz === "function") syncUzgodnijTeraz();
+  };
+
+  const btnMakeBk = body.querySelector("#cenSyncMakeBk");
+  if(btnMakeBk) btnMakeBk.onclick = async () => {
+    if(typeof exportJson === "function") await exportJson();
+    odswiezCentrumSyncUI();
+    odswiezWskaznikSync();
+  };
+
+  const btnRestoreBk = body.querySelector("#cenSyncRestoreBk");
+  if(btnRestoreBk) btnRestoreBk.onclick = () => {
+    closeModal("modalCentrumSync");
+    if(typeof otworzImportWybierz === "function") otworzImportWybierz();
+    else {
+      const inp = $("bezpBackupInput");
+      if(inp) inp.click();
+    }
+  };
+
+  const btnGoBezp = body.querySelector("#cenSyncGoBezp");
+  if(btnGoBezp) btnGoBezp.onclick = () => {
+    closeModal("modalCentrumSync");
+    if(typeof otworzCentrumBezpieczenstwa === "function") otworzCentrumBezpieczenstwa();
+  };
+}
+window.odswiezCentrumSyncUI = odswiezCentrumSyncUI;
 </script>
 <script>
 /* ==========================================================================
@@ -71093,25 +71855,23 @@ document.querySelector(".searchHelp").appendChild(helpMore);
 
   if (navSync) {
     navSync.addEventListener("click", () => {
-      if (typeof gdriveCzyZalogowany === "function" && gdriveCzyZalogowany()) {
+      if (typeof otworzCentrumSynchronizacji === "function") {
+        otworzCentrumSynchronizacji();
+      } else if (typeof gdriveCzyZalogowany === "function" && gdriveCzyZalogowany()) {
         if (typeof gdriveSyncTeraz === "function") gdriveSyncTeraz("ręcznie");
-        return;
+      } else {
+        const btnB = document.getElementById("btnBackup");
+        if (btnB) btnB.click();
       }
-      const btnB = document.getElementById("btnBackup");
-      if (btnB) btnB.click();
-      else if (typeof syncUzgodnijTeraz === "function") syncUzgodnijTeraz();
     });
   }
 
   if (navTheme) {
     navTheme.addEventListener("click", (e) => {
       e.stopPropagation();
-      const m = document.getElementById("motywMenu");
-      if (m && m.style.display === "block") {
-        m.style.display = "none";
-        return;
-      }
-      if (typeof otworzMenuMotywu === "function") {
+      if (typeof otworzPanelWygladu === "function") {
+        otworzPanelWygladu(navTheme);
+      } else if (typeof otworzMenuMotywu === "function") {
         otworzMenuMotywu(navTheme);
       } else {
         const btnT = document.getElementById("btnTheme");
@@ -71123,12 +71883,9 @@ document.querySelector(".searchHelp").appendChild(helpMore);
   if (navColors) {
     navColors.addEventListener("click", (e) => {
       e.stopPropagation();
-      const cm = document.getElementById("colorMenu");
-      if (cm && cm.style.display === "block") {
-        cm.style.display = "none";
-        return;
-      }
-      if (typeof openColorMenu === "function") {
+      if (typeof otworzPanelWygladu === "function") {
+        otworzPanelWygladu(navColors);
+      } else if (typeof openColorMenu === "function") {
         openColorMenu({ target: navColors });
       } else {
         const btnC = document.getElementById("btnColors");
@@ -71145,6 +71902,7 @@ document.querySelector(".searchHelp").appendChild(helpMore);
     });
   }
 
+  if (typeof odswiezWskaznikSync === "function") odswiezWskaznikSync();
   updateSidebarActiveStates();
 })();
 </script>
