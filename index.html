@@ -6011,22 +6011,29 @@ main{flex:1;display:flex;min-height:0;gap:12px;padding:12px;background:var(--bg)
   margin: 6px 6px 12px;
   background: var(--panel, #ffffff);
   border: 1px solid var(--border, #e5e5ea);
-  border-radius: 13px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 .tagSubmenuRow {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
+  gap: 12px;
+  padding: 9px 12px;
   cursor: pointer;
+  position: relative;
   user-select: none;
   -webkit-user-select: none;
   transition: background 0.12s ease, color 0.12s ease;
 }
-.tagSubmenuRow:not(:last-child) {
-  border-bottom: 1px solid color-mix(in srgb, var(--border, #e5e5ea) 60%, transparent);
+.tagSubmenuRow:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 44px;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--border, #e5e5ea) 75%, transparent);
 }
 .tagSubmenuRow:hover {
   background: color-mix(in srgb, var(--accent, #1b6348) 7%, var(--panel, #ffffff));
@@ -6039,17 +6046,19 @@ main{flex:1;display:flex;min-height:0;gap:12px;padding:12px;background:var(--bg)
   color: var(--accent, #1b6348);
 }
 .tagSubmenuIco {
-  font-size: 15px;
+  font-size: 19px;
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
+  width: 22px;
+  flex-shrink: 0;
 }
 .tagSubmenuTitle {
   flex: 1;
-  font-size: 13.5px;
+  font-size: 14.5px;
   font-weight: 550;
+  line-height: 1.22;
   color: var(--text, #1d1d1f);
 }
 .tagSubmenuRow.active .tagSubmenuTitle {
@@ -6057,15 +6066,15 @@ main{flex:1;display:flex;min-height:0;gap:12px;padding:12px;background:var(--bg)
   font-weight: 650;
 }
 .tagSubmenuCnt {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
   color: var(--muted, #8e8e93);
-  padding: 1px 6px;
-  border-radius: 8px;
+  padding: 0 4px;
+  letter-spacing: -0.01em;
 }
 .tagSubmenuRow.active .tagSubmenuCnt {
   color: var(--accent, #1b6348);
-  background: color-mix(in srgb, var(--accent, #1b6348) 14%, transparent);
+  font-weight: 650;
 }
 
 .secArr{font-size:10px;width:11px;flex-shrink:0;opacity:.85}
@@ -25887,13 +25896,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v659)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v660)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v659</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v660</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v659) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v659</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v660) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v660</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -25974,7 +25983,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v659</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v660</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28238,9 +28247,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v659";
+const APP_BUILD = "v660";
 const APP_BUILD_DATE = "2026-11-23";
-const APP_FULL_VERSION = "5.0 (v659)";
+const APP_FULL_VERSION = "5.0 (v660)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -33558,7 +33567,7 @@ function renderTags(){
         </div>
         <div class="tagSubmenuRow${isRecentActive ? " active" : ""}" data-subact="recent" title="Pokaż ostatnio używane notatki (25 notatek)">
           <span class="tagSubmenuIco">🕒</span>
-          <span class="tagSubmenuTitle">Ostatnio używane</span>
+          <span class="tagSubmenuTitle">Ostatnio<br>używane</span>
           <span class="tagSubmenuCnt">${recentCount}</span>
         </div>
       </div>
@@ -62308,8 +62317,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v659</span>
+          <span class="cl-ver-num">v660</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">23 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Eliminacja zapętlania synchronizacji między urządzeniami i bezwzględna ochrona pisania</div>
+        <ul class="cl-ver-list">
+          <li><b>Koniec zapętlania (Ping-Pong):</b> Usunięto błąd, w którym komputer i iPad odbijały między sobą plik w chmurze w nieskończonej pętli. Dodano unikalny identyfikator klienta (<code>clientId</code>), precyzyjny odczyt znacznika czasu (<code>modifiedTime</code>) oraz blokadę niepotrzebnego odsyłania pliku podczas odpytywania w tle, gdy brak lokalnych edycji.</li>
+          <li><b>Cicha praca w tle podczas pisania:</b> Zsynchronizowano sprawdzanie aktywności pisarza — automatyczna synchronizacja w tle nigdy nie przerywa pracy wyskakującym oknem rozbieżności. Ewentualne spory są cicho odkładane do ręcznego przejrzenia.</li>
+          <li><b>Ochrona aktywnie edytowanej notatki:</b> Notatka, w której aktualnie pisze użytkownik (na ekranie lub w trybie pełnoekranowym), jest w 100% chroniona przed jakimkolwiek nadpisaniem pod kursorem w tle.</li>
+          <li><b>Dopracowanie wizualne podmenu Organizacja:</b> Wzorując się na przesłanej grafice poglądowej wprowadzono czytelny dwuliniowy układ (<i>Ostatnio / używane</i>), wciętą linię podziału w stylu Apple oraz precyzyjne wyrównanie i kontrast liczników.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v659</span>
           <span class="cl-ver-date">23 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Niezależne scalanie folderów bez blokady przez notatki i inteligentny wybór nowszych wersji</div>
@@ -67949,6 +67971,14 @@ function syncUstawNazweUrzadzenia(nazwa){
   lsSet(SYNC_K_NAZWA, n);
   return true;
 }
+function syncClientId(){
+  let id = lsGet(KP + "SyncClientId", "");
+  if(!id){
+    id = "c_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 9);
+    lsSet(KP + "SyncClientId", id);
+  }
+  return id;
+}
 
 /**
  * OPIS KAŻDEJ LISTY, KTÓRĄ UZGADNIAMY.
@@ -68121,6 +68151,7 @@ async function syncEksport(){
     format: SYNC_FORMAT,
     wersja: SYNC_WERSJA,
     zapisane: new Date().toISOString(),
+    clientId: (typeof syncClientId === "function") ? syncClientId() : "",
     urzadzenie: syncNazwaUrzadzenia(),
     kolejnosc: syncKolejnoscDoPliku(),
     historia: await syncHistoriaDoPliku(),
@@ -68715,6 +68746,12 @@ async function syncZastosuj(plan){
     notes.push(n); zmienioneNotatki.add(n); st.notatekNowych++;
   });
   plan.notatki.podmiany.forEach(([n, zd])=>{
+    // Ochrona aktywnie edytowanej notatki w trakcie pisania: nie nadpisujemy jej pod kursorem w tle!
+    const edytowanaTeraz = (typeof fsGuid !== "undefined" && fsGuid === n.g) ||
+      (typeof document !== "undefined" && document.querySelector('.ncard.editing[data-g="'+n.g+'"]') !== null);
+    if(edytowanaTeraz && typeof syncKtosPisze === "function" && syncKtosPisze()){
+      return;
+    }
     const nowa = doLokalnej(zd);
     if(!nowa) return;
     /* Drobiazgi mają już swój, uzgodniony stan — podmiana treści go nie zdejmuje. */
@@ -69094,6 +69131,8 @@ async function syncTeraz(powod){
 function syncKtosPisze(){
   try{
     if(document.querySelector(".ncard.editing")) return true;
+    if(typeof fsGuid !== "undefined" && fsGuid) return true;
+    if(document.body && document.body.classList.contains("fs-open")) return true;
     const a = document.activeElement;
     if(a && (a.isContentEditable || a.tagName === "TEXTAREA" || a.tagName === "INPUT")) return true;
   }catch(e){}
@@ -69654,7 +69693,7 @@ async function gdrivePobierzTresc(fileId, token){
 
 async function gdriveZapiszPlik(trescJson, fileId, token){
   if(fileId){
-    const res = await fetch("https://www.googleapis.com/upload/drive/v3/files/" + fileId + "?uploadType=media", {
+    const res = await fetch("https://www.googleapis.com/upload/drive/v3/files/" + fileId + "?uploadType=media&fields=id,name,modifiedTime", {
       method: "PATCH",
       headers: {
         Authorization: "Bearer " + token,
@@ -69682,7 +69721,7 @@ async function gdriveZapiszPlik(trescJson, fileId, token){
       trescJson + "\r\n" +
       "--" + boundary + "--";
 
-    const res = await fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart", {
+    const res = await fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,modifiedTime", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + token,
@@ -69759,21 +69798,42 @@ async function gdriveSyncTeraz(powod){
         if(tekst){
           let dane;
           try { dane = JSON.parse(tekst); } catch(e){ throw new Error("Plik w chmurze jest uszkodzony (błąd formatu JSON)"); }
-          wynik = await syncScalDane(dane, powod !== "ręcznie" && syncKtosPisze());
-          lsSet(GDRIVE_K_REMOTE_MS, String(remoteMs));
-          pobranoZdalne = true;
-          if(wynik.odlozone){
-            _gdriveStanOpis = "Foldery i bezsporne dane zaktualizowane. Pozostało " + wynik.konflikty + " sporów w notatkach.";
-            if(powod !== "start") toast("Zaktualizowano foldery! " + wynik.konflikty + " rozbieżności w notatkach do rozstrzygnięcia");
-            if(typeof odswiezCentrumSyncUI === "function") odswiezCentrumSyncUI();
-            if(typeof odswiezWskaznikSync === "function") odswiezWskaznikSync();
-            return wynik;
+
+          // Jeśli plik w chmurze pochodzi z tej samej instancji (zapisaliśmy go przed chwilą) — nie importujemy ponownie
+          if(dane && dane.clientId && typeof syncClientId === "function" && dane.clientId === syncClientId()){
+            lsSet(GDRIVE_K_REMOTE_MS, String(remoteMs));
+            pobranoZdalne = true;
+          } else {
+            // W tle ZAWSZE bezPytania=true (nigdy nie przerywamy pisania/czytania wyskakującym oknem!)
+            // Okno sporów otwiera się WYŁĄCZNIE, gdy użytkownik ręcznie kliknie "Synchronizuj".
+            wynik = await syncScalDane(dane, powod !== "ręcznie");
+            lsSet(GDRIVE_K_REMOTE_MS, String(remoteMs));
+            pobranoZdalne = true;
+            if(wynik && wynik.odlozone){
+              _gdriveStanOpis = "Wykryto rozbieżności notatek (" + wynik.konflikty + ") — kliknij Synchronizuj, aby przejrzeć.";
+              if(typeof odswiezCentrumSyncUI === "function") odswiezCentrumSyncUI();
+              if(typeof odswiezWskaznikSync === "function") odswiezWskaznikSync();
+              return wynik;
+            }
           }
         }
       }
     }
 
-    const trzebaWyslac = !zdalny || !pobranoZdalne || (wynik && wynik.st && wynik.st.doPliku) || powod === "login" || powod === "zmiany" || powod === "ręcznie";
+    const dirty = +(lsGet(KP + "Dirty", 0) || 0);
+    // Kluczowe zabezpieczenie przed zapętleniem (ping-pong) między otwartym komputerem i iPadem:
+    // Plik wysyłamy do chmury TYLKO wtedy, gdy:
+    // 1. W chmurze nie ma jeszcze pliku (!zdalny)
+    // 2. Ręczne wywołanie ("ręcznie" / "login")
+    // 3. Zmiany lokalne wywołane edycją na tym urządzeniu (powod === "zmiany")
+    // 4. Mamy RZECZYWISTE lokalne niezapisane edycje (dirty > 0)
+    // W tle przy zwykłym odpytaniu ("odpytanie" / "powrót") GDY DIRTY === 0 NIGDY nie wysyłamy niczego do chmury!
+    const trzebaWyslac = !zdalny 
+      || powod === "ręcznie" 
+      || powod === "login" 
+      || powod === "zmiany" 
+      || (dirty > 0 && (powod === "start" || (wynik && wynik.st && wynik.st.doPliku > 0)));
+
     if(trzebaWyslac){
       const exportData = await syncEksport();
       const fileId = zdalny ? zdalny.id : (lsGet(GDRIVE_K_FILE_ID, "") || null);
@@ -69794,9 +69854,8 @@ async function gdriveSyncTeraz(powod){
       }
       if(saved && saved.id){
         lsSet(GDRIVE_K_FILE_ID, saved.id);
-        if(saved.modifiedTime){
-          lsSet(GDRIVE_K_REMOTE_MS, String(Date.parse(saved.modifiedTime) || Date.now()));
-        }
+        const remoteTime = saved.modifiedTime ? Date.parse(saved.modifiedTime) : Date.now();
+        lsSet(GDRIVE_K_REMOTE_MS, String(remoteTime));
       }
       await syncPodstawaPoZapisie();
       if(typeof clearDirty === "function") clearDirty();
