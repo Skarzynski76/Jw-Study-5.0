@@ -20701,7 +20701,8 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   #modernSidebar .sidebar-brand-title,
   #modernSidebar .sidebar-brand-ver,
   #modernSidebar .sidebar-new-btn span,
-  #modernSidebar .sidebar-nav-item span,
+  #modernSidebar .sidebar-nav-item .sidebar-nav-lbl,
+  #modernSidebar .sidebar-nav-badge,
   #modernSidebar .sidebar-user-info,
   #modernSidebar .sidebar-user-edit-btn {
     display: none !important;
@@ -20753,7 +20754,8 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
 
 #appContainer.sidebar-collapsed .sidebar-brand-title,
 #appContainer.sidebar-collapsed .sidebar-new-btn span,
-#appContainer.sidebar-collapsed .sidebar-nav-item span,
+#appContainer.sidebar-collapsed .sidebar-nav-item .sidebar-nav-lbl,
+#appContainer.sidebar-collapsed .sidebar-nav-badge,
 #appContainer.sidebar-collapsed .sidebar-user-info,
 #appContainer.sidebar-collapsed .sidebar-user-edit-btn {
   display: none !important;
@@ -25505,7 +25507,7 @@ html[data-theme="oled"] .tagArr:hover {
 }
 
 /* ==========================================================================
-   JW Study v656 — Zintegrowany panel Wygląd i Kolory, Centrum Sync i Nawigacja
+   JW Study v657 — Scalenie przycisków w Wygląd oraz widoczność synchronizacji
    ========================================================================== */
 
 /* 1. Zintegrowany panel Wygląd i Kolory */
@@ -25681,36 +25683,65 @@ html[data-theme="dark"] #colorMenu, html[data-theme="oled"] #colorMenu {
   padding-top: 10px;
 }
 
-/* 2. Dioda statusu synchronizacji w pasku bocznym */
+/* 2. Dioda statusu synchronizacji w pasku bocznym i nagłówku */
+.sidebar-sync-icon-wrap {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+#modernSidebar .sidebar-sync-icon-wrap,
+#appContainer.sidebar-collapsed .sidebar-sync-icon-wrap {
+  display: inline-flex !important;
+}
 .sync-status-dot {
-  position: absolute;
-  top: -2px;
-  right: -3px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  border: 1.5px solid var(--sidebar-bg, #0f3d2c);
+  position: absolute !important;
+  top: -2px !important;
+  right: -2px !important;
+  width: 9px !important;
+  height: 9px !important;
+  border-radius: 50% !important;
+  border: 1.5px solid var(--panel, #ffffff) !important;
   background: #f59e0b;
   transition: all 0.3s ease;
+  pointer-events: none !important;
+  z-index: 2 !important;
+  display: block !important;
+}
+#modernSidebar .sync-status-dot,
+#appContainer.sidebar-collapsed .sync-status-dot {
+  display: block !important;
 }
 .sync-status-dot.sync-green {
-  background: #10b981;
-  box-shadow: 0 0 6px rgba(16, 185, 129, 0.7);
+  background: #10b981 !important;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.7) !important;
 }
 .sync-status-dot.sync-yellow {
-  background: #f59e0b;
-  box-shadow: 0 0 6px rgba(245, 158, 11, 0.7);
+  background: #f59e0b !important;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.7) !important;
 }
 .sync-status-dot.sync-red {
-  background: #ef4444;
-  box-shadow: 0 0 6px rgba(239, 68, 68, 0.7);
+  background: #ef4444 !important;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.7) !important;
 }
 .sync-status-dot.sync-active {
-  animation: syncPulseDot 1.2s infinite ease-in-out;
+  animation: syncPulseDot 1.2s infinite ease-in-out !important;
 }
 @keyframes syncPulseDot {
   0%, 100% { transform: scale(1); opacity: 1; }
   50% { transform: scale(1.35); opacity: 0.7; }
+}
+
+/* Wskaźnik w nagłówku mobilnym (mobile menu btn) */
+.header-sync-dot {
+  top: 3px !important;
+  right: 3px !important;
+  width: 8px !important;
+  height: 8px !important;
+  border: 1.5px solid var(--accent, #1a5c4c) !important;
 }
 
 /* 3. Modal Centrum Synchronizacji i Kopii */
@@ -25856,13 +25887,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v656)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v657)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v656</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v657</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v656) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v656</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v657) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v657</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -25888,57 +25919,53 @@ body.centrum-open #btnHeaderCentrum {
     <nav class="sidebar-nav">
       <button class="sidebar-nav-item active" id="navItemNotes" data-col="colNotes" title="Wszystkie notatki">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        <span>Notatki</span>
+        <span class="sidebar-nav-lbl">Notatki</span>
       </button>
       <button class="sidebar-nav-item" id="navItemCentrum" title="Centrum Studium (H)">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M10 20v-5.5h4V20"/></svg>
-        <span>Centrum Studium</span>
+        <span class="sidebar-nav-lbl">Centrum Studium</span>
       </button>
       <button class="sidebar-nav-item" id="navItemTags" data-col="colTags" title="Kategorie i etykiety">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-        <span>Etykiety</span>
+        <span class="sidebar-nav-lbl">Etykiety</span>
       </button>
       <button class="sidebar-nav-item" id="navItemBooks" data-col="colBooks" title="Księgi Biblijne">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        <span>Księgi Biblii</span>
+        <span class="sidebar-nav-lbl">Księgi Biblii</span>
       </button>
       <button class="sidebar-nav-item" id="navItemPubs" data-col="colPubs" title="Publikacje i artykuły">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        <span>Publikacje</span>
+        <span class="sidebar-nav-lbl">Publikacje</span>
       </button>
       <button class="sidebar-nav-item" id="navItemCols" title="Pokaż lub ukryj kolumny">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4.5" width="18" height="15" rx="2"/><path d="M9 4.5v15M15 4.5v15"/></svg>
-        <span>Kolumny</span>
+        <span class="sidebar-nav-lbl">Kolumny</span>
       </button>
       <button class="sidebar-nav-item" id="navItemTrash" title="Kosz (usunięte notatki na 30 dni)">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
-        <span>Kosz</span>
+        <span class="sidebar-nav-lbl">Kosz</span>
         <span class="sidebar-nav-badge" id="sidebarTrashBadge" style="display:none">0</span>
       </button>
     </nav>
     <div class="sidebar-footer">
       <button class="sidebar-nav-item" id="navItemMenu" title="Menu Plik">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3.5 7.4A1.6 1.6 0 0 1 5.1 5.8h3.7l1.9 2.1h8.2a1.6 1.6 0 0 1 1.6 1.6v8.1a1.6 1.6 0 0 1-1.6 1.6H5.1a1.6 1.6 0 0 1-1.6-1.6z"/></svg>
-        <span>Plik</span>
+        <span class="sidebar-nav-lbl">Plik</span>
       </button>
       <button class="sidebar-nav-item" id="navItemSync" title="Centrum synchronizacji i kopii">
-        <span class="sidebar-sync-icon-wrap" style="position:relative;display:inline-flex;align-items:center;justify-content:center;">
+        <div class="sidebar-sync-icon-wrap">
           <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
           <span class="sync-status-dot" id="sidebarSyncDot" title="Status synchronizacji"></span>
-        </span>
-        <span>Synchronizacja</span>
+        </div>
+        <span class="sidebar-nav-lbl">Synchronizacja</span>
       </button>
-      <button class="sidebar-nav-item" id="navItemTheme" title="Zmień motyw">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-        <span>Motyw</span>
-      </button>
-      <button class="sidebar-nav-item" id="navItemColors" title="Kolory kolumn">
+      <button class="sidebar-nav-item" id="navItemWyglad" title="Wygląd i Kolory (jasność, kompozycje, palety)">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-.9 2-1.8 0-1.3 1-2.2 2.2-2.2H18a3 3 0 0 0 3-3A8 8 0 0 0 12 3z"/><circle cx="7.5" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="7.5" r="1" fill="currentColor" stroke="none"/><circle cx="16.3" cy="11" r="1" fill="currentColor" stroke="none"/></svg>
-        <span>Kolory</span>
+        <span class="sidebar-nav-lbl">Wygląd</span>
       </button>
       <button class="sidebar-nav-item" id="navItemSettings" title="Ustawienia aplikacji">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.5V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        <span>Ustawienia</span>
+        <span class="sidebar-nav-lbl">Ustawienia</span>
       </button>
     </div>
   </aside>
@@ -25947,7 +25974,8 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v656</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v657</span>
+    <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
     <svg class="ic search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -28209,9 +28237,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v656";
+const APP_BUILD = "v657";
 const APP_BUILD_DATE = "2026-11-23";
-const APP_FULL_VERSION = "5.0 (v656)";
+const APP_FULL_VERSION = "5.0 (v657)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -55057,8 +55085,8 @@ document.addEventListener("click", e=>{
    otwartym okienku zamknęłoby je i natychmiast otworzyło z powrotem. */
 const OKIENKA = [
   {id:"dropdown",  wyjatki:["#btnMenu", "#btnCols", "#navItemMenu", "#navItemCols", '[data-act="more"]', '[data-act="exp"]', ".more", ".secMore", ".more-btn", ".qf-proj-arr", "#qfProjekty"]},
-  {id:"colorMenu", wyjatki:["#btnColors", "#btnTheme", "#btnSettings", "#navItemColors", "#navItemTheme", "#navItemSettings"]},
-  {id:"motywMenu", wyjatki:["#btnTheme", "#navItemTheme"]},
+  {id:"colorMenu", wyjatki:["#btnColors", "#btnTheme", "#btnSettings", "#navItemWyglad", "#navItemColors", "#navItemTheme", "#navItemSettings"]},
+  {id:"motywMenu", wyjatki:["#btnTheme", "#navItemWyglad", "#navItemTheme"]},
   {id:"readPop",   wyjatki:["[data-readbtn]"]},
   {id:"ebPop",     wyjatki:["[data-pop]"]}
 ];
@@ -62272,8 +62300,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v656</span>
+          <span class="cl-ver-num">v657</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">23 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Scalenie przycisków w „Wygląd” oraz stała widoczność ikony i diody synchronizacji</div>
+        <ul class="cl-ver-list">
+          <li><b>Scalenie „Motyw” i „Kolory” w jeden przycisk „Wygląd”:</b> Zastąpiono dwa zdublowane przyciski w stopce paska bocznego jednym eleganckim przyciskiem <i>„Wygląd”</i> (ikona palety), który otwiera zintegrowany panel jasności ekranu, kompozycji i kolorów kolumn.</li>
+          <li><b>Naprawa ikony i diody synchronizacji w trybie zwiniętym:</b> Usunięto błąd ukrywania ikony synchronizacji i jej wskaźnika statusu (🟢/🟡/🔴) podczas zwijania paska bocznego oraz w poziomym widoku iPada (Icon Rail 58px). Ikona i żywa dioda są teraz zawsze idealnie wycentrowane i widoczne w trybie miniaturowym.</li>
+          <li><b>Dioda statusu w nagłówku:</b> Dodano wskaźnik stanu synchronizacji również na przycisku menu głównego w nagłówku, gwarantując stały podgląd aktualności danych w każdym trybie ekranu.</li>
+          <li><b>Dynamiczna podpowiedź (tooltip):</b> Najechanie na przycisk synchronizacji w pasku bocznym natychmiast wyświetla dokładny status (np. <i>„Dysk Google: wszystko zsynchronizowane ✓”</i>).</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v656</span>
           <span class="cl-ver-date">23 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Zintegrowany panel Wygląd i Kolory, Centrum Synchronizacji z diodą statusu oraz spójna nawigacja</div>
@@ -69790,43 +69831,60 @@ window.gdriveWyloguj = gdriveWyloguj;
 window.gdriveZapewnijWaznyToken = gdriveZapewnijWaznyToken;
 window.gdriveCzyZalogowany = gdriveCzyZalogowany;
 
-/* ══════════════ CENTRUM SYNCHRONIZACJI I WSKAŹNIK STATUSU (v656) ══════════════ */
+/* ══════════════ CENTRUM SYNCHRONIZACJI I WSKAŹNIK STATUSU (v657) ══════════════ */
 function odswiezWskaznikSync(){
   const dot = document.getElementById("sidebarSyncDot");
-  if(!dot) return;
+  const hDot = document.getElementById("headerSyncDot");
+  const dots = [dot, hDot].filter(Boolean);
+  if(!dots.length) return;
   const isGdrive = (typeof gdriveCzyZalogowany === "function") && gdriveCzyZalogowany();
   const dirty = +(lsGet(KP + "Dirty", 0) || 0);
   const isWorking = (typeof _gdriveSyncPracuje !== "undefined") && _gdriveSyncPracuje;
 
-  dot.classList.remove("sync-green", "sync-yellow", "sync-red", "sync-active");
-  
+  let opis = "";
+  let klasa = "";
+  let anim = false;
+
   if(isWorking){
-    dot.classList.add("sync-yellow", "sync-active");
-    dot.title = "Trwa synchronizacja…";
+    klasa = "sync-yellow";
+    anim = true;
+    opis = "Trwa synchronizacja…";
   } else if(isGdrive){
     if(dirty > 0){
-      dot.classList.add("sync-yellow");
-      dot.title = "Dysk Google połączony (" + dirty + " zmian oczekuje na zapis)";
+      klasa = "sync-yellow";
+      opis = "Dysk Google: " + dirty + " zmian oczekuje na zapis";
     } else {
-      dot.classList.add("sync-green");
-      dot.title = "Dysk Google: wszystko zsynchronizowane ✓";
+      klasa = "sync-green";
+      opis = "Dysk Google: wszystko zsynchronizowane ✓";
     }
   } else if(window._syncFileHandle){
     if(dirty > 0){
-      dot.classList.add("sync-yellow");
-      dot.title = "Plik powiązany (" + dirty + " zmian oczekuje)";
+      klasa = "sync-yellow";
+      opis = "Plik powiązany: " + dirty + " zmian oczekuje";
     } else {
-      dot.classList.add("sync-green");
-      dot.title = "Plik uzgadniania: zsynchronizowany ✓";
+      klasa = "sync-green";
+      opis = "Plik powiązany: zsynchronizowany ✓";
     }
   } else {
     if(dirty > 50){
-      dot.classList.add("sync-red");
-      dot.title = "Brak chmury — zrób kopię zapasową!";
+      klasa = "sync-red";
+      opis = "Brak chmury — zrób kopię zapasową!";
     } else {
-      dot.classList.add("sync-yellow");
-      dot.title = "Lokalna pamięć podręczna — połącz Dysk Google lub utwórz kopię";
+      klasa = "sync-yellow";
+      opis = "Lokalna pamięć podręczna — połącz Dysk Google lub utwórz kopię";
     }
+  }
+
+  dots.forEach(d => {
+    d.classList.remove("sync-green", "sync-yellow", "sync-red", "sync-active");
+    if(klasa) d.classList.add(klasa);
+    if(anim) d.classList.add("sync-active");
+    d.title = opis;
+  });
+
+  const syncBtn = document.getElementById("navItemSync");
+  if(syncBtn){
+    syncBtn.title = "Centrum synchronizacji: " + opis;
   }
 }
 window.odswiezWskaznikSync = odswiezWskaznikSync;
@@ -71558,8 +71616,7 @@ document.querySelector(".searchHelp").appendChild(helpMore);
   const navTrash = document.getElementById("navItemTrash");
   const navMenu = document.getElementById("navItemMenu");
   const navSync = document.getElementById("navItemSync");
-  const navTheme = document.getElementById("navItemTheme");
-  const navColors = document.getElementById("navItemColors");
+  const navWyglad = document.getElementById("navItemWyglad") || document.getElementById("navItemColors") || document.getElementById("navItemTheme");
   const navSettings = document.getElementById("navItemSettings");
 
   function toggleMobileSidebar(open) {
@@ -71866,29 +71923,17 @@ document.querySelector(".searchHelp").appendChild(helpMore);
     });
   }
 
-  if (navTheme) {
-    navTheme.addEventListener("click", (e) => {
+  if (navWyglad) {
+    navWyglad.addEventListener("click", (e) => {
       e.stopPropagation();
       if (typeof otworzPanelWygladu === "function") {
-        otworzPanelWygladu(navTheme);
-      } else if (typeof otworzMenuMotywu === "function") {
-        otworzMenuMotywu(navTheme);
-      } else {
-        const btnT = document.getElementById("btnTheme");
-        if (btnT) btnT.click();
-      }
-    });
-  }
-
-  if (navColors) {
-    navColors.addEventListener("click", (e) => {
-      e.stopPropagation();
-      if (typeof otworzPanelWygladu === "function") {
-        otworzPanelWygladu(navColors);
+        otworzPanelWygladu(navWyglad);
       } else if (typeof openColorMenu === "function") {
-        openColorMenu({ target: navColors });
+        openColorMenu({ target: navWyglad });
+      } else if (typeof otworzMenuMotywu === "function") {
+        otworzMenuMotywu(navWyglad);
       } else {
-        const btnC = document.getElementById("btnColors");
+        const btnC = document.getElementById("btnColors") || document.getElementById("btnTheme");
         if (btnC) btnC.click();
       }
     });
