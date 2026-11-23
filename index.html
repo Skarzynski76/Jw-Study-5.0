@@ -25887,13 +25887,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v658)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v659)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v658</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v659</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v658) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v658</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v659) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v659</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -25974,7 +25974,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v658</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v659</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -26706,18 +26706,19 @@ body.centrum-open #btnHeaderCentrum {
 <div class="overlay" id="modalSync">
   <div class="modal rozmodal" role="dialog" aria-label="Rozbieżności między urządzeniami">
     <h3>Rozbieżności między urządzeniami</h3>
-    <p class="roz-wstep">Do rozstrzygnięcia: <b id="syncIle">0</b>. Tyle rzeczy zmieniło się
-      <b>i tutaj, i na drugim urządzeniu</b> (<span id="syncSkad">drugie urządzenie</span>) od ostatniego
-      uzgodnienia. Wszystko pozostałe zostało już uzgodnione bez pytania.
-      <br>Nic nie zostanie nadpisane, dopóki nie klikniesz <b>Zastosuj wybory</b>.</p>
+    <p class="roz-wstep">Do rozstrzygnięcia w notatkach: <b id="syncIle">0</b>. Foldery i etykiety zostały już uzgodnione automatycznie.
+      Poniższe notatki zmieniły się w obu miejscach naraz (<span id="syncSkad">drugie urządzenie</span>).
+      <br>Wybierz, którą wersję notatki zachować, i kliknij <b>Zastosuj wybory</b>.</p>
     <div class="roz-hurt">
-      <button class="btn" id="syncWszystkieMoje" type="button">Wszędzie zostaw moje</button>
-      <button class="btn" id="syncWszystkieZdalne" type="button">Wszędzie weź z drugiego urządzenia</button>
+      <button class="btn primary" id="syncWszystkieNowsze" type="button" style="font-weight:600;">⚡ Wybierz nowsze wszędzie (zalecane)</button>
+      <button class="btn" id="syncWszystkieZdalne" type="button">☁️ Wszystkie z chmury</button>
+      <button class="btn" id="syncWszystkieMoje" type="button">📱 Zostaw na tym urządzeniu</button>
+      <button class="btn" id="syncWszystkieObie" type="button">📑 Zachowaj obie</button>
     </div>
     <div id="syncLista" class="roz-lista"></div>
     <p id="syncPodsum" class="roz-podsum"></p>
     <div class="actions">
-      <button class="btn" id="syncAnuluj" type="button">Przerwij — nic nie zmieniaj</button>
+      <button class="btn" id="syncAnuluj" type="button">Odłóż decyzję (foldery już zaktualizowano)</button>
       <button class="btn primary" id="syncZastosuj" type="button">Zastosuj wybory</button>
     </div>
   </div>
@@ -28237,9 +28238,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v658";
+const APP_BUILD = "v659";
 const APP_BUILD_DATE = "2026-11-23";
-const APP_FULL_VERSION = "5.0 (v658)";
+const APP_FULL_VERSION = "5.0 (v659)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -62307,8 +62308,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v658</span>
+          <span class="cl-ver-num">v659</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">23 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Niezależne scalanie folderów bez blokady przez notatki i inteligentny wybór nowszych wersji</div>
+        <ul class="cl-ver-list">
+          <li><b>Niezależne scalanie folderów i etykiet:</b> Usunięto błąd, w którym spory o treść pojedynczych notatek blokowały aktualizację nazw i kolejności folderów. Zmiany w strukturze folderów i nowe foldery wchodzą w życie natychmiast, nawet gdy użytkownik odłoży decyzję o treści notatek.</li>
+          <li><b>Inteligentne kojarzenie zmienionych folderów:</b> Jeśli nazwa folderu uległa edycji (np. <i>„Audycje Przemówienia”</i> ➔ <i>„Audycje”</i>), algorytm kojarzy folder na podstawie przypisanych etykiet i podobieństwa nazw, zamiast tworzyć duplikaty lub gubić powiązania.</li>
+          <li><b>Inteligentne okno sporów (Wybierz nowsze ⚡):</b> Okno rozbieżności automatycznie oznacza nowszą wersję notatki zielonym znacznikiem <code>Nowsza ⚡</code> i domyślnie ją zaznacza. Dodano przyciski hurtowe: <i>„⚡ Wybierz nowsze wszędzie”</i>, <i>„☁️ Wszystkie z chmury”</i>, <i>„📱 Zostaw na urządzeniu”</i> oraz <i>„📑 Zachowaj obie”</i>.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v658</span>
           <span class="cl-ver-date">23 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Automatyczna synchronizacja na starcie oraz niezawodne przenoszenie nazw folderów</div>
@@ -68312,21 +68325,87 @@ function syncSkojarzPoNazwie(o, zdalne, podstawa){
     if(k && !wolne.has(k)) wolne.set(k, r);
   });
   let ile = 0;
+  const przepiszUid = (kandydat, nowyUid) => {
+    if(podstawa) ["moje","plik"].forEach(pol=>{
+      const m = podstawa[pol] && podstawa[pol].listy && podstawa[pol].listy[o.rodzaj];
+      if(m && m[kandydat.uid] !== undefined){ m[nowyUid] = m[kandydat.uid]; delete m[kandydat.uid]; }
+    });
+    kandydat.uid = nowyUid;
+  };
+
+  const bezParyPozostale = [];
   bezPary.forEach(z=>{
     /* Rekord z pliku jest w postaci PRZENOŚNEJ (odsyłacze po uid), więc jego
        klucz liczy kluczP, a nie klucz — ten drugi czyta lokalne numery. */
-    const kandydat = wolne.get(o.kluczP(z));
-    if(!kandydat) return;
-    wolne.delete(o.kluczP(z));
-    /* Podstawa jest kluczowana po uid — przy zmianie uid trzeba przenieść też
-       jej wpisy, inaczej rekord wyglądałby na nowy po obu stronach. */
-    if(podstawa) ["moje","plik"].forEach(pol=>{
-      const m = podstawa[pol] && podstawa[pol].listy && podstawa[pol].listy[o.rodzaj];
-      if(m && m[kandydat.uid] !== undefined){ m[z.uid] = m[kandydat.uid]; delete m[kandydat.uid]; }
-    });
-    kandydat.uid = z.uid;
-    ile++;
+    const k = o.kluczP(z);
+    const kandydat = wolne.get(k);
+    if(kandydat){
+      wolne.delete(k);
+      przepiszUid(kandydat, z.uid);
+      ile++;
+    } else {
+      bezParyPozostale.push(z);
+    }
   });
+
+  /* Inteligentne parowanie sekcji / folderów: jeśli nazwa folderu uległa zmianie
+     (np. „Audycje Przemówienia” -> „Audycje”) albo foldery były przestawiane,
+     kojarzymy je po powiązanych etykietach lub podobieństwie nazwy, aby nie tworzyć duplikatów. */
+  if(o.rodzaj === "sections" && bezParyPozostale.length && wolne.size){
+    const plikTags = (window._ostatnieDaneDoSync && Array.isArray(window._ostatnieDaneDoSync.tags))
+      ? window._ostatnieDaneDoSync.tags : [];
+    for(let i = bezParyPozostale.length - 1; i >= 0; i--){
+      const z = bezParyPozostale[i];
+      const zNorm = norm(z.name || "");
+      let najlepszyKandydat = null;
+      let najlepszyKlucz = null;
+
+      // 1. Sprawdzenie etykiet należących do tej sekcji w pliku i lokalnie
+      if(plikTags.length && typeof tags !== "undefined" && Array.isArray(tags)){
+        const tagsDlaZ = plikTags.filter(t => t && t.secUid === z.uid).map(t => norm(t.name || ""));
+        if(tagsDlaZ.length){
+          for(const [wk, kand] of wolne.entries()){
+            const tagsDlaKand = tags.filter(t => t && t.sec === kand.id).map(t => norm(t.name || ""));
+            const wspolne = tagsDlaKand.filter(tn => tagsDlaZ.includes(tn)).length;
+            if(wspolne > 0 && wspolne >= Math.min(tagsDlaKand.length, tagsDlaZ.length) * 0.4){
+              najlepszyKandydat = kand;
+              najlepszyKlucz = wk;
+              break;
+            }
+          }
+        }
+      }
+
+      // 2. Podobieństwo nazw (np. „Audycje” w „Audycje Przemówienia”)
+      if(!najlepszyKandydat && zNorm.length >= 3){
+        for(const [wk, kand] of wolne.entries()){
+          const kNorm = norm(kand.name || "");
+          if(kNorm.length >= 3 && (kNorm.includes(zNorm) || zNorm.includes(kNorm))){
+            najlepszyKandydat = kand;
+            najlepszyKlucz = wk;
+            break;
+          }
+        }
+      }
+
+      // 3. Gdy została dokładnie jedna wolna para sekcji
+      if(!najlepszyKandydat && bezParyPozostale.length === 1 && wolne.size === 1){
+        const [wk, kand] = wolne.entries().next().value;
+        if(kand){
+          najlepszyKandydat = kand;
+          najlepszyKlucz = wk;
+        }
+      }
+
+      if(najlepszyKandydat && najlepszyKlucz){
+        wolne.delete(najlepszyKlucz);
+        przepiszUid(najlepszyKandydat, z.uid);
+        bezParyPozostale.splice(i, 1);
+        ile++;
+      }
+    }
+  }
+
   if(ile) o.zapis();
   return ile;
 }
@@ -68777,6 +68856,7 @@ function syncSprawdzPlik(dane){
  */
 async function syncScalDane(dane, bezPytania){
   dane = syncSprawdzPlik(dane);
+  window._ostatnieDaneDoSync = dane;
   syncNadajUidy();
   const opisy = syncListy();
   const podstawa = await syncPodstawa();
@@ -68811,16 +68891,25 @@ async function syncScalDane(dane, bezPytania){
       domyslnie:"moje"});
   } else plan.kolejnosc = k;
 
+  let odlozoneSpory = false;
   if(konflikty.length){
-    if(bezPytania) return {st:null, konflikty:konflikty.length, odlozone:true};
-    const wybory = await pokazSpory(konflikty, dane.urzadzenie || "drugie urządzenie");
-    if(wybory === null) return {st:null, konflikty:konflikty.length, odlozone:true};
-    plan.rozstrzygniete = wybory;
-    /* Kolejność rozstrzygana w oknie, nie w planie. */
-    const kk = wybory.find(x=>x.rodzaj==="kolejnosc");
-    if(kk && kk.wybor === "zdalna") plan.kolejnosc = {typ:"bierz", zdalna:kk.zdalny};
+    if(bezPytania){
+      odlozoneSpory = true;
+    } else {
+      const wybory = await pokazSpory(konflikty, dane.urzadzenie || "drugie urządzenie");
+      if(wybory === null){
+        odlozoneSpory = true;
+      } else {
+        plan.rozstrzygniete = wybory;
+        /* Kolejność rozstrzygana w oknie, nie w planie. */
+        const kk = wybory.find(x=>x.rodzaj==="kolejnosc");
+        if(kk && kk.wybor === "zdalna") plan.kolejnosc = {typ:"bierz", zdalna:kk.zdalny};
+      }
+    }
   }
 
+  // WPROWADZENIE W ŻYCIE: foldery (sekcje), etykiety, zakładki i bezsporne notatki
+  // wchodzą w życie ZAWSZE, nawet gdy spory o treść notatek zostały odłożone.
   const st = await syncZastosuj(plan);
   st.pierwsze = plan.notatki.pierwsze;
   st.sporow = konflikty.length;
@@ -68856,8 +68945,18 @@ async function syncScalDane(dane, bezPytania){
   }
   /* W podstawie zapisujemy OSOBNO nasz stan i stan pliku — po co, mówi
      komentarz na początku rozdziału 3. */
-  await syncZapiszPodstawe(syncStanZPliku(dane, opisy));
-  return {st, konflikty:konflikty.length, odlozone:false};
+  const stanPliku = syncStanZPliku(dane, opisy);
+  if(odlozoneSpory && podstawa && podstawa.plik){
+    // Jeśli spory zostały odłożone, zachowaj w podstawie poprzedni stan spornych pozycji,
+    // aby spór nie zniknął cicho przy kolejnym uzgodnieniu.
+    konflikty.forEach(kf => {
+      if(kf && kf.uid && podstawa.plik.notes && podstawa.plik.notes[kf.uid] !== undefined){
+        stanPliku.notes[kf.uid] = podstawa.plik.notes[kf.uid];
+      }
+    });
+  }
+  await syncZapiszPodstawe(stanPliku);
+  return {st, konflikty:konflikty.length, odlozone:odlozoneSpory};
 }
 
 /* ==========================================================================
@@ -69154,6 +69253,11 @@ function wierszSporu(s, i){
       ? "Usunięte tutaj, na drugim urządzeniu zmienione"
       : "Zmienione w dwóch miejscach naraz";
   const trzecia = s.rodzaj === "notes" && s.lokalny && s.zdalny;
+  const dataMoja = s.lokalny && s.lokalny.mo ? String(s.lokalny.mo) : "";
+  const dataZdalna = s.zdalny && s.zdalny.mo ? String(s.zdalny.mo) : "";
+  const zdalnaNowsza = dataZdalna && (!dataMoja || dataZdalna > dataMoja);
+  const mojaNowsza = dataMoja && (!dataZdalna || dataMoja > dataZdalna);
+
   /* Napisy na przyciskach mówią, CO SIĘ STANIE, a nie skąd pochodzi rekord.
      Przy usunięciu „Ta z iPada" nic nie znaczy — nie ma żadnej wersji z iPada,
      bo tam tej rzeczy już nie ma. */
@@ -69163,19 +69267,21 @@ function wierszSporu(s, i){
   const zdalnyNapis = s.typ === "usuniete-tu" ? ("Przywróć — na " + _sporySkad + " jeszcze jest")
                     : s.typ === "usuniete-tam" ? ("Usuń też tutaj — na " + _sporySkad + " już nie ma")
                     : ("Ta z " + _sporySkad);
+  const tagNowsza = `<span style="display:inline-block;padding:2px 7px;border-radius:6px;font-size:11px;font-weight:700;background:rgba(16,185,129,0.18);color:#10b981;margin-left:6px;">Nowsza ⚡</span>`;
+
   return `<div class="roz spor" data-spor="${i}">
     <div class="roz-tyt">${skrotTekstu(s.opis, 80)}</div>
     <div class="roz-powod">${esc(powod)}</div>
     <div class="roz-pary">
       <label class="roz-opcja${wybor==="moje"?" wybrana":""}">
         <input type="radio" name="spor-${i}" value="moje"${wybor==="moje"?" checked":""}>
-        <span class="roz-skad">${esc(mojeNapis)}</span>
+        <span class="roz-skad">${esc(mojeNapis)}${mojaNowsza ? tagNowsza : ""}</span>
         <span class="roz-data">${esc(s.lokalny && s.lokalny.mo ? dataPolska(s.lokalny.mo) : "")}</span>
         <span class="roz-tresc">${sporTresc(s.rodzaj, s.lokalny)}</span>
       </label>
       <label class="roz-opcja${wybor==="zdalna"?" wybrana":""}">
         <input type="radio" name="spor-${i}" value="zdalna"${wybor==="zdalna"?" checked":""}>
-        <span class="roz-skad">${esc(zdalnyNapis)}</span>
+        <span class="roz-skad">${esc(zdalnyNapis)}${zdalnaNowsza ? tagNowsza : ""}</span>
         <span class="roz-data">${esc(s.zdalny && s.zdalny.mo ? dataPolska(s.zdalny.mo) : "")}</span>
         <span class="roz-tresc">${sporTresc(s.rodzaj, s.zdalny)}</span>
       </label>
@@ -69199,15 +69305,22 @@ function rysujSpory(){
 
 /**
  * Pokazuje spory i czeka na decyzje.
+ * Domyślnie zaznaczamy wersję NOWSZĄ (⚡), aby użytkownik jednym kliknięciem mógł zatwierdzić najświeższe notatki.
  * @returns {Promise<Array|null>} lista rozstrzygnięć albo null, gdy przerwano
  */
 function pokazSpory(lista, skad){
   _spory = Array.isArray(lista) ? lista : [];
   _sporySkad = skad || "drugiego urządzenia";
   _sporyWybory = {};
-  /* Domyślnie ZOSTAJE TO, CO TUTAJ. Zamknięcie okna bez czytania nie może
-     niczego nadpisać — ta zasada obowiązuje też przy imporcie z JW Library. */
-  _spory.forEach((s,i)=>{ _sporyWybory[i] = "moje"; });
+  _spory.forEach((s,i)=>{
+    const dataMoja = s.lokalny && s.lokalny.mo ? String(s.lokalny.mo) : "";
+    const dataZdalna = s.zdalny && s.zdalny.mo ? String(s.zdalny.mo) : "";
+    if(dataZdalna && (!dataMoja || dataZdalna > dataMoja)){
+      _sporyWybory[i] = "zdalna";
+    } else {
+      _sporyWybory[i] = "moje";
+    }
+  });
   if(!_spory.length) return Promise.resolve([]);
 
   return new Promise(zakoncz=>{
@@ -69216,11 +69329,13 @@ function pokazSpory(lista, skad){
     rysujSpory();
     openModal("modalSync");
     const posprzataj = ()=>{
-      $("syncLista").onchange = null;
-      $("syncWszystkieMoje").onclick = null;
-      $("syncWszystkieZdalne").onclick = null;
-      $("syncZastosuj").onclick = null;
-      $("syncAnuluj").onclick = null;
+      const sl = $("syncLista"); if(sl) sl.onchange = null;
+      const bMoje = $("syncWszystkieMoje"); if(bMoje) bMoje.onclick = null;
+      const bZdalne = $("syncWszystkieZdalne"); if(bZdalne) bZdalne.onclick = null;
+      const bNowsze = $("syncWszystkieNowsze"); if(bNowsze) bNowsze.onclick = null;
+      const bObie = $("syncWszystkieObie"); if(bObie) bObie.onclick = null;
+      const bZast = $("syncZastosuj"); if(bZast) bZast.onclick = null;
+      const bAnul = $("syncAnuluj"); if(bAnul) bAnul.onclick = null;
     };
     $("syncLista").onchange = e=>{
       const pole = e.target.closest && e.target.closest('input[type="radio"]');
@@ -69229,10 +69344,29 @@ function pokazSpory(lista, skad){
       _sporyWybory[+wiersz.dataset.spor] = pole.value;
       rysujSpory();
     };
+    if($("syncWszystkieNowsze")){
+      $("syncWszystkieNowsze").onclick = ()=>{
+        _spory.forEach((s,i)=>{
+          const dataMoja = s.lokalny && s.lokalny.mo ? String(s.lokalny.mo) : "";
+          const dataZdalna = s.zdalny && s.zdalny.mo ? String(s.zdalny.mo) : "";
+          _sporyWybory[i] = (dataZdalna && (!dataMoja || dataZdalna > dataMoja)) ? "zdalna" : "moje";
+        });
+        rysujSpory();
+      };
+    }
     $("syncWszystkieMoje").onclick = ()=>{
       _spory.forEach((s,i)=>{ _sporyWybory[i] = "moje"; }); rysujSpory(); };
     $("syncWszystkieZdalne").onclick = ()=>{
       _spory.forEach((s,i)=>{ _sporyWybory[i] = "zdalna"; }); rysujSpory(); };
+    if($("syncWszystkieObie")){
+      $("syncWszystkieObie").onclick = ()=>{
+        _spory.forEach((s,i)=>{
+          if(s.rodzaj === "notes" && s.lokalny && s.zdalny) _sporyWybory[i] = "obie";
+          else _sporyWybory[i] = "zdalna";
+        });
+        rysujSpory();
+      };
+    }
     $("syncAnuluj").onclick = ()=>{
       posprzataj(); closeModal("modalSync"); zakoncz(null); };
     $("syncZastosuj").onclick = ()=>{
@@ -69629,8 +69763,10 @@ async function gdriveSyncTeraz(powod){
           lsSet(GDRIVE_K_REMOTE_MS, String(remoteMs));
           pobranoZdalne = true;
           if(wynik.odlozone){
-            _gdriveStanOpis = "Do rozstrzygnięcia: " + wynik.konflikty + " rozbieżności — otwórz Ustawienia.";
-            if(powod !== "start") toast("Synchronizacja czeka na Twoją decyzję — otwórz Ustawienia");
+            _gdriveStanOpis = "Foldery i bezsporne dane zaktualizowane. Pozostało " + wynik.konflikty + " sporów w notatkach.";
+            if(powod !== "start") toast("Zaktualizowano foldery! " + wynik.konflikty + " rozbieżności w notatkach do rozstrzygnięcia");
+            if(typeof odswiezCentrumSyncUI === "function") odswiezCentrumSyncUI();
+            if(typeof odswiezWskaznikSync === "function") odswiezWskaznikSync();
             return wynik;
           }
         }
