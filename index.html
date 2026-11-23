@@ -25887,13 +25887,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v657)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v658)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v657</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v658</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v657) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v657</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v658) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v658</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -25974,7 +25974,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v657</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v658</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28237,9 +28237,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v657";
+const APP_BUILD = "v658";
 const APP_BUILD_DATE = "2026-11-23";
-const APP_FULL_VERSION = "5.0 (v657)";
+const APP_FULL_VERSION = "5.0 (v658)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -33918,7 +33918,8 @@ async function createSection(){
   const nm=name.trim();
   if(sections.some(s=>s.name===nm)){ toast("Sekcja o tej nazwie już istnieje"); return; }
   const uid = (typeof syncNowyUid === "function") ? syncNowyUid() : (Date.now().toString(36) + Math.random().toString(36).slice(2,8));
-  sections.push({id:nextSecId(), uid, name:nm, ord:sections.length, open:true});
+  const now = new Date().toISOString();
+  sections.push({id:nextSecId(), uid, name:nm, ord:sections.length, mo:now, open:true});
   saveSections(true); renderTags();
   toast("Utworzono sekcję „"+nm+"”");
 }
@@ -33930,7 +33931,9 @@ async function renameSection(id){
   const s=sections.find(x=>x.id===id); if(!s) return;
   const name = await askText({title:"Zmień nazwę sekcji", value:s.name, okLabel:"Zapisz"});
   if(!name || !name.trim()) return;
-  s.name=name.trim(); saveSections(); renderTags(); toast("Zmieniono nazwę sekcji");
+  s.name=name.trim();
+  s.mo = new Date().toISOString();
+  saveSections(true); renderTags(); toast("Zmieniono nazwę sekcji");
 }
 async function deleteSection(id){
   const s=sections.find(x=>x.id===id); if(!s) return;
@@ -33938,7 +33941,7 @@ async function deleteSection(id){
   if(!(await askConfirm("Usunąć sekcję?", "Sekcja „"+esc(s.name)+"”."+(inside?"<br><br>Etykiety ("+inside+") NIE zostaną usunięte — wrócą do listy „Moje etykiety”.":""), {okLabel:"Usuń sekcję", danger:true}))) return;
   tags.forEach(t=>{ if(t.sec===id) delete t.sec; });
   sections = sections.filter(x=>x.id!==id);
-  saveSections(); saveTags(); renderTags(); toast("Usunięto sekcję");
+  saveSections(true); saveTags(); renderTags(); toast("Usunięto sekcję");
 }
 function normalizujKolejnoscSekcji(){
   if(!Array.isArray(sections) || !sections.length) return;
@@ -33949,9 +33952,11 @@ function normalizujKolejnoscSekcji(){
     return (a.id || 0) - (b.id || 0);
   });
   let changed = false;
+  const now = new Date().toISOString();
   sections.forEach((s, idx) => {
     if(s.ord !== idx){
       s.ord = idx;
+      s.mo = now;
       changed = true;
     }
   });
@@ -33969,7 +33974,8 @@ function moveSection(id, dir){
 
   const item = sections.splice(i, 1)[0];
   sections.splice(j, 0, item);
-  sections.forEach((s, idx) => { s.ord = idx; });
+  const now = new Date().toISOString();
+  sections.forEach((s, idx) => { s.ord = idx; s.mo = now; });
 
   saveSections(true);
   renderTags();
@@ -33983,7 +33989,8 @@ function moveSectionToEdge(id, edge){
   const item = sections.splice(i, 1)[0];
   if(edge === "top") sections.unshift(item);
   else sections.push(item);
-  sections.forEach((s, idx) => { s.ord = idx; });
+  const now = new Date().toISOString();
+  sections.forEach((s, idx) => { s.ord = idx; s.mo = now; });
 
   saveSections(true);
   renderTags();
@@ -62300,8 +62307,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v657</span>
+          <span class="cl-ver-num">v658</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">23 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Automatyczna synchronizacja na starcie oraz niezawodne przenoszenie nazw folderów</div>
+        <ul class="cl-ver-list">
+          <li><b>Automatyczny start synchronizacji:</b> Naprawiono kolejność modułów startowych — aplikacja po otwarciu na iPadzie lub komputerze automatycznie łączy się z Dyskiem Google i pobiera aktualne notatki bez konieczności ręcznego klikania.</li>
+          <li><b>Niezawodne przenoszenie nazw folderów:</b> Dodano precyzyjny znacznik czasu modyfikacji (<code>mo</code>) do każdego folderu oraz zaktualizowano algorytm scalania. Zmiana nazwy lub kolejności folderów na jednym urządzeniu jest teraz bezbłędnie przyjmowana na drugim urządzeniu.</li>
+          <li><b>Poprawa bezpieczeństwa konfliktów:</b> W przypadku rozbieżności okno wyboru chroni notatki przed przypadkowym nadpisaniem, oferując szybki wybór: wersja z tego urządzenia, wersja z Dysku lub zachowanie obu kopii.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v657</span>
           <span class="cl-ver-date">23 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Scalenie przycisków w „Wygląd” oraz stała widoczność ikony i diody synchronizacji</div>
@@ -67944,8 +67963,8 @@ function syncListy(){
       zapis: ()=> { if(typeof saveSections==="function") saveSections(); },
       klucz: s=> "n:" + norm(s.name),
       kluczP: p=> "n:" + norm(p.name),
-      wyjscie: s=> ({uid:s.uid, name:s.name, color:s.color, ord:s.ord}),
-      wejscie: (p, id)=> ({id, uid:p.uid, name:p.name, color:p.color, ord:p.ord, open:true}),
+      wyjscie: s=> ({uid:s.uid, name:s.name, color:s.color, ord:s.ord, mo:s.mo}),
+      wejscie: (p, id)=> ({id, uid:p.uid, name:p.name, color:p.color, ord:p.ord, mo:p.mo, open:true}),
       /* `open` (rozwinięta czy zwinięta) jest stanem ekranu, nie danymi —
          gdyby wchodził do podpisu, dwa urządzenia spierałyby się bez końca
          o to, czy sekcja jest właśnie rozłożona. */
@@ -68352,10 +68371,24 @@ function syncScalListe(o, zdalne, bazaMoje, bazaPlik){
     if(zmienioneTam && !zmienioneTu){ wynik.podmiany.push([lo, zd]); return; }
     if(zmienioneTu && !zmienioneTam){ wynik.doPliku++; return; }
     if(!zmienioneTu && !zmienioneTam){ wynik.doPliku++; return; }
+
+    // Weryfikacja daty modyfikacji (mo), gdy dostępna
+    if(zd.mo || (lo && lo.mo)){
+      if(String(zd.mo || "") > String((lo && lo.mo) || "")){
+        wynik.podmiany.push([lo, zd]);
+        return;
+      } else if(String((lo && lo.mo) || "") > String(zd.mo || "")){
+        wynik.doPliku++;
+        return;
+      }
+    }
+
     if(!bl || !bz){
-      /* Pierwsze uzgodnienie — nie ma z czym porównać. Układ z pliku nie jest
-         ani lepszy, ani gorszy od naszego, więc zostawiamy swój i mówimy
-         o tym w podsumowaniu. Notatki mają tu inną regułę (nowsza data). */
+      /* Pierwsze uzgodnienie — przy braku podstawy, jeśli zdalna nazwa różni się od lokalnej, przyjmij wersję z chmury */
+      if(zd.name && (!lo || zd.name !== lo.name)){
+        wynik.podmiany.push([lo, zd]);
+        return;
+      }
       wynik.doPliku++; return;
     }
     wynik.konflikty.push({rodzaj:o.rodzaj, uid, typ:"oba",
@@ -69693,6 +69726,16 @@ setInterval(()=>{
     gdriveSyncTeraz("odpytanie");
   }
 }, 45000);
+
+// Uruchomienie automatycznej synchronizacji po załadowaniu modułów (v658)
+setTimeout(() => {
+  try {
+    if (typeof syncStart === "function") syncStart();
+    else if (typeof gdriveSyncStart === "function") gdriveSyncStart();
+  } catch(e) {
+    console.warn("Błąd auto-sync start:", e);
+  }
+}, 800);
 
 function gdrivePokazModalClientId(){
   const aktualny = gdrivePobierzClientId();
