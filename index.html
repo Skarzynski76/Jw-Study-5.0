@@ -25525,9 +25525,11 @@ html[data-theme="oled"] .tagArr:hover {
   display: none;
   z-index: 100020 !important;
   min-width: 290px;
-  max-width: min(390px, calc(100vw - 20px));
-  max-height: min(600px, calc(100vh - 60px));
+  max-width: min(420px, calc(100vw - 20px));
+  max-height: calc(100dvh - 24px);
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 18px;
@@ -25690,6 +25692,78 @@ html[data-theme="dark"] #colorMenu, html[data-theme="oled"] #colorMenu {
 }
 .wm-adv-content {
   padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.wm-adv-content .cm-sec {
+  border-top: 1px solid var(--border);
+  padding-top: 9px;
+  margin-top: 2px;
+}
+.wm-adv-content .cm-sec:first-child {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+.wm-adv-content .cm-lbl {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+.wm-adv-content .cm-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6.5px;
+  align-items: center;
+}
+.wm-adv-content .cm-sw {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 0, 0, 0.14);
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  transition: transform 0.14s cubic-bezier(0.32, 0.72, 0.35, 1), box-shadow 0.14s ease;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+html[data-theme="dark"] .wm-adv-content .cm-sw,
+html[data-theme="oled"] .wm-adv-content .cm-sw {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+.wm-adv-content .cm-sw:hover {
+  transform: scale(1.15);
+}
+.wm-adv-content .cm-sw.sel {
+  box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px var(--accent) !important;
+}
+.wm-adv-content .cm-sw.sel::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+}
+.wm-adv-content .cm-none {
+  background: var(--bg);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  border-color: var(--border);
+}
+.wm-adv-content .cm-none.sel::after {
+  content: "";
 }
 
 /* 2. Dioda statusu synchronizacji w pasku bocznym i nagłówku */
@@ -25896,13 +25970,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v660)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v661)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v660</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v661</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v660) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v660</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v661) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v661</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -25983,7 +26057,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v660</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v661</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28247,9 +28321,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v660";
-const APP_BUILD_DATE = "2026-11-23";
-const APP_FULL_VERSION = "5.0 (v660)";
+const APP_BUILD = "v661";
+const APP_BUILD_DATE = "2026-11-24";
+const APP_FULL_VERSION = "5.0 (v661)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -34145,137 +34219,138 @@ const SECCOLORS = ["#cfe3d6","#cfdcea","#dcd4ea","#f0dcc6","#eed6dd","#cfe4e2","
 /* Pastele: na tyle nasycone, żeby dało się je od siebie odróżnić, i na tyle jasne,
    żeby ciemny tekst czytało się na nich bez wysiłku. Kolor napisu i tak liczy
    czytelnyTekst(), więc dobór barwy nie decyduje już o czytelności. */
-const TAGCOLORS = ["#e8c86a","#dcb08a","#e0a89a","#c9b6d8","#a9c4e4","#9fd0c7","#b6d9a8","#efb7c4","#c2c8d0"];
+const TAGCOLORS = ["#2946a4","#0d6f53","#7035cc","#a75516","#b4471a","#263e82","#176e67","#902424","#364152","#4c7417","#117fb8"];
 /**
  * 14 wyrazistych, szlachetnych kompozycji kolorystycznych na całą aplikację.
  * Każdy motyw definiuje spójny kolor przewodni, ciemny odcień bazowy, gradient nagłówka
  * oraz aksamitne tła akcentujące, które harmonijnie rozlewają się po całym interfejsie.
+ * Zmniejszono intensywność o 15% (subtelniejsza, elegancka paleta w stylu Apple HIG).
  */
 const THEMES_KOMPOZYCJE = [
   {
     id: "sapphire",
     name: "Królewski Szafir",
-    accent: "#1e40af",
-    dark: "#172554",
-    light: "rgba(30, 64, 175, 0.09)",
-    gradient: "linear-gradient(135deg, #172554 0%, #1e40af 55%, #2563eb 100%)",
+    accent: "#2946a4",
+    dark: "#1c274f",
+    light: "rgba(41, 70, 164, 0.09)",
+    gradient: "linear-gradient(135deg, #1c274f 0%, #2946a4 55%, #3469dc 100%)",
     desc: "Głęboki granat szafiru i krystaliczny błękit"
   },
   {
     id: "emerald",
     name: "Szmaragd Leśny",
-    accent: "#047857",
-    dark: "#064e3b",
-    light: "rgba(4, 120, 87, 0.09)",
-    gradient: "linear-gradient(135deg, #064e3b 0%, #047857 55%, #059669 100%)",
+    accent: "#0d6f53",
+    dark: "#0b4938",
+    light: "rgba(13, 111, 83, 0.09)",
+    gradient: "linear-gradient(135deg, #0b4938 0%, #0d6f53 55%, #108b65 100%)",
     desc: "Czysta zieleń cedrów i dolin"
   },
   {
     id: "amethyst",
     name: "Głęboki Ametyst",
-    accent: "#6d28d9",
-    dark: "#3b0764",
-    light: "rgba(109, 40, 217, 0.09)",
-    gradient: "linear-gradient(135deg, #3b0764 0%, #581c87 55%, #6d28d9 100%)",
+    accent: "#7035cc",
+    dark: "#3a0e5d",
+    light: "rgba(112, 53, 204, 0.09)",
+    gradient: "linear-gradient(135deg, #3a0e5d 0%, #57247f 55%, #7035cc 100%)",
     desc: "Dojrzała purpura i aksamitny fiolet"
   },
   {
     id: "amber",
     name: "Ciepły Bursztyn",
-    accent: "#b45309",
-    dark: "#78350f",
-    light: "rgba(180, 83, 9, 0.09)",
-    gradient: "linear-gradient(135deg, #78350f 0%, #92400e 55%, #b45309 100%)",
+    accent: "#a75516",
+    dark: "#703717",
+    light: "rgba(167, 85, 22, 0.09)",
+    gradient: "linear-gradient(135deg, #703717 0%, #884218 55%, #a75516 100%)",
     desc: "Miód, pergamin i skarbnica"
   },
   {
     id: "terracotta",
     name: "Aksamitna Terakota",
-    accent: "#c2410c",
-    dark: "#7c2d12",
-    light: "rgba(194, 65, 12, 0.09)",
-    gradient: "linear-gradient(135deg, #7c2d12 0%, #9a3412 55%, #c2410c 100%)",
+    accent: "#b4471a",
+    dark: "#74311a",
+    light: "rgba(180, 71, 26, 0.09)",
+    gradient: "linear-gradient(135deg, #74311a 0%, #90391c 55%, #b4471a 100%)",
     desc: "Ciepła palona glina i koral"
   },
   {
     id: "midnight",
     name: "Północny Granat",
-    accent: "#1e3a8a",
-    dark: "#020617",
-    light: "rgba(30, 58, 138, 0.10)",
-    gradient: "linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e3a8a 100%)",
+    accent: "#263e82",
+    dark: "#040715",
+    light: "rgba(38, 62, 130, 0.10)",
+    gradient: "linear-gradient(135deg, #040715 0%, #111828 50%, #263e82 100%)",
     desc: "Spokój nocy, wysokie skupienie"
   },
   {
     id: "lagoon",
     name: "Morski Petrol",
-    accent: "#0f766e",
-    dark: "#134e48",
-    light: "rgba(15, 118, 110, 0.09)",
-    gradient: "linear-gradient(135deg, #134e48 0%, #0f766e 55%, #115e59 100%)",
+    accent: "#176e67",
+    dark: "#174a44",
+    light: "rgba(23, 110, 103, 0.09)",
+    gradient: "linear-gradient(135deg, #174a44 0%, #176e67 55%, #175854 100%)",
     desc: "Głęboki morski petrol i laguna"
   },
   {
     id: "ruby",
     name: "Rubin Burgundzki",
-    accent: "#991b1b",
-    dark: "#450a0a",
-    light: "rgba(153, 27, 27, 0.09)",
-    gradient: "linear-gradient(135deg, #450a0a 0%, #7f1d1d 55%, #991b1b 100%)",
+    accent: "#902424",
+    dark: "#410e0e",
+    light: "rgba(144, 36, 36, 0.09)",
+    gradient: "linear-gradient(135deg, #410e0e 0%, #782424 55%, #902424 100%)",
     desc: "Dostojny wytrawny szkarłat"
   },
   {
     id: "titanium",
     name: "Tytan & Slate Pro",
-    accent: "#334155",
-    dark: "#0f172a",
-    light: "rgba(51, 65, 85, 0.10)",
-    gradient: "linear-gradient(135deg, #0f172a 0%, #1e293b 55%, #334155 100%)",
+    accent: "#364152",
+    dark: "#111828",
+    light: "rgba(54, 65, 82, 0.10)",
+    gradient: "linear-gradient(135deg, #111828 0%, #202a39 55%, #364152 100%)",
     desc: "Minimalizm iPad Pro Space Gray"
   },
   {
     id: "rose",
     name: "Aksamitny Karmin",
-    accent: "#9f1239",
-    dark: "#4c0519",
-    light: "rgba(159, 18, 57, 0.09)",
-    gradient: "linear-gradient(135deg, #4c0519 0%, #881337 55%, #9f1239 100%)",
+    accent: "#941d3e",
+    dark: "#470a1b",
+    light: "rgba(148, 29, 62, 0.09)",
+    gradient: "linear-gradient(135deg, #470a1b 0%, #7f1c3a 55%, #941d3e 100%)",
     desc: "Śliwkowy róż i różane drewno"
   },
   {
     id: "olive",
     name: "Oliwka Galaad",
-    accent: "#4d7c0f",
-    dark: "#365314",
-    light: "rgba(77, 124, 15, 0.09)",
-    gradient: "linear-gradient(135deg, #365314 0%, #4d7c0f 55%, #65a30d 100%)",
+    accent: "#4c7417",
+    dark: "#364e19",
+    light: "rgba(76, 116, 23, 0.09)",
+    gradient: "linear-gradient(135deg, #364e19 0%, #4c7417 55%, #639818 100%)",
     desc: "Drzewo oliwne, ciepła zieleń"
   },
   {
     id: "cobalt",
     name: "Królewski Kobalt",
-    accent: "#4338ca",
-    dark: "#312e81",
-    light: "rgba(67, 56, 202, 0.09)",
-    gradient: "linear-gradient(135deg, #312e81 0%, #4338ca 55%, #4f46e5 100%)",
+    accent: "#4c43bf",
+    dark: "#37347b",
+    light: "rgba(76, 67, 191, 0.09)",
+    gradient: "linear-gradient(135deg, #37347b 0%, #4c43bf 55%, #5a52d9 100%)",
     desc: "Indygo i głęboki kobalt"
   },
   {
     id: "sienna",
     name: "Palona Siena",
-    accent: "#78350f",
-    dark: "#451a03",
-    light: "rgba(120, 53, 15, 0.09)",
-    gradient: "linear-gradient(135deg, #451a03 0%, #78350f 55%, #92400e 100%)",
+    accent: "#703717",
+    dark: "#401c08",
+    light: "rgba(112, 55, 23, 0.09)",
+    gradient: "linear-gradient(135deg, #401c08 0%, #703717 55%, #884218 100%)",
     desc: "Skórzane oprawy starych ksiąg"
   },
   {
     id: "arctic",
     name: "Arktyczny Błękit",
-    accent: "#0284c7",
-    dark: "#0c4a6e",
-    light: "rgba(2, 132, 199, 0.09)",
-    gradient: "linear-gradient(135deg, #0c4a6e 0%, #0284c7 55%, #0369a1 100%)",
+    accent: "#117fb8",
+    dark: "#134867",
+    light: "rgba(17, 127, 184, 0.09)",
+    gradient: "linear-gradient(135deg, #134867 0%, #117fb8 55%, #0f6695 100%)",
     desc: "Krystaliczna świeżość i lód"
   }
 ];
@@ -34283,7 +34358,20 @@ const THEMES_KOMPOZYCJE = [
 function pobierzMotyw(c){
   if(!c || c === "reset") return null;
   const lc = String(c).toLowerCase().trim();
-  return THEMES_KOMPOZYCJE.find(t => t.accent.toLowerCase() === lc || t.id.toLowerCase() === lc) || null;
+  const legacyMap = {
+    "#1e40af": "sapphire", "#047857": "emerald", "#6d28d9": "amethyst",
+    "#b45309": "amber", "#c2410c": "terracotta", "#1e3a8a": "midnight",
+    "#0f766e": "lagoon", "#991b1b": "ruby", "#334155": "titanium",
+    "#9f1239": "rose", "#4d7c0f": "olive", "#4338ca": "cobalt",
+    "#78350f": "sienna", "#0284c7": "arctic", "#134e38": "reset"
+  };
+  const resolved = legacyMap[lc] || lc;
+  if(resolved === "reset") return null;
+  return THEMES_KOMPOZYCJE.find(t =>
+    t.id.toLowerCase() === resolved ||
+    t.name.toLowerCase() === resolved ||
+    (t.accent && t.accent.toLowerCase() === resolved)
+  ) || null;
 }
 
 const PASTELS = THEMES_KOMPOZYCJE.map(t => [t.name, t.accent]);
@@ -34502,7 +34590,7 @@ function applyColors(){
         updateMetaThemeColor(akcent);
       }
     } else {
-      const defBg = {dark:"#11171e", oled:"#000000", sepia:"#75552b", sage:"#225734", light:"#134e38"}[th] || "#134e38";
+      const defBg = {dark:"#11171e", oled:"#000000", sepia:"#75552b", sage:"#225734", light:"#174a37"}[th] || "#174a37";
       document.documentElement.style.backgroundColor = defBg;
       if(!document.body.classList.contains("fs-open") && typeof updateMetaThemeColor === "function"){
         updateMetaThemeColor(defBg);
@@ -34525,7 +34613,7 @@ function openColorMenu(e, tryb){
   const cm=$("colorMenu"); const cfg=loadColorCfg();
   const sw=(target,c)=>{
     const sel = c===null ? !cfg[target] : cfg[target]===c;
-    return `<span class="cm-sw ${c===null?"cm-none":""} ${sel?"sel":""}" data-pc="${c||""}" style="${c===null?"":`background:${desat(c,.4)}`}" title="${c||"Domyślny"}">${c===null?"✕":""}</span>`;
+    return `<span class="cm-sw ${c===null?"cm-none":""} ${sel?"sel":""}" data-pc="${c||""}" style="${c===null?"":`background:${c}`}" title="${c||"Domyślny"}">${c===null?"✕":""}</span>`;
   };
   const sec=(target,label)=>`<div class="cm-sec"><div class="cm-lbl">${label}</div><div class="cm-row" data-target="${target}">`+
     sw(target,null)+TAGCOLORS.map(c=>sw(target,c)).join("")+`</div></div>`;
@@ -37746,30 +37834,60 @@ function otworzPanelWygladu(triggerEl){
     `</button>`;
   }).join("");
 
-  // 2. Kompozycje na całą aplikację
+  // 2. Kompozycje na całą aplikację (zmniejszona intensywność o 15% — szlachetne, pastelowe tony)
   const kompozycjeList = [
-    { id: "reset", name: "Domyślna", color: "#134e38", grad: "linear-gradient(135deg, #064e3b, #134e38)" },
-    { id: "sapphire", name: "Szafir", color: "#1e40af", grad: "linear-gradient(135deg, #172554, #1e40af, #2563eb)" },
-    { id: "emerald", name: "Szmaragd", color: "#047857", grad: "linear-gradient(135deg, #064e3b, #047857, #059669)" },
-    { id: "amethyst", name: "Ametyst", color: "#6d28d9", grad: "linear-gradient(135deg, #3b0764, #581c87, #6d28d9)" },
-    { id: "amber", name: "Bursztyn", color: "#b45309", grad: "linear-gradient(135deg, #78350f, #92400e, #b45309)" },
-    { id: "terracotta", name: "Terakota", color: "#c2410c", grad: "linear-gradient(135deg, #7c2d12, #9a3412, #c2410c)" },
-    { id: "midnight", name: "Północ", color: "#1e3a8a", grad: "linear-gradient(135deg, #020617, #0f172a, #1e3a8a)" },
-    { id: "slate", name: "Grafit", color: "#334155", grad: "linear-gradient(135deg, #0f172a, #334155, #475569)" }
+    { id: "reset", name: "Domyślna", color: "#174a37", grad: "linear-gradient(135deg, #0b4938, #174a37)" },
+    { id: "sapphire", name: "Szafir", color: "#2946a4", grad: "linear-gradient(135deg, #1c274f, #2946a4, #3469dc)" },
+    { id: "emerald", name: "Szmaragd", color: "#0d6f53", grad: "linear-gradient(135deg, #0b4938, #0d6f53, #108b65)" },
+    { id: "amethyst", name: "Ametyst", color: "#7035cc", grad: "linear-gradient(135deg, #3a0e5d, #57247f, #7035cc)" },
+    { id: "amber", name: "Bursztyn", color: "#a75516", grad: "linear-gradient(135deg, #703717, #884218, #a75516)" },
+    { id: "terracotta", name: "Terakota", color: "#b4471a", grad: "linear-gradient(135deg, #74311a, #90391c, #b4471a)" },
+    { id: "midnight", name: "Północ", color: "#263e82", grad: "linear-gradient(135deg, #040715, #111828, #263e82)" },
+    { id: "slate", name: "Grafit", color: "#364152", grad: "linear-gradient(135deg, #111828, #364152, #4a5566)" }
   ];
 
   const kompGridHtml = kompozycjeList.map(k => {
-    const isAkt = (k.id === "reset" && !terazKomp) || (terazKomp && (terazKomp === k.color.toLowerCase() || terazKomp === k.id.toLowerCase()));
-    return `<button type="button" class="wm-komp-btn${isAkt ? ' on' : ''}" data-komp="${k.color}" style="background:${k.grad};" title="${esc(k.name)}">` +
+    const isAkt = (k.id === "reset" && (!terazKomp || terazKomp === "reset" || terazKomp === "#134e38" || terazKomp === "#174a37")) ||
+      (terazKomp && (
+        terazKomp === k.color.toLowerCase() ||
+        terazKomp === k.id.toLowerCase() ||
+        (k.id === "sapphire" && terazKomp === "#1e40af") ||
+        (k.id === "emerald" && terazKomp === "#047857") ||
+        (k.id === "amethyst" && terazKomp === "#6d28d9") ||
+        (k.id === "amber" && terazKomp === "#b45309") ||
+        (k.id === "terracotta" && terazKomp === "#c2410c") ||
+        (k.id === "midnight" && terazKomp === "#1e3a8a") ||
+        (k.id === "slate" && (terazKomp === "#334155" || terazKomp === "titanium"))
+      ));
+    const dataVal = (k.id === "reset") ? "reset" : k.color;
+    return `<button type="button" class="wm-komp-btn${isAkt ? ' on' : ''}" data-komp="${dataVal}" style="background:${k.grad};" title="${esc(k.name)}">` +
       `<span>${esc(k.name)}</span>` +
       (isAkt ? '<span class="wm-k-ptak">✓</span>' : '') +
     `</button>`;
   }).join("");
 
-  // 3. Kolory poszczególnych kolumn (Zaawansowane)
+  // 3. Kolory poszczególnych kolumn (Zaawansowane — spójne z kompozycjami)
+  const NAZWY_KOLOROW = {
+    "#2946a4": "Szafir",
+    "#0d6f53": "Szmaragd",
+    "#7035cc": "Ametyst",
+    "#a75516": "Bursztyn",
+    "#b4471a": "Terakota",
+    "#263e82": "Północ",
+    "#176e67": "Petrol",
+    "#902424": "Rubin",
+    "#364152": "Grafit",
+    "#4c7417": "Oliwka",
+    "#117fb8": "Arktyczny",
+    "#941d3e": "Karmin"
+  };
+
   const sw = (target, c) => {
-    const sel = c === null ? !cfg[target] : cfg[target] === c;
-    return `<span class="cm-sw ${c===null?"cm-none":""} ${sel?"sel":""}" data-pc="${c||""}" style="${c===null?"":`background:${desat(c,.4)}`}" title="${c||"Domyślny"}">${c===null?"✕":""}</span>`;
+    const sel = c === null
+      ? !cfg[target]
+      : (cfg[target] === c || (c && cfg[target] && cfg[target].toLowerCase() === c.toLowerCase()));
+    const title = c === null ? "Domyślny" : (NAZWY_KOLOROW[c] || c);
+    return `<span class="cm-sw ${c===null?"cm-none":""} ${sel?"sel":""}" data-pc="${c||""}" style="${c===null?"":`background:${c}`}" title="${esc(title)}">${c===null?"✕":""}</span>`;
   };
   const sec = (target, label) => `<div class="cm-sec"><div class="cm-lbl">${label}</div><div class="cm-row" data-target="${target}">` +
     sw(target, null) + (typeof TAGCOLORS !== "undefined" ? TAGCOLORS : []).map(c => sw(target, c)).join("") + `</div></div>`;
@@ -37809,8 +37927,6 @@ function otworzPanelWygladu(triggerEl){
       </div>
     </details>
   `;
-
-  cm.style.display = "block";
 
   cm.onclick = (e) => {
     if(e.target.closest("#btnZamknijWyglad")){
@@ -37853,15 +37969,71 @@ function otworzPanelWygladu(triggerEl){
     }
   };
 
-  const r = (trigger && trigger.getBoundingClientRect) ? trigger.getBoundingClientRect() : {left:20, bottom:60, right:200, top:20};
-  const w = cm.offsetWidth || 340, h = cm.offsetHeight || 440;
-  const _ob = (typeof widocznyObszar==="function") ? widocznyObszar() : {lewo:0, gora:0, prawo:innerWidth, dol:innerHeight};
-  
-  cm.style.left = Math.max(_ob.lewo+8, Math.min(r.left, _ob.prawo-w-8)) + "px";
-  if(r.bottom + h + 10 <= _ob.dol){
-    cm.style.top = (r.bottom + 6) + "px";
-  } else {
-    cm.style.top = Math.max(_ob.gora+8, _ob.dol - h - 12) + "px";
+  function pozycjonujPanelWygladu(){
+    if(cm.style.display !== "block") return;
+    const trig = cm._lastTrigger || trigger;
+    const r = (trig && trig.getBoundingClientRect)
+      ? trig.getBoundingClientRect()
+      : { left: 20, bottom: 60, right: 200, top: 20 };
+    const _ob = (typeof widocznyObszar === "function")
+      ? widocznyObszar()
+      : { lewo: 0, gora: 0, prawo: window.innerWidth, dol: window.innerHeight };
+
+    const w = cm.offsetWidth || 340;
+    const leftPos = Math.max(_ob.lewo + 8, Math.min(r.left, _ob.prawo - w - 8));
+    cm.style.left = leftPos + "px";
+
+    const maxUsableHeight = Math.max(220, _ob.dol - _ob.gora - 16);
+    cm.style.maxHeight = maxUsableHeight + "px";
+
+    const h = cm.offsetHeight || 380;
+
+    if (r.bottom + h + 8 <= _ob.dol) {
+      cm.style.top = (r.bottom + 6) + "px";
+      cm.style.maxHeight = Math.max(200, _ob.dol - (r.bottom + 6) - 10) + "px";
+    } else if (r.top - h - 8 >= _ob.gora) {
+      cm.style.top = Math.max(_ob.gora + 8, r.top - h - 6) + "px";
+      cm.style.maxHeight = Math.max(200, r.top - 12) + "px";
+    } else if (r.top > (_ob.gora + (_ob.dol - _ob.gora) / 2)) {
+      const topPos = Math.max(_ob.gora + 8, _ob.dol - h - 10);
+      cm.style.top = topPos + "px";
+      cm.style.maxHeight = Math.max(200, _ob.dol - topPos - 10) + "px";
+    } else {
+      const topPos = Math.max(_ob.gora + 8, r.bottom + 6);
+      cm.style.top = topPos + "px";
+      cm.style.maxHeight = Math.max(200, _ob.dol - topPos - 10) + "px";
+    }
+  }
+
+  cm._pozycjonuj = pozycjonujPanelWygladu;
+  cm.style.display = "block";
+  pozycjonujPanelWygladu();
+
+  const advDetails = cm.querySelector(".wm-adv-details");
+  if(advDetails){
+    advDetails.addEventListener("toggle", () => {
+      requestAnimationFrame(() => {
+        pozycjonujPanelWygladu();
+        if(advDetails.open){
+          try {
+            advDetails.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          } catch(e){}
+        }
+      });
+    });
+  }
+
+  if(!cm._hasResizeListener){
+    cm._hasResizeListener = true;
+    const repos = () => {
+      if(cm.style.display === "block" && typeof cm._pozycjonuj === "function"){
+        cm._pozycjonuj();
+      }
+    };
+    window.addEventListener("resize", repos, { passive: true });
+    if(window.visualViewport){
+      window.visualViewport.addEventListener("resize", repos, { passive: true });
+    }
   }
 }
 window.otworzPanelWygladu = otworzPanelWygladu;
@@ -49937,7 +50109,7 @@ function kompozycjeHtml(){
            `style="background:${t.gradient};color:#ffffff;box-shadow:0 3px 10px rgba(0,0,0,0.2);border:1.5px solid ${wybrana?'#ffffff':'rgba(255,255,255,0.2)'};font-weight:600;" title="${esc(t.desc)}">${esc(t.name)}`+
            (wybrana?'<span class="st-ptak">✓</span>':"")+`</button>`;
   }).join("") +
-  `<button type="button" class="st-kafel st-kafel-domyslny${teraz?"":" on"}" data-komp="reset" style="background:#134e38;color:#ffffff;border:1.5px solid ${teraz?'rgba(255,255,255,0.2)':'#ffffff'};font-weight:600;" title="Domyślny butelkowy szmaragd JW Study">Domyślna`+
+  `<button type="button" class="st-kafel st-kafel-domyslny${teraz?"":" on"}" data-komp="reset" style="background:#174a37;color:#ffffff;border:1.5px solid ${teraz?'rgba(255,255,255,0.2)':'#ffffff'};font-weight:600;" title="Domyślny butelkowy szmaragd JW Study">Domyślna`+
   (teraz?"":'<span class="st-ptak">✓</span>')+`</button>`;
 }
 
@@ -62317,8 +62489,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v660</span>
+          <span class="cl-ver-num">v661</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">24 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Subtelniejsze barwy kompozycji o 15%, pełna responsywność panelu Wygląd oraz harmonijne kolory kolumn</div>
+        <ul class="cl-ver-list">
+          <li><b>Spokojniejsze, szlachetne kompozycje (−15% intensywności):</b> Barwy przewodnie wszystkich 14 kompozycji zostały stonowane o 15% nasycenia w stylu Apple Human Interface Guidelines. Interfejs jest aksamitny, łagodniejszy dla oczu i doskonale czytelny zarówno w dzień, jak i w nocy.</li>
+          <li><b>Pełna responsywność panelu „Wygląd i Kolory”:</b> Wyeliminowano problem uciekania panelu poza dolną krawędź ekranu na iPadzie i telefonach. Panel ma dynamiczne pozycjonowanie oraz bezpieczny limit wysokości (<code>max-height</code>) powiązany z obszarem roboczym.</li>
+          <li><b>Automatyczne dopasowanie przy sekcji „Zaawansowane”:</b> Rozwinięcie opcji pojedynczych kolumn natychmiast płynnie koryguje położenie okna w górę, gwarantując, że wszystkie 5 wierszy wyboru (Biblia, Etykiety, Publikacje, Notatki, Belka notatki) mieści się na ekranie.</li>
+          <li><b>Spójna paleta kolumn i etykiet:</b> Próbki kolorów w sekcji zaawansowanej oraz w znacznikach etykiet zostały zharmonizowane ze stylem kompozycji (Szafir, Szmaragd, Ametyst, Bursztyn, Terakota, Granat, Petrol, Rubin, Grafit, Oliwka, Arktyczny), tworząc idealną harmonię wizualną.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v660</span>
           <span class="cl-ver-date">23 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Eliminacja zapętlania synchronizacji między urządzeniami i bezwzględna ochrona pisania</div>
