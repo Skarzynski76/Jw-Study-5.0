@@ -1,6 +1,7 @@
 /* JW Study — Service Worker (Obsługa trybu offline) */
 const CACHE_PREFIX = 'jwstudy-' + encodeURIComponent(self.registration.scope) + '-';
-const CACHE = CACHE_PREFIX + 'v662';
+const BUILD = 'v662';
+const CACHE = CACHE_PREFIX + BUILD;
 
 const CORE = [
   './index.html',
@@ -38,7 +39,7 @@ function pobierzSwieze(req){
 self.addEventListener('message', e=>{
   if(e.data === 'SKIP_WAITING' || e.data === 'skipWaiting') self.skipWaiting();
   if(e.data === 'GET_VERSION' && e.source){
-    e.source.postMessage({ type: 'VERSION_INFO', cache: CACHE, build: 'v653', version: '5.0' });
+    e.source.postMessage({ type: 'VERSION_INFO', cache: CACHE, build: BUILD, version: '5.0' });
   }
 });
 
