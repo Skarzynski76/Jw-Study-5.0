@@ -26199,13 +26199,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v664)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v665)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v664</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v665</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v664) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v664</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v665) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v665</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26286,7 +26286,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v664</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v665</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28550,9 +28550,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v664";
+const APP_BUILD = "v665";
 const APP_BUILD_DATE = "2026-11-25";
-const APP_FULL_VERSION = "5.0 (v664)";
+const APP_FULL_VERSION = "5.0 (v665)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -58278,15 +58278,22 @@ function _centrPrzelaczKrokCelu(celId, stepIdx){
   }
 }
 
+function _centrUstawDzienNawyku(c, dateStr, willBeDone){
+  if(!c || c.type !== "habit" || !dateStr) return;
+  if(!c.history || typeof c.history !== "object") c.history = {};
+  if(!c.historyTs || typeof c.historyTs !== "object") c.historyTs = {};
+  if(!willBeDone) delete c.history[dateStr];
+  else c.history[dateStr] = true;
+  c.historyTs[dateStr] = Date.now();
+  c.modified = Date.now();
+}
+
 function _centrPrzelaczDzienNawyku(celId, dateStr){
   const cele = _centrPobierzCele();
   const c = cele.find(x => x.id === celId);
   if(c && c.type === "habit"){
-    if(!c.history || typeof c.history !== "object") c.history = {};
-    const willBeDone = !c.history[dateStr];
-    if(!willBeDone) delete c.history[dateStr];
-    else c.history[dateStr] = true;
-    c.modified = Date.now();
+    const willBeDone = !(c.history && c.history[dateStr]);
+    _centrUstawDzienNawyku(c, dateStr, willBeDone);
     _centrZapiszCele(cele);
 
     if(willBeDone){
@@ -58707,10 +58714,8 @@ function _centrPrzelaczDzienWKalendarzu(celId, dateStr, ev){
   const c = cele.find(x => x.id === celId);
   if(!c || c.type !== "habit") return;
 
-  if(!c.history || typeof c.history !== "object") c.history = {};
-  const willBeDone = !c.history[dateStr];
-  if(!willBeDone) delete c.history[dateStr];
-  else c.history[dateStr] = true;
+  const willBeDone = !(c.history && c.history[dateStr]);
+  _centrUstawDzienNawyku(c, dateStr, willBeDone);
 
   _centrZapiszCele(cele);
 
@@ -61167,12 +61172,18 @@ function _centrImportDanych(centrumData, tryb){
       } else {
         const curSet = _centrPobierzUkonczoneDni(planId);
         const staryRozmiar = curSet.size;
+        const incSet = new Set();
         incArr.forEach(d => {
           const num = Number(d);
-          if(!isNaN(num) && num > 0) curSet.add(num);
+          if(!isNaN(num) && num > 0){ curSet.add(num); incSet.add(num); }
         });
-        _centrZapiszUkonczoneDni(curSet, planId, true);
-        st.dniMerged += (curSet.size - staryRozmiar);
+        if(curSet.size > staryRozmiar){
+          _centrZapiszUkonczoneDni(curSet, planId, true);
+          st.dniMerged += (curSet.size - staryRozmiar);
+        }
+        for(const ld of curSet){
+          if(!incSet.has(ld)){ st.doPliku = true; break; }
+        }
       }
     });
   }
@@ -61271,6 +61282,44 @@ function _centrImportDanych(centrumData, tryb){
         } else {
           const localMod = Number(istniejacy.modified || 0);
           const incMod = Number(incC.modified || 0);
+          let zmienionoTen = false;
+
+          if(istniejacy.type === "habit" && incC.type === "habit"){
+            if(!istniejacy.history || typeof istniejacy.history !== "object") istniejacy.history = {};
+            if(!istniejacy.historyTs || typeof istniejacy.historyTs !== "object") istniejacy.historyTs = {};
+            const incHist = (incC.history && typeof incC.history === "object") ? incC.history : {};
+            const incTs = (incC.historyTs && typeof incC.historyTs === "object") ? incC.historyTs : {};
+            const allDates = new Set([
+              ...Object.keys(istniejacy.history),
+              ...Object.keys(istniejacy.historyTs),
+              ...Object.keys(incHist),
+              ...Object.keys(incTs)
+            ]);
+            allDates.forEach(dStr => {
+              const lVal = !!istniejacy.history[dStr];
+              const iVal = !!incHist[dStr];
+              const lTs = Number(istniejacy.historyTs[dStr] || 0);
+              const iTs = Number(incTs[dStr] || 0);
+              if(iTs > lTs){
+                if(iVal !== lVal){
+                  if(iVal) istniejacy.history[dStr] = true;
+                  else delete istniejacy.history[dStr];
+                  zmienionoTen = true;
+                }
+                istniejacy.historyTs[dStr] = iTs;
+              } else if(lTs > iTs){
+                if(lVal !== iVal || !incTs[dStr]) st.doPliku = true;
+              } else {
+                if(iVal && !lVal){
+                  istniejacy.history[dStr] = true;
+                  zmienionoTen = true;
+                } else if(lVal && !iVal){
+                  st.doPliku = true;
+                }
+              }
+            });
+          }
+
           if(incMod > localMod){
             if(incC.title) istniejacy.title = incC.title;
             if(incC.desc !== undefined) istniejacy.desc = incC.desc;
@@ -61279,9 +61328,6 @@ function _centrImportDanych(centrumData, tryb){
             if(incC.verse !== undefined) istniejacy.verse = incC.verse;
             if(incC.deadline !== undefined) istniejacy.deadline = incC.deadline;
             if(istniejacy.type === "habit"){
-              if(incC.history && typeof incC.history === "object"){
-                istniejacy.history = { ...incC.history };
-              }
               if(incC.habitTarget !== undefined) istniejacy.habitTarget = incC.habitTarget;
               if(incC.habitDuration !== undefined) istniejacy.habitDuration = incC.habitDuration;
               if(incC.habitTime !== undefined) istniejacy.habitTime = incC.habitTime;
@@ -61295,23 +61341,10 @@ function _centrImportDanych(centrumData, tryb){
             if(incC.completed !== undefined) istniejacy.completed = (incC.completed === true || incC.completed === "true");
             if(incC.completedAt !== undefined) istniejacy.completedAt = incC.completedAt;
             istniejacy.modified = incMod;
-            zaktualizowanoCele++;
+            zmienionoTen = true;
           } else if(localMod > incMod){
             st.doPliku = true;
           } else {
-            let zmienionoTen = false;
-            if(incC.history && typeof incC.history === "object" && istniejacy.type === "habit"){
-              if(!istniejacy.history || typeof istniejacy.history !== "object") istniejacy.history = {};
-              Object.keys(incC.history).forEach(dataK => {
-                if(incC.history[dataK] && !istniejacy.history[dataK]){
-                  istniejacy.history[dataK] = true;
-                  zmienionoTen = true;
-                }
-              });
-              if(Object.keys(istniejacy.history).some(dataK => istniejacy.history[dataK] && !incC.history[dataK])){
-                st.doPliku = true;
-              }
-            }
             if(typeof incC.current === "number" && incC.current > (istniejacy.current || 0)){
               istniejacy.current = incC.current;
               zmienionoTen = true;
@@ -61324,8 +61357,8 @@ function _centrImportDanych(centrumData, tryb){
               istniejacy.completed = true;
               zmienionoTen = true;
             }
-            if(zmienionoTen) zaktualizowanoCele++;
           }
+          if(zmienionoTen) zaktualizowanoCele++;
         }
       });
       if(dodanoCele > 0 || zaktualizowanoCele > 0 || usunietoZlokalnych){
@@ -62836,8 +62869,19 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v664</span>
+          <span class="cl-ver-num">v665</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">25 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Bezpieczne scalanie nawyków dzień-po-dniu (<code>historyTs</code>) oraz planów czytania</div>
+        <ul class="cl-ver-list">
+          <li><b>Scalanie nawyków dzień-po-dniu (<code>historyTs</code>):</b> Zaznaczenie lub odznaczenie każdego dnia w nawyku zapisuje osobny znacznik czasu (zarówno z karty, z Przeglądu tygodnia, jak i z kalendarza nawyku). Dzięki temu praca offline na dwóch urządzeniach (np. inny dzień na iPadzie i inny na telefonie) łączy oba dni bez wzajemnego nadpisywania.</li>
+          <li><b>Kompletna synchronizacja planów czytania:</b> Jeśli na urządzeniu były lokalnie ukończone dni planu nieobecne jeszcze w pliku z Dysku Google, aplikacja automatycznie oznacza plik do uzupełnienia i wysyła pełny zestaw na Dysk dla wszystkich urządzeń.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v664</span>
           <span class="cl-ver-date">25 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Naprawa synchronizacji nawyków i celów przez Dysk Google</div>
