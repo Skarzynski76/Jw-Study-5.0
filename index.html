@@ -3248,6 +3248,220 @@ html[data-theme="dark"] .cenHeroTag {
   transform: translateY(-1px);
 }
 
+/* v663: Ulepszona grafika nawyków (Apple HIG) + Pierścień dnia + Przegląd tygodnia */
+.cenCelCard.cenGoalCard {
+  border-top: 3px solid var(--cel-color, var(--accent));
+}
+.cenCelCard.cenGoalCard.today-done {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--cel-color, #0d6f53) 6%, var(--cen-card-bg)) 0%, var(--cen-card-bg) 52%);
+}
+.cenCelCard.cenGoalCard.week-met:not(.completed) {
+  border-top-color: #0d6f53;
+}
+.cenCelMetaLine {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--cen-text-muted);
+  white-space: nowrap;
+}
+.cenCelPrimaryBtn {
+  white-space: nowrap;
+  height: 36px;
+}
+.cenCelSecBtn {
+  height: 36px;
+  padding: 0 11px;
+  border-radius: 10px;
+  border: 1px solid var(--cen-card-border);
+  background: var(--cen-btn-bg);
+  color: var(--cen-text);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.14s ease;
+}
+.cenCelSecBtn:hover {
+  border-color: var(--cel-color, var(--accent));
+  color: var(--cel-color, var(--accent));
+}
+.cenCelSecBtn.cenCelTimerActive {
+  background: color-mix(in srgb, #a75516 14%, var(--cen-btn-bg));
+  border-color: #a75516;
+  color: #a75516;
+}
+.cenHeroRing {
+  width: 42px;
+  height: 42px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.cenHeroRing svg {
+  width: 42px;
+  height: 42px;
+  transform: rotate(-90deg);
+}
+.cenHeroRingTxt {
+  position: absolute;
+  font-size: 11px;
+  font-weight: 750;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Przegląd tygodnia (macierz celów i nawyków) */
+.cenWeekMatrixBox {
+  background: var(--cen-card-bg);
+  border: 1px solid var(--cen-card-border);
+  border-radius: 18px;
+  padding: 13px 16px;
+  margin-bottom: 18px;
+  box-shadow: var(--cen-card-shadow);
+}
+.cenWeekMatrixHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.cenWeekMatrixBox.collapsed .cenWeekMatrixHead {
+  margin-bottom: 0;
+}
+.cenWeekMatrixTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cen-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.cenWeekMatrixToggle {
+  border: 1px solid var(--cen-card-border);
+  background: var(--cen-btn-bg);
+  color: var(--cen-text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.cenWeekMatrixToggle:hover {
+  color: var(--cen-text);
+  border-color: var(--cen-card-border-hover);
+}
+.cenWeekMatrixScroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.cenWeekMatrixTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 460px;
+}
+.cenWeekMatrixTable th {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--cen-text-muted);
+  text-transform: uppercase;
+  padding: 4px 4px 8px;
+  text-align: center;
+}
+.cenWeekMatrixTable th.today {
+  color: var(--accent);
+}
+.cenWeekMatrixTable th:first-child {
+  text-align: left;
+}
+.cenWeekMatrixTable th:last-child {
+  text-align: right;
+}
+.cenWeekMatrixTable td {
+  padding: 7px 4px;
+  text-align: center;
+  border-top: 1px solid var(--cen-card-border);
+  vertical-align: middle;
+}
+.cenWeekMatrixTable td:first-child {
+  text-align: left;
+  max-width: 240px;
+}
+.cenWeekMatrixTable td:last-child {
+  text-align: right;
+  font-size: 11.5px;
+  font-weight: 650;
+  color: var(--cen-text-muted);
+  white-space: nowrap;
+}
+.cenWeekMatrixName {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 620;
+  color: var(--cen-text);
+  max-width: 100%;
+  cursor: pointer;
+}
+.cenWeekMatrixNameTxt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cenWeekMatrixColorDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cel-color, var(--accent));
+  flex-shrink: 0;
+}
+.cenWeekMatrixDot {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  border: 1.5px solid var(--cen-card-border-hover);
+  background: var(--cen-btn-bg);
+  color: transparent;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-grid;
+  place-items: center;
+  transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.cenWeekMatrixDot:hover {
+  transform: scale(1.08);
+  border-color: var(--cel-color, var(--accent));
+}
+.cenWeekMatrixDot.on {
+  background: var(--cel-color, var(--accent));
+  border-color: var(--cel-color, var(--accent));
+  color: #ffffff;
+}
+.cenWeekMatrixDot.today:not(.on) {
+  border: 2px solid var(--cel-color, var(--accent));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--cel-color, var(--accent)) 18%, transparent);
+}
+.cenWeekMatrixGoalBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  padding: 0 6px;
+}
+.cenWeekMatrixGoalBar .cenProgressBar {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  min-width: 80px;
+}
+
 /* PRZYCISK KALENDARZA NAWYKU ORAZ WIDOK CYKLU */
 .cenCelKalBtn {
   background: var(--cen-btn-bg);
@@ -25985,13 +26199,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v662)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v663)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v662</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v663</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v662) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v662</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v663) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v663</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26072,7 +26286,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v662</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v663</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28336,9 +28550,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v662";
+const APP_BUILD = "v663";
 const APP_BUILD_DATE = "2026-11-25";
-const APP_FULL_VERSION = "5.0 (v662)";
+const APP_FULL_VERSION = "5.0 (v663)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -57820,6 +58034,10 @@ function _centrPobierzCele(){
           if(filtArr.length !== arr.length) changed = true;
         }
         filtArr.forEach(c => {
+          if(c){
+            const normComp = (c.completed === true || c.completed === "true");
+            if(c.completed !== normComp){ c.completed = normComp; changed = true; }
+          }
           if(c && c.type === "habit"){
             if(!c.habitTarget){
               c.habitTarget = (c.id === "cel_domyslny_3" ? 2 : 7);
@@ -57959,6 +58177,9 @@ function _centrDodajLubEdytujCel(dane){
       newCel.steps = [];
     }
     cele.unshift(newCel);
+    if(typeof _centrCeleTab !== "undefined" && _centrCeleTab === "ukonczone" && !newCel.completed){
+      _centrCeleTab = "aktywne";
+    }
   }
   _centrZapiszCele(cele);
 }
@@ -57998,6 +58219,7 @@ function _centrPrzelaczCelUkonczony(celId){
       toast(_prefix + "Ukończono cel duchowy: „" + c.title + "”", "ok");
     } else {
       cenPlaySound("uncheck");
+      toast("Przywrócono „" + c.title + "” do zakładki Aktywne ✓", "ok");
     }
   }
 }
@@ -58570,9 +58792,25 @@ function _centrObliczStatusTerminu(deadlineStr, isDone){
   }
 }
 
+function _centrStonujKolor(hex){
+  const map = {
+    "#3b82f6": "#2946a4",
+    "#06b6d4": "#117fb8",
+    "#10b981": "#0d6f53",
+    "#a855f7": "#7035cc",
+    "#8b5cf6": "#7035cc",
+    "#ec4899": "#941d3e",
+    "#f59e0b": "#a75516",
+    "#ef4444": "#902424",
+    "#14b8a6": "#176e67"
+  };
+  const lc = String(hex || "").toLowerCase().trim();
+  return map[lc] || hex || "#2946a4";
+}
+
 function _centrKartaCeluHtml(c){
-  const cat = _centrKategorieMap[c.category] || { name: "Cel", icon: "🎯", color: "#3b82f6" };
-  const color = c.color || cat.color;
+  const cat = _centrKategorieMap[c.category] || { name: "Cel", icon: "🎯", color: "#2946a4" };
+  const color = _centrStonujKolor(c.color || cat.color);
   const isDone = !!c.completed;
   const isTimerActive = !!(_centrStoperStan && _centrStoperStan.celId === c.id && (_centrStoperStan.dziala || _centrStoperStan.uplyneloSek > 0));
   const activeTimerDisplay = isTimerActive 
@@ -58581,6 +58819,8 @@ function _centrKartaCeluHtml(c){
 
   let bodyHtml = '';
   let footerBtnHtml = '';
+  let isTodayDoneCard = false;
+  let isWeekMetCard = false;
 
   if(c.type === "habit"){
     const streakInfo = _centrObliczSerieNawyku(c.history);
@@ -58594,9 +58834,11 @@ function _centrKartaCeluHtml(c){
 
     const todayStr = _centrFormatujDateISO(new Date());
     const isTodayDone = !!(c.history && c.history[todayStr]);
+    isTodayDoneCard = isTodayDone;
+    isWeekMetCard = weekProgress.isTargetMet;
 
     const weekButtonsHtml = weekProgress.days.map(d => {
-      const ringContent = d.isDone ? '✓' : (d.isToday ? '●' : (isDaily ? '○' : '—'));
+      const ringContent = d.isDone ? '✓' : (d.isToday ? '●' : (isDaily ? '○' : '·'));
       const dayClasses = 'cenCelDayBtn'
         + (d.isToday ? ' today' : '')
         + (d.isDone ? ' done' : '')
@@ -58611,39 +58853,27 @@ function _centrKartaCeluHtml(c){
     }).join('');
 
     const weekTargetMet = weekProgress.isTargetMet;
-    const weekTargetLabel = isDaily ? 'Bieżący tydzień:' : 'Cel tygodniowy:';
-    const weekTargetValue = weekProgress.doneThisWeek + ' / ' + habitTarget + ' ' + (habitTarget === 1 ? 'dzień' : 'dni');
+    const weekTargetValue = weekProgress.doneThisWeek + '/' + habitTarget + ' ' + (habitTarget === 1 ? 'dzień' : 'dni');
 
     bodyHtml = '<div style="margin-bottom:10px;">'
-      + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;margin-bottom:6px;">'
-      + '<span style="font-weight:700;color:var(--cen-text);display:inline-flex;align-items:center;gap:5px;">'
-      + '<span>🎯 ' + weekTargetLabel + '</span>'
-      + '<b style="color:' + (weekTargetMet ? '#10b981' : color) + ';">' + weekTargetValue + '</b>'
-      + '</span>'
-      + '<span style="font-size:11.5px;color:var(--cen-text-muted);font-weight:600;">'
-      + (weekTargetMet ? '<span style="color:#10b981;font-weight:700;">🎉 Cel osiągnięty!</span> • ' : '')
-      + (!isDaily && weekStreak.totalWeeksMet > 0 ? '🏆 Zrealizowano: <b>' + weekStreak.totalWeeksMet + ' ' + _centrOdmianaTygodni(weekStreak.totalWeeksMet) + '</b> • ' : '')
-      + weekProgress.pct + '%'
+      + '<div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:12px;margin-bottom:5px;">'
+      + '<span style="color:var(--cen-text-muted);font-weight:550;">Tydzień: <b style="color:' + (weekTargetMet ? '#0d6f53' : color) + ';">' + weekTargetValue + '</b></span>'
+      + '<span style="font-size:11px;font-weight:650;color:' + (weekTargetMet ? '#0d6f53' : 'var(--cen-text-muted)') + ';white-space:nowrap;">'
+      + (weekTargetMet ? '✓ Cel osiągnięty' : (weekProgress.pct + '%'))
       + '</span>'
       + '</div>'
-      + '<div class="cenProgressBar" style="height:6px;border-radius:4px;"><div class="cenProgressFill" style="width:' + weekProgress.pct + '%;background:' + (weekTargetMet ? '#10b981' : color) + ';border-radius:4px;"></div></div>'
+      + '<div class="cenProgressBar" style="height:5px;border-radius:999px;"><div class="cenProgressFill" style="width:' + weekProgress.pct + '%;background:' + (weekTargetMet ? '#0d6f53' : color) + ';border-radius:999px;"></div></div>'
       + '</div>';
 
     if(habitDuration > 0){
       const chalPct = Math.min(100, Math.round((streakInfo.total / habitDuration) * 100));
       const chalMet = streakInfo.total >= habitDuration;
-      bodyHtml += '<div style="margin-bottom:10px;padding:7px 10px;background:var(--cen-btn-bg);border:1px solid var(--cen-card-border);border-radius:8px;">'
-        + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11.5px;margin-bottom:4px;">'
-        + '<span style="font-weight:700;color:var(--cen-text);display:inline-flex;align-items:center;gap:4px;">'
-        + '<span>🏆 Wyzwanie nawyku:</span>'
-        + '<b style="color:' + (chalMet ? '#10b981' : color) + ';">' + streakInfo.total + ' / ' + habitDuration + ' dni</b>'
-        + '</span>'
-        + '<span style="font-size:11px;color:var(--cen-text-muted);font-weight:600;">'
-        + (chalMet ? '<span style="color:#10b981;font-weight:700;">✓ Zrobione!</span> • ' : '')
-        + chalPct + '%'
-        + '</span>'
+      bodyHtml += '<div style="margin-bottom:10px;padding:6px 10px;background:var(--cen-btn-bg);border:1px solid var(--cen-card-border);border-radius:8px;">'
+        + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;margin-bottom:4px;">'
+        + '<span style="font-weight:650;color:var(--cen-text);">Wyzwanie: <b style="color:' + (chalMet ? '#0d6f53' : color) + ';">' + streakInfo.total + ' / ' + habitDuration + ' dni</b></span>'
+        + '<span style="font-size:10.5px;color:' + (chalMet ? '#0d6f53' : 'var(--cen-text-muted)') + ';font-weight:650;">' + (chalMet ? '✓ Zrobione' : (chalPct + '%')) + '</span>'
         + '</div>'
-        + '<div class="cenProgressBar" style="height:5px;border-radius:3px;"><div class="cenProgressFill" style="width:' + chalPct + '%;background:' + (chalMet ? '#10b981' : color) + ';border-radius:3px;"></div></div>'
+        + '<div class="cenProgressBar" style="height:4px;border-radius:999px;"><div class="cenProgressFill" style="width:' + chalPct + '%;background:' + (chalMet ? '#0d6f53' : color) + ';border-radius:999px;"></div></div>'
         + '</div>';
     }
 
@@ -58653,29 +58883,27 @@ function _centrKartaCeluHtml(c){
       ? (streakInfo.current + ' ' + _centrOdmianaDni(streakInfo.current))
       : (weekStreak.current + ' ' + _centrOdmianaTygodni(weekStreak.current) + (streakInfo.current > 0 ? (' • ' + streakInfo.current + 'd') : ''));
 
-    bodyHtml += '<div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--cen-text-muted);margin-bottom:12px;gap:8px;flex-wrap:wrap;">'
-      + '<span style="display:inline-flex;align-items:center;gap:4px;font-weight:700;color:' + (streakInfo.current > 0 || weekStreak.current > 0 ? '#f59e0b' : 'var(--cen-text-muted)') + ';" title="Bieżąca nieprzerwana seria">'
+    bodyHtml += '<div style="display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--cen-text-muted);margin-bottom:12px;gap:8px;">'
+      + '<span style="display:inline-flex;align-items:center;gap:4px;font-weight:650;color:' + (streakInfo.current > 0 || weekStreak.current > 0 ? '#a75516' : 'var(--cen-text-muted)') + ';" title="Bieżąca nieprzerwana seria">'
       + '🔥 Seria: ' + streakDisplay
       + '</span>'
-      + '<div style="display:inline-flex;align-items:center;gap:6px;">'
-      + '<button type="button" class="cenCelKalBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Otwórz stoper / minutnik sesji skupienia">' + (isTimerActive ? ('⏱️ ' + activeTimerDisplay + (_centrStoperStan.dziala ? ' ⏸' : ' ▶')) : ('⏱️ ' + (habitTime > 0 ? (habitTime + ' min') : 'Stoper'))) + '</button>'
-      + '<button type="button" class="cenCelKalBtn" data-cel-kalendarz="' + c.id + '" title="Otwórz pełny interaktywny kalendarz nawyku">📅 Kalendarz</button>'
-      + '</div>'
+      + '<span style="font-size:11px;opacity:0.8;">Kliknij dzień, by zmienić</span>'
       + '</div>';
 
+    const timerLabel = isTimerActive
+      ? ('⏱ ' + activeTimerDisplay + (_centrStoperStan.dziala ? ' ⏸' : ' ▶'))
+      : ('⏱ ' + (habitTime > 0 ? (habitTime + 'm') : 'Stoper'));
+
     if(isDone){
-      footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn done" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';" title="Kliknij, aby przywrócić cel do aktywnych">'
+      footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn done" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';" title="Przywróć nawyk do zakładki Aktywne">'
         + '↺ Przywróć do aktywnych'
         + '</button>'
-        + '<button type="button" class="cenCelIconBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik sesji skupienia" style="font-size:14px;">⏱️</button>'
-        + '<button type="button" class="cenCelIconBtn" data-cel-kalendarz="' + c.id + '" title="Otwórz pełny kalendarz nawyku" style="font-size:14px;">📅</button>';
+        + '<button type="button" class="cenCelSecBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Otwórz stoper / minutnik sesji">' + timerLabel + '</button>';
     } else {
-      footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isTodayDone ? ' done' : '') + '" data-cel-habit-day="' + c.id + '" data-date="' + todayStr + '" style="--cel-color:' + color + ';" title="' + (isTodayDone ? 'Dzisiaj wykonano — kliknij, by cofnąć' : 'Kliknij, aby odznaczyć dzisiejszy dzień') + '">'
-        + (isTodayDone ? '✓ Dzisiaj wykonano' : '○ Wykonaj dzisiaj')
+      footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isTodayDone ? ' done' : '') + '" data-cel-habit-day="' + c.id + '" data-date="' + todayStr + '" style="--cel-color:' + color + ';" title="' + (isTodayDone ? 'Dzisiaj wykonano — kliknij, by cofnąć' : 'Kliknij, aby zaliczyć dzisiejszy dzień') + '">'
+        + (isTodayDone ? '✓ Dzisiaj wykonano' : 'Wykonaj dziś')
         + '</button>'
-        + '<button type="button" class="cenCelIconBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik sesji skupienia" style="font-size:14px;">⏱️</button>'
-        + '<button type="button" class="cenCelIconBtn" data-cel-kalendarz="' + c.id + '" title="Otwórz pełny kalendarz nawyku" style="font-size:14px;">📅</button>'
-        + '<button type="button" class="cenCelIconBtn" data-cel-toggle-done="' + c.id + '" title="Zakończ cel i przenieś do archiwum" style="font-size:14px;">🏆</button>';
+        + '<button type="button" class="cenCelSecBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Otwórz stoper / minutnik sesji">' + timerLabel + '</button>';
     }
   } else if(c.type === "numeric"){
     const cur = Number(c.current) || 0;
@@ -58702,13 +58930,12 @@ function _centrKartaCeluHtml(c){
       footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn done" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
         + '↺ Przywróć do aktywnych'
         + '</button>'
-        + '<button type="button" class="cenCelIconBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
+        + '<button type="button" class="cenCelSecBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia">' + (isTimerActive ? ('⏱ ' + activeTimerDisplay) : '⏱ Stoper') + '</button>';
     } else {
       footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (cur >= tgt ? ' done' : '') + '" data-cel-num-delta="' + c.id + '" data-delta="1" style="--cel-color:' + color + ';">'
-        + (cur >= tgt ? '🎉 Osiągnięto cel (' + cur + '/' + tgt + ')' : '+1 ' + esc(unit))
+        + (cur >= tgt ? '✓ Cel osiągnięty (' + cur + '/' + tgt + ')' : '+1 ' + esc(unit))
         + '</button>'
-        + '<button type="button" class="cenCelIconBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>'
-        + '<button type="button" class="cenCelIconBtn" data-cel-toggle-done="' + c.id + '" title="Oznacz cel jako ukończony" style="font-size:14px;">✓</button>';
+        + '<button type="button" class="cenCelSecBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia">' + (isTimerActive ? ('⏱ ' + activeTimerDisplay) : '⏱ Stoper') + '</button>';
     }
   } else if(c.type === "steps"){
     const steps = Array.isArray(c.steps) ? c.steps : [];
@@ -58733,66 +58960,52 @@ function _centrKartaCeluHtml(c){
       footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn done" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
         + '↺ Przywróć do aktywnych'
         + '</button>'
-        + '<button type="button" class="cenCelIconBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
+        + '<button type="button" class="cenCelSecBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia">' + (isTimerActive ? ('⏱ ' + activeTimerDisplay) : '⏱ Stoper') + '</button>';
     } else {
-      footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isDone ? ' done' : '') + '" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
-        + (doneCount === totalSteps && totalSteps > 0 ? '🎉 Wszystkie etapy ukończone' : 'Oznacz całość jako ukończone')
+      footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
+        + (doneCount === totalSteps && totalSteps > 0 ? '✓ Ukończone — przenieś' : 'Oznacz jako ukończone')
         + '</button>'
-        + '<button type="button" class="cenCelIconBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
+        + '<button type="button" class="cenCelSecBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia">' + (isTimerActive ? ('⏱ ' + activeTimerDisplay) : '⏱ Stoper') + '</button>';
     }
   } else {
     bodyHtml = '<div style="padding:10px 14px;background:var(--cen-btn-bg);border-radius:10px;margin-bottom:12px;display:flex;align-items:center;gap:10px;">'
-      + '<span style="font-size:22px;">' + (isDone ? '🎉' : '🎯') + '</span>'
+      + '<span style="font-size:20px;">' + (isDone ? '✓' : '🎯') + '</span>'
       + '<div style="font-size:13px;color:var(--cen-text-sub);">' + (isDone ? 'Cel został pomyślnie zrealizowany!' : 'W trakcie realizacji — oznacz po osiągnięciu celu.') + '</div>'
       + '</div>';
 
     footerBtnHtml = '<button type="button" class="cenCelPrimaryBtn' + (isDone ? ' done' : '') + '" data-cel-toggle-done="' + c.id + '" style="--cel-color:' + color + ';">'
       + (isDone ? '↺ Przywróć do aktywnych' : '✓ Zrealizuj ten cel')
       + '</button>'
-      + '<button type="button" class="cenCelIconBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia" style="font-size:14px;">⏱️</button>';
+      + '<button type="button" class="cenCelSecBtn' + (isTimerActive ? ' cenCelTimerActive' : '') + '" data-cel-timer="' + c.id + '" data-cel-stoper="' + c.id + '" title="Stoper / minutnik skupienia">' + (isTimerActive ? ('⏱ ' + activeTimerDisplay) : '⏱ Stoper') + '</button>';
   }
 
-  let topExtraHtml = '';
+  let metaParts = [];
   if(c.type === "habit"){
     const habitTarget = Math.min(7, Math.max(1, parseInt(c.habitTarget, 10) || 7));
-    const habitDuration = Math.max(0, parseInt(c.habitDuration, 10) || 0);
-    const habitTime = parseInt(c.habitTime, 10) || 0;
-
-    const targetLabel = (habitTarget === 7 ? 'Codziennie' : (habitTarget + 'd/tydz.'));
-    topExtraHtml += '<span class="cenCelHabitCycleBadge" title="Cel nawyku: ' + (habitTarget === 7 ? 'Codziennie (7 dni w tyg.)' : (habitTarget + ' dni w każdym tygodniu')) + '">🎯 ' + targetLabel + '</span>';
-
-    if(habitDuration > 0){
-      topExtraHtml += '<span class="cenCelHabitCycleBadge" style="color:#10b981;background:rgba(16,185,129,0.12);" title="Wyzwanie nawyku: ' + habitDuration + ' dni">🏆 ' + habitDuration + 'd</span>';
-    }
-    if(habitTime > 0){
-      topExtraHtml += '<span class="cenCelHabitCycleBadge" style="color:#8b5cf6;background:rgba(139,92,246,0.12);" title="Sesja skupienia: ' + habitTime + ' min">⏱️ ' + habitTime + 'm</span>';
-    }
+    metaParts.push(habitTarget === 7 ? 'Codziennie' : (habitTarget + 'd/tydz.'));
   }
-
   if(c.deadline){
     const termInfo = _centrObliczStatusTerminu(c.deadline, isDone);
-    if(termInfo){
-      topExtraHtml += '<span class="cenCelHabitCycleBadge" style="color:' + termInfo.color + ';background:' + termInfo.bg + ';font-weight:600;" title="Termin realizacji: ' + esc(c.deadline) + '">' + termInfo.text + '</span>';
+    if(termInfo && termInfo.text){
+      metaParts.push(termInfo.text.replace(/^📅\s*/, 'do '));
     }
   }
+  if(isDone) metaParts.push('✓ Ukończony');
 
-  return '<div class="cenCelCard cenGoalCard' + (isDone ? ' completed done' : '') + '" style="--cel-color:' + color + ';">'
+  return '<div class="cenCelCard cenGoalCard' + (isDone ? ' completed done' : '') + (isTodayDoneCard && !isDone ? ' today-done' : '') + (isWeekMetCard && !isDone ? ' week-met' : '') + '" style="--cel-color:' + color + ';">'
     + '<div class="cenCelTop">'
-    + '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">'
-    + '<span class="cenCelCatBadge" style="background:color-mix(in srgb, ' + color + ' 16%, transparent);color:' + color + ';">'
-    + cat.icon + ' ' + cat.name
+    + '<span class="cenCelCatBadge" style="background:color-mix(in srgb, ' + color + ' 12%, transparent);color:' + color + ';">'
+    + esc(cat.name)
     + '</span>'
-    + topExtraHtml
-    + '</div>'
-    + '<span class="cenCelStatusBadge' + (isDone ? ' done' : '') + '">'
-    + (isDone ? '✓ Ukończony' : 'Aktywny')
-    + '</span>'
+    + (metaParts.length ? '<span class="cenCelMetaLine">' + esc(metaParts.join(' · ')) + '</span>' : '')
     + '</div>'
 
     + '<div class="cenCelTyt" data-cel-edytuj="' + c.id + '" style="cursor:pointer;" title="Kliknij, aby edytować cel">' + esc(c.title) + '</div>'
     + (c.desc ? '<div class="cenCelOpis" data-cel-edytuj="' + c.id + '" style="cursor:pointer;" title="Kliknij, aby edytować cel">' + esc(c.desc) + '</div>' : '')
     + (c.verse ? '<div class="cenCelVerseBox" style="--cel-color:' + color + ';">'
-        + '<span style="display:inline-flex;align-items:center;gap:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">📖 <b>' + esc(c.verse) + '</b></span>'
+        + '<span style="display:inline-flex;align-items:center;gap:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'
+        + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;flex-shrink:0;opacity:0.75;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>'
+        + '<b>' + esc(c.verse) + '</b></span>'
         + '<button type="button" class="cenCelVerseBtn" data-copen-jw="' + esc(c.verse) + '" title="Otwórz werset w JW Library">' + CEN_MODERN_ICO.jw + ' JW Library</button>'
         + '</div>' : '')
 
@@ -58801,10 +59014,84 @@ function _centrKartaCeluHtml(c){
     + '<div class="cenCelFooter">'
     + '<div class="cenCelActionsRow">'
     + footerBtnHtml
-    + '<button type="button" class="cenCelIconBtn" data-cel-edytuj="' + c.id + '" title="Edytuj cel">' + CEN_MODERN_ICO.edit + '</button>'
-    + '<button type="button" class="cenCelIconBtn btn-delete" data-cel-usun="' + c.id + '" title="Usuń cel">' + CEN_MODERN_ICO.trash + '</button>'
+    + '<button type="button" class="cenCelIconBtn" data-cel-menu="' + c.id + '" title="Więcej opcji: kalendarz, edytuj, zakończ, usuń" aria-label="Więcej opcji">•••</button>'
     + '</div>'
     + '</div>'
+    + '</div>';
+}
+
+function _centrPrzegladTygodniaHtml(cele){
+  const aktywne = (cele || []).filter(c => !c.completed);
+  if(!aktywne.length) return '';
+
+  const collapsed = lsGet(KP + "CentrWeekMatrixCollapsed", "0") === "1";
+  const now = new Date();
+  const mon = _centrPobierzPoniedzialekTygodnia(now);
+  const sun = new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + 6);
+  const todayStr = _centrFormatujDateISO(now);
+  const dayNames = ["PN", "WT", "ŚR", "CZ", "PT", "SB", "ND"];
+  const weekDates = [];
+  for(let i=0; i<7; i++){
+    const d = new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + i);
+    const iso = _centrFormatujDateISO(d);
+    weekDates.push({ lbl: dayNames[i], iso, isToday: iso === todayStr });
+  }
+
+  const habits = aktywne.filter(c => c.type === "habit");
+  const otherGoals = aktywne.filter(c => c.type !== "habit");
+
+  const rowsHtml = habits.map(c => {
+    const cat = _centrKategorieMap[c.category] || { color: "#2946a4" };
+    const color = _centrStonujKolor(c.color || cat.color);
+    const wp = _centrObliczPostepTygodniowyNawyku(c);
+    const cells = weekDates.map(wd => {
+      const done = !!(c.history && c.history[wd.iso]);
+      return '<td><button type="button" class="cenWeekMatrixDot' + (done ? ' on' : '') + (wd.isToday ? ' today' : '') + '" data-cel-habit-day="' + c.id + '" data-date="' + wd.iso + '" title="' + esc(c.title) + ' — ' + wd.lbl + ' (' + wd.iso + ')">✓</button></td>';
+    }).join('');
+    return '<tr style="--cel-color:' + color + ';">'
+      + '<td><span class="cenWeekMatrixName" data-cel-edytuj="' + c.id + '" title="' + esc(c.title) + '"><span class="cenWeekMatrixColorDot"></span><span class="cenWeekMatrixNameTxt">' + esc(c.title) + '</span></span></td>'
+      + cells
+      + '<td style="color:' + (wp.isTargetMet ? '#0d6f53' : 'var(--cen-text-muted)') + ';">' + (wp.isTargetMet ? ('✓ ' + wp.doneThisWeek + '/' + wp.target) : (wp.doneThisWeek + '/' + wp.target)) + '</td>'
+      + '</tr>';
+  }).join('')
+  + otherGoals.map(c => {
+    const cat = _centrKategorieMap[c.category] || { color: "#2946a4" };
+    const color = _centrStonujKolor(c.color || cat.color);
+    let pct = 0, statTxt = "W toku";
+    if(c.type === "numeric"){
+      const cur = Number(c.current) || 0, tgt = Number(c.target) || 10;
+      pct = tgt > 0 ? Math.min(100, Math.round((cur / tgt) * 100)) : 0;
+      statTxt = cur + "/" + tgt + " " + esc(c.unit || "");
+    } else if(c.type === "steps"){
+      const steps = Array.isArray(c.steps) ? c.steps : [];
+      const done = steps.filter(s => s.done).length;
+      pct = steps.length ? Math.round((done / steps.length) * 100) : 0;
+      statTxt = done + "/" + steps.length + " et.";
+    }
+    return '<tr style="--cel-color:' + color + ';">'
+      + '<td><span class="cenWeekMatrixName" data-cel-edytuj="' + c.id + '" title="' + esc(c.title) + '"><span class="cenWeekMatrixColorDot"></span><span class="cenWeekMatrixNameTxt">' + esc(c.title) + '</span></span></td>'
+      + '<td colspan="7"><div class="cenWeekMatrixGoalBar"><div class="cenProgressBar"><div class="cenProgressFill" style="width:' + pct + '%;background:' + color + ';"></div></div>' + (c.type === "numeric" ? '<button type="button" class="cenCelNumBtn" style="padding:2px 7px;font-size:11px;" data-cel-num-delta="' + c.id + '" data-delta="1">+1</button>' : '') + '</div></td>'
+      + '<td>' + statTxt + '</td>'
+      + '</tr>';
+  }).join('');
+
+  const rangeStr = mon.getDate() + '–' + sun.getDate() + '.' + String(sun.getMonth() + 1).padStart(2, '0');
+
+  return '<div class="cenWeekMatrixBox' + (collapsed ? ' collapsed' : '') + '">'
+    + '<div class="cenWeekMatrixHead">'
+    + '<div class="cenWeekMatrixTitle">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;color:var(--accent);"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'
+    + '<span>Przegląd tygodnia</span>'
+    + '<span style="font-size:11px;font-weight:500;color:var(--cen-text-muted);">(' + rangeStr + ' · ' + aktywne.length + ')</span>'
+    + '</div>'
+    + '<button type="button" class="cenWeekMatrixToggle" id="cenWeekMatrixToggle">' + (collapsed ? 'Rozwiń ▾' : 'Zwiń ▴') + '</button>'
+    + '</div>'
+    + (collapsed ? '' : (
+      '<div class="cenWeekMatrixScroll"><table class="cenWeekMatrixTable">'
+      + '<thead><tr><th>Cel / Nawyk</th>' + weekDates.map(wd => '<th class="' + (wd.isToday ? 'today' : '') + '">' + wd.lbl + '</th>').join('') + '<th>Postęp</th></tr></thead>'
+      + '<tbody>' + rowsHtml + '</tbody>'
+      + '</table></div>'
+    ))
     + '</div>';
 }
 
@@ -58817,7 +59104,14 @@ function centrWidokCele(tab, cat, q){
   const totalCount = cele.length;
   const activeCount = cele.filter(c => !c.completed).length;
   const doneCount = cele.filter(c => c.completed).length;
-  const habitsCount = cele.filter(c => c.type === "habit" && !c.completed).length;
+  const activeHabits = cele.filter(c => c.type === "habit" && !c.completed);
+  const habitsCount = activeHabits.length;
+
+  const todayStr = _centrFormatujDateISO(new Date());
+  const doneTodayCount = activeHabits.filter(c => c.history && c.history[todayStr]).length;
+  const weekMetCount = activeHabits.filter(c => _centrObliczPostepTygodniowyNawyku(c).isTargetMet).length;
+  const ringCirc = 113.1;
+  const ringOffset = habitsCount > 0 ? (ringCirc * (1 - doneTodayCount / habitsCount)).toFixed(1) : ringCirc.toFixed(1);
 
   let maxStreak = 0;
   cele.forEach(c => {
@@ -58868,9 +59162,20 @@ function centrWidokCele(tab, cat, q){
     + '</div></div>'
 
     + '<div class="cenCeleStatsRow">'
+    + '<div class="cenCeleStatTile" style="display:flex;align-items:center;gap:12px;">'
+    + '<div class="cenHeroRing">'
+    + '<svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="18" fill="none" stroke="color-mix(in srgb, var(--accent) 14%, transparent)" stroke-width="4.5"/><circle cx="21" cy="21" r="18" fill="none" stroke="var(--accent)" stroke-width="4.5" stroke-dasharray="113.1" stroke-dashoffset="' + ringOffset + '" stroke-linecap="round"/></svg>'
+    + '<span class="cenHeroRingTxt">' + doneTodayCount + '/' + habitsCount + '</span>'
+    + '</div>'
+    + '<div>'
+    + '<div class="cenCeleStatLbl">Dzisiejszy rytm</div>'
+    + '<div class="cenCeleStatVal" style="font-size:16px;">' + doneTodayCount + ' z ' + habitsCount + ' dziś</div>'
+    + '</div>'
+    + '</div>'
+
     + '<div class="cenCeleStatTile">'
     + '<div class="cenCeleStatTop">'
-    + '<div class="cenCeleStatIko" style="background:rgba(59,130,246,0.12);color:#3b82f6;">' + CEN_MODERN_ICO.target + '</div>'
+    + '<div class="cenCeleStatIko" style="background:rgba(41,70,164,0.12);color:#2946a4;">' + CEN_MODERN_ICO.target + '</div>'
     + '<div class="cenCeleStatVal">' + activeCount + '</div>'
     + '</div>'
     + '<div class="cenCeleStatLbl">Aktywne cele</div>'
@@ -58878,26 +59183,18 @@ function centrWidokCele(tab, cat, q){
 
     + '<div class="cenCeleStatTile">'
     + '<div class="cenCeleStatTop">'
-    + '<div class="cenCeleStatIko" style="background:rgba(168,85,247,0.12);color:#a855f7;">' + CEN_MODERN_ICO.clock + '</div>'
-    + '<div class="cenCeleStatVal">' + habitsCount + '</div>'
+    + '<div class="cenCeleStatIko" style="background:rgba(13,111,83,0.12);color:#0d6f53;">' + CEN_MODERN_ICO.check + '</div>'
+    + '<div class="cenCeleStatVal">' + weekMetCount + ' <small style="font-size:12px;font-weight:600;opacity:0.75;">/ ' + habitsCount + '</small></div>'
     + '</div>'
-    + '<div class="cenCeleStatLbl">Nawyki w toku</div>'
-    + '</div>'
-
-    + '<div class="cenCeleStatTile">'
-    + '<div class="cenCeleStatTop">'
-    + '<div class="cenCeleStatIko" style="background:rgba(160,185,129,0.12);color:#10b981;">' + CEN_MODERN_ICO.check + '</div>'
-    + '<div class="cenCeleStatVal">' + doneCount + '</div>'
-    + '</div>'
-    + '<div class="cenCeleStatLbl">Ukończone</div>'
+    + '<div class="cenCeleStatLbl">Cele tygodnia</div>'
     + '</div>'
 
     + '<div class="cenCeleStatTile">'
     + '<div class="cenCeleStatTop">'
-    + '<div class="cenCeleStatIko" style="background:rgba(245,158,11,0.12);color:#f59e0b;">' + CEN_MODERN_ICO.flame + '</div>'
-    + '<div class="cenCeleStatVal">' + maxStreak + ' <small style="font-size:12px;font-weight:600;opacity:0.8;">dni</small></div>'
+    + '<div class="cenCeleStatIko" style="background:rgba(167,85,22,0.12);color:#a75516;">' + CEN_MODERN_ICO.flame + '</div>'
+    + '<div class="cenCeleStatVal">' + maxStreak + ' <small style="font-size:12px;font-weight:600;opacity:0.8;">' + _centrOdmianaDni(maxStreak) + '</small></div>'
     + '</div>'
-    + '<div class="cenCeleStatLbl">Bieżąca seria</div>'
+    + '<div class="cenCeleStatLbl">Najdłuższa seria</div>'
     + '</div>'
     + '</div>'
 
@@ -58916,7 +59213,7 @@ function centrWidokCele(tab, cat, q){
     + '</div>'
     + '</div>'
 
-    + '<div style="display:flex;align-items:center;gap:6px;overflow-x:auto;padding-bottom:10px;margin-bottom:16px;">'
+    + '<div style="display:flex;align-items:center;gap:6px;overflow-x:auto;padding-bottom:10px;margin-bottom:14px;">'
     + katsList.map(k => {
         const isSel = (cat === k.id);
         return '<button type="button" class="btn' + (isSel ? ' primary' : '') + '" data-cel-cat="' + k.id + '" style="font-size:12px;padding:5px 11px;border-radius:20px;white-space:nowrap;gap:4px;">'
@@ -58924,6 +59221,8 @@ function centrWidokCele(tab, cat, q){
           + '</button>';
       }).join('')
     + '</div>'
+
+    + (tab !== "ukonczone" ? _centrPrzegladTygodniaHtml(cele) : '')
 
     + '<div id="cenCeleGridWrap">'
     + (!filtered.length
@@ -62504,8 +62803,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v662</span>
+          <span class="cl-ver-num">v663</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">25 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Nowa grafika „Duchowych celów i nawyków”, pierścień dnia oraz Przegląd tygodnia</div>
+        <ul class="cl-ver-list">
+          <li><b>Przegląd tygodnia:</b> Nowa, zbiorcza tabela u góry widoku z klikalnymi dniami <code>PN–ND</code> dla wszystkich aktywnych nawyków oraz bieżącym postępem celów liczbowych i etapowych. Każdy nowo dodany cel i nawyk automatycznie pojawia się w przeglądzie.</li>
+          <li><b>Uporządkowane karty nawyków (Apple HIG):</b> Usunięto powtarzające się pigułki czasu i kalendarza, wyrównano pasek postępu tygodnia do jednej linii oraz uproszczono dolny pasek akcji do czytelnego przycisku <i>„Wykonaj dziś”</i>, stopera <code>⏱</code> i menu <code>•••</code>.</li>
+          <li><b>Pierścień „Dzisiejszy rytm” i poprawna odmiana:</b> Pierwszy kafelek podsumowania pokazuje dzienny postęp w pierścieniu SVG, a seria poprawnie odmienia dni (np. <i>„1 dzień”</i>, <i>„2 dni”</i>).</li>
+          <li><b>Niezawodne przechodzenie do zakładki „Aktywne”:</b> Znormalizowano flagę ukończenia, dodano automatyczne przełączanie z <i>Ukończonych</i> po dodaniu nowego celu oraz przeniesiono archiwizację (<code>🏆</code>) do menu <code>•••</code>, aby uniknąć przypadkowego ukrycia nawyku.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v662</span>
           <span class="cl-ver-date">25 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Subtelniejsza stopka edytora nowej notatki z oddzielającą linią</div>
@@ -67396,6 +67708,64 @@ if($("centrum")){
     if(celCatBtn){
       _centrCeleKategoria = celCatBtn.dataset.celCat;
       rysujCentrum();
+      return;
+    }
+
+    const weekToggleBtn = ev.target.closest("#cenWeekMatrixToggle");
+    if(weekToggleBtn){
+      const cur = lsGet(KP + "CentrWeekMatrixCollapsed", "0") === "1";
+      lsSet(KP + "CentrWeekMatrixCollapsed", cur ? "0" : "1");
+      rysujCentrum();
+      return;
+    }
+
+    const celMenuBtn = ev.target.closest("[data-cel-menu]");
+    if(celMenuBtn){
+      ev.stopPropagation();
+      const celId = celMenuBtn.dataset.celMenu;
+      const cele = (typeof _centrPobierzCele === "function") ? _centrPobierzCele() : [];
+      const c = cele.find(x => x.id === celId);
+      const dd = $("dropdown");
+      if(!c || !dd) return;
+      if(dd.style.display === "block" && dd._lastAnchor === celMenuBtn){
+        dd.style.display = "none";
+        dd._lastAnchor = null;
+        return;
+      }
+      dd._lastAnchor = celMenuBtn;
+      dd.innerHTML =
+        `<div class="dd-lbl">${esc(c.title)}</div>` +
+        (c.type === "habit" ? `<div data-cm="kal">📅 Pełny kalendarz nawyku</div>` : "") +
+        `<div data-cm="edit">${ICO.edit}Edytuj cel / nawyk</div>` +
+        `<div data-cm="done">${c.completed ? "↺ Przywróć do Aktywnych" : "🏆 Zakończ (przenieś do Ukończonych)"}</div>` +
+        `<div class="dd-sep"></div>` +
+        `<div data-cm="del" class="dd-danger">${ICO.trash}Usuń cel</div>`;
+      dd.style.display = "block";
+      if(typeof placeDropdown === "function") placeDropdown(dd, celMenuBtn);
+      dd.onclick = async (mev) => {
+        const it = mev.target.closest("[data-cm]");
+        if(!it) return;
+        const act = it.dataset.cm;
+        dd.style.display = "none";
+        dd._lastAnchor = null;
+        if(act === "kal" && typeof _centrPokazKalendarzNawyku === "function"){
+          _centrPokazKalendarzNawyku(celId);
+        } else if(act === "edit" && typeof _centrPokazModalCelu === "function"){
+          _centrPokazModalCelu(celId);
+        } else if(act === "done" && typeof _centrPrzelaczCelUkonczony === "function"){
+          _centrPrzelaczCelUkonczony(celId);
+          rysujCentrum();
+        } else if(act === "del"){
+          const zgoda = typeof askConfirm === "function"
+            ? await askConfirm("Usunąć cel duchowy?", "Czy na pewno chcesz usunąć cel „<b>" + esc(c.title) + "</b>”?", { okLabel: "Usuń cel", danger: true })
+            : confirm("Czy na pewno chcesz usunąć cel „" + c.title + "”?");
+          if(zgoda){
+            if(typeof _centrUsunCel === "function") _centrUsunCel(celId);
+            toast("Usunięto cel duchowy", "info");
+            rysujCentrum();
+          }
+        }
+      };
       return;
     }
 
