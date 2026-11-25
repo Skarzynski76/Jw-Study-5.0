@@ -26199,13 +26199,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v665)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v666)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v665</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v666</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v665) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v665</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v666) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v666</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26286,7 +26286,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v665</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v666</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28550,9 +28550,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v665";
+const APP_BUILD = "v666";
 const APP_BUILD_DATE = "2026-11-25";
-const APP_FULL_VERSION = "5.0 (v665)";
+const APP_FULL_VERSION = "5.0 (v666)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -62869,10 +62869,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v665</span>
+          <span class="cl-ver-num">v666</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">25 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">Wyraźne ostrzeganie o wygasłej sesji Google Drive i pobranych aktualizacjach</div>
+        <ul class="cl-ver-list">
+          <li><b>Czerwony wskaźnik wygasłej sesji Google:</b> Gdy godzinny token Google Drive wygaśnie, kropka synchronizacji od razu zmienia kolor na czerwony z czytelnym opisem zamiast mylącej zielonej kropki.</li>
+          <li><b>Powiadomienie przy próbie zapisu zmian:</b> Jeśli zaznaczysz nawyk lub fragment czytania przy wygasłej sesji Google, aplikacja wyświetli komunikat przypominający o kliknięciu „Uzgodnij z Dyskiem Google”.</li>
+          <li><b>Powiadomienie o pobraniu nawyków i czytań:</b> Gdy inne urządzenie zaktualizuje nawyki lub plany czytania w tle, aplikacja potwierdzi pobranie zmian na ekranie.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v665</span>
+          <span class="cl-ver-date">25 listopada 2026</span>
         <div class="cl-ver-title">Bezpieczne scalanie nawyków dzień-po-dniu (<code>historyTs</code>) oraz planów czytania</div>
         <ul class="cl-ver-list">
           <li><b>Scalanie nawyków dzień-po-dniu (<code>historyTs</code>):</b> Zaznaczenie lub odznaczenie każdego dnia w nawyku zapisuje osobny znacznik czasu (zarówno z karty, z Przeglądu tygodnia, jak i z kalendarza nawyku). Dzięki temu praca offline na dwóch urządzeniach (np. inny dzień na iPadzie i inny na telefonie) łączy oba dni bez wzajemnego nadpisywania.</li>
@@ -69636,6 +69647,7 @@ async function syncScalDane(dane, bezPytania){
      przy ośmiu tysiącach notatek pełne przerysowanie to grubo ponad sto
      milisekund, a uzgadnianie zagląda do pliku samo, w tle. */
   const cosCentrum = stCentrum ? (stCentrum.dniMerged + stCentrum.fragiMerged + stCentrum.tematyMerged + stCentrum.celeMerged) : 0;
+  st.centrumZmian = cosCentrum;
   const cosWeszlo = st.notatekNowych + st.notatekZmienionych + st.drobiazgow
     + st.etykietNowych + st.etykietZmienionych + st.etykietUsunietych
     + st.innych + st.wersji + (st.kolejnosc ? 1 : 0) + cosCentrum;
@@ -70232,8 +70244,9 @@ async function gdriveZapewnijWaznyToken(wymus = false, interaktywne = false){
   // W tle nigdy nie wywołujemy requestAccessToken() — odnowienie następuje tylko po kliknięciu użytkownika.
   if(!interaktywne){
     if(!obecny || (exp && Date.now() >= exp)){
-      _gdriveStanOpis = "Wymaga odnowienia sesji (kliknij Synchronizuj)";
+      _gdriveStanOpis = "Sesja Google wygasła — kliknij Synchronizuj, aby odnowić";
       if(typeof gdriveOdswiezUI === "function") gdriveOdswiezUI();
+      if(typeof odswiezWskaznikSync === "function") odswiezWskaznikSync();
       return null;
     }
   }
@@ -70415,6 +70428,12 @@ async function gdriveSyncTeraz(powod){
   if(!token){
     if(powod === "ręcznie"){
       gdriveZaloguj(true);
+    } else if(powod === "zmiany"){
+      const teraz = Date.now();
+      if(!window._gdriveLastExpiredToast || (teraz - window._gdriveLastExpiredToast) > 60000){
+        window._gdriveLastExpiredToast = teraz;
+        toastErr("Sesja Google wygasła — otwórz Synchronizację i kliknij „Uzgodnij z Dyskiem Google”, aby wysłać zmiany");
+      }
     }
     return null;
   }
@@ -70535,8 +70554,8 @@ async function gdriveSyncTeraz(powod){
     _gdriveStanOpis = "Zsynchronizowano pomyślnie";
     if(powod === "ręcznie") {
       toastOk("Zsynchronizowano z Dyskiem Google");
-    } else if(pobranoZdalne && wynik && wynik.st && (wynik.st.notatekZmienionych || wynik.st.notatekNowych || wynik.st.innych || wynik.st.etykietZmienionych || wynik.st.etykietNowych)){
-      toastOk("Pobrano aktualne notatki z Dysku Google ✓");
+    } else if(pobranoZdalne && wynik && wynik.st && (wynik.st.notatekZmienionych || wynik.st.notatekNowych || wynik.st.innych || wynik.st.etykietZmienionych || wynik.st.etykietNowych || wynik.st.centrumZmian)){
+      toastOk("Pobrano aktualizacje z Dysku Google ✓");
     }
     return wynik;
   } catch(err){
@@ -70654,8 +70673,9 @@ function gdriveOdswiezUI(){
     if(user && user.picture){
       avatarHtml = `<div class="gdrive-avatar" style="background-image:url('${esc(user.picture)}');"></div>`;
     }
-    const dotClass = _gdriveSyncPracuje ? "syncing" : "online";
-    const statusTxt = _gdriveSyncPracuje ? "Trwa synchronizacja…" : "Połączono z Dyskiem Google";
+    const tokenWazny = !!gdrivePobierzToken();
+    const dotClass = _gdriveSyncPracuje ? "syncing" : (tokenWazny ? "online" : "idle");
+    const statusTxt = _gdriveSyncPracuje ? "Trwa synchronizacja…" : (tokenWazny ? "Połączono z Dyskiem Google" : "Sesja Google wygasła — kliknij „Uzgodnij z Dyskiem Google”");
     const tytulKarty = user && (user.name || user.email) ? (user.name || user.email) : statusTxt;
 
     kontener.innerHTML = `
@@ -70757,7 +70777,13 @@ function odswiezWskaznikSync(){
     anim = true;
     opis = "Trwa synchronizacja…";
   } else if(isGdrive){
-    if(dirty > 0){
+    const tokenWazny = (typeof gdrivePobierzToken === "function") ? !!gdrivePobierzToken() : true;
+    if(!tokenWazny){
+      klasa = "sync-red";
+      opis = dirty > 0
+        ? "Sesja Google wygasła (" + dirty + " zmian oczekuje) — kliknij, aby odnowić"
+        : "Sesja Google wygasła — kliknij, aby odświeżyć synchronizację";
+    } else if(dirty > 0){
       klasa = "sync-yellow";
       opis = "Dysk Google: " + dirty + " zmian oczekuje na zapis";
     } else {
