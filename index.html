@@ -14178,28 +14178,54 @@ details.powiazane[open] .powLista{ animation:powWysun .2s ease-out; }
   font-size:calc(11px * var(--uiw)); letter-spacing:0;
 }
 .powPoz{
-  display:block; width:100%; text-align:left;
-  border:1px solid var(--border); border-radius:12px;
-  background:var(--panel); color:var(--text);
-  padding:9px 12px; margin-bottom:7px; cursor:pointer;
-  transition:border-color .12s, background .12s;
+  display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+  border:1px solid var(--border); border-left:4px solid var(--accent);
+  border-radius:14px; background:var(--panel); color:var(--text);
+  padding:11px 13px; cursor:pointer;
+  transition:transform .12s, border-color .14s, box-shadow .14s, background .14s;
 }
-.powPoz:hover{ border-color:var(--accent2); background:var(--sel); }
+.powPoz.is-words{ border-left-color:color-mix(in srgb,var(--accent) 62%,#2c8c78); }
+.powPoz:hover{
+  transform:translateY(-1px);
+  border-color:color-mix(in srgb,var(--accent) 45%,var(--border));
+  box-shadow:0 8px 20px rgba(15,118,83,.10);
+}
+.powPozBody{ flex:1; min-width:0; }
+.powPozTop{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  margin-bottom:4px;
+}
 .powTyt{
-  display:block; font-size:calc(13.5px * var(--uiw)); font-weight:600;
-  line-height:1.35; margin-bottom:2px;
+  flex:1; min-width:0;
+  font-size:calc(14px * var(--uiw)); font-weight:700;
+  line-height:1.3; color:var(--text);
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
 }
 .powSkad{
-  display:inline-block; font-size:calc(11.5px * var(--uiw));
-  color:var(--accent); margin-right:8px;
-}
-.powCzemu{
-  display:block; font-size:calc(11.5px * var(--uiw)); color:var(--muted);
-  line-height:1.4; margin-top:2px;
+  flex:0 0 auto; font-size:calc(11.5px * var(--uiw)); font-weight:650;
+  color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,var(--panel));
+  padding:3px 8px; border-radius:7px; max-width:45%;
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
 }
-@media (hover:none){ .powPoz{ padding:11px 12px; } }
+.powSnippet{
+  font-size:calc(12.5px * var(--uiw)); color:var(--muted);
+  line-height:1.35; margin-bottom:6px;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.powTags{ display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
+.powKwLbl{ font-size:calc(11px * var(--uiw)); color:var(--muted); margin-right:2px; }
+.powKwPill{
+  font-size:calc(11px * var(--uiw)); font-weight:600;
+  background:color-mix(in srgb,var(--accent) 8%,var(--panel));
+  color:var(--text); padding:2px 8px; border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--accent) 16%,var(--border));
+}
+.powKwPill.is-strong{
+  background:color-mix(in srgb,var(--accent) 16%,var(--panel));
+  color:var(--accent); font-weight:700;
+}
+.powChev{ flex:0 0 auto; font-size:18px; color:var(--muted); opacity:.65; line-height:1; }
+@media (hover:none){ .powPoz{ padding:12px 13px; } }
 
 
 /* ============================================================
@@ -17651,16 +17677,48 @@ details.powiazane[open] .powPodklad{
 details.powiazane[open] .powPanel{
   display:flex; flex-direction:column; position:fixed; z-index:10040;
   left:max(10px,env(safe-area-inset-left,0px)); right:max(10px,env(safe-area-inset-right,0px));
-  bottom:max(10px,env(safe-area-inset-bottom,0px)); max-height:min(64dvh,620px);
-  width:min(720px,calc(100vw - 20px)); margin:0 auto;
-  background:var(--panel); border:1px solid var(--border); border-radius:20px;
-  box-shadow:0 22px 70px rgba(0,0,0,.3); overflow:hidden;
+  bottom:max(10px,env(safe-area-inset-bottom,0px)); max-height:min(68dvh,640px);
+  width:min(700px,calc(100vw - 20px)); margin:0 auto;
+  background:var(--panel); border:1px solid color-mix(in srgb,var(--accent) 18%,var(--border));
+  border-radius:22px; box-shadow:0 24px 68px rgba(10,32,21,.28); overflow:hidden;
   animation:powPanelIn .2s ease-out;
 }
-.powPanelHead{ display:flex; align-items:center; gap:8px; padding:13px 14px 11px; border-bottom:1px solid var(--border); }
-.powPanelHead b{ flex:1; }
-.powPanelHead button{ width:34px; height:34px; border:0; border-radius:50%; background:var(--sel); color:var(--text); }
-.powPanel .powLista{ overflow:auto; margin:0; padding:10px; -webkit-overflow-scrolling:touch; }
+.powPanelHead{
+  background:linear-gradient(135deg,var(--accent) 0%,color-mix(in srgb,var(--accent) 72%,#062c1e) 100%);
+  color:#fff; padding:6px 16px 13px; border-bottom:0;
+}
+.powPanelHandle{
+  width:38px; height:4px; border-radius:999px;
+  background:rgba(255,255,255,.42); margin:2px auto 8px;
+}
+.powPanelHeadRow{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.powPanelTitleWrap{ display:flex; align-items:center; gap:10px; min-width:0; }
+.powPanelIco{
+  width:32px; height:32px; border-radius:10px; flex:0 0 auto;
+  background:rgba(255,255,255,.16); color:#fff;
+  display:grid; place-items:center; font-size:15px;
+}
+.powPanelTitle{ font-size:15.5px; font-weight:700; color:#fff; letter-spacing:-.01em; line-height:1.2; }
+.powPanelSub{ font-size:11.5px; color:rgba(255,255,255,.82); margin-top:2px; }
+.powPanelRight{ display:flex; align-items:center; gap:8px; flex:0 0 auto; }
+.powPanelCount{
+  background:rgba(255,255,255,.20); color:#fff;
+  font-size:12px; font-weight:700; padding:4px 10px; border-radius:999px;
+}
+.powPanelClose{
+  width:32px; height:32px; border:0; border-radius:50%;
+  background:rgba(255,255,255,.92); color:var(--accent);
+  font-size:15px; font-weight:700; cursor:pointer;
+  display:grid; place-items:center;
+}
+.powPanel .powLista{
+  overflow:auto; margin:0; padding:12px 14px 16px;
+  display:flex; flex-direction:column; gap:9px;
+  background:color-mix(in srgb,var(--panel) 94%,var(--accent) 6%);
+  -webkit-overflow-scrolling:touch;
+}
 #modalFs.pow-open #fsWrap .ntools{ opacity:0; pointer-events:none; }
 @keyframes powPanelIn{ from{ opacity:0; transform:translateY(24px); } }
 
@@ -26199,13 +26257,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v666)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v667)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v666</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v667</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v666) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v666</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v667) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v667</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26286,7 +26344,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v666</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v667</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28550,9 +28608,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v666";
-const APP_BUILD_DATE = "2026-11-25";
-const APP_FULL_VERSION = "5.0 (v666)";
+const APP_BUILD = "v667";
+const APP_BUILD_DATE = "2026-11-26";
+const APP_FULL_VERSION = "5.0 (v667)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -55395,15 +55453,46 @@ function zapamietajPowiazane(otwarte){ lsSet(KP+"PowOtw", otwarte ? "1" : "0"); 
 function htmlPowiazanych(n){
   const lista = powiazaneNotatki(n);
   if(!lista.length) return "";
+  const odmiana = (cnt)=>{
+    if(cnt === 1) return "1 notatka";
+    const mod10 = cnt % 10, mod100 = cnt % 100;
+    if(mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return cnt + " notatki";
+    return cnt + " notatek";
+  };
   const wiersz = ({n:inna, powody})=>{
     const tytul = (inna.t||"").trim() ||
                   (typeof refLabel==="function" ? refLabel(inna) : "") || "Bez tytułu";
     const skad = (typeof refLabel==="function" ? refLabel(inna) : "") ||
                  (inna.ks ? (typeof pubFullName==="function" ? pubFullName(inna.ks) : inna.ks) : "");
-    return `<button type="button" class="powPoz" data-pow="${esc(inna.g)}">
-        <span class="powTyt">${esc(tytul)}</span>
-        ${skad ? `<span class="powSkad">${esc(skad)}</span>` : ""}
-        <span class="powCzemu">${esc(powody.slice(0,2).join(" · "))}</span>
+    const rawBody = String(inna.b || "").replace(/<[^>]*>/g, " ").replace(/&nbsp;/gi, " ").replace(/\s+/g, " ").trim();
+    const snippet = rawBody.length > 130 ? rawBody.slice(0, 128).trimEnd() + "…" : rawBody;
+    const silnyWerset = powody.some(p=> p === "ten sam werset" || p === "ten sam rozdział");
+    const pilsy = [];
+    powody.slice(0, 2).forEach(p=>{
+      if(p.startsWith("wspólne słowa: ")){
+        pilsy.push('<span class="powKwLbl">Wspólne:</span>');
+        p.slice("wspólne słowa: ".length).split(",").map(s=>s.trim()).filter(Boolean).slice(0, 4).forEach(s=>{
+          pilsy.push(`<span class="powKwPill">${esc(s)}</span>`);
+        });
+      } else if(p.startsWith("wspólna etykieta: ")){
+        pilsy.push('<span class="powKwLbl">Etykieta:</span>');
+        p.slice("wspólna etykieta: ".length).split(",").map(s=>s.trim()).filter(Boolean).slice(0, 3).forEach(s=>{
+          pilsy.push(`<span class="powKwPill">${esc(s)}</span>`);
+        });
+      } else {
+        pilsy.push(`<span class="powKwPill is-strong">${esc(p)}</span>`);
+      }
+    });
+    return `<button type="button" class="powPoz${silnyWerset ? "" : " is-words"}" data-pow="${esc(inna.g)}">
+        <span class="powPozBody">
+          <span class="powPozTop">
+            <span class="powTyt">${esc(tytul)}</span>
+            ${skad ? `<span class="powSkad">${esc(skad)}</span>` : ""}
+          </span>
+          ${snippet ? `<span class="powSnippet" style="display:block">${esc(snippet)}</span>` : ""}
+          ${pilsy.length ? `<span class="powTags">${pilsy.join("")}</span>` : ""}
+        </span>
+        <span class="powChev" aria-hidden="true">›</span>
       </button>`;
   };
   return `<details class="powiazane"${powiazaneOtwarte()?" open":""}>
@@ -55413,9 +55502,22 @@ function htmlPowiazanych(n){
       </summary>
       <button type="button" class="powPodklad" data-pow-close aria-label="Zamknij powiązane notatki"></button>
       <section class="powPanel" role="dialog" aria-label="Powiązane notatki">
-        <header class="powPanelHead"><b>Powiązane notatki</b><span class="powIle">${lista.length}</span>
-          <button type="button" data-pow-close aria-label="Zamknij">✕</button>
-        </header>
+        <div class="powPanelHead">
+          <div class="powPanelHandle" aria-hidden="true"></div>
+          <div class="powPanelHeadRow">
+            <div class="powPanelTitleWrap">
+              <div class="powPanelIco" aria-hidden="true">🔗</div>
+              <div>
+                <div class="powPanelTitle">Powiązane notatki</div>
+                <div class="powPanelSub">Na podstawie wersetów i wspólnych słów</div>
+              </div>
+            </div>
+            <div class="powPanelRight">
+              <span class="powPanelCount">${odmiana(lista.length)}</span>
+              <button type="button" class="powPanelClose" data-pow-close aria-label="Zamknij">✕</button>
+            </div>
+          </div>
+        </div>
         <div class="powLista">${lista.map(wiersz).join("")}</div>
       </section>
     </details>`;
@@ -62869,10 +62971,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v666</span>
+          <span class="cl-ver-num">v667</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
-          <span class="cl-ver-date">25 listopada 2026</span>
+          <span class="cl-ver-date">26 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">Odświeżone okno „Powiązane notatki” (Wariant A)</div>
+        <ul class="cl-ver-list">
+          <li><b>Nowy szmaragdowy nagłówek panelu:</b> Usunięto konflikt stylów z głównym paskiem aplikacji — panel ma teraz własny, czytelny nagłówek z uchwytem, opisem i licznikiem powiązań.</li>
+          <li><b>Karty z podglądem i pigułkami słów:</b> Każda powiązana notatka wyświetla odsyłacz w czytelnej plakietce, 1-liniowy podgląd treści, kolorową belkę akcentową oraz pigułki wspólnych słów i etykiet.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v666</span>
+          <span class="cl-ver-date">25 listopada 2026</span>
         <div class="cl-ver-title">Wyraźne ostrzeganie o wygasłej sesji Google Drive i pobranych aktualizacjach</div>
         <ul class="cl-ver-list">
           <li><b>Czerwony wskaźnik wygasłej sesji Google:</b> Gdy godzinny token Google Drive wygaśnie, kropka synchronizacji od razu zmienia kolor na czerwony z czytelnym opisem zamiast mylącej zielonej kropki.</li>
