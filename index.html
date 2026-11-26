@@ -21497,8 +21497,9 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
 }
 .cenUserSub {
   font-size: 12.5px;
-  color: rgba(255, 255, 255, 0.90);
+  color: rgba(255, 255, 255, 0.92);
   line-height: 1.4;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
 }
 .cenUserHeroRight {
   display: flex;
@@ -21752,6 +21753,9 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   .cenUserGreeting {
     font-size: 19px;
   }
+  .cenHeroSceneSvg {
+    opacity: 0.68;
+  }
   .cenUserHeroRight {
     flex-direction: row;
     align-items: center;
@@ -21776,11 +21780,10 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   }
   .cenHeroWd {
     text-align: center;
-    padding: 5px 2px;
-    font-size: 10px;
+    padding: 5px 1px;
+    font-size: 9.5px;
+    letter-spacing: -0.02em;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
   .cenUserPromptForm {
     width: 100%;
@@ -26476,13 +26479,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v671)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v672)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v671</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v672</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v671) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v671</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v672) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v672</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26563,7 +26566,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v671</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v672</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28827,9 +28830,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v671";
+const APP_BUILD = "v672";
 const APP_BUILD_DATE = "2026-11-26";
-const APP_FULL_VERSION = "5.0 (v671)";
+const APP_FULL_VERSION = "5.0 (v672)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -63195,10 +63198,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v671</span>
+          <span class="cl-ver-num">v672</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">26 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">Subtelniejszy księżyc i wyraźny tekst na Ekranie powitalnym</div>
+        <ul class="cl-ver-list">
+          <li><b>Czytelny tekst na tle sceny SVG:</b> zmniejszono jasność księżyca, słońca i księgi oraz przesunięto je bliżej prawego rogu, a werset otrzymał delikatny cień dla wyraźnego kontrastu.</li>
+          <li><b>Pełne skróty dni na iPhonie:</b> w pasku <code>PN–ND</code> wszystkie dni mieszczą się bez ucinania (<code>PN 23</code>, <code>WT 24</code>).</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v671</span>
+          <span class="cl-ver-date">26 listopada 2026</span>
         <div class="cl-ver-title">Czytelne karty notatek w widoku „Ostatnie” na iPhonie</div>
         <ul class="cl-ver-list">
           <li><b>Brak nachodzenia tytułu na pasek i metadane:</b> usunięto konflikt <code>-webkit-box</code>/<code>text-wrap: balance</code> w nagłówku karty na iOS, dzięki czemu 2- i 3-liniowe tytuły rozszerzają belkę nagłówka naturalnie bez nakładania się na datę i przypis.</li>
@@ -64156,10 +64169,10 @@ function renderEkranPowitalny(){
   else if(godzAktualna >= 12) sceneType = "day";
 
   const sceneSvgs = {
-    dawn: '<svg viewBox="0 0 1000 260" preserveAspectRatio="xMaxYMid slice"><g class="anim-sun-halo"><circle cx="820" cy="145" r="95" fill="#ffd480" opacity="0.24"/></g><circle cx="820" cy="145" r="52" fill="#ffe5a3" opacity="0.52"/><g class="anim-cloud" opacity="0.20" fill="#fff"><ellipse cx="640" cy="68" rx="70" ry="17"/><ellipse cx="680" cy="62" rx="45" ry="14"/></g><path d="M0 195 Q220 140 460 185 T1000 165 L1000 260 L0 260 Z" fill="rgba(7,46,33,0.28)"/><path d="M0 218 Q310 175 610 210 T1000 198 L1000 260 L0 260 Z" fill="rgba(5,32,23,0.34)"/></svg>',
-    day: '<svg viewBox="0 0 1000 260" preserveAspectRatio="xMaxYMid slice"><g class="anim-sun-halo"><circle cx="830" cy="62" r="72" fill="#fff4c2" opacity="0.22"/></g><circle cx="830" cy="62" r="36" fill="#fff8d6" opacity="0.48"/><g class="anim-cloud" opacity="0.20" fill="#fff"><ellipse cx="520" cy="68" rx="85" ry="20"/><ellipse cx="565" cy="58" rx="50" ry="16"/><ellipse cx="730" cy="108" rx="64" ry="15"/></g><path d="M0 205 Q280 155 560 195 T1000 175 L1000 260 L0 260 Z" fill="rgba(6,58,42,0.25)"/><path d="M0 226 Q340 190 700 220 T1000 212 L1000 260 L0 260 Z" fill="rgba(4,40,29,0.32)"/></svg>',
-    evening: '<svg viewBox="0 0 1000 260" preserveAspectRatio="xMaxYMid slice"><path d="M835 38 A34 34 0 1 0 872 86 A26 26 0 1 1 835 38 Z" fill="#fef3c7" opacity="0.76"/><circle class="anim-star" cx="620" cy="48" r="2.6" fill="#fff"/><circle class="anim-star s2" cx="710" cy="84" r="2.2" fill="#fff"/><circle class="anim-star s3" cx="910" cy="52" r="2.8" fill="#fde68a"/><circle class="anim-star s2" cx="765" cy="36" r="1.8" fill="#fff"/><circle class="anim-star s3" cx="540" cy="76" r="2" fill="#fff"/><path d="M0 195 Q250 150 530 190 T1000 170 L1000 260 L0 260 Z" fill="rgba(6,18,28,0.40)"/><path d="M0 222 Q330 186 670 215 T1000 204 L1000 260 L0 260 Z" fill="rgba(4,12,20,0.48)"/></svg>',
-    weekend: '<svg viewBox="0 0 1000 260" preserveAspectRatio="xMaxYMid slice"><g class="anim-sun-halo"><circle cx="845" cy="80" r="88" fill="#fde68a" opacity="0.22"/></g><path d="M770 155 Q810 135 845 152 Q880 135 920 155 L920 195 Q880 178 845 194 Q810 178 770 195 Z" fill="rgba(255,255,255,0.22)" stroke="rgba(255,255,255,0.45)" stroke-width="2"/><line x1="845" y1="152" x2="845" y2="194" stroke="rgba(255,255,255,0.45)" stroke-width="2"/><path d="M0 202 Q260 162 540 196 T1000 178 L1000 260 L0 260 Z" fill="rgba(10,32,46,0.28)"/></svg>'
+    dawn: '<svg viewBox="0 0 1000 260" preserveAspectRatio="xMaxYMid slice"><g class="anim-sun-halo"><circle cx="885" cy="145" r="85" fill="#ffd480" opacity="0.16"/></g><circle cx="885" cy="145" r="44" fill="#ffe5a3" opacity="0.28"/><g class="anim-cloud" opacity="0.15" fill="#fff"><ellipse cx="700" cy="64" rx="64" ry="15"/><ellipse cx="736" cy="58" rx="40" ry="13"/></g><path d="M0 195 Q220 140 460 185 T1000 165 L1000 260 L0 260 Z" fill="rgba(7,46,33,0.28)"/><path d="M0 218 Q310 175 610 210 T1000 198 L1000 260 L0 260 Z" fill="rgba(5,32,23,0.34)"/></svg>',
+    day: '<svg viewBox="0 0 1000 260" preserveAspectRatio="xMaxYMid slice"><g class="anim-sun-halo"><circle cx="900" cy="58" r="64" fill="#fff4c2" opacity="0.15"/></g><circle cx="900" cy="58" r="32" fill="#fff8d6" opacity="0.26"/><g class="anim-cloud" opacity="0.14" fill="#fff"><ellipse cx="580" cy="68" rx="76" ry="18"/><ellipse cx="622" cy="58" rx="45" ry="14"/><ellipse cx="770" cy="108" rx="58" ry="14"/></g><path d="M0 205 Q280 155 560 195 T1000 175 L1000 260 L0 260 Z" fill="rgba(6,58,42,0.25)"/><path d="M0 226 Q340 190 700 220 T1000 212 L1000 260 L0 260 Z" fill="rgba(4,40,29,0.32)"/></svg>',
+    evening: '<svg viewBox="0 0 1000 260" preserveAspectRatio="xMaxYMid slice"><path d="M905 32 A26 26 0 1 0 934 70 A20 20 0 1 1 905 32 Z" fill="#fef3c7" opacity="0.28"/><circle class="anim-star" cx="680" cy="46" r="2.2" fill="#fff"/><circle class="anim-star s2" cx="760" cy="82" r="2.0" fill="#fff"/><circle class="anim-star s3" cx="955" cy="44" r="2.4" fill="#fde68a"/><circle class="anim-star s2" cx="815" cy="34" r="1.7" fill="#fff"/><circle class="anim-star s3" cx="610" cy="74" r="1.8" fill="#fff"/><path d="M0 195 Q250 150 530 190 T1000 170 L1000 260 L0 260 Z" fill="rgba(6,18,28,0.40)"/><path d="M0 222 Q330 186 670 215 T1000 204 L1000 260 L0 260 Z" fill="rgba(4,12,20,0.48)"/></svg>',
+    weekend: '<svg viewBox="0 0 1000 260" preserveAspectRatio="xMaxYMid slice"><g class="anim-sun-halo"><circle cx="890" cy="76" r="76" fill="#fde68a" opacity="0.15"/></g><path d="M815 152 Q850 134 885 150 Q920 134 955 152 L955 190 Q920 174 885 190 Q850 174 815 190 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.30)" stroke-width="2"/><line x1="885" y1="150" x2="885" y2="190" stroke="rgba(255,255,255,0.30)" stroke-width="2"/><path d="M0 202 Q260 162 540 196 T1000 178 L1000 260 L0 260 Z" fill="rgba(10,32,46,0.28)"/></svg>'
   };
 
   // Pasek tygodnia PN–ND + szybkie podsumowanie nawyków na dziś
@@ -64173,7 +64186,7 @@ function renderEkranPowitalny(){
     const dPlan = Math.floor((Date.UTC(dObj.getFullYear(), dObj.getMonth(), dObj.getDate()) - Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())) / 86400000) + 1;
     const isDoneD = (dPlan >= 1 && dPlan <= totalDni && dniDone.has(dPlan));
     const cls = "cenHeroWd" + (isToday ? " today" : (isDoneD ? " done" : ""));
-    return '<span class="' + cls + '">' + lbl + ' ' + dNum + (isDoneD && !isToday ? ' ✓' : '') + '</span>';
+    return '<span class="' + cls + '">' + lbl + ' ' + dNum + '</span>';
   }).join('');
 
   const todayIso = (typeof _centrFormatujDateISO === "function") ? _centrFormatujDateISO(teraz) : "";
