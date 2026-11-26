@@ -26479,13 +26479,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v672)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v673)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v672</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v673</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v672) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v672</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v673) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v673</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26566,7 +26566,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v672</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v673</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28830,9 +28830,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v672";
+const APP_BUILD = "v673";
 const APP_BUILD_DATE = "2026-11-26";
-const APP_FULL_VERSION = "5.0 (v672)";
+const APP_FULL_VERSION = "5.0 (v673)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -61815,15 +61815,25 @@ function _centrZsynchronizujCzytanieZNawykami(czyZaznaczono){
         if(!c.history || typeof c.history !== "object") c.history = {};
         if(czyZaznaczono){
           if(!c.history[dzis]){
-            c.history[dzis] = true;
-            c.modified = Date.now();
+            if(typeof _centrUstawDzienNawyku === "function") _centrUstawDzienNawyku(c, dzis, true);
+            else {
+              if(!c.historyTs || typeof c.historyTs !== "object") c.historyTs = {};
+              c.history[dzis] = true;
+              c.historyTs[dzis] = Date.now();
+              c.modified = Date.now();
+            }
             zmieniono = true;
             if(!nawykTytul) nawykTytul = c.title || "Codzienne czytanie Biblii";
           }
         } else {
           if(c.history[dzis]){
-            delete c.history[dzis];
-            c.modified = Date.now();
+            if(typeof _centrUstawDzienNawyku === "function") _centrUstawDzienNawyku(c, dzis, false);
+            else {
+              if(!c.historyTs || typeof c.historyTs !== "object") c.historyTs = {};
+              delete c.history[dzis];
+              c.historyTs[dzis] = Date.now();
+              c.modified = Date.now();
+            }
             zmieniono = true;
           }
         }
@@ -63198,10 +63208,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v672</span>
+          <span class="cl-ver-num">v673</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">26 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">Spójność nawyków między sekcjami i synchronizacja <code>historyTs</code></div>
+        <ul class="cl-ver-list">
+          <li><b>Priorytet aktywnych nawyków na Ekranie powitalnym:</b> sekcja „Twoja stała duchowa rutyna” zawsze wyświetla najpierw aktywne nawyki zamiast ukończonych celów.</li>
+          <li><b>Znacznik <code>historyTs</code> z planu czytania:</b> automatyczne zaliczenie nawyku „Codzienne czytanie Biblii” zapisuje teraz znacznik czasu <code>historyTs</code> dla bezbłędnej synchronizacji między urządzeniami.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v672</span>
+          <span class="cl-ver-date">26 listopada 2026</span>
         <div class="cl-ver-title">Subtelniejszy księżyc i wyraźny tekst na Ekranie powitalnym</div>
         <ul class="cl-ver-list">
           <li><b>Czytelny tekst na tle sceny SVG:</b> zmniejszono jasność księżyca, słońca i księgi oraz przesunięto je bliżej prawego rogu, a werset otrzymał delikatny cień dla wyraźnego kontrastu.</li>
@@ -64460,7 +64480,7 @@ function renderEkranPowitalny(){
       + '<span class="card-action-link" data-cwidok="duchowe-cele" style="font-size:13px;color:var(--accent);cursor:pointer;font-weight:750;">Zarządzaj celami ↗</span>'
       + '</div>'
       + '<div class="cenGoalsGrid">'
-      + celeList.slice(0, 3).map(c => {
+      + (celeList.some(c => !c.completed) ? celeList.filter(c => !c.completed) : celeList).slice().sort((a, b) => (a.type === 'habit' ? 0 : 1) - (b.type === 'habit' ? 0 : 1)).slice(0, 3).map(c => {
           if(c.type === 'habit'){
             const weekP = _centrObliczPostepTygodniowyNawyku(c);
             const pctHabit = weekP.target > 0 ? Math.round((weekP.doneThisWeek / weekP.target) * 100) : 0;
