@@ -21394,75 +21394,193 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   color: var(--accent);
 }
 
-/* Baner powitalny w Centrum Studium */
+/* Baner powitalny w Centrum Studium — Żywa Panorama Dnia (v669) */
 .cenUserHeroBanner {
+  position: relative;
+  overflow: hidden;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px 22px 16px;
+  margin-bottom: 20px;
+  border-radius: 22px;
+  color: #ffffff;
+  background: linear-gradient(125deg, #0b5240 0%, #1c7c5c 45%, #d99543 115%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 16px 38px rgba(10, 40, 28, 0.16);
+}
+.cenUserHeroBanner.is-scene-day {
+  background: linear-gradient(125deg, #0c6449 0%, #1d8a73 55%, #55a998 115%);
+}
+.cenUserHeroBanner.is-scene-evening {
+  background: linear-gradient(125deg, #0d1b2a 0%, #1b3a4b 52%, #0e5848 110%);
+}
+.cenUserHeroBanner.is-scene-weekend {
+  background: linear-gradient(125deg, #173a5e 0%, #0f6853 60%, #c9973b 125%);
+}
+.cenHeroSceneSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.cenHeroSceneSvg svg { width: 100%; height: 100%; display: block; }
+@keyframes cenHeroCloud {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(12px) translateY(-4px); }
+}
+@keyframes cenHeroStar {
+  0%, 100% { opacity: 0.35; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+@keyframes cenHeroSun {
+  0%, 100% { transform: scale(1); opacity: 0.24; }
+  50% { transform: scale(1.08); opacity: 0.36; }
+}
+.cenHeroSceneSvg .anim-cloud { animation: cenHeroCloud 9s ease-in-out infinite; }
+.cenHeroSceneSvg .anim-star { animation: cenHeroStar 3.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.cenHeroSceneSvg .anim-star.s2 { animation-delay: 1.1s; }
+.cenHeroSceneSvg .anim-star.s3 { animation-delay: 2.1s; }
+.cenHeroSceneSvg .anim-sun-halo { animation: cenHeroSun 5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+
+.cenUserHeroTop {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  padding: 16px 20px;
-  margin-bottom: 20px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--accent, #2563eb) 12%, var(--panel, #ffffff)) 0%, color-mix(in srgb, #10b981 8%, var(--panel, #ffffff)) 100%);
-  border: 1px solid color-mix(in srgb, var(--accent, #2563eb) 22%, transparent);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
 }
 .cenUserHeroLeft {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 15px;
   min-width: 0;
 }
 .cenUserAvatar {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent, #2563eb) 0%, #10b981 100%);
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: #ffffff;
+  border: 2.5px solid rgba(255, 255, 255, 0.78);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 750;
-  font-size: 17px;
-  box-shadow: 0 3px 10px color-mix(in srgb, var(--accent, #2563eb) 35%, transparent);
+  font-weight: 800;
+  font-size: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
   flex-shrink: 0;
 }
 .cenUserAvatarPrompt {
-  background: color-mix(in srgb, var(--accent, #2563eb) 20%, transparent);
-  color: var(--accent, #2563eb);
-  font-size: 22px;
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  font-size: 24px;
 }
 .cenUserGreetingWrap {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
   min-width: 0;
 }
 .cenUserGreeting {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text, #111827);
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
   letter-spacing: -0.02em;
-  line-height: 1.25;
+  line-height: 1.22;
 }
 .cenUserSub {
   font-size: 12.5px;
-  color: var(--muted, #6b7280);
-  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.90);
+  line-height: 1.4;
+}
+.cenHeroDateChip {
+  font-size: 12.5px;
+  font-weight: 650;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 6px 13px;
+  border-radius: 12px;
+  white-space: nowrap;
 }
 .cenUserProfileBtn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 14px;
+  padding: 7px 13px;
   border-radius: 10px;
-  border: 1px solid color-mix(in srgb, var(--border, #d1d5db) 80%, transparent);
-  background: var(--panel, #ffffff);
-  color: var(--text, #111827);
+  border: 0;
+  background: rgba(255, 255, 255, 0.92);
+  color: #094f37;
   font-size: 12.5px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
+}
+.cenHeroGlassBar {
+  position: relative;
+  z-index: 1;
+  padding: 9px 14px;
+  background: rgba(8, 24, 18, 0.24);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.cenHeroWeekDots { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+.cenHeroWd {
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.88);
+}
+.cenHeroWd.done { background: rgba(52, 211, 153, 0.26); color: #d1fae5; }
+.cenHeroWd.today { background: #ffffff; color: #094f37; box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18); }
+.cenHeroSummary {
+  font-size: 12px;
+  font-weight: 650;
+  color: rgba(255, 255, 255, 0.94);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.cenLanternTrack {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 4px;
+}
+.cenLanternNode {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  background: color-mix(in srgb, var(--border) 60%, transparent);
+  color: var(--muted);
+}
+.cenLanternNode.lit {
+  background: radial-gradient(circle at 35% 35%, #ffe69a, #e5971d);
+  color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(229, 151, 29, 0.22);
+}
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   transition: all 0.15s ease;
   flex-shrink: 0;
@@ -26296,13 +26414,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v668)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v669)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v668</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v669</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v668) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v668</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v669) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v669</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26383,7 +26501,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v668</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v669</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28647,9 +28765,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v668";
+const APP_BUILD = "v669";
 const APP_BUILD_DATE = "2026-11-26";
-const APP_FULL_VERSION = "5.0 (v668)";
+const APP_FULL_VERSION = "5.0 (v669)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -63015,10 +63133,21 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v668</span>
+          <span class="cl-ver-num">v669</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">26 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">Ekran powitalny: „Żywa Panorama Dnia”</div>
+        <ul class="cl-ver-list">
+          <li><b>Dynamiczne sceny SVG pory i dnia tygodnia:</b> baner powitalny automatycznie zmienia atmosferę na poranny świt, słoneczne popołudnie, gwiaździsty wieczór oraz weekendowy motyw otwartej księgi (bez zbędnego hasła nad powitaniem).</li>
+          <li><b>Szklany pasek tygodnia:</b> na dole banera widać dni tygodnia <code>PN–ND</code>, serię czytania i podsumowanie dzisiejszych nawyków.</li>
+          <li><b>Wizualna ścieżka 7 latarni:</b> na karcie zadania na dziś zapalają się kolejne latarnie postępu.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v668</span>
+          <span class="cl-ver-date">26 listopada 2026</span>
         <div class="cl-ver-title">Płynne mikro-animacje w całej aplikacji</div>
         <ul class="cl-ver-list">
           <li><b>Powiązane notatki:</b> kaskadowe pojawianie się kart, płynnie przyciemniane tło z rozmyciem oraz ruch strzałki <code>›</code> przy wyborze pozycji.</li>
@@ -63936,12 +64065,41 @@ function renderEkranPowitalny(){
   const initials = (typeof userInicjaly === "function") ? userInicjaly(userName) : "👤";
   const nameEsc = esc(userName);
 
-  const godzAktualna = new Date().getHours();
-  let poraDniaTag = "Dobrego dnia 🌤️";
-  if(godzAktualna >= 5 && godzAktualna < 12) poraDniaTag = "Dobrego poranka ☀️";
-  else if(godzAktualna >= 18 || godzAktualna < 5) poraDniaTag = "Spokojnego wieczoru 🌙";
+  const teraz = new Date();
+  const godzAktualna = teraz.getHours();
+  const dzienTyg = teraz.getDay(); // 0=ND, 6=SB
+  let sceneType = "dawn";
+  if(dzienTyg === 0 || dzienTyg === 6) sceneType = "weekend";
+  else if(godzAktualna >= 18 || godzAktualna < 5) sceneType = "evening";
+  else if(godzAktualna >= 12) sceneType = "day";
 
-  const dzisiajStr = new Date().toLocaleDateString('pl-PL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const sceneSvgs = {
+    dawn: '<svg viewBox="0 0 1000 260" preserveAspectRatio="none"><g class="anim-sun-halo"><circle cx="820" cy="145" r="95" fill="#ffd480" opacity="0.24"/></g><circle cx="820" cy="145" r="52" fill="#ffe5a3" opacity="0.52"/><g class="anim-cloud" opacity="0.20" fill="#fff"><ellipse cx="640" cy="68" rx="70" ry="17"/><ellipse cx="680" cy="62" rx="45" ry="14"/></g><path d="M0 195 Q220 140 460 185 T1000 165 L1000 260 L0 260 Z" fill="rgba(7,46,33,0.28)"/><path d="M0 218 Q310 175 610 210 T1000 198 L1000 260 L0 260 Z" fill="rgba(5,32,23,0.34)"/></svg>',
+    day: '<svg viewBox="0 0 1000 260" preserveAspectRatio="none"><g class="anim-sun-halo"><circle cx="830" cy="62" r="72" fill="#fff4c2" opacity="0.22"/></g><circle cx="830" cy="62" r="36" fill="#fff8d6" opacity="0.48"/><g class="anim-cloud" opacity="0.20" fill="#fff"><ellipse cx="520" cy="68" rx="85" ry="20"/><ellipse cx="565" cy="58" rx="50" ry="16"/><ellipse cx="730" cy="108" rx="64" ry="15"/></g><path d="M0 205 Q280 155 560 195 T1000 175 L1000 260 L0 260 Z" fill="rgba(6,58,42,0.25)"/><path d="M0 226 Q340 190 700 220 T1000 212 L1000 260 L0 260 Z" fill="rgba(4,40,29,0.32)"/></svg>',
+    evening: '<svg viewBox="0 0 1000 260" preserveAspectRatio="none"><path d="M835 38 A34 34 0 1 0 872 86 A26 26 0 1 1 835 38 Z" fill="#fef3c7" opacity="0.76"/><circle class="anim-star" cx="620" cy="48" r="2.6" fill="#fff"/><circle class="anim-star s2" cx="710" cy="84" r="2.2" fill="#fff"/><circle class="anim-star s3" cx="910" cy="52" r="2.8" fill="#fde68a"/><circle class="anim-star s2" cx="765" cy="36" r="1.8" fill="#fff"/><circle class="anim-star s3" cx="540" cy="76" r="2" fill="#fff"/><path d="M0 195 Q250 150 530 190 T1000 170 L1000 260 L0 260 Z" fill="rgba(6,18,28,0.40)"/><path d="M0 222 Q330 186 670 215 T1000 204 L1000 260 L0 260 Z" fill="rgba(4,12,20,0.48)"/></svg>',
+    weekend: '<svg viewBox="0 0 1000 260" preserveAspectRatio="none"><g class="anim-sun-halo"><circle cx="845" cy="80" r="88" fill="#fde68a" opacity="0.22"/></g><path d="M770 155 Q810 135 845 152 Q880 135 920 155 L920 195 Q880 178 845 194 Q810 178 770 195 Z" fill="rgba(255,255,255,0.22)" stroke="rgba(255,255,255,0.45)" stroke-width="2"/><line x1="845" y1="152" x2="845" y2="194" stroke="rgba(255,255,255,0.45)" stroke-width="2"/><path d="M0 202 Q260 162 540 196 T1000 178 L1000 260 L0 260 Z" fill="rgba(10,32,46,0.28)"/></svg>'
+  };
+
+  // Pasek tygodnia PN–ND + szybkie podsumowanie nawyków na dziś
+  const dniSkrot = ["PN", "WT", "ŚR", "CZ", "PT", "SB", "ND"];
+  const idxDzis = (dzienTyg + 6) % 7;
+  const mondayDate = new Date(teraz.getFullYear(), teraz.getMonth(), teraz.getDate() - idxDzis);
+  const weekDotsHtml = dniSkrot.map((lbl, i) => {
+    const dObj = new Date(mondayDate.getTime() + i * 86400000);
+    const dNum = dObj.getDate();
+    const isToday = (i === idxDzis);
+    const dPlan = Math.floor((Date.UTC(dObj.getFullYear(), dObj.getMonth(), dObj.getDate()) - Date.UTC(startDate.getFullYear(), startDate.getMonth(), startDate.getDate())) / 86400000) + 1;
+    const isDoneD = (dPlan >= 1 && dPlan <= totalDni && dniDone.has(dPlan));
+    const cls = "cenHeroWd" + (isToday ? " today" : (isDoneD ? " done" : ""));
+    return '<span class="' + cls + '">' + lbl + ' ' + dNum + (isDoneD && !isToday ? ' ✓' : '') + '</span>';
+  }).join('');
+
+  const todayIso = (typeof _centrFormatujDateISO === "function") ? _centrFormatujDateISO(teraz) : "";
+  const activeHabits = celeList.filter(c => c.type === "habit" && !c.completed);
+  const doneHabitsToday = todayIso ? activeHabits.filter(c => c.history && c.history[todayIso]).length : 0;
+  const heroStreak = _centrObliczSeriaCzytania(curPlan.id);
+
+  const dzisiajStr = teraz.toLocaleDateString('pl-PL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   const dzisiajCap = dzisiajStr.charAt(0).toUpperCase() + dzisiajStr.slice(1);
 
   let avatarInlineStyle = "";
@@ -63957,37 +64115,43 @@ function renderEkranPowitalny(){
 
   let userBannerHtml = '';
   if(userName || userAvatar){
-    userBannerHtml = '<div class="cenUserHeroBanner">'
+    userBannerHtml = '<div class="cenUserHeroBanner is-scene-' + sceneType + '">'
+      + '<div class="cenHeroSceneSvg" aria-hidden="true">' + (sceneSvgs[sceneType] || sceneSvgs.dawn) + '</div>'
+      + '<div class="cenUserHeroTop">'
       + '<div class="cenUserHeroLeft">'
       + '<div class="' + avatarClass + '"' + avatarInlineStyle + ' title="Twój profil' + (userName ? (': ' + nameEsc) : '') + '">' + avatarHtmlContent + '</div>'
       + '<div class="cenUserGreetingWrap">'
-      + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:3px;flex-wrap:wrap;">'
-      + '<div style="font-size:11.5px;font-weight:750;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent,#2563eb);">Osobiste Studium Słowa Bożego</div>'
-      + '<div style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:12px;background:rgba(5,150,105,0.1);color:#059669;">' + poraDniaTag + '</div>'
-      + '</div>'
       + '<div class="cenUserGreeting">' + greeting + (userName ? (', <b>' + nameEsc + '</b>!') : '!') + ' 👋</div>'
       + '<div class="cenUserSub">„Niech ta księga Prawa zawsze będzie na twoich ustach i uważnie ją czytaj dniem i nocą, żeby ściśle trzymać się wszystkiego, co jest w niej napisane.” — Jozuego 1:8</div>'
       + '</div></div>'
       + '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;">'
-      + '<div style="font-size:12px;font-weight:600;color:var(--cen-text-muted);background:color-mix(in srgb, var(--border,#d1d5db) 30%, transparent);padding:5px 12px;border-radius:20px;white-space:nowrap;">📅 ' + dzisiajCap + '</div>'
+      + '<div class="cenHeroDateChip">📅 ' + dzisiajCap + '</div>'
       + '<button type="button" class="cenUserProfileBtn" data-act="otworzProfil" title="Zarządzaj profilem użytkownika">'
       + '<svg class="ic" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>'
       + '<span>' + (nameEsc || 'Profil') + '</span>'
       + '</button>'
+      + '</div></div>'
+      + '<div class="cenHeroGlassBar">'
+      + '<div class="cenHeroWeekDots">' + weekDotsHtml + '</div>'
+      + '<div class="cenHeroSummary">'
+      + '<span>🔥 Seria: <b>' + heroStreak + ' ' + (heroStreak === 1 ? 'dzień' : 'dni') + '</b></span>'
+      + (activeHabits.length ? ('<span data-cwidok="cele" style="cursor:pointer;">🎯 Nawyki dziś: <b>' + doneHabitsToday + ' z ' + activeHabits.length + '</b></span>') : '')
+      + '</div>'
       + '</div></div>';
   } else {
-    userBannerHtml = '<div class="cenUserHeroBanner cenUserPromptBanner">'
+    userBannerHtml = '<div class="cenUserHeroBanner cenUserPromptBanner is-scene-' + sceneType + '">'
+      + '<div class="cenHeroSceneSvg" aria-hidden="true">' + (sceneSvgs[sceneType] || sceneSvgs.dawn) + '</div>'
+      + '<div class="cenUserHeroTop">'
       + '<div class="cenUserHeroLeft">'
       + '<div class="cenUserAvatar cenUserAvatarPrompt">👋</div>'
       + '<div class="cenUserGreetingWrap">'
-      + '<div style="font-size:11.5px;font-weight:750;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent,#2563eb);margin-bottom:2px;">Osobiste Studium Słowa Bożego</div>'
       + '<div class="cenUserGreeting">Witaj w <b>JW-Study</b>!</div>'
       + '<div class="cenUserSub">Wpisz swoje imię, aby spersonalizować powiadomienia, plany i gratulacje.</div>'
       + '</div></div>'
       + '<div class="cenUserPromptForm">'
       + '<input type="text" id="cenQuickNameInp" class="cenQuickNameInp" placeholder="Wpisz swoje imię…" maxlength="40" aria-label="Twoje imię">'
       + '<button type="button" class="btn primary" id="cenQuickNameSaveBtn">Zapisz</button>'
-      + '</div>'
+      + '</div></div>'
       + '</div>';
   }
 
@@ -64106,7 +64270,10 @@ function renderEkranPowitalny(){
   const streakLabel = streakDays > 0 ? (streakDays + (streakDays === 1 ? ' dzień' : ' dni') + ' z rzędu') : 'Rozpocznij dziś serię!';
 
   const etapSciezka = (typeof _centrObliczEtapSciezkiSwiatla === "function") ? _centrObliczEtapSciezkiSwiatla(curPlan, doneCount) : null;
-  const latarnieLabel = etapSciezka ? (etapSciezka.litCount + ' z 7 latarni (' + etapSciezka.lightVal + '%)') : 'Światło na ścieżce';
+  const litCnt = etapSciezka ? etapSciezka.litCount : 0;
+  const latarnieDotsHtml = Array.from({length: 7}, (_, idx) =>
+    '<span class="cenLanternNode' + (idx < litCnt ? ' lit' : '') + '">' + (idx < litCnt ? '🏮' : '○') + '</span>'
+  ).join('');
 
   const dualStatusBarHtml = '<div class="cenMetricsStrip">'
     + '<div class="cenMetricItem">'
@@ -64115,8 +64282,8 @@ function renderEkranPowitalny(){
     + '</div>'
     + '<div style="color:var(--border);padding:0 4px;">|</div>'
     + '<div class="cenMetricItem" data-cwidok="statystyki" data-cstat-tab="sciezka" style="cursor:pointer;" title="Zobacz motyw Światło na ścieżce">'
-    + '<span>🏮</span>'
-    + '<span>Ścieżka: <strong style="color:var(--text);">' + esc(latarnieLabel) + '</strong></span>'
+    + '<span class="cenLanternTrack">' + latarnieDotsHtml + '</span>'
+    + '<span><strong style="color:var(--text);">' + (etapSciezka ? (etapSciezka.lightVal + '%') : '') + '</strong></span>'
     + '</div>'
     + '</div>';
 
