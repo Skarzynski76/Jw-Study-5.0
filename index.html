@@ -26449,18 +26449,26 @@ html[data-theme="oled"] .wm-adv-content .cm-sw {
   gap: 8px;
   margin-bottom: 6px;
 }
-/* 4. Mapa Myśli HTML5 Canvas (Propozycja 3 — Karty Flow, v682) */
-.mm-modal {
-  width: min(1140px, calc(100vw - 24px)) !important;
-  max-width: 1140px !important;
-  height: min(88dvh, 780px) !important;
-  max-height: calc(100dvh - 24px) !important;
-  padding: 16px !important;
+/* 4. Mapa Myśli HTML5 Canvas (Propozycja 3 — Karty Flow, pełny ekran v683) */
+#modalMindMap.overlay {
+  padding: 0 !important;
+  z-index: 10080 !important;
+}
+#modalMindMap .modal.mm-modal {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  border-radius: 0 !important;
+  border: 0 !important;
+  margin: 0 !important;
+  padding: max(12px, env(safe-area-inset-top, 12px)) max(14px, env(safe-area-inset-right, 14px)) max(12px, env(safe-area-inset-bottom, 12px)) max(14px, env(safe-area-inset-left, 14px)) !important;
   display: flex !important;
   flex-direction: column !important;
   gap: 10px;
   background: var(--panel) !important;
   color: var(--text) !important;
+  box-shadow: none !important;
 }
 .mm-head {
   display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
@@ -26473,7 +26481,7 @@ html[data-theme="oled"] .wm-adv-content .cm-sw {
 .mm-btn-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .mm-workspace {
   flex: 1 1 auto; min-height: 0;
-  display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 12px;
+  display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 12px;
 }
 .mm-canvas-box {
   position: relative; min-height: 300px; border-radius: 16px; overflow: hidden;
@@ -26612,13 +26620,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v682)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v683)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v682</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v683</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v682) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v682</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v683) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v683</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26699,7 +26707,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v682</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v683</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -29020,9 +29028,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v682";
+const APP_BUILD = "v683";
 const APP_BUILD_DATE = "2026-11-27";
-const APP_FULL_VERSION = "5.0 (v682)";
+const APP_FULL_VERSION = "5.0 (v683)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -63458,10 +63466,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v682</span>
+          <span class="cl-ver-num">v683</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">27 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">Mapa Myśli na całą stronę + automatyczne dopasowanie zoomu</div>
+        <ul class="cl-ver-list">
+          <li><b>Pełny ekran (<code>100vw × 100dvh</code>):</b> edytor Mapy Myśli otwiera się teraz na całej szerokości i wysokości ekranu zamiast wąskiego okna pośrodku.</li>
+          <li><b>Automatyczne dopasowanie widoku:</b> przy otwarciu skala mapy dopasowuje się do szerokości ekranu, żeby od razu było widać wszystkie gałęzie.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v682</span>
+          <span class="cl-ver-date">27 listopada 2026</span>
         <div class="cl-ver-title">Interaktywna Mapa Myśli (HTML5 Canvas — Karty Flow)</div>
         <ul class="cl-ver-list">
           <li><b>Nowa notatka jako Mapa Myśli:</b> w oknie „Nowa notatka” pojawił się przycisk <b>„🧠 Mapa myśli”</b> do tworzenia diagramów bezpośrednio na płótnie HTML5 Canvas.</li>
@@ -74891,8 +74909,14 @@ window.GranularSync = (function() {
     c.height = r.height * dpr;
     const ctx = c.getContext("2d");
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if(_mmFitPending){
+      _mmFitPending = false;
+      _mmZoom = Math.max(0.55, Math.min(1.05, (r.width - 36) / 920));
+      _mmPanX = 0; _mmPanY = 0;
+    }
     _mmDraw();
   }
+  let _mmFitPending = false;
 
   function _mmDraw(){
     const c = _mmCanvas();
@@ -75234,10 +75258,11 @@ window.GranularSync = (function() {
     _mmData = (n.mindmap && Array.isArray(n.mindmap.branches)) ? _mmClone(n.mindmap) : mindmapZNotatki(n);
     _mmSelId = "root";
     _mmZoom = 1; _mmPanX = 0; _mmPanY = 0;
+    _mmFitPending = true;
     _mmBindOnce();
     if(typeof openModal === "function") openModal("modalMindMap");
     _mmSyncSidePanel();
-    setTimeout(_mmResize, 40);
+    setTimeout(_mmResize, 50);
   }
 
   window.mindmapZNotatki = mindmapZNotatki;
