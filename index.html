@@ -22793,7 +22793,7 @@ html[data-theme="sepia"] .sidebar-float-trigger {
 .ncontent figure.note-figure {
   max-width: 100% !important;
   box-sizing: border-box !important;
-  height: auto;
+  height: auto !important;
 }
 @media (max-width: 600px) {
   .ncontent img,
@@ -26480,13 +26480,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v676)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v677)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v676</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v677</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v676) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v676</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v677) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v677</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26567,7 +26567,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v676</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v677</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28831,9 +28831,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v676";
+const APP_BUILD = "v677";
 const APP_BUILD_DATE = "2026-11-27";
-const APP_FULL_VERSION = "5.0 (v676)";
+const APP_FULL_VERSION = "5.0 (v677)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -36546,6 +36546,54 @@ function otworzMenuNotatki(btn, n, card){
  * @param {Note} n
  * @returns {HTMLElement} gotowy element .ncard
  */
+function _zwinPustePrzerwyWKontenerze(cont){
+  if(!cont) return;
+  try {
+    const jestPustyBlok = (el) => {
+      if(!el || el.nodeType !== 1) return false;
+      if(el.tagName !== "DIV" && el.tagName !== "P") return false;
+      if(el.querySelector("img,figure,svg,video,iframe,table,hr")) return false;
+      return !el.textContent.replace(/[\u00a0\s]/g, "");
+    };
+    const maObrazek = (el) => el && el.nodeType === 1 && (el.tagName === "IMG" || el.tagName === "FIGURE" || !!el.querySelector?.("img,figure"));
+    const zwinWBloku = (root, usunPoObrazku) => {
+      let pusteZRzedu = 0;
+      let poObrazku = !!usunPoObrazku;
+      Array.from(root.children).forEach(ch => {
+        if(jestPustyBlok(ch)){
+          pusteZRzedu++;
+          if(poObrazku || pusteZRzedu > 1) ch.remove();
+        } else {
+          pusteZRzedu = 0;
+          if(ch.tagName === "DIV" || ch.tagName === "P") zwinWBloku(ch, maObrazek(ch));
+          poObrazku = maObrazek(ch);
+        }
+      });
+      let brZRzedu = 0;
+      let poImgNode = false;
+      Array.from(root.childNodes).forEach(nd => {
+        if(nd.nodeType === 1 && (nd.tagName === "IMG" || nd.tagName === "FIGURE")){
+          brZRzedu = 0;
+          poImgNode = true;
+        } else if(nd.nodeType === 1 && nd.tagName === "BR"){
+          brZRzedu++;
+          if(poImgNode || brZRzedu > 1) nd.remove();
+        } else if(nd.nodeType === 3){
+          if(/\n{3,}/.test(nd.textContent)) nd.textContent = nd.textContent.replace(/\n{3,}/g, "\n\n");
+          if(nd.textContent.replace(/[\u00a0\s]/g, "")){
+            brZRzedu = 0;
+            poImgNode = false;
+          }
+        } else {
+          brZRzedu = 0;
+          poImgNode = false;
+        }
+      });
+    };
+    zwinWBloku(cont, false);
+  } catch(_){}
+}
+
 function noteCard(n){
   const d = document.createElement("div");
   d.className = "ncard" + (n.pin?" pinned":"");
@@ -36586,6 +36634,7 @@ function noteCard(n){
                 `<div class="wysUchwyt" title="Przeciągnij, aby zmienić wysokość notatki (dwuklik = jak w widoku)"></div>` +
                 noteCardTools(n);
   const _contEl = d.querySelector(".ncontent");
+  _zwinPustePrzerwyWKontenerze(_contEl);
   autolinkRefs(_contEl);
   if(typeof podepnijOdtwarzaczeWKontenerze==="function") podepnijOdtwarzaczeWKontenerze(_contEl);
   /* Odsyłacze do notatek dostają napis z BIEŻĄCEGO tytułu, a przypisy numery
@@ -37178,39 +37227,6 @@ function renderFs(){
     // można znaleźć właściwe miejsce po tekście, a dopiero potem po procencie.
     const marks = document.createElement("div"); marks.className="fsMarks"; marks.style.display="none";
     card.insertBefore(marks, cont);
-    // Zwijanie nadmiarowych pustych linii w trybie czytnika (bez zmiany zapisanej treści notatki)
-    try {
-      const jestPustyBlok = (el) => {
-        if(!el || el.nodeType !== 1) return false;
-        if(el.tagName !== "DIV" && el.tagName !== "P") return false;
-        if(el.querySelector("img,figure,svg,video,iframe,table,hr")) return false;
-        return !el.textContent.replace(/\u00a0/g, " ").trim();
-      };
-      const maObrazek = (el) => el && el.nodeType === 1 && (el.tagName === "IMG" || el.tagName === "FIGURE" || !!el.querySelector?.("img,figure"));
-      let pusteZRezdu = 0;
-      let poObrazku = false;
-      Array.from(cont.children).forEach(ch => {
-        if(jestPustyBlok(ch)){
-          pusteZRezdu++;
-          if(poObrazku || pusteZRezdu > 1) ch.remove();
-        } else {
-          pusteZRezdu = 0;
-          poObrazku = maObrazek(ch);
-        }
-      });
-      // Zwijanie wielokrotnych <br> bezpośrednio w treści czytnika
-      let brZRzedu = 0;
-      Array.from(cont.childNodes).forEach(nd => {
-        if(nd.nodeType === 1 && nd.tagName === "BR"){
-          brZRzedu++;
-          if(brZRzedu > 1) nd.remove();
-        } else if(nd.nodeType === 3 && !nd.textContent.replace(/\u00a0/g, " ").trim()){
-          // biały znak nie przerywa ciągu <br>
-        } else {
-          brZRzedu = 0;
-        }
-      });
-    } catch(_){}
     renderFsMarks(n, cont, marks);
     bar.addEventListener("click", e=>{
       const b=e.target.closest("[data-fsb]"); if(!b) return;
@@ -63243,10 +63259,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v676</span>
+          <span class="cl-ver-num">v677</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">27 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">Zwijanie przerw pod ilustracjami również w miniaturach i kartach podglądu</div>
+        <ul class="cl-ver-list">
+          <li><b>Wspólne czyszczenie dla wszystkich widoków kart:</b> funkcja <code>_zwinPustePrzerwyWKontenerze</code> działa teraz zarówno w czytniku, jak i na miniaturach oraz powiększonych kartach (<code>wydobyta</code>), zwijając wielokrotne puste linie, zagnieżdżone puste bloki, ciągi <code>&lt;br&gt;</code> i nadmiarowe entery w tekście.</li>
+          <li><b>Jednolita wysokość ilustracji:</b> ustawiono <code>height: auto !important</code> dla wszystkich obrazków w kartach.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v676</span>
+          <span class="cl-ver-date">27 listopada 2026</span>
         <div class="cl-ver-title">Brak dużych przerw pod ilustracjami w trybie czytnika</div>
         <ul class="cl-ver-list">
           <li><b>Inteligentne zwijanie pustych linii w czytniku:</b> tryb czytnika automatycznie usuwa nadmiarowe puste akapity i wielokrotne <code>&lt;br&gt;</code> pod ilustracjami (bez modyfikowania zapisanej treści notatki).</li>
