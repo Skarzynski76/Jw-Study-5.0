@@ -26479,13 +26479,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v674)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v675)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v674</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v675</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v674) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v674</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v675) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v675</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26566,7 +26566,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v674</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v675</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28830,9 +28830,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v674";
+const APP_BUILD = "v675";
 const APP_BUILD_DATE = "2026-11-27";
-const APP_FULL_VERSION = "5.0 (v674)";
+const APP_FULL_VERSION = "5.0 (v675)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -63209,10 +63209,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v674</span>
+          <span class="cl-ver-num">v675</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">27 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">Pasek postępu widoczny bezpośrednio w Centrum synchronizacji</div>
+        <ul class="cl-ver-list">
+          <li><b>Widoczny pasek w oknie „Centrum synchronizacji”:</b> kliknięcie „Synchronizuj z Google teraz” nie zamyka już okna przed czasem — od razu pokazuje procentowy pasek postępu i aktualny etap przesyłania.</li>
+          <li><b>Status wygasłej sesji:</b> w Centrum synchronizacji od razu widać czerwony status, jeśli sesja Google wymaga odnowienia.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v674</span>
+          <span class="cl-ver-date">27 listopada 2026</span>
         <div class="cl-ver-title">Pasek postępu synchronizacji Google Drive i natychmiastowa zielona kropka</div>
         <ul class="cl-ver-list">
           <li><b>Widoczny postęp krok po kroku:</b> po kliknięciu „Uzgodnij z Dyskiem Google” od razu pojawia się pasek postępu (<code>Łączenie…</code> → <code>Sprawdzanie pliku…</code> → <code>Pobieranie i scalanie…</code> → <code>Wysyłanie zmian…</code>).</li>
@@ -70884,6 +70894,7 @@ function _gdriveUstawPostep(pct, opis){
   _gdrivePostepPct = pct;
   _gdriveStanOpis = opis;
   if(typeof gdriveOdswiezUI === "function") gdriveOdswiezUI();
+  if(typeof odswiezCentrumSyncUI === "function") odswiezCentrumSyncUI();
   if(typeof odswiezWskaznikSync === "function") odswiezWskaznikSync();
 }
 
@@ -71336,22 +71347,40 @@ function odswiezCentrumSyncUI(){
   let gdriveHtml = "";
   if(zalogowany){
     const userTxt = user && (user.name || user.email) ? (user.name || user.email) : "Połączono";
+    const isWorking = (typeof _gdriveSyncPracuje !== "undefined") && _gdriveSyncPracuje;
+    const tokenWazny = (typeof gdrivePobierzToken === "function") ? !!gdrivePobierzToken() : true;
+    const statusKolor = isWorking ? "#3b82f6" : (tokenWazny ? "#10b981" : "#ef4444");
+    const statusTyt = isWorking
+      ? "Dysk Google: Trwa synchronizacja…"
+      : (tokenWazny ? "Dysk Google: Aktywny i połączony" : "Dysk Google: Sesja wygasła — kliknij Synchronizuj");
+    const pct = (typeof _gdrivePostepPct !== "undefined" && _gdrivePostepPct) ? Math.max(10, _gdrivePostepPct) : 15;
+    const opisKroku = (typeof _gdriveStanOpis !== "undefined" && _gdriveStanOpis) ? _gdriveStanOpis : "Trwa synchronizacja…";
     gdriveHtml = `
-      <div class="sync-card-block" style="border-left: 3px solid #10b981;">
+      <div class="sync-card-block" style="border-left: 3px solid ${statusKolor};">
         <div class="sync-card-tit">
-          <span style="color:#10b981;font-size:15px;">●</span> Dysk Google: Aktywny i połączony
+          <span style="color:${statusKolor};font-size:15px;">●</span> ${statusTyt}
         </div>
         <div class="sync-card-sub">
           Konto: <b>${esc(userTxt)}</b><br>
           Ostatnia synchronizacja: <b>${lastSyncTxt}</b>
           ${dirty > 0 ? `<br><span style="color:#f59e0b;font-weight:600;">Oczekujące zmiany do wysłania: ${dirty}</span>` : `<br><span style="color:#10b981;">Wszystkie notatki są aktualne w chmurze ✓</span>`}
         </div>
+        ${isWorking ? `
+        <div style="margin:10px 0 4px;">
+          <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:650;color:var(--accent);margin-bottom:5px;">
+            <span>${esc(opisKroku)}</span>
+            <span>${pct}%</span>
+          </div>
+          <div style="height:7px;border-radius:999px;background:color-mix(in srgb,var(--border) 65%,transparent);overflow:hidden;">
+            <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--accent),#10b981);border-radius:999px;transition:width .28s ease;"></div>
+          </div>
+        </div>` : ""}
         <div class="sync-card-actions">
-          <button type="button" class="btn primary" id="cenSyncGdriveNow">
+          <button type="button" class="btn primary" id="cenSyncGdriveNow" ${isWorking ? "disabled" : ""}>
             <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;margin-right:4px;"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-            Synchronizuj z Google teraz
+            ${isWorking ? "⏳ " + esc(opisKroku) : "Synchronizuj z Google teraz"}
           </button>
-          <button type="button" class="btn" id="cenSyncGdriveLogout">Rozłącz konto</button>
+          <button type="button" class="btn" id="cenSyncGdriveLogout" ${isWorking ? "disabled" : ""}>Rozłącz konto</button>
         </div>
       </div>
     `;
@@ -71412,7 +71441,6 @@ function odswiezCentrumSyncUI(){
 
   const btnSyncNow = body.querySelector("#cenSyncGdriveNow");
   if(btnSyncNow) btnSyncNow.onclick = () => {
-    closeModal("modalCentrumSync");
     if(typeof gdriveSyncTeraz === "function") gdriveSyncTeraz("ręcznie");
   };
 
