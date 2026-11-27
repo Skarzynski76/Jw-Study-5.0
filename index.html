@@ -26449,6 +26449,73 @@ html[data-theme="oled"] .wm-adv-content .cm-sw {
   gap: 8px;
   margin-bottom: 6px;
 }
+/* 4. Mapa Myśli HTML5 Canvas (Propozycja 3 — Karty Flow, v682) */
+.mm-modal {
+  width: min(1140px, calc(100vw - 24px)) !important;
+  max-width: 1140px !important;
+  height: min(88dvh, 780px) !important;
+  max-height: calc(100dvh - 24px) !important;
+  padding: 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px;
+  background: var(--panel) !important;
+  color: var(--text) !important;
+}
+.mm-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+}
+.mm-toolbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;
+  padding: 8px 10px; border-radius: 12px;
+  background: var(--bg); border: 1px solid var(--border);
+}
+.mm-btn-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.mm-workspace {
+  flex: 1 1 auto; min-height: 0;
+  display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 12px;
+}
+.mm-canvas-box {
+  position: relative; min-height: 300px; border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--border); background: #f4f7f5;
+}
+html[data-theme="dark"] .mm-canvas-box { background: #141c18; }
+#mmCanvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; }
+#mmCanvas:active { cursor: grabbing; }
+.mm-hint {
+  position: absolute; left: 10px; bottom: 10px; pointer-events: none;
+  background: color-mix(in srgb, var(--panel) 90%, transparent);
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 4px 9px; font-size: 11px; color: var(--muted);
+}
+.mm-side {
+  border: 1px solid var(--border); border-radius: 16px; padding: 12px;
+  background: var(--bg); overflow-y: auto; display: flex; flex-direction: column; gap: 10px;
+}
+.mm-side h4 { margin: 0; font-size: 13px; color: var(--accent); }
+.mm-side label { display: block; font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 3px; text-transform: uppercase; }
+.mm-side input[type="text"] {
+  width: 100%; border: 1px solid var(--border); border-radius: 9px;
+  padding: 7px 9px; background: var(--panel); color: var(--text); font-size: 12.5px;
+}
+.mm-swatches { display: flex; gap: 6px; flex-wrap: wrap; }
+.mm-sw {
+  width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.2); cursor: pointer;
+}
+.mm-items-list { display: flex; flex-direction: column; gap: 6px; }
+.mm-item-row { display: flex; gap: 5px; align-items: center; }
+.mm-item-row input { flex: 1; min-width: 0; }
+.pill.mm-badge {
+  background: color-mix(in srgb, var(--accent) 12%, var(--panel));
+  color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+  cursor: pointer; font-weight: 650;
+}
+@media (max-width: 820px) {
+  .mm-modal { height: 94dvh !important; padding: 12px !important; }
+  .mm-workspace { grid-template-columns: 1fr; grid-template-rows: minmax(260px, 1fr) auto; }
+  .mm-side { max-height: 230px; }
+}
 .sync-card-sub {
   font-size: 12px;
   color: var(--muted);
@@ -26545,13 +26612,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v681)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v682)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v681</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v682</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v681) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v681</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v682) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v682</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26632,7 +26699,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v681</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v682</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -27322,6 +27389,7 @@ body.centrum-open #btnHeaderCentrum {
 
         <div class="actions nn-studio-actions">
           <button class="btn" data-zamknij="modalNew">Anuluj</button>
+          <button class="btn" id="nnSaveMindMap" type="button" title="Utwórz nową notatkę od razu jako interaktywną Mapę Myśli">🧠 Mapa myśli</button>
           <button class="btn" id="nnSave">Utwórz</button>
           <button class="btn primary" id="nnSaveEdit"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg> Utwórz i edytuj</button>
         </div>
@@ -27769,6 +27837,62 @@ body.centrum-open #btnHeaderCentrum {
       <button class="modal-close" type="button" data-zamknij="modalCentrumSync" aria-label="Zamknij">✕</button>
     </div>
     <div class="sync-modal-body" id="syncModalBody"></div>
+  </div>
+</div>
+
+<!-- MAPA MYŚLI HTML5 CANVAS (v682) -->
+<div class="overlay" id="modalMindMap" aria-hidden="true">
+  <div class="modal mm-modal" role="dialog" aria-modal="true" aria-labelledby="mmModalTit">
+    <div class="mm-head">
+      <div>
+        <h3 id="mmModalTit" style="margin:0;font-size:17px;font-weight:750;">🧠 Mapa Myśli (Karty Flow)</h3>
+        <div id="mmModalSub" style="font-size:12px;color:var(--muted);">Przeciągaj karty, edytuj podpunkty lub zamień treść notatki w diagram</div>
+      </div>
+      <div class="mm-btn-row">
+        <button type="button" class="btn primary" id="mmSaveBtn">💾 Zapisz w notatce</button>
+        <button class="modal-close" type="button" data-zamknij="modalMindMap" aria-label="Zamknij">✕</button>
+      </div>
+    </div>
+    <div class="mm-toolbar">
+      <div class="mm-btn-row">
+        <button type="button" class="btn primary" id="mmAddBranchBtn">＋ Dodaj kartę</button>
+        <button type="button" class="btn" id="mmAutoLayoutBtn">✨ Wyrównaj układ</button>
+        <button type="button" class="btn" id="mmZoomInBtn" title="Przybliż">🔍＋</button>
+        <button type="button" class="btn" id="mmZoomOutBtn" title="Oddal">🔍－</button>
+        <button type="button" class="btn" id="mmResetViewBtn">⟲ Reset</button>
+      </div>
+      <div class="mm-btn-row">
+        <button type="button" class="btn" id="mmFromNoteBtn" title="Wygeneruj ponownie z tekstu notatki">🪄 Z treści notatki</button>
+        <button type="button" class="btn" id="mmExportPngBtn">📸 PNG</button>
+      </div>
+    </div>
+    <div class="mm-workspace">
+      <div class="mm-canvas-box">
+        <canvas id="mmCanvas"></canvas>
+        <div class="mm-hint">Kliknij kartę, aby edytować • Przeciągnij kartę lub tło • Kółko = zoom</div>
+      </div>
+      <div class="mm-side" id="mmSidePanel">
+        <h4 id="mmSelRole">Zaznaczona karta</h4>
+        <div>
+          <label for="mmNodeTitleInp">Tytuł</label>
+          <input type="text" id="mmNodeTitleInp" placeholder="Wpisz tytuł…">
+        </div>
+        <div id="mmRootSubWrap" style="display:none;">
+          <label for="mmNodeSubInp">Werset / podtytuł</label>
+          <input type="text" id="mmNodeSubInp" placeholder="np. Mateusza 8:16">
+        </div>
+        <div id="mmBranchEditWrap">
+          <label>Kolor karty</label>
+          <div class="mm-swatches" id="mmSwatches" style="margin-bottom:8px;"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+            <label style="margin:0;">Podpunkty</label>
+            <button type="button" class="btn small" id="mmAddItemBtn">＋ Punkt</button>
+          </div>
+          <div class="mm-items-list" id="mmItemsList"></div>
+          <button type="button" class="btn" id="mmDelBranchBtn" style="margin-top:8px;color:#b91c1c;width:100%;">🗑️ Usuń tę kartę</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -28896,9 +29020,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v681";
+const APP_BUILD = "v682";
 const APP_BUILD_DATE = "2026-11-27";
-const APP_FULL_VERSION = "5.0 (v681)";
+const APP_FULL_VERSION = "5.0 (v682)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -36556,6 +36680,7 @@ function otworzMenuNotatki(btn, n, card){
      <div data-x="pin">${ICO.pin}${n.pin?"Odepnij z góry":"Przypnij na górze"}</div>
      <div class="dd-sep"></div>
      <div data-x="read">${ICO.book}Tryb czytania</div>
+     <div data-x="mindmap">🧠 ${n.mindmap ? "Otwórz Mapę Myśli" : "Zamień na Mapę Myśli"}</div>
      <div data-x="copy">${ICO.copy}Kopiuj treść</div>
      <div data-x="wyslij">${ICO.send}Wyślij na inne urządzenie…</div>
      ${link?`<div data-x="link">${ICO.link}Kopiuj odnośnik</div>`:""}
@@ -36599,6 +36724,7 @@ function otworzMenuNotatki(btn, n, card){
     else if(x==="copy") copyNote(n);
     else if(x==="link") navigator.clipboard.writeText(finderUrl(n)).then(()=>toast("Skopiowano odnośnik"));
     else if(x==="read") toggleReading(kotwica);
+    else if(x==="mindmap" && typeof otworzMapeMysli==="function") otworzMapeMysli(n);
     else if(x==="open") openUrlJWL(finderUrl(n));
     else if(x==="del") delNote(n);
   };
@@ -36694,6 +36820,7 @@ function noteCard(n){
     }
   }
   d.innerHTML = noteCardHead(n) + noteCardMeta(n) + noteCardChips(n) + match +
+                (n.mindmap && Array.isArray(n.mindmap.branches) ? `<div style="margin:4px 16px 2px;"><button type="button" class="pill mm-badge" data-act="mindmap">🧠 Mapa myśli (${n.mindmap.branches.length})</button></div>` : "") +
                 (typeof htmlPaskaPowtorki==="function" ? htmlPaskaPowtorki(n) : "") +
                 `<div class="ncontent">${cHtml || fallbackHtml}</div>` +
                 `<div class="wysUchwyt" title="Przeciągnij, aby zmienić wysokość notatki (dwuklik = jak w widoku)"></div>` +
@@ -36748,6 +36875,7 @@ function noteCard(n){
     if(["fs","edit","copy","link","openref"].includes(act) || (actionEl && actionEl.matches("a.sbtn"))) touchAccess(n);
     if(!act) return;
     if(act==="fs"){ openFs(n); return; }
+    if(act==="mindmap" && typeof otworzMapeMysli==="function"){ otworzMapeMysli(n); return; }
     if(act==="more" || act==="exp"){
       otworzMenuNotatki(actionEl || e.target, n, d);
       return;
@@ -37272,6 +37400,7 @@ function renderFs(){
       <button class="fsBarBtn" data-fsb="toc" title="Spis treści (nagłówki)">${ICO.ul} Spis</button>
       <button class="fsBarBtn" data-fsb="find" title="Znajdź w notatce">${ICO.search} Znajdź</button>
       <button class="fsBarBtn" data-fsb="marks" title="Zakładki wewnątrz tej notatki">☆ Zakładki <span data-fmark-count>${readerMarks(n).length}</span></button>
+      <button class="fsBarBtn" data-fsb="mindmap" title="Otwórz lub utwórz Mapę Myśli dla tej notatki">🧠 Mapa myśli</button>
       <button class="fsBarBtn" data-fsb="copy" title="Kopiuj treść notatki do schowka">${ICO.copy} Kopiuj</button>
       <button class="fsBarBtn" data-fsb="print" title="Drukuj notatkę lub zapisz jako PDF">${ICO.printer} Drukuj</button>
       <button class="fsBarBtn" data-fsb="top" title="Przewiń na początek notatki">↑ Góra</button>
@@ -37306,6 +37435,8 @@ function renderFs(){
       }else if(act==="toc"){
         fbox.style.display="none"; clearFsFind(cont); marks.style.display="none";
         buildToc(cont,toc); toc.style.display = toc.style.display==="none"?"block":"none";
+      }else if(act==="mindmap" && typeof otworzMapeMysli==="function"){
+        otworzMapeMysli(n);
       }else if(act==="copy"){
         copyNoteContent(n, cont);
       }else if(act==="print"){
@@ -45766,7 +45897,9 @@ async function zapiszNowaNotatke(otworzEdytor){
   renderAll();
   if(typeof rysujCentrum === "function") rysujCentrum();
 
-  if(otworzEdytor){
+  if(otworzEdytor === "mindmap" && typeof otworzMapeMysli === "function"){
+    otworzMapeMysli(n, true);
+  }else if(otworzEdytor){
     openFs(n);
     setTimeout(()=>{
       const karta = document.querySelector('#fsWrap .ncard[data-g="'+CSS.escape(n.g)+'"]');
@@ -45788,6 +45921,7 @@ async function zapiszNowaNotatke(otworzEdytor){
 }
 $("nnSave").onclick = ()=>zapiszNowaNotatke(false);
 $("nnSaveEdit").onclick = ()=>zapiszNowaNotatke(true);
+if($("nnSaveMindMap")) $("nnSaveMindMap").onclick = ()=>zapiszNowaNotatke("mindmap");
 
 
 </script>
@@ -63324,10 +63458,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v681</span>
+          <span class="cl-ver-num">v682</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">27 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">Interaktywna Mapa Myśli (HTML5 Canvas — Karty Flow)</div>
+        <ul class="cl-ver-list">
+          <li><b>Nowa notatka jako Mapa Myśli:</b> w oknie „Nowa notatka” pojawił się przycisk <b>„🧠 Mapa myśli”</b> do tworzenia diagramów bezpośrednio na płótnie HTML5 Canvas.</li>
+          <li><b>Zamiana dowolnej notatki w Mapę Myśli:</b> w menu karty (<code>Więcej</code>) oraz w czytniku dodano przycisk <b>„🧠 Mapa myśli”</b>, który automatycznie zamienia nagłówki, sekcje i punkty notatki w edytowalne Karty Flow (z zapisem w notatce, synchronizacją i eksportem do PNG).</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v681</span>
+          <span class="cl-ver-date">27 listopada 2026</span>
         <div class="cl-ver-title">Baner powitalny w nowoczesnym HTML + CSS (Aurora &amp; Glassmorphism)</div>
         <ul class="cl-ver-list">
           <li><b>Koniec z ilustracją SVG w banerze:</b> zastąpiono ją wielowarstwową sceną HTML + CSS z miękką aurorą, szklanym pierścieniem światła, poświatą słońca/księżyca i idealnym skalowaniem na każdym ekranie.</li>
@@ -74610,6 +74754,495 @@ window.GranularSync = (function() {
   };
 })();
 
+</script>
+<script>
+/* ==========================================================================
+   MAPA MYŚLI HTML5 CANVAS (PROPOZYCJA 3 — NOWOCZESNE KARTY FLOW, v682)
+   ========================================================================== */
+(function(){
+  "use strict";
+  const MM_COLORS = ["#0f7653", "#d97706", "#2563eb", "#7c3aed", "#e11d48", "#0891b2", "#4f46e5", "#475569"];
+  const MM_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  let _mmNote = null;
+  let _mmData = null;
+  let _mmSelId = "root";
+  let _mmZoom = 1;
+  let _mmPanX = 0;
+  let _mmPanY = 0;
+  let _mmDragId = null;
+  let _mmPanning = false;
+  let _mmLastPt = null;
+
+  function _mmClone(obj){
+    return JSON.parse(JSON.stringify(obj));
+  }
+
+  function mindmapZNotatki(n){
+    const title = (n && n.t ? n.t : "").trim() || (typeof refLabel === "function" && n ? refLabel(n) : "") || "Mapa myśli";
+    const sub = (typeof refLabel === "function" && n ? refLabel(n) : "") || "";
+    const tmp = document.createElement("div");
+    tmp.innerHTML = (n && n.c) ? n.c : "";
+
+    const branches = [];
+    let cur = null;
+    const pushBranch = (bTitle) => {
+      const idx = branches.length;
+      cur = {
+        id: "b_" + Date.now() + "_" + idx,
+        letter: MM_LETTERS[idx % MM_LETTERS.length],
+        title: (bTitle || ("Wątek " + (idx + 1))).slice(0, 48),
+        color: MM_COLORS[idx % MM_COLORS.length],
+        items: [],
+        x: 0,
+        y: 0
+      };
+      branches.push(cur);
+    };
+
+    const addItem = (txt) => {
+      const clean = String(txt || "").replace(/\s+/g, " ").trim();
+      if(!clean) return;
+      if(!cur) pushBranch("Główne myśli");
+      const parts = clean.length > 90 ? clean.split(/(?<=[.!?])\s+/).filter(Boolean) : [clean];
+      parts.forEach(p => {
+        if(cur.items.length < 6){
+          cur.items.push(p.length > 52 ? p.slice(0, 50) + "…" : p);
+        }
+      });
+    };
+
+    const blocks = Array.from(tmp.children);
+    if(blocks.length){
+      blocks.forEach(el => {
+        const tag = el.tagName;
+        const txt = (el.textContent || "").replace(/\s+/g, " ").trim();
+        if(!txt) return;
+        const isBoldOnly = (tag === "P" || tag === "DIV") && el.children.length === 1 && (el.children[0].tagName === "B" || el.children[0].tagName === "STRONG");
+        if(/^H[1-4]$/.test(tag) || isBoldOnly || /:$/.test(txt) || (txt.length <= 28 && !/[.!?]$/.test(txt))){
+          pushBranch(txt.replace(/:$/, ""));
+        } else if(tag === "UL" || tag === "OL"){
+          Array.from(el.querySelectorAll("li")).forEach(li => addItem(li.textContent));
+        } else {
+          addItem(txt);
+        }
+      });
+    } else {
+      const rawLines = (tmp.textContent || "").split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      rawLines.forEach(line => {
+        if(/:$/.test(line) || (line.length <= 28 && !/[.!?]$/.test(line))){
+          pushBranch(line.replace(/:$/, ""));
+        } else {
+          addItem(line.replace(/^[-•*]\s*/, ""));
+        }
+      });
+    }
+
+    if(!branches.length){
+      pushBranch("Główna myśl A");
+      cur.items.push("Dodaj pierwszy podpunkt");
+      pushBranch("Główna myśl B");
+      cur.items.push("Rozwiń zagadnienie");
+    }
+
+    const data = { title, sub, branches };
+    _mmAutoLayout(data);
+    return data;
+  }
+
+  function _mmCardHeight(b){
+    const rows = Math.max(1, (b.items && b.items.length) || 0);
+    return 50 + rows * 21;
+  }
+
+  function _mmAutoLayout(data){
+    if(!data || !Array.isArray(data.branches)) return;
+    const left = [], right = [];
+    data.branches.forEach((b, i) => {
+      b.letter = MM_LETTERS[i % MM_LETTERS.length];
+      if(i % 2 === 0) left.push(b);
+      else right.push(b);
+    });
+    const placeSide = (arr, side) => {
+      const gap = 22;
+      const totalH = arr.reduce((s, b) => s + _mmCardHeight(b), 0) + Math.max(0, arr.length - 1) * gap;
+      let cy = -totalH / 2;
+      arr.forEach(b => {
+        const h = _mmCardHeight(b);
+        b.side = side;
+        b.x = side * 315;
+        b.y = cy + h / 2;
+        cy += h + gap;
+      });
+    };
+    placeSide(left, -1);
+    placeSide(right, 1);
+  }
+
+  function _mmCanvas(){ return document.getElementById("mmCanvas"); }
+
+  function _mmResize(){
+    const c = _mmCanvas();
+    if(!c) return;
+    const r = c.getBoundingClientRect();
+    if(!r.width || !r.height) return;
+    const dpr = window.devicePixelRatio || 1;
+    c.width = r.width * dpr;
+    c.height = r.height * dpr;
+    const ctx = c.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    _mmDraw();
+  }
+
+  function _mmDraw(){
+    const c = _mmCanvas();
+    if(!c || !_mmData) return;
+    const r = c.getBoundingClientRect();
+    const w = r.width, h = r.height;
+    if(!w || !h) return;
+    const ctx = c.getContext("2d");
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+
+    ctx.clearRect(0, 0, w, h);
+
+    // Siatka kropek
+    ctx.save();
+    ctx.fillStyle = isDark ? "rgba(255,255,255,0.06)" : "rgba(15,118,83,0.07)";
+    const step = 26 * _mmZoom;
+    const ox = (w / 2 + _mmPanX) % step;
+    const oy = (h / 2 + _mmPanY) % step;
+    for(let gx = ox; gx < w; gx += step){
+      for(let gy = oy; gy < h; gy += step){
+        ctx.fillRect(gx, gy, 1.4, 1.4);
+      }
+    }
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(w / 2 + _mmPanX, h / 2 + _mmPanY);
+    ctx.scale(_mmZoom, _mmZoom);
+
+    const cw = 236;
+    // Łączniki Beziera
+    (_mmData.branches || []).forEach(b => {
+      const side = b.x < 0 ? -1 : 1;
+      const startX = side * 102;
+      const endX = b.x - side * (cw / 2);
+      ctx.beginPath();
+      ctx.strokeStyle = isDark ? "rgba(148,163,184,0.45)" : "#94a3b8";
+      ctx.lineWidth = (_mmSelId === b.id) ? 2.6 : 2;
+      ctx.moveTo(startX, 0);
+      ctx.bezierCurveTo((startX + endX) / 2, 0, (startX + endX) / 2, b.y, endX, b.y);
+      ctx.stroke();
+    });
+
+    // Karty Flow (Propozycja 3)
+    (_mmData.branches || []).forEach(b => {
+      const ch = _mmCardHeight(b);
+      const rx = b.x - cw / 2, ry = b.y - ch / 2;
+      const isSel = (_mmSelId === b.id);
+
+      ctx.save();
+      ctx.shadowColor = isSel ? b.color : "rgba(15, 23, 42, 0.10)";
+      ctx.shadowBlur = isSel ? 18 : 14;
+      ctx.beginPath();
+      ctx.roundRect(rx, ry, cw, ch, 14);
+      ctx.fillStyle = isDark ? "#1e2923" : "#ffffff";
+      ctx.fill();
+      ctx.restore();
+
+      ctx.beginPath();
+      ctx.roundRect(rx, ry, cw, ch, 14);
+      ctx.strokeStyle = isSel ? b.color : (isDark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.08)");
+      ctx.lineWidth = isSel ? 2 : 1;
+      ctx.stroke();
+
+      // Górny pasek koloru
+      ctx.beginPath();
+      ctx.roundRect(rx, ry, cw, 6, [14, 14, 0, 0]);
+      ctx.fillStyle = b.color;
+      ctx.fill();
+
+      // Tytuł gałęzi
+      ctx.fillStyle = b.color;
+      ctx.font = "750 13px -apple-system, BlinkMacSystemFont, sans-serif";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "middle";
+      const headTxt = (b.letter ? (b.letter + " · ") : "") + (b.title || "Bez nazwy");
+      ctx.fillText(headTxt.length > 29 ? headTxt.slice(0, 28) + "…" : headTxt, rx + 14, ry + 25);
+
+      // Podpunkty
+      ctx.fillStyle = isDark ? "#e2e8f0" : "#334155";
+      ctx.font = "500 11.8px -apple-system, BlinkMacSystemFont, sans-serif";
+      (b.items || []).forEach((it, j) => {
+        const line = "• " + (it.length > 31 ? it.slice(0, 30) + "…" : it);
+        ctx.fillText(line, rx + 14, ry + 50 + j * 21);
+      });
+    });
+
+    // Karta centralna
+    ctx.save();
+    ctx.shadowColor = "rgba(15, 118, 83, 0.25)";
+    ctx.shadowBlur = _mmSelId === "root" ? 22 : 16;
+    ctx.beginPath();
+    ctx.roundRect(-102, -44, 204, 88, 18);
+    ctx.fillStyle = "#0f7653";
+    ctx.fill();
+    ctx.restore();
+
+    if(_mmSelId === "root"){
+      ctx.beginPath();
+      ctx.roundRect(-102, -44, 204, 88, 18);
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "800 13.5px -apple-system, BlinkMacSystemFont, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    const tWords = (_mmData.title || "Mapa myśli").split(" ");
+    const half = Math.ceil(tWords.length / 2);
+    const l1 = tWords.slice(0, half).join(" ");
+    const l2 = tWords.slice(half).join(" ");
+    ctx.fillText(l1.length > 24 ? l1.slice(0, 23) + "…" : l1, 0, l2 ? -14 : -4);
+    if(l2) ctx.fillText(l2.length > 24 ? l2.slice(0, 23) + "…" : l2, 0, 5);
+    if(_mmData.sub){
+      ctx.fillStyle = "rgba(255,255,255,0.82)";
+      ctx.font = "600 11.5px -apple-system, BlinkMacSystemFont, sans-serif";
+      ctx.fillText(_mmData.sub.slice(0, 28), 0, 26);
+    }
+
+    ctx.restore();
+  }
+
+  function _mmSyncSidePanel(){
+    const roleEl = document.getElementById("mmSelRole");
+    const tInp = document.getElementById("mmNodeTitleInp");
+    const subWrap = document.getElementById("mmRootSubWrap");
+    const subInp = document.getElementById("mmNodeSubInp");
+    const bWrap = document.getElementById("mmBranchEditWrap");
+    const listEl = document.getElementById("mmItemsList");
+    if(!_mmData || !tInp) return;
+
+    if(_mmSelId === "root"){
+      roleEl.textContent = "Temat centralny mapy";
+      tInp.value = _mmData.title || "";
+      subWrap.style.display = "block";
+      subInp.value = _mmData.sub || "";
+      bWrap.style.display = "none";
+    } else {
+      const b = (_mmData.branches || []).find(x => x.id === _mmSelId);
+      if(!b){ _mmSelId = "root"; return _mmSyncSidePanel(); }
+      roleEl.textContent = "Karta " + (b.letter || "");
+      tInp.value = b.title || "";
+      subWrap.style.display = "none";
+      bWrap.style.display = "block";
+      listEl.innerHTML = "";
+      (b.items || []).forEach((it, idx) => {
+        const row = document.createElement("div");
+        row.className = "mm-item-row";
+        const inp = document.createElement("input");
+        inp.type = "text";
+        inp.value = it;
+        inp.placeholder = "Treść punktu…";
+        inp.oninput = () => { b.items[idx] = inp.value; _mmDraw(); };
+        const del = document.createElement("button");
+        del.type = "button";
+        del.className = "btn small";
+        del.textContent = "✕";
+        del.onclick = () => { b.items.splice(idx, 1); _mmSyncSidePanel(); _mmDraw(); };
+        row.appendChild(inp);
+        row.appendChild(del);
+        listEl.appendChild(row);
+      });
+    }
+  }
+
+  function _mmScreenToWorld(sx, sy){
+    const c = _mmCanvas();
+    const r = c.getBoundingClientRect();
+    return {
+      x: (sx - r.width / 2 - _mmPanX) / _mmZoom,
+      y: (sy - r.height / 2 - _mmPanY) / _mmZoom
+    };
+  }
+
+  function _mmHit(wx, wy){
+    if(Math.abs(wx) <= 104 && Math.abs(wy) <= 46) return "root";
+    const bs = (_mmData && _mmData.branches) || [];
+    for(let i = bs.length - 1; i >= 0; i--){
+      const b = bs[i];
+      const ch = _mmCardHeight(b);
+      if(Math.abs(wx - b.x) <= 120 && Math.abs(wy - b.y) <= ch / 2) return b.id;
+    }
+    return null;
+  }
+
+  function _mmBindOnce(){
+    const c = _mmCanvas();
+    if(!c || c._mmBound) return;
+    c._mmBound = true;
+
+    window.addEventListener("resize", () => {
+      if(document.getElementById("modalMindMap")?.classList.contains("show")) _mmResize();
+    });
+
+    c.addEventListener("pointerdown", e => {
+      const r = c.getBoundingClientRect();
+      const sx = e.clientX - r.left, sy = e.clientY - r.top;
+      const w = _mmScreenToWorld(sx, sy);
+      const hit = _mmHit(w.x, w.y);
+      _mmLastPt = { x: sx, y: sy };
+      if(hit){
+        _mmSelId = hit;
+        _mmDragId = (hit === "root") ? null : hit;
+        _mmSyncSidePanel();
+        _mmDraw();
+      } else {
+        _mmPanning = true;
+      }
+      c.setPointerCapture(e.pointerId);
+    });
+
+    c.addEventListener("pointermove", e => {
+      if(!_mmLastPt) return;
+      const r = c.getBoundingClientRect();
+      const sx = e.clientX - r.left, sy = e.clientY - r.top;
+      const dx = sx - _mmLastPt.x, dy = sy - _mmLastPt.y;
+      _mmLastPt = { x: sx, y: sy };
+      if(_mmDragId && _mmData){
+        const b = _mmData.branches.find(x => x.id === _mmDragId);
+        if(b){ b.x += dx / _mmZoom; b.y += dy / _mmZoom; _mmDraw(); }
+      } else if(_mmPanning){
+        _mmPanX += dx; _mmPanY += dy; _mmDraw();
+      }
+    });
+
+    c.addEventListener("pointerup", () => { _mmDragId = null; _mmPanning = false; _mmLastPt = null; });
+    c.addEventListener("wheel", e => {
+      e.preventDefault();
+      _mmZoom = Math.max(0.45, Math.min(2.2, _mmZoom * (e.deltaY < 0 ? 1.08 : 0.92)));
+      _mmDraw();
+    }, { passive: false });
+
+    document.getElementById("mmNodeTitleInp").oninput = e => {
+      if(!_mmData) return;
+      if(_mmSelId === "root") _mmData.title = e.target.value;
+      else {
+        const b = _mmData.branches.find(x => x.id === _mmSelId);
+        if(b) b.title = e.target.value;
+      }
+      _mmDraw();
+    };
+
+    document.getElementById("mmNodeSubInp").oninput = e => {
+      if(_mmData){ _mmData.sub = e.target.value; _mmDraw(); }
+    };
+
+    const swBox = document.getElementById("mmSwatches");
+    MM_COLORS.forEach(col => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "mm-sw";
+      btn.style.background = col;
+      btn.onclick = () => {
+        if(!_mmData || _mmSelId === "root") return;
+        const b = _mmData.branches.find(x => x.id === _mmSelId);
+        if(b){ b.color = col; _mmDraw(); }
+      };
+      swBox.appendChild(btn);
+    });
+
+    document.getElementById("mmAddItemBtn").onclick = () => {
+      if(!_mmData || _mmSelId === "root") return;
+      const b = _mmData.branches.find(x => x.id === _mmSelId);
+      if(b){
+        b.items = b.items || [];
+        b.items.push("Nowy punkt");
+        _mmSyncSidePanel();
+        _mmDraw();
+      }
+    };
+
+    document.getElementById("mmDelBranchBtn").onclick = () => {
+      if(!_mmData || _mmSelId === "root") return;
+      _mmData.branches = _mmData.branches.filter(x => x.id !== _mmSelId);
+      _mmSelId = "root";
+      _mmAutoLayout(_mmData);
+      _mmSyncSidePanel();
+      _mmDraw();
+    };
+
+    document.getElementById("mmAddBranchBtn").onclick = () => {
+      if(!_mmData) return;
+      const idx = _mmData.branches.length;
+      const b = {
+        id: "b_" + Date.now() + "_" + idx,
+        letter: MM_LETTERS[idx % MM_LETTERS.length],
+        title: "Nowy wątek",
+        color: MM_COLORS[idx % MM_COLORS.length],
+        items: ["Pierwsza myśl"],
+        x: (idx % 2 === 0 ? -1 : 1) * 315,
+        y: 0
+      };
+      _mmData.branches.push(b);
+      _mmSelId = b.id;
+      _mmAutoLayout(_mmData);
+      _mmSyncSidePanel();
+      _mmDraw();
+    };
+
+    document.getElementById("mmAutoLayoutBtn").onclick = () => { _mmAutoLayout(_mmData); _mmDraw(); };
+    document.getElementById("mmZoomInBtn").onclick = () => { _mmZoom = Math.min(2.2, _mmZoom * 1.15); _mmDraw(); };
+    document.getElementById("mmZoomOutBtn").onclick = () => { _mmZoom = Math.max(0.45, _mmZoom * 0.87); _mmDraw(); };
+    document.getElementById("mmResetViewBtn").onclick = () => { _mmZoom = 1; _mmPanX = 0; _mmPanY = 0; _mmDraw(); };
+
+    document.getElementById("mmFromNoteBtn").onclick = () => {
+      if(!_mmNote) return;
+      _mmData = mindmapZNotatki(_mmNote);
+      _mmSelId = "root";
+      _mmSyncSidePanel();
+      _mmDraw();
+      if(typeof toastOk === "function") toastOk("Wygenerowano mapę z treści notatki");
+    };
+
+    document.getElementById("mmExportPngBtn").onclick = () => {
+      const a = document.createElement("a");
+      a.download = ((_mmData && _mmData.title) ? _mmData.title.replace(/[^\w\d\-]+/g, "_") : "mapa-mysli") + ".png";
+      a.href = c.toDataURL("image/png");
+      a.click();
+    };
+
+    document.getElementById("mmSaveBtn").onclick = () => {
+      if(!_mmNote || !_mmData) return;
+      _mmNote.mindmap = _mmClone(_mmData);
+      if(!_mmNote.t && _mmData.title) _mmNote.t = _mmData.title;
+      _mmNote.mo = new Date().toISOString();
+      if(typeof saveNotes === "function") saveNotes();
+      if(typeof bumpDirty === "function") bumpDirty();
+      if(typeof renderAll === "function") renderAll();
+      if(typeof fsGuid !== "undefined" && fsGuid === _mmNote.g && typeof renderFs === "function") renderFs();
+      if(typeof toastOk === "function") toastOk("Zapisano Mapę Myśli w notatce ✓");
+    };
+  }
+
+  function otworzMapeMysli(n){
+    if(!n) return;
+    _mmNote = n;
+    _mmData = (n.mindmap && Array.isArray(n.mindmap.branches)) ? _mmClone(n.mindmap) : mindmapZNotatki(n);
+    _mmSelId = "root";
+    _mmZoom = 1; _mmPanX = 0; _mmPanY = 0;
+    _mmBindOnce();
+    if(typeof openModal === "function") openModal("modalMindMap");
+    _mmSyncSidePanel();
+    setTimeout(_mmResize, 40);
+  }
+
+  window.mindmapZNotatki = mindmapZNotatki;
+  window.otworzMapeMysli = otworzMapeMysli;
+})();
 </script>
 </body>
 </html>
