@@ -26491,13 +26491,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v678)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v679)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v678</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v679</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v678) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v678</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v679) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v679</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26578,7 +26578,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v678</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v679</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28842,9 +28842,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v678";
+const APP_BUILD = "v679";
 const APP_BUILD_DATE = "2026-11-27";
-const APP_FULL_VERSION = "5.0 (v678)";
+const APP_FULL_VERSION = "5.0 (v679)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -63270,10 +63270,19 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v678</span>
+          <span class="cl-ver-num">v679</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">27 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">Przycisk „Działaj w tle” podczas synchronizacji Google Drive</div>
+        <ul class="cl-ver-list">
+          <li><b>Swobodne zamykanie okna podczas synchronizacji:</b> w trakcie przesyłania pojawia się przycisk <b>„⬇️ Działaj w tle”</b>, którym można od razu zamknąć okno Centrum synchronizacji — przesyłanie kontynuuje w tle, a po zakończeniu pojawi się potwierdzenie i zielona kropka.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v678</span>
+          <span class="cl-ver-date">27 listopada 2026</span>
         <div class="cl-ver-title">Pełna szerokość Centrum Studium na iPhonie</div>
         <ul class="cl-ver-list">
           <li><b>Koniec z efektem „okno w oknie”:</b> na telefonach zdjęto zewnętrzną ramkę i zbędne marginesy wokół Centrum, dzięki czemu baner i karty wykorzystują pełną szerokość ekranu.</li>
@@ -71471,7 +71480,7 @@ function odswiezCentrumSyncUI(){
             <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;margin-right:4px;"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
             ${isWorking ? "⏳ " + esc(opisKroku) : "Synchronizuj z Google teraz"}
           </button>
-          <button type="button" class="btn" id="cenSyncGdriveLogout" ${isWorking ? "disabled" : ""}>Rozłącz konto</button>
+          ${isWorking ? `<button type="button" class="btn" id="cenSyncRunInBg">⬇️ Działaj w tle</button>` : `<button type="button" class="btn" id="cenSyncGdriveLogout">Rozłącz konto</button>`}
         </div>
       </div>
     `;
@@ -71533,6 +71542,12 @@ function odswiezCentrumSyncUI(){
   const btnSyncNow = body.querySelector("#cenSyncGdriveNow");
   if(btnSyncNow) btnSyncNow.onclick = () => {
     if(typeof gdriveSyncTeraz === "function") gdriveSyncTeraz("ręcznie");
+  };
+
+  const btnRunInBg = body.querySelector("#cenSyncRunInBg");
+  if(btnRunInBg) btnRunInBg.onclick = () => {
+    closeModal("modalCentrumSync");
+    if(typeof toast === "function") toast("Synchronizacja działa dalej w tle…");
   };
 
   const btnLogout = body.querySelector("#cenSyncGdriveLogout");
