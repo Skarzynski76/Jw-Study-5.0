@@ -7999,7 +7999,6 @@ mark { padding: 1px 3px; border-radius: 4px; }
   -webkit-overflow-scrolling: touch;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.16), 0 32px 72px rgba(0, 0, 0, 0.26);
   animation: modIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
 }
 .overlay.show .askbox { animation: modIn 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
 @media (prefers-reduced-motion: reduce) { .overlay.show, .modal, .overlay.show .askbox { animation: none; } }
@@ -26352,12 +26351,14 @@ html[data-theme="oled"] .wm-adv-content .cm-sw {
 .sync-modal {
   max-width: 540px !important;
   width: calc(100vw - 28px) !important;
-  max-height: calc(100vh - 40px) !important;
+  height: auto !important;
+  max-height: calc(100dvh - 40px) !important;
   border-radius: 20px !important;
   padding: 20px !important;
   box-sizing: border-box !important;
   background: var(--panel) !important;
   color: var(--text) !important;
+  display: block !important;
 }
 .sync-modal-head {
   display: flex;
@@ -26491,13 +26492,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v679)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v680)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v679</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v680</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v679) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v679</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v680) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v680</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26578,7 +26579,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v679</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v680</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28842,9 +28843,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v679";
+const APP_BUILD = "v680";
 const APP_BUILD_DATE = "2026-11-27";
-const APP_FULL_VERSION = "5.0 (v679)";
+const APP_FULL_VERSION = "5.0 (v680)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -63270,10 +63271,19 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v679</span>
+          <span class="cl-ver-num">v680</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">27 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">Poprawione otwieranie okna „Centrum Synchronizacji i Kopii” na iPadzie</div>
+        <ul class="cl-ver-list">
+          <li><b>Brak przycinania okna na iPadOS WebKit:</b> zawartość okna buduje się przed jego wyświetleniem, usunięto problematyczne <code>will-change: transform</code> na <code>.modal</code> oraz wymuszono pełną wysokość <code>.sync-modal</code>.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v679</span>
+          <span class="cl-ver-date">27 listopada 2026</span>
         <div class="cl-ver-title">Przycisk „Działaj w tle” podczas synchronizacji Google Drive</div>
         <ul class="cl-ver-list">
           <li><b>Swobodne zamykanie okna podczas synchronizacji:</b> w trakcie przesyłania pojawia się przycisk <b>„⬇️ Działaj w tle”</b>, którym można od razu zamknąć okno Centrum synchronizacji — przesyłanie kontynuuje w tle, a po zakończeniu pojawi się potwierdzenie i zielona kropka.</li>
@@ -71420,8 +71430,8 @@ function odswiezWskaznikSync(){
 window.odswiezWskaznikSync = odswiezWskaznikSync;
 
 function otworzCentrumSynchronizacji(){
-  if(typeof openModal === "function") openModal("modalCentrumSync");
   odswiezCentrumSyncUI();
+  if(typeof openModal === "function") openModal("modalCentrumSync");
 }
 window.otworzCentrumSynchronizacji = otworzCentrumSynchronizacji;
 
