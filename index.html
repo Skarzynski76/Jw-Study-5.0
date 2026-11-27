@@ -21404,7 +21404,7 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   color: var(--accent);
 }
 
-/* Baner powitalny w Centrum Studium — Żywa Panorama Dnia (v669) */
+/* Baner powitalny w Centrum Studium — Aurora & Glassmorphism HTML+CSS (v681) */
 .cenUserHeroBanner {
   position: relative;
   overflow: hidden;
@@ -21415,45 +21415,98 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   margin-bottom: 20px;
   border-radius: 22px;
   color: #ffffff;
-  background: linear-gradient(125deg, #0b5240 0%, #1c7c5c 45%, #d99543 115%);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 16px 38px rgba(10, 40, 28, 0.16);
+  background:
+    radial-gradient(circle at 88% 18%, rgba(251, 191, 36, 0.32) 0%, rgba(251, 191, 36, 0) 46%),
+    radial-gradient(circle at 14% 92%, rgba(16, 185, 129, 0.35) 0%, transparent 52%),
+    linear-gradient(128deg, #0b4f3e 0%, #167356 54%, #9c742b 125%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 16px 38px rgba(10, 40, 28, 0.16);
 }
 .cenUserHeroBanner.is-scene-day {
-  background: linear-gradient(125deg, #0c6449 0%, #1d8a73 55%, #55a998 115%);
+  background:
+    radial-gradient(circle at 86% 16%, rgba(254, 240, 138, 0.28) 0%, transparent 45%),
+    radial-gradient(circle at 18% 85%, rgba(45, 212, 191, 0.28) 0%, transparent 50%),
+    linear-gradient(128deg, #0b5d45 0%, #19826b 55%, #3f9b8c 118%);
 }
 .cenUserHeroBanner.is-scene-evening {
-  background: linear-gradient(125deg, #0d1b2a 0%, #1b3a4b 52%, #0e5848 110%);
+  background:
+    radial-gradient(circle at 88% 18%, rgba(147, 197, 253, 0.18) 0%, transparent 42%),
+    radial-gradient(circle at 16% 88%, rgba(16, 185, 129, 0.22) 0%, transparent 50%),
+    linear-gradient(130deg, #0b1624 0%, #143042 54%, #0d4a3d 115%);
 }
 .cenUserHeroBanner.is-scene-weekend {
-  background: linear-gradient(125deg, #173a5e 0%, #0f6853 60%, #c9973b 125%);
+  background:
+    radial-gradient(circle at 86% 20%, rgba(251, 191, 36, 0.26) 0%, transparent 46%),
+    radial-gradient(circle at 15% 85%, rgba(56, 189, 248, 0.20) 0%, transparent 50%),
+    linear-gradient(130deg, #13314f 0%, #0e5e4b 58%, #9e7730 128%);
 }
-.cenHeroSceneSvg {
+.cenHeroCssScene {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
   pointer-events: none;
   z-index: 0;
+  overflow: hidden;
 }
-.cenHeroSceneSvg svg { width: 100%; height: 100%; display: block; }
-@keyframes cenHeroCloud {
-  0%, 100% { transform: translateX(0) translateY(0); }
-  50% { transform: translateX(12px) translateY(-4px); }
+.cenHeroOrb {
+  position: absolute;
+  right: 26px;
+  top: 14px;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 248, 220, 0.44), rgba(251, 191, 36, 0.12) 65%, transparent 72%);
+  box-shadow: 0 0 42px 10px rgba(251, 191, 36, 0.22);
+  animation: cenHeroAura 6s ease-in-out infinite;
 }
-@keyframes cenHeroStar {
-  0%, 100% { opacity: 0.35; transform: scale(0.9); }
-  50% { opacity: 1; transform: scale(1.15); }
+.is-scene-day .cenHeroOrb {
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.40), rgba(167, 243, 208, 0.14) 66%, transparent 74%);
+  box-shadow: 0 0 46px 12px rgba(255, 255, 255, 0.16);
 }
-@keyframes cenHeroSun {
-  0%, 100% { transform: scale(1); opacity: 0.24; }
-  50% { transform: scale(1.08); opacity: 0.36; }
+.is-scene-evening .cenHeroOrb {
+  right: 34px;
+  top: 18px;
+  width: 46px;
+  height: 46px;
+  background: transparent;
+  box-shadow: -10px 6px 0 0 rgba(254, 243, 199, 0.30), -14px 8px 26px 2px rgba(254, 243, 199, 0.14);
+  animation: none;
 }
-.cenHeroSceneSvg .anim-cloud { animation: cenHeroCloud 9s ease-in-out infinite; }
-.cenHeroSceneSvg .anim-star { animation: cenHeroStar 3.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
-.cenHeroSceneSvg .anim-star.s2 { animation-delay: 1.1s; }
-.cenHeroSceneSvg .anim-star.s3 { animation-delay: 2.1s; }
-.cenHeroSceneSvg .anim-sun-halo { animation: cenHeroSun 5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.cenHeroGlassRing {
+  position: absolute;
+  right: -36px;
+  top: -42px;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 68%);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.cenHeroMist {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: -26px;
+  height: 92px;
+  border-radius: 50% 50% 0 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(5, 28, 20, 0.22) 100%);
+  filter: blur(6px);
+}
+.is-scene-evening .cenHeroStars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 66% 24%, rgba(255, 255, 255, 0.72) 50%, transparent 100%),
+    radial-gradient(2px 2px at 74% 38%, rgba(254, 243, 199, 0.65) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 82% 16%, rgba(255, 255, 255, 0.55) 50%, transparent 100%),
+    radial-gradient(1.8px 1.8px at 93% 28%, rgba(255, 255, 255, 0.62) 50%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 58% 34%, rgba(255, 255, 255, 0.45) 50%, transparent 100%);
+}
+@keyframes cenHeroAura {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.07); opacity: 1; }
+}
 
 .cenUserHeroTop {
   position: relative;
@@ -26492,13 +26545,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v680)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v681)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v680</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v681</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v680) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v680</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v681) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v681</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26579,7 +26632,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v680</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v681</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -28843,9 +28896,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v680";
+const APP_BUILD = "v681";
 const APP_BUILD_DATE = "2026-11-27";
-const APP_FULL_VERSION = "5.0 (v680)";
+const APP_FULL_VERSION = "5.0 (v681)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -63271,10 +63324,19 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v680</span>
+          <span class="cl-ver-num">v681</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">27 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">Baner powitalny w nowoczesnym HTML + CSS (Aurora &amp; Glassmorphism)</div>
+        <ul class="cl-ver-list">
+          <li><b>Koniec z ilustracją SVG w banerze:</b> zastąpiono ją wielowarstwową sceną HTML + CSS z miękką aurorą, szklanym pierścieniem światła, poświatą słońca/księżyca i idealnym skalowaniem na każdym ekranie.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v680</span>
+          <span class="cl-ver-date">27 listopada 2026</span>
         <div class="cl-ver-title">Poprawione otwieranie okna „Centrum Synchronizacji i Kopii” na iPadzie</div>
         <ul class="cl-ver-list">
           <li><b>Brak przycinania okna na iPadOS WebKit:</b> zawartość okna buduje się przed jego wyświetleniem, usunięto problematyczne <code>will-change: transform</code> na <code>.modal</code> oraz wymuszono pełną wysokość <code>.sync-modal</code>.</li>
@@ -64319,12 +64381,12 @@ function renderEkranPowitalny(){
   else if(godzAktualna >= 18 || godzAktualna < 5) sceneType = "evening";
   else if(godzAktualna >= 12) sceneType = "day";
 
-  const sceneSvgs = {
-    dawn: '<svg viewBox="0 0 1000 260" preserveAspectRatio="xMaxYMid slice"><g class="anim-sun-halo"><circle cx="885" cy="145" r="85" fill="#ffd480" opacity="0.16"/></g><circle cx="885" cy="145" r="44" fill="#ffe5a3" opacity="0.28"/><g class="anim-cloud" opacity="0.15" fill="#fff"><ellipse cx="700" cy="64" rx="64" ry="15"/><ellipse cx="736" cy="58" rx="40" ry="13"/></g><path d="M0 195 Q220 140 460 185 T1000 165 L1000 260 L0 260 Z" fill="rgba(7,46,33,0.28)"/><path d="M0 218 Q310 175 610 210 T1000 198 L1000 260 L0 260 Z" fill="rgba(5,32,23,0.34)"/></svg>',
-    day: '<svg viewBox="0 0 1000 260" preserveAspectRatio="xMaxYMid slice"><g class="anim-sun-halo"><circle cx="900" cy="58" r="64" fill="#fff4c2" opacity="0.15"/></g><circle cx="900" cy="58" r="32" fill="#fff8d6" opacity="0.26"/><g class="anim-cloud" opacity="0.14" fill="#fff"><ellipse cx="580" cy="68" rx="76" ry="18"/><ellipse cx="622" cy="58" rx="45" ry="14"/><ellipse cx="770" cy="108" rx="58" ry="14"/></g><path d="M0 205 Q280 155 560 195 T1000 175 L1000 260 L0 260 Z" fill="rgba(6,58,42,0.25)"/><path d="M0 226 Q340 190 700 220 T1000 212 L1000 260 L0 260 Z" fill="rgba(4,40,29,0.32)"/></svg>',
-    evening: '<svg viewBox="0 0 1000 260" preserveAspectRatio="xMaxYMid slice"><path d="M905 32 A26 26 0 1 0 934 70 A20 20 0 1 1 905 32 Z" fill="#fef3c7" opacity="0.28"/><circle class="anim-star" cx="680" cy="46" r="2.2" fill="#fff"/><circle class="anim-star s2" cx="760" cy="82" r="2.0" fill="#fff"/><circle class="anim-star s3" cx="955" cy="44" r="2.4" fill="#fde68a"/><circle class="anim-star s2" cx="815" cy="34" r="1.7" fill="#fff"/><circle class="anim-star s3" cx="610" cy="74" r="1.8" fill="#fff"/><path d="M0 195 Q250 150 530 190 T1000 170 L1000 260 L0 260 Z" fill="rgba(6,18,28,0.40)"/><path d="M0 222 Q330 186 670 215 T1000 204 L1000 260 L0 260 Z" fill="rgba(4,12,20,0.48)"/></svg>',
-    weekend: '<svg viewBox="0 0 1000 260" preserveAspectRatio="xMaxYMid slice"><g class="anim-sun-halo"><circle cx="890" cy="76" r="76" fill="#fde68a" opacity="0.15"/></g><path d="M815 152 Q850 134 885 150 Q920 134 955 152 L955 190 Q920 174 885 190 Q850 174 815 190 Z" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.30)" stroke-width="2"/><line x1="885" y1="150" x2="885" y2="190" stroke="rgba(255,255,255,0.30)" stroke-width="2"/><path d="M0 202 Q260 162 540 196 T1000 178 L1000 260 L0 260 Z" fill="rgba(10,32,46,0.28)"/></svg>'
-  };
+  const heroCssSceneHtml = '<div class="cenHeroCssScene" aria-hidden="true">'
+    + '<div class="cenHeroGlassRing"></div>'
+    + '<div class="cenHeroOrb"></div>'
+    + (sceneType === "evening" ? '<div class="cenHeroStars"></div>' : '')
+    + '<div class="cenHeroMist"></div>'
+    + '</div>';
 
   // Pasek tygodnia PN–ND + szybkie podsumowanie nawyków na dziś
   const dniSkrot = ["PN", "WT", "ŚR", "CZ", "PT", "SB", "ND"];
@@ -64362,7 +64424,7 @@ function renderEkranPowitalny(){
   let userBannerHtml = '';
   if(userName || userAvatar){
     userBannerHtml = '<div class="cenUserHeroBanner is-scene-' + sceneType + '">'
-      + '<div class="cenHeroSceneSvg" aria-hidden="true">' + (sceneSvgs[sceneType] || sceneSvgs.dawn) + '</div>'
+      + heroCssSceneHtml
       + '<div class="cenUserHeroTop">'
       + '<div class="cenUserHeroLeft">'
       + '<div class="' + avatarClass + '"' + avatarInlineStyle + ' title="Twój profil' + (userName ? (': ' + nameEsc) : '') + '">' + avatarHtmlContent + '</div>'
@@ -64386,7 +64448,7 @@ function renderEkranPowitalny(){
       + '</div></div>';
   } else {
     userBannerHtml = '<div class="cenUserHeroBanner cenUserPromptBanner is-scene-' + sceneType + '">'
-      + '<div class="cenHeroSceneSvg" aria-hidden="true">' + (sceneSvgs[sceneType] || sceneSvgs.dawn) + '</div>'
+      + heroCssSceneHtml
       + '<div class="cenUserHeroTop">'
       + '<div class="cenUserHeroLeft">'
       + '<div class="cenUserAvatar cenUserAvatarPrompt">👋</div>'
