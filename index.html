@@ -5465,18 +5465,47 @@ html[data-theme="dark"] .cenGoalModal input[type="date"]::-webkit-calendar-picke
 
 /* ══════════════ SEKCJA PROJEKTY — NOWOCZESNY DESIGN (v3.56) ══════════════ */
 .cenProjHeroCard {
-  background: var(--cen-card-bg);
-  border: 1px solid var(--cen-card-border);
-  border-radius: 20px;
-  padding: clamp(18px, 2.4vw, 24px) clamp(20px, 2.8vw, 28px);
-  margin-bottom: 24px;
-  box-shadow: var(--cen-card-shadow);
+  background: linear-gradient(135deg, color-mix(in srgb, #10b981 9%, var(--cen-card-bg)), var(--cen-card-bg));
+  border: 1px solid color-mix(in srgb, #10b981 26%, var(--cen-card-border));
+  border-radius: 22px;
+  padding: clamp(18px, 2.4vw, 22px) clamp(20px, 2.8vw, 26px);
+  margin-bottom: 22px;
+  box-shadow: 0 14px 30px rgba(16, 185, 129, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.85);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
   position: relative;
   overflow: hidden;
+}
+/* Pure CSS 3D Folder Icon */
+.cenFolder3d {
+  width: 26px;
+  height: 20px;
+  border-radius: 3px 5px 5px 5px;
+  background: linear-gradient(155deg, #ffffff 0%, #d1fae5 100%);
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22);
+}
+.cenFolder3d::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 11px;
+  height: 5px;
+  border-radius: 3px 3px 0 0;
+  background: #ffffff;
+}
+.cenProjPed3d {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  background: linear-gradient(145deg, var(--proj-kol, #10b981), color-mix(in srgb, var(--proj-kol, #10b981) 70%, #000));
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--proj-kol, #10b981) 28%, transparent), inset 0 1px 1px rgba(255, 255, 255, 0.55);
 }
 .cenProjHeroCard::before {
   content: '';
@@ -5656,18 +5685,31 @@ html[data-theme="dark"] .cenGoalModal input[type="date"]::-webkit-calendar-picke
 .cenProjCard {
   background: var(--cen-card-bg);
   border: 1px solid var(--cen-card-border);
-  border-radius: 20px;
-  padding: 22px 24px 18px;
+  border-radius: 0 20px 20px 20px;
+  padding: 20px 20px 16px;
+  margin-top: 11px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 172px;
-  box-shadow: var(--cen-card-shadow);
+  min-height: 170px;
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.85);
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, border-color 0.2s ease;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   cursor: pointer;
   text-align: left;
+}
+.cenProjFolderTab {
+  position: absolute;
+  top: -11px;
+  left: -1px;
+  height: 11px;
+  width: 92px;
+  border-radius: 9px 9px 0 0;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--proj-kol, var(--accent)) 28%, var(--cen-card-bg)), color-mix(in srgb, var(--proj-kol, var(--accent)) 14%, var(--cen-card-bg)));
+  border: 1px solid var(--cen-card-border);
+  border-bottom: none;
+  pointer-events: none;
 }
 .cenProjCard::before {
   content: '';
@@ -5675,9 +5717,8 @@ html[data-theme="dark"] .cenGoalModal input[type="date"]::-webkit-calendar-picke
   top: 0;
   left: 0;
   right: 0;
-  height: 4.5px;
+  height: 3.5px;
   background: var(--proj-kol, var(--accent));
-  border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   transition: height 0.2s ease, filter 0.2s ease;
 }
@@ -5687,10 +5728,9 @@ html[data-theme="dark"] .cenGoalModal input[type="date"]::-webkit-calendar-picke
   top: 0;
   left: 0;
   right: 0;
-  height: 65px;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--proj-kol, var(--accent)) 8%, transparent), transparent);
+  height: 60px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--proj-kol, var(--accent)) 7%, transparent), transparent);
   pointer-events: none;
-  border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
 .cenProjCard:hover {
@@ -18783,32 +18823,42 @@ html[data-theme="dark"] mark.szukajTrafieniePuls, html[data-theme="oled"] mark.s
   box-sizing:border-box;
 }
 .cenBoczna{
-  position:sticky; top:12px; min-width:0; padding:14px 10px; border-radius:18px;
-  border:1px solid color-mix(in srgb,var(--border) 84%,transparent);
-  background:color-mix(in srgb,var(--accent) 3.5%,var(--panel));
+  position:sticky; top:12px; min-width:0; padding:14px 11px; border-radius:22px;
+  border:1px solid color-mix(in srgb,var(--border) 84%,rgba(255,255,255,0.9));
+  background:linear-gradient(180deg, color-mix(in srgb,var(--panel) 96%,transparent), color-mix(in srgb,var(--accent) 4%,var(--panel)));
+  box-shadow:0 14px 34px rgba(15,23,42,0.06), inset 0 1px 0 rgba(255,255,255,0.85);
 }
 .cenBoczTyt{
-  display:block; margin:2px 10px 10px; color:var(--muted); font-size:10px;
-  font-weight:720; letter-spacing:.13em; text-transform:uppercase;
+  display:block; margin:2px 10px 8px; color:var(--muted); font-size:10px;
+  font-weight:800; letter-spacing:.13em; text-transform:uppercase;
+}
+.cenBoczGroupLbl{
+  display:block; margin:10px 10px 4px; color:var(--muted); font-size:9.5px;
+  font-weight:800; letter-spacing:.1em; text-transform:uppercase; opacity:.78;
 }
 .cenBoczNav{ display:flex; flex-direction:column; gap:3px; }
 .cenBoczPoz{
   display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:9px;
-  width:100%; min-height:43px; padding:8px 10px; border:0; border-radius:11px;
+  width:100%; min-height:41px; padding:8px 10px; border:0; border-radius:13px;
   background:transparent; color:var(--text); text-align:left; cursor:pointer;
+  transition:transform .16s ease, background .16s ease, box-shadow .16s ease;
 }
-.cenBoczPoz:hover{ background:var(--sel); }
+.cenBoczPoz:hover{ background:var(--sel); transform:translateX(2px); }
 .cenBoczPoz.on{
-  background:var(--panel); color:var(--accent);
-  box-shadow:0 5px 18px rgba(24,55,43,.07),inset 0 0 0 1px color-mix(in srgb,var(--accent) 13%,var(--border));
+  background:var(--panel); color:var(--text);
+  border-left:4px solid #10b981;
+  box-shadow:0 8px 20px rgba(15,23,42,0.08), inset 0 1px 0 rgba(255,255,255,0.85);
 }
+.cenBoczPoz.on>span{ font-weight:800; color:var(--accent); }
 .cenBoczPoz .ic{ width:17px; height:17px; }
-.cenBoczPoz>span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11.5px; font-weight:620; }
+.cenBoczPoz>span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px; font-weight:620; }
 .cenBoczPoz>small{
-  min-width:20px; padding:2px 5px; border-radius:999px; background:var(--sel);
-  color:var(--muted); font-size:9.5px; text-align:center;
+  min-width:22px; padding:2px 7px; border-radius:999px; background:var(--sel);
+  color:var(--muted); font-size:10px; font-weight:750; text-align:center;
 }
-.cenBoczPoz.on>small{ color:var(--accent); }
+.cenBoczPoz.on>small{ background:rgba(16,185,129,0.16); color:#047857; }
+html[data-theme="dark"] .cenBoczPoz.on>small,
+html[data-theme="oled"] .cenBoczPoz.on>small{ color:#6ee7b7; }
 .cenMenuMobilne{
   display:none; align-items:center; justify-content:space-between; gap:10px;
   width:100%; min-height:44px; margin:0 0 10px; padding:9px 12px;
@@ -27273,13 +27323,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v689)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v690)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v689</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v690</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v689) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v689</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v690) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v690</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -27360,7 +27410,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v689</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v690</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -29692,9 +29742,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v689";
+const APP_BUILD = "v690";
 const APP_BUILD_DATE = "2026-11-28";
-const APP_FULL_VERSION = "5.0 (v689)";
+const APP_FULL_VERSION = "5.0 (v690)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -64129,8 +64179,19 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v689</span>
+          <span class="cl-ver-num">v690</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">28 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Panel „STUDIUM” i okno „Projekty” — Spatial Glass + Teczki 3D</div>
+        <ul class="cl-ver-list">
+          <li><b>Panel nawigacji „STUDIUM” w stylu Spatial Glass:</b> pogrupowane podsekcje (<i>Dzień i Cele</i>, <i>Baza Wiedzy</i>, <i>System</i>), wypukły kafelek aktywnej sekcji ze szmaragdową krawędzią.</li>
+          <li><b>Teczki 3D w widoku „Projekty”:</b> karty projektów stylizowane na teczki z górnym języczkiem, rzeźbione foldery 3D w CSS oraz pełne tytuły projektów (przyciski akcji przeniesione do stopki).</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v689</span>
           <span class="cl-ver-date">28 listopada 2026</span>
         </div>
         <div class="cl-ver-title">„Plan czytania Biblii” w wersji Premium 3D (100% HTML + CSS)</div>
@@ -68004,20 +68065,38 @@ function centrBoczna(){
     kolejka:zywe.filter(n=>n.cenq).length,
     inbox:zywe.filter(n=>n.ceni).length
   };
-  const pozycje=[
-    ["powitanie","Ekran powitalny",'<span style="font-size:16px;line-height:1;margin-right:2px;">☀️</span>',0],
-    ["centrum","Pulpit studium",ICO.bars,0],
-    ["duchowe-cele","Cele i nawyki",ICO.target,lic.cele],
-    ["projekty","Projekty",ICO.tag,lic.projekty],
-    ["kolejka","Do przeczytania",ICO.bookOpen,lic.kolejka],
-    ["inbox","Do opracowania",ICO.notePen,lic.inbox],
-    ["ostatnie","Ostatnie",ICO.clock,0],
-    ["bezpieczenstwo","Bezpieczeństwo",ICO.save,0]
+  const grupy = [
+    {
+      tyt: "Dzień i Cele",
+      items: [
+        ["powitanie","Ekran powitalny",'<span style="font-size:15px;line-height:1;">☀️</span>',0],
+        ["centrum","Pulpit studium",ICO.bars,0],
+        ["duchowe-cele","Cele i nawyki",ICO.target,lic.cele]
+      ]
+    },
+    {
+      tyt: "Baza Wiedzy",
+      items: [
+        ["projekty","Projekty",ICO.tag,lic.projekty],
+        ["kolejka","Do przeczytania",ICO.bookOpen,lic.kolejka],
+        ["inbox","Do opracowania",ICO.notePen,lic.inbox]
+      ]
+    },
+    {
+      tyt: "System",
+      items: [
+        ["ostatnie","Ostatnie",ICO.clock,0],
+        ["bezpieczenstwo","Bezpieczeństwo",ICO.save,0]
+      ]
+    }
   ];
+  const pozycje = grupy.flatMap(g => g.items);
   const nazwa=(pozycje.find(x=>x[0]===centrWidok)||pozycje[0])[1];
-  const nav=pozycje.map(x=>'<button type="button" class="cenBoczPoz'+(centrWidok===x[0]?' on':'')+'" data-cwidok="'+x[0]+'"'
-    +(centrWidok===x[0]?' aria-current="page"':'')+'>'+x[2]+'<span>'+esc(x[1])+'</span>'
-    +(x[3]?'<small>'+x[3]+'</small>':'')+'</button>').join('');
+  const nav = grupy.map(g => '<span class="cenBoczGroupLbl">' + esc(g.tyt) + '</span>'
+    + g.items.map(x=>'<button type="button" class="cenBoczPoz'+(centrWidok===x[0]?' on':'')+'" data-cwidok="'+x[0]+'"'
+      +(centrWidok===x[0]?' aria-current="page"':'')+'>'+x[2]+'<span>'+esc(x[1])+'</span>'
+      +(x[3]?'<small>'+x[3]+'</small>':'')+'</button>').join('')
+  ).join('');
   return '<button type="button" class="cenMenuMobilne" data-cakcja="menu-centrum" aria-expanded="'+centrMenuOtwarte+'">'
     +'<span>'+ICO.bars+esc(nazwa)+'</span>'+CEN_IKO.strz+'</button>'
     +'<aside class="cenBoczna'+(centrMenuOtwarte?' otwarte':'')+'"><span class="cenBoczTyt">Studium</span>'
@@ -68084,16 +68163,14 @@ function centrPodstronaProjektow(){
 
   const heroHtml = '<div class="cenProjHeroCard">'
     + '<div class="cenProjHeroLewo">'
-    + '<div class="cenProjHeroIko">'
-    + '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:26px;height:26px;min-width:26px;min-height:26px;max-width:26px;max-height:26px;display:block;flex-shrink:0;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>'
-    + '</div>'
+    + '<div class="cenExecPed ped-emerald"><div class="cenFolder3d"></div></div>'
     + '<div>'
     + '<div class="cenProjHeroTyt">Centrum Twoich Projektów</div>'
-    + '<div class="cenProjHeroOpis">Łącz notatki, wersety i publikacje w spójne tematy studium osobistego i wystąpień.</div>'
+    + '<div class="cenProjHeroOpis">Teczki tematyczne do osobistego studium, badań biblijnych i wystąpień.</div>'
     + '</div>'
     + '</div>'
     + '<div class="cenProjHeroPrawo">'
-    + '<button type="button" class="cenProjHeroBtn" data-cakcja="nowy-projekt">'
+    + '<button type="button" class="cenPlanTodayBtn" data-cakcja="nowy-projekt" style="padding:10px 18px;font-size:13px;">'
     + '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;min-width:16px;min-height:16px;max-width:16px;max-height:16px;display:block;flex-shrink:0;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> <span>Nowy projekt</span>'
     + '</button>'
     + '</div>'
@@ -68154,28 +68231,26 @@ function centrPodstronaProjektow(){
             : '<div class="cenProjSnippets"><span style="font-size:11.5px;color:var(--cen-text-muted);font-style:italic;">Brak powiązanych notatek</span></div>';
 
           return '<div class="cenProjCard" data-cprojekt="' + x.tag.id + '" style="--proj-kol:' + esc(kol) + ';">'
+            + '<div class="cenProjFolderTab"></div>'
             + '<div>'
             + '<div class="cenProjCardTop">'
             + '<div class="cenProjCardLewo">'
-            + '<div class="cenProjIko" style="background:color-mix(in srgb, ' + esc(kol) + ' 16%, var(--panel));color:' + esc(kol) + ';box-shadow:0 4px 12px color-mix(in srgb, ' + esc(kol) + ' 22%, transparent), inset 0 0 0 1px color-mix(in srgb, ' + esc(kol) + ' 28%, transparent);">'
-            + '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:22px;height:22px;min-width:22px;min-height:22px;max-width:22px;max-height:22px;display:block;flex-shrink:0;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>'
-            + '</div>'
+            + '<div class="cenProjPed3d"><div class="cenFolder3d"></div></div>'
             + '<div class="cenProjTytBox">'
             + '<div class="cenProjNazwa" title="' + esc(x.tag.name) + '">' + esc(x.tag.name) + '</div>'
             + '<div class="cenProjIle">' + x.ile + ' ' + esc(centrOdmiana(x.ile, "notatka", "notatki", "notatek")) + '</div>'
             + '</div>'
             + '</div>'
+            + '</div>'
+            + snippetsHtml
+            + '</div>'
+            + '<div class="cenProjCardFooter" style="justify-content:space-between;gap:8px;">'
+            + '<span style="display:inline-flex;align-items:center;gap:4px;">Otwórz teczkę <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px;min-width:14px;min-height:14px;max-width:14px;max-height:14px;display:inline-block;flex-shrink:0;"><polyline points="9 18 15 12 9 6"/></svg></span>'
             + '<div class="cenProjActions">'
             + '<button type="button" class="cenProjBtnAction" data-cproj-akcja="kolor" data-cproj-id="' + x.tag.id + '" title="Zmień kolor projektu"' + (x.tag.color ? ' style="color:' + esc(x.tag.color) + ';"' : '') + '><svg width="13.5" height="13.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13.5px;height:13.5px;min-width:13.5px;min-height:13.5px;max-width:13.5px;max-height:13.5px;display:block;flex-shrink:0;"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"/></svg></button>'
             + '<button type="button" class="cenProjBtnAction" data-cproj-akcja="edytuj" data-cproj-id="' + x.tag.id + '" title="Zmień nazwę projektu"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;min-width:14px;min-height:14px;max-width:14px;max-height:14px;display:block;flex-shrink:0;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>'
             + '<button type="button" class="cenProjBtnAction danger" data-cproj-akcja="usun" data-cproj-id="' + x.tag.id + '" title="Usuń projekt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;min-width:14px;min-height:14px;max-width:14px;max-height:14px;display:block;flex-shrink:0;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></button>'
             + '</div>'
-            + '</div>'
-            + snippetsHtml
-            + '</div>'
-            + '<div class="cenProjCardFooter">'
-            + '<span>Otwórz projekt</span>'
-            + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px;min-width:14px;min-height:14px;max-width:14px;max-height:14px;display:block;flex-shrink:0;"><polyline points="9 18 15 12 9 6"/></svg>'
             + '</div>'
             + '</div>';
         }).join('')
