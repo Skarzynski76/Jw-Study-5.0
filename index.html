@@ -2757,15 +2757,60 @@ html[data-theme="dark"] .cenHeroTag {
   }
 }
 .cenCeleStatTile {
-  background: var(--cen-card-bg);
-  border: 1px solid var(--cen-card-border);
-  border-radius: 16px;
-  padding: 12px 14px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 90% 14%, color-mix(in srgb, var(--accent, #0f7653) 10%, transparent), transparent 56%),
+    linear-gradient(180deg, var(--cen-card-bg) 0%, color-mix(in srgb, var(--cen-card-bg) 94%, var(--accent, #0f7653) 6%) 100%);
+  border: 1px solid color-mix(in srgb, var(--cen-card-border) 75%, rgba(255,255,255,0.85));
+  border-radius: 18px;
+  padding: 13px 15px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  box-shadow: var(--cen-card-shadow);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 10px 24px rgba(15, 38, 26, 0.06), 0 2px 5px rgba(15, 38, 26, 0.03);
   transition: all 0.18s ease;
+}
+.cenRing3d {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--accent, #10b981) 0% var(--pct, 0%), color-mix(in srgb, var(--accent, #10b981) 14%, transparent) var(--pct, 0%) 100%);
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.10), 0 6px 16px color-mix(in srgb, var(--accent, #10b981) 26%, transparent);
+  display: grid;
+  place-items: center;
+}
+.cenRing3dIn {
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+  background: var(--cen-card-bg, #ffffff);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.65);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--cen-text);
+}
+.cenCeleStatIko {
+  box-shadow: inset 0 1.5px 1px rgba(255,255,255,0.55), 0 5px 12px rgba(15,23,42,0.08);
+}
+.cenCelCard {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.65), 0 12px 28px rgba(15, 38, 26, 0.07) !important;
+}
+.cenWkCell:not(.done) {
+  box-shadow: inset 0 1.5px 3px rgba(0,0,0,0.07);
+}
+.cenWkCell.done {
+  box-shadow: inset 0 1.5px 1px rgba(255,255,255,0.45), 0 5px 12px color-mix(in srgb, var(--cel-color, var(--accent)) 32%, transparent);
+}
+.cenCelDayBtn:not(.done) .cenCelRingCircle {
+  box-shadow: inset 0 1.5px 3px rgba(0,0,0,0.06);
+}
+.cenCelDayBtn.done .cenCelRingCircle {
+  box-shadow: inset 0 1.5px 1px rgba(255,255,255,0.45), 0 5px 12px color-mix(in srgb, var(--cel-color, #2563eb) 36%, transparent) !important;
 }
 .cenCeleStatTile:hover {
   border-color: var(--cen-card-border-hover);
@@ -26730,13 +26775,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v686)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v687)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v686</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v687</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v686) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v686</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v687) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v687</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26817,7 +26862,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v686</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v687</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -29149,9 +29194,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v686";
+const APP_BUILD = "v687";
 const APP_BUILD_DATE = "2026-11-28";
-const APP_FULL_VERSION = "5.0 (v686)";
+const APP_FULL_VERSION = "5.0 (v687)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -59875,10 +59920,9 @@ function centrWidokCele(tab, cat, q){
     + '</div></div>'
 
     + '<div class="cenCeleStatsRow">'
-    + '<div class="cenCeleStatTile" style="display:flex;align-items:center;gap:12px;">'
-    + '<div class="cenHeroRing">'
-    + '<svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="18" fill="none" stroke="color-mix(in srgb, var(--accent) 14%, transparent)" stroke-width="4.5"/><circle cx="21" cy="21" r="18" fill="none" stroke="var(--accent)" stroke-width="4.5" stroke-dasharray="113.1" stroke-dashoffset="' + ringOffset + '" stroke-linecap="round"/></svg>'
-    + '<span class="cenHeroRingTxt">' + doneTodayCount + '/' + habitsCount + '</span>'
+    + '<div class="cenCeleStatTile" style="display:flex;flex-direction:row;align-items:center;gap:12px;">'
+    + '<div class="cenRing3d" style="--pct:' + (habitsCount > 0 ? Math.round((doneTodayCount / habitsCount) * 100) : 0) + '%;">'
+    + '<div class="cenRing3dIn">' + doneTodayCount + '/' + habitsCount + '</div>'
     + '</div>'
     + '<div>'
     + '<div class="cenCeleStatLbl">Dzisiejszy rytm</div>'
@@ -63587,10 +63631,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v686</span>
+          <span class="cl-ver-num">v687</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">28 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">„Cele i nawyki” w wersji Premium 3D (100% HTML + CSS)</div>
+        <ul class="cl-ver-list">
+          <li><b>Pierścień aktywności 3D w CSS (<code>conic-gradient</code>):</b> zastąpiono płaski pierścień SVG wypukłym pierścieniem z poświatą.</li>
+          <li><b>Wypukłe przyciski 3D i kafelki KPI:</b> szklane kafelki statystyk oraz przestrzenne przyciski dni na kartach i w Przeglądzie tygodnia.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v686</span>
+          <span class="cl-ver-date">28 listopada 2026</span>
         <div class="cl-ver-title">Karty „Ostatnie studium” i „Powtórka” w 3D HTML + CSS (bez SVG)</div>
         <ul class="cl-ver-list">
           <li><b>Trójwymiarowa otwarta księga i szklany zegar w czystym CSS:</b> zastąpiono płaskie ilustracje SVG obiektami 3D z cieniem, złotą wstążką i poświatą <i>Aurora</i> na kartach Centrum Studium.</li>
