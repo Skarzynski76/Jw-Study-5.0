@@ -26620,13 +26620,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v683)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v684)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v683</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v684</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v683) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v683</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v684) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v684</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26707,7 +26707,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v683</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v684</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -27863,7 +27863,8 @@ body.centrum-open #btnHeaderCentrum {
     </div>
     <div class="mm-toolbar">
       <div class="mm-btn-row">
-        <button type="button" class="btn primary" id="mmAddBranchBtn">＋ Dodaj kartę</button>
+        <button type="button" class="btn primary" id="mmAddChildBtn" title="Dodaj kolejne odgałęzienie od aktualnie zaznaczonej karty">＋ Odgałęzienie</button>
+        <button type="button" class="btn" id="mmAddBranchBtn" title="Dodaj nową kartę główną od środka">＋ Karta główna</button>
         <button type="button" class="btn" id="mmAutoLayoutBtn">✨ Wyrównaj układ</button>
         <button type="button" class="btn" id="mmZoomInBtn" title="Przybliż">🔍＋</button>
         <button type="button" class="btn" id="mmZoomOutBtn" title="Oddal">🔍－</button>
@@ -27897,7 +27898,8 @@ body.centrum-open #btnHeaderCentrum {
             <button type="button" class="btn small" id="mmAddItemBtn">＋ Punkt</button>
           </div>
           <div class="mm-items-list" id="mmItemsList"></div>
-          <button type="button" class="btn" id="mmDelBranchBtn" style="margin-top:8px;color:#b91c1c;width:100%;">🗑️ Usuń tę kartę</button>
+          <button type="button" class="btn primary" id="mmSideAddChildBtn" style="margin-top:8px;width:100%;">＋ Dodaj odgałęzienie od tej karty</button>
+          <button type="button" class="btn" id="mmDelBranchBtn" style="margin-top:6px;color:#b91c1c;width:100%;">🗑️ Usuń tę kartę</button>
         </div>
       </div>
     </div>
@@ -29028,9 +29030,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v683";
-const APP_BUILD_DATE = "2026-11-27";
-const APP_FULL_VERSION = "5.0 (v683)";
+const APP_BUILD = "v684";
+const APP_BUILD_DATE = "2026-11-28";
+const APP_FULL_VERSION = "5.0 (v684)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -63466,10 +63468,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v683</span>
+          <span class="cl-ver-num">v684</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
-          <span class="cl-ver-date">27 listopada 2026</span>
+          <span class="cl-ver-date">28 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">Kaskadowe rozgałęzienia w Mapie Myśli (wiele poziomów kart)</div>
+        <ul class="cl-ver-list">
+          <li><b>Rozgałęzianie dowolnej karty w głąb:</b> zaznacz dowolną kartę i kliknij <b>„＋ Odgałęzienie”</b> (na górnym pasku lub w panelu edycji), aby budować kolejne poziomy kaskadowo (<code>A → A.1 → A.1.1…</code>).</li>
+          <li><b>Inteligentny układ drzewa:</b> funkcja wyrównywania automatycznie rozsuwa pod-gałęzie w pionie i poziomie, żeby karty nigdy się nie nakładały.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v683</span>
+          <span class="cl-ver-date">27 listopada 2026</span>
         <div class="cl-ver-title">Mapa Myśli na całą stronę + automatyczne dopasowanie zoomu</div>
         <ul class="cl-ver-list">
           <li><b>Pełny ekran (<code>100vw × 100dvh</code>):</b> edytor Mapy Myśli otwiera się teraz na całej szerokości i wysokości ekranu zamiast wąskiego okna pośrodku.</li>
@@ -74875,26 +74887,57 @@ window.GranularSync = (function() {
 
   function _mmAutoLayout(data){
     if(!data || !Array.isArray(data.branches)) return;
+    data.branches.forEach(b => { if(!b.parentId) b.parentId = "root"; });
+    const childrenOf = (pid) => data.branches.filter(b => b.parentId === pid);
+    const gapY = 20;
+
+    const subtreeH = (pid) => {
+      const kids = childrenOf(pid);
+      const selfH = pid === "root" ? 88 : _mmCardHeight(data.branches.find(x => x.id === pid));
+      if(!kids.length) return selfH;
+      const kidsH = kids.reduce((s, k) => s + subtreeH(k.id), 0) + (kids.length - 1) * gapY;
+      return Math.max(selfH, kidsH);
+    };
+
+    const placeChildren = (pid, px, py, side, depth) => {
+      const kids = childrenOf(pid);
+      if(!kids.length) return;
+      const totalH = kids.reduce((s, k) => s + subtreeH(k.id), 0) + (kids.length - 1) * gapY;
+      let cy = py - totalH / 2;
+      const stepX = depth === 1 ? 315 : 280;
+      kids.forEach(k => {
+        const sh = subtreeH(k.id);
+        k.side = side;
+        k.x = px + side * stepX;
+        k.y = cy + sh / 2;
+        placeChildren(k.id, k.x, k.y, side, depth + 1);
+        cy += sh + gapY;
+      });
+    };
+
+    const top = childrenOf("root");
     const left = [], right = [];
-    data.branches.forEach((b, i) => {
+    top.forEach((b, i) => {
       b.letter = MM_LETTERS[i % MM_LETTERS.length];
       if(i % 2 === 0) left.push(b);
       else right.push(b);
     });
-    const placeSide = (arr, side) => {
-      const gap = 22;
-      const totalH = arr.reduce((s, b) => s + _mmCardHeight(b), 0) + Math.max(0, arr.length - 1) * gap;
+
+    const placeRootSide = (arr, side) => {
+      if(!arr.length) return;
+      const totalH = arr.reduce((s, b) => s + subtreeH(b.id), 0) + (arr.length - 1) * gapY;
       let cy = -totalH / 2;
       arr.forEach(b => {
-        const h = _mmCardHeight(b);
+        const sh = subtreeH(b.id);
         b.side = side;
         b.x = side * 315;
-        b.y = cy + h / 2;
-        cy += h + gap;
+        b.y = cy + sh / 2;
+        placeChildren(b.id, b.x, b.y, side, 2);
+        cy += sh + gapY;
       });
     };
-    placeSide(left, -1);
-    placeSide(right, 1);
+    placeRootSide(left, -1);
+    placeRootSide(right, 1);
   }
 
   function _mmCanvas(){ return document.getElementById("mmCanvas"); }
@@ -74947,16 +74990,20 @@ window.GranularSync = (function() {
     ctx.scale(_mmZoom, _mmZoom);
 
     const cw = 236;
-    // Łączniki Beziera
+    const byId = new Map((_mmData.branches || []).map(x => [x.id, x]));
+    // Łączniki Beziera (wielopoziomowe: środek -> karta -> pod-karta -> ...)
     (_mmData.branches || []).forEach(b => {
-      const side = b.x < 0 ? -1 : 1;
-      const startX = side * 102;
+      const parent = (b.parentId && b.parentId !== "root") ? byId.get(b.parentId) : null;
+      const px = parent ? parent.x : 0;
+      const py = parent ? parent.y : 0;
+      const side = (b.x - px) < 0 ? -1 : 1;
+      const startX = px + side * (parent ? (cw / 2) : 102);
       const endX = b.x - side * (cw / 2);
       ctx.beginPath();
-      ctx.strokeStyle = isDark ? "rgba(148,163,184,0.45)" : "#94a3b8";
+      ctx.strokeStyle = parent ? b.color : (isDark ? "rgba(148,163,184,0.45)" : "#94a3b8");
       ctx.lineWidth = (_mmSelId === b.id) ? 2.6 : 2;
-      ctx.moveTo(startX, 0);
-      ctx.bezierCurveTo((startX + endX) / 2, 0, (startX + endX) / 2, b.y, endX, b.y);
+      ctx.moveTo(startX, py);
+      ctx.bezierCurveTo((startX + endX) / 2, py, (startX + endX) / 2, b.y, endX, b.y);
       ctx.stroke();
     });
 
@@ -75192,24 +75239,40 @@ window.GranularSync = (function() {
 
     document.getElementById("mmDelBranchBtn").onclick = () => {
       if(!_mmData || _mmSelId === "root") return;
-      _mmData.branches = _mmData.branches.filter(x => x.id !== _mmSelId);
+      const toRemove = new Set([_mmSelId]);
+      let added = true;
+      while(added){
+        added = false;
+        _mmData.branches.forEach(x => {
+          if(x.parentId && toRemove.has(x.parentId) && !toRemove.has(x.id)){
+            toRemove.add(x.id);
+            added = true;
+          }
+        });
+      }
+      _mmData.branches = _mmData.branches.filter(x => !toRemove.has(x.id));
       _mmSelId = "root";
       _mmAutoLayout(_mmData);
       _mmSyncSidePanel();
       _mmDraw();
     };
 
-    document.getElementById("mmAddBranchBtn").onclick = () => {
+    const _mmCreateCard = (parentId) => {
       if(!_mmData) return;
-      const idx = _mmData.branches.length;
+      const pid = parentId || "root";
+      const parent = (pid !== "root") ? _mmData.branches.find(x => x.id === pid) : null;
+      const idx = _mmData.branches.filter(x => (x.parentId || "root") === pid).length;
+      const side = parent ? (parent.x < 0 ? -1 : 1) : (idx % 2 === 0 ? -1 : 1);
       const b = {
-        id: "b_" + Date.now() + "_" + idx,
-        letter: MM_LETTERS[idx % MM_LETTERS.length],
-        title: "Nowy wątek",
-        color: MM_COLORS[idx % MM_COLORS.length],
+        id: "b_" + Date.now() + "_" + Math.floor(Math.random() * 1000),
+        parentId: parent ? parent.id : "root",
+        letter: parent ? ((parent.letter || "") + "." + (idx + 1)) : MM_LETTERS[idx % MM_LETTERS.length],
+        title: parent ? "Nowe odgałęzienie" : "Nowy wątek",
+        color: parent ? parent.color : MM_COLORS[idx % MM_COLORS.length],
         items: ["Pierwsza myśl"],
-        x: (idx % 2 === 0 ? -1 : 1) * 315,
-        y: 0
+        side,
+        x: parent ? (parent.x + side * 280) : (side * 315),
+        y: parent ? parent.y : 0
       };
       _mmData.branches.push(b);
       _mmSelId = b.id;
@@ -75218,9 +75281,13 @@ window.GranularSync = (function() {
       _mmDraw();
     };
 
+    document.getElementById("mmAddBranchBtn").onclick = () => _mmCreateCard("root");
+    document.getElementById("mmAddChildBtn").onclick = () => _mmCreateCard(_mmSelId || "root");
+    document.getElementById("mmSideAddChildBtn").onclick = () => _mmCreateCard(_mmSelId || "root");
+
     document.getElementById("mmAutoLayoutBtn").onclick = () => { _mmAutoLayout(_mmData); _mmDraw(); };
     document.getElementById("mmZoomInBtn").onclick = () => { _mmZoom = Math.min(2.2, _mmZoom * 1.15); _mmDraw(); };
-    document.getElementById("mmZoomOutBtn").onclick = () => { _mmZoom = Math.max(0.45, _mmZoom * 0.87); _mmDraw(); };
+    document.getElementById("mmZoomOutBtn").onclick = () => { _mmZoom = Math.max(0.25, _mmZoom * 0.87); _mmDraw(); };
     document.getElementById("mmResetViewBtn").onclick = () => { _mmZoom = 1; _mmPanX = 0; _mmPanY = 0; _mmDraw(); };
 
     document.getElementById("mmFromNoteBtn").onclick = () => {
