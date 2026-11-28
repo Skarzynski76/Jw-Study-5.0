@@ -23999,6 +23999,148 @@ body.mobile-sidebar-open .sidebar-close-btn,
   color: var(--accent) !important;
 }
 
+/* =========================================================
+   OSTATNIA PRACA (.cenSiatkaTrio) — TECZKI 3D (v691)
+   ========================================================= */
+#centrum .cenSiatkaTrio {
+  gap: 16px;
+}
+#centrum .cenSiatkaTrio .cenKarta {
+  position: relative;
+  overflow: visible !important;
+  margin-top: 12px;
+  border-radius: 0 20px 20px 20px !important;
+  padding: 18px 16px 14px !important;
+  background: var(--cen-card-bg, #ffffff) !important;
+  border: 1px solid var(--cen-card-border, rgba(15, 23, 42, 0.08)) !important;
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+#centrum .cenSiatkaTrio .cenKarta::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: -1px;
+  width: 112px;
+  height: 11px;
+  border-radius: 9px 9px 0 0;
+  border: 1px solid var(--cen-card-border, rgba(15, 23, 42, 0.08));
+  border-bottom: none;
+  background: linear-gradient(90deg, #d1fae5, #a7f3d0);
+  pointer-events: none;
+}
+#centrum .cenSiatkaTrio .cenKarta[data-sek="dodane"]::before {
+  background: linear-gradient(90deg, #dbeafe, #bfdbfe);
+}
+#centrum .cenSiatkaTrio .cenKarta[data-sek="wersety"]::before {
+  background: linear-gradient(90deg, #ede9fe, #ddd6fe);
+}
+#centrum .cenSiatkaTrio .cenKarta::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3.5px;
+  border-top-right-radius: 20px;
+  background: linear-gradient(90deg, #059669, #34d399);
+  pointer-events: none;
+}
+#centrum .cenSiatkaTrio .cenKarta[data-sek="dodane"]::after {
+  background: linear-gradient(90deg, #2563eb, #60a5fa);
+}
+#centrum .cenSiatkaTrio .cenKarta[data-sek="wersety"]::after {
+  background: linear-gradient(90deg, #7c3aed, #a78bfa);
+}
+#centrum .cenSiatkaTrio .cenKarta h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+#centrum .cenSiatkaTrio .cenKarta h3 .ic,
+#centrum .cenSiatkaTrio .cenKarta h3 svg {
+  width: 34px !important;
+  height: 34px !important;
+  padding: 7px !important;
+  border-radius: 11px !important;
+  color: #ffffff !important;
+  background: linear-gradient(145deg, #10b981, #047857) !important;
+  box-shadow: 0 6px 14px rgba(5, 150, 105, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+  flex-shrink: 0;
+}
+#centrum .cenSiatkaTrio .cenKarta[data-sek="dodane"] h3 .ic,
+#centrum .cenSiatkaTrio .cenKarta[data-sek="dodane"] h3 svg {
+  background: linear-gradient(145deg, #3b82f6, #1d4ed8) !important;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+}
+#centrum .cenSiatkaTrio .cenKarta[data-sek="wersety"] h3 .ic,
+#centrum .cenSiatkaTrio .cenKarta[data-sek="wersety"] h3 svg {
+  background: linear-gradient(145deg, #8b5cf6, #6d28d9) !important;
+  box-shadow: 0 6px 14px rgba(124, 58, 237, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+}
+#centrum .cenSiatkaTrio .cenLista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+#centrum .cenSiatkaTrio .cenPoz {
+  border-radius: 13px !important;
+  padding: 10px 12px !important;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--sel, #f8fafc) 70%, transparent), var(--cen-card-bg, #ffffff)) !important;
+  border: 1px solid var(--cen-card-border, rgba(15, 23, 42, 0.06)) !important;
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.03) !important;
+  transition: transform 0.16s ease, box-shadow 0.16s ease !important;
+}
+#centrum .cenSiatkaTrio .cenPoz:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.08) !important;
+}
+#centrum .cenSiatkaTrio .cenPozD {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 4px 10px !important;
+}
+#centrum .cenSiatkaTrio .cenPozD .cenNazwa {
+  flex: 1 1 100% !important;
+  order: 1 !important;
+  white-space: normal !important;
+  line-height: 1.35 !important;
+  font-weight: 700 !important;
+}
+#centrum .cenSiatkaTrio .cenPozD .cenData {
+  order: 2 !important;
+  font-size: 11px !important;
+  font-weight: 750 !important;
+  color: #1d4ed8 !important;
+  background: rgba(37, 99, 235, 0.1) !important;
+  padding: 2px 7px !important;
+  border-radius: 6px !important;
+}
+#centrum .cenSiatkaTrio .cenPozD .cenOpis {
+  order: 3 !important;
+  font-size: 11.5px !important;
+}
+#centrum .cenSiatkaTrio .cenKarta[data-sek="wersety"] .cenOpis {
+  padding: 2px 9px !important;
+  border-radius: 999px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  background: rgba(124, 58, 237, 0.12) !important;
+  color: #6d28d9 !important;
+}
+html[data-theme="dark"] #centrum .cenSiatkaTrio .cenKarta[data-sek="wersety"] .cenOpis,
+html[data-theme="oled"] #centrum .cenSiatkaTrio .cenKarta[data-sek="wersety"] .cenOpis {
+  color: #c4b5fd !important;
+}
+#centrum .cenSiatkaTrio .cenWiecej {
+  margin-top: 12px !important;
+  padding-top: 10px !important;
+  border-top: 1px solid var(--border, rgba(15, 23, 42, 0.06)) !important;
+  font-weight: 800 !important;
+}
+
 /* Ukrycie zbędnych/zdublowanych przycisków strzałek zwijania paska bocznego */
 .sidebar-float-trigger,
 .sidebar-collapse-btn {
@@ -27323,13 +27465,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v690)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v691)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v690</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v691</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v690) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v690</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v691) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v691</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -27410,7 +27552,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v690</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v691</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -29742,9 +29884,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v690";
+const APP_BUILD = "v691";
 const APP_BUILD_DATE = "2026-11-28";
-const APP_FULL_VERSION = "5.0 (v690)";
+const APP_FULL_VERSION = "5.0 (v691)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -64179,8 +64321,19 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v690</span>
+          <span class="cl-ver-num">v691</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">28 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">„Ostatnia praca” w stylu Teczek 3D (spójna z Projekty)</div>
+        <ul class="cl-ver-list">
+          <li><b>3 kolumny jako Teczki 3D:</b> górne języczki teczek (szmaragdowa, niebieska, fioletowa), cokoły ikon 3D oraz wypukłe kafelki wpisów.</li>
+          <li><b>Pełne tytuły w „Ostatnio dodane”:</b> data została przeniesiona pod tytuł jako niebieska pigułka, dzięki czemu nazwy notatek nie ucinają się.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v690</span>
           <span class="cl-ver-date">28 listopada 2026</span>
         </div>
         <div class="cl-ver-title">Panel „STUDIUM” i okno „Projekty” — Spatial Glass + Teczki 3D</div>
