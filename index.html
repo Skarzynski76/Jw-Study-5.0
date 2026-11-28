@@ -22536,20 +22536,95 @@ html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
 
 .cenWelcomeCard {
   background: var(--panel, #ffffff);
-  border: 1px solid var(--border, rgba(0, 0, 0, 0.08));
+  border: 1px solid var(--border, rgba(15, 23, 42, 0.08));
   border-radius: 22px;
   padding: 24px;
-  box-shadow: 0 10px 30px -8px rgba(15, 23, 42, 0.07);
+  box-shadow:
+    0 16px 36px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.cenWelcomeCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #3b82f6);
+}
+.cenWelcomeCard.cenGemCardBg::before {
+  background: linear-gradient(90deg, #d97706, #fbbf24, #f59e0b);
 }
 .cenWelcomeCard:hover {
+  transform: translateY(-3px);
   border-color: color-mix(in srgb, var(--accent, #2563eb) 35%, transparent);
-  box-shadow: 0 12px 32px -6px rgba(15, 23, 42, 0.1);
+  box-shadow: 0 22px 44px -6px rgba(15, 23, 42, 0.12);
+}
+.cenWelcomeLantern3d {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  background: radial-gradient(circle at 35% 35%, #f1f5f9, #cbd5e1);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8), 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.cenWelcomeLantern3d.lit {
+  background: radial-gradient(circle at 32% 32%, #fef9c3 0%, #fbbf24 45%, #ea580c 100%);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.72), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+.cenGoalsWelcomeCard {
+  position: relative;
+  overflow: hidden;
+  background: var(--panel, #ffffff);
+  border: 1px solid var(--border, rgba(15, 23, 42, 0.08));
+  border-radius: 22px;
+  padding: 22px 24px;
+  margin-bottom: 22px;
+  box-shadow:
+    0 16px 36px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.cenGoalsWelcomeCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #7c3aed, #a855f7, #10b981);
+}
+.cenGoalMiniItem {
+  border-radius: 16px !important;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+}
+.cenGoalMiniItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.09) !important;
+}
+.cenScriptureBanner {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px !important;
+  padding: 20px 24px !important;
+  border: 1px solid rgba(245, 158, 11, 0.28) !important;
+  background: linear-gradient(135deg, color-mix(in srgb, #f59e0b 7%, var(--panel, #ffffff)), var(--panel, #ffffff)) !important;
+  box-shadow: 0 14px 32px rgba(217, 119, 6, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+.cenScriptureBanner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(180deg, #fbbf24, #d97706);
 }
 .cenWelcomeCardHeader {
   display: flex;
@@ -27465,13 +27540,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v691)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v692)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v691</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v692</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v691) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v691</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v692) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v692</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -27552,7 +27627,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v691</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v692</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -29884,9 +29959,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v691";
+const APP_BUILD = "v692";
 const APP_BUILD_DATE = "2026-11-28";
-const APP_FULL_VERSION = "5.0 (v691)";
+const APP_FULL_VERSION = "5.0 (v692)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -64321,8 +64396,19 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v691</span>
+          <span class="cl-ver-num">v692</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">28 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">Karty „Ekranu powitalnego” w stylu Premium 3D</div>
+        <ul class="cl-ver-list">
+          <li><b>Spójne karty 3D z górnymi akcentami:</b> karta czytania, duchowej skarbnicy, rutyny nawyków oraz myśl przewodnia otrzymały jednolitą głębię 3D i kolorowe akcenty.</li>
+          <li><b>Świecące kule latarni 3D w CSS:</b> zastąpiono płaskie emoji na pasku serii przestrzennymi kulami światła.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v691</span>
           <span class="cl-ver-date">28 listopada 2026</span>
         </div>
         <div class="cl-ver-title">„Ostatnia praca” w stylu Teczek 3D (spójna z Projekty)</div>
@@ -65680,7 +65766,7 @@ function renderEkranPowitalny(){
   const etapSciezka = (typeof _centrObliczEtapSciezkiSwiatla === "function") ? _centrObliczEtapSciezkiSwiatla(curPlan, doneCount) : null;
   const litCnt = etapSciezka ? etapSciezka.litCount : 0;
   const latarnieDotsHtml = Array.from({length: 7}, (_, idx) =>
-    '<span class="cenLanternNode' + (idx < litCnt ? ' lit' : '') + '">' + (idx < litCnt ? '🏮' : '○') + '</span>'
+    '<span class="cenWelcomeLantern3d' + (idx < litCnt ? ' lit' : '') + '"></span>'
   ).join('');
 
   const dualStatusBarHtml = '<div class="cenMetricsStrip">'
@@ -65841,9 +65927,9 @@ function renderEkranPowitalny(){
     + '<div class="cenWelcomeGrid">' + zadanieKartaHtml + gemHtml + '</div>'
     + celeHtml
     + scriptureHtml
-    + '<div style="display:flex;align-items:center;justify-content:center;gap:14px;margin:28px 0 16px 0;flex-wrap:wrap;">'
-    + '<button type="button" class="btn primary" data-cwidok="centrum" style="font-size:14px;padding:10px 22px;border-radius:12px;font-weight:750;box-shadow:0 4px 12px rgba(37,99,235,0.2);">Przejdź do Pulpitu Studium ➔</button>'
-    + '<button type="button" class="btn" data-cakcja="lista" style="font-size:14px;padding:10px 20px;border-radius:12px;font-weight:600;">Otwórz notatki (12 ostatnich) 📖</button>'
+    + '<div style="display:flex;align-items:center;justify-content:center;gap:14px;margin:26px 0 16px 0;flex-wrap:wrap;">'
+    + '<button type="button" class="cenPlanTodayBtn" data-cwidok="centrum" style="font-size:14px;padding:11px 22px;">Przejdź do Pulpitu Studium ➔</button>'
+    + '<button type="button" class="btn" data-cakcja="lista" style="font-size:13.5px;padding:10px 20px;border-radius:13px;font-weight:700;box-shadow:0 6px 16px rgba(15,23,42,0.06);">Otwórz notatki (12 ostatnich) 📖</button>'
     + '</div>';
 }
 
