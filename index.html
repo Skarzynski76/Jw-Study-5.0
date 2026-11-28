@@ -600,6 +600,374 @@ html[data-theme="sepia"] {
   flex-shrink: 0 !important;
 }
 
+/* =========================================================
+   PULPIT STUDIUM — EXECUTIVE EMERALD & GOLD 3D (100% HTML+CSS)
+   ========================================================= */
+.cenExecHero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  padding: 24px 26px;
+  margin-bottom: 18px;
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 82% 15%, rgba(251, 191, 36, 0.22) 0%, transparent 38%),
+    radial-gradient(circle at 12% 100%, rgba(16, 185, 129, 0.26) 0%, transparent 45%),
+    linear-gradient(135deg, #071f19 0%, #0b3b2e 55%, #0f4c3a 100%);
+  box-shadow:
+    0 20px 44px rgba(7, 31, 25, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 20px;
+  align-items: center;
+}
+.cenExecHero.cenExecHeroPrompt {
+  grid-template-columns: 1.3fr 1fr;
+}
+.cenExecHeroLeft {
+  min-width: 0;
+}
+.cenExecHeroTopRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+.cenExecAvatar3d {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  padding: 2.5px;
+  background: linear-gradient(145deg, rgba(253, 230, 138, 0.85), rgba(16, 185, 129, 0.45));
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+  flex-shrink: 0;
+  position: relative;
+}
+.cenExecAvatar3d .cenUserAvatar {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  box-shadow: none;
+}
+.cenExecActionsRow {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.cenExecGoldBtn {
+  padding: 10px 18px;
+  border-radius: 13px;
+  border: none;
+  background: linear-gradient(135deg, #fde68a 0%, #f59e0b 100%);
+  color: #451a03;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow:
+    0 8px 20px rgba(245, 158, 11, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.cenExecGoldBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(245, 158, 11, 0.44);
+}
+.cenExecGhostBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.cenExecGhostBtn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+.cenExecHeroRight {
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 18px;
+  padding: 15px 17px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+.cenExecStatRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+}
+.cenExecStatLabel {
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 600;
+}
+.cenExecGoldBadge {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #fde68a, #f59e0b);
+  color: #451a03;
+  font-size: 11px;
+  font-weight: 800;
+  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+}
+.cenExecHeroTrack {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  margin-top: 2px;
+}
+.cenExecHeroFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #fbbf24 0%, #34d399 100%);
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.45);
+}
+
+.cenExecGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.cenExecCard {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  padding: 20px;
+  background: var(--cen-card-bg, #ffffff);
+  border: 1px solid var(--cen-card-border, rgba(15, 23, 42, 0.07));
+  box-shadow:
+    0 14px 30px rgba(15, 23, 42, 0.07),
+    0 1px 2px rgba(15, 23, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+.cenExecCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 42px rgba(15, 23, 42, 0.11);
+}
+.cenExecCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.cenExecCard.top-blue::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+.cenExecCard.top-emerald::before { background: linear-gradient(90deg, #059669, #34d399); }
+.cenExecCard.top-violet::before { background: linear-gradient(90deg, #7c3aed, #c084fc); }
+.cenExecCard.top-amber::before { background: linear-gradient(90deg, #ea580c, #fbbf24); }
+
+.cenExecCardHead {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+.cenExecPed {
+  width: 54px;
+  height: 54px;
+  border-radius: 17px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.cenExecPed.ped-blue {
+  background: linear-gradient(145deg, #3b82f6, #1d4ed8);
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+.cenExecPed.ped-emerald {
+  background: linear-gradient(145deg, #10b981, #047857);
+  box-shadow: 0 10px 22px rgba(5, 150, 105, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+.cenExecPed.ped-violet {
+  background: linear-gradient(145deg, #a855f7, #6d28d9);
+  box-shadow: 0 10px 22px rgba(124, 58, 237, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+.cenExecPed.ped-amber {
+  background: linear-gradient(145deg, #fb923c, #ea580c);
+  box-shadow: 0 10px 22px rgba(234, 88, 12, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+/* 3D sculpted mini objects */
+.cenExecBook3d {
+  width: 24px;
+  height: 28px;
+  border-radius: 3px 6px 6px 3px;
+  background: linear-gradient(135deg, #ffffff 0%, #dbeafe 100%);
+  box-shadow: -3px 3px 0 #1e40af, 0 4px 10px rgba(0, 0, 0, 0.25);
+  position: relative;
+  transform: rotate(-6deg);
+}
+.cenExecBook3d::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: #93c5fd;
+  border-radius: 2px;
+}
+.cenExecBook3d::after {
+  content: "";
+  position: absolute;
+  right: 4px;
+  top: -2px;
+  width: 5px;
+  height: 11px;
+  background: linear-gradient(180deg, #fbbf24, #d97706);
+  border-radius: 0 0 2px 2px;
+}
+.cenExecNotes3d {
+  width: 24px;
+  height: 28px;
+  border-radius: 5px;
+  background: linear-gradient(145deg, #ffffff, #d1fae5);
+  box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.45), 0 6px 12px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+.cenExecNotes3d::before,
+.cenExecNotes3d::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: #10b981;
+}
+.cenExecNotes3d::before { top: 8px; }
+.cenExecNotes3d::after { top: 14px; right: 8px; opacity: 0.7; }
+.cenExecTarget3d {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0%, #fff 24%, #c084fc 26%, #c084fc 52%, #fff 54%, #fff 74%, #a855f7 76%);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.22), inset 0 2px 4px rgba(255, 255, 255, 0.7);
+}
+.cenExecBars3d {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 24px;
+}
+.cenExecBars3d span {
+  width: 6px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #ffffff, #fed7aa);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.18);
+}
+.cenExecBars3d span:nth-child(1) { height: 10px; }
+.cenExecBars3d span:nth-child(2) { height: 17px; }
+.cenExecBars3d span:nth-child(3) { height: 24px; }
+
+.cenExecKickerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cenExecKicker {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.cenExecKicker.k-blue { color: #2563eb; }
+.cenExecKicker.k-emerald { color: #059669; }
+.cenExecKicker.k-violet { color: #7c3aed; }
+.cenExecKicker.k-amber { color: #ea580c; }
+.cenExecTitle {
+  margin-top: 4px;
+  font-size: 15.5px;
+  font-weight: 800;
+  color: var(--text, #0f172a);
+  letter-spacing: -0.015em;
+}
+.cenExecDesc {
+  margin-top: 5px;
+  font-size: 12.8px;
+  line-height: 1.45;
+  color: var(--cen-text-muted, #5b6778);
+}
+.cenExecFoot {
+  padding-top: 12px;
+  border-top: 1px solid var(--border, rgba(15, 23, 42, 0.07));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.cenExecBarTrack {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.25);
+  box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.12);
+  overflow: hidden;
+}
+.cenExecBarFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #3b82f6, #2563eb, #60a5fa);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+.cenExecRing3d {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.18), inset 0 1px 2px rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+}
+.cenExecRing3dInner {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: var(--cen-card-bg, #ffffff);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  color: #1e40af;
+  box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.08);
+}
+@media (max-width: 780px) {
+  .cenExecHero,
+  .cenExecHero.cenExecHeroPrompt,
+  .cenExecGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cenExecHero {
+    padding: 18px;
+  }
+}
+
 .cenHeroInfo {
   flex: 1;
   min-width: 0;
@@ -26775,13 +27143,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v687)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v688)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v687</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v688</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v687) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v687</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v688) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v688</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26862,7 +27230,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v687</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v688</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -29194,9 +29562,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v687";
+const APP_BUILD = "v688";
 const APP_BUILD_DATE = "2026-11-28";
-const APP_FULL_VERSION = "5.0 (v687)";
+const APP_FULL_VERSION = "5.0 (v688)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -63631,8 +63999,19 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v687</span>
+          <span class="cl-ver-num">v688</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">28 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">„Pulpit studium” w wersji Executive Emerald &amp; Gold 3D</div>
+        <ul class="cl-ver-list">
+          <li><b>Nowy baner Executive Emerald &amp; Gold:</b> ciemnoszmaragdowy baner z czytelnym szklanym chipem daty, złotym przyciskiem <code>Otwórz Ekran powitalny ↗</code> i wbudowaną kartą postępu dzisiejszego dnia.</li>
+          <li><b>Karty Bento 3D w 100% HTML + CSS:</b> rzeźbione obiekty 3D na cokołach (książka, notatki, tarcza celów, słupki statystyk), pierścień postępu <code>conic-gradient</code> oraz kolorowe paski akcentowe.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v687</span>
           <span class="cl-ver-date">28 listopada 2026</span>
         </div>
         <div class="cl-ver-title">„Cele i nawyki” w wersji Premium 3D (100% HTML + CSS)</div>
@@ -65113,7 +65492,7 @@ function renderEkranPowitalny(){
     + '</div>';
 }
 
-/* 1b. GŁÓWNY PULPIT CENTRUM STUDIUM (CZYSTY, PRZEJRZYSTY DASHBOARD) */
+/* 1b. GŁÓWNY PULPIT CENTRUM STUDIUM (EXECUTIVE EMERALD & GOLD 3D) */
 function renderCentrumWidok(){
   const curPlan = _centrPobierzPlanData(_centrAktywnyPlanId);
   const dniDone = _centrPobierzUkonczoneDni(curPlan.id);
@@ -65121,11 +65500,19 @@ function renderCentrumWidok(){
   const doneCount = dniDone.size;
   const pctNum = totalDni > 0 ? (doneCount / totalDni) * 100 : 0;
   const pct = pctNum.toFixed(1).replace(".", ",");
+  const pctRound = Math.round(pctNum);
+  const curDzienPlanu = Math.min(totalDni, _centrWybranyDzien || _centrZnajdzBiezacyDzienPlanu(curPlan.id));
+  const czyDzisCzytano = dniDone.has(curDzienPlanu);
 
   const tematy = _centrPobierzTematyStudium();
   const tCount = tematy.length;
   const celeList = _centrPobierzCele();
   const celeAktywneCount = celeList.filter(c => !c.completed).length;
+
+  const teraz = new Date();
+  const todayIso = (typeof _centrFormatujDateISO === "function") ? _centrFormatujDateISO(teraz) : "";
+  const activeHabits = celeList.filter(c => c.type === "habit" && !c.completed);
+  const doneHabitsToday = todayIso ? activeHabits.filter(c => c.history && c.history[todayIso]).length : 0;
 
   const userName = (typeof pobierzNazweUzytkownika === "function") ? pobierzNazweUzytkownika() : "";
   const userAvatar = (typeof pobierzZdjecieUzytkownika === "function") ? pobierzZdjecieUzytkownika() : "";
@@ -65133,7 +65520,7 @@ function renderCentrumWidok(){
   const initials = (typeof userInicjaly === "function") ? userInicjaly(userName) : "👤";
   const nameEsc = esc(userName);
 
-  const dzisiajStr = new Date().toLocaleDateString('pl-PL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const dzisiajStr = teraz.toLocaleDateString('pl-PL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   const dzisiajCap = dzisiajStr.charAt(0).toUpperCase() + dzisiajStr.slice(1);
 
   let avatarInlineStyle = "";
@@ -65147,116 +65534,129 @@ function renderCentrumWidok(){
     avatarHtmlContent = esc(userAvatar.slice(6));
   }
 
+  const rightSummaryPanel = '<div class="cenExecHeroRight">'
+    + '<div class="cenExecStatRow" data-cwidok="duchowe-cele" style="cursor:pointer;">'
+    + '<span class="cenExecStatLabel">Dzisiejsze zadanie</span>'
+    + '<span class="cenExecGoldBadge">' + doneHabitsToday + ' z ' + Math.max(activeHabits.length, celeAktywneCount) + ' dziś</span>'
+    + '</div>'
+    + '<div class="cenExecStatRow" data-cwidok="czytanie-chronologiczne" style="cursor:pointer;">'
+    + '<span class="cenExecStatLabel">Czytanie Biblii</span>'
+    + (czyDzisCzytano
+      ? '<strong style="color:#6ee7b7;">✓ Dzisiaj wykonano</strong>'
+      : '<strong style="color:#fde68a;">Oczekuje na dziś</strong>')
+    + '</div>'
+    + '<div class="cenExecStatRow">'
+    + '<span class="cenExecStatLabel">Plan ' + totalDni + ' dni</span>'
+    + '<strong style="color:#ffffff;">' + doneCount + ' / ' + totalDni + ' (' + pct + '%)</strong>'
+    + '</div>'
+    + '<div class="cenExecHeroTrack"><div class="cenExecHeroFill" style="width:' + Math.min(100, Math.max(doneCount > 0 ? 3 : 0, pctNum)) + '%;"></div></div>'
+    + '</div>';
+
   let userBannerHtml = '';
   if(userName || userAvatar){
-    userBannerHtml = '<div class="cenUserHeroBanner">'
-      + '<div class="cenUserHeroLeft">'
-      + '<div class="' + avatarClass + '"' + avatarInlineStyle + ' title="Twój profil' + (userName ? (': ' + nameEsc) : '') + '">' + avatarHtmlContent + '</div>'
+    userBannerHtml = '<div class="cenExecHero">'
+      + '<div class="cenExecHeroLeft">'
+      + '<div class="cenHeroDateChip" style="display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;">📅 ' + dzisiajCap + '</div>'
+      + '<div class="cenExecHeroTopRow">'
+      + '<div class="cenExecAvatar3d"><div class="' + avatarClass + '"' + avatarInlineStyle + ' title="Twój profil' + (userName ? (': ' + nameEsc) : '') + '">' + avatarHtmlContent + '</div></div>'
       + '<div class="cenUserGreetingWrap">'
-      + '<div style="font-size:11.5px;font-weight:750;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent,#2563eb);margin-bottom:2px;">Osobiste Studium Słowa Bożego</div>'
-      + '<div class="cenUserGreeting">' + greeting + (userName ? (', <b>' + nameEsc + '</b>!') : '!') + ' 👋</div>'
+      + '<div class="cenUserGreeting" style="font-size:24px;">' + greeting + (userName ? (', <b>' + nameEsc + '</b>!') : '!') + ' 👋</div>'
       + '<div class="cenUserSub">Centrum Twojego osobistego studium, czytania Biblii i rozwoju duchowego.</div>'
       + '</div></div>'
-      + '<div class="cenUserHeroRight">'
-      + '<div style="font-size:12px;font-weight:600;color:var(--cen-text-muted);background:color-mix(in srgb, var(--border,#d1d5db) 30%, transparent);padding:5px 12px;border-radius:20px;white-space:nowrap;">📅 ' + dzisiajCap + '</div>'
-      + '<button type="button" class="cenUserProfileBtn" data-act="otworzProfil" title="Zarządzaj profilem użytkownika">'
-      + '<svg class="ic" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>'
-      + '<span>' + (nameEsc || 'Profil') + '</span>'
-      + '</button>'
-      + '</div></div>';
+      + '<div class="cenExecActionsRow">'
+      + '<button type="button" class="cenExecGoldBtn" data-cwidok="powitanie">Otwórz Ekran powitalny ↗</button>'
+      + '<button type="button" class="cenExecGhostBtn" data-act="otworzProfil" title="Zarządzaj profilem użytkownika">✎ ' + (nameEsc || 'Profil') + '</button>'
+      + '</div></div>'
+      + rightSummaryPanel
+      + '</div>';
   } else {
-    userBannerHtml = '<div class="cenUserHeroBanner cenUserPromptBanner">'
-      + '<div class="cenUserHeroLeft">'
-      + '<div class="cenUserAvatar cenUserAvatarPrompt">👋</div>'
+    userBannerHtml = '<div class="cenExecHero cenExecHeroPrompt">'
+      + '<div class="cenExecHeroLeft">'
+      + '<div class="cenHeroDateChip" style="display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;">📅 ' + dzisiajCap + '</div>'
+      + '<div class="cenExecHeroTopRow">'
+      + '<div class="cenExecAvatar3d"><div class="cenUserAvatar cenUserAvatarPrompt">👋</div></div>'
       + '<div class="cenUserGreetingWrap">'
-      + '<div style="font-size:11.5px;font-weight:750;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent,#2563eb);margin-bottom:2px;">Osobiste Studium Słowa Bożego</div>'
-      + '<div class="cenUserGreeting">Witaj w <b>JW-Study</b>!</div>'
+      + '<div class="cenUserGreeting" style="font-size:24px;">Witaj w <b>JW-Study</b>!</div>'
       + '<div class="cenUserSub">Wpisz swoje imię, aby spersonalizować powiadomienia, plany i gratulacje.</div>'
       + '</div></div>'
-      + '<div class="cenUserPromptForm">'
+      + '<div class="cenUserPromptForm" style="margin-top:14px;">'
       + '<input type="text" id="cenQuickNameInp" class="cenQuickNameInp" placeholder="Wpisz swoje imię…" maxlength="40" aria-label="Twoje imię">'
       + '<button type="button" class="btn primary" id="cenQuickNameSaveBtn">Zapisz</button>'
-      + '</div>'
+      + '</div></div>'
+      + rightSummaryPanel
       + '</div>';
   }
 
-  // Szybki kafel prowadzący do odrębnego Ekranu Powitalnego
-  const quickWelcomeBanner = '<div class="cenWelcomeQuickBar" data-cwidok="powitanie" style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;margin-bottom:18px;background:linear-gradient(135deg, rgba(37,99,235,0.06), rgba(16,185,129,0.06));border:1px solid var(--border);border-radius:14px;cursor:pointer;" title="Kliknij, aby otworzyć dzisiejszy ekran powitalny i zadanie czytania">'
-    + '<div style="display:flex;align-items:center;gap:12px;">'
-    + '<span style="font-size:26px;">☀️</span>'
-    + '<div>'
-    + '<div style="font-size:14px;font-weight:750;color:var(--text);">Dzisiejszy Ekran Powitalny & Zadanie na dziś</div>'
-    + '<div style="font-size:12px;color:var(--muted);">Zobacz wyznaczony fragment Biblii do przeczytania, klejnot duchowy i codzienne cele</div>'
-    + '</div></div>'
-    + '<button type="button" class="btn small primary" data-cwidok="powitanie" style="font-size:12.5px;padding:6px 14px;">Otwórz powitanie ↗</button>'
-    + '</div>';
+  const ringGrad = 'conic-gradient(#2563eb 0% ' + Math.min(100, pctNum).toFixed(1) + '%, rgba(148,163,184,0.28) ' + Math.min(100, pctNum).toFixed(1) + '% 100%)';
 
-  const modulesGridHtml = '<div class="cenHeroGrid">'
+  const modulesGridHtml = '<div class="cenExecGrid">'
     // Karta 1: Aktywny plan czytania
-    + '<div class="cenHeroCard card-blue" data-cwidok="czytanie-chronologiczne">'
-    + '<div class="cenHeroCardTop">'
-    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.book + '</div>'
+    + '<div class="cenExecCard top-blue" data-cwidok="czytanie-chronologiczne">'
+    + '<div class="cenExecCardHead">'
+    + '<div class="cenExecPed ped-blue"><div class="cenExecBook3d"></div></div>'
     + '<div class="cenHeroInfo">'
-    + '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;">'
-    + '<span class="cenHeroTag">' + esc(curPlan.catName || "Plan") + ' • ' + esc(curPlan.duration || (curPlan.days + ' dni')) + '</span>'
+    + '<div class="cenExecKickerRow">'
+    + '<span class="cenExecKicker k-blue">' + esc(curPlan.catName || "Plan") + ' • ' + esc(curPlan.duration || (curPlan.days + ' dni')) + '</span>'
     + '<button type="button" class="cenHeroChangePlanBtn" data-cwidok="moje-plany" title="Zmień aktywny plan czytania">Zmień plan ▾</button>'
     + '</div>'
-    + '<div class="cenHeroTyt">' + esc(curPlan.name) + '</div>'
-    + '<div class="cenHeroOpis">' + esc(curPlan.desc) + '</div>'
+    + '<div class="cenExecTitle">' + esc(curPlan.name) + '</div>'
+    + '<div class="cenExecDesc">' + esc(curPlan.desc) + '</div>'
     + '</div></div>'
-    + '<div class="cenHeroBottom">'
-    + '<div class="cenHeroMetaRow">'
+    + '<div class="cenExecFoot">'
+    + '<div style="flex:1;min-width:0;">'
+    + '<div class="cenHeroMetaRow" style="margin-bottom:7px;">'
     + '<span class="cenHeroMetaLabel">Postęp planu</span>'
-    + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b> <span style="color:var(--cen-text-muted);font-weight:400;margin-left:4px;">' + pct + '%</span></span>'
+    + '<span class="cenHeroMetaVal"><b>' + doneCount + ' / ' + totalDni + ' dni</b></span>'
     + '</div>'
-    + '<div class="cenProgressBar"><div class="cenProgressFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;"></div></div>'
+    + '<div class="cenExecBarTrack"><div class="cenExecBarFill" style="width:' + Math.min(100, Math.max(doneCount>0?3:0, pctNum)) + '%;"></div></div>'
+    + '</div>'
+    + '<div class="cenExecRing3d" style="background:' + ringGrad + ';"><div class="cenExecRing3dInner">' + pctRound + '%</div></div>'
     + '</div></div>'
 
     // Karta 2: Studium osobiste
-    + '<div class="cenHeroCard card-green" data-cwidok="studium-osobiste">'
-    + '<div class="cenHeroCardTop">'
-    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.note + '</div>'
+    + '<div class="cenExecCard top-emerald" data-cwidok="studium-osobiste">'
+    + '<div class="cenExecCardHead">'
+    + '<div class="cenExecPed ped-emerald"><div class="cenExecNotes3d"></div></div>'
     + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt">Studium osobiste</div>'
-    + '<div class="cenHeroOpis">Prowadź tematyczne badania biblijne, gromadź wersety i własne przemyślenia.</div>'
+    + '<div class="cenExecKicker k-emerald">Badania i notatki</div>'
+    + '<div class="cenExecTitle">Studium osobiste</div>'
+    + '<div class="cenExecDesc">Prowadź tematyczne badania biblijne, gromadź wersety i własne przemyślenia.</div>'
     + '</div></div>'
-    + '<div class="cenHeroBottom">'
-    + '<div class="cenHeroMetaRow">'
+    + '<div class="cenExecFoot">'
     + '<span class="cenHeroMetaLabel">Aktywne tematy</span>'
     + '<span class="cenHeroMetaVal val-green">' + tCount + ' tematów studium</span>'
-    + '</div></div></div>'
+    + '</div></div>'
 
     // Karta 3: Duchowe cele i nawyki
-    + '<div class="cenHeroCard card-purple" data-cwidok="duchowe-cele">'
-    + '<div class="cenHeroCardTop">'
-    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.target + '</div>'
+    + '<div class="cenExecCard top-violet" data-cwidok="duchowe-cele">'
+    + '<div class="cenExecCardHead">'
+    + '<div class="cenExecPed ped-violet"><div class="cenExecTarget3d"></div></div>'
     + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt">Duchowe cele i nawyki</div>'
-    + '<div class="cenHeroOpis">Wyznaczaj cele osobiste, służby i studium, buduj dobre nawyki i śledź postępy.</div>'
+    + '<div class="cenExecKicker k-violet">Nawyki i konsekwencja</div>'
+    + '<div class="cenExecTitle">Duchowe cele i nawyki</div>'
+    + '<div class="cenExecDesc">Wyznaczaj cele osobiste, służby i studium, buduj dobre nawyki i śledź postępy.</div>'
     + '</div></div>'
-    + '<div class="cenHeroBottom">'
-    + '<div class="cenHeroMetaRow">'
+    + '<div class="cenExecFoot">'
     + '<span class="cenHeroMetaLabel">Aktywne cele</span>'
     + '<span class="cenHeroMetaVal val-purple">' + celeAktywneCount + ' aktywnych celów</span>'
-    + '</div></div></div>'
+    + '</div></div>'
 
     // Karta 4: Statystyki i postęp
-    + '<div class="cenHeroCard card-orange" data-cwidok="statystyki">'
-    + '<div class="cenHeroCardTop">'
-    + '<div class="cenHeroIkoBox">' + CEN_MODERN_ICO.clipboard + '</div>'
+    + '<div class="cenExecCard top-amber" data-cwidok="statystyki">'
+    + '<div class="cenExecCardHead">'
+    + '<div class="cenExecPed ped-amber"><div class="cenExecBars3d"><span></span><span></span><span></span></div></div>'
     + '<div class="cenHeroInfo">'
-    + '<div class="cenHeroTyt">Statystyki i postęp</div>'
-    + '<div class="cenHeroOpis">Śledź tempo czytania, ukończone fragmenty, serie dni i Światło na ścieżce.</div>'
+    + '<div class="cenExecKicker k-amber">Historia i wykresy</div>'
+    + '<div class="cenExecTitle">Statystyki i postęp</div>'
+    + '<div class="cenExecDesc">Śledź tempo czytania, ukończone fragmenty, serie dni i Światło na ścieżce.</div>'
     + '</div></div>'
-    + '<div class="cenHeroBottom">'
-    + '<div class="cenHeroMetaRow">'
+    + '<div class="cenExecFoot">'
     + '<span class="cenHeroMetaLabel">Ukończone dni</span>'
     + '<span class="cenHeroMetaVal val-orange">' + doneCount + ' z ' + totalDni + ' dni</span>'
-    + '</div></div></div>'
+    + '</div></div>'
     + '</div>';
 
   return userBannerHtml
-    + quickWelcomeBanner
     + modulesGridHtml
     + _centrGenerujStopkeWersji();
 }
