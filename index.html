@@ -1276,7 +1276,7 @@ html[data-theme="dark"] .cenHeroMetaVal.val-orange { color: #fb923c; }
 /* CHRONO QUICK ACTIONS ROW */
 .cenChronoAkcjeRow {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   margin-bottom: 22px;
 }
@@ -1286,32 +1286,119 @@ html[data-theme="dark"] .cenHeroMetaVal.val-orange { color: #fb923c; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 16px 12px;
-  background: var(--cen-card-bg);
-  border: 1px solid var(--cen-card-border);
-  border-radius: 16px;
+  gap: 9px;
+  padding: 14px 12px;
+  background: var(--cen-card-bg, #ffffff);
+  border: 1px solid var(--cen-card-border, rgba(15, 23, 42, 0.08));
+  border-radius: 18px;
   color: var(--cen-text);
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  box-shadow: var(--cen-card-shadow);
-  transition: all 0.16s ease;
+  box-shadow:
+    0 8px 20px rgba(15, 23, 42, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, border-color 0.18s ease, color 0.18s ease;
 }
 .cenChronoAkcjaBtn:hover {
   background: var(--cen-card-bg);
-  border-color: var(--cen-card-border-hover);
-  box-shadow: var(--cen-card-shadow-hover);
-  transform: translateY(-2px);
+  border-color: rgba(37, 99, 235, 0.35);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transform: translateY(-3px);
   color: #2563eb;
 }
+.cenChronoIko3d {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, rgba(37, 99, 235, 0.12), rgba(59, 130, 246, 0.05));
+  border: 1px solid rgba(37, 99, 235, 0.18);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+.cenChronoIko3d.is-amber {
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.16), rgba(251, 191, 36, 0.06));
+  border-color: rgba(245, 158, 11, 0.25);
+  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+.cenChronoIko3d.is-emerald {
+  background: linear-gradient(145deg, rgba(16, 185, 129, 0.14), rgba(5, 150, 105, 0.05));
+  border-color: rgba(16, 185, 129, 0.22);
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+.cenChronoIko3d.is-slate {
+  background: linear-gradient(145deg, rgba(100, 116, 139, 0.14), rgba(100, 116, 139, 0.05));
+  border-color: rgba(100, 116, 139, 0.2);
+}
 .cenChronoAkcjaBtn svg {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   color: #2563eb;
 }
 html[data-theme="dark"] .cenChronoAkcjaBtn svg {
   color: #60a5fa;
+}
+html[data-theme="dark"] .cenChronoIko3d,
+html[data-theme="oled"] .cenChronoIko3d {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.cenPlanTodayHero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  padding: 18px 20px;
+  background: linear-gradient(135deg, var(--cen-card-bg, #ffffff) 0%, rgba(16, 185, 129, 0.05) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.cenPlanTodayHero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(180deg, #10b981, #059669);
+}
+.cenPlanTodayBtn {
+  padding: 11px 20px;
+  border-radius: 13px;
+  border: none;
+  background: linear-gradient(180deg, #10946d 0%, #095c44 100%);
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 750;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 8px 20px rgba(9, 92, 68, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.cenPlanTodayBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(9, 92, 68, 0.36);
+}
+.cenPlanDayBadge3d {
+  padding: 5px 11px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(37, 99, 235, 0.12), rgba(37, 99, 235, 0.05));
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+html[data-theme="dark"] .cenPlanDayBadge3d,
+html[data-theme="oled"] .cenPlanDayBadge3d {
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.18);
 }
 
 /* FRAGMENT ITEM CARD */
@@ -2122,15 +2209,28 @@ html[data-theme="dark"] .cenRemPermAlert.default {
   pointer-events: none;
 }
 .cenSciezkaProgressCard {
+  position: relative;
+  overflow: hidden;
   background: var(--cen-card-bg);
   border: 1px solid var(--cen-card-border);
-  border-radius: 18px;
-  padding: 20px 22px;
+  border-radius: 22px;
+  padding: 22px 24px;
   margin-top: 14px;
-  box-shadow: var(--cen-card-shadow);
+  box-shadow:
+    0 16px 38px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+.cenSciezkaProgressCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #fbbf24, #f59e0b);
 }
 .cenSciezkaCardTop {
   display: flex;
@@ -2344,25 +2444,44 @@ html[data-theme="dark"] .cenSciezkaBadge {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 8px 4px 6px;
-  border-radius: 10px;
+  padding: 10px 6px 8px;
+  border-radius: 14px;
   background: var(--cen-card-bg, var(--panel, #ffffff));
   border: 1px solid var(--cen-card-border, var(--border));
-  opacity: 0.55;
-  transition: all 0.2s ease;
+  opacity: 0.65;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 .cenTrackLantern.is-lit {
   opacity: 1.0;
-  background: rgba(245, 158, 11, 0.12);
-  border-color: rgba(245, 158, 11, 0.45);
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+  background: linear-gradient(160deg, rgba(16, 185, 129, 0.14), rgba(251, 191, 36, 0.12));
+  border-color: rgba(16, 185, 129, 0.42);
+  box-shadow: 0 8px 18px rgba(16, 185, 129, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 .cenTrackLantern.is-next {
-  opacity: 0.9;
+  opacity: 0.96;
   background: var(--cen-card-bg, var(--panel, #ffffff));
   border-color: #f59e0b;
   border-style: dashed;
+  box-shadow: 0 6px 14px rgba(245, 158, 11, 0.14);
+}
+.cenLanternOrb3d {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: block;
+  margin: 2px auto 4px;
+  background: radial-gradient(circle at 35% 35%, #f1f5f9, #cbd5e1 65%, #94a3b8 100%);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8), 0 2px 6px rgba(15, 23, 42, 0.15);
+}
+.cenTrackLantern.is-lit .cenLanternOrb3d {
+  background: radial-gradient(circle at 32% 32%, #fef9c3 0%, #fbbf24 45%, #ea580c 100%);
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.72), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+.cenTrackLantern.is-next .cenLanternOrb3d {
+  background: radial-gradient(circle at 35% 35%, #fef3c7, #fde68a 60%, #f59e0b 100%);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
 }
 html[data-theme="dark"] .cenTrackLantern,
 html[data-theme="oled"] .cenTrackLantern {
@@ -3037,29 +3156,40 @@ html[data-theme="dark"] .cenPlanPaceTag {
 
 .cenPlanStatsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
   margin-top: 14px;
 }
-.cenPlanStatTile {
-  background: rgba(0,0,0,0.02);
-  border: 1px solid var(--cen-card-border);
-  border-radius: 12px;
-  padding: 10px 8px;
-  text-align: center;
+@media (max-width: 620px) {
+  .cenPlanStatsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
-html[data-theme="dark"] .cenPlanStatTile {
-  background: rgba(255,255,255,0.03);
+.cenPlanStatTile {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.85));
+  border: 1px solid var(--cen-card-border, rgba(15, 23, 42, 0.08));
+  border-radius: 16px;
+  padding: 13px 10px;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  font-variant-numeric: tabular-nums;
+}
+html[data-theme="dark"] .cenPlanStatTile,
+html[data-theme="oled"] .cenPlanStatTile {
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 .cenPlanStatVal {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 800;
   color: var(--cen-text);
+  letter-spacing: -0.02em;
 }
 .cenPlanStatLbl {
-  font-size: 11px;
+  font-size: 11.5px;
+  font-weight: 600;
   color: var(--cen-text-muted);
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .cenHeroChangePlanBtn {
@@ -27143,13 +27273,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v688)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v689)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v688</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v689</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v688) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v688</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v689) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v689</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -27230,7 +27360,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v688</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v689</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -29562,9 +29692,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v688";
+const APP_BUILD = "v689";
 const APP_BUILD_DATE = "2026-11-28";
-const APP_FULL_VERSION = "5.0 (v688)";
+const APP_FULL_VERSION = "5.0 (v689)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -63692,7 +63822,7 @@ function _centrGenerujSciezkaSwiatlaHero(planInfo, dniDone, curDzien){
     const isLit = (l.id <= etap.litCount);
     const isNext = (l.id === etap.litCount + 1);
     lanternsRowHtml += '<div class="cenTrackLantern' + (isLit ? ' is-lit' : '') + (isNext ? ' is-next' : '') + '" title="' + esc(l.name) + ' (' + (isLit ? 'Rozpalona' : ('Zabłyśnie przy ' + l.startPct + '% planu')) + ')">'
-      + '<div class="cenTrackLanternIcon">' + (isLit ? '🏮' : '🕯️') + '</div>'
+      + '<span class="cenLanternOrb3d" aria-hidden="true"></span>'
       + '<div class="cenTrackLanternNum">Latarnia ' + l.id + '</div>'
       + '<div class="cenTrackLanternPct">' + (isLit ? '✓' : (l.startPct + '%')) + '</div>'
       + '</div>';
@@ -63999,8 +64129,19 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v688</span>
+          <span class="cl-ver-num">v689</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
+          <span class="cl-ver-date">28 listopada 2026</span>
+        </div>
+        <div class="cl-ver-title">„Plan czytania Biblii” w wersji Premium 3D (100% HTML + CSS)</div>
+        <ul class="cl-ver-list">
+          <li><b>Rzeźbione latarnie i kafelki KPI 3D:</b> zastąpiono płaskie ikony latarni świecącymi kulami 3D w CSS oraz wyrównano 4 kafelki KPI w jednym równym rzędzie.</li>
+          <li><b>Przyciski akcji i „Czytanie na dziś” 3D:</b> szklane cokoły ikon, karta dnia z książką 3D oraz odświeżone wiersze kolejnych dni.</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v688</span>
           <span class="cl-ver-date">28 listopada 2026</span>
         </div>
         <div class="cl-ver-title">„Pulpit studium” w wersji Executive Emerald &amp; Gold 3D</div>
@@ -65692,13 +65833,13 @@ function centrWidokCzytanieChrono(){
     + _centrGenerujSciezkaSwiatlaHero(planInfo, dniDone, curDzien)
 
     + '<div class="cenChronoAkcjeRow">'
-    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="kalendarz">' + CEN_MODERN_ICO.calendar + '<span>Kalendarz / Siatka</span></button>'
-    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="lista-dni">' + CEN_MODERN_ICO.list + '<span>Lista dni' + (missedDays.length ? ' (' + missedDays.length + ' ⚠️)' : '') + '</span></button>'
-    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki">' + CEN_MODERN_ICO.chart + '<span>Statystyki</span></button>'
-    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki" data-cstat-tab="sciezka">🏮 <span>Ścieżka</span></button>'
-    + '<button type="button" class="cenChronoAkcjaBtn" data-cakcja="przypomnienie-planu" title="Przypomnienia o czytaniu Biblii" style="position:relative;">' + (CEN_MODERN_ICO.bell || '🔔') + '<span>Przypomnij' + (_centrCzyPrzypomnienieWlaczone() ? ' •' : '') + '</span></button>'
-    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="moje-plany">' + CEN_MODERN_ICO.clipboard + '<span>Zmień plan</span></button>'
-    + '<button type="button" class="cenChronoAkcjaBtn" data-cakcja="resetuj-postep-planu" title="Wyczyść postęp i zacznij plan od nowa">↺ <span>Od nowa</span></button>'
+    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="kalendarz"><span class="cenChronoIko3d">' + CEN_MODERN_ICO.calendar + '</span><span>Kalendarz / Siatka</span></button>'
+    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="lista-dni"><span class="cenChronoIko3d is-emerald">' + CEN_MODERN_ICO.list + '</span><span>Lista dni' + (missedDays.length ? ' (' + missedDays.length + ' ⚠️)' : '') + '</span></button>'
+    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki"><span class="cenChronoIko3d">' + CEN_MODERN_ICO.chart + '</span><span>Statystyki</span></button>'
+    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="statystyki" data-cstat-tab="sciezka"><span class="cenChronoIko3d is-amber"><span class="cenLanternOrb3d" style="margin:0;width:16px;height:16px;background:radial-gradient(circle at 32% 32%, #fef9c3 0%, #fbbf24 45%, #ea580c 100%);box-shadow:0 0 10px rgba(245,158,11,0.6);"></span></span><span>Ścieżka</span></button>'
+    + '<button type="button" class="cenChronoAkcjaBtn" data-cakcja="przypomnienie-planu" title="Przypomnienia o czytaniu Biblii" style="position:relative;"><span class="cenChronoIko3d is-amber">' + (CEN_MODERN_ICO.bell || '🔔') + '</span><span>Przypomnij' + (_centrCzyPrzypomnienieWlaczone() ? ' •' : '') + '</span></button>'
+    + '<button type="button" class="cenChronoAkcjaBtn" data-cwidok="moje-plany"><span class="cenChronoIko3d is-emerald">' + CEN_MODERN_ICO.clipboard + '</span><span>Zmień plan</span></button>'
+    + '<button type="button" class="cenChronoAkcjaBtn" data-cakcja="resetuj-postep-planu" title="Wyczyść postęp i zacznij plan od nowa"><span class="cenChronoIko3d is-slate" style="font-size:17px;font-weight:800;color:#475569;">↺</span><span>Od nowa</span></button>'
     + '</div>'
 
     + (missedDays.length > 0 ? (
@@ -65725,22 +65866,23 @@ function centrWidokCzytanieChrono(){
 
     + '<div style="margin-bottom:20px;">'
     + '<div class="cenSecHeadTyt">Czytanie na dziś</div>'
-    + '<div class="cenZadanieCard" style="margin-bottom:0;">'
-    + '<div class="cenZadanieLewo">'
-    + '<div class="cenZadanieIko">' + CEN_MODERN_ICO.book + '</div>'
+    + '<div class="cenPlanTodayHero">'
+    + '<div class="cenZadanieLewo" style="gap:15px;">'
+    + '<div class="cenExecPed ped-blue"><div class="cenExecBook3d"></div></div>'
     + '<div>'
-    + '<div class="cenZadanieTyt">Dzień ' + curDzien + '</div>'
-    + '<div class="cenZadaniePodtyt">' + (planDzis.f ? planDzis.f.length : 0) + ' fragmenty • ' + esc(planDzis.t) + '</div>'
+    + '<div class="cenZadanieTyt" style="font-size:16.5px;font-weight:800;">Dzień ' + curDzien + '</div>'
+    + '<div class="cenZadaniePodtyt" style="margin-top:2px;">' + (planDzis.f ? planDzis.f.length : 0) + ' fragmenty • ' + esc(planDzis.t) + '</div>'
     + '</div></div>'
-    + '<button type="button" class="cenZadanieBtn" data-cwidok="dzien" data-cdzien="' + curDzien + '">Otwórz dzień ' + CEN_MODERN_ICO.chevron + '</button>'
+    + '<button type="button" class="cenPlanTodayBtn" data-cwidok="dzien" data-cdzien="' + curDzien + '">Otwórz dzień ' + CEN_MODERN_ICO.chevron + '</button>'
     + '</div></div>'
 
     + '<div>'
     + '<div class="cenSecHeadTyt">Następne dni</div>'
     + (!nastDni.length ? '<div class="cenPusto">Dotarłeś do końca planu lub to ostatni dzień! Gratulacje!</div>' : '')
-    + nastDni.map(nd=>'<div class="cenRowItem" data-cwidok="dzien" data-cdzien="'+nd.d+'">'
-      + '<div class="cenRowLewo">'
-      + '<div><div class="cenRowTyt">Dzień '+nd.d+'</div><div class="cenRowPodtyt">'+nd.f.length+' fragmenty • '+esc(nd.t)+'</div></div>'
+    + nastDni.map(nd=>'<div class="cenRowItem" style="border-radius:16px;padding:13px 16px;box-shadow:0 6px 16px rgba(15,23,42,0.04);" data-cwidok="dzien" data-cdzien="'+nd.d+'">'
+      + '<div class="cenRowLewo" style="gap:12px;">'
+      + '<span class="cenPlanDayBadge3d">Dzień '+nd.d+'</span>'
+      + '<div><div class="cenRowPodtyt" style="font-size:13.5px;font-weight:650;color:var(--cen-text);">'+esc(nd.t)+'</div><div class="cenRowPodtyt" style="font-size:11.5px;margin-top:2px;">'+nd.f.length+' fragmenty</div></div>'
       + '</div>'
       + '<span class="cenPozStrz">'+CEN_MODERN_ICO.chevron+'</span>'
       + '</div>').join('')
