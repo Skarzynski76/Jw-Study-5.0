@@ -26524,6 +26524,46 @@ html[data-theme="dark"] .mm-canvas-box { background: #141c18; }
   .mm-workspace { grid-template-columns: 1fr; grid-template-rows: minmax(260px, 1fr) auto; }
   .mm-side { max-height: 230px; }
 }
+/* Tryb wystąpienia / szkic na cały ekran (v685) */
+#modalMindMap.mm-present-mode .mm-modal { padding: 0 !important; gap: 0 !important; }
+#modalMindMap.mm-present-mode .mm-head,
+#modalMindMap.mm-present-mode .mm-toolbar,
+#modalMindMap.mm-present-mode .mm-side,
+#modalMindMap.mm-present-mode .mm-hint { display: none !important; }
+#modalMindMap.mm-present-mode .mm-workspace {
+  grid-template-columns: 1fr !important;
+  grid-template-rows: 1fr !important;
+}
+#modalMindMap.mm-present-mode .mm-canvas-box {
+  border: 0 !important;
+  border-radius: 0 !important;
+  height: 100dvh !important;
+}
+.mm-present-bar {
+  display: none;
+  position: fixed;
+  left: 50%;
+  bottom: max(14px, env(safe-area-inset-bottom, 14px));
+  transform: translateX(-50%);
+  z-index: 10095;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: calc(100vw - 24px);
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel) 92%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.20);
+}
+#modalMindMap.mm-present-mode .mm-present-bar { display: flex; }
+.mm-present-label {
+  font-size: 12.5px; font-weight: 700; color: var(--text);
+  padding: 0 6px; max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
 .sync-card-sub {
   font-size: 12px;
   color: var(--muted);
@@ -26620,13 +26660,13 @@ body.centrum-open #btnHeaderCentrum {
 <div id="appContainer">
   <aside id="modernSidebar">
     <div class="sidebar-brand" id="sidebarBrand" title="Zwiń / rozwiń pasek boczny (Ctrl+B)">
-      <div class="sidebar-logo-box" title="JW-Study 5.0 (v684)">
+      <div class="sidebar-logo-box" title="JW-Study 5.0 (v685)">
         <img src="icon-192.png" width="30" height="30" class="sidebar-logo" alt="JW">
-        <span class="sidebar-mini-ver" id="sidebarMiniVer">v684</span>
+        <span class="sidebar-mini-ver" id="sidebarMiniVer">v685</span>
       </div>
       <div class="sidebar-brand-text">
         <span class="sidebar-brand-title">JW-Study</span>
-        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v684) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v684</small></span>
+        <span class="sidebar-brand-ver" id="sidebarBrandVer" role="button" tabindex="0" title="Wersja 5.0 (kompilacja v685) • Kliknij, aby zobaczyć historię zmian">v5.0 <small class="sidebar-ver-tag">v685</small></span>
       </div>
       <button type="button" class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Zamknij menu" title="Zamknij menu">
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -26707,7 +26747,7 @@ body.centrum-open #btnHeaderCentrum {
 <header>
   <button type="button" class="btn ico-btn mobile-menu-btn" id="btnMobileMenu" aria-label="Menu główne i ustawienia" title="Menu główne i ustawienia">
     <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v684</span>
+    <span class="mobile-menu-ver-badge" id="mobileMenuVerBadge">v685</span>
     <span class="sync-status-dot header-sync-dot" id="headerSyncDot" title="Status synchronizacji"></span>
   </button>
   <div class="searchwrap">
@@ -27871,14 +27911,23 @@ body.centrum-open #btnHeaderCentrum {
         <button type="button" class="btn" id="mmResetViewBtn">⟲ Reset</button>
       </div>
       <div class="mm-btn-row">
+        <button type="button" class="btn" id="mmTalkTemplateBtn" title="Utwórz gotową strukturę szkicu wystąpienia (Wstęp, Rozwinięcie, Zakończenie)">🎤 Szkic wystąpienia</button>
         <button type="button" class="btn" id="mmFromNoteBtn" title="Wygeneruj ponownie z tekstu notatki">🪄 Z treści notatki</button>
         <button type="button" class="btn" id="mmExportPngBtn">📸 PNG</button>
+        <button type="button" class="btn primary" id="mmPresentBtn" title="Otwórz szkic na pełnym ekranie jako pomoc do wystąpienia">🖥️ Pełny ekran szkicu</button>
       </div>
     </div>
     <div class="mm-workspace">
       <div class="mm-canvas-box">
         <canvas id="mmCanvas"></canvas>
         <div class="mm-hint">Kliknij kartę, aby edytować • Przeciągnij kartę lub tło • Kółko = zoom</div>
+        <div class="mm-present-bar" id="mmPresentBar">
+          <button type="button" class="btn small" id="mmPresPrevBtn" title="Poprzedni punkt (←)">◀</button>
+          <span class="mm-present-label" id="mmPresLabel">Temat główny</span>
+          <button type="button" class="btn small" id="mmPresNextBtn" title="Następny punkt (→)">▶</button>
+          <button type="button" class="btn small" id="mmPresFitBtn" title="Pokaż cały szkic">⟲ Całość</button>
+          <button type="button" class="btn small primary" id="mmPresExitBtn">✏️ Edycja</button>
+        </div>
       </div>
       <div class="mm-side" id="mmSidePanel">
         <h4 id="mmSelRole">Zaznaczona karta</h4>
@@ -29030,9 +29079,9 @@ body.centrum-open #btnHeaderCentrum {
    ========================================================================== */
 "use strict";
 const APP_VERSION = "5.0";
-const APP_BUILD = "v684";
+const APP_BUILD = "v685";
 const APP_BUILD_DATE = "2026-11-28";
-const APP_FULL_VERSION = "5.0 (v684)";
+const APP_FULL_VERSION = "5.0 (v685)";
 window.APP_VERSION = APP_VERSION;
 window.APP_BUILD = APP_BUILD;
 window.APP_BUILD_DATE = APP_BUILD_DATE;
@@ -63468,10 +63517,20 @@ function pokazChangelogModal(){
     bodyEl.innerHTML = `
       <div class="cl-ver-card">
         <div class="cl-ver-head">
-          <span class="cl-ver-num">v684</span>
+          <span class="cl-ver-num">v685</span>
           <span class="cl-ver-tag latest">Najnowsza</span>
           <span class="cl-ver-date">28 listopada 2026</span>
         </div>
+        <div class="cl-ver-title">Pełnoekranowy „Tryb wystąpienia” i szablon szkicu w Mapie Myśli</div>
+        <ul class="cl-ver-list">
+          <li><b>🖥️ Pełny ekran szkicu (100% płótna):</b> ukrywa pasek narzędzi i panel boczny, zostawiając pływającą belkę mówcy (<code>◀ Poprzedni</code> / <code>Następny ▶</code> / <code>⟲ Całość</code>) z płynnym centrowaniem aktywnej karty.</li>
+          <li><b>🎤 Szablon szkicu wystąpienia:</b> jednym kliknięciem tworzy gotową strukturę przemówienia (Wstęp, Myśl główna I, Myśl główna II, Zakończenie).</li>
+        </ul>
+      </div>
+      <div class="cl-ver-card">
+        <div class="cl-ver-head">
+          <span class="cl-ver-num">v684</span>
+          <span class="cl-ver-date">28 listopada 2026</span>
         <div class="cl-ver-title">Kaskadowe rozgałęzienia w Mapie Myśli (wiele poziomów kart)</div>
         <ul class="cl-ver-list">
           <li><b>Rozgałęzianie dowolnej karty w głąb:</b> zaznacz dowolną kartę i kliknij <b>„＋ Odgałęzienie”</b> (na górnym pasku lub w panelu edycji), aby budować kolejne poziomy kaskadowo (<code>A → A.1 → A.1.1…</code>).</li>
@@ -75317,6 +75376,82 @@ window.GranularSync = (function() {
       if(typeof fsGuid !== "undefined" && fsGuid === _mmNote.g && typeof renderFs === "function") renderFs();
       if(typeof toastOk === "function") toastOk("Zapisano Mapę Myśli w notatce ✓");
     };
+
+    const _mmOrderIds = () => ["root"].concat(((_mmData && _mmData.branches) || []).map(b => b.id));
+    const _mmFocusNode = (id) => {
+      _mmSelId = id || "root";
+      const lbl = document.getElementById("mmPresLabel");
+      if(_mmSelId === "root"){
+        _mmPanX = 0; _mmPanY = 0;
+        if(lbl) lbl.textContent = (_mmData && _mmData.title) ? _mmData.title : "Temat główny";
+      } else {
+        const b = (_mmData && _mmData.branches || []).find(x => x.id === _mmSelId);
+        if(b){
+          _mmZoom = Math.max(_mmZoom, 1.05);
+          _mmPanX = -b.x * _mmZoom;
+          _mmPanY = -b.y * _mmZoom;
+          if(lbl) lbl.textContent = (b.letter ? (b.letter + " · ") : "") + (b.title || "Karta");
+        }
+      }
+      _mmSyncSidePanel();
+      _mmDraw();
+    };
+    const _mmStepPresent = (dir) => {
+      const ids = _mmOrderIds();
+      const idx = ids.indexOf(_mmSelId);
+      const next = ids[(idx + dir + ids.length) % ids.length];
+      _mmFocusNode(next);
+    };
+    const _mmSetPresentMode = (on) => {
+      const ov = document.getElementById("modalMindMap");
+      if(!ov) return;
+      ov.classList.toggle("mm-present-mode", !!on);
+      if(on) _mmFocusNode(_mmSelId || "root");
+      else _mmFitPending = true;
+      setTimeout(_mmResize, 40);
+    };
+
+    document.getElementById("mmPresentBtn").onclick = () => _mmSetPresentMode(true);
+    document.getElementById("mmPresExitBtn").onclick = () => _mmSetPresentMode(false);
+    document.getElementById("mmPresPrevBtn").onclick = () => _mmStepPresent(-1);
+    document.getElementById("mmPresNextBtn").onclick = () => _mmStepPresent(1);
+    document.getElementById("mmPresFitBtn").onclick = () => {
+      _mmSelId = "root";
+      _mmFitPending = true;
+      const lbl = document.getElementById("mmPresLabel");
+      if(lbl) lbl.textContent = (_mmData && _mmData.title) ? _mmData.title : "Cały szkic";
+      _mmResize();
+    };
+
+    document.getElementById("mmTalkTemplateBtn").onclick = () => {
+      const curTitle = (_mmData && _mmData.title) || (_mmNote && _mmNote.t) || "Tytuł wystąpienia";
+      const curSub = (_mmData && _mmData.sub) || "";
+      const ts = Date.now();
+      _mmData = {
+        title: curTitle,
+        sub: curSub,
+        branches: [
+          { id: "b_" + ts + "_0", parentId: "root", letter: "A", title: "1. Wstęp", color: MM_COLORS[0], items: ["Przyciągnięcie uwagi", "Cel wystąpienia"], x: 0, y: 0 },
+          { id: "b_" + ts + "_1", parentId: "root", letter: "B", title: "2. Myśl główna I", color: MM_COLORS[1], items: ["Kluczowy werset", "Zastosowanie praktyczne"], x: 0, y: 0 },
+          { id: "b_" + ts + "_2", parentId: "root", letter: "C", title: "3. Myśl główna II", color: MM_COLORS[2], items: ["Argument / przykład", "Wniosek dla słuchaczy"], x: 0, y: 0 },
+          { id: "b_" + ts + "_3", parentId: "root", letter: "D", title: "4. Zakończenie", color: MM_COLORS[3], items: ["Podsumowanie myśli", "Zachęta do działania"], x: 0, y: 0 }
+        ]
+      };
+      _mmSelId = "root";
+      _mmAutoLayout(_mmData);
+      _mmFitPending = true;
+      _mmSyncSidePanel();
+      _mmResize();
+      if(typeof toastOk === "function") toastOk("Wczytano szablon szkicu wystąpienia ✓");
+    };
+
+    document.addEventListener("keydown", e => {
+      const ov = document.getElementById("modalMindMap");
+      if(!ov || !ov.classList.contains("show") || !ov.classList.contains("mm-present-mode")) return;
+      if(e.key === "ArrowRight"){ e.preventDefault(); _mmStepPresent(1); }
+      else if(e.key === "ArrowLeft"){ e.preventDefault(); _mmStepPresent(-1); }
+      else if(e.key === "Escape"){ e.preventDefault(); _mmSetPresentMode(false); }
+    });
   }
 
   function otworzMapeMysli(n){
@@ -75326,6 +75461,7 @@ window.GranularSync = (function() {
     _mmSelId = "root";
     _mmZoom = 1; _mmPanX = 0; _mmPanY = 0;
     _mmFitPending = true;
+    document.getElementById("modalMindMap")?.classList.remove("mm-present-mode");
     _mmBindOnce();
     if(typeof openModal === "function") openModal("modalMindMap");
     _mmSyncSidePanel();
